@@ -1,0 +1,64 @@
+﻿@model WebApplication1.GRP_BS_TAG
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>GRP_BS_TAG</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TAG_TITLE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TAG_TITLE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TAG_COLOR)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TAG_COLOR)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.COMP_NO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.COMP_NO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DEP_NO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DEP_NO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WHE_NO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WHE_NO)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="GRP_BS_SEQ">
+          <Key>
+            <PropertyRef Name="TABLE_NA" />
+            <PropertyRef Name="PK_YYYY" />
+            <PropertyRef Name="PK_MM" />
+            <PropertyRef Name="PK_DD" />
+            <PropertyRef Name="PK_STR1" />
+          </Key>
+          <Property Name="TABLE_NA" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="PK_YYYY" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="PK_MM" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="PK_DD" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="PK_STR1" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="CURRENT_SEQ" Type="smallint" />
+          <Property Name="MOD_UTC" Type="datetime" />
+        </EntityType>
+        <EntityType Name="GRP_BS_TAG">
+          <Key>
+            <PropertyRef Name="TAG_ID" />
+          </Key>
+          <Property Name="TAG_ID" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="TAG_TITLE" Type="nvarchar" MaxLength="16" />
+          <Property Name="TAG_COLOR" Type="nvarchar" MaxLength="16" />
+          <Property Name="COMP_NO" Type="varchar" MaxLength="4" />
+          <Property Name="DEP_NO" Type="varchar" MaxLength="8" />
+          <Property Name="WHE_NO" Type="varchar" MaxLength="4" />
+        </EntityType>
+        <EntityType Name="SYSCKIND">
+          <Key>
+            <PropertyRef Name="CKIND" />
+          </Key>
+          <Property Name="CKIND" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="DESCTXT" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="GRP_BS_SEQ" EntityType="Self.GRP_BS_SEQ" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GRP_BS_TAG" EntityType="Self.GRP_BS_TAG" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SYSCKIND" EntityType="Self.SYSCKIND" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="GRP_BS_SEQ">
+          <Key>
+            <PropertyRef Name="TABLE_NA" />
+            <PropertyRef Name="PK_YYYY" />
+            <PropertyRef Name="PK_MM" />
+            <PropertyRef Name="PK_DD" />
+            <PropertyRef Name="PK_STR1" />
+          </Key>
+          <Property Name="TABLE_NA" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PK_YYYY" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PK_MM" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PK_DD" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PK_STR1" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CURRENT_SEQ" Type="Int16" />
+          <Property Name="MOD_UTC" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="GRP_BS_TAG">
+          <Key>
+            <PropertyRef Name="TAG_ID" />
+          </Key>
+          <Property Name="TAG_ID" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TAG_TITLE" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="TAG_COLOR" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="COMP_NO" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="DEP_NO" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="WHE_NO" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="GRP_BS_SEQ" EntityType="Self.GRP_BS_SEQ" />
+          <EntitySet Name="GRP_BS_TAG" EntityType="Self.GRP_BS_TAG" />
+          <EntitySet Name="SYSCKIND" EntityType="Model.SYSCKIND" />
+        </EntityContainer>
+        <EntityType Name="SYSCKIND">
+          <Key>
+            <PropertyRef Name="CKIND" />
+          </Key>
+          <Property Name="CKIND" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="DESCTXT" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="GRP_BS_SEQ">
+            <EntityTypeMapping TypeName="Model.GRP_BS_SEQ">
+              <MappingFragment StoreEntitySet="GRP_BS_SEQ">
+                <ScalarProperty Name="TABLE_NA" ColumnName="TABLE_NA" />
+                <ScalarProperty Name="PK_YYYY" ColumnName="PK_YYYY" />
+                <ScalarProperty Name="PK_MM" ColumnName="PK_MM" />
+                <ScalarProperty Name="PK_DD" ColumnName="PK_DD" />
+                <ScalarProperty Name="PK_STR1" ColumnName="PK_STR1" />
+                <ScalarProperty Name="CURRENT_SEQ" ColumnName="CURRENT_SEQ" />
+                <ScalarProperty Name="MOD_UTC" ColumnName="MOD_UTC" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GRP_BS_TAG">
+            <EntityTypeMapping TypeName="Model.GRP_BS_TAG">
+              <MappingFragment StoreEntitySet="GRP_BS_TAG">
+                <ScalarProperty Name="TAG_ID" ColumnName="TAG_ID" />
+                <ScalarProperty Name="TAG_TITLE" ColumnName="TAG_TITLE" />
+                <ScalarProperty Name="TAG_COLOR" ColumnName="TAG_COLOR" />
+                <ScalarProperty Name="COMP_NO" ColumnName="COMP_NO" />
+                <ScalarProperty Name="DEP_NO" ColumnName="DEP_NO" />
+                <ScalarProperty Name="WHE_NO" ColumnName="WHE_NO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SYSCKIND">
+            <EntityTypeMapping TypeName="Model.SYSCKIND">
+              <MappingFragment StoreEntitySet="SYSCKIND">
+                <ScalarProperty Name="DESCTXT" ColumnName="DESCTXT" />
+                <ScalarProperty Name="CKIND" ColumnName="CKIND" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
