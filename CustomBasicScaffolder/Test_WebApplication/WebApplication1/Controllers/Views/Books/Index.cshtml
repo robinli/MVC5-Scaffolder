@@ -1,0 +1,44 @@
+﻿@model IEnumerable<WebApplication1.BOOKS>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.BOOKNAME)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AUTHOR)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PUBLISH_UTC)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BOOKNAME)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AUTHOR)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PUBLISH_UTC)
+        </td>
+
+    </tr>
+}
+
+</table>

@@ -13,10 +13,10 @@ namespace WebApplication1
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Entities : DbContext
+    public partial class SchoolDBEntities1 : DbContext
     {
-        public Entities()
-            : base("name=Entities")
+        public SchoolDBEntities1()
+            : base("name=SchoolDBEntities1")
         {
         }
     
@@ -25,8 +25,6 @@ namespace WebApplication1
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<GRP_BS_SEQ> GRP_BS_SEQ { get; set; }
-        public virtual DbSet<GRP_BS_TAG> GRP_BS_TAG { get; set; }
-        public virtual DbSet<SYSCKIND> SYSCKIND { get; set; }
+        public virtual DbSet<BOOKS> BOOKS { get; set; }
     }
 }

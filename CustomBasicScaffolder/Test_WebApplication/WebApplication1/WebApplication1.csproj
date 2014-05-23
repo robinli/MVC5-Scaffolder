@@ -160,176 +160,17 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Areas\GRP\Controllers\GRP_BS_TAGController.cs" />
     <Compile Include="Areas\GRP\GRPAreaRegistration.cs" />
-    <Compile Include="Areas\NEW\Controllers\GRP_BS_TAGController.cs" />
     <Compile Include="Areas\NEW\NEWAreaRegistration.cs" />
+    <Compile Include="BOOKS.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BooksController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
-    <Compile Include="Controllers\GRP_BS_TAGController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="DynamicData\EntityTemplates\Default.ascx.cs">
-      <DependentUpon>Default.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DynamicData\EntityTemplates\Default.ascx.designer.cs">
-      <DependentUpon>Default.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="DynamicData\EntityTemplates\Default_Edit.ascx.cs">
-      <DependentUpon>Default_Edit.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DynamicData\EntityTemplates\Default_Edit.ascx.designer.cs">
-      <DependentUpon>Default_Edit.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="DynamicData\EntityTemplates\Default_Insert.ascx.cs">
-      <DependentUpon>Default_Insert.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DynamicData\EntityTemplates\Default_Insert.ascx.designer.cs">
-      <DependentUpon>Default_Insert.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\Boolean.ascx.cs">
-      <DependentUpon>Boolean.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\Boolean.ascx.designer.cs">
-      <DependentUpon>Boolean.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\Boolean_Edit.ascx.cs">
-      <DependentUpon>Boolean_Edit.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\Boolean_Edit.ascx.designer.cs">
-      <DependentUpon>Boolean_Edit.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\Children.ascx.cs">
-      <DependentUpon>Children.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\Children.ascx.designer.cs">
-      <DependentUpon>Children.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\Children_Insert.ascx.cs">
-      <DependentUpon>Children_Insert.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\Children_Insert.ascx.designer.cs">
-      <DependentUpon>Children_Insert.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\DateTime.ascx.cs">
-      <DependentUpon>DateTime.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\DateTime.ascx.designer.cs">
-      <DependentUpon>DateTime.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\DateTime_Edit.ascx.cs">
-      <DependentUpon>DateTime_Edit.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\DateTime_Edit.ascx.designer.cs">
-      <DependentUpon>DateTime_Edit.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\Decimal_Edit.ascx.cs">
-      <DependentUpon>Decimal_Edit.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\Decimal_Edit.ascx.designer.cs">
-      <DependentUpon>Decimal_Edit.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\EmailAddress.ascx.cs">
-      <DependentUpon>EmailAddress.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\EmailAddress.ascx.designer.cs">
-      <DependentUpon>EmailAddress.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\Enumeration.ascx.cs">
-      <DependentUpon>Enumeration.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\Enumeration.ascx.designer.cs">
-      <DependentUpon>Enumeration.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\Enumeration_Edit.ascx.cs">
-      <DependentUpon>Enumeration_Edit.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\Enumeration_Edit.ascx.designer.cs">
-      <DependentUpon>Enumeration_Edit.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\FieldLabel.ascx.cs">
-      <DependentUpon>FieldLabel.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\FieldLabel.ascx.designer.cs">
-      <DependentUpon>FieldLabel.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\ForeignKey.ascx.cs">
-      <DependentUpon>ForeignKey.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\ForeignKey.ascx.designer.cs">
-      <DependentUpon>ForeignKey.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\ForeignKey_Edit.ascx.cs">
-      <DependentUpon>ForeignKey_Edit.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\ForeignKey_Edit.ascx.designer.cs">
-      <DependentUpon>ForeignKey_Edit.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\Integer_Edit.ascx.cs">
-      <DependentUpon>Integer_Edit.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\Integer_Edit.ascx.designer.cs">
-      <DependentUpon>Integer_Edit.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\MultilineText_Edit.ascx.cs">
-      <DependentUpon>MultilineText_Edit.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\MultilineText_Edit.ascx.designer.cs">
-      <DependentUpon>MultilineText_Edit.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\Text.ascx.cs">
-      <DependentUpon>Text.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\Text.ascx.designer.cs">
-      <DependentUpon>Text.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\Text_Edit.ascx.cs">
-      <DependentUpon>Text_Edit.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\Text_Edit.ascx.designer.cs">
-      <DependentUpon>Text_Edit.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\Url.ascx.cs">
-      <DependentUpon>Url.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\Url.ascx.designer.cs">
-      <DependentUpon>Url.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\Url_Edit.ascx.cs">
-      <DependentUpon>Url_Edit.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DynamicData\FieldTemplates\Url_Edit.ascx.designer.cs">
-      <DependentUpon>Url_Edit.ascx</DependentUpon>
-    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="GRP_BS_SEQ.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="GRP_BS_TAG.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Model1.Context.cs">
       <AutoGen>True</AutoGen>
@@ -347,7 +188,6 @@
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\GenericRepository.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site1.Master.cs">
@@ -358,9 +198,6 @@
       <DependentUpon>Site1.Master</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
-    <Compile Include="SYSCKIND.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="CodeTemplates\AssemblyVersions.xml" />
@@ -370,51 +207,12 @@
     <Content Include="CodeTemplates\PackageVersions5.1.2.xml" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="DynamicData\EntityTemplates\Default.ascx" />
-    <Content Include="DynamicData\EntityTemplates\Default_Edit.ascx" />
-    <Content Include="DynamicData\EntityTemplates\Default_Insert.ascx" />
-    <Content Include="DynamicData\FieldTemplates\Boolean.ascx" />
-    <Content Include="DynamicData\FieldTemplates\Boolean_Edit.ascx" />
-    <Content Include="DynamicData\FieldTemplates\Children.ascx" />
-    <Content Include="DynamicData\FieldTemplates\Children_Insert.ascx" />
-    <Content Include="DynamicData\FieldTemplates\DateTime.ascx" />
-    <Content Include="DynamicData\FieldTemplates\DateTime_Edit.ascx" />
-    <Content Include="DynamicData\FieldTemplates\Decimal_Edit.ascx" />
-    <Content Include="DynamicData\FieldTemplates\EmailAddress.ascx" />
-    <Content Include="DynamicData\FieldTemplates\Enumeration.ascx" />
-    <Content Include="DynamicData\FieldTemplates\Enumeration_Edit.ascx" />
-    <Content Include="DynamicData\FieldTemplates\FieldLabel.ascx" />
-    <Content Include="DynamicData\FieldTemplates\ForeignKey.ascx" />
-    <Content Include="DynamicData\FieldTemplates\ForeignKey_Edit.ascx" />
-    <Content Include="DynamicData\FieldTemplates\Integer_Edit.ascx" />
-    <Content Include="DynamicData\FieldTemplates\MultilineText_Edit.ascx" />
-    <Content Include="DynamicData\FieldTemplates\Text.ascx" />
-    <Content Include="DynamicData\FieldTemplates\Text_Edit.ascx" />
-    <Content Include="DynamicData\FieldTemplates\Url.ascx" />
-    <Content Include="DynamicData\FieldTemplates\Url_Edit.ascx" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Model1.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Model1.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Model1.edmx.diagram">
-      <DependentUpon>Model1.edmx</DependentUpon>
-    </Content>
-    <Content Include="Model1.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.cs</LastGenOutput>
-    </Content>
     <Content Include="CodeTemplates\ApiControllerEmpty\Controller.cs.t4" />
     <Content Include="CodeTemplates\ApiControllerEmpty\Controller.vb.t4" />
     <Content Include="CodeTemplates\ApiControllerWithActions\Controller.cs.t4" />
@@ -492,16 +290,30 @@
     <Content Include="Areas\NEW\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\NEW\Views\_ViewStart.cshtml" />
     <Content Include="Areas\GRP\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\NEW\Views\GRP_BS_TAG\Create.cshtml" />
-    <Content Include="Areas\NEW\Views\GRP_BS_TAG\Delete.cshtml" />
-    <Content Include="Areas\NEW\Views\GRP_BS_TAG\Details.cshtml" />
-    <Content Include="Areas\NEW\Views\GRP_BS_TAG\Edit.cshtml" />
-    <Content Include="Areas\NEW\Views\GRP_BS_TAG\Index.cshtml" />
     <Content Include="Areas\GRP\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\GRP\Views\GRP_BS_TAG\Index.cshtml" />
-    <Content Include="Areas\GRP\Views\GRP_BS_TAG\Create.cshtml" />
-    <Content Include="Areas\GRP\Views\GRP_BS_TAG\Edit.cshtml" />
-    <Content Include="Areas\GRP\Views\GRP_BS_TAG\_Edit.cshtml" />
+    <EntityDeploy Include="Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Model1.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Content>
+    <Content Include="Model1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.cs</LastGenOutput>
+    </Content>
+    <Content Include="Controllers\Views\_ViewStart.cshtml" />
+    <Content Include="Controllers\Views\Shared\_Layout.cshtml" />
+    <Content Include="Controllers\Views\Books\Index.cshtml" />
+    <Content Include="Controllers\Views\Books\Create.cshtml" />
+    <Content Include="Controllers\Views\Books\Edit.cshtml" />
+    <Content Include="Controllers\Views\Books\_Edit.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -548,7 +360,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\GRP\Controllers\" />
     <Folder Include="Areas\GRP\Models\" />
+    <Folder Include="Areas\NEW\Controllers\" />
     <Folder Include="Areas\NEW\Models\" />
     <Folder Include="Models\SYSCKIND\" />
     <Folder Include="Views\Default\" />

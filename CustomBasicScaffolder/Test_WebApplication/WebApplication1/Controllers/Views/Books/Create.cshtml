@@ -1,4 +1,4 @@
-﻿@model WebApplication1.GRP_BS_TAG
+﻿@model WebApplication1.BOOKS
 
 @{
     ViewBag.Title = "Create";
@@ -12,7 +12,7 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>GRP_BS_TAG</h4>
+        <h4>BOOKS</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.Partial("_Edit")

@@ -12,14 +12,11 @@ namespace WebApplication1
     using System;
     using System.Collections.Generic;
     
-    public partial class GRP_BS_SEQ
+    public partial class BOOKS
     {
-        public string TABLE_NA { get; set; }
-        public string PK_YYYY { get; set; }
-        public string PK_MM { get; set; }
-        public string PK_DD { get; set; }
-        public string PK_STR1 { get; set; }
-        public Nullable<short> CURRENT_SEQ { get; set; }
-        public Nullable<System.DateTime> MOD_UTC { get; set; }
+        public string ID { get; set; }
+        public string BOOKNAME { get; set; }
+        public string AUTHOR { get; set; }
+        public Nullable<System.DateTime> PUBLISH_UTC { get; set; }
     }
 }

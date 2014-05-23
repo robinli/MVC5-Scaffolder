@@ -8,110 +8,107 @@ using System.Web;
 using System.Web.Mvc;
 using WebApplication1;
 
-
-
-
 namespace WebApplication1.Controllers
 {
-    public class GRP_BS_TAGController : Controller
+    public class BooksController : Controller
     {
-        private Entities db = new Entities();
+        private SchoolDBEntities1 db = new SchoolDBEntities1();
 
-        // GET: GRP_BS_TAG
+        // GET: Books
         public ActionResult Index()
         {
-            return View(db.GRP_BS_TAG.ToList());
+            return View(db.BOOKS.ToList());
         }
 
-        // GET: GRP_BS_TAG/Details/5
+        // GET: Books/Details/5
         public ActionResult Details(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            GRP_BS_TAG gRP_BS_TAG = db.GRP_BS_TAG.Find(id);
-            if (gRP_BS_TAG == null)
+            BOOKS bOOKS = db.BOOKS.Find(id);
+            if (bOOKS == null)
             {
                 return HttpNotFound();
             }
-            return View(gRP_BS_TAG);
+            return View(bOOKS);
         }
 
-        // GET: GRP_BS_TAG/Create
+        // GET: Books/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: GRP_BS_TAG/Create
+        // POST: Books/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TAG_ID,TAG_TITLE,TAG_COLOR,COMP_NO,DEP_NO,WHE_NO")] GRP_BS_TAG gRP_BS_TAG)
+        public ActionResult Create([Bind(Include = "ID,BOOKNAME,AUTHOR,PUBLISH_UTC")] BOOKS bOOKS)
         {
             if (ModelState.IsValid)
             {
-                db.GRP_BS_TAG.Add(gRP_BS_TAG);
+                db.BOOKS.Add(bOOKS);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(gRP_BS_TAG);
+            return View(bOOKS);
         }
 
-        // GET: GRP_BS_TAG/Edit/5
+        // GET: Books/Edit/5
         public ActionResult Edit(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            GRP_BS_TAG gRP_BS_TAG = db.GRP_BS_TAG.Find(id);
-            if (gRP_BS_TAG == null)
+            BOOKS bOOKS = db.BOOKS.Find(id);
+            if (bOOKS == null)
             {
                 return HttpNotFound();
             }
-            return View(gRP_BS_TAG);
+            return View(bOOKS);
         }
 
-        // POST: GRP_BS_TAG/Edit/5
+        // POST: Books/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TAG_ID,TAG_TITLE,TAG_COLOR,COMP_NO,DEP_NO,WHE_NO")] GRP_BS_TAG gRP_BS_TAG)
+        public ActionResult Edit([Bind(Include = "ID,BOOKNAME,AUTHOR,PUBLISH_UTC")] BOOKS bOOKS)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(gRP_BS_TAG).State = EntityState.Modified;
+                db.Entry(bOOKS).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(gRP_BS_TAG);
+            return View(bOOKS);
         }
 
-        // GET: GRP_BS_TAG/Delete/5
+        // GET: Books/Delete/5
         public ActionResult Delete(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            GRP_BS_TAG gRP_BS_TAG = db.GRP_BS_TAG.Find(id);
-            if (gRP_BS_TAG == null)
+            BOOKS bOOKS = db.BOOKS.Find(id);
+            if (bOOKS == null)
             {
                 return HttpNotFound();
             }
-            return View(gRP_BS_TAG);
+            return View(bOOKS);
         }
 
-        // POST: GRP_BS_TAG/Delete/5
+        // POST: Books/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            GRP_BS_TAG gRP_BS_TAG = db.GRP_BS_TAG.Find(id);
-            db.GRP_BS_TAG.Remove(gRP_BS_TAG);
+            BOOKS bOOKS = db.BOOKS.Find(id);
+            db.BOOKS.Remove(bOOKS);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -1,4 +1,4 @@
-﻿@model WebApplication1.GRP_BS_TAG
+﻿@model WebApplication1.BOOKS
 
 @{
     ViewBag.Title = "Edit";
@@ -12,7 +12,7 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>GRP_BS_TAG</h4>
+        <h4>BOOKS</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.Partial("_Edit")
@@ -41,7 +41,7 @@
                 Are you sure you want to delete this item ?
             </div>
             <div class="modal-footer">
-                @using (Html.BeginForm("Delete", "GRP_BS_TAG", new { id=Model.TAG_ID}))
+                @using (Html.BeginForm("Delete", "GRP_BS_TAG", new { id=Model.ID}))
                 {
                     @Html.AntiForgeryToken()
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
