@@ -1,0 +1,81 @@
+﻿<#@ Template Language="C#" HostSpecific="True"  #>
+<#@ Output Extension="cs" #>
+<#@ include file="Imports.include.t4" #>
+<# var viewDataType = (EnvDTE.CodeType) ViewDataType; #>
+<# var fullModelName = Namespace+"."+ViewDataTypeName; #>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.ModelBinding;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using Microsoft.AspNet.FriendlyUrls.ModelBinding;
+<# if(!string.IsNullOrEmpty(Namespace)) { #>
+using <#= Namespace #>;
+<# } #>
+<# if(!string.IsNullOrEmpty(GenericRepositoryNamespace) && (GenericRepositoryNamespace != Namespace)) { #>
+using <#= GenericRepositoryNamespace #>;
+<# } #>
+
+namespace <#= DefaultNamespace #>
+{
+    public partial class Edit : System.Web.UI.Page
+    {
+		protected IGenericRepository _repo = new GenericRepository();
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        // This is the Update methd to update the selected <#=ViewDataTypeName#> item
+        // USAGE: <asp:FormView UpdateMethod="UpdateItem">
+        public void UpdateItem(<#= PrimaryKeyType #>  <#= PrimaryKeyName #>)
+        {
+            using (_repo)
+            {
+                var item = _repo.Find<<#=fullModelName #>>(<#= PrimaryKeyName #>);
+
+                if (item == null)
+                {
+                    // The item wasn't found
+                    ModelState.AddModelError("", String.Format("Item with id {0} was not found", <#= PrimaryKeyName #>));
+                    return;
+                }
+
+                TryUpdateModel(item);
+
+                if (ModelState.IsValid)
+                {
+                    // Save changes here
+                    _repo.SaveChanges();
+                    Response.Redirect("../Default");
+                }
+            }
+        }
+
+        // This is the Select method to selects a single <#=ViewDataTypeName#> item with the id
+        // USAGE: <asp:FormView SelectMethod="GetItem">
+        public <#=fullModelName#> GetItem([FriendlyUrlSegmentsAttribute(0)]<#=PrimaryKeyType#>? <#= PrimaryKeyName #>)
+        {
+            if (<#= PrimaryKeyName #> == null)
+            {
+                return null;
+            }
+
+            using (_repo)
+            {
+                return _repo.Find<<#=fullModelName #>>(<#= PrimaryKeyName #>);
+            }
+        }
+
+        protected void ItemCommand(object sender, FormViewCommandEventArgs e)
+        {
+            if (e.CommandName.Equals("Cancel", StringComparison.OrdinalIgnoreCase))
+            {
+                Response.Redirect("../Default");
+            }
+        }
+    }
+}

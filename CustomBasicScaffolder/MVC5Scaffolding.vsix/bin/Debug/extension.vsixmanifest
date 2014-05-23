@@ -1,0 +1,19 @@
+<PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011">
+  <Metadata>
+    <Identity Id="CustomBasicScaffolderExtension..40e7bb7e-f72d-44cf-8439-2567be2590c6" Version="0.1" Language="en-US" Publisher="Robin Li" />
+    <DisplayName>Robin MVC5 Scaffolding</DisplayName>
+    <Description xml:space="preserve">Generates ASP.NET MVC5  for C.R.U.D from an Entity Framework data context and model class.</Description>
+    <MoreInfo>https://github.com/robinli/MVC5-Scaffolder</MoreInfo>
+    <License>LICENSE.txt</License>
+    <Tags>Scaffolding</Tags>
+  </Metadata>
+  <Installation>
+    <InstallationTarget Id="Microsoft.VisualStudio.Pro" Version="[12.0]" />
+  </Installation>
+  <Dependencies>
+    <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" Version="[4.5,)" />
+  </Dependencies>
+  <Assets>
+    <Asset Type="Microsoft.VisualStudio.MefComponent" Path="MVC5Scaffolding.dll" />
+  </Assets>
+</PackageManifest>

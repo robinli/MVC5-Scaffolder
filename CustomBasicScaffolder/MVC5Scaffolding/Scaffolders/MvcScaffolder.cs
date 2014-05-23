@@ -353,7 +353,66 @@ namespace CustomMVC5.Scaffolders
         }
 
 
+        // Called to ensure that the project was compiled successfully
+        private Type GetReflectionType(string typeName)
+        {
+            return GetService<IReflectedTypesService>().GetType(Context.ActiveProject, typeName);
+        }
 
+        private TService GetService<TService>() where TService : class
+        {
+            return (TService)ServiceProvider.GetService(typeof(TService));
+        }
+
+
+        // Returns the relative path of the folder selected in Visual Studio or an empty 
+        // string if no folder is selected.
+        protected string GetSelectionRelativePath()
+        {
+            return Context.ActiveProjectItem == null ? String.Empty : ProjectItemUtils.GetProjectRelativePath(Context.ActiveProjectItem);
+        }
+
+        private string GetAreaName(string selectionRelativePath)
+        {
+            string[] dirs = selectionRelativePath.Split(new char[1] { '\\' });
+
+            if (dirs[0].Equals("Areas"))
+                return dirs[1];
+            else
+                return string.Empty;
+
+        }
+
+        /// <summary>
+        /// Get Views folder
+        /// </summary>
+        /// <param name="folderName"></param>
+        /// <returns></returns>
+        private string GetViewsFolderPath(string controllerPath)
+        {
+            string keyControllers = "Controllers";
+            string keyViews = "Views";
+
+            return (
+                (
+                controllerPath.IndexOf(keyControllers) >= 0)
+                ? controllerPath.Replace(keyControllers, keyViews)
+                : Path.Combine(controllerPath, keyViews)
+                );
+        }
+
+        // If a Visual Studio folder is selected then returns the folder's namespace, otherwise
+        // returns the project namespace.
+        protected string GetDefaultNamespace()
+        {
+            return Context.ActiveProjectItem == null
+                ? Context.ActiveProject.GetDefaultNamespace()
+                : Context.ActiveProjectItem.GetDefaultNamespace();
+        }
+
+        #endregion
+
+        #region no used
         //// A single generic repository is created no matter how many models are scaffolded 
         //// with the Web Forms scaffolder. This generic repository is added to the Models folder. 
         //private void EnsureGenericRepository(Project project, CodeType dbContext, string genericRepositoryNamespace)
@@ -546,15 +605,9 @@ namespace CustomMVC5.Scaffolders
         //            },
         //            skipIfExists: !overwrite);
         //    }
-
         //}
 
 
-        // Called to ensure that the project was compiled successfully
-        private Type GetReflectionType(string typeName)
-        {
-            return GetService<IReflectedTypesService>().GetType(Context.ActiveProject, typeName);
-        }
 
         // We are just pulling in some dependent nuget packages
         // to meet "Web Application Project" experience in this change.
@@ -571,56 +624,6 @@ namespace CustomMVC5.Scaffolders
         //    }
         //}
 
-        private TService GetService<TService>() where TService : class
-        {
-            return (TService)ServiceProvider.GetService(typeof(TService));
-        }
-        
-
-        // Returns the relative path of the folder selected in Visual Studio or an empty 
-        // string if no folder is selected.
-        protected string GetSelectionRelativePath()
-        {
-            return Context.ActiveProjectItem == null ? String.Empty : ProjectItemUtils.GetProjectRelativePath(Context.ActiveProjectItem);
-        }
-
-        private string GetAreaName(string selectionRelativePath)
-        {
-            string[] dirs = selectionRelativePath.Split(new char[1] { '\\' });
-
-            if (dirs[0].Equals("Areas"))
-                return dirs[1];
-            else
-                return string.Empty;
-
-        }
-
-        /// <summary>
-        /// Get Views folder
-        /// </summary>
-        /// <param name="folderName"></param>
-        /// <returns></returns>
-        private string GetViewsFolderPath(string controllerPath)
-        {
-            string keyControllers = "Controllers";
-            string keyViews = "Views";
-
-            return(
-                (
-                controllerPath.IndexOf(keyControllers) > 0)
-                ? controllerPath.Replace(keyControllers, keyViews) 
-                : Path.Combine(controllerPath, keyViews)
-                );
-        }
-
-        // If a Visual Studio folder is selected then returns the folder's namespace, otherwise
-        // returns the project namespace.
-        protected string GetDefaultNamespace()
-        {
-            return Context.ActiveProjectItem == null
-                ? Context.ActiveProject.GetDefaultNamespace()
-                : Context.ActiveProjectItem.GetDefaultNamespace();
-        }
 
 
         // Create a dictionary that maps foreign keys to related models. We only care about associations
@@ -638,7 +641,7 @@ namespace CustomMVC5.Scaffolders
         //    }
         //    return dict;
         //}
-
         #endregion
+
     }
 }

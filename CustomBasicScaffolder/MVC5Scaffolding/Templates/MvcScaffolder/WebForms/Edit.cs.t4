@@ -1,0 +1,105 @@
+<#@ Template Language="C#" HostSpecific="True"  #>
+<#@ Output Extension="aspx" #>
+<#@ include file="Imports.include.t4" #>
+<# var viewDataType = (EnvDTE.CodeType) ViewDataType; #>
+<# var fullModelName = Namespace+"."+ViewDataTypeName; #>
+<#
+if(IsContentPage) {
+#>
+<%@ Page Title="<#= ViewDataTypeName #>Edit" Language="C#" MasterPageFile="~/<#= MasterPageFile #>" CodeBehind="Edit.aspx.cs" Inherits="<#= DefaultNamespace #>.Edit" %>
+
+<asp:Content runat="server" ContentPlaceHolderID="<#= PrimarySectionName #>">
+<#
+} else {
+#>
+<%@ Page Title="<#= ViewDataTypeName #>Edit" Language="C#" CodeBehind="Edit.aspx.cs" Inherits="<#= DefaultNamespace #>.Edit" %>
+
+<!DOCTYPE html>
+<html>
+<head runat="server">
+    <title></title>
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+</head>
+<body>
+    <form runat="server" id="form1">
+	<div class="container body-content">
+<#
+    PushIndent("    ");
+}
+#>
+    <div>
+		<p>&nbsp;</p>
+        <asp:FormView runat="server"
+            ItemType="<#=fullModelName#>" DefaultMode="Edit" DataKeyNames="<#= PrimaryKeyName #>"
+            UpdateMethod="UpdateItem" SelectMethod="GetItem"
+            OnItemCommand="ItemCommand" RenderOuterTable="false">
+            <EmptyDataTemplate>
+                Cannot find the <#= ViewDataTypeName #> with <#= PrimaryKeyName #> <%: Request.QueryString["<#= PrimaryKeyName #>"] %>
+            </EmptyDataTemplate>
+            <EditItemTemplate>
+                <fieldset class="form-horizontal">
+                    <legend>Edit <#= ViewDataTypeName #></legend>
+					<asp:ValidationSummary runat="server" CssClass="alert alert-danger"  />
+                 
+<# 
+					foreach (PropertyMetadata property in ModelMetadata.Properties) { 
+					  if (ShouldEdit(property)) {
+					    if (property.IsForeignKey) { 
+							var relatedModel = RelatedModels[property.PropertyName];
+#>
+							<asp:DynamicControl Mode="Edit" 
+								DataField="<#=property.PropertyName#>" 
+								DataTypeName="<#=relatedModel.TypeName#>" 
+								DataTextField="<#=relatedModel.DisplayPropertyName#>" 
+								DataValueField="<#=relatedModel.PrimaryKeyNames[0]#>" 
+								UIHint="ForeignKey" runat="server" />
+<# 
+					    } else { 
+#>
+						    <asp:DynamicControl Mode="Edit" DataField="<#=property.PropertyName#>" runat="server" />
+<#
+					    } 
+					  }
+					} 
+#>
+
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+							<asp:Button runat="server" ID="UpdateButton" CommandName="Update" Text="Update" CssClass="btn btn-primary" />
+							<asp:Button runat="server" ID="CancelButton" CommandName="Cancel" Text="Cancel" CausesValidation="false" CssClass="btn btn-default" />
+						</div>
+					</div>
+                </fieldset>
+            </EditItemTemplate>
+        </asp:FormView>
+    </div>
+<#
+// The following code closes the asp:Content tag used in the case of a master page and the body and html tags in the case of a regular view page
+#>
+<#
+if(IsContentPage) {
+#>
+</asp:Content>
+<#
+} else if(!IsContentPage) {
+    ClearIndent();
+#>
+	</div>
+    </form>
+
+	<!-- Bootstrap JavaScript -->
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+
+</body>
+</html>
+<#
+}
+#>
+
+
+<#@ include file="ModelMetadataFunctions.cs.include.t4" #>

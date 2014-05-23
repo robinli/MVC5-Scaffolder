@@ -1,0 +1,20 @@
+<#@ Template Language="C#" HostSpecific="True"  #>
+<#@ Output Extension="ascx" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ parameter type="System.String" name="DefaultNamespace" #>
+<%@ Control Language="C#" CodeBehind="Boolean_Edit.ascx.cs" Inherits="<#= DefaultNamespace #>.Boolean_EditField" %>
+
+ <div id="Div1" runat="server" class="form-group">
+    <div class="col-sm-offset-2 col-sm-3">
+      <div class="checkbox">
+        <label>
+          <asp:CheckBox runat="server" ID="CheckBox1" /> <asp:Label ID="Label1" runat="server" />
+        </label>
+      </div>
+    </div>
+  </div>
+
+

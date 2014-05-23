@@ -1,0 +1,75 @@
+﻿<#@ Template Language="C#" HostSpecific="True"  #>
+<#@ Output Extension="cs" #>
+<#@ include file="Imports.include.t4" #>
+<# var viewDataType = (EnvDTE.CodeType) ViewDataType; #>
+<# var fullModelName = Namespace+"."+ViewDataTypeName; #>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.ModelBinding;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using Microsoft.AspNet.FriendlyUrls.ModelBinding;
+<# if(!string.IsNullOrEmpty(Namespace)) { #>
+using <#= Namespace #>;
+<# } #>
+<# if(!string.IsNullOrEmpty(GenericRepositoryNamespace) && (GenericRepositoryNamespace != Namespace)) { #>
+using <#= GenericRepositoryNamespace #>;
+<# } #>
+
+namespace <#= DefaultNamespace #>
+{
+    public partial class Delete : System.Web.UI.Page
+    {
+		protected IGenericRepository _repo = new GenericRepository();
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        // This is the Delete methd to delete the selected <#=ViewDataTypeName#> item
+        // USAGE: <asp:FormView DeleteMethod="DeleteItem">
+        public void DeleteItem(<#= PrimaryKeyType #> <#= PrimaryKeyName #>)
+        {
+            using (_repo)
+            {
+                var item = _repo.Find<<#=fullModelName #>>(<#= PrimaryKeyName #>);
+
+                if (item != null)
+                {
+                    _repo.Delete<<#=fullModelName #>>(<#= PrimaryKeyName #>);
+                    _repo.SaveChanges();
+                }
+            }
+            Response.Redirect("../Default");
+        }
+
+        // This is the Select methd to selects a single <#=ViewDataTypeName#> item with the id
+        // USAGE: <asp:FormView SelectMethod="GetItem">
+        public <#= fullModelName#> GetItem([FriendlyUrlSegmentsAttribute(0)]<#=PrimaryKeyType#>? <#= PrimaryKeyName #>)
+        {
+            if (<#= PrimaryKeyName #> == null)
+            {
+                return null;
+            }
+
+            using (_repo)
+            {
+	            return _repo.Query<<#=fullModelName #>>().Where(m => m.<#=PrimaryKeyName#> == <#=PrimaryKeyName#>)<#=GetIncludeExpressions() #>.FirstOrDefault();
+            }
+        }
+
+        protected void ItemCommand(object sender, FormViewCommandEventArgs e)
+        {
+            if (e.CommandName.Equals("Cancel", StringComparison.OrdinalIgnoreCase))
+            {
+                Response.Redirect("../Default");
+            }
+        }
+    }
+}
+
+
+<#@ include file="ModelMetadataFunctions.cs.include.t4" #>

@@ -1,0 +1,60 @@
+﻿<ui:VSPlatformDialogWindow x:Class="Microsoft.AspNet.Scaffolding.WebForms.UI.NewDataContextDialog" x:ClassModifier="internal"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:ui="clr-namespace:Microsoft.AspNet.Scaffolding.VSExtension.UI"
+             xmlns:self="clr-namespace:Microsoft.AspNet.Scaffolding.WebForms.UI"
+             Title="{x:Static self:NewDataContextDialogResources.Title}" 
+             ResizeMode="NoResize" 
+             WindowStartupLocation="CenterOwner"
+             Height="146" 
+             Width="596"
+             self:FocusBehavior.FocusOnFirstElement="true">
+    <Window.Resources>
+        <Style TargetType="TextBox" x:Key="{x:Type TextBox}">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self},
+                        Path=(Validation.Errors)[0].ErrorContent}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="40" />
+        </Grid.RowDefinitions>
+        <Label Content="{x:Static self:NewDataContextDialogResources.NewDataContextLabel_Content}" 
+               HorizontalAlignment="Left" 
+               Margin="12,12,0,0" 
+               VerticalAlignment="Top" 
+               Target="{Binding ElementName=dataContextTextBox}"/>
+        <TextBox Name="dataContextTextBox"
+                 HorizontalAlignment="Stretch" 
+                 Height="23" 
+                 Margin="12,38,12,0" 
+                 TextWrapping="Wrap" 
+                 Text="{Binding DbContextTypeName}" 
+                 VerticalAlignment="Top" 
+                 VerticalContentAlignment="Center"
+                 self:BindBehavior.ForceBindOnEnter="{x:Static Member=TextBox.TextProperty}" />
+        <Button Content="{x:Static self:NewDataContextDialogResources.OkButton_Content}" 
+                HorizontalAlignment="Left" 
+                Margin="410,0,0,10" 
+                IsDefault="true"
+                VerticalAlignment="Bottom" 
+                MinWidth="75" 
+                Height="23" 
+                Command="{Binding OkCommand}" 
+                Grid.Row="1" />
+        <Button Content="{x:Static self:NewDataContextDialogResources.CancelButton_Content}" 
+                HorizontalAlignment="Left" 
+                Margin="495,0,0,10" 
+                VerticalAlignment="Bottom" 
+                MinWidth="75" 
+                Height="23" 
+                IsCancel="True" 
+                Grid.Row="1" />
+    </Grid>
+</ui:VSPlatformDialogWindow>

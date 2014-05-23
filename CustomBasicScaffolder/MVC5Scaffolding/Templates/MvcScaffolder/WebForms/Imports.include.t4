@@ -1,0 +1,31 @@
+﻿<#@ assembly name="System.ComponentModel.DataAnnotations" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Data.Entity" #>
+<#@ assembly name="System.Data.Linq" #>
+<#@ assembly name="EnvDTE" #>
+<#@ assembly name="Microsoft.AspNet.Scaffolding.12.0" #>
+<#@ assembly name="Microsoft.AspNet.Scaffolding.EntityFramework.12.0" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.ComponentModel.DataAnnotations" #>
+<#@ import namespace="System.Data.Linq.Mapping" #>
+<#@ import namespace="System.Data.Objects.DataClasses" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Reflection" #>
+<#@ import namespace="Microsoft.AspNet.Scaffolding.Core.Metadata" #>
+<#@ parameter type="System.String" name="RelativePath" #>
+<#@ parameter type="System.String" name="DefaultNamespace" #>
+<#@ parameter type="System.String" name="Namespace" #>
+<#@ parameter type="System.Boolean" name="IsContentPage" #>
+<#@ parameter type="System.String" name="MasterPageFile" #>
+<#@ parameter type="System.Array" name="SectionNames" #>
+<#@ parameter type="System.String" name="PrimarySectionName" #>
+<#@ parameter type="System.String" name="PrimaryKeyName" #>
+<#@ parameter type="System.String" name="PrimaryKeyType" #>
+<#@ parameter type="System.MarshalByRefObject" name="ViewDataType" #>
+<#@ parameter type="System.String" name="ViewDataTypeName" #>
+<#@ parameter type="System.String" name="GenericRepositoryNamespace" #>
+<#@ parameter type="System.String" name="PluralizedName" #>
+<#@ parameter type="Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata" name="ModelMetadata" #>
+<#@ parameter type="System.Collections.Generic.Dictionary<string, Microsoft.AspNet.Scaffolding.Core.Metadata.RelatedModelMetadata>" name="RelatedModels" #>

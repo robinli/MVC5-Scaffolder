@@ -1,0 +1,31 @@
+﻿<#@ Template Language="C#" HostSpecific="True"  #>
+<#@ Output Extension="aspx.cs" #>
+<#@ include file="Imports.include.t4" #>
+<# var viewDataType = (EnvDTE.CodeType) ViewDataType; #>
+<# var fullModelName = Namespace+"."+ViewDataTypeName; #>
+<# if(!string.IsNullOrEmpty(Namespace)) { #>
+Imports <#= Namespace #>
+<# } #>
+<# if(!string.IsNullOrEmpty(GenericRepositoryNamespace) && (GenericRepositoryNamespace != Namespace)) { #>
+Imports <#= GenericRepositoryNamespace #>
+<# } #>
+
+Public Partial Class _Default 
+    Inherits System.Web.UI.Page
+
+		Protected _repo As New GenericRepository();
+
+        Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+
+        End Sub
+
+        ' Model binding method to get List of entries
+        ' USAGE: <asp:ListView SelectMethod="GetData">
+        Public Function GetData() As IQueryable(Of <#=fullModelName#>)
+            Return _repo.Query(Of <#=fullModelName #>)()<#=GetIncludeExpressions() #>;
+        End Function
+    End Class
+
+
+
+<#@ include file="ModelMetadataFunctions.cs.include.t4" #>

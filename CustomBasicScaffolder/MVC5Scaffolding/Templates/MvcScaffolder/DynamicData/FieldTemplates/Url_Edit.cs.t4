@@ -1,0 +1,11 @@
+<#@ Template Language="C#" HostSpecific="True"  #>
+<#@ Output Extension="ascx" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ parameter type="System.String" name="DefaultNamespace" #>
+<%@ Control Language="C#" AutoEventWireup="true"  CodeBehind="Url_Edit.ascx.cs" Inherits="<#= DefaultNamespace #>.Url_EditField" %>
+
+<asp:TextBox ID="TextBox1" runat="server" Text='<%# FieldValueEditString %>' Columns="10" TextMode="Url" CssClass="form-control"></asp:TextBox>
+

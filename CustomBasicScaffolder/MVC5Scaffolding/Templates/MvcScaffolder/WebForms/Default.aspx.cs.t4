@@ -1,0 +1,40 @@
+﻿<#@ Template Language="C#" HostSpecific="True"  #>
+<#@ Output Extension="cs" #>
+<#@ include file="Imports.include.t4" #>
+<# var viewDataType = (EnvDTE.CodeType) ViewDataType; #>
+<# var fullModelName = Namespace+"."+ViewDataTypeName; #>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+<# if(!string.IsNullOrEmpty(Namespace)) { #>
+using <#= Namespace #>;
+<# } #>
+<# if(!string.IsNullOrEmpty(GenericRepositoryNamespace) && (GenericRepositoryNamespace != Namespace)) { #>
+using <#= GenericRepositoryNamespace #>;
+<# } #>
+
+namespace <#= DefaultNamespace #>
+{
+    public partial class Default : System.Web.UI.Page
+    {
+		protected IGenericRepository _repo = new GenericRepository();
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        // Model binding method to get List of <#=ViewDataTypeName#> entries
+        // USAGE: <asp:ListView SelectMethod="GetData">
+        public IQueryable<<#=fullModelName#>> GetData()
+        {
+            return _repo.Query<<#=fullModelName #>>()<#=GetIncludeExpressions() #>;
+        }
+    }
+}
+
+
+<#@ include file="ModelMetadataFunctions.cs.include.t4" #>
