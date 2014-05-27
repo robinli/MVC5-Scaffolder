@@ -4,10 +4,12 @@
     <EntitySetMapping Name="BOOKS">
       <EntityTypeMapping TypeName="SchoolDBModel.BOOKS">
         <MappingFragment StoreEntitySet="BOOKS">
-          <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="BOOKNAME" ColumnName="BOOKNAME" />
-          <ScalarProperty Name="AUTHOR" ColumnName="AUTHOR" />
+          <ScalarProperty Name="LIST_PRICE" ColumnName="LIST_PRICE" />
+          <ScalarProperty Name="VERSION_NUM" ColumnName="VERSION_NUM" />
           <ScalarProperty Name="PUBLISH_UTC" ColumnName="PUBLISH_UTC" />
+          <ScalarProperty Name="AUTHOR" ColumnName="AUTHOR" />
+          <ScalarProperty Name="BOOKNAME" ColumnName="BOOKNAME" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

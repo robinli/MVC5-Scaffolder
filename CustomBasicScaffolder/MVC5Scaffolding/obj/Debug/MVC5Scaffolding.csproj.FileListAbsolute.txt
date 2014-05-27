@@ -61,4 +61,12 @@ E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Debug\MVC5Sc
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\Templates\MvcScaffolder\MvcView\Index.cs.t4
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\_Layout.cs.t4
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\_ViewStart.cs.t4
+E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\Templates\MvcScaffolder\Model\Metadata.cs.t4
+E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\Templates\MvcScaffolder\DataFieldTemplates\DisplayTemplates\Date.cs.t4
+E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\Templates\MvcScaffolder\DataFieldTemplates\DisplayTemplates\DateTime.cs.t4
+E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\Templates\MvcScaffolder\DataFieldTemplates\EditorTemplates\Date.cs.t4
+E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Debug\UI\ModelMetadataDialog.g.cs
+E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Debug\UI\ModelMetadataDialog.baml
+E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\Newtonsoft.Json.dll
+E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\Newtonsoft.Json.xml
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Debug\MVC5Scaffolding.csprojResolveAssemblyReference.cache

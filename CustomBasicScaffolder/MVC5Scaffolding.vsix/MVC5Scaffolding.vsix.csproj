@@ -33,7 +33,7 @@
     <ProjectGuid>{2E36C552-5DD3-4556-B882-956A3663ED2E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WebFormsScaffolding</RootNamespace>
+    <RootNamespace>MVC5Scaffolding</RootNamespace>
     <AssemblyName>MVC5Scaffolding</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <GeneratePkgDefFile>false</GeneratePkgDefFile>

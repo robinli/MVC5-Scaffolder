@@ -1,4 +1,4 @@
-set  toPath=C:\Users\Robin\AppData\Local\Microsoft\VisualStudio\12.0\Extensions\coxnwwex.llf
+set  toPath=C:\Users\Robin\AppData\Local\Microsoft\VisualStudio\12.0\Extensions\fuvuulbl.gn0
 
 set  fromPath=E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\bin\Debug
 

@@ -12,6 +12,7 @@ using Microsoft.AspNet.Scaffolding.WebForms.Utils;
 using System.IO;
 using Microsoft.AspNet.Scaffolding;
 using Microsoft.AspNet.Scaffolding.WebForms;
+using Microsoft.AspNet.Scaffolding.WebForms.Models;
 
 namespace CustomMVC5.Scaffolders
 {
@@ -24,6 +25,7 @@ namespace CustomMVC5.Scaffolders
     {
 
         private MvcCodeGeneratorViewModel _codeGeneratorViewModel;
+        private ModelMetadataViewModel _ModelMetadataVM;
 
         internal MvcScaffolder(CodeGenerationContext context, CodeGeneratorInformation information)
             : base(context, information)
@@ -46,9 +48,48 @@ namespace CustomMVC5.Scaffolders
             if (isOk == true)
             {
                 Validate();
+
+                if(_codeGeneratorViewModel.GenerateViews)
+                {
+                    isOk = ShowColumnSetting();
+                }
             }
 
             return (isOk == true);
+        }
+
+
+        // Setting Columns : display name, allow null
+        private bool? ShowColumnSetting()
+        {  
+            //ModelMetadataViewModel vm;
+
+            string savefolderPath = Path.Combine(Context.ActiveProject.GetFullPath(), "CodeGen");
+            StorageMan<MetaTableInfo> sm = new StorageMan<MetaTableInfo>(savefolderPath);
+            MetaTableInfo data = sm.Read();
+
+            if (data.Columns.Any())
+            {
+                _ModelMetadataVM = new ModelMetadataViewModel(data);
+            }
+            else
+            {
+                var modelType = _codeGeneratorViewModel.ModelType.CodeType;
+                string dbContextTypeName = _codeGeneratorViewModel.DbContextModelType.TypeName;
+                IEntityFrameworkService efService = Context.ServiceProvider.GetService<IEntityFrameworkService>();
+                ModelMetadata efMetadata = efService.AddRequiredEntity(Context, dbContextTypeName, modelType.FullName);
+                _ModelMetadataVM = new ModelMetadataViewModel(efMetadata);
+            }
+
+            ModelMetadataDialog dialog = new ModelMetadataDialog(_ModelMetadataVM);
+            bool? isOk = dialog.ShowModal();
+            if (isOk == true)
+            {
+                //_codeGeneratorViewModel.ModelMetadataVM = vm;
+                sm.Save(_ModelMetadataVM.DataModel);
+            }
+
+            return isOk;
         }
 
         // Validates the model returned by the Visual Studio dialog.
@@ -100,7 +141,6 @@ namespace CustomMVC5.Scaffolders
         public override void GenerateCode()
         {
             //WriteLog("GenerateCode start.");
-
             var project = Context.ActiveProject;
             var selectionRelativePath = GetSelectionRelativePath();
 
@@ -143,15 +183,21 @@ namespace CustomMVC5.Scaffolders
             IEntityFrameworkService efService = Context.ServiceProvider.GetService<IEntityFrameworkService>();
             ModelMetadata efMetadata = efService.AddRequiredEntity(Context, dbContextTypeName, modelType.FullName);
 
-            // Generate dictionary for related entities
-            //var relatedModels = GetRelatedModelDictionary(efMetadata);
+            //ModelMetadataViewModel vm = new ModelMetadataViewModel(efMetadata);
+            //ModelMetadataDialog dialog = new ModelMetadataDialog(vm);
+            //bool? isOk = dialog.ShowModal();
+            //if (isOk == false)
+            //{
+            //    return;
+            //}
 
+            // Create Controller
             string controllerName = codeGeneratorViewModel.ControllerName;
             string controllerRootName = controllerName.Replace("Controller","");
             string outputFolderPath = Path.Combine(selectionRelativePath, controllerName);
 
-            AddMvcController(
-                controllerName: controllerName
+            AddMvcController(project: project
+                , controllerName: controllerName
                 , controllerRootName: controllerRootName
                 , outputPath: outputFolderPath
                 , ContextTypeName: dbContext.Name
@@ -162,23 +208,37 @@ namespace CustomMVC5.Scaffolders
             if (!codeGeneratorViewModel.GenerateViews)
                 return;
 
+            //Model Metadata
+            outputFolderPath = Path.Combine(GetModelFolderPath(selectionRelativePath), modelType.Name + "Metadata");
+            AddModelMetadata(project: project
+                , controllerName: controllerName
+                , controllerRootName: controllerRootName
+                , outputPath: outputFolderPath
+                , ContextTypeName: dbContext.Name
+                , modelType: modelType
+                , efMetadata: efMetadata
+                , overwrite: codeGeneratorViewModel.OverwriteViews);
+
+
             // Create Views Folder
             string viewRootPath = GetViewsFolderPath(selectionRelativePath);
-            string viewPath = Path.Combine(viewRootPath, controllerRootName);
-            AddFolder(Context.ActiveProject, viewPath);
-
+            string viewFolderPath = Path.Combine(viewRootPath, controllerRootName);
+            AddFolderForViews(project, viewFolderPath);
+            
             //_ViewStart & Create _Layout
             if (codeGeneratorViewModel.LayoutPageSelected)
             {
                 string areaName = GetAreaName(selectionRelativePath);
-                AddDependencyFile(viewRootPath, areaName);
+                AddDependencyFile(project, viewRootPath, areaName);
             }
+            // EditorTemplates, DisplayTemplates
+            AddDataFieldTemplates(project, viewFolderPath);
             
 
             // Views for  C.R.U.D 
             foreach (string viewName in new string[4] { "Index", "Create", "Edit", "_Edit" })
             {
-                AddView(viewPath, viewName, controllerRootName, modelType, efMetadata
+                AddView(project, viewFolderPath, viewName, controllerRootName, modelType, efMetadata
                     , referenceScriptLibraries: codeGeneratorViewModel.ReferenceScriptLibraries
                     , isLayoutPageSelected: codeGeneratorViewModel.LayoutPageSelected
                     , layoutPageFile: codeGeneratorViewModel.LayoutPageFile
@@ -187,8 +247,17 @@ namespace CustomMVC5.Scaffolders
             }
         }
 
+        // add Folders: View, View\DisplayTemplates, View\EditorTemplates
+        private void AddFolderForViews(Project project, string viewFolderPath)
+        {
+            AddFolder(project, viewFolderPath);
+            AddFolder(project, Path.Combine(viewFolderPath, "DisplayTemplates"));
+            AddFolder(project, Path.Combine(viewFolderPath, "EditorTemplates"));
+        }
+
         //add MVC Controller
-        private void AddMvcController(string controllerName
+        private void AddMvcController(Project project
+            , string controllerName
             , string controllerRootName
             , string outputPath
             , string ContextTypeName /*"Entities"*/
@@ -212,7 +281,7 @@ namespace CustomMVC5.Scaffolders
             string relativePath = outputPath.Replace(@"\", @"/");
 
 
-            Project project = Context.ActiveProject;
+            //Project project = Context.ActiveProject;
             var templatePath = Path.Combine("MvcControllerWithContext", "Controller");
             var defaultNamespace = GetDefaultNamespace();
             string modelTypeVariable = GetTypeVariable(modelType.Name);
@@ -241,10 +310,12 @@ namespace CustomMVC5.Scaffolders
                 , templateParameters: templateParams
                 , skipIfExists: !overwrite);
         }
+
         private string GetTypeVariable(string typeName)
         {
             return typeName.Substring(0,1).ToLower() + typeName.Substring(1, typeName.Length - 1);
         }
+
         private string GetBindAttributeIncludeText(ModelMetadata efMetadata)
         {
             string result="";
@@ -253,8 +324,73 @@ namespace CustomMVC5.Scaffolders
             return result.Substring(1);
         }
 
+        private void AddModelMetadata(Project project
+            , string controllerName
+            , string controllerRootName
+            , string outputPath
+            , string ContextTypeName /*"Entities"*/
+            , CodeType modelType
+            , ModelMetadata efMetadata
+            , bool overwrite = false)
+        {
+            if (modelType == null)
+            {
+                throw new ArgumentNullException("modelType");
+            }
+            if (String.IsNullOrEmpty(controllerName))
+            {
+                //TODO
+                throw new ArgumentException(Resources.WebFormsViewScaffolder_EmptyActionName, "webFormsName");
+            }
 
-        private void AddView(string selectionRelativePath 
+            PropertyMetadata primaryKey = efMetadata.PrimaryKeys.FirstOrDefault();
+            string pluralizedName = efMetadata.EntitySetName;
+            string modelNameSpace = modelType.Namespace != null ? modelType.Namespace.FullName : String.Empty;
+            string relativePath = outputPath.Replace(@"\", @"/");
+
+
+            //Project project = Context.ActiveProject;
+            var templatePath = Path.Combine("Model", "Metadata");
+            string defaultNamespace = modelType.Namespace.FullName;
+            string modelTypeVariable = GetTypeVariable(modelType.Name);
+            string bindAttributeIncludeText = GetBindAttributeIncludeText(efMetadata);
+
+
+            //PropertyMetadata p1 = efMetadata.Properties[0];
+            //bool xxx = p1.IsPrimaryKey;  
+            //foreach (PropertyMetadata property in ModelMetadata.Properties)
+            //{
+
+            //}
+
+            string xxxx = _ModelMetadataVM.DataModel["ID"].DisplayName;
+
+            Dictionary<string, object> templateParams = new Dictionary<string, object>(){
+                //{"ControllerName", controllerName}
+                //, {"ControllerRootName" , controllerName.Replace("Controller", "")}
+                {"Namespace", defaultNamespace}
+                //, {"AreaName", string.Empty}
+                //, {"ContextTypeName", ContextTypeName}
+                , {"ModelTypeName", modelType.Name}
+                //, {"ModelVariable", modelTypeVariable}
+                , {"ModelMetadata", efMetadata}
+                , {"MetaTable", _ModelMetadataVM.DataModel}
+                //, {"UseAsync", false}
+                //, {"IsOverpostingProtectionRequired", true}
+                //, {"BindAttributeIncludeText", bindAttributeIncludeText}
+                //, {"OverpostingWarningMessage", "To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598."}
+                //, {"RequiredNamespaces", new HashSet<string>(){modelType.Namespace.FullName}}
+            };
+
+            AddFileFromTemplate(project: project
+                , outputPath: outputPath
+                , templateName: templatePath
+                , templateParameters: templateParams
+                , skipIfExists: !overwrite);
+        }
+
+        private void AddView(Project project
+            , string viewsFolderPath 
             , string viewName
             , string controllerRootName
             , CodeType modelType
@@ -265,8 +401,8 @@ namespace CustomMVC5.Scaffolders
             , bool isBundleConfigPresent=true
             , bool overwrite = false)
         {
-            Project project = Context.ActiveProject;
-            string outputPath = Path.Combine(selectionRelativePath, viewName);
+            //Project project = Context.ActiveProject;
+            string outputPath = Path.Combine(viewsFolderPath, viewName);
             string templatePath = Path.Combine("MvcView", viewName);
             string viewDataTypeName = modelType.Namespace.FullName + "." + modelType.Name;
 
@@ -295,12 +431,9 @@ namespace CustomMVC5.Scaffolders
         }
 
         //add _Layout & _ViewStart
-        private void AddDependencyFile(string viewRootPath
-            , string areaName
+        private void AddDependencyFile(Project project, string viewRootPath, string areaName
             )
         {
-            Project project = Context.ActiveProject;
-
             // add _Layout
             string viewName = "_ViewStart";
             string outputPath = Path.Combine(viewRootPath, viewName);
@@ -328,13 +461,57 @@ namespace CustomMVC5.Scaffolders
                 , templateName: templatePath
                 , templateParameters: templateParams
                 , skipIfExists: true);
+            
         }
 
+        private void AddDataFieldTemplates(Project project, string viewFolderPath)
+        {
+            Dictionary<string, object> templateParams = new Dictionary<string, object>();
 
+            var fieldTemplates = new[] { 
+                "EditorTemplates\\Date"
+                , "DisplayTemplates\\Date"
+                , "DisplayTemplates\\DateTime"
+            };
+
+            foreach (var fieldTemplate in fieldTemplates)
+            {
+                string outputPath = Path.Combine(viewFolderPath, fieldTemplate);
+                string templatePath = Path.Combine("DataFieldTemplates", fieldTemplate);
+
+                AddFileFromTemplate(project: project
+                    , outputPath: outputPath
+                    , templateName: templatePath
+                    , templateParameters: templateParams
+                    , skipIfExists: true);
+            }
+            
+            //var fieldTemplatesPath = "DynamicData\\FieldTemplates";
+
+            //// Add the folder
+            //AddFolder(project, fieldTemplatesPath);
+
+            //foreach (var fieldTemplate in fieldTemplates)
+            //{
+            //    var templatePath = Path.Combine(fieldTemplatesPath, fieldTemplate);
+            //    var outputPath = Path.Combine(fieldTemplatesPath, fieldTemplate);
+
+
+
+            //    AddFileFromTemplate(
+            //        project: project,
+            //        outputPath: outputPath,
+            //        templateName: templatePath,
+            //        templateParameters: new Dictionary<string, object>() 
+            //        {
+            //            {"DefaultNamespace", project.GetDefaultNamespace()},
+            //            {"GenericRepositoryNamespace", genericRepositoryNamespace}
+            //        },
+            //        skipIfExists: true);
+            //}
+        }
 
         #region function library
-
-
 
         public string GetJqueryVersion(Project project)
         {
@@ -388,16 +565,33 @@ namespace CustomMVC5.Scaffolders
         /// </summary>
         /// <param name="folderName"></param>
         /// <returns></returns>
-        private string GetViewsFolderPath(string controllerPath)
+        private string GetViewsFolderPath(string selectionRelativePath)
+        {
+            //string keyControllers = "Controllers";
+            //string keyViews = "Views";
+
+            //return (
+            //    (
+            //    controllerPath.IndexOf(keyControllers) >= 0)
+            //    ? controllerPath.Replace(keyControllers, keyViews)
+            //    : Path.Combine(controllerPath, keyViews)
+            //    );
+            return GetRelativeFolderPath(selectionRelativePath, "Views");
+        }
+        private string GetModelFolderPath(string selectionRelativePath)
+        {
+            return GetRelativeFolderPath(selectionRelativePath, "Models");
+        }
+        private string GetRelativeFolderPath(string selectionRelativePath, string folderName)
         {
             string keyControllers = "Controllers";
-            string keyViews = "Views";
+            string keyViews = folderName;
 
             return (
                 (
-                controllerPath.IndexOf(keyControllers) >= 0)
-                ? controllerPath.Replace(keyControllers, keyViews)
-                : Path.Combine(controllerPath, keyViews)
+                selectionRelativePath.IndexOf(keyControllers) >= 0)
+                ? selectionRelativePath.Replace(keyControllers, keyViews)
+                : Path.Combine(selectionRelativePath, keyViews)
                 );
         }
 

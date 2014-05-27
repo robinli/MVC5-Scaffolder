@@ -79,6 +79,15 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.UI {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Confirm and continue..
+        /// </summary>
+        public static string CheckBox_IsConfirm {
+            get {
+                return ResourceManager.GetString("CheckBox_IsConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Controller Name.
         /// </summary>
         public static string ControllerName {
@@ -165,6 +174,15 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.UI {
         public static string ModelTypeLabel_Content {
             get {
                 return ResourceManager.GetString("ModelTypeLabel_Content", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Next.
+        /// </summary>
+        public static string NextButton_Content {
+            get {
+                return ResourceManager.GetString("NextButton_Content", resourceCulture);
             }
         }
         

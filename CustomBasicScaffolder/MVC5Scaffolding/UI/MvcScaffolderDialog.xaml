@@ -109,7 +109,7 @@
         		    IsDefault="true"
         		    Command="{Binding OkCommand}" />
             <Button Content="{x:Static self:MvcScaffolderDialogResources.CancelButton_Content}" 
-        		    IsCancel="true" />
+        		    Margin="0,0,0,0" IsCancel="true" />
         </StackPanel>
     </Grid>
 </ui:VSPlatformDialogWindow>

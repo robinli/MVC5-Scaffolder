@@ -160,13 +160,15 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\GRP\Controllers\BOOKSController.cs" />
     <Compile Include="Areas\GRP\GRPAreaRegistration.cs" />
+    <Compile Include="Areas\GRP\Models\BOOKS - Copy.cs" />
+    <Compile Include="Areas\GRP\Models\BOOKSMetadata.cs" />
     <Compile Include="Areas\NEW\NEWAreaRegistration.cs" />
     <Compile Include="BOOKS.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\BooksController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -308,12 +310,13 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
-    <Content Include="Controllers\Views\_ViewStart.cshtml" />
-    <Content Include="Controllers\Views\Shared\_Layout.cshtml" />
-    <Content Include="Controllers\Views\Books\Index.cshtml" />
-    <Content Include="Controllers\Views\Books\Create.cshtml" />
-    <Content Include="Controllers\Views\Books\Edit.cshtml" />
-    <Content Include="Controllers\Views\Books\_Edit.cshtml" />
+    <Content Include="Areas\GRP\Views\BOOKS\Index.cshtml" />
+    <Content Include="Areas\GRP\Views\BOOKS\Create.cshtml" />
+    <Content Include="Areas\GRP\Views\BOOKS\Edit.cshtml" />
+    <Content Include="Areas\GRP\Views\BOOKS\_Edit.cshtml" />
+    <Content Include="Areas\GRP\Views\BOOKS\EditorTemplates\Date.cshtml" />
+    <Content Include="Areas\GRP\Views\BOOKS\DisplayTemplates\Date.cshtml" />
+    <Content Include="Areas\GRP\Views\BOOKS\DisplayTemplates\DateTime.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -360,8 +363,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\GRP\Controllers\" />
-    <Folder Include="Areas\GRP\Models\" />
     <Folder Include="Areas\NEW\Controllers\" />
     <Folder Include="Areas\NEW\Models\" />
     <Folder Include="Models\SYSCKIND\" />

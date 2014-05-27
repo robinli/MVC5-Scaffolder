@@ -123,6 +123,9 @@
   <data name="CancelButton_Content" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="CheckBox_IsConfirm" xml:space="preserve">
+    <value>Confirm and continue.</value>
+  </data>
   <data name="ControllerName" xml:space="preserve">
     <value>Controller Name</value>
   </data>
@@ -152,6 +155,9 @@
   </data>
   <data name="ModelTypeLabel_Content" xml:space="preserve">
     <value>Model cla_ss:</value>
+  </data>
+  <data name="NextButton_Content" xml:space="preserve">
+    <value>Next</value>
   </data>
   <data name="OverwriteCheckBox_Content" xml:space="preserve">
     <value>Over write existing pages</value>

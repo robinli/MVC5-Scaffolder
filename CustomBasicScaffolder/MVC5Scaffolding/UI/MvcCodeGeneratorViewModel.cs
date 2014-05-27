@@ -14,6 +14,8 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.UI
 {
     internal class MvcCodeGeneratorViewModel : ViewModel<MvcCodeGeneratorViewModel>
     {
+        public ModelMetadataViewModel ModelMetadataVM { get; set; }
+ 
         private ObservableCollection<ModelType> _dbContextTypeCollection;
         private ObservableCollection<ModelType> _modelTypeCollection;
         private List<String> _projectPaths;

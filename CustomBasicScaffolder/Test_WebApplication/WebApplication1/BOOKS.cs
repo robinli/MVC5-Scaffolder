@@ -18,5 +18,7 @@ namespace WebApplication1
         public string BOOKNAME { get; set; }
         public string AUTHOR { get; set; }
         public Nullable<System.DateTime> PUBLISH_UTC { get; set; }
+        public Nullable<int> VERSION_NUM { get; set; }
+        public Nullable<decimal> LIST_PRICE { get; set; }
     }
 }

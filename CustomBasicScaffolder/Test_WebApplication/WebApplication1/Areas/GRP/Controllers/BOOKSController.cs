@@ -8,19 +8,19 @@ using System.Web;
 using System.Web.Mvc;
 using WebApplication1;
 
-namespace WebApplication1.Controllers
+namespace WebApplication1.Areas.GRP.Controllers
 {
-    public class BooksController : Controller
+    public class BOOKSController : Controller
     {
         private SchoolDBEntities1 db = new SchoolDBEntities1();
 
-        // GET: Books
+        // GET: BOOKS
         public ActionResult Index()
         {
             return View(db.BOOKS.ToList());
         }
 
-        // GET: Books/Details/5
+        // GET: BOOKS/Details/5
         public ActionResult Details(string id)
         {
             if (id == null)
@@ -35,17 +35,17 @@ namespace WebApplication1.Controllers
             return View(bOOKS);
         }
 
-        // GET: Books/Create
+        // GET: BOOKS/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Books/Create
+        // POST: BOOKS/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,BOOKNAME,AUTHOR,PUBLISH_UTC")] BOOKS bOOKS)
+        public ActionResult Create([Bind(Include = "ID,BOOKNAME,AUTHOR,PUBLISH_UTC,VERSION_NUM,LIST_PRICE")] BOOKS bOOKS)
         {
             if (ModelState.IsValid)
             {
@@ -57,7 +57,7 @@ namespace WebApplication1.Controllers
             return View(bOOKS);
         }
 
-        // GET: Books/Edit/5
+        // GET: BOOKS/Edit/5
         public ActionResult Edit(string id)
         {
             if (id == null)
@@ -72,11 +72,11 @@ namespace WebApplication1.Controllers
             return View(bOOKS);
         }
 
-        // POST: Books/Edit/5
+        // POST: BOOKS/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,BOOKNAME,AUTHOR,PUBLISH_UTC")] BOOKS bOOKS)
+        public ActionResult Edit([Bind(Include = "ID,BOOKNAME,AUTHOR,PUBLISH_UTC,VERSION_NUM,LIST_PRICE")] BOOKS bOOKS)
         {
             if (ModelState.IsValid)
             {
@@ -87,7 +87,7 @@ namespace WebApplication1.Controllers
             return View(bOOKS);
         }
 
-        // GET: Books/Delete/5
+        // GET: BOOKS/Delete/5
         public ActionResult Delete(string id)
         {
             if (id == null)
@@ -102,7 +102,7 @@ namespace WebApplication1.Controllers
             return View(bOOKS);
         }
 
-        // POST: Books/Delete/5
+        // POST: BOOKS/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)

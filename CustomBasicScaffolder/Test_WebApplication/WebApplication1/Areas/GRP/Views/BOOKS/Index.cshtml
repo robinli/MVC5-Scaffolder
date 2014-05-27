@@ -21,6 +21,12 @@
         <th>
             @Html.DisplayNameFor(model => model.PUBLISH_UTC)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VERSION_NUM)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LIST_PRICE)
+        </th>
     </tr>
 
 @foreach (var item in Model) {
@@ -36,6 +42,12 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.PUBLISH_UTC)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VERSION_NUM)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LIST_PRICE)
         </td>
 
     </tr>

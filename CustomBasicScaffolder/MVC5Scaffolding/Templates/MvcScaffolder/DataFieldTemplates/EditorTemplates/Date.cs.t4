@@ -1,0 +1,5 @@
+﻿<#@ template language="C#" HostSpecific="True" #>
+<#@ output extension="cshtml" #>
+@model DateTime?
+
+@Html.TextBox("", Model, "{0:yyyy-MM-dd}", new { type = "Date", @class = "form-control" } )
