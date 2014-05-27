@@ -12,15 +12,15 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.Versioning;
-using Microsoft.AspNet.Scaffolding.WebForms.UI;
+using Happy.Scaffolding.MVC.UI;
 using System.Windows.Media;
 using System.Drawing;
 using System.Windows.Interop;
 using System.Windows;
 using System.Windows.Media.Imaging;
-using Microsoft.AspNet.Scaffolding.WebForms;
+using Happy.Scaffolding.MVC.Scaffolders;
 
-namespace CustomMVC5.Scaffolders
+namespace Happy.Scaffolding.MVC
 {    
 
     // This is where everything with the scaffolder is kicked off. The factory
@@ -58,10 +58,10 @@ namespace CustomMVC5.Scaffolders
         private static CodeGeneratorInformation CreateCodeGeneratorInformation()
         {
             return new CodeGeneratorInformation(
-                displayName: Resources.WebFormsScaffolder_Name,
-                description: Resources.WebFormsScaffolder_Description,
+                displayName: Resources.MVCScaffolder_Name,
+                description: Resources.MVCScaffolder_Description,
                 author: "Robin Li",
-                version: new Version(0, 1, 0, 1),
+                version: new Version(0, 1, 5, 27),
                 id: typeof(MvcScaffolder).Name,
                 icon: ToImageSource(Resources.Application),
                 gestures: new[] { "Controller", "View", "Area" },

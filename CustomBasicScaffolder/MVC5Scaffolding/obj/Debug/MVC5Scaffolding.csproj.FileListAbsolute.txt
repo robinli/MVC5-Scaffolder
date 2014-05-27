@@ -52,9 +52,6 @@ E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\MVC5Sc
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\fr-FR\MVC5Scaffolding.resources.dll
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Debug\UI\MvcScaffolderDialog.baml
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Debug\MVC5Scaffolding.g.resources
-E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Debug\Microsoft.AspNet.Scaffolding.WebForms.Resources.resources
-E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Debug\Microsoft.AspNet.Scaffolding.WebForms.UI.MvcScaffolderDialogResources.resources
-E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Debug\Microsoft.AspNet.Scaffolding.WebForms.Resources.fr-FR.resources
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Debug\MVC5Scaffolding.csproj.GenerateResource.Cache
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Debug\fr-FR\MVC5Scaffolding.resources.dll
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Debug\MVC5Scaffolding.pdb
@@ -69,4 +66,7 @@ E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Debug\UI\Mod
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Debug\UI\ModelMetadataDialog.baml
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\Newtonsoft.Json.dll
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\Newtonsoft.Json.xml
+E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Debug\Happy.Scaffolding.MVC.Resources.resources
+E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Debug\Happy.Scaffolding.MVC.UI.MvcScaffolderDialogResources.resources
+E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Debug\Happy.Scaffolding.MVC.Resources.fr-FR.resources
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Debug\MVC5Scaffolding.csprojResolveAssemblyReference.cache

@@ -121,6 +121,12 @@
   <data name="Application" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Application.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="MVCScaffolder_Description" xml:space="preserve">
+    <value>Generates ASP.NET MVC controller and views for C.R.U.D (inserting, editing, deleting, and listing) from an Entity Framework data context.</value>
+  </data>
+  <data name="MVCScaffolder_Name" xml:space="preserve">
+    <value>Happy Scaffolding for MVC</value>
+  </data>
   <data name="WebFormsCodeGeneratorViewModel_AddNewDbContext" xml:space="preserve">
     <value>Add new data context...</value>
   </data>

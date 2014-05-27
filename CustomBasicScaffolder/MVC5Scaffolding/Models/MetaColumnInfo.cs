@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
  
-namespace Microsoft.AspNet.Scaffolding.WebForms.Models
+namespace Happy.Scaffolding.MVC.Models
 {
     [Serializable]
     public class MetaColumnInfo
@@ -16,7 +16,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Models
 
         public MetaColumnInfo() { }
 
-        //public MetadataFieldinfo(Microsoft.AspNet.Scaffolding.WebForms.UI.MetadataFieldViewModel c1)
+        //public MetadataFieldinfo(Happy.Scaffolding.MVC.UI.MetadataFieldViewModel c1)
         //{
         //    this.Name =c1.Name;
         //    DisplayName = c1.DisplayName;

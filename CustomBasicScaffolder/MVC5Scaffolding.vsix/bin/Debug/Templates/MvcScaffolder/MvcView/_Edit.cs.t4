@@ -70,19 +70,19 @@ else
 <#
             } else {
 #>
-                @Html.EditorFor(model => model.<#= property.PropertyName #>, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.<#= property.PropertyName #><#= OutputEditorTemplate(property.ShortTypeName) #>, new { htmlAttributes = new { @class = "form-control" } })
 <#
             } 
         } else {
 #>
-                @Html.EditorFor(model => model.<#= property.PropertyName #>)
+                @Html.EditorFor(model => model.<#= property.PropertyName #><#= OutputEditorTemplate(property.ShortTypeName) #>)
 <#
         }
 #>
 <# 
         if (isControlHtmlAttributesSupported) {
 #>
-                @Html.ValidationMessageFor(model => model.<#= property.PropertyName #>, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.<#= property.PropertyName #>,"" , new { @class = "text-danger" })
 <#        
         } else {
 #>
@@ -110,3 +110,8 @@ else
 #>
 
 <#@ include file="ModelMetadataFunctions.cs.include.t4" #>
+<#+
+string OutputEditorTemplate(string typeName){
+        return( typeName=="DateTime" ? ", \"Date\"" : "");
+}
+#>

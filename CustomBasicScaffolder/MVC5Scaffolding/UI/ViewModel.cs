@@ -5,7 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-namespace Microsoft.AspNet.Scaffolding.WebForms.UI
+namespace Happy.Scaffolding.MVC.UI
 {
     internal class ViewModel : INotifyPropertyChanged, INotifyDataErrorInfo
     {

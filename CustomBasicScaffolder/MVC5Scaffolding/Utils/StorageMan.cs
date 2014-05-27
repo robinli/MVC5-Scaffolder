@@ -6,15 +6,17 @@ using System.Linq;
 using System.Text;
 
 
-namespace Microsoft.AspNet.Scaffolding.WebForms.Utils
+namespace Happy.Scaffolding.MVC.Utils
 {
     internal class StorageMan<T> where T : new()
     {
-        public StorageMan(string savefolderPath)
+        public StorageMan(string modelTypeName, string savefolderPath)
         {
+            this.modelName = modelTypeName;
             this.storageBaseDirectory = savefolderPath;
         }
 
+        private string modelName { get; set; }
         private string m_storageBaseDirectory;
         private string storageBaseDirectory
         {
@@ -40,7 +42,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Utils
             get
             {
                 return System.IO.Path.Combine(storageBaseDirectory
-                    , string.Format("{0}.{1}", typeof(T).Name, "json"));
+                    , string.Format("{0}.{1}", modelName, "json"));
             }
         }
 

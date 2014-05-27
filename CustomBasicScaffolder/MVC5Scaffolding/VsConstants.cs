@@ -1,4 +1,4 @@
-﻿namespace Microsoft.AspNet.Scaffolding
+﻿namespace Happy.Scaffolding.MVC
 {
     internal static class VsConstants
     {

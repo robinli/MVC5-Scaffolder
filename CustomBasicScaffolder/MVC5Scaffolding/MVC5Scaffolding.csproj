@@ -7,7 +7,7 @@
     <ProjectGuid>{AABF312C-B24B-49CF-ACA9-4F5FCD16ED82}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Microsoft.AspNet.Scaffolding.WebForms</RootNamespace>
+    <RootNamespace>Happy.Scaffolding.MVC</RootNamespace>
     <AssemblyName>MVC5Scaffolding</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

@@ -23,9 +23,6 @@ E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Release\MVC5
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Release\MVC5Scaffolding_MarkupCompile.lref
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Release\UI\MvcScaffolderDialog.baml
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Release\MVC5Scaffolding.g.resources
-E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Release\Microsoft.AspNet.Scaffolding.WebForms.Resources.resources
-E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Release\Microsoft.AspNet.Scaffolding.WebForms.UI.MvcScaffolderDialogResources.resources
-E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Release\Microsoft.AspNet.Scaffolding.WebForms.Resources.fr-FR.resources
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Release\MVC5Scaffolding.csproj.GenerateResource.Cache
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Release\fr-FR\MVC5Scaffolding.resources.dll
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Release\MVC5Scaffolding.dll
@@ -38,4 +35,6 @@ E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Release\Newt
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Release\Newtonsoft.Json.xml
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Release\UI\ModelMetadataDialog.g.cs
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Release\UI\ModelMetadataDialog.baml
-E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Release\MVC5Scaffolding.csprojResolveAssemblyReference.cache
+E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Release\Happy.Scaffolding.MVC.Resources.resources
+E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Release\Happy.Scaffolding.MVC.UI.MvcScaffolderDialogResources.resources
+E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Release\Happy.Scaffolding.MVC.Resources.fr-FR.resources

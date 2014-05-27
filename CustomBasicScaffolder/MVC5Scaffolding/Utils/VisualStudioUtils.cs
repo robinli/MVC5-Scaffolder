@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Microsoft.AspNet.Scaffolding.WebForms.Utils
+namespace Happy.Scaffolding.MVC.Utils
 {
     internal class VisualStudioUtils
     {

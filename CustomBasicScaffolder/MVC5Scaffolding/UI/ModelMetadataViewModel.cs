@@ -3,10 +3,10 @@ using System.Collections.ObjectModel;
 using System;
 using System.Windows.Input;
 using System.Linq;
-using Microsoft.AspNet.Scaffolding.WebForms.Models;
+using Happy.Scaffolding.MVC.Models;
 
 
-namespace Microsoft.AspNet.Scaffolding.WebForms.UI
+namespace Happy.Scaffolding.MVC.UI
 {
     internal class ModelMetadataViewModel : ViewModel<ModelMetadataViewModel>
     {

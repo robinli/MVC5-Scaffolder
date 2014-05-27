@@ -7,6 +7,7 @@
 <#@ import namespace="System.Data.Linq.Mapping" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="Microsoft.AspNet.Scaffolding.Core.Metadata" #>
+<#@ parameter type="System.String" name="ControllerRootName" #>
 <#@ parameter type="System.String" name="ViewDataTypeName" #>
 <#@ parameter type="System.String" name="ViewDataTypeShortName" #>
 <#@ parameter type="System.Boolean" name="IsPartialView" #>

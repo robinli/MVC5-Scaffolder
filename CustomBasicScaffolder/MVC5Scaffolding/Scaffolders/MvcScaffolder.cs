@@ -6,15 +6,15 @@ using System.Windows.Input;
 using EnvDTE;
 using Microsoft.AspNet.Scaffolding.EntityFramework;
 using Microsoft.AspNet.Scaffolding.NuGet;
-using Microsoft.AspNet.Scaffolding.WebForms.UI;
+using Happy.Scaffolding.MVC.UI;
 using Microsoft.AspNet.Scaffolding.Core.Metadata;
-using Microsoft.AspNet.Scaffolding.WebForms.Utils;
+using Happy.Scaffolding.MVC.Utils;
 using System.IO;
 using Microsoft.AspNet.Scaffolding;
-using Microsoft.AspNet.Scaffolding.WebForms;
-using Microsoft.AspNet.Scaffolding.WebForms.Models;
+using Happy.Scaffolding.MVC;
+using Happy.Scaffolding.MVC.Models;
 
-namespace CustomMVC5.Scaffolders
+namespace Happy.Scaffolding.MVC.Scaffolders
 {
     // This class performs all of the work of scaffolding. The methods are executed in the
     // following order:
@@ -54,27 +54,23 @@ namespace CustomMVC5.Scaffolders
                     isOk = ShowColumnSetting();
                 }
             }
-
             return (isOk == true);
         }
 
 
         // Setting Columns : display name, allow null
         private bool? ShowColumnSetting()
-        {  
-            //ModelMetadataViewModel vm;
-
+        {
+            var modelType = _codeGeneratorViewModel.ModelType.CodeType;
             string savefolderPath = Path.Combine(Context.ActiveProject.GetFullPath(), "CodeGen");
-            StorageMan<MetaTableInfo> sm = new StorageMan<MetaTableInfo>(savefolderPath);
+            StorageMan<MetaTableInfo> sm = new StorageMan<MetaTableInfo>(modelType.Name, savefolderPath);
             MetaTableInfo data = sm.Read();
-
             if (data.Columns.Any())
             {
                 _ModelMetadataVM = new ModelMetadataViewModel(data);
             }
             else
             {
-                var modelType = _codeGeneratorViewModel.ModelType.CodeType;
                 string dbContextTypeName = _codeGeneratorViewModel.DbContextModelType.TypeName;
                 IEntityFrameworkService efService = Context.ServiceProvider.GetService<IEntityFrameworkService>();
                 ModelMetadata efMetadata = efService.AddRequiredEntity(Context, dbContextTypeName, modelType.FullName);
@@ -129,13 +125,7 @@ namespace CustomMVC5.Scaffolders
 
             //WriteLog("Validate finish.");
         }
-        private void WriteLog(string message)
-        {
-            System.IO.StreamWriter sw = new StreamWriter("R:\\LOG.Scaffold.txt", true);
-            sw.WriteLine(message);
-            sw.Close();
-        }
-
+        
         // Top-level method that generates all of the scaffolding output from the templates.
         // Shows a busy wait mouse cursor while working.
         public override void GenerateCode()
@@ -182,14 +172,6 @@ namespace CustomMVC5.Scaffolders
             // Get the Entity Framework Meta Data
             IEntityFrameworkService efService = Context.ServiceProvider.GetService<IEntityFrameworkService>();
             ModelMetadata efMetadata = efService.AddRequiredEntity(Context, dbContextTypeName, modelType.FullName);
-
-            //ModelMetadataViewModel vm = new ModelMetadataViewModel(efMetadata);
-            //ModelMetadataDialog dialog = new ModelMetadataDialog(vm);
-            //bool? isOk = dialog.ShowModal();
-            //if (isOk == false)
-            //{
-            //    return;
-            //}
 
             // Create Controller
             string controllerName = codeGeneratorViewModel.ControllerName;
@@ -289,7 +271,7 @@ namespace CustomMVC5.Scaffolders
 
             Dictionary<string, object> templateParams=new Dictionary<string, object>(){
                 {"ControllerName", controllerName}
-                , {"ControllerRootName" , controllerName.Replace("Controller", "")}
+                , {"ControllerRootName" , controllerRootName}
                 , {"Namespace", defaultNamespace}
                 , {"AreaName", string.Empty}
                 , {"ContextTypeName", ContextTypeName}
@@ -355,31 +337,11 @@ namespace CustomMVC5.Scaffolders
             string modelTypeVariable = GetTypeVariable(modelType.Name);
             string bindAttributeIncludeText = GetBindAttributeIncludeText(efMetadata);
 
-
-            //PropertyMetadata p1 = efMetadata.Properties[0];
-            //bool xxx = p1.IsPrimaryKey;  
-            //foreach (PropertyMetadata property in ModelMetadata.Properties)
-            //{
-
-            //}
-
-            string xxxx = _ModelMetadataVM.DataModel["ID"].DisplayName;
-
             Dictionary<string, object> templateParams = new Dictionary<string, object>(){
-                //{"ControllerName", controllerName}
-                //, {"ControllerRootName" , controllerName.Replace("Controller", "")}
                 {"Namespace", defaultNamespace}
-                //, {"AreaName", string.Empty}
-                //, {"ContextTypeName", ContextTypeName}
                 , {"ModelTypeName", modelType.Name}
-                //, {"ModelVariable", modelTypeVariable}
                 , {"ModelMetadata", efMetadata}
                 , {"MetaTable", _ModelMetadataVM.DataModel}
-                //, {"UseAsync", false}
-                //, {"IsOverpostingProtectionRequired", true}
-                //, {"BindAttributeIncludeText", bindAttributeIncludeText}
-                //, {"OverpostingWarningMessage", "To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598."}
-                //, {"RequiredNamespaces", new HashSet<string>(){modelType.Namespace.FullName}}
             };
 
             AddFileFromTemplate(project: project
@@ -410,7 +372,8 @@ namespace CustomMVC5.Scaffolders
                 layoutPageFile = string.Empty;
 
             Dictionary<string, object> templateParams = new Dictionary<string, object>(){
-                {"ModelMetadata", efMetadata}
+                {"ControllerRootName" , controllerRootName}
+                , {"ModelMetadata", efMetadata}
                 , {"ViewName", viewName}
                 , {"ViewDataTypeName", viewDataTypeName}
                 , {"IsPartialView" , false}
@@ -835,6 +798,14 @@ namespace CustomMVC5.Scaffolders
         //    }
         //    return dict;
         //}
+
+        //private void WriteLog(string message)
+        //{
+        //    System.IO.StreamWriter sw = new StreamWriter("R:\\LOG.Scaffold.txt", true);
+        //    sw.WriteLine(message);
+        //    sw.Close();
+        //}
+
         #endregion
 
     }

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using EnvDTE;
 
-namespace Microsoft.AspNet.Scaffolding.WebForms.UI
+namespace Happy.Scaffolding.MVC.UI
 {
     /// <summary>
     /// Wrapper around CodeType for allowing string values.

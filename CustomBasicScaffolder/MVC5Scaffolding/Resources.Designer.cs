@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Microsoft.AspNet.Scaffolding.WebForms {
+namespace Happy.Scaffolding.MVC {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Microsoft.AspNet.Scaffolding.WebForms.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Happy.Scaffolding.MVC.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -67,6 +67,24 @@ namespace Microsoft.AspNet.Scaffolding.WebForms {
             get {
                 object obj = ResourceManager.GetObject("Application", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Generates ASP.NET MVC controller and views for C.R.U.D (inserting, editing, deleting, and listing) from an Entity Framework data context..
+        /// </summary>
+        internal static string MVCScaffolder_Description {
+            get {
+                return ResourceManager.GetString("MVCScaffolder_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Happy Scaffolding for MVC.
+        /// </summary>
+        internal static string MVCScaffolder_Name {
+            get {
+                return ResourceManager.GetString("MVCScaffolder_Name", resourceCulture);
             }
         }
         

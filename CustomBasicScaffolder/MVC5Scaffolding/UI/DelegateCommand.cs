@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Windows.Input;
 
-namespace Microsoft.AspNet.Scaffolding.WebForms.UI
+namespace Happy.Scaffolding.MVC.UI
 {
     public class DelegateCommand : ICommand
     {

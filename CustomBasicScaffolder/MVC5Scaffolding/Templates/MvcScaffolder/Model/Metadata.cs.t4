@@ -10,7 +10,7 @@
 <#@ parameter type="System.String" name="Namespace" #>
 <#@ parameter type="System.String" name="ModelTypeName" #>
 <#@ parameter type="Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata" name="ModelMetadata" #>
-<#@ parameter type="Microsoft.AspNet.Scaffolding.WebForms.Models.MetaTableInfo" name="MetaTable" #>
+<#@ parameter type="Happy.Scaffolding.MVC.Models.MetaTableInfo" name="MetaTable" #>
 using System;
 using System.ComponentModel.DataAnnotations;
 

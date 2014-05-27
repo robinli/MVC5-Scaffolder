@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace Microsoft.AspNet.Scaffolding.WebForms.UI
+namespace Happy.Scaffolding.MVC.UI
 {
     internal class FocusBehavior
     {

@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNet.Scaffolding.Core.Metadata;
-using Microsoft.AspNet.Scaffolding.WebForms.UI;
+using Happy.Scaffolding.MVC.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Microsoft.AspNet.Scaffolding.WebForms.Models
+namespace Happy.Scaffolding.MVC.Models
 {
     [Serializable]
     public class MetaTableInfo

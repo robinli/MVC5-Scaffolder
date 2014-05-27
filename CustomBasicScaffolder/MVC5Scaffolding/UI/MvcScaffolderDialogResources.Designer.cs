@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Microsoft.AspNet.Scaffolding.WebForms.UI {
+namespace Happy.Scaffolding.MVC.UI {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.UI {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Microsoft.AspNet.Scaffolding.WebForms.UI.MvcScaffolderDialogResources", typeof(MvcScaffolderDialogResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Happy.Scaffolding.MVC.UI.MvcScaffolderDialogResources", typeof(MvcScaffolderDialogResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

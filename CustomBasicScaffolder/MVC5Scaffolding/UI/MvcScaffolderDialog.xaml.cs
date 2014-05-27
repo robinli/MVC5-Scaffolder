@@ -1,7 +1,8 @@
-﻿using System;
-using Microsoft.AspNet.Scaffolding.VSExtension.UI;
+﻿using Happy.Scaffolding.MVC.UI.Base;
+using System;
 
-namespace Microsoft.AspNet.Scaffolding.WebForms.UI
+
+namespace Happy.Scaffolding.MVC.UI
 {
     /// <summary>
     /// Interaction logic for WebFormsScaffolderDialog.xaml

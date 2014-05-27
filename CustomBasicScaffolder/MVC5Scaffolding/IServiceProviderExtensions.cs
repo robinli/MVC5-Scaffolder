@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Microsoft.AspNet.Scaffolding
+namespace Happy.Scaffolding.MVC
 {
     internal static class IServiceProviderExtensions
     {

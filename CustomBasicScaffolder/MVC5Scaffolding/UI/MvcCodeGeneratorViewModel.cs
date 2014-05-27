@@ -8,9 +8,10 @@ using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using EnvDTE;
 using Microsoft.AspNet.Scaffolding.EntityFramework;
+using Microsoft.AspNet.Scaffolding;
 using EnvDTE80;
 
-namespace Microsoft.AspNet.Scaffolding.WebForms.UI
+namespace Happy.Scaffolding.MVC.UI
 {
     internal class MvcCodeGeneratorViewModel : ViewModel<MvcCodeGeneratorViewModel>
     {
