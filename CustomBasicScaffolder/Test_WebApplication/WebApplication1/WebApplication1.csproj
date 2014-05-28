@@ -161,9 +161,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\GRP\Controllers\BOOKSController.cs" />
+    <Compile Include="Areas\GRP\Controllers\MYBOOKController.cs" />
     <Compile Include="Areas\GRP\GRPAreaRegistration.cs" />
-    <Compile Include="Areas\GRP\Models\BOOKSMetadata.cs" />
     <Compile Include="Areas\GRP\Models\BOOKSMetadata_BK.cs" />
+    <Compile Include="Areas\GRP\Models\MYBOOKMetadata.cs" />
     <Compile Include="Areas\NEW\NEWAreaRegistration.cs" />
     <Compile Include="BOOKS.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -310,13 +311,17 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
-    <Content Include="Areas\GRP\Views\BOOKS\EditorTemplates\Date.cshtml" />
-    <Content Include="Areas\GRP\Views\BOOKS\DisplayTemplates\Date.cshtml" />
-    <Content Include="Areas\GRP\Views\BOOKS\DisplayTemplates\DateTime.cshtml" />
+    <Content Include="Areas\GRP\Views\Shared\EditorTemplates\Date.cshtml" />
+    <Content Include="Areas\GRP\Views\Shared\DisplayTemplates\Date.cshtml" />
+    <Content Include="Areas\GRP\Views\Shared\DisplayTemplates\DateTime.cshtml" />
     <Content Include="Areas\GRP\Views\BOOKS\Index.cshtml" />
     <Content Include="Areas\GRP\Views\BOOKS\Create.cshtml" />
-    <Content Include="Areas\GRP\Views\BOOKS\_Edit.cshtml" />
     <Content Include="Areas\GRP\Views\BOOKS\Edit.cshtml" />
+    <Content Include="Areas\GRP\Views\BOOKS\_Edit.cshtml" />
+    <Content Include="Areas\GRP\Views\MYBOOK\Index.cshtml" />
+    <Content Include="Areas\GRP\Views\MYBOOK\Create.cshtml" />
+    <Content Include="Areas\GRP\Views\MYBOOK\Edit.cshtml" />
+    <Content Include="Areas\GRP\Views\MYBOOK\_Edit.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -365,7 +370,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\NEW\Controllers\" />
     <Folder Include="Areas\NEW\Models\" />
-    <Folder Include="Models\SYSCKIND\" />
     <Folder Include="Views\Default\" />
   </ItemGroup>
   <ItemGroup>

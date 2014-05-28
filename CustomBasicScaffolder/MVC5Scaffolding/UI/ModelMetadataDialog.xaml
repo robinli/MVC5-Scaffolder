@@ -124,9 +124,9 @@
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Visibility="{Binding ShowEditorRange}">
                                     <TextBlock Margin="0,4,0,4" Text="range" />
-                                    <TextBox Text="{Binding Path=RangeMin}" Width="30" TextAlignment="Right"></TextBox>
+                                    <TextBox Text="{Binding Path=RangeMin}" Width="40" TextAlignment="Right"></TextBox>
                                     <TextBlock Margin="0,4,0,0">~</TextBlock>
-                                    <TextBox Text="{Binding Path=RangeMax}" Width="30" TextAlignment="Right"></TextBox>
+                                    <TextBox Text="{Binding Path=RangeMax}" Width="40" TextAlignment="Right"></TextBox>
                                 </StackPanel>
                             </StackPanel>
 

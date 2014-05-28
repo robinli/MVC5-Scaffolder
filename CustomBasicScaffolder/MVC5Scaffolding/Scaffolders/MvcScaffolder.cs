@@ -72,6 +72,8 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             else
             {
                 string dbContextTypeName = _codeGeneratorViewModel.DbContextModelType.TypeName;
+                ICodeTypeService codeTypeService = GetService<ICodeTypeService>();
+                CodeType dbContext = codeTypeService.GetCodeType(Context.ActiveProject, dbContextTypeName);
                 IEntityFrameworkService efService = Context.ServiceProvider.GetService<IEntityFrameworkService>();
                 ModelMetadata efMetadata = efService.AddRequiredEntity(Context, dbContextTypeName, modelType.FullName);
                 _ModelMetadataVM = new ModelMetadataViewModel(efMetadata);
@@ -125,7 +127,6 @@ namespace Happy.Scaffolding.MVC.Scaffolders
         // Shows a busy wait mouse cursor while working.
         public override void GenerateCode()
         {
-            //WriteLog("GenerateCode start.");
             var project = Context.ActiveProject;
             var selectionRelativePath = GetSelectionRelativePath();
 
@@ -145,7 +146,6 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             {
                 Mouse.OverrideCursor = currentCursor;
             }
-            //WriteLog("GenerateCode finish.");
         }
 
         // Collects the common data needed by all of the scaffolded output and generates:
@@ -153,9 +153,6 @@ namespace Happy.Scaffolding.MVC.Scaffolders
         // 2) Add View
         private void GenerateCode(Project project, string selectionRelativePath, MvcCodeGeneratorViewModel codeGeneratorViewModel)
         {
-            //TODO get jQuery Version
-            //GetJqueryVersion(project);
-
             // Get Model Type
             var modelType = codeGeneratorViewModel.ModelType.CodeType;
 
@@ -185,7 +182,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             if (!codeGeneratorViewModel.GenerateViews)
                 return;
 
-            //Model Metadata
+            // add Metadata for Model
             outputFolderPath = Path.Combine(GetModelFolderPath(selectionRelativePath), modelType.Name + "Metadata");
             AddModelMetadata(project: project
                 , controllerName: controllerName
@@ -195,24 +192,20 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 , modelType: modelType
                 , efMetadata: efMetadata
                 , overwrite: codeGeneratorViewModel.OverwriteViews);
-
-
-            // Create Views Folder
-            string viewRootPath = GetViewsFolderPath(selectionRelativePath);
-            string viewFolderPath = Path.Combine(viewRootPath, controllerRootName);
-            AddFolderForViews(project, viewFolderPath);
             
             //_ViewStart & Create _Layout
+            string viewRootPath = GetViewsFolderPath(selectionRelativePath);
             if (codeGeneratorViewModel.LayoutPageSelected)
             {
                 string areaName = GetAreaName(selectionRelativePath);
                 AddDependencyFile(project, viewRootPath, areaName);
             }
             // EditorTemplates, DisplayTemplates
-            AddDataFieldTemplates(project, viewFolderPath);
+            AddDataFieldTemplates(project, viewRootPath);
             
 
             // Views for  C.R.U.D 
+            string viewFolderPath = Path.Combine(viewRootPath, controllerRootName);
             foreach (string viewName in new string[4] { "Index", "Create", "Edit", "_Edit" })
             {
                 AddView(project, viewFolderPath, viewName, controllerRootName, modelType, efMetadata
@@ -224,13 +217,6 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             }
         }
 
-        // add Folders: View, View\DisplayTemplates, View\EditorTemplates
-        private void AddFolderForViews(Project project, string viewFolderPath)
-        {
-            AddFolder(project, viewFolderPath);
-            AddFolder(project, Path.Combine(viewFolderPath, "DisplayTemplates"));
-            AddFolder(project, Path.Combine(viewFolderPath, "EditorTemplates"));
-        }
 
         //add MVC Controller
         private void AddMvcController(Project project
@@ -422,7 +408,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             
         }
 
-        private void AddDataFieldTemplates(Project project, string viewFolderPath)
+        private void AddDataFieldTemplates(Project project, string viewRootPath)
         {
             Dictionary<string, object> templateParams = new Dictionary<string, object>();
 
@@ -434,7 +420,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
 
             foreach (var fieldTemplate in fieldTemplates)
             {
-                string outputPath = Path.Combine(viewFolderPath, fieldTemplate);
+                string outputPath = Path.Combine(viewRootPath, "Shared", fieldTemplate);
                 string templatePath = Path.Combine("DataFieldTemplates", fieldTemplate);
 
                 AddFileFromTemplate(project: project
