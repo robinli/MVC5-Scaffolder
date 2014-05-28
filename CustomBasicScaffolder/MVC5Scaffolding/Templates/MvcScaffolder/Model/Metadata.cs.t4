@@ -31,6 +31,7 @@ foreach (PropertyMetadata property in ModelMetadata.Properties) {
 <#    }
 #>
         [Display(Name = "<#= MetaTable[property.PropertyName].DisplayName #>")]
+        <#= MetaTable[property.PropertyName].MetaAttribute #>
         public <#= property.ShortTypeName #> <#= property.PropertyName #> { get; set; }
 
 <#

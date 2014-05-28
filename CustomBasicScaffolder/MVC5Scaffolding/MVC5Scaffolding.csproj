@@ -62,6 +62,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -72,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IServiceProviderExtensions.cs" />
+    <Compile Include="Models\euColumnType.cs" />
     <Compile Include="Models\MetaColumnInfo.cs" />
     <Compile Include="Models\MetaTableInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

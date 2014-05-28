@@ -81,7 +81,6 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             bool? isOk = dialog.ShowModal();
             if (isOk == true)
             {
-                //_codeGeneratorViewModel.ModelMetadataVM = vm;
                 sm.Save(_ModelMetadataVM.DataModel);
             }
 
@@ -93,8 +92,6 @@ namespace Happy.Scaffolding.MVC.Scaffolders
         // that we can use with the Entity Framework.
         private void Validate()
         {
-            //WriteLog("Validate start.");
-
             CodeType modelType = _codeGeneratorViewModel.ModelType.CodeType;
             ModelType dbContextType = _codeGeneratorViewModel.DbContextModelType;
             string dbContextTypeName = (dbContextType != null)
@@ -122,8 +119,6 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             {
                 throw new InvalidOperationException(Resources.WebFormsScaffolder_ProjectNotBuilt);
             }
-
-            //WriteLog("Validate finish.");
         }
         
         // Top-level method that generates all of the scaffolding output from the templates.
@@ -343,7 +338,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 , {"ModelMetadata", efMetadata}
                 , {"MetaTable", _ModelMetadataVM.DataModel}
             };
-
+            
             AddFileFromTemplate(project: project
                 , outputPath: outputPath
                 , templateName: templatePath

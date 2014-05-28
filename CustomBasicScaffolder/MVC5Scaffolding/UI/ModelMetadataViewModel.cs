@@ -4,6 +4,7 @@ using System;
 using System.Windows.Input;
 using System.Linq;
 using Happy.Scaffolding.MVC.Models;
+using System.Windows;
 
 
 namespace Happy.Scaffolding.MVC.UI
@@ -13,20 +14,11 @@ namespace Happy.Scaffolding.MVC.UI
         public ModelMetadataViewModel(ModelMetadata efMetadata)
         {
             MetaTableInfo dataModel = new MetaTableInfo();
-            foreach (PropertyMetadata p1 in efMetadata.Properties)
+            foreach (Microsoft.AspNet.Scaffolding.Core.Metadata.PropertyMetadata p1 in efMetadata.Properties)
             {
                 dataModel.Columns.Add(new MetaColumnInfo(p1));
             }
             Init(dataModel);
-            //this.Columns = new ObservableCollection<MetadataFieldViewModel>();
-            //foreach (PropertyMetadata p1 in efMetadata.Properties)
-            //{
-            //    MetadataFieldinfo info = new MetadataFieldinfo(p1);
-
-            //    this.DataModel.Columns.Add(info);
-
-            //    this.Columns.Add(new MetadataFieldViewModel(info));
-            //}
         }
         public ModelMetadataViewModel(MetaTableInfo dataModel)
         {
@@ -105,13 +97,6 @@ namespace Happy.Scaffolding.MVC.UI
 
     internal class MetadataFieldViewModel : ViewModel<MetadataFieldViewModel>
     {
-        //public MetadataFieldViewModel(PropertyMetadata p1)
-        //{
-        //    //this.Name = p1.PropertyName;
-        //    //DisplayName = p1.PropertyName;
-        //    //Nullable = (p1.IsPrimaryKey ? false : true);
-        //    this.DataModel = new MetadataFieldinfo(p1);
-        //}
         public MetadataFieldViewModel(MetaColumnInfo data)
         {
             this.DataModel = data;
@@ -159,5 +144,76 @@ namespace Happy.Scaffolding.MVC.UI
                 OnPropertyChanged();
             }
         }
+
+        public string strDateType
+        {
+            get { return DataModel.strDateType; }
+        }
+
+        public int MaxLength
+        {
+            get { return DataModel.MaxLength; }
+            set
+            {
+                if (value == DataModel.MaxLength)
+                {
+                    return;
+                }
+                DataModel.MaxLength = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int RangeMin
+        {
+            get { return DataModel.RangeMin; }
+            set
+            {
+                if (value == DataModel.RangeMin)
+                {
+                    return;
+                }
+                DataModel.RangeMin = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int RangeMax
+        {
+            get { return DataModel.RangeMax; }
+            set
+            {
+                if (value == DataModel.RangeMax)
+                {
+                    return;
+                }
+                DataModel.RangeMax = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        public Visibility ShowEditorMaxLength
+        {
+            get
+            {
+                if (DataModel.DataType == euColumnType.stringCT)
+                    return Visibility.Visible;
+                else
+                    return Visibility.Collapsed;
+            }
+        }
+        public Visibility ShowEditorRange
+        {
+            get
+            {
+                if (DataModel.DataType == euColumnType.intCT 
+                    || DataModel.DataType == euColumnType.decimalCT)
+                    return Visibility.Visible;
+                else
+                    return Visibility.Collapsed;
+            }
+        }
+
     }
 }

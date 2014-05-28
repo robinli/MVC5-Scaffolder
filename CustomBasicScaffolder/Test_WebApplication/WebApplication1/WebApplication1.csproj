@@ -163,6 +163,7 @@
     <Compile Include="Areas\GRP\Controllers\BOOKSController.cs" />
     <Compile Include="Areas\GRP\GRPAreaRegistration.cs" />
     <Compile Include="Areas\GRP\Models\BOOKSMetadata.cs" />
+    <Compile Include="Areas\GRP\Models\BOOKSMetadata_BK.cs" />
     <Compile Include="Areas\NEW\NEWAreaRegistration.cs" />
     <Compile Include="BOOKS.cs">
       <DependentUpon>Model1.tt</DependentUpon>
