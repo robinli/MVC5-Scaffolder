@@ -34,7 +34,7 @@ else
         <div class="form-group">
             @Html.LabelFor(model => model.PUBLISH_UTC, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.PUBLISH_UTC, "Date", new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.PUBLISH_UTC, "Date")
                 @Html.ValidationMessageFor(model => model.PUBLISH_UTC,"" , new { @class = "text-danger" })
             </div>
         </div>
