@@ -16,7 +16,7 @@
         $("body").append(alertObj);
         var options = sysCoreMapArguments(arguments, ["message", "callback"]);
         $("#ntxAlertMessage").html(options.message);
-        $('.alert').fadeIn(1000).fadeOut(5000);
+        $('.alert').fadeIn(1000).fadeOut(15000);
         $(".alert").on("closed.bs.alert", function () {
             if (options.callback)
                 options.callback();
@@ -28,7 +28,7 @@
         $("body").append(alertObj);
         var options = sysCoreMapArguments(arguments, ["message", "callback"]);
         $("#ntxAlertMessage").html(options.message);
-        $('.alert').fadeIn(1000).fadeOut(8000);
+        $('.alert').fadeIn(1000).fadeOut(15000);
         $(".alert").on("closed.bs.alert", function () {
             if (options.callback)
                 options.callback();

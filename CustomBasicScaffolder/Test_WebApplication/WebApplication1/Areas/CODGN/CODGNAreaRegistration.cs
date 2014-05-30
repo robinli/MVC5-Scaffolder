@@ -1,22 +1,22 @@
 ﻿using System.Web.Mvc;
 
-namespace WebApplication1.Areas.GRP
+namespace WebApplication1.Areas.CODGN
 {
-    public class GRPAreaRegistration : AreaRegistration 
+    public class CODGNAreaRegistration : AreaRegistration 
     {
         public override string AreaName 
         {
             get 
             {
-                return "GRP";
+                return "CODGN";
             }
         }
 
         public override void RegisterArea(AreaRegistrationContext context) 
         {
             context.MapRoute(
-                "GRP_default",
-                "GRP/{controller}/{action}/{id}",
+                "CODGN_default",
+                "CODGN/{controller}/{action}/{id}",
                 new { action = "Index", id = UrlParameter.Optional }
             );
         }

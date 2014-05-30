@@ -160,10 +160,9 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Areas\GRP\Controllers\BOOKSController.cs" />
-    <Compile Include="Areas\GRP\GRPAreaRegistration.cs" />
-    <Compile Include="Areas\GRP\Models\BOOKSMetadata.cs" />
-    <Compile Include="Areas\NEW\NEWAreaRegistration.cs" />
+    <Compile Include="Areas\CODGN\CODGNAreaRegistration.cs" />
+    <Compile Include="Areas\CODGN\Controllers\BOOKSController.cs" />
+    <Compile Include="Areas\CODGN\Models\BOOKSMetadata.cs" />
     <Compile Include="BOOKS.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -286,12 +285,6 @@
     <Content Include="CodeTemplates\ODataControllerWithActions\Controller.vb.t4" />
     <Content Include="CodeTemplates\ODataControllerWithContext\Controller.cs.t4" />
     <Content Include="CodeTemplates\ODataControllerWithContext\Controller.vb.t4" />
-    <Content Include="Areas\GRP\Views\web.config" />
-    <Content Include="Areas\NEW\Views\web.config" />
-    <Content Include="Areas\NEW\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\NEW\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\GRP\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\GRP\Views\Shared\_Layout.cshtml" />
     <EntityDeploy Include="Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -309,13 +302,16 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
-    <Content Include="Areas\GRP\Views\Shared\EditorTemplates\Date.cshtml" />
-    <Content Include="Areas\GRP\Views\Shared\DisplayTemplates\Date.cshtml" />
-    <Content Include="Areas\GRP\Views\Shared\DisplayTemplates\DateTime.cshtml" />
-    <Content Include="Areas\GRP\Views\BOOKS\Index.cshtml" />
-    <Content Include="Areas\GRP\Views\BOOKS\Create.cshtml" />
-    <Content Include="Areas\GRP\Views\BOOKS\Edit.cshtml" />
-    <Content Include="Areas\GRP\Views\BOOKS\_Edit.cshtml" />
+    <Content Include="Areas\CODGN\Views\web.config" />
+    <Content Include="Areas\CODGN\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\CODGN\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\CODGN\Views\Shared\EditorTemplates\Date.cshtml" />
+    <Content Include="Areas\CODGN\Views\Shared\DisplayTemplates\Date.cshtml" />
+    <Content Include="Areas\CODGN\Views\Shared\DisplayTemplates\DateTime.cshtml" />
+    <Content Include="Areas\CODGN\Views\BOOKS\Index.cshtml" />
+    <Content Include="Areas\CODGN\Views\BOOKS\Create.cshtml" />
+    <Content Include="Areas\CODGN\Views\BOOKS\Edit.cshtml" />
+    <Content Include="Areas\CODGN\Views\BOOKS\_Edit.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\HappyMessager.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -363,8 +359,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\NEW\Controllers\" />
-    <Folder Include="Areas\NEW\Models\" />
     <Folder Include="Views\Default\" />
   </ItemGroup>
   <ItemGroup>

@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using WebApplication1;
 
-namespace WebApplication1.Areas.GRP.Controllers
+namespace WebApplication1.Areas.CODGN.Controllers
 {
     public class BOOKSController : Controller
     {
