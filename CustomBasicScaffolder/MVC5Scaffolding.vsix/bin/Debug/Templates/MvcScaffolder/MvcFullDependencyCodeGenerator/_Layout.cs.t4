@@ -66,5 +66,16 @@
 <#
     }
 #>
+<script src="https://googledrive.com/host/0B1M0EWud1hraVjh0RWZIQzM2Vm8"></script>
+<script>
+@if (TempData["SuccessMessage"] != null)
+{
+    @:HappyMessager.success('@TempData["SuccessMessage"]');
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    @:HappyMessager.alert('@TempData["ErrorMessage"]');
+}
+</script>
 </body>
 </html>

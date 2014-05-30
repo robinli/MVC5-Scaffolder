@@ -317,6 +317,7 @@
     <Content Include="Areas\GRP\Views\BOOKS\Edit.cshtml" />
     <Content Include="Areas\GRP\Views\BOOKS\_Edit.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\HappyMessager.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />

@@ -101,6 +101,7 @@ namespace <#= Namespace #>
 <# } #>
         }
 
+        /*
         // GET: <#= routePrefix #>/Details/5
 <# if (UseAsync) { #>
         public async Task<ActionResult> Details(<#= primaryKeyNullableTypeName #> id)
@@ -123,6 +124,7 @@ namespace <#= Namespace #>
             }
             return View(<#= ModelVariable #>);
         }
+        */
 
         // GET: <#= routePrefix #>/Create
         public ActionResult Create()
@@ -158,12 +160,14 @@ namespace <#= Namespace #>
 <# } else { #>
                 db.SaveChanges();
 <# } #>
+                DisplaySuccessMessage("Has append a <#= ModelTypeName #> record");
                 return RedirectToAction("Index");
             }
 
 <# foreach (var property in relatedProperties.Values) { #>
             ViewBag.<#= property.ForeignKeyPropertyNames[0] #> = new SelectList(db.<#= property.EntitySetName #>, "<#= property.PrimaryKeyNames[0] #>", "<#= property.DisplayPropertyName #>", <#= ModelVariable #>.<#= property.ForeignKeyPropertyNames[0] #>);
 <# } #>
+            DisplayErrorMessage();
             return View(<#= ModelVariable #>);
         }
 
@@ -215,11 +219,13 @@ namespace <#= Namespace #>
 <# } else { #>
                 db.SaveChanges();
 <# } #>
+                DisplaySuccessMessage("Has update a <#= ModelTypeName #> record");
                 return RedirectToAction("Index");
             }
 <# foreach (var property in relatedProperties.Values) { #>
             ViewBag.<#= property.ForeignKeyPropertyNames[0] #> = new SelectList(db.<#= property.EntitySetName #>, "<#= property.PrimaryKeyNames[0] #>", "<#= property.DisplayPropertyName #>", <#= ModelVariable #>.<#= property.ForeignKeyPropertyNames[0] #>);
 <# } #>
+            DisplayErrorMessage();
             return View(<#= ModelVariable #>);
         }
 
@@ -266,7 +272,18 @@ namespace <#= Namespace #>
 <# } else { #>
             db.SaveChanges();
 <# } #>
+            DisplaySuccessMessage("Has delete a <#= ModelTypeName #> record");
             return RedirectToAction("Index");
+        }
+
+        private void DisplaySuccessMessage(string msgText)
+        {
+            TempData["SuccessMessage"] = msgText;
+        }
+
+        private void DisplayErrorMessage()
+        {
+            TempData["ErrorMessage"] = "Save changes was unsuccessful.";
         }
 
         protected override void Dispose(bool disposing)

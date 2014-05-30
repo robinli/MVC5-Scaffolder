@@ -20,6 +20,7 @@ namespace WebApplication1.Areas.GRP.Controllers
             return View(db.BOOKS.ToList());
         }
 
+        /*
         // GET: BOOKS/Details/5
         public ActionResult Details(string id)
         {
@@ -34,6 +35,7 @@ namespace WebApplication1.Areas.GRP.Controllers
             }
             return View(bOOKS);
         }
+        */
 
         // GET: BOOKS/Create
         public ActionResult Create()
@@ -51,9 +53,11 @@ namespace WebApplication1.Areas.GRP.Controllers
             {
                 db.BOOKS.Add(bOOKS);
                 db.SaveChanges();
+                DisplaySuccessMessage("Has append a BOOKS record");
                 return RedirectToAction("Index");
             }
 
+            DisplayErrorMessage();
             return View(bOOKS);
         }
 
@@ -82,8 +86,10 @@ namespace WebApplication1.Areas.GRP.Controllers
             {
                 db.Entry(bOOKS).State = EntityState.Modified;
                 db.SaveChanges();
+                DisplaySuccessMessage("Has update a BOOKS record");
                 return RedirectToAction("Index");
             }
+            DisplayErrorMessage();
             return View(bOOKS);
         }
 
@@ -110,7 +116,18 @@ namespace WebApplication1.Areas.GRP.Controllers
             BOOKS bOOKS = db.BOOKS.Find(id);
             db.BOOKS.Remove(bOOKS);
             db.SaveChanges();
+            DisplaySuccessMessage("Has delete a BOOKS record");
             return RedirectToAction("Index");
+        }
+
+        private void DisplaySuccessMessage(string msgText)
+        {
+            TempData["SuccessMessage"] = msgText;
+        }
+
+        private void DisplayErrorMessage()
+        {
+            TempData["ErrorMessage"] = "Save changes was unsuccessful.";
         }
 
         protected override void Dispose(bool disposing)
