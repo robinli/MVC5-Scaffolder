@@ -212,8 +212,7 @@ namespace Happy.Scaffolding.MVC.UI
                 OnPropertyChanged();
             }
         }
-
-
+        
         //private bool _useMasterPage;
 
         //public bool UseMasterPage

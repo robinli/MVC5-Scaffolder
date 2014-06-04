@@ -24,8 +24,7 @@ namespace Happy.Scaffolding.MVC
 {    
 
     // This is where everything with the scaffolder is kicked off. The factory
-    // returns a WebFormsScaffolder when a project meets the requirements.
-
+    // returns a MvcScaffolderFactory when a project meets the requirements.
     [Export(typeof(CodeGeneratorFactory))]
     public class MvcScaffolderFactory : CodeGeneratorFactory
     {
@@ -64,9 +63,69 @@ namespace Happy.Scaffolding.MVC
                 version: new Version(0, 1, 5, 27),
                 id: typeof(MvcScaffolder).Name,
                 icon: ToImageSource(Resources.Application),
-                gestures: new[] { "Controller", "Area" },
+                gestures: new[] { "Controller" },
                 categories: new[] { Categories.Common, Categories.MvcController, Categories.Other }
             );              
+        }
+
+        /// <summary>
+        /// Helper method to convert Icon to Imagesource.
+        /// </summary>
+        /// <param name="icon">Icon</param>
+        /// <returns>Imagesource</returns>
+        public static ImageSource ToImageSource(Icon icon)
+        {
+            ImageSource imageSource = Imaging.CreateBitmapSourceFromHIcon(
+                icon.Handle,
+                Int32Rect.Empty,
+                BitmapSizeOptions.FromEmptyOptions());
+
+            return imageSource;
+        }
+    }
+
+
+    [Export(typeof(CodeGeneratorFactory))]
+    public class MvcScaffolderFactory2 : CodeGeneratorFactory
+    {
+        public MvcScaffolderFactory2()
+            : base(CreateCodeGeneratorInformation())
+        {
+
+        }
+
+        public override ICodeGenerator CreateInstance(CodeGenerationContext context)
+        {
+            return new MvcScaffolderSP(context, Information);
+        }
+
+        // We support CSharp WAPs targetting at least .Net Framework 4.5 or above.
+        // We DON'T currently support VB
+        public override bool IsSupported(CodeGenerationContext codeGenerationContext)
+        {
+            if (ProjectLanguage.CSharp.Equals(codeGenerationContext.ActiveProject.GetCodeLanguage()))
+            {
+                FrameworkName targetFramework = codeGenerationContext.ActiveProject.GetTargetFramework();
+                return (targetFramework != null) &&
+                        String.Equals(".NetFramework", targetFramework.Identifier, StringComparison.OrdinalIgnoreCase) &&
+                        targetFramework.Version >= new Version(4, 5);
+            }
+
+            return false;
+        }
+
+        private static CodeGeneratorInformation CreateCodeGeneratorInformation()
+        {
+            return new CodeGeneratorInformation(
+                displayName: Resources.MVCScaffolder_Name2,
+                description: Resources.MVCScaffolder_Description2,
+                author: "Robin Li",
+                version: new Version(0, 1, 5, 27),
+                id: typeof(MvcScaffolder).Name,
+                icon: ToImageSource(Resources.Application),
+                gestures: new[] { "Controller" },
+                categories: new[] { Categories.Common, Categories.MvcController, Categories.Other }
+            );
         }
 
         /// <summary>

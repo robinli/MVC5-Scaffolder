@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EnvDTE;
+using System;
 using System.Collections.Generic;
 using System.Linq;
  
@@ -15,6 +16,16 @@ namespace Happy.Scaffolding.MVC.Models
         public int MaxLength { get; set; }
         public int RangeMin { get; set; }
         public int RangeMax { get; set; }
+
+        public bool Visible { get; set; }
+
+        public bool HasMetaAttribute
+        {
+            get
+            {
+                return (MetaAttribute != string.Empty);
+            }
+        }
 
         public string MetaAttribute
         {
@@ -43,27 +54,46 @@ namespace Happy.Scaffolding.MVC.Models
 
         public MetaColumnInfo() { }
 
-        //public MetadataFieldinfo(Happy.Scaffolding.MVC.UI.MetadataFieldViewModel c1)
-        //{
-        //    this.Name =c1.Name;
-        //    DisplayName = c1.DisplayName;
-        //    Nullable = c1.Nullable;
-        //}
-        public MetaColumnInfo(Microsoft.AspNet.Scaffolding.Core.Metadata.PropertyMetadata p1)
+        public MetaColumnInfo(Microsoft.AspNet.Scaffolding.Core.Metadata.PropertyMetadata property)
+            : this(property.PropertyName, property.ShortTypeName, (property.RelatedModel!=null) )
         {
-            this.strDateType = p1.ShortTypeName;
-            this.DataType = GetColumnType(this.strDateType);
-            this.Name = p1.PropertyName;
-            DisplayName = p1.PropertyName;
-            Nullable = (p1.IsPrimaryKey ? false : true);
+        }
+
+        public MetaColumnInfo(CodeParameter property)
+            : this(property.Name, property.Type.AsString, false)
+        {
+        }
+
+        public MetaColumnInfo(CodeProperty property)
+            : this(property.Name, property.Type.AsString, false)
+        {
+        }
+
+        private MetaColumnInfo(string strName, string strType, bool relatedModel)
+        {
+            this.Name = strName;
+            this.strDateType = strType.Replace("?", "").Replace("System.", "").ToLower();
+
+            if (!relatedModel)
+                this.DataType = GetColumnType(this.strDateType);
+            else
+            {
+                this.DataType = euColumnType.RelatedModel;
+            }
+
+            DisplayName = this.Name;
+            Nullable = true;
+            Visible = true;
         }
 
         private euColumnType GetColumnType(string shortTypeName)
         {
-            return ParseEnum<euColumnType>(shortTypeName + "CT");
+            return ParseEnum<euColumnType>(shortTypeName);
         }
+
         private static T ParseEnum<T>(string value)
         {
+            value = value+ "CT";
             return (T)Enum.Parse(typeof(T), value, true);
         }
     }

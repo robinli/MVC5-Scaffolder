@@ -38,3 +38,4 @@ E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Release\UI\M
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Release\Happy.Scaffolding.MVC.Resources.resources
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Release\Happy.Scaffolding.MVC.UI.MvcScaffolderDialogResources.resources
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Release\Happy.Scaffolding.MVC.Resources.fr-FR.resources
+E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Release\MVC5Scaffolding.csprojResolveAssemblyReference.cache

@@ -108,3 +108,5 @@ E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\Test_WebApplication\WebApplicati
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\Test_WebApplication\WebApplication1\obj\Debug\WebApplication1.dll
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\Test_WebApplication\WebApplication1\obj\Debug\WebApplication1.pdb
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\Test_WebApplication\WebApplication1\obj\Debug\WebApplication1.csprojResolveAssemblyReference.cache
+E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\Test_WebApplication\WebApplication1\bin\EPPlus.dll
+E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\Test_WebApplication\WebApplication1\bin\EPPlus.xml

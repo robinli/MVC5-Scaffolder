@@ -16,7 +16,7 @@ namespace Happy.Scaffolding.MVC.Models
         /// <summary>
         /// DateTime
         /// </summary>
-        DateTimeCT
+        datetimeCT
         ,
         /// <summary>
         /// int
@@ -27,5 +27,10 @@ namespace Happy.Scaffolding.MVC.Models
         /// decimal
         /// </summary>
         decimalCT
+        ,
+        /// <summary>
+        /// RelatedModel
+        /// </summary>
+        RelatedModel
     }
 }

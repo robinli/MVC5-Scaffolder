@@ -5,12 +5,15 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="varchar" MaxLength="16" Nullable="false" />
-    <Property Name="BOOKNAME" Type="nvarchar" MaxLength="64" Nullable="false" />
+    <Property Name="BOOKNAME" Type="nvarchar" MaxLength="64" />
     <Property Name="AUTHOR" Type="nvarchar" MaxLength="64" />
     <Property Name="PUBLISH_UTC" Type="datetime" />
     <Property Name="VERSION_NUM" Type="int" />
     <Property Name="LIST_PRICE" Type="decimal" Precision="8" Scale="2" />
   </EntityType>
+  <Function Name="QueryBooks" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="QueryBookName" Type="nvarchar" Mode="In" />
+  </Function>
   <EntityContainer Name="SchoolDBModelStoreContainer">
     <EntitySet Name="BOOKS" EntityType="Self.BOOKS" Schema="dbo" store:Type="Tables" />
   </EntityContainer>

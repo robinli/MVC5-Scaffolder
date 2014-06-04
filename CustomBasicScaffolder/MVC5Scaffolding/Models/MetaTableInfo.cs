@@ -23,6 +23,7 @@ namespace Happy.Scaffolding.MVC.Models
             this.Columns = new List<MetaColumnInfo>();
         }
 
+
         //public static MetadataTableinfo ToDataModel(ModelMetadataViewModel vm)
         //{
         //    MetadataTableinfo model = new MetadataTableinfo();

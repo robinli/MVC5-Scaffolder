@@ -70,6 +70,15 @@ namespace Happy.Scaffolding.MVC.UI {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Back.
+        /// </summary>
+        public static string BackButton_Content {
+            get {
+                return ResourceManager.GetString("BackButton_Content", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string CancelButton_Content {
@@ -169,6 +178,15 @@ namespace Happy.Scaffolding.MVC.UI {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Method name:.
+        /// </summary>
+        public static string MethodNameLabel_Content {
+            get {
+                return ResourceManager.GetString("MethodNameLabel_Content", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Model cla_ss:.
         /// </summary>
         public static string ModelTypeLabel_Content {
@@ -201,6 +219,33 @@ namespace Happy.Scaffolding.MVC.UI {
         public static string ReferenceScriptLibraries {
             get {
                 return ResourceManager.GetString("ReferenceScriptLibraries", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add MVC from Store Procedure.
+        /// </summary>
+        public static string SPScaffolderDialog_Title {
+            get {
+                return ResourceManager.GetString("SPScaffolderDialog_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Query form setting.
+        /// </summary>
+        public static string SPScaffolderDialog_Title2 {
+            get {
+                return ResourceManager.GetString("SPScaffolderDialog_Title2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Result list column setting.
+        /// </summary>
+        public static string SPScaffolderDialog_Title3 {
+            get {
+                return ResourceManager.GetString("SPScaffolderDialog_Title3", resourceCulture);
             }
         }
         

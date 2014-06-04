@@ -2,16 +2,27 @@
 <Schema Namespace="SchoolDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityContainer Name="SchoolDBEntities1" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="BOOKS" EntityType="SchoolDBModel.BOOKS" />
+    <FunctionImport Name="QueryBooks" ReturnType="Collection(SchoolDBModel.QueryBooks_Result)">
+      <Parameter Name="QueryBookName" Mode="In" Type="String" />
+    </FunctionImport>
   </EntityContainer>
   <EntityType Name="BOOKS">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="false" />
-    <Property Name="BOOKNAME" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
+    <Property Name="BOOKNAME" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
     <Property Name="AUTHOR" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
     <Property Name="PUBLISH_UTC" Type="DateTime" Precision="3" />
     <Property Name="VERSION_NUM" Type="Int32" />
     <Property Name="LIST_PRICE" Type="Decimal" Precision="8" Scale="2" />
   </EntityType>
+  <ComplexType Name="QueryBooks_Result">
+    <Property Type="String" Name="ID" Nullable="false" MaxLength="16" />
+    <Property Type="String" Name="BOOKNAME" Nullable="true" MaxLength="64" />
+    <Property Type="String" Name="AUTHOR" Nullable="true" MaxLength="64" />
+    <Property Type="DateTime" Name="PUBLISH_UTC" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="VERSION_NUM" Nullable="true" />
+    <Property Type="Decimal" Name="LIST_PRICE" Nullable="true" Precision="8" Scale="2" />
+  </ComplexType>
 </Schema>

@@ -87,9 +87,19 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Scaffolders\MvcScaffolderSP.cs" />
     <Compile Include="Scaffolders\MvcScaffolder.cs" />
     <Compile Include="Scaffolders\MvcScaffolderFactory.cs" />
     <None Include="packages.config" />
+    <None Include="Templates\MvcScaffolderSP\Controller\Controller.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\MvcScaffolderSP\Model\Metadata.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\MvcScaffolderSP\MvcView\Index.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Templates\MvcScaffolder\Model\Metadata.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -145,7 +155,18 @@
       <DependentUpon>ModelMetadataDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\ModelMetadataViewModel.cs" />
+    <Compile Include="UI\MethodType.cs" />
     <Compile Include="UI\ModelType.cs" />
+    <Compile Include="UI\QueryFormSetting.xaml.cs">
+      <DependentUpon>QueryFormSetting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ResultListSetting.xaml.cs">
+      <DependentUpon>ResultListSetting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\SPScaffolderDialog.xaml.cs">
+      <DependentUpon>SPScaffolderDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\SPCodeGeneratorViewModel.cs" />
     <Compile Include="UI\ViewModel.cs" />
     <Compile Include="UI\ViewModelOfT.cs" />
     <Compile Include="UI\VSPlatformDialogWindow.cs" />
@@ -181,6 +202,18 @@
     <Page Include="UI\ModelMetadataDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\QueryFormSetting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\ResultListSetting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\SPScaffolderDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\MvcScaffolderDialog.xaml">
       <Generator>MSBuild:Compile</Generator>

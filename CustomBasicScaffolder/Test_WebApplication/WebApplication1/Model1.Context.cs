@@ -12,6 +12,8 @@ namespace WebApplication1
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class SchoolDBEntities1 : DbContext
     {
@@ -22,9 +24,18 @@ namespace WebApplication1
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            //throw new UnintentionalCodeFirstException();
+            throw new UnintentionalCodeFirstException();
         }
     
         public virtual DbSet<BOOKS> BOOKS { get; set; }
+    
+        public virtual ObjectResult<QueryBooks_Result> QueryBooks(string queryBookName)
+        {
+            var queryBookNameParameter = queryBookName != null ?
+                new ObjectParameter("QueryBookName", queryBookName) :
+                new ObjectParameter("QueryBookName", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<QueryBooks_Result>("QueryBooks", queryBookNameParameter);
+        }
     }
 }

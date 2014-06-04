@@ -5,13 +5,14 @@ using System.Windows.Input;
 using System.Linq;
 using Happy.Scaffolding.MVC.Models;
 using System.Windows;
+using EnvDTE;
 
 
 namespace Happy.Scaffolding.MVC.UI
 {
-    internal class ModelMetadataViewModel : ViewModel<ModelMetadataViewModel>
+    internal class MetadataSettingViewModel : ViewModel<ModelMetadataViewModel>
     {
-        public ModelMetadataViewModel(ModelMetadata efMetadata)
+        public MetadataSettingViewModel(ModelMetadata efMetadata)
         {
             MetaTableInfo dataModel = new MetaTableInfo();
             foreach (Microsoft.AspNet.Scaffolding.Core.Metadata.PropertyMetadata p1 in efMetadata.Properties)
@@ -20,10 +21,33 @@ namespace Happy.Scaffolding.MVC.UI
             }
             Init(dataModel);
         }
-        public ModelMetadataViewModel(MetaTableInfo dataModel)
+
+        public MetadataSettingViewModel(CodeFunction codeElements)
+        {
+            MetaTableInfo dataModel = new MetaTableInfo();
+            foreach (CodeElement ce in codeElements.Parameters)
+            {
+                CodeParameter p1 = (CodeParameter)ce;
+                dataModel.Columns.Add(new MetaColumnInfo(p1));
+            }
+            Init(dataModel);
+        }
+
+        public MetadataSettingViewModel(CodeType codeType)
+        {
+            MetaTableInfo dataModel = new MetaTableInfo();
+            foreach (CodeElement ce in codeType.Members)
+            {
+                dataModel.Columns.Add(new MetaColumnInfo((CodeProperty)ce));
+            }
+            Init(dataModel);
+        }
+
+        public MetadataSettingViewModel(MetaTableInfo dataModel)
         {
             Init(dataModel);
         }
+
         private void Init(MetaTableInfo dataModel)
         {
             this.DataModel = dataModel;
@@ -42,14 +66,25 @@ namespace Happy.Scaffolding.MVC.UI
         public MetaTableInfo DataModel { get; private set; }
 
         private ObservableCollection<MetadataFieldViewModel> m_Columns = null;
+
         public ObservableCollection<MetadataFieldViewModel> Columns
         {
             get { return m_Columns; }
             private set { this.m_Columns = value; }
         }
 
+    }
+
+    internal class ModelMetadataViewModel : MetadataSettingViewModel
+    {
+        public ModelMetadataViewModel(ModelMetadata efMetadata):base(efMetadata){}
+        public ModelMetadataViewModel(CodeFunction codeElements) : base(codeElements) { }
+        public ModelMetadataViewModel(CodeType codeType) : base(codeType) { }
+        public ModelMetadataViewModel(MetaTableInfo dataModel) : base(dataModel) { }
+
 
         private bool m_IsConfirm = false;
+        
         public bool IsConfirm
         {
             get { return m_IsConfirm; }
@@ -63,7 +98,6 @@ namespace Happy.Scaffolding.MVC.UI
                 OnPropertyChanged();
             }
         }
-
 
         private DelegateCommand _okCommand;
 
@@ -104,7 +138,6 @@ namespace Happy.Scaffolding.MVC.UI
 
         public MetaColumnInfo DataModel { get; private set; }
 
-        //public string m_Name;
         public string Name
         {
             get { return DataModel.Name; }
@@ -114,7 +147,6 @@ namespace Happy.Scaffolding.MVC.UI
             }
         }
 
-        //private string m_DisplayName;
         public string DisplayName
         {
             get { return DataModel.DisplayName; }
@@ -129,8 +161,6 @@ namespace Happy.Scaffolding.MVC.UI
             }
         }
 
-
-        //public bool m_Nullable;
         public bool Nullable
         {
             get { return DataModel.Nullable; }
@@ -192,7 +222,6 @@ namespace Happy.Scaffolding.MVC.UI
             }
         }
 
-
         public Visibility ShowEditorMaxLength
         {
             get
@@ -203,6 +232,7 @@ namespace Happy.Scaffolding.MVC.UI
                     return Visibility.Collapsed;
             }
         }
+
         public Visibility ShowEditorRange
         {
             get
