@@ -12,6 +12,7 @@ using Microsoft.AspNet.Scaffolding;
 using EnvDTE80;
 using Happy.Scaffolding.MVC.Models;
 using System.Windows;
+using Happy.Scaffolding.MVC.Utils;
 
 
 namespace Happy.Scaffolding.MVC.UI
@@ -212,6 +213,7 @@ namespace Happy.Scaffolding.MVC.UI
 
                             if (DbContextModelType != null)
                             {
+                                SaveDesignData();
                                 OnClose(result: true);
                             }
                         }
@@ -400,7 +402,16 @@ namespace Happy.Scaffolding.MVC.UI
                 {
                     //讀取參數
                     CodeFunction myMethod = (CodeFunction)code;
-                    this.QueryFormViewModel = new MetadataSettingViewModel(myMethod);
+                    MetaTableInfo data1 = new StorageMan<MetaTableInfo>(myMethod.Name, SaveFolderPath).Read();
+                    if (data1.Columns.Any())
+                    {
+                        this.QueryFormViewModel = new MetadataSettingViewModel(data1);
+                    }
+                    else
+                    {
+                        this.QueryFormViewModel = new MetadataSettingViewModel(myMethod);
+                    }
+                    
 
                     // 讀取回傳型別
                     CodeTypeRef returnTypeRef = myMethod.Type;
@@ -408,15 +419,46 @@ namespace Happy.Scaffolding.MVC.UI
                     int idx1 = enumType.IndexOf("<");
                     int idx2 = enumType.LastIndexOf(">");
                     string baseType = enumType.Substring(idx1 + 1, idx2 - idx1 - 1);
+
                     CodeType returnContextType = codeTypeService.GetCodeType(project, baseType);
-
-
                     ModelType = new ModelType(returnContextType);
 
-                    this.ResultListViewModel = new MetadataSettingViewModel(returnContextType);
+                    MetaTableInfo data2 = new StorageMan<MetaTableInfo>(ModelType.ShortName, SaveFolderPath).Read();
+                    if (data2.Columns.Any())
+                    {
+                        this.ResultListViewModel = new MetadataSettingViewModel(data2);
+                    }
+                    else
+                    {
+                        //IEntityFrameworkService efService = _context.ServiceProvider.GetService<IEntityFrameworkService>();
+                        //Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata efMetadata
+                        //    = efService.AddRequiredEntity(_context, DbContextModelType.TypeName, ModelType.CodeType.FullName);
+
+                        //this.ResultListViewModel = new MetadataSettingViewModel(efMetadata);
+
+                        //TODO partal class 會找不到成員
+                        this.ResultListViewModel = new MetadataSettingViewModel(returnContextType);
+                    }
                 }
             }
             
+        }
+
+        private void SaveDesignData()
+        {
+            StorageMan<MetaTableInfo> sm = new StorageMan<MetaTableInfo>(this.MethodTypeName, SaveFolderPath);
+            sm.Save(this.QueryFormViewModel.DataModel);
+
+            sm.ModelName = ModelType.ShortName;
+            sm.Save(this.ResultListViewModel.DataModel);
+        }
+
+        private string SaveFolderPath
+        {
+            get
+            {
+                return Path.Combine(_context.ActiveProject.GetFullPath(), "CodeGen");
+            }
         }
         
         private void GetStoreProcedureFunction_TESTCODE()

@@ -1,0 +1,33 @@
+﻿<#@ template language="C#" HostSpecific="True" #>
+<#@ output extension=".cshtml" #>
+<#@ include file="Imports.include.t4" #>
+@model IEnumerable<#= "<" + ModelTypeFullName + ">" #>
+
+<table class="table">
+    <tr>
+<#
+    foreach (MetaColumnInfo column in ResultMetaTable.Columns) {
+#>
+        <th>
+            @Html.DisplayNameFor(model => model.<#=column.Name#>)
+        </th>
+<#
+    }
+#>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+<#
+    foreach (MetaColumnInfo column in ResultMetaTable.Columns) {
+#>
+        <td>
+            @Html.DisplayFor(modelItem => item.<#=column.Name#>)
+        </td>
+<#
+    }
+#>
+    </tr>
+}
+
+</table>

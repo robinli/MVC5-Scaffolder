@@ -37,5 +37,7 @@ namespace WebApplication1
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<QueryBooks_Result>("QueryBooks", queryBookNameParameter);
         }
+
+        public System.Data.Entity.DbSet<WebApplication1.QueryBooks_Result> QueryBooks_Result { get; set; }
     }
 }

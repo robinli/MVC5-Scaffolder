@@ -8,15 +8,13 @@ namespace WebApplication1
     {
         [Display(Name="查詢書名")]
         public string queryBookName { get; set; }
-
         public IEnumerable<QueryBooks_Result> Result { get; set; }
     }
 
-
-    [MetadataType(typeof(QueryBooks_ResultMetadata))]
-    public partial class QueryBooks_Result
-    {
-    }
+    //[MetadataType(typeof(QueryBooks_ResultMetadata))]
+    //public partial class QueryBooks_Result
+    //{
+    //}
 
     public partial class QueryBooks_ResultMetadata
     {
@@ -29,14 +27,14 @@ namespace WebApplication1
         [Display(Name = "作者")]
         public string AUTHOR { get; set; }
 
-        [Display(Name = "出版日期")]
-        public Nullable<System.DateTime> PUBLISH_UTC { get; set; }
+        [Display(Name = "PUBLISH_UTC")]
+        public System.DateTime? PUBLISH_UTC { get; set; }
 
-        [Display(Name = "版次")]
-        public Nullable<int> VERSION_NUM { get; set; }
+        [Display(Name = "VERSION_NUM")]
+        public int? VERSION_NUM { get; set; }
 
-        [Display(Name = "售價")]
-        public Nullable<decimal> LIST_PRICE { get; set; }
+        [Display(Name = "LIST_PRICE")]
+        public decimal? LIST_PRICE { get; set; }
+
     }
-
 }

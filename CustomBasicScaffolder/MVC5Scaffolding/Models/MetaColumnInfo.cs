@@ -8,6 +8,7 @@ namespace Happy.Scaffolding.MVC.Models
     [Serializable]
     public class MetaColumnInfo
     {
+        public string ShortTypeName { get; set; }
         public string strDateType { get; set; }
         public euColumnType DataType { get; set; }
         public string Name { get; set; }
@@ -17,7 +18,7 @@ namespace Happy.Scaffolding.MVC.Models
         public int RangeMin { get; set; }
         public int RangeMax { get; set; }
 
-        public bool Visible { get; set; }
+        public bool IsVisible { get; set; }
 
         public bool HasMetaAttribute
         {
@@ -72,6 +73,7 @@ namespace Happy.Scaffolding.MVC.Models
         private MetaColumnInfo(string strName, string strType, bool relatedModel)
         {
             this.Name = strName;
+            this.ShortTypeName = strType;
             this.strDateType = strType.Replace("?", "").Replace("System.", "").ToLower();
 
             if (!relatedModel)
@@ -83,7 +85,7 @@ namespace Happy.Scaffolding.MVC.Models
 
             DisplayName = this.Name;
             Nullable = true;
-            Visible = true;
+            IsVisible = true;
         }
 
         private euColumnType GetColumnType(string shortTypeName)

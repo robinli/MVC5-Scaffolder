@@ -173,6 +173,7 @@
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
+    <Compile Include="Controllers\ReportController_Sample.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -193,7 +194,7 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\QueryBooks_QueryFormViewModel.cs" />
+    <Compile Include="Models\QueryBooks_ResultViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryBooks_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -208,11 +209,6 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="CodeTemplates\AssemblyVersions.xml" />
-    <Content Include="CodeTemplates\PackageVersions5.0.0.xml" />
-    <Content Include="CodeTemplates\PackageVersions5.1.0.xml" />
-    <Content Include="CodeTemplates\PackageVersions5.1.1.xml" />
-    <Content Include="CodeTemplates\PackageVersions5.1.2.xml" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -221,78 +217,6 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="CodeTemplates\ApiControllerEmpty\Controller.cs.t4" />
-    <Content Include="CodeTemplates\ApiControllerEmpty\Controller.vb.t4" />
-    <Content Include="CodeTemplates\ApiControllerWithActions\Controller.cs.t4" />
-    <Content Include="CodeTemplates\ApiControllerWithActions\Controller.vb.t4" />
-    <Content Include="CodeTemplates\ApiControllerWithContext\Controller.cs.t4" />
-    <Content Include="CodeTemplates\ApiControllerWithContext\Controller.vb.t4" />
-    <Content Include="CodeTemplates\ApiDependencyCodeGenerator\Global.asax.cs.t4" />
-    <Content Include="CodeTemplates\ApiDependencyCodeGenerator\Global.asax.vb.t4" />
-    <Content Include="CodeTemplates\ApiDependencyCodeGenerator\Global.cs.t4" />
-    <Content Include="CodeTemplates\ApiDependencyCodeGenerator\Global.vb.t4" />
-    <Content Include="CodeTemplates\ApiDependencyCodeGenerator\WebApiConfig.cs.t4" />
-    <Content Include="CodeTemplates\ApiDependencyCodeGenerator\WebApiConfig.vb.t4" />
-    <Content Include="CodeTemplates\MvcArea\Area.cs.t4" />
-    <Content Include="CodeTemplates\MvcArea\Area.vb.t4" />
-    <Content Include="CodeTemplates\MvcArea\web.cs.t4" />
-    <Content Include="CodeTemplates\MvcArea\web.vb.t4" />
-    <Content Include="CodeTemplates\MvcControllerEmpty\Controller.cs.t4" />
-    <Content Include="CodeTemplates\MvcControllerEmpty\Controller.vb.t4" />
-    <Content Include="CodeTemplates\MvcControllerWithActions\Controller.cs.t4" />
-    <Content Include="CodeTemplates\MvcControllerWithActions\Controller.vb.t4" />
-    <Content Include="CodeTemplates\MvcControllerWithContext\Controller.cs.t4" />
-    <Content Include="CodeTemplates\MvcControllerWithContext\Controller.vb.t4" />
-    <Content Include="CodeTemplates\MvcFullDependencyCodeGenerator\BundleConfig.cs.t4" />
-    <Content Include="CodeTemplates\MvcFullDependencyCodeGenerator\BundleConfig.vb.t4" />
-    <Content Include="CodeTemplates\MvcFullDependencyCodeGenerator\Error.cshtml" />
-    <Content Include="CodeTemplates\MvcFullDependencyCodeGenerator\Error.vbhtml" />
-    <Content Include="CodeTemplates\MvcFullDependencyCodeGenerator\FilterConfig.cs.t4" />
-    <Content Include="CodeTemplates\MvcFullDependencyCodeGenerator\FilterConfig.vb.t4" />
-    <Content Include="CodeTemplates\MvcFullDependencyCodeGenerator\Global.asax.cs.t4" />
-    <Content Include="CodeTemplates\MvcFullDependencyCodeGenerator\Global.asax.vb.t4" />
-    <Content Include="CodeTemplates\MvcFullDependencyCodeGenerator\Global.cs.t4" />
-    <Content Include="CodeTemplates\MvcFullDependencyCodeGenerator\Global.vb.t4" />
-    <Content Include="CodeTemplates\MvcFullDependencyCodeGenerator\RouteConfig.cs.t4" />
-    <Content Include="CodeTemplates\MvcFullDependencyCodeGenerator\RouteConfig.vb.t4" />
-    <Content Include="CodeTemplates\MvcFullDependencyCodeGenerator\Site.cs.t4" />
-    <Content Include="CodeTemplates\MvcFullDependencyCodeGenerator\Site.vb.t4" />
-    <Content Include="CodeTemplates\MvcFullDependencyCodeGenerator\web.cs.t4" />
-    <Content Include="CodeTemplates\MvcFullDependencyCodeGenerator\web.vb.t4" />
-    <Content Include="CodeTemplates\MvcFullDependencyCodeGenerator\_Layout.cs.t4" />
-    <Content Include="CodeTemplates\MvcFullDependencyCodeGenerator\_Layout.vb.t4" />
-    <Content Include="CodeTemplates\MvcFullDependencyCodeGenerator\_ViewStart.cs.t4" />
-    <Content Include="CodeTemplates\MvcFullDependencyCodeGenerator\_ViewStart.vb.t4" />
-    <Content Include="CodeTemplates\MvcMinimalDependencyCodeGenerator\Global.asax.cs.t4" />
-    <Content Include="CodeTemplates\MvcMinimalDependencyCodeGenerator\Global.asax.vb.t4" />
-    <Content Include="CodeTemplates\MvcMinimalDependencyCodeGenerator\Global.cs.t4" />
-    <Content Include="CodeTemplates\MvcMinimalDependencyCodeGenerator\Global.vb.t4" />
-    <Content Include="CodeTemplates\MvcMinimalDependencyCodeGenerator\RouteConfig.cs.t4" />
-    <Content Include="CodeTemplates\MvcMinimalDependencyCodeGenerator\RouteConfig.vb.t4" />
-    <Content Include="CodeTemplates\MvcMinimalDependencyCodeGenerator\web.cs.t4" />
-    <Content Include="CodeTemplates\MvcMinimalDependencyCodeGenerator\web.vb.t4" />
-    <Content Include="CodeTemplates\MvcViewWithoutModel\Empty.cs.t4" />
-    <Content Include="CodeTemplates\MvcViewWithoutModel\Empty.vb.t4" />
-    <Content Include="CodeTemplates\MvcViewWithoutModel\Imports.include.t4" />
-    <Content Include="CodeTemplates\MvcView\Create.cs.t4" />
-    <Content Include="CodeTemplates\MvcView\Create.vb.t4" />
-    <Content Include="CodeTemplates\MvcView\Delete.cs.t4" />
-    <Content Include="CodeTemplates\MvcView\Delete.vb.t4" />
-    <Content Include="CodeTemplates\MvcView\Details.cs.t4" />
-    <Content Include="CodeTemplates\MvcView\Details.vb.t4" />
-    <Content Include="CodeTemplates\MvcView\Edit.cs.t4" />
-    <Content Include="CodeTemplates\MvcView\Edit.vb.t4" />
-    <Content Include="CodeTemplates\MvcView\Empty.cs.t4" />
-    <Content Include="CodeTemplates\MvcView\Empty.vb.t4" />
-    <Content Include="CodeTemplates\MvcView\Imports.include.t4" />
-    <Content Include="CodeTemplates\MvcView\List.cs.t4" />
-    <Content Include="CodeTemplates\MvcView\List.vb.t4" />
-    <Content Include="CodeTemplates\MvcView\ModelMetadataFunctions.cs.include.t4" />
-    <Content Include="CodeTemplates\MvcView\ModelMetadataFunctions.vb.include.t4" />
-    <Content Include="CodeTemplates\ODataControllerWithActions\Controller.cs.t4" />
-    <Content Include="CodeTemplates\ODataControllerWithActions\Controller.vb.t4" />
-    <Content Include="CodeTemplates\ODataControllerWithContext\Controller.cs.t4" />
-    <Content Include="CodeTemplates\ODataControllerWithContext\Controller.vb.t4" />
     <EntityDeploy Include="Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -364,8 +288,10 @@
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Site1.Master" />
+    <Content Include="Views\Report_Sample\QueryBooks.cshtml" />
+    <Content Include="Views\Report_Sample\_QueryBooks.cshtml" />
     <Content Include="Views\Report\QueryBooks.cshtml" />
-    <Content Include="Views\Report\_QueryBooks_Result.cshtml" />
+    <Content Include="Views\Report\_QueryBooks.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

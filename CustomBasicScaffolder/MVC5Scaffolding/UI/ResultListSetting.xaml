@@ -107,7 +107,7 @@
                             <TextBox Text="{Binding Path=DisplayName}"  Grid.Column="1"></TextBox>
 
                             <Grid Grid.Column="2" Width="20">
-                                <CheckBox IsChecked="{Binding Visible}" Margin="0,4,0,0"></CheckBox>
+                                <CheckBox IsChecked="{Binding IsVisible}" Margin="0,4,0,0"></CheckBox>
                             </Grid>
 
                             <!--<StackPanel Grid.Column="3"  Orientation="Horizontal" Margin="4,0,0,0">

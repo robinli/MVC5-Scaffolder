@@ -12,11 +12,12 @@ namespace Happy.Scaffolding.MVC.Utils
     {
         public StorageMan(string modelTypeName, string savefolderPath)
         {
-            this.modelName = modelTypeName;
+            this.ModelName = modelTypeName;
             this.storageBaseDirectory = savefolderPath;
         }
 
-        private string modelName { get; set; }
+        public string ModelName { get; set; }
+
         private string m_storageBaseDirectory;
         private string storageBaseDirectory
         {
@@ -42,7 +43,7 @@ namespace Happy.Scaffolding.MVC.Utils
             get
             {
                 return System.IO.Path.Combine(storageBaseDirectory
-                    , string.Format("{0}.{1}", modelName, "json"));
+                    , string.Format("{0}.{1}", ModelName, "json"));
             }
         }
 

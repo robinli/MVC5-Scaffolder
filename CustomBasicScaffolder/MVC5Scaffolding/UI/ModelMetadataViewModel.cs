@@ -22,10 +22,10 @@ namespace Happy.Scaffolding.MVC.UI
             Init(dataModel);
         }
 
-        public MetadataSettingViewModel(CodeFunction codeElements)
+        public MetadataSettingViewModel(CodeFunction codefunction)
         {
             MetaTableInfo dataModel = new MetaTableInfo();
-            foreach (CodeElement ce in codeElements.Parameters)
+            foreach (CodeElement ce in codefunction.Parameters)
             {
                 CodeParameter p1 = (CodeParameter)ce;
                 dataModel.Columns.Add(new MetaColumnInfo(p1));
@@ -61,6 +61,11 @@ namespace Happy.Scaffolding.MVC.UI
         public MetadataFieldViewModel this[string name]
         {
             get { return this.Columns.FirstOrDefault(x => x.Name == name); }
+        }
+
+        public MetadataFieldViewModel this[int index]
+        {
+            get { return this.Columns[index]; }
         }
 
         public MetaTableInfo DataModel { get; private set; }
@@ -171,6 +176,20 @@ namespace Happy.Scaffolding.MVC.UI
                     return;
                 }
                 DataModel.Nullable = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool IsVisible
+        {
+            get { return DataModel.IsVisible; }
+            set
+            {
+                if (value == DataModel.IsVisible)
+                {
+                    return;
+                }
+                DataModel.IsVisible = value;
                 OnPropertyChanged();
             }
         }

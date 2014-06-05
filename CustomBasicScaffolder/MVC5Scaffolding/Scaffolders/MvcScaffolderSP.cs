@@ -126,53 +126,51 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             CodeType dbContext = codeTypeService.GetCodeType(project, dbContextTypeName);
 
             // Get the Entity Framework Meta Data
-            IEntityFrameworkService efService = Context.ServiceProvider.GetService<IEntityFrameworkService>();
-            ModelMetadata efMetadata = efService.AddRequiredEntity(Context, dbContextTypeName, modelType.FullName);
+            //IEntityFrameworkService efService = Context.ServiceProvider.GetService<IEntityFrameworkService>();
+            //ModelMetadata efMetadata = efService.AddRequiredEntity(Context, dbContextTypeName, modelType.FullName);
 
-            // Create Controller
+            string methodName = _codeGeneratorViewModel.MethodTypeName;
             string controllerName = codeGeneratorViewModel.ControllerName;
-            string controllerRootName = controllerName.Replace("Controller","");
-            string outputFolderPath = Path.Combine(selectionRelativePath, controllerName);
+            string controllerRootName = controllerName.Replace("Controller", "");
 
-            AddMvcController(project: project
-                , controllerName: controllerName
-                , controllerRootName: controllerRootName
-                , outputPath: outputFolderPath
-                , ContextTypeName: dbContext.Name
-                , modelType: modelType
-                , efMetadata: efMetadata
-                , overwrite: codeGeneratorViewModel.OverwriteViews);
+            // add Metadata for Model
+            string defaultNamespace = modelType.Namespace.FullName;
+            MetaTableInfo queryMetaTable = _codeGeneratorViewModel.QueryFormViewModel.DataModel;
+            MetaTableInfo resultMetaTable = _codeGeneratorViewModel.ResultListViewModel.DataModel;
+
+            string outputFolderPath = Path.Combine(GetModelFolderPath(selectionRelativePath), modelType + "ViewModels"); 
+            //AddModelMetadata(project: project
+            //    , controllerName: controllerName
+            //    , controllerRootName: controllerRootName
+            //    , outputPath: outputFolderPath
+            //    , defaultNamespace: defaultNamespace
+            //    , modelTypeName: modelType.Name
+            //    , methodName: methodName
+            //    , queryMetaTable: queryMetaTable
+            //    , resultMetaTable: resultMetaTable
+            //    , overwrite: codeGeneratorViewModel.OverwriteViews);
+
+            //// Create Controller
+            //outputFolderPath = Path.Combine(selectionRelativePath, controllerName);
+            //AddMvcController(project: project
+            //    , controllerName: controllerName
+            //    , controllerRootName: controllerRootName
+            //    , outputPath: outputFolderPath
+            //    , ContextTypeName: dbContext.Name
+            //    , modelType: modelType
+            //    , efMetadata: null/*efMetadata*/
+            //    , overwrite: codeGeneratorViewModel.OverwriteViews);
 
             if (!codeGeneratorViewModel.GenerateViews)
                 return;
 
-            // add Metadata for Model
-            outputFolderPath = Path.Combine(GetModelFolderPath(selectionRelativePath), modelType.Name + "Metadata");
-            AddModelMetadata(project: project
-                , controllerName: controllerName
-                , controllerRootName: controllerRootName
-                , outputPath: outputFolderPath
-                , ContextTypeName: dbContext.Name
-                , modelType: modelType
-                , efMetadata: efMetadata
-                , overwrite: codeGeneratorViewModel.OverwriteViews);
-            
-            //_ViewStart & Create _Layout
-            string viewRootPath = GetViewsFolderPath(selectionRelativePath);
-            if (codeGeneratorViewModel.LayoutPageSelected)
-            {
-                string areaName = GetAreaName(selectionRelativePath);
-                AddDependencyFile(project, viewRootPath, areaName);
-            }
-            // EditorTemplates, DisplayTemplates
-            AddDataFieldTemplates(project, viewRootPath);
-            
-
             // Views for  C.R.U.D 
+            string viewRootPath = GetViewsFolderPath(selectionRelativePath);
             string viewFolderPath = Path.Combine(viewRootPath, controllerRootName);
-            foreach (string viewName in new string[4] { "Index", "Create", "Edit", "_Edit" })
+            foreach (string viewName in new string[2] { "Index", "_Index" })
             {
-                AddView(project, viewFolderPath, viewName, controllerRootName, modelType, efMetadata
+                AddView(project, viewFolderPath, viewName, controllerRootName, modelType
+                    , null /*efMetadata*/
                     , referenceScriptLibraries: codeGeneratorViewModel.ReferenceScriptLibraries
                     , isLayoutPageSelected: codeGeneratorViewModel.LayoutPageSelected
                     , layoutPageFile: codeGeneratorViewModel.LayoutPageFile
@@ -201,17 +199,17 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 throw new ArgumentException(Resources.WebFormsViewScaffolder_EmptyActionName, "webFormsName");
             }
 
-            PropertyMetadata primaryKey = efMetadata.PrimaryKeys.FirstOrDefault();
-            string pluralizedName = efMetadata.EntitySetName;
+            //PropertyMetadata primaryKey = efMetadata.PrimaryKeys.FirstOrDefault();
+            //string pluralizedName = efMetadata.EntitySetName;
             string modelNameSpace = modelType.Namespace != null ? modelType.Namespace.FullName : String.Empty;
             string relativePath = outputPath.Replace(@"\", @"/");
 
 
             //Project project = Context.ActiveProject;
-            var templatePath = Path.Combine("MvcControllerWithContext", "Controller");
+            var templatePath = Path.Combine("MvcScaffolderSP", "MvcControllerWithContext", "Controller");
             var defaultNamespace = GetDefaultNamespace();
             string modelTypeVariable = GetTypeVariable(modelType.Name);
-            string bindAttributeIncludeText =GetBindAttributeIncludeText(efMetadata);
+            string bindAttributeIncludeText = GetAllColumnsText(_codeGeneratorViewModel.QueryFormViewModel.DataModel);// GetBindAttributeIncludeText(efMetadata);
 
             Dictionary<string, object> templateParams=new Dictionary<string, object>(){
                 {"ControllerName", controllerName}
@@ -221,13 +219,18 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 , {"ContextTypeName", ContextTypeName}
                 , {"ModelTypeName", modelType.Name}
                 , {"ModelVariable", modelTypeVariable}
-                , {"ModelMetadata", efMetadata}
-                , {"EntitySetVariable", modelTypeVariable}
-                , {"UseAsync", false}
-                , {"IsOverpostingProtectionRequired", true}
-                , {"BindAttributeIncludeText", bindAttributeIncludeText}
-                , {"OverpostingWarningMessage", "To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598."}
+                //, {"ModelMetadata", efMetadata}
+                //, {"EntitySetVariable", modelTypeVariable}
+                //, {"UseAsync", false}
+                //, {"IsOverpostingProtectionRequired", true}
+                //, {"BindAttributeIncludeText", bindAttributeIncludeText}
+                //, {"OverpostingWarningMessage", "To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598."}
                 , {"RequiredNamespaces", new HashSet<string>(){modelType.Namespace.FullName}}
+                
+                , {"MethodName", _codeGeneratorViewModel.MethodTypeName}
+                , {"QueryMetaTable", _codeGeneratorViewModel.QueryFormViewModel.DataModel}
+                , {"ResultMetaTable", _codeGeneratorViewModel.ResultListViewModel.DataModel}
+                , {"AllFilterColumnsText", bindAttributeIncludeText }
             };
 
             AddFileFromTemplate(project: project
@@ -235,6 +238,16 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 , templateName: templatePath
                 , templateParameters: templateParams
                 , skipIfExists: !overwrite);
+        }
+
+        private string GetAllColumnsText(MetaTableInfo table)
+        {
+            string result = "";
+            foreach(MetaColumnInfo column in table.Columns)
+            {
+                result+=","+column.Name;
+            }
+            return result.Substring(1);
         }
 
         private string GetTypeVariable(string typeName)
@@ -254,37 +267,21 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             , string controllerName
             , string controllerRootName
             , string outputPath
-            , string ContextTypeName /*"Entities"*/
-            , CodeType modelType
-            , ModelMetadata efMetadata
+            , string defaultNamespace
+            , string modelTypeName
+            , string methodName
+            , MetaTableInfo queryMetaTable
+            , MetaTableInfo resultMetaTable
             , bool overwrite = false)
         {
-            if (modelType == null)
-            {
-                throw new ArgumentNullException("modelType");
-            }
-            if (String.IsNullOrEmpty(controllerName))
-            {
-                throw new ArgumentException(Resources.WebFormsViewScaffolder_EmptyActionName, "webFormsName");
-            }
-
-            PropertyMetadata primaryKey = efMetadata.PrimaryKeys.FirstOrDefault();
-            string pluralizedName = efMetadata.EntitySetName;
-            string modelNameSpace = modelType.Namespace != null ? modelType.Namespace.FullName : String.Empty;
-            string relativePath = outputPath.Replace(@"\", @"/");
-
-
-            //Project project = Context.ActiveProject;
-            var templatePath = Path.Combine("Model", "Metadata");
-            string defaultNamespace = modelType.Namespace.FullName;
-            string modelTypeVariable = GetTypeVariable(modelType.Name);
-            string bindAttributeIncludeText = GetBindAttributeIncludeText(efMetadata);
-
+            var templatePath = Path.Combine("MvcScaffolderSP", "Model", "ViewModel");
+            
             Dictionary<string, object> templateParams = new Dictionary<string, object>(){
                 {"Namespace", defaultNamespace}
-                , {"ModelTypeName", modelType.Name}
-                , {"ModelMetadata", efMetadata}
-                , {"MetaTable", _codeGeneratorViewModel.QueryFormViewModel.DataModel}
+                , {"ModelTypeName", modelTypeName}
+                , {"MethodName", methodName}
+                , {"QueryMetaTable", queryMetaTable}
+                , {"ResultMetaTable", resultMetaTable}
             };
             
             AddFileFromTemplate(project: project
@@ -307,16 +304,18 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             , bool overwrite = false)
         {
             //Project project = Context.ActiveProject;
-            string outputPath = Path.Combine(viewsFolderPath, viewName);
-            string templatePath = Path.Combine("MvcView", viewName);
-            string viewDataTypeName = modelType.Namespace.FullName + "." + modelType.Name;
+            string methodName = _codeGeneratorViewModel.MethodTypeName;
+            string outputPath = Path.Combine(viewsFolderPath, viewName.Replace("Index", methodName));
+            string templatePath = Path.Combine("MvcScaffolderSP", "MvcView", viewName);
+            string viewDataTypeName = modelType.Namespace.FullName + "." + methodName+"_QueryFormViewModel";
+            
 
             if (layoutPageFile == null)
                 layoutPageFile = string.Empty;
 
             Dictionary<string, object> templateParams = new Dictionary<string, object>(){
                 {"ControllerRootName" , controllerRootName}
-                , {"ModelMetadata", efMetadata}
+                , {"ModelTypeFullName", modelType.FullName}
                 , {"ViewName", viewName}
                 , {"ViewDataTypeName", viewDataTypeName}
                 , {"IsPartialView" , false}
@@ -327,6 +326,9 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 , {"ViewDataTypeShortName", modelType.Name}
                 , {"JQueryVersion","2.1.0"} // 如何讀取專案的 jQuery 版本
                 , {"MvcVersion", new Version("5.1.2.0")}
+                , {"MethodName", _codeGeneratorViewModel.MethodTypeName}
+                , {"QueryMetaTable", _codeGeneratorViewModel.QueryFormViewModel.DataModel}
+                , {"ResultMetaTable", _codeGeneratorViewModel.ResultListViewModel.DataModel}
             };
 
             AddFileFromTemplate(project: project
