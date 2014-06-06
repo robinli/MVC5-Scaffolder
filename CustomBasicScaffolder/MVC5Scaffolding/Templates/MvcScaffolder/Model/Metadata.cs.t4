@@ -36,7 +36,7 @@ foreach (PropertyMetadata property in ModelMetadata.Properties) {
 <#
         if(column.HasMetaAttribute){
 #>
-        <#= MetaTable[property.PropertyName].MetaAttribute #>
+        <#= column.MetaAttribute #>
 <#    }
 #>
         public <#= property.ShortTypeName #> <#= property.PropertyName #> { get; set; }

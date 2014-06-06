@@ -25,11 +25,20 @@ namespace <#= Namespace #>
     foreach (MetaColumnInfo column in QueryMetaTable.Columns) {
 #>
         [Display(Name="<#= column.DisplayName #>")]
+<#
+        if(column.HasMetaAttribute){
+#>
+        <#= column.MetaAttribute #>
+<#    }
+#>
         public string <#= column.Name #> { get; set; }
 <#
 }
 #>
-        public IEnumerable<<#= ModelTypeName #>> Result { get; set; }
+
+        public bool DoExport { get; set; }
+
+        public List<<#= ModelTypeName #>> Result { get; set; }
     }
 
     [MetadataType(typeof(<#= ModelTypeName #>Metadata))]

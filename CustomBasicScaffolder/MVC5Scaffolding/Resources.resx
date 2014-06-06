@@ -125,13 +125,13 @@
     <value>Generates ASP.NET MVC controller and views for C.R.U.D (inserting, editing, deleting, and listing) from an Entity Framework data context.</value>
   </data>
   <data name="MVCScaffolder_Description2" xml:space="preserve">
-    <value>Generates ASP.NET MVC controller and list view from an Entity Framework data context ( method from Store Procedure ) .</value>
+    <value>Generates ASP.NET MVC controller and query/list view from an Entity Framework data context (method import from Store Procedure) .</value>
   </data>
   <data name="MVCScaffolder_Name" xml:space="preserve">
-    <value>Happy Scaffolding for MVC</value>
+    <value>HappyGen MVC 5 for C.R.U.D</value>
   </data>
   <data name="MVCScaffolder_Name2" xml:space="preserve">
-    <value>Happy Scaffolding for MVC (Store Procedure)</value>
+    <value>HappyGen MVC 5 for Search from EF6 (Store Procedure)</value>
   </data>
   <data name="WebFormsCodeGeneratorViewModel_AddNewDbContext" xml:space="preserve">
     <value>Add new data context...</value>

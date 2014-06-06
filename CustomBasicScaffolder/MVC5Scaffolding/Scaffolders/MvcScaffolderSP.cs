@@ -138,33 +138,34 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             MetaTableInfo queryMetaTable = _codeGeneratorViewModel.QueryFormViewModel.DataModel;
             MetaTableInfo resultMetaTable = _codeGeneratorViewModel.ResultListViewModel.DataModel;
 
-            string outputFolderPath = Path.Combine(GetModelFolderPath(selectionRelativePath), modelType + "ViewModels"); 
-            //AddModelMetadata(project: project
-            //    , controllerName: controllerName
-            //    , controllerRootName: controllerRootName
-            //    , outputPath: outputFolderPath
-            //    , defaultNamespace: defaultNamespace
-            //    , modelTypeName: modelType.Name
-            //    , methodName: methodName
-            //    , queryMetaTable: queryMetaTable
-            //    , resultMetaTable: resultMetaTable
-            //    , overwrite: codeGeneratorViewModel.OverwriteViews);
+            string outputFolderPath = Path.Combine(GetModelFolderPath(selectionRelativePath), modelType.Name + "ViewModels");
+            AddModelMetadata(project: project
+                , controllerName: controllerName
+                , controllerRootName: controllerRootName
+                , outputPath: outputFolderPath
+                , defaultNamespace: defaultNamespace
+                , modelTypeName: modelType.Name
+                , methodName: methodName
+                , queryMetaTable: queryMetaTable
+                , resultMetaTable: resultMetaTable
+                , overwrite: codeGeneratorViewModel.OverwriteViews);
 
-            //// Create Controller
-            //outputFolderPath = Path.Combine(selectionRelativePath, controllerName);
-            //AddMvcController(project: project
-            //    , controllerName: controllerName
-            //    , controllerRootName: controllerRootName
-            //    , outputPath: outputFolderPath
-            //    , ContextTypeName: dbContext.Name
-            //    , modelType: modelType
-            //    , efMetadata: null/*efMetadata*/
-            //    , overwrite: codeGeneratorViewModel.OverwriteViews);
+            // Create Controller
+            outputFolderPath = Path.Combine(selectionRelativePath, controllerName);
+            AddMvcController(project: project
+                , controllerName: controllerName
+                , controllerRootName: controllerRootName
+                , outputPath: outputFolderPath
+                , ContextTypeName: dbContext.Name
+                , modelType: modelType
+                , efMetadata: null/*efMetadata*/
+                , overwrite: codeGeneratorViewModel.OverwriteViews);
 
             if (!codeGeneratorViewModel.GenerateViews)
                 return;
 
-            // Views for  C.R.U.D 
+
+            // Create Views
             string viewRootPath = GetViewsFolderPath(selectionRelativePath);
             string viewFolderPath = Path.Combine(viewRootPath, controllerRootName);
             foreach (string viewName in new string[2] { "Index", "_Index" })
@@ -177,6 +178,14 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                     , overwrite: codeGeneratorViewModel.OverwriteViews
                     );
             }
+
+            //_ViewStart & Create _Layout
+            if (codeGeneratorViewModel.LayoutPageSelected)
+            {
+                string areaName = GetAreaName(selectionRelativePath);
+                AddDependencyFile(project, viewRootPath, areaName);
+            }
+
         }
 
 

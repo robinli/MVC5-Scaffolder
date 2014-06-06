@@ -80,7 +80,7 @@ namespace Happy.Scaffolding.MVC {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Generates ASP.NET MVC controller and list view from an Entity Framework data context ( method from Store Procedure ) ..
+        ///   Looks up a localized string similar to Generates ASP.NET MVC controller and query/list view from an Entity Framework data context (method import from Store Procedure) ..
         /// </summary>
         internal static string MVCScaffolder_Description2 {
             get {
@@ -89,7 +89,7 @@ namespace Happy.Scaffolding.MVC {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Happy Scaffolding for MVC.
+        ///   Looks up a localized string similar to HappyGen MVC 5 for C.R.U.D.
         /// </summary>
         internal static string MVCScaffolder_Name {
             get {
@@ -98,7 +98,7 @@ namespace Happy.Scaffolding.MVC {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Happy Scaffolding for MVC (Store Procedure).
+        ///   Looks up a localized string similar to HappyGen MVC 5 for Search from EF6 (Store Procedure).
         /// </summary>
         internal static string MVCScaffolder_Name2 {
             get {

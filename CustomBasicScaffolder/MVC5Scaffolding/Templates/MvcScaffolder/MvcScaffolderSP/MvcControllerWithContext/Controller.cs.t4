@@ -60,17 +60,17 @@ namespace <#= Namespace #>
         [ValidateAntiForgeryToken]
         public ActionResult <#= MethodName #>(<#= MethodName #>_QueryFormViewModel vm)
         {
-            vm.Result = db.<#= MethodName #>(<#=queryFilter#>);
+            vm.Result = db.<#= MethodName #>(<#=queryFilter#>).ToList();
+            if (vm.DoExport && vm.Result.Count>0)
+            {
+                return <#= MethodName #>Export(vm.Result);
+            }
             return View(vm);
         }
 
-        //POST: <#= MethodName #>Export
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult <#= MethodName #>Export(<#= MethodName #>_QueryFormViewModel vm)
+
+        private ActionResult <#= MethodName #>Export(List<<#= ModelTypeName #>> data)
         {
-            List<<#= ModelTypeName #>>data = db.<#= MethodName #>(<#=queryFilter#>).ToList();
-            
             //Export Excel
             using (ExcelPackage package = new ExcelPackage())
             {

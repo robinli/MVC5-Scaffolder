@@ -157,7 +157,7 @@
     <value>(Leave empty if it is set in Razor _viewstart file)</value>
   </data>
   <data name="MethodNameLabel_Content" xml:space="preserve">
-    <value>Method name:</value>
+    <value>Method name / Store Procedure import function</value>
   </data>
   <data name="ModelTypeLabel_Content" xml:space="preserve">
     <value>Model cla_ss:</value>

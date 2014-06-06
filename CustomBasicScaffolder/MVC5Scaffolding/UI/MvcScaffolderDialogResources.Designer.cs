@@ -178,7 +178,7 @@ namespace Happy.Scaffolding.MVC.UI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Method name:.
+        ///   Looks up a localized string similar to Method name / Store Procedure import function.
         /// </summary>
         public static string MethodNameLabel_Content {
             get {
