@@ -18,6 +18,7 @@
         </EntityType>
         <Function Name="QueryBooks" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="QueryBookName" Type="nvarchar" Mode="In" />
+          <Parameter Name="QueryAuthor" Type="nvarchar" Mode="In" />
         </Function>
         <EntityContainer Name="SchoolDBModelStoreContainer">
           <EntitySet Name="BOOKS" EntityType="Self.BOOKS" Schema="dbo" store:Type="Tables" />
@@ -30,6 +31,7 @@
           <EntitySet Name="BOOKS" EntityType="SchoolDBModel.BOOKS" />
           <FunctionImport Name="QueryBooks" ReturnType="Collection(SchoolDBModel.QueryBooks_Result)">
             <Parameter Name="QueryBookName" Mode="In" Type="String" />
+            <Parameter Name="QueryAuthor" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="BOOKS">

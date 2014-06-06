@@ -29,15 +29,17 @@ namespace WebApplication1
     
         public virtual DbSet<BOOKS> BOOKS { get; set; }
     
-        public virtual ObjectResult<QueryBooks_Result> QueryBooks(string queryBookName)
+        public virtual ObjectResult<QueryBooks_Result> QueryBooks(string queryBookName, string queryAuthor)
         {
             var queryBookNameParameter = queryBookName != null ?
                 new ObjectParameter("QueryBookName", queryBookName) :
                 new ObjectParameter("QueryBookName", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<QueryBooks_Result>("QueryBooks", queryBookNameParameter);
+            var queryAuthorParameter = queryAuthor != null ?
+                new ObjectParameter("QueryAuthor", queryAuthor) :
+                new ObjectParameter("QueryAuthor", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<QueryBooks_Result>("QueryBooks", queryBookNameParameter, queryAuthorParameter);
         }
-
-        public System.Data.Entity.DbSet<WebApplication1.QueryBooks_Result> QueryBooks_Result { get; set; }
     }
 }
