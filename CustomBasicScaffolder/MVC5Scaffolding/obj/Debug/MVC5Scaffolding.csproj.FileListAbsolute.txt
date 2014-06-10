@@ -39,7 +39,6 @@ E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Debug\MVC5Sc
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Debug\MVC5Scaffolding_MarkupCompile.lref
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Debug\MVC5Scaffolding.dll
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\Templates\MvcScaffolder\MvcControllerWithContext\Controller.cs.t4
-E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\Templates\MvcScaffolder\MvcView\_Edit.cs.t4
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\Templates\MvcScaffolder\MvcView\Create.cs.t4
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\Templates\MvcScaffolder\MvcView\Delete.cs.t4
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\Templates\MvcScaffolder\MvcView\Details.cs.t4
@@ -81,3 +80,5 @@ E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\Templa
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\Templates\MvcScaffolder\MvcScaffolderSP\MvcView\Imports.include.t4
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\Templates\MvcScaffolder\MvcScaffolderSP\MvcView\_Index.cs.t4
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\Templates\MvcScaffolder\MvcScaffolderSP\MvcView\ModelMetadataFunctions.cs.include.t4
+E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Debug\MVC5Scaffolding.csprojResolveAssemblyReference.cache
+E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\Templates\MvcScaffolder\MvcView\EditForm.cs.t4

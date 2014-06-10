@@ -10,11 +10,11 @@ none
 false
 TRACE
 
-2-1225551130
+5-490477246
 
-25-1804844636
+31-1711838120
 31-2106210270
-UI\ModelMetadataDialog.xaml;UI\MvcScaffolderDialog.xaml;
+UI\ModelMetadataDialog.xaml;UI\QueryFormSetting.xaml;UI\ResultListSetting.xaml;UI\SPScaffolderDialog.xaml;UI\MvcScaffolderDialog.xaml;
 
 False
 

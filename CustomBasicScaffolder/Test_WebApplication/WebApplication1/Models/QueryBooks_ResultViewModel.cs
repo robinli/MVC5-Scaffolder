@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WebApplication1
 {
-    public class QueryBooks_QueryFormViewModel
+    public class QueryBooks_QueryFormViewModel2
     {
         [Display(Name="查詢書名")]
         public string queryBookName { get; set; }
@@ -16,7 +16,7 @@ namespace WebApplication1
     //{
     //}
 
-    public partial class QueryBooks_ResultMetadata
+    public partial class QueryBooks_ResultMetadata2
     {
         [Display(Name = "ISBN")]
         public string ID { get; set; }

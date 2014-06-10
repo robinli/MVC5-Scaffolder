@@ -6,6 +6,7 @@
     <edmx:Diagrams>
       <Diagram DiagramId="3a12bdc962b245fe83cf0bd232528639" Name="Diagram1">
         <EntityTypeShape EntityType="SchoolDBModel.BOOKS" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SchoolDBModel.GRP_BS_CUSTGRADE" Width="1.5" PointX="3.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

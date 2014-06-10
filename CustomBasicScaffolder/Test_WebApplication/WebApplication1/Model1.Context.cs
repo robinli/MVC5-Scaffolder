@@ -28,6 +28,7 @@ namespace WebApplication1
         }
     
         public virtual DbSet<BOOKS> BOOKS { get; set; }
+        public virtual DbSet<GRP_BS_CUSTGRADE> GRP_BS_CUSTGRADE { get; set; }
     
         public virtual ObjectResult<QueryBooks_Result> QueryBooks(string queryBookName, string queryAuthor)
         {

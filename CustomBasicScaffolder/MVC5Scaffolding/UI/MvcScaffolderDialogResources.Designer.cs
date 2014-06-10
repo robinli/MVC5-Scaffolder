@@ -97,7 +97,7 @@ namespace Happy.Scaffolding.MVC.UI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Controller Name.
+        ///   Looks up a localized string similar to Controller name.
         /// </summary>
         public static string ControllerName {
             get {
@@ -214,6 +214,15 @@ namespace Happy.Scaffolding.MVC.UI {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Program title.
+        /// </summary>
+        public static string ProgramerNameLabel_Content {
+            get {
+                return ResourceManager.GetString("ProgramerNameLabel_Content", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reference script libraries.
         /// </summary>
         public static string ReferenceScriptLibraries {
@@ -273,6 +282,15 @@ namespace Happy.Scaffolding.MVC.UI {
         public static string UseLayoutPage {
             get {
                 return ResourceManager.GetString("UseLayoutPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View prefix.
+        /// </summary>
+        public static string ViewPrefixLabel_Content {
+            get {
+                return ResourceManager.GetString("ViewPrefixLabel_Content", resourceCulture);
             }
         }
     }

@@ -169,6 +169,8 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             string controllerName = codeGeneratorViewModel.ControllerName;
             string controllerRootName = controllerName.Replace("Controller","");
             string outputFolderPath = Path.Combine(selectionRelativePath, controllerName);
+            string viewPrefix = codeGeneratorViewModel.ViewPrefix;
+            string programTitle = codeGeneratorViewModel.ProgramTitle;
 
             AddMvcController(project: project
                 , controllerName: controllerName
@@ -177,6 +179,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 , ContextTypeName: dbContext.Name
                 , modelType: modelType
                 , efMetadata: efMetadata
+                , viewPrefix: viewPrefix
                 , overwrite: codeGeneratorViewModel.OverwriteViews);
 
             if (!codeGeneratorViewModel.GenerateViews)
@@ -206,9 +209,22 @@ namespace Happy.Scaffolding.MVC.Scaffolders
 
             // Views for  C.R.U.D 
             string viewFolderPath = Path.Combine(viewRootPath, controllerRootName);
-            foreach (string viewName in new string[4] { "Index", "Create", "Edit", "_Edit" })
+            foreach (string viewName in new string[4] { "Index", "Create", "Edit", "EditForm" })
             {
-                AddView(project, viewFolderPath, viewName, controllerRootName, modelType, efMetadata
+                //string viewName = string.Format(view, viewPrefix);
+                //未完成
+                /*
+                 Index        CustIndex
+                 Create       CustCreate
+                 Edit           CustEdit
+                 EditForm    CustEditForm
+                 * 
+                 _Edit      _CustEdit
+                 */
+
+                AddView(project
+                    , viewFolderPath, viewPrefix, viewName, programTitle
+                    , controllerRootName, modelType, efMetadata
                     , referenceScriptLibraries: codeGeneratorViewModel.ReferenceScriptLibraries
                     , isLayoutPageSelected: codeGeneratorViewModel.LayoutPageSelected
                     , layoutPageFile: codeGeneratorViewModel.LayoutPageFile
@@ -226,7 +242,9 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             , string ContextTypeName /*"Entities"*/
             , CodeType modelType
             , ModelMetadata efMetadata
-            , bool overwrite = false)
+            , string viewPrefix
+            , bool overwrite = false
+            )
         {
             if (modelType == null)
             {
@@ -265,6 +283,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 , {"BindAttributeIncludeText", bindAttributeIncludeText}
                 , {"OverpostingWarningMessage", "To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598."}
                 , {"RequiredNamespaces", new HashSet<string>(){modelType.Namespace.FullName}}
+                , {"ViewPrefix", viewPrefix}
             };
 
             AddFileFromTemplate(project: project
@@ -334,7 +353,9 @@ namespace Happy.Scaffolding.MVC.Scaffolders
 
         private void AddView(Project project
             , string viewsFolderPath 
+            , string viewPrefix
             , string viewName
+            , string programTitle
             , string controllerRootName
             , CodeType modelType
             , ModelMetadata efMetadata
@@ -345,7 +366,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             , bool overwrite = false)
         {
             //Project project = Context.ActiveProject;
-            string outputPath = Path.Combine(viewsFolderPath, viewName);
+            string outputPath = Path.Combine(viewsFolderPath, viewPrefix+viewName);
             string templatePath = Path.Combine("MvcView", viewName);
             string viewDataTypeName = modelType.Namespace.FullName + "." + modelType.Name;
 
@@ -355,14 +376,17 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             Dictionary<string, object> templateParams = new Dictionary<string, object>(){
                 {"ControllerRootName" , controllerRootName}
                 , {"ModelMetadata", efMetadata}
+                , {"ViewPrefix", viewPrefix}
                 , {"ViewName", viewName}
+                , {"ProgramTitle", programTitle}
                 , {"ViewDataTypeName", viewDataTypeName}
                 , {"IsPartialView" , false}
                 , {"LayoutPageFile", layoutPageFile}
                 , {"IsLayoutPageSelected", isLayoutPageSelected}
                 , {"ReferenceScriptLibraries", referenceScriptLibraries}
                 , {"IsBundleConfigPresent", isBundleConfigPresent}
-                , {"ViewDataTypeShortName", modelType.Name}
+                //, {"ViewDataTypeShortName", modelType.Name} // 可刪除
+                , {"MetaTable", _ModelMetadataVM.DataModel}
                 , {"JQueryVersion","2.1.0"} // 如何讀取專案的 jQuery 版本
                 , {"MvcVersion", new Version("5.1.2.0")}
             };

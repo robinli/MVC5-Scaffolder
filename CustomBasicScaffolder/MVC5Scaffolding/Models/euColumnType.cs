@@ -9,28 +9,28 @@ namespace Happy.Scaffolding.MVC.Models
     public enum euColumnType
     {
         /// <summary>
-        /// string
-        /// </summary>
-        stringCT
-        ,
-        /// <summary>
-        /// DateTime
-        /// </summary>
-        datetimeCT
-        ,
-        /// <summary>
         /// int
         /// </summary>
-        intCT
+        intCT = 0x1
         ,
         /// <summary>
         /// decimal
         /// </summary>
-        decimalCT
+        decimalCT = 0x3
+        ,
+        /// <summary>
+        /// string
+        /// </summary>
+        stringCT = 0x0
+        ,
+        /// <summary>
+        /// DateTime
+        /// </summary>
+        datetimeCT = 0x2
         ,
         /// <summary>
         /// RelatedModel
         /// </summary>
-        RelatedModel
+        RelatedModel = 0x4
     }
 }

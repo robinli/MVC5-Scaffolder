@@ -1,8 +1,6 @@
 ﻿using EnvDTE;
 using System;
-using System.Collections.Generic;
-using System.Linq;
- 
+
 namespace Happy.Scaffolding.MVC.Models
 {
     [Serializable]
@@ -19,6 +17,11 @@ namespace Happy.Scaffolding.MVC.Models
         public int RangeMax { get; set; }
 
         public bool IsVisible { get; set; }
+
+        public bool IsNumeric
+        {
+            get { return ((this.DataType & euColumnType.intCT) == euColumnType.intCT); }
+        }
 
         public bool HasMetaAttribute
         {
@@ -41,7 +44,7 @@ namespace Happy.Scaffolding.MVC.Models
                             break;
                     case euColumnType.intCT:
                     case euColumnType.decimalCT:
-                        if (this.RangeMin > 0 && this.RangeMax > 0)
+                        if (this.RangeMin > 0 || this.RangeMax > 0)
                             return string.Format("[Range({0}, {1})]", this.RangeMin, this.RangeMax);
                         else
                             break;

@@ -1,7 +1,6 @@
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Release\Templates\MvcScaffolder\MvcControllerWithContext\Controller.cs.t4
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Release\Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\_Layout.cs.t4
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Release\Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\_ViewStart.cs.t4
-E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Release\Templates\MvcScaffolder\MvcView\_Edit.cs.t4
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Release\Templates\MvcScaffolder\MvcView\Create.cs.t4
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Release\Templates\MvcScaffolder\MvcView\Delete.cs.t4
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Release\Templates\MvcScaffolder\MvcView\Details.cs.t4
@@ -39,3 +38,16 @@ E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Release\Happ
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Release\Happy.Scaffolding.MVC.UI.MvcScaffolderDialogResources.resources
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Release\Happy.Scaffolding.MVC.Resources.fr-FR.resources
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Release\MVC5Scaffolding.csprojResolveAssemblyReference.cache
+E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Release\Templates\MvcScaffolder\MvcScaffolderSP\MvcControllerWithContext\Controller.cs.t4
+E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Release\Templates\MvcScaffolder\MvcScaffolderSP\Model\ViewModel.cs.t4
+E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Release\Templates\MvcScaffolder\MvcScaffolderSP\MvcView\Imports.include.t4
+E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Release\Templates\MvcScaffolder\MvcScaffolderSP\MvcView\Index.cs.t4
+E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Release\Templates\MvcScaffolder\MvcScaffolderSP\MvcView\_Index.cs.t4
+E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Release\Templates\MvcScaffolder\MvcScaffolderSP\MvcView\ModelMetadataFunctions.cs.include.t4
+E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Release\UI\QueryFormSetting.g.cs
+E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Release\UI\ResultListSetting.g.cs
+E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Release\UI\SPScaffolderDialog.g.cs
+E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Release\UI\QueryFormSetting.baml
+E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Release\UI\ResultListSetting.baml
+E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Release\UI\SPScaffolderDialog.baml
+E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Release\Templates\MvcScaffolder\MvcView\EditForm.cs.t4

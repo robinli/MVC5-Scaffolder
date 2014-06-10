@@ -4,7 +4,9 @@
     <EntitySet Name="BOOKS" EntityType="SchoolDBModel.BOOKS" />
     <FunctionImport Name="QueryBooks" ReturnType="Collection(SchoolDBModel.QueryBooks_Result)">
       <Parameter Name="QueryBookName" Mode="In" Type="String" />
+      <Parameter Name="QueryAuthor" Mode="In" Type="String" />
     </FunctionImport>
+    <EntitySet Name="GRP_BS_CUSTGRADE" EntityType="SchoolDBModel.GRP_BS_CUSTGRADE" />
   </EntityContainer>
   <EntityType Name="BOOKS">
     <Key>
@@ -25,4 +27,12 @@
     <Property Type="Int32" Name="VERSION_NUM" Nullable="true" />
     <Property Type="Decimal" Name="LIST_PRICE" Nullable="true" Precision="8" Scale="2" />
   </ComplexType>
+  <EntityType Name="GRP_BS_CUSTGRADE">
+    <Key>
+      <PropertyRef Name="GRADECO" />
+    </Key>
+    <Property Name="GRADECO" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="GRADENA" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+    <Property Name="DISCOUNT_PRICE" Type="Int32" />
+  </EntityType>
 </Schema>

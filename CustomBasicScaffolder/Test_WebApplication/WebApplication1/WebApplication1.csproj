@@ -166,6 +166,9 @@
     <Compile Include="Areas\CODGN\CODGNAreaRegistration.cs" />
     <Compile Include="Areas\CODGN\Controllers\BOOKSController.cs" />
     <Compile Include="Areas\CODGN\Models\BOOKSMetadata.cs" />
+    <Compile Include="Areas\Groupage\Controllers\GroupageAdminController.cs" />
+    <Compile Include="Areas\Groupage\GroupageAreaRegistration.cs" />
+    <Compile Include="Areas\Groupage\Models\GRP_BS_CUSTGRADEMetadata.cs" />
     <Compile Include="Areas\SP\Controllers\ReportController.cs" />
     <Compile Include="Areas\SP\Models\QueryBooks_ResultViewModels.cs" />
     <Compile Include="Areas\SP\SPAreaRegistration.cs" />
@@ -177,6 +180,9 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="GRP_BS_CUSTGRADE.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Model1.Context.cs">
       <AutoGen>True</AutoGen>
@@ -254,6 +260,16 @@
     <Content Include="Areas\SP\Views\Report\_QueryBooks.cshtml" />
     <Content Include="Areas\SP\Views\_ViewStart.cshtml" />
     <Content Include="Areas\SP\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Groupage\Views\web.config" />
+    <Content Include="Areas\Groupage\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Groupage\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Groupage\Views\Shared\EditorTemplates\Date.cshtml" />
+    <Content Include="Areas\Groupage\Views\Shared\DisplayTemplates\Date.cshtml" />
+    <Content Include="Areas\Groupage\Views\Shared\DisplayTemplates\DateTime.cshtml" />
+    <Content Include="Areas\Groupage\Views\GroupageAdmin\CustomergradeIndex.cshtml" />
+    <Content Include="Areas\Groupage\Views\GroupageAdmin\CustomergradeCreate.cshtml" />
+    <Content Include="Areas\Groupage\Views\GroupageAdmin\CustomergradeEdit.cshtml" />
+    <Content Include="Areas\Groupage\Views\GroupageAdmin\CustomergradeEditForm.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

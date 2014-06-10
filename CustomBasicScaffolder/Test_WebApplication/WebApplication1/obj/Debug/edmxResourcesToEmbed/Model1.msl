@@ -25,5 +25,14 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <EntitySetMapping Name="GRP_BS_CUSTGRADE">
+      <EntityTypeMapping TypeName="SchoolDBModel.GRP_BS_CUSTGRADE">
+        <MappingFragment StoreEntitySet="GRP_BS_CUSTGRADE">
+          <ScalarProperty Name="DISCOUNT_PRICE" ColumnName="DISCOUNT_PRICE" />
+          <ScalarProperty Name="GRADENA" ColumnName="GRADENA" />
+          <ScalarProperty Name="GRADECO" ColumnName="GRADECO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

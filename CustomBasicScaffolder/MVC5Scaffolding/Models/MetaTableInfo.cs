@@ -1,10 +1,6 @@
-﻿using Microsoft.AspNet.Scaffolding.Core.Metadata;
-using Happy.Scaffolding.MVC.UI;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Happy.Scaffolding.MVC.Models
 {
@@ -16,6 +12,10 @@ namespace Happy.Scaffolding.MVC.Models
         public MetaColumnInfo this[string name]
         {
             get { return this.Columns.FirstOrDefault(x => x.Name == name); }
+        }
+        public MetaColumnInfo this[int index]
+        {
+            get { return this.Columns[index]; }
         }
 
         public MetaTableInfo()

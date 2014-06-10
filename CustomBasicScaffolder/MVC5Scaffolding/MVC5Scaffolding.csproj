@@ -130,7 +130,7 @@
     <None Include="Templates\MvcScaffolder\MvcScaffolderSP\MvcView\ModelMetadataFunctions.cs.include.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\MvcScaffolder\MvcView\_Edit.cs.t4">
+    <None Include="Templates\MvcScaffolder\MvcView\EditForm.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Templates\MvcScaffolder\MvcView\Create.cs.t4">

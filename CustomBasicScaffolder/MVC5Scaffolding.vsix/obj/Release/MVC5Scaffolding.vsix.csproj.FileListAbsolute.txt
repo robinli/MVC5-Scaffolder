@@ -1,7 +1,6 @@
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\bin\Release\Templates\MvcScaffolder\MvcControllerWithContext\Controller.cs.t4
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\bin\Release\Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\_Layout.cs.t4
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\bin\Release\Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\_ViewStart.cs.t4
-E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\bin\Release\Templates\MvcScaffolder\MvcView\_Edit.cs.t4
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\bin\Release\Templates\MvcScaffolder\MvcView\Create.cs.t4
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\bin\Release\Templates\MvcScaffolder\MvcView\Delete.cs.t4
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\bin\Release\Templates\MvcScaffolder\MvcView\Details.cs.t4
@@ -30,3 +29,10 @@ E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\bin\Release
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\bin\Release\Happy.Scaffolding.MVC5.vsix
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\obj\Release\Happy.Scaffolding.MVC5.dll
 E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\obj\Release\Happy.Scaffolding.MVC5.pdb
+E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\bin\Release\Templates\MvcScaffolder\MvcScaffolderSP\MvcControllerWithContext\Controller.cs.t4
+E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\bin\Release\Templates\MvcScaffolder\MvcScaffolderSP\Model\ViewModel.cs.t4
+E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\bin\Release\Templates\MvcScaffolder\MvcScaffolderSP\MvcView\Imports.include.t4
+E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\bin\Release\Templates\MvcScaffolder\MvcScaffolderSP\MvcView\Index.cs.t4
+E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\bin\Release\Templates\MvcScaffolder\MvcScaffolderSP\MvcView\_Index.cs.t4
+E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\bin\Release\Templates\MvcScaffolder\MvcScaffolderSP\MvcView\ModelMetadataFunctions.cs.include.t4
+E:\GitHub\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\bin\Release\Templates\MvcScaffolder\MvcView\EditForm.cs.t4

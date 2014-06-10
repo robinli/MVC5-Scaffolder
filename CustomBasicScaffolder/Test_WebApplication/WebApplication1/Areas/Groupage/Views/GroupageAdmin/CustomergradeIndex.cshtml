@@ -1,0 +1,41 @@
+﻿@model IEnumerable<WebApplication1.GRP_BS_CUSTGRADE>
+
+@{
+    ViewBag.Title = "Index";
+}
+<style type='text/css'>
+    /*設定 數字靠右*/
+    td:nth-child(3n){text-align: right;}
+</style>
+<h2>Index</h2>
+<h4>客戶級別主檔</h4>
+<p>
+    @Html.ActionLink("Create New", "CustomergradeCreate")
+</p>
+<table class="table">
+    <tr>
+        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.GRADENA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DISCOUNT_PRICE)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink("Edit", "CustomergradeEdit", new { id=item.GRADECO })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GRADENA)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DISCOUNT_PRICE)
+        </td>
+
+    </tr>
+}
+
+</table>

@@ -31,6 +31,7 @@ else
 <#@ parameter type="System.Boolean" name="IsOverpostingProtectionRequired" #>
 <#@ parameter type="System.String" name="BindAttributeIncludeText" #>
 <#@ parameter type="System.String" name ="OverpostingWarningMessage" #>
+<#@ parameter type="System.String" name ="ViewPrefix" #>
 <#@ parameter type="System.Collections.Generic.HashSet<System.String>" name="RequiredNamespaces" #>
 using System;
 using System.Collections.Generic;
@@ -75,11 +76,11 @@ namespace <#= Namespace #>
     {
         private <#= ContextTypeName #> db = new <#= ContextTypeName #>();
 
-        // GET: <#= routePrefix #>
+        // GET: <#= routePrefix #>/<#= ViewPrefix #>Index
 <# if (UseAsync) { #>
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> <#= ViewPrefix #>Index()
 <# } else { #>
-        public ActionResult Index()
+        public ActionResult <#= ViewPrefix #>Index()
 <# } #>
         {
 <#  var includeExpressions = "";
@@ -102,11 +103,11 @@ namespace <#= Namespace #>
         }
 
         /*
-        // GET: <#= routePrefix #>/Details/5
+        // GET: <#= routePrefix #>/<#= ViewPrefix #>Details/5
 <# if (UseAsync) { #>
-        public async Task<ActionResult> Details(<#= primaryKeyNullableTypeName #> id)
+        public async Task<ActionResult> <#= ViewPrefix #>Details(<#= primaryKeyNullableTypeName #> id)
 <# } else { #>
-        public ActionResult Details(<#= primaryKeyNullableTypeName #> id)
+        public ActionResult <#= ViewPrefix #>Details(<#= primaryKeyNullableTypeName #> id)
 <# } #>
         {
             if (id == null)
@@ -126,8 +127,8 @@ namespace <#= Namespace #>
         }
         */
 
-        // GET: <#= routePrefix #>/Create
-        public ActionResult Create()
+        // GET: <#= routePrefix #>/<#= ViewPrefix #>Create
+        public ActionResult <#= ViewPrefix #>Create()
         {
 <# foreach (var property in relatedProperties.Values) { #>
             ViewBag.<#= property.ForeignKeyPropertyNames[0] #> = new SelectList(db.<#= property.EntitySetName #>, "<#= property.PrimaryKeyNames[0] #>", "<#= property.DisplayPropertyName #>");
@@ -135,7 +136,7 @@ namespace <#= Namespace #>
             return View();
         }
 
-        // POST: <#= routePrefix #>/Create
+        // POST: <#= routePrefix #>/<#= ViewPrefix #>Create
 <# if (IsOverpostingProtectionRequired) {
     foreach (var line in OverpostingWarningMessage.Split(new string[] { Environment.NewLine }, StringSplitOptions.None)) { 
 #>
@@ -144,9 +145,9 @@ namespace <#= Namespace #>
         [HttpPost]
         [ValidateAntiForgeryToken]
 <# if (UseAsync) { #>
-        public async Task<ActionResult> Create(<#= bindAttribute #><#= ModelTypeName #> <#= ModelVariable #>)
+        public async Task<ActionResult> <#= ViewPrefix #>Create(<#= bindAttribute #><#= ModelTypeName #> <#= ModelVariable #>)
 <# } else { #>
-        public ActionResult Create(<#= bindAttribute #><#= ModelTypeName #> <#= ModelVariable #>)
+        public ActionResult <#= ViewPrefix #>Create(<#= bindAttribute #><#= ModelTypeName #> <#= ModelVariable #>)
 <# } #>
         {
             if (ModelState.IsValid)
@@ -161,7 +162,7 @@ namespace <#= Namespace #>
                 db.SaveChanges();
 <# } #>
                 DisplaySuccessMessage("Has append a <#= ModelTypeName #> record");
-                return RedirectToAction("Index");
+                return RedirectToAction("<#= ViewPrefix #>Index");
             }
 
 <# foreach (var property in relatedProperties.Values) { #>
@@ -171,11 +172,11 @@ namespace <#= Namespace #>
             return View(<#= ModelVariable #>);
         }
 
-        // GET: <#= routePrefix #>/Edit/5
+        // GET: <#= routePrefix #>/<#= ViewPrefix #>Edit/5
 <# if (UseAsync) { #>
-        public async Task<ActionResult> Edit(<#= primaryKeyNullableTypeName #> id)
+        public async Task<ActionResult> <#= ViewPrefix #>Edit(<#= primaryKeyNullableTypeName #> id)
 <# } else { #>
-        public ActionResult Edit(<#= primaryKeyNullableTypeName #> id)
+        public ActionResult <#= ViewPrefix #>Edit(<#= primaryKeyNullableTypeName #> id)
 <# } #>
         {
             if (id == null)
@@ -197,7 +198,7 @@ namespace <#= Namespace #>
             return View(<#= ModelVariable #>);
         }
 
-        // POST: <#= routePrefix #>/Edit/5
+        // POST: <#= routePrefix #><#= ViewPrefix #>/Edit/5
 <# if (IsOverpostingProtectionRequired) {
     foreach (var line in OverpostingWarningMessage.Split(new string[] { Environment.NewLine }, StringSplitOptions.None)) { 
 #>
@@ -206,9 +207,9 @@ namespace <#= Namespace #>
         [HttpPost]
         [ValidateAntiForgeryToken]
 <# if (UseAsync) { #>
-        public async Task<ActionResult> Edit(<#= bindAttribute #><#= ModelTypeName #> <#= ModelVariable #>)
+        public async Task<ActionResult> <#= ViewPrefix #>Edit(<#= bindAttribute #><#= ModelTypeName #> <#= ModelVariable #>)
 <# } else { #>
-        public ActionResult Edit(<#= bindAttribute #><#= ModelTypeName #> <#= ModelVariable #>)
+        public ActionResult <#= ViewPrefix #>Edit(<#= bindAttribute #><#= ModelTypeName #> <#= ModelVariable #>)
 <# } #>
         {
             if (ModelState.IsValid)
@@ -220,7 +221,7 @@ namespace <#= Namespace #>
                 db.SaveChanges();
 <# } #>
                 DisplaySuccessMessage("Has update a <#= ModelTypeName #> record");
-                return RedirectToAction("Index");
+                return RedirectToAction("<#= ViewPrefix #>Index");
             }
 <# foreach (var property in relatedProperties.Values) { #>
             ViewBag.<#= property.ForeignKeyPropertyNames[0] #> = new SelectList(db.<#= property.EntitySetName #>, "<#= property.PrimaryKeyNames[0] #>", "<#= property.DisplayPropertyName #>", <#= ModelVariable #>.<#= property.ForeignKeyPropertyNames[0] #>);
@@ -229,11 +230,11 @@ namespace <#= Namespace #>
             return View(<#= ModelVariable #>);
         }
 
-        // GET: <#= routePrefix #>/Delete/5
+        // GET: <#= routePrefix #>/<#= ViewPrefix #>Delete/5
 <# if (UseAsync) { #>
-        public async Task<ActionResult> Delete(<#= primaryKeyNullableTypeName #> id)
+        public async Task<ActionResult> <#= ViewPrefix #>Delete(<#= primaryKeyNullableTypeName #> id)
 <# } else { #>
-        public ActionResult Delete(<#= primaryKeyNullableTypeName #> id)
+        public ActionResult <#= ViewPrefix #>Delete(<#= primaryKeyNullableTypeName #> id)
 <# } #>
         {
             if (id == null)
@@ -252,13 +253,13 @@ namespace <#= Namespace #>
             return View(<#= ModelVariable #>);
         }
 
-        // POST: <#= routePrefix #>/Delete/5
-        [HttpPost, ActionName("Delete")]
+        // POST: <#= routePrefix #>/<#= ViewPrefix #>Delete/5
+        [HttpPost, ActionName("<#= ViewPrefix #>Delete")]
         [ValidateAntiForgeryToken]
 <# if (UseAsync) { #>
-        public async Task<ActionResult> DeleteConfirmed(<#= primaryKeyShortTypeName #> id)
+        public async Task<ActionResult> <#= ViewPrefix #>DeleteConfirmed(<#= primaryKeyShortTypeName #> id)
 <# } else { #>
-        public ActionResult DeleteConfirmed(<#= primaryKeyShortTypeName #> id)
+        public ActionResult <#= ViewPrefix #>DeleteConfirmed(<#= primaryKeyShortTypeName #> id)
 <# } #>
         {
 <# if (UseAsync) { #>
@@ -273,7 +274,7 @@ namespace <#= Namespace #>
             db.SaveChanges();
 <# } #>
             DisplaySuccessMessage("Has delete a <#= ModelTypeName #> record");
-            return RedirectToAction("Index");
+            return RedirectToAction("<#= ViewPrefix #>Index");
         }
 
         private void DisplaySuccessMessage(string msgText)

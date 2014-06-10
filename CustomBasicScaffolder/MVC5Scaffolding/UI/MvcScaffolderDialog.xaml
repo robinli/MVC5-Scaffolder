@@ -101,6 +101,14 @@
             <Label Content="{x:Static self:MvcScaffolderDialogResources.ControllerName}" 
                    Target="{Binding ElementName=controllerName}" />
             <TextBox  Name="controllerName" Text="{Binding ControllerName}" Margin="103,-20,-0.4,10" />
+
+            <Label Content="{x:Static self:MvcScaffolderDialogResources.ProgramerNameLabel_Content}" 
+                   Target="{Binding ElementName=controllerName}" Margin="16,0,0,0" />
+            <TextBox  Text="{Binding ProgramTitle}" Margin="103,-20,-0.4,10" />
+
+            <Label Content="{x:Static self:MvcScaffolderDialogResources.ViewPrefixLabel_Content}" 
+                   Target="{Binding ElementName=controllerName}" Margin="26,0,0,0"/>
+            <TextBox  Text="{Binding ViewPrefix}" Margin="103,-20,-0.4,10" />
         </StackPanel>
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom"
                     Margin="0,11,0,0">

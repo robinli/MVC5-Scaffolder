@@ -11,10 +11,20 @@
     <Property Name="VERSION_NUM" Type="int" />
     <Property Name="LIST_PRICE" Type="decimal" Precision="8" Scale="2" />
   </EntityType>
+  <EntityType Name="GRP_BS_CUSTGRADE">
+    <Key>
+      <PropertyRef Name="GRADECO" />
+    </Key>
+    <Property Name="GRADECO" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="GRADENA" Type="nvarchar" MaxLength="8" />
+    <Property Name="DISCOUNT_PRICE" Type="int" />
+  </EntityType>
   <Function Name="QueryBooks" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="QueryBookName" Type="nvarchar" Mode="In" />
+    <Parameter Name="QueryAuthor" Type="nvarchar" Mode="In" />
   </Function>
   <EntityContainer Name="SchoolDBModelStoreContainer">
     <EntitySet Name="BOOKS" EntityType="Self.BOOKS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GRP_BS_CUSTGRADE" EntityType="Self.GRP_BS_CUSTGRADE" Schema="dbo" store:Type="Tables" />
   </EntityContainer>
 </Schema>

@@ -124,6 +124,12 @@ namespace Happy.Scaffolding.MVC.UI
 
                 _ControllerName = _modelType.ShortName + "Controller";
                 OnPropertyChanged(m => m.ControllerName);
+
+                _ProgramTitle = _modelType.ShortName;
+                OnPropertyChanged(m => m.ProgramTitle);
+
+                _ViewPrefix = _modelType.ShortName;
+                OnPropertyChanged(m => m.ViewPrefix);
             }
         }
 
@@ -316,6 +322,36 @@ namespace Happy.Scaffolding.MVC.UI
                     return;
                 }
                 _ControllerName = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _ProgramTitle;
+        public string ProgramTitle
+        {
+            get { return _ProgramTitle; }
+            set
+            {
+                if (value == _ProgramTitle)
+                {
+                    return;
+                }
+                _ProgramTitle = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _ViewPrefix="";
+        public string ViewPrefix
+        {
+            get { return _ViewPrefix; }
+            set
+            {
+                if (value == _ViewPrefix)
+                {
+                    return;
+                }
+                _ViewPrefix = value;
                 OnPropertyChanged();
             }
         }

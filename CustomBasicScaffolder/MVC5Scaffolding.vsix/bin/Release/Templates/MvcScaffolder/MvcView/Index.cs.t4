@@ -21,9 +21,20 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
 }
 #>
 }
-
-<h2><#= ViewName#></h2>
-
+<style type='text/css'>
+    /*設定 數字靠右*/
+<#
+        for (int x=0; x<MetaTable.Columns.Count; x++) {
+            MetaColumnInfo column=MetaTable.Columns[x];
+            if(column.IsNumeric){
+#>
+    td:nth-child(<#= x+1 #>n){text-align: right;}
+<#      
+            }
+}
+#>
+</style>
+<h2><#= ViewName #></h2>
 <#
 } else {
 #>
@@ -44,8 +55,9 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
     PushIndent("    ");
 }
 #>
+<h4><#= ProgramTitle #></h4>
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "<#= ViewPrefix #>Create")
 </p>
 <table class="table">
     <tr>
@@ -78,13 +90,13 @@ string pkName = GetPrimaryKeyName();
 if (pkName != null) {
 #>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.<#= pkName #> })
+            @Html.ActionLink("Edit", "<#= ViewPrefix #>Edit", new { id=item.<#= pkName #> })
         </td>
 <#
 } else {
 #>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ })
+            @Html.ActionLink("Edit", "<#= ViewPrefix #>Edit", new { /* id=item.PrimaryKey */ })
         </td>
 <#
 }

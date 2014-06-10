@@ -79,7 +79,7 @@ if (ReferenceScriptLibraries) {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4><#= ViewDataTypeShortName #></h4>
+        <h4><#= ProgramTitle #></h4>
         <hr />
 <# 
     if (isControlHtmlAttributesSupported) {
@@ -92,7 +92,7 @@ if (ReferenceScriptLibraries) {
 <#      
     }
 #>
-        @Html.Partial("_Edit")
+        @Html.Partial("<#= ViewPrefix #>EditForm")
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -102,7 +102,7 @@ if (ReferenceScriptLibraries) {
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "<#= ViewPrefix #>Index")
 </div>
 <#
 if(IsLayoutPageSelected && ReferenceScriptLibraries && IsBundleConfigPresent) {

@@ -79,7 +79,7 @@ if (ReferenceScriptLibraries) {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4><#= ViewDataTypeShortName #></h4>
+        <h4><#= ProgramTitle #></h4>
         <hr />
 <# 
     if (isControlHtmlAttributesSupported) {
@@ -92,7 +92,7 @@ if (ReferenceScriptLibraries) {
 <#      
     }
 #>
-        @Html.Partial("_Edit")
+        @Html.Partial("<#= ViewPrefix #>EditForm")
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-primary" />
@@ -103,7 +103,7 @@ if (ReferenceScriptLibraries) {
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "<#= ViewPrefix #>Index")
 </div>
 
 <!-- Modal -->
@@ -118,7 +118,7 @@ if (ReferenceScriptLibraries) {
                 Are you sure you want to delete this item ?
             </div>
             <div class="modal-footer">
-                @using (Html.BeginForm("Delete", "<#= ControllerRootName #>", new { id=Model.<#= GetPrimaryKeyName() #>}))
+                @using (Html.BeginForm("<#= ViewPrefix #>Delete", "<#= ControllerRootName #>", new { id=Model.<#= GetPrimaryKeyName() #>}))
                 {
                     @Html.AntiForgeryToken()
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>

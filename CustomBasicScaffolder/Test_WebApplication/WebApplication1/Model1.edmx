@@ -16,12 +16,21 @@
           <Property Name="VERSION_NUM" Type="int" />
           <Property Name="LIST_PRICE" Type="decimal" Precision="8" Scale="2" />
         </EntityType>
+        <EntityType Name="GRP_BS_CUSTGRADE">
+          <Key>
+            <PropertyRef Name="GRADECO" />
+          </Key>
+          <Property Name="GRADECO" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="GRADENA" Type="nvarchar" MaxLength="8" />
+          <Property Name="DISCOUNT_PRICE" Type="int" />
+        </EntityType>
         <Function Name="QueryBooks" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="QueryBookName" Type="nvarchar" Mode="In" />
           <Parameter Name="QueryAuthor" Type="nvarchar" Mode="In" />
         </Function>
         <EntityContainer Name="SchoolDBModelStoreContainer">
           <EntitySet Name="BOOKS" EntityType="Self.BOOKS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GRP_BS_CUSTGRADE" EntityType="Self.GRP_BS_CUSTGRADE" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -33,6 +42,7 @@
             <Parameter Name="QueryBookName" Mode="In" Type="String" />
             <Parameter Name="QueryAuthor" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="GRP_BS_CUSTGRADE" EntityType="SchoolDBModel.GRP_BS_CUSTGRADE" />
         </EntityContainer>
         <EntityType Name="BOOKS">
           <Key>
@@ -53,6 +63,14 @@
           <Property Type="Int32" Name="VERSION_NUM" Nullable="true" />
           <Property Type="Decimal" Name="LIST_PRICE" Nullable="true" Precision="8" Scale="2" />
         </ComplexType>
+        <EntityType Name="GRP_BS_CUSTGRADE">
+          <Key>
+            <PropertyRef Name="GRADECO" />
+          </Key>
+          <Property Name="GRADECO" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="GRADENA" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+          <Property Name="DISCOUNT_PRICE" Type="Int32" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -83,6 +101,15 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="GRP_BS_CUSTGRADE">
+            <EntityTypeMapping TypeName="SchoolDBModel.GRP_BS_CUSTGRADE">
+              <MappingFragment StoreEntitySet="GRP_BS_CUSTGRADE">
+                <ScalarProperty Name="DISCOUNT_PRICE" ColumnName="DISCOUNT_PRICE" />
+                <ScalarProperty Name="GRADENA" ColumnName="GRADENA" />
+                <ScalarProperty Name="GRADECO" ColumnName="GRADECO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

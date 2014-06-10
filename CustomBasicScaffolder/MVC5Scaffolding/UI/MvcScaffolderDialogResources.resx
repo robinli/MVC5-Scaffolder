@@ -130,7 +130,7 @@
     <value>Confirm and continue.</value>
   </data>
   <data name="ControllerName" xml:space="preserve">
-    <value>Controller Name</value>
+    <value>Controller name</value>
   </data>
   <data name="DataContextTypeLabel_Content" xml:space="preserve">
     <value>Data _context class:</value>
@@ -168,6 +168,9 @@
   <data name="OverwriteCheckBox_Content" xml:space="preserve">
     <value>Over write existing pages</value>
   </data>
+  <data name="ProgramerNameLabel_Content" xml:space="preserve">
+    <value>Program title</value>
+  </data>
   <data name="ReferenceScriptLibraries" xml:space="preserve">
     <value>Reference script libraries</value>
   </data>
@@ -188,5 +191,8 @@
   </data>
   <data name="UseLayoutPage" xml:space="preserve">
     <value>Use a layout page</value>
+  </data>
+  <data name="ViewPrefixLabel_Content" xml:space="preserve">
+    <value>View prefix</value>
   </data>
 </root>
