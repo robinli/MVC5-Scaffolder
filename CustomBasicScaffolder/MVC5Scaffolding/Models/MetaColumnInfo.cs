@@ -42,6 +42,7 @@ namespace Happy.Scaffolding.MVC.Models
                             return string.Format("[MaxLength({0})]", this.MaxLength);
                         else
                             break;
+                    case euColumnType.longCT:
                     case euColumnType.intCT:
                     case euColumnType.decimalCT:
                         if (this.RangeMin > 0 || this.RangeMax > 0)

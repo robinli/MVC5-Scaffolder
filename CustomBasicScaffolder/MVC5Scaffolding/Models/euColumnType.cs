@@ -19,6 +19,11 @@ namespace Happy.Scaffolding.MVC.Models
         decimalCT = 0x3
         ,
         /// <summary>
+        /// decimal
+        /// </summary>
+        longCT = 0x5
+        ,
+        /// <summary>
         /// string
         /// </summary>
         stringCT = 0x0
