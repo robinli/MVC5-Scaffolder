@@ -21,5 +21,6 @@ namespace WebApplication1
         public Nullable<int> VERSION_NUM { get; set; }
         public Nullable<long> VERSION_NUM2 { get; set; }
         public Nullable<decimal> LIST_PRICE { get; set; }
+        public Nullable<bool> ISOK { get; set; }
     }
 }

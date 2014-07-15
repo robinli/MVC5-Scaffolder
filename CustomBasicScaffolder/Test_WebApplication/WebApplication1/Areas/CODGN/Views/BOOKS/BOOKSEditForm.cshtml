@@ -63,5 +63,15 @@ else
             </div>
         </div>
 
+        <div class="form-group">
+            @Html.LabelFor(model => model.ISOK, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.ISOK)
+                    @Html.ValidationMessageFor(model => model.ISOK,"" , new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
 
 

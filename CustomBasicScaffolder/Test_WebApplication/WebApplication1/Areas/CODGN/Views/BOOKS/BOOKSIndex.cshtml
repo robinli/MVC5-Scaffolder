@@ -35,6 +35,9 @@
         <th>
             @Html.DisplayNameFor(model => model.LIST_PRICE)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ISOK)
+        </th>
     </tr>
 
 @foreach (var item in Model) {
@@ -59,6 +62,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.LIST_PRICE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ISOK)
         </td>
 
     </tr>

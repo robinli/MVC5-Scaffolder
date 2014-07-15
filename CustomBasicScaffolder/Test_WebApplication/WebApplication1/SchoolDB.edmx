@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SchoolDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SchoolDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="BOOKS">
           <Key>
             <PropertyRef Name="ID" />
@@ -15,13 +15,13 @@
           <Property Name="PUBLISH_UTC" Type="datetime" />
           <Property Name="VERSION_NUM" Type="int" />
           <Property Name="VERSION_NUM2" Type="bigint" />
+          <Property Name="ISOK" Type="bit" />
           <Property Name="LIST_PRICE" Type="decimal" Precision="8" Scale="2" />
         </EntityType>
         <EntityContainer Name="SchoolDBModelStoreContainer">
           <EntitySet Name="BOOKS" EntityType="Self.BOOKS" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SchoolDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -36,6 +36,7 @@
           <Property Name="VERSION_NUM" Type="Int32" />
           <Property Name="VERSION_NUM2" Type="Int64" />
           <Property Name="LIST_PRICE" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="ISOK" Type="Boolean" />
         </EntityType>
         <EntityContainer Name="SchoolDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="BOOKS" EntityType="Self.BOOKS" />
@@ -49,6 +50,7 @@
           <EntitySetMapping Name="BOOKS">
             <EntityTypeMapping TypeName="SchoolDBModel.BOOKS">
               <MappingFragment StoreEntitySet="BOOKS">
+                <ScalarProperty Name="ISOK" ColumnName="ISOK" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="BOOKNAME" ColumnName="BOOKNAME" />
                 <ScalarProperty Name="AUTHOR" ColumnName="AUTHOR" />

@@ -32,5 +32,8 @@ namespace WebApplication1
         [Display(Name = "LIST_PRICE")]
         public decimal LIST_PRICE { get; set; }
 
+        [Display(Name = "ISOK")]
+        public bool ISOK { get; set; }
+
     }
 }
