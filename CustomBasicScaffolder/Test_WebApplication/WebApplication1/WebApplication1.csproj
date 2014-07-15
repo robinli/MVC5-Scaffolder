@@ -163,17 +163,11 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\CODGN\BOOKSController.cs" />
     <Compile Include="Areas\CODGN\CODGNAreaRegistration.cs" />
-    <Compile Include="Areas\CODGN\Controllers\BOOKSController.cs" />
     <Compile Include="Areas\CODGN\Models\BOOKSMetadata.cs" />
-    <Compile Include="Areas\Groupage\Controllers\GroupageAdminController.cs" />
-    <Compile Include="Areas\Groupage\GroupageAreaRegistration.cs" />
-    <Compile Include="Areas\Groupage\Models\GRP_BS_CUSTGRADEMetadata.cs" />
-    <Compile Include="Areas\SP\Controllers\ReportController.cs" />
-    <Compile Include="Areas\SP\Models\QueryBooks_ResultViewModels.cs" />
-    <Compile Include="Areas\SP\SPAreaRegistration.cs" />
     <Compile Include="BOOKS.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>SchoolDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
@@ -181,29 +175,23 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="GRP_BS_CUSTGRADE.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model1.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QueryBooks_Result.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+    <Compile Include="SchoolDB.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SchoolDB.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SchoolDB.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SchoolDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SchoolDB.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SchoolDB.edmx</DependentUpon>
     </Compile>
     <Compile Include="Site1.Master.cs">
       <DependentUpon>Site1.Master</DependentUpon>
@@ -223,53 +211,37 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <EntityDeploy Include="Model1.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Model1.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Model1.edmx.diagram">
-      <DependentUpon>Model1.edmx</DependentUpon>
-    </Content>
-    <Content Include="Model1.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.cs</LastGenOutput>
-    </Content>
-    <Content Include="Areas\CODGN\Views\web.config" />
-    <Content Include="Areas\CODGN\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\CODGN\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\CODGN\Views\Shared\EditorTemplates\Date.cshtml" />
-    <Content Include="Areas\CODGN\Views\Shared\DisplayTemplates\Date.cshtml" />
-    <Content Include="Areas\CODGN\Views\Shared\DisplayTemplates\DateTime.cshtml" />
-    <Content Include="Areas\CODGN\Views\BOOKS\Index.cshtml" />
-    <Content Include="Areas\CODGN\Views\BOOKS\Create.cshtml" />
-    <Content Include="Areas\CODGN\Views\BOOKS\Edit.cshtml" />
-    <Content Include="Areas\CODGN\Views\BOOKS\_Edit.cshtml" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Areas\SP\Views\web.config" />
-    <Content Include="Areas\SP\Views\Report\QueryBooks.cshtml" />
-    <Content Include="Areas\SP\Views\Report\_QueryBooks.cshtml" />
-    <Content Include="Areas\SP\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\SP\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\Groupage\Views\web.config" />
-    <Content Include="Areas\Groupage\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Groupage\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\Groupage\Views\Shared\EditorTemplates\Date.cshtml" />
-    <Content Include="Areas\Groupage\Views\Shared\DisplayTemplates\Date.cshtml" />
-    <Content Include="Areas\Groupage\Views\Shared\DisplayTemplates\DateTime.cshtml" />
-    <Content Include="Areas\Groupage\Views\GroupageAdmin\CustomergradeIndex.cshtml" />
-    <Content Include="Areas\Groupage\Views\GroupageAdmin\CustomergradeCreate.cshtml" />
-    <Content Include="Areas\Groupage\Views\GroupageAdmin\CustomergradeEdit.cshtml" />
-    <Content Include="Areas\Groupage\Views\GroupageAdmin\CustomergradeEditForm.cshtml" />
+    <EntityDeploy Include="SchoolDB.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>SchoolDB.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="SchoolDB.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SchoolDB.edmx</DependentUpon>
+      <LastGenOutput>SchoolDB.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="SchoolDB.edmx.diagram">
+      <DependentUpon>SchoolDB.edmx</DependentUpon>
+    </Content>
+    <Content Include="SchoolDB.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SchoolDB.edmx</DependentUpon>
+      <LastGenOutput>SchoolDB.cs</LastGenOutput>
+    </Content>
+    <Content Include="Areas\CODGN\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\CODGN\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\CODGN\Views\Shared\EditorTemplates\Date.cshtml" />
+    <Content Include="Areas\CODGN\Views\Shared\DisplayTemplates\Date.cshtml" />
+    <Content Include="Areas\CODGN\Views\Shared\DisplayTemplates\DateTime.cshtml" />
+    <Content Include="Areas\CODGN\Views\BOOKS\BOOKSIndex.cshtml" />
+    <Content Include="Areas\CODGN\Views\BOOKS\BOOKSCreate.cshtml" />
+    <Content Include="Areas\CODGN\Views\BOOKS\BOOKSEdit.cshtml" />
+    <Content Include="Areas\CODGN\Views\BOOKS\BOOKSEditForm.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

@@ -15,7 +15,7 @@
         <h4>BOOKS</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.Partial("_Edit")
+        @Html.Partial("BOOKSEditForm")
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -25,7 +25,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "BOOKSIndex")
 </div>
 
 @section Scripts {

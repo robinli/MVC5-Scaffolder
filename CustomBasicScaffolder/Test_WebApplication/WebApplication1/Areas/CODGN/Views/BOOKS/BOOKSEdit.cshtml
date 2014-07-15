@@ -15,18 +15,18 @@
         <h4>BOOKS</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.Partial("_Edit")
+        @Html.Partial("BOOKSEditForm")
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-primary" />
-                <button class="btn btn-default" data-toggle="modal" data-target="#myModal">Delete</button>
+                <input type="submit" class="btn btn-primary" value="Save" />
+                <input type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal" value="Delete" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "BOOKSIndex")
 </div>
 
 <!-- Modal -->
@@ -41,7 +41,7 @@
                 Are you sure you want to delete this item ?
             </div>
             <div class="modal-footer">
-                @using (Html.BeginForm("Delete", "BOOKS", new { id=Model.ID}))
+                @using (Html.BeginForm("BOOKSDelete", "BOOKS", new { id=Model.ID}))
                 {
                     @Html.AntiForgeryToken()
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>

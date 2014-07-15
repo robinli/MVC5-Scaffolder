@@ -19,7 +19,8 @@
                 @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav"></ul>
+                <ul class="nav navbar-nav">
+                </ul>
             </div>
         </div>
     </div>
@@ -35,17 +36,16 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
-    <script src="https://googledrive.com/host/0B1M0EWud1hraVjh0RWZIQzM2Vm8"></script>
-    @*<script src="~/Scripts/HappyMessager.js"></script>*@
-    <script>
+<script src="https://googledrive.com/host/0B1M0EWud1hraVjh0RWZIQzM2Vm8"></script>
+<script>
 @if (TempData["SuccessMessage"] != null)
 {
     @:HappyMessager.success('@TempData["SuccessMessage"]');
-        }
-        @if (TempData["ErrorMessage"] != null)
+}
+@if (TempData["ErrorMessage"] != null)
 {
     @:HappyMessager.alert('@TempData["ErrorMessage"]');
-        }
-    </script>
+}
+</script>
 </body>
 </html>
