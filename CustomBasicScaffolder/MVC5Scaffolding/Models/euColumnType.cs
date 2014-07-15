@@ -33,6 +33,8 @@ namespace Happy.Scaffolding.MVC.Models
         /// </summary>
         datetimeCT = 0x2
         ,
+        boolCT = 0x4
+        ,
         /// <summary>
         /// RelatedModel
         /// </summary>
