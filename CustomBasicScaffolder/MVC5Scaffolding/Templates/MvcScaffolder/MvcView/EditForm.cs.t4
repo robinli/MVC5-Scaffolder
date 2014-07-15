@@ -58,11 +58,11 @@ else
         } else  if (isControlHtmlAttributesSupported) {
             if (isCheckbox) {
 #>
-                <div class="checkbox">
+                <!--div class="checkbox"-->
 <#
                 PushIndent("    ");
 #>
-                @Html.EditorFor(model => model.<#= property.PropertyName #>)
+                @Html.EditorFor(model => model.<#= property.PropertyName #>, new { htmlAttributes = new { @class = "form-control" } })
 <#
             } else if (property.IsEnum && !property.IsEnumFlags) {
 #>
@@ -94,7 +94,7 @@ else
         if (isCheckbox && isControlHtmlAttributesSupported) {
             PopIndent();
 #>
-                </div>
+                <!--/div-->
 <#
         }
 #>

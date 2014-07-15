@@ -1,0 +1,114 @@
+﻿<#@ template language="C#" HostSpecific="True" #>
+<#@ output extension=".cshtml" #>
+<#@ include file="Imports.include.t4" #>
+@model <#= ViewDataTypeName #>
+<#
+// The following chained if-statement outputs the file header code and markup for a partial view, a view using a layout page, or a regular view.
+if(IsPartialView) {
+#>
+
+<#
+} else if(IsLayoutPageSelected) {
+#>
+
+@{
+    ViewBag.Title = "<#=MethodName#>";
+<#
+if (!String.IsNullOrEmpty(LayoutPageFile)) {
+#>
+    Layout = "<#= LayoutPageFile#>";
+<#
+}
+#>
+}
+<h2>@ViewBag.Title</h2>
+<#
+} else {
+#>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title><#=MethodName#></title>
+</head>
+<body>
+<#
+    PushIndent("    ");
+}
+#>
+<hr />
+<div>
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="collapse navbar-collapse">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Filter</a>
+            </div>
+            @using (Html.BeginForm("<#= MethodName #>", "<#= ControllerRootName #>", FormMethod.Post, new { @class = "navbar-form navbar-left", role = "search" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => model.DoExport)
+<#
+    foreach (MetaColumnInfo column in QueryMetaTable.Columns) {
+#>
+                <div class="form-group">
+                    <label class="sr-only" for="<#=column.Name#>">Email address</label>
+                    @Html.EditorFor(model => model.<#=column.Name#>, new { htmlAttributes = new { placeholder = Html.DisplayNameFor(model => model.<#=column.Name#>), @class = "form-control" } })
+                </div>
+<#
+    }
+#>
+                <button type="submit" class="btn btn-default" id="SearchButton"><span class="glyphicon glyphicon-search"></span> Search</button>
+                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+            }
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" id="ExportButton"><span class="glyphicon glyphicon-save"></span> Export</a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</div>
+
+@{
+    if (Model != null)
+    {
+        @Html.Partial("_<#=MethodName#>", Model.Result)
+    }
+}
+     
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(function () {
+            $('#SearchButton').click(function () {
+                $('#DoExport').val(false);
+            })
+
+            $('#ExportButton').click(function () {
+                $('#DoExport').val(true);
+                $('#DoExport').closest("form").submit();
+            })
+        })
+    </script>
+}
+
+<#
+// The following code closes the tag used in the case of a view using a layout page and the body and html tags in the case of a regular view page
+#>
+<#
+if(!IsPartialView && !IsLayoutPageSelected) {
+    ClearIndent();
+#>
+</body>
+</html>
+<#
+}
+#>
