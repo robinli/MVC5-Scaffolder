@@ -22,5 +22,6 @@ namespace Test_WebClient
         public Nullable<long> VERSION_NUM2 { get; set; }
         public Nullable<bool> ISOK { get; set; }
         public Nullable<decimal> LIST_PRICE { get; set; }
+        public Nullable<double> Discount { get; set; }
     }
 }

@@ -160,9 +160,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Areas\Happy\Controllers\BOOKSController.cs" />
     <Compile Include="Areas\Happy\HappyAreaRegistration.cs" />
-    <Compile Include="Areas\Happy\Models\BOOKSMetadata.cs" />
     <Compile Include="BOOKS.cs">
       <DependentUpon>SchoolDB.tt</DependentUpon>
     </Compile>
@@ -224,10 +222,6 @@
     <Content Include="Areas\Happy\Views\Shared\EditorTemplates\Date.cshtml" />
     <Content Include="Areas\Happy\Views\Shared\DisplayTemplates\Date.cshtml" />
     <Content Include="Areas\Happy\Views\Shared\DisplayTemplates\DateTime.cshtml" />
-    <Content Include="Areas\Happy\Views\BOOKS\BOOKSIndex.cshtml" />
-    <Content Include="Areas\Happy\Views\BOOKS\BOOKSCreate.cshtml" />
-    <Content Include="Areas\Happy\Views\BOOKS\BOOKSEdit.cshtml" />
-    <Content Include="Areas\Happy\Views\BOOKS\BOOKSEditForm.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -278,6 +272,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Happy\Controllers\" />
+    <Folder Include="Areas\Happy\Models\" />
+    <Folder Include="Areas\Happy\Views\BOOKS\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

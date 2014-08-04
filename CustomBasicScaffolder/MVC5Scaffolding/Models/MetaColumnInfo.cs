@@ -46,6 +46,7 @@ namespace Happy.Scaffolding.MVC.Models
                     case euColumnType.intCT:
                     case euColumnType.decimalCT:
                     case euColumnType.floatCT:
+                    case euColumnType.doubleCT:
                         if (this.RangeMin > 0 || this.RangeMax > 0)
                             return string.Format("[Range({0}, {1})]", this.RangeMin, this.RangeMax);
                         else

@@ -3,20 +3,14 @@
 @{
     ViewBag.Title = "Index";
 }
-<style type='text/css'>
-    /*設定 數字靠右*/
-    td:nth-child(5n){text-align: right;}
-    td:nth-child(6n){text-align: right;}
-    td:nth-child(8n){text-align: right;}
-</style>
+
 <h2>Index</h2>
-<h4>BOOKS</h4>
+
 <p>
-    @Html.ActionLink("Create New", "BOOKSCreate")
+    @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
-        <th></th>
         <th>
             @Html.DisplayNameFor(model => model.BOOKNAME)
         </th>
@@ -38,13 +32,11 @@
         <th>
             @Html.DisplayNameFor(model => model.LIST_PRICE)
         </th>
+        <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.ActionLink("Edit", "BOOKSEdit", new { id=item.ID })
-        </td>
         <td>
             @Html.DisplayFor(modelItem => item.BOOKNAME)
         </td>
@@ -66,7 +58,11 @@
         <td>
             @Html.DisplayFor(modelItem => item.LIST_PRICE)
         </td>
-
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
     </tr>
 }
 

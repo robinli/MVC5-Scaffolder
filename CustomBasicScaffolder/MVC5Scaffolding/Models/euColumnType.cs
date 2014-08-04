@@ -29,6 +29,11 @@ namespace Happy.Scaffolding.MVC.Models
         floatCT = 0x7
         ,
         /// <summary>
+        /// double
+        /// </summary>
+        doubleCT = 0x9
+        ,
+        /// <summary>
         /// string
         /// </summary>
         stringCT = 0x0

@@ -8,21 +8,20 @@ using System.Web;
 using System.Web.Mvc;
 using Test_WebClient;
 
-namespace Test_WebClient.Areas.Happy.Controllers
+namespace Test_WebClient.Controllers
 {
     public class BOOKSController : Controller
     {
         private SchoolDBEntities db = new SchoolDBEntities();
 
-        // GET: BOOKS/BOOKSIndex
-        public ActionResult BOOKSIndex()
+        // GET: BOOKS
+        public ActionResult Index()
         {
             return View(db.BOOKS.ToList());
         }
 
-        /*
-        // GET: BOOKS/BOOKSDetails/5
-        public ActionResult BOOKSDetails(string id)
+        // GET: BOOKS/Details/5
+        public ActionResult Details(string id)
         {
             if (id == null)
             {
@@ -35,34 +34,32 @@ namespace Test_WebClient.Areas.Happy.Controllers
             }
             return View(bOOKS);
         }
-        */
 
-        // GET: BOOKS/BOOKSCreate
-        public ActionResult BOOKSCreate()
+        // GET: BOOKS/Create
+        public ActionResult Create()
         {
             return View();
         }
 
-        // POST: BOOKS/BOOKSCreate
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: BOOKS/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult BOOKSCreate([Bind(Include = "ID,BOOKNAME,AUTHOR,PUBLISH_UTC,VERSION_NUM,VERSION_NUM2,ISOK,LIST_PRICE")] BOOKS bOOKS)
+        public ActionResult Create([Bind(Include = "ID,BOOKNAME,AUTHOR,PUBLISH_UTC,VERSION_NUM,VERSION_NUM2,ISOK,LIST_PRICE")] BOOKS bOOKS)
         {
             if (ModelState.IsValid)
             {
                 db.BOOKS.Add(bOOKS);
                 db.SaveChanges();
-                DisplaySuccessMessage("Has append a BOOKS record");
-                return RedirectToAction("BOOKSIndex");
+                return RedirectToAction("Index");
             }
 
-            DisplayErrorMessage();
             return View(bOOKS);
         }
 
-        // GET: BOOKS/BOOKSEdit/5
-        public ActionResult BOOKSEdit(string id)
+        // GET: BOOKS/Edit/5
+        public ActionResult Edit(string id)
         {
             if (id == null)
             {
@@ -76,25 +73,24 @@ namespace Test_WebClient.Areas.Happy.Controllers
             return View(bOOKS);
         }
 
-        // POST: BOOKSBOOKS/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: BOOKS/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult BOOKSEdit([Bind(Include = "ID,BOOKNAME,AUTHOR,PUBLISH_UTC,VERSION_NUM,VERSION_NUM2,ISOK,LIST_PRICE")] BOOKS bOOKS)
+        public ActionResult Edit([Bind(Include = "ID,BOOKNAME,AUTHOR,PUBLISH_UTC,VERSION_NUM,VERSION_NUM2,ISOK,LIST_PRICE")] BOOKS bOOKS)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(bOOKS).State = EntityState.Modified;
                 db.SaveChanges();
-                DisplaySuccessMessage("Has update a BOOKS record");
-                return RedirectToAction("BOOKSIndex");
+                return RedirectToAction("Index");
             }
-            DisplayErrorMessage();
             return View(bOOKS);
         }
 
-        // GET: BOOKS/BOOKSDelete/5
-        public ActionResult BOOKSDelete(string id)
+        // GET: BOOKS/Delete/5
+        public ActionResult Delete(string id)
         {
             if (id == null)
             {
@@ -108,26 +104,15 @@ namespace Test_WebClient.Areas.Happy.Controllers
             return View(bOOKS);
         }
 
-        // POST: BOOKS/BOOKSDelete/5
-        [HttpPost, ActionName("BOOKSDelete")]
+        // POST: BOOKS/Delete/5
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult BOOKSDeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(string id)
         {
             BOOKS bOOKS = db.BOOKS.Find(id);
             db.BOOKS.Remove(bOOKS);
             db.SaveChanges();
-            DisplaySuccessMessage("Has delete a BOOKS record");
-            return RedirectToAction("BOOKSIndex");
-        }
-
-        private void DisplaySuccessMessage(string msgText)
-        {
-            TempData["SuccessMessage"] = msgText;
-        }
-
-        private void DisplayErrorMessage()
-        {
-            TempData["ErrorMessage"] = "Save changes was unsuccessful.";
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

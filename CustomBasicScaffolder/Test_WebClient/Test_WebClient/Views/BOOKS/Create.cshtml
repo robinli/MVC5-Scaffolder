@@ -1,25 +1,33 @@
 ﻿@model Test_WebClient.BOOKS
 
-@if (Model != null && Model.ID != null)
-{
-    @Html.HiddenFor(model => model.ID)
+@{
+    ViewBag.Title = "Create";
 }
-else
+
+<h2>Create</h2>
+
+
+@using (Html.BeginForm()) 
 {
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>BOOKS</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.ID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.ID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ID,"" , new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.ID, "", new { @class = "text-danger" })
             </div>
         </div>
-}
 
         <div class="form-group">
             @Html.LabelFor(model => model.BOOKNAME, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.BOOKNAME, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.BOOKNAME,"" , new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.BOOKNAME, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -27,15 +35,15 @@ else
             @Html.LabelFor(model => model.AUTHOR, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.AUTHOR, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.AUTHOR,"" , new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.AUTHOR, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.PUBLISH_UTC, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.PUBLISH_UTC, "Date")
-                @Html.ValidationMessageFor(model => model.PUBLISH_UTC,"" , new { @class = "text-danger" })
+                @Html.EditorFor(model => model.PUBLISH_UTC, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PUBLISH_UTC, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -43,7 +51,7 @@ else
             @Html.LabelFor(model => model.VERSION_NUM, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.VERSION_NUM, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.VERSION_NUM,"" , new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.VERSION_NUM, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -51,17 +59,17 @@ else
             @Html.LabelFor(model => model.VERSION_NUM2, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.VERSION_NUM2, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.VERSION_NUM2,"" , new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.VERSION_NUM2, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.ISOK, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <!--div class="checkbox"-->
-                    @Html.EditorFor(model => model.ISOK, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.ISOK,"" , new { @class = "text-danger" })
-                <!--/div-->
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.ISOK)
+                    @Html.ValidationMessageFor(model => model.ISOK, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
 
@@ -69,9 +77,22 @@ else
             @Html.LabelFor(model => model.LIST_PRICE, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.LIST_PRICE, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.LIST_PRICE,"" , new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.LIST_PRICE, "", new { @class = "text-danger" })
             </div>
         </div>
 
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
 
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
 
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

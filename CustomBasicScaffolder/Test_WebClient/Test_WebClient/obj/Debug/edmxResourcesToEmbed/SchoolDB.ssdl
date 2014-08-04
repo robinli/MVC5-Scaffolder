@@ -12,6 +12,7 @@
     <Property Name="VERSION_NUM2" Type="bigint" />
     <Property Name="ISOK" Type="bit" />
     <Property Name="LIST_PRICE" Type="decimal" Precision="8" Scale="2" />
+    <Property Name="Discount" Type="float" />
   </EntityType>
   <EntityContainer Name="SchoolDBModelStoreContainer">
     <EntitySet Name="BOOKS" EntityType="Self.BOOKS" Schema="dbo" store:Type="Tables" />
