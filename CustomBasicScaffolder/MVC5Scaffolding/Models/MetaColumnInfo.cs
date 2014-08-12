@@ -94,15 +94,39 @@ namespace Happy.Scaffolding.MVC.Models
             IsVisible = true;
         }
 
-        private euColumnType GetColumnType(string shortTypeName)
+        public euColumnType GetColumnType(string shortTypeName)
         {
-            return ParseEnum<euColumnType>(shortTypeName);
+            return ParseEnum(shortTypeName);
         }
 
-        private static T ParseEnum<T>(string value)
+        //private static T ParseEnum<T>(string value)
+        //{
+        //    value = value+ "CT";
+        //    return (T)Enum.Parse(typeof(T), value, true);
+        //}
+
+        //private static T ParseEnum2<T>(string value)
+        //{
+        //    value = value + "CT";
+        //    T result;
+        //    if (Enum.TryParse<T>(value, true, out result))
+        //    {
+        //        return result;
+        //    }
+        //    else
+        //        return default(T);
+        //}
+
+        private static euColumnType ParseEnum(string value)
         {
-            value = value+ "CT";
-            return (T)Enum.Parse(typeof(T), value, true);
+            value = value + "CT";
+            euColumnType result;
+            if (Enum.TryParse<euColumnType>(value, true, out result))
+            {
+                return result;
+            }
+            else
+                return euColumnType.stringCT;
         }
     }
 }
