@@ -160,7 +160,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             string dbContextTypeName = codeGeneratorViewModel.DbContextModelType.TypeName;
             ICodeTypeService codeTypeService = GetService<ICodeTypeService>();
             CodeType dbContext = codeTypeService.GetCodeType(project, dbContextTypeName);
-
+            string dbContextNamespace = dbContext.Namespace != null ? dbContext.Namespace.FullName : String.Empty;
             // Get the Entity Framework Meta Data
             IEntityFrameworkService efService = Context.ServiceProvider.GetService<IEntityFrameworkService>();
             ModelMetadata efMetadata = efService.AddRequiredEntity(Context, dbContextTypeName, modelType.FullName);
@@ -171,7 +171,16 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             string outputFolderPath = Path.Combine(selectionRelativePath, controllerName);
             string viewPrefix = codeGeneratorViewModel.ViewPrefix;
             string programTitle = codeGeneratorViewModel.ProgramTitle;
+            AddEntityRepositoryExtensionTemplates(project, selectionRelativePath,
+                dbContextNamespace,
+                dbContextTypeName,
+                modelType,
+                efMetadata, false);
 
+            AddEntityServiceTemplates(project, selectionRelativePath,
+                dbContextNamespace,
+                dbContextTypeName,
+                modelType, efMetadata, false);
             AddMvcController(project: project
                 , controllerName: controllerName
                 , controllerRootName: controllerRootName
@@ -255,7 +264,8 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 //TODO
                 throw new ArgumentException(Resources.WebFormsViewScaffolder_EmptyActionName, "webFormsName");
             }
-
+            string modelName = modelType.Name;
+            //string defaultNamespace = project.GetDefaultNamespace();
             PropertyMetadata primaryKey = efMetadata.PrimaryKeys.FirstOrDefault();
             string pluralizedName = efMetadata.EntitySetName;
             string modelNameSpace = modelType.Namespace != null ? modelType.Namespace.FullName : String.Empty;
@@ -270,6 +280,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
 
             Dictionary<string, object> templateParams=new Dictionary<string, object>(){
                 {"ControllerName", controllerName}
+                , {"ModelName",modelName}
                 , {"ControllerRootName" , controllerRootName}
                 , {"Namespace", defaultNamespace}
                 , {"AreaName", string.Empty}
@@ -282,7 +293,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 , {"IsOverpostingProtectionRequired", true}
                 , {"BindAttributeIncludeText", bindAttributeIncludeText}
                 , {"OverpostingWarningMessage", "To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598."}
-                , {"RequiredNamespaces", new HashSet<string>(){modelType.Namespace.FullName}}
+                , {"RequiredNamespaces", new HashSet<string>(){modelType.Namespace.FullName,project.GetDefaultNamespace() + ".Services",project.GetDefaultNamespace() + ".Repositories"}}
                 , {"ViewPrefix", viewPrefix}
             };
 
@@ -479,6 +490,146 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             //}
         }
 
+
+        private void AddEntityRepositoryExtensionTemplates(
+      Project project,
+      string selectionRelativePath,
+      string dbContextNamespace,
+      string dbContextTypeName,
+      CodeType modelType,
+      ModelMetadata efMetadata,
+      bool overwriteViews = true
+      
+        
+  )
+        {
+            string modelName = "";
+            if (modelType == null)
+            {
+                throw new ArgumentNullException("modelType");
+            }
+            if (modelName == "")
+            {
+                modelName = modelType.Name;
+            }
+            string modelNameSpace = modelType.Namespace != null ? modelType.Namespace.FullName : String.Empty;
+            // Get pluralized name used for web forms folder name
+            string pluralizedModelName = efMetadata.EntitySetName;
+            var repositoryTemplates = new[] { "EntityRepositoryExtension" };
+            var repositoryTemplatesPath = "Repositories";
+            PropertyMetadata primaryKey = efMetadata.PrimaryKeys.FirstOrDefault();
+
+            // Add folder for views. This is necessary to display an error when the folder already exists but 
+            // the folder is excluded in Visual Studio: see https://github.com/Superexpert/WebFormsScaffolding/issues/18
+            string outputFolderPath = Path.Combine("Repositories", pluralizedModelName.Replace("_", ""));
+            //AddFolder(Context.ActiveProject, outputFolderPath);
+
+        
+            AddFolder(Context.ActiveProject, outputFolderPath);
+
+            // Now add each view
+            foreach (string repository in repositoryTemplates)
+            {
+                var templatePath = Path.Combine(repositoryTemplatesPath, repository);
+                var outputFileName = "";
+                if (repository == "IEntityRepository")
+                    outputFileName = "I" + modelName + "Repository";
+                else
+                    outputFileName = modelName + "Repository";
+                var outputPath = Path.Combine(outputFolderPath, outputFileName);
+
+                var defaultNamespace = Context.ActiveProject.GetDefaultNamespace();
+                var folderNamespace = GetDefaultNamespace() + ".Repositories";
+                AddFileFromTemplate(
+                    project: project,
+                    outputPath: outputPath,
+                    templateName: templatePath,
+                    templateParameters: new Dictionary<string, object>() 
+                    {
+                        {"DefaultNamespace", project.GetDefaultNamespace()},
+                        {"DbContextNamespace", dbContextNamespace},
+                        {"DbContextTypeName", dbContextTypeName},
+                        {"ModelMetadata",efMetadata},
+                        {"PrimaryKeyName", primaryKey.PropertyName}, 
+                        {"ModelName", modelName}, // singular model name (e.g., Movie)
+                        {"FolderNamespace", folderNamespace.Replace("_","")}, // the namespace of the current folder (used by C#)
+                        {"PluralizedModelName",pluralizedModelName},
+                        {"ModelNamespace", modelNameSpace} // the namespace of the model (e.g., Samples.Models)               
+                    },
+                    skipIfExists: true);
+
+            }
+        }
+        private void AddEntityServiceTemplates(
+           Project project,
+           string selectionRelativePath,
+           string dbContextNamespace,
+           string dbContextTypeName,
+           CodeType modelType,
+           ModelMetadata efMetadata,
+           bool overwriteViews = true
+          
+
+       )
+        {
+            string modelName = "";
+            if (modelType == null)
+            {
+                throw new ArgumentNullException("modelType");
+            }
+            if (modelName == "")
+            {
+                modelName = modelType.Name;
+            }
+            string modelNameSpace = modelType.Namespace != null ? modelType.Namespace.FullName : String.Empty;
+            // Get pluralized name used for web forms folder name
+            string pluralizedModelName = efMetadata.EntitySetName;
+          
+            var serviceTemplates = new[] { "IEntityService", "EntityService" };
+            var repositoryTemplatesPath = "Services";
+
+
+            // Add folder for views. This is necessary to display an error when the folder already exists but 
+            // the folder is excluded in Visual Studio: see https://github.com/Superexpert/WebFormsScaffolding/issues/18
+            string outputFolderPath = Path.Combine("Services");
+            //AddFolder(Context.ActiveProject, outputFolderPath);
+
+
+            AddFolder(Context.ActiveProject, outputFolderPath);
+            PropertyMetadata primaryKey = efMetadata.PrimaryKeys.FirstOrDefault();
+            // Now add each view
+            foreach (string service in serviceTemplates)
+            {
+                var templatePath = Path.Combine(repositoryTemplatesPath, service);
+                var outputFileName = "";
+                if (service == "IEntityService")
+                    outputFileName = "I" + modelName + "Service";
+                else
+                    outputFileName = modelName + "Service";
+                var outputPath = Path.Combine(outputFolderPath, outputFileName);
+
+                var defaultNamespace = Context.ActiveProject.GetDefaultNamespace();
+                var folderNamespace = GetDefaultNamespace() + ".Services";
+                AddFileFromTemplate(
+                    project: project,
+                    outputPath: outputPath,
+                    templateName: templatePath,
+                    templateParameters: new Dictionary<string, object>() 
+                    {
+                        {"DefaultNamespace", project.GetDefaultNamespace()},
+                        {"DbContextNamespace", dbContextNamespace},
+                        {"DbContextTypeName", dbContextTypeName},
+                        {"ModelMetadata",efMetadata},
+                        {"PrimaryKeyName", primaryKey.PropertyName}, 
+                        {"ModelName", modelName}, // singular model name (e.g., Movie)
+                        {"FolderNamespace", folderNamespace.Replace("_","")}, // the namespace of the current folder (used by C#)
+                        {"PluralizedModelName",pluralizedModelName},
+                        {"ModelNamespace", modelNameSpace} // the namespace of the model (e.g., Samples.Models)               
+                    },
+                    skipIfExists: true);
+
+            }
+        }
         #region function library
 
         public string GetJqueryVersion(Project project)
@@ -571,6 +722,10 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 ? Context.ActiveProject.GetDefaultNamespace()
                 : Context.ActiveProjectItem.GetDefaultNamespace();
         }
+
+
+
+
 
         #endregion
 
