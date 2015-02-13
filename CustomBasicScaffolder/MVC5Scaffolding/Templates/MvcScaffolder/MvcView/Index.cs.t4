@@ -1,7 +1,8 @@
 ﻿<#@ template language="C#" HostSpecific="True" #>
 <#@ output extension=".cshtml" #>
 <#@ include file="Imports.include.t4" #>
-@model IEnumerable<#= "<" + ViewDataTypeName + ">" #>
+@model PagedList.IPagedList<#= "<" + ViewDataTypeName + ">" #>
+@using PagedList.Mvc;
 <#
 // The following chained if-statement outputs the file header code and markup for a partial view, a view using a layout page, or a regular view.
 if(IsPartialView) {
@@ -59,11 +60,53 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
 <p>
     @Html.ActionLink("Create New", "<#= ViewPrefix #>Create")
 </p>
+
+@using (Html.BeginForm())
+{
+  
+        <div class="input-group">
+            <div class="input-group-btn search-panel">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    <span id="search_concept">Filter by</span> <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+<#
+IEnumerable<PropertyMetadata> properties = ModelMetadata.Properties;
+foreach (PropertyMetadata property in properties) {
+    if (property.Scaffold && !property.IsPrimaryKey && !property.IsForeignKey) {
+#>
+<#
+        // We do not want to show any association properties for which there is
+        // no associated foreign key.
+        if (property.IsAssociation && GetRelatedModelMetadata(property) == null) {
+            continue;
+        }
+#>
+                    <li><a href="#<#= GetValueExpression(property) #>"><#= GetValueExpression(property) #></a></li>
+                     
+<#
+    }
+}
+#>                   
+                </ul>
+            </div>
+            <input type="hidden" name="search_field" value="All" id="search_field">
+            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string,new {@class="form-control",placeholder="Search term..."})
+        
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+            </span>
+      
+  
+      
+    </div>
+}
+
 <table class="table">
     <tr>
         <th></th>
 <#
-IEnumerable<PropertyMetadata> properties = ModelMetadata.Properties;
+//IEnumerable<PropertyMetadata> properties = ModelMetadata.Properties;
 foreach (PropertyMetadata property in properties) {
     if (property.Scaffold && !property.IsPrimaryKey && !property.IsForeignKey) {
 #>
@@ -123,6 +166,29 @@ foreach (PropertyMetadata property in properties) {
 }
 
 </table>
+
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function (e) {
+            $('.search-panel .dropdown-menu').find('a').click(function (e) {
+                e.preventDefault();
+                var param = $(this).attr("href").replace("#", "");
+                var concept = $(this).text();
+                $('.search-panel span#search_concept').text(concept);
+                $('.input-group #search_field').val(param);
+            });
+        });
+    
+    
+     </script>
+}
+
 <#
 // The following code closes the tag used in the case of a view using a layout page and the body and html tags in the case of a regular view page
 #>

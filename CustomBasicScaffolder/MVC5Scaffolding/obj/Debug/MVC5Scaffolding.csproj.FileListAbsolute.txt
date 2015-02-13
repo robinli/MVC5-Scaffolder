@@ -108,7 +108,6 @@ D:\TSC系统信息\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Deb
 D:\TSC系统信息\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\fr-FR\MVC5Scaffolding.resources.dll
 D:\TSC系统信息\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\Newtonsoft.Json.dll
 D:\TSC系统信息\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\Newtonsoft.Json.xml
-D:\TSC系统信息\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Debug\MVC5Scaffolding.csprojResolveAssemblyReference.cache
 D:\TSC系统信息\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Debug\UI\ModelMetadataDialog.g.cs
 D:\TSC系统信息\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Debug\UI\QueryFormSetting.g.cs
 D:\TSC系统信息\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Debug\UI\ResultListSetting.g.cs

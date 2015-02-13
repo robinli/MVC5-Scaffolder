@@ -50,6 +50,7 @@ using Repository.Pattern.Infrastructure;
 <# foreach (var namespaceName in RequiredNamespaces) { #>
 using <#= namespaceName #>;
 <# } #>
+using PagedList;
 
 namespace <#= Namespace #>
 {
@@ -92,28 +93,62 @@ namespace <#= Namespace #>
 
         // GET: <#= routePrefix #>/<#= ViewPrefix #>Index
 <# if (UseAsync) { #>
-        public async Task<ActionResult> <#= ViewPrefix #>Index()
+        public async Task<ActionResult> <#= ViewPrefix #>Index(string sortOrder, string currentFilter, string search_field, string searchString, int? page)
 <# } else { #>
-        public ActionResult <#= ViewPrefix #>Index()
+        public ActionResult <#= ViewPrefix #>Index(string sortOrder, string currentFilter, string search_field, string searchString, int? page)
 <# } #>
         {
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "Name_desc" : "";
+            if (searchString != null)
+            {
+                page = 1;
+                currentFilter = searchString;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+            //string expression = string.Format("{0} = '{1}'", search_field, searchString);
+            //ViewBag.SearchField = search_field;
 <#  var includeExpressions = "";
         includeExpressions = String.Join("", relatedProperties.Values.Select(property => String.Format(".Include({0} => {0}.{1})", lambdaVar, property.AssociationPropertyName)));
 #>
 <# if(!String.IsNullOrEmpty(includeExpressions)) { #>
-            var <#= ModelVariable #>  = <#= modelServiceVar #>.Query()<#= includeExpressions #>.Select();
+            var <#= ModelVariable #>  = <#= modelServiceVar #>.Queryable()<#= includeExpressions #>.OrderBy(n=>n.<#= primaryKeyName #>).AsQueryable();
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                <#= ModelVariable #>  = <#= ModelVariable #> .Where(n => n.Name.Contains(searchString));
+            }
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
 <#		if (UseAsync) { #>
-            return View(await <#= ModelVariable #>.ToListAsync());
+          
+            return View(await <#= ModelVariable #> .ToPagedList(pageNumber, pageSize));
 <#		} else { #>
-            return View(<#= ModelVariable #>.ToList());
+             return View(<#= ModelVariable #> .ToPagedList(pageNumber, pageSize));
 <#		} #>
 <# } else { #>
 <#		if (UseAsync) { #>
-            var <#= ModelVariable #>  = <#= modelServiceVar #>.Query().Select();
-            return View(await <#= ModelVariable #>.ToListAsync());
+            var <#= ModelVariable #>  = <#= modelServiceVar #>.Queryable().OrderBy(n=>n.<#= primaryKeyName #>).AsQueryable();
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                <#= ModelVariable #>  = <#= ModelVariable #> .Where(n => n.Name.Contains(searchString));
+            }
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            return View(await <#= ModelVariable #> .ToPagedList(pageNumber, pageSize));
 <#		} else { #>
-            var <#= ModelVariable #>  = <#= modelServiceVar #>.Query().Select();
-            return View(<#= ModelVariable #>.ToList());
+            var <#= ModelVariable #>  = <#= modelServiceVar #>.Queryable().OrderBy(n=>n.<#= primaryKeyName #>).AsQueryable();
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                <#= ModelVariable #>  = <#= ModelVariable #> .Where(n => n.Name.Contains(searchString));
+            }
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            return View(<#= ModelVariable #> .ToPagedList(pageNumber, pageSize));
 <#		} #>
 <# } #>
         }
@@ -314,7 +349,7 @@ namespace <#= Namespace #>
         {
             if (disposing)
             {
-                _unitOfWork.Dispose();
+                //_unitOfWork.Dispose();
             }
             base.Dispose(disposing);
         }
