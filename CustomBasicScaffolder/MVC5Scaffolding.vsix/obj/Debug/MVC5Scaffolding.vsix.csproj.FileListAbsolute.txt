@@ -92,3 +92,5 @@ D:\TSC系统信息\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\bi
 D:\TSC系统信息\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\bin\Debug\Templates\MvcScaffolder\Shared\_TopNavBar.cs.t4
 D:\TSC系统信息\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\bin\Debug\Templates\MvcScaffolder\Shared\_SideNavBar.cs.t4
 D:\TSC系统信息\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\bin\Debug\Templates\MvcScaffolder\Shared\_Layout.cs.t4
+D:\TSC系统信息\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\bin\Debug\Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\_SideNavBar.cs.t4
+D:\TSC系统信息\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\bin\Debug\Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\_TopNavBar.cs.t4

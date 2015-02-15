@@ -219,7 +219,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             // Views for  C.R.U.D 
             string viewFolderPath = Path.Combine(viewRootPath, controllerRootName);
             // Shared Layout Views
-            AddSharedLayoutTemplates(project, viewRootPath, selectionRelativePath, dbContextNamespace, dbContextTypeName, modelType, efMetadata);
+            //AddSharedLayoutTemplates(project, viewRootPath, selectionRelativePath, dbContextNamespace, dbContextTypeName, modelType, efMetadata);
             foreach (string viewName in new string[4] { "Index", "Create", "Edit", "EditForm" })
             {
                 //string viewName = string.Format(view, viewPrefix);
@@ -436,6 +436,33 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 {"IsBundleConfigPresent", true}
                 , {"JQueryVersion",""}
                 , {"ModernizrVersion", ""}
+            };
+            AddFileFromTemplate(project: project
+                , outputPath: outputPath
+                , templateName: templatePath
+                , templateParameters: templateParams
+                , skipIfExists: true);
+
+
+            // add _SideNavBar
+            viewName = "_SideNavBar";
+            outputPath = Path.Combine(viewRootPath, "Shared", viewName);
+            templatePath = Path.Combine("MvcFullDependencyCodeGenerator", viewName);
+            templateParams = new Dictionary<string, object>(){
+               {"DefaultNamespace", project.GetDefaultNamespace()}
+            };
+            AddFileFromTemplate(project: project
+                , outputPath: outputPath
+                , templateName: templatePath
+                , templateParameters: templateParams
+                , skipIfExists: true);
+
+            // add _TopNavBar
+            viewName = "_TopNavBar";
+            outputPath = Path.Combine(viewRootPath, "Shared", viewName);
+            templatePath = Path.Combine("MvcFullDependencyCodeGenerator", viewName);
+            templateParams = new Dictionary<string, object>(){
+               {"DefaultNamespace", project.GetDefaultNamespace()}
             };
             AddFileFromTemplate(project: project
                 , outputPath: outputPath

@@ -1,0 +1,111 @@
+﻿@model PagedList.IPagedList<WebApp.Models.Category>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+}
+<style type='text/css'>
+    /*設定 數字靠右*/
+    td:nth-child(2n){text-align: right;}
+</style>
+<h2>Index</h2>
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Category
+                <small>Index</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li>
+                    <i class="fa fa-home"></i>  @Html.ActionLink("Home", "Index", "Home")
+                </li>
+                 
+                <li class="active">
+                    <i class="fa fa-file"></i> Categories
+                </li>
+            </ol>
+        </div>
+    </div>
+    <!-- /.row -->
+     <div class="row">
+        <div class="col-lg-12">
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+@using (Html.BeginForm())
+{
+  
+        <div class="input-group">
+            <div class="input-group-btn search-panel">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    <span id="search_concept">Filter by</span> <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="#Name">Name</a></li>
+                     
+                   
+                </ul>
+            </div>
+            <input type="hidden" name="search_field" value="All" id="search_field">
+            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string,new {@class="form-control",placeholder="Search term..."})
+        
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+            </span>
+      
+  
+      
+    </div>
+}
+
+<table class="table">
+    <tr>
+        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+
+    </tr>
+}
+
+</table>
+
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+     </div>
+    </div>
+</div>
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function (e) {
+            $('.search-panel .dropdown-menu').find('a').click(function (e) {
+                e.preventDefault();
+                var param = $(this).attr("href").replace("#", "");
+                var concept = $(this).text();
+                $('.search-panel span#search_concept').text(concept);
+                $('.input-group #search_field').val(param);
+            });
+        });
+    
+    
+     </script>
+}
+
