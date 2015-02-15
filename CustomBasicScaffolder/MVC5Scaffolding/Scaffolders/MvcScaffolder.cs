@@ -215,9 +215,11 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             // EditorTemplates, DisplayTemplates
             AddDataFieldTemplates(project, viewRootPath);
             
-
+        
             // Views for  C.R.U.D 
             string viewFolderPath = Path.Combine(viewRootPath, controllerRootName);
+            // Shared Layout Views
+            AddSharedLayoutTemplates(project, viewRootPath, selectionRelativePath, dbContextNamespace, dbContextTypeName, modelType, efMetadata);
             foreach (string viewName in new string[4] { "Index", "Create", "Edit", "EditForm" })
             {
                 //string viewName = string.Format(view, viewPrefix);
@@ -562,7 +564,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
         }
         private void AddEntityServiceTemplates(
            Project project,
-           string selectionRelativePath,
+          string selectionRelativePath,
            string dbContextNamespace,
            string dbContextTypeName,
            CodeType modelType,
@@ -625,6 +627,50 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                         {"FolderNamespace", folderNamespace.Replace("_","")}, // the namespace of the current folder (used by C#)
                         {"PluralizedModelName",pluralizedModelName},
                         {"ModelNamespace", modelNameSpace} // the namespace of the model (e.g., Samples.Models)               
+                    },
+                    skipIfExists: true);
+
+            }
+        }
+
+        private void AddSharedLayoutTemplates( Project project,
+               string viewsFolderPath,
+           string selectionRelativePath,
+           string dbContextNamespace,
+           string dbContextTypeName,
+           CodeType modelType,
+           ModelMetadata efMetadata)
+        {
+            var layoutTemplates = new[] { "_Layout", "_SideNavBar", "_TopNavBar" };
+            var layoutTemplatesPath = "Shared";
+
+
+            // Add folder for views. This is necessary to display an error when the folder already exists but 
+            // the folder is excluded in Visual Studio: see https://github.com/Superexpert/WebFormsScaffolding/issues/18
+            string outputFolderPath = Path.Combine(viewsFolderPath,"Shared");
+            //AddFolder(Context.ActiveProject, outputFolderPath);
+
+
+            AddFolder(Context.ActiveProject, outputFolderPath);
+            PropertyMetadata primaryKey = efMetadata.PrimaryKeys.FirstOrDefault();
+            // Now add each view
+            foreach (string layout in layoutTemplates)
+            {
+                var templatePath = Path.Combine(layoutTemplatesPath, layout);
+
+                var outputPath = Path.Combine(outputFolderPath, layout);
+
+                //var defaultNamespace = Context.ActiveProject.GetDefaultNamespace();
+                //var folderNamespace = GetDefaultNamespace() + ".Services";
+                AddFileFromTemplate(
+                    project: project,
+                    outputPath: outputPath,
+                    templateName: templatePath,
+                    templateParameters: new Dictionary<string, object>() 
+                    {
+                        {"DefaultNamespace", project.GetDefaultNamespace()}
+                     
+                       
                     },
                     skipIfExists: true);
 

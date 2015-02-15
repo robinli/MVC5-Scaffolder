@@ -26,7 +26,7 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
 #>
 }
 
-<h2><#= ViewName#></h2>
+
 
 <#
 } else {
@@ -74,6 +74,34 @@ if (ReferenceScriptLibraries) {
 <#
 }
 #>
+<#
+    var modelName =  ModelMetadata.EntitySetName;
+#>
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                <#= ProgramTitle #>
+                <small><#= ViewName #></small>
+            </h1>
+            <ol class="breadcrumb">
+                <li>
+                    <i class="fa fa-home"></i>  @Html.ActionLink("Home", "Index", "Home")
+                </li>
+                 <li>
+                    <i class="fa fa-home"></i>  @Html.ActionLink("<#= modelName #>", "<#= ViewName #>", "<#= modelName #>")
+                </li>
+                <li class="active">
+                    <i class="fa fa-file"></i> <#= ViewName #>
+                </li>
+            </ol>
+        </div>
+    </div>
+    <!-- /.row -->
+     <div class="row">
+        <div class="col-lg-12">
+
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
@@ -101,8 +129,7 @@ if (ReferenceScriptLibraries) {
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "<#= ViewPrefix #>Index")
+ </div>
 </div>
 <#
 if(IsLayoutPageSelected && ReferenceScriptLibraries && IsBundleConfigPresent) {
