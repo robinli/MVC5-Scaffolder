@@ -62,3 +62,6 @@ C:\Users\Administrator\AppData\Local\Microsoft\VisualStudio\12.0Exp\Extensions\R
 C:\Users\Administrator\AppData\Local\Microsoft\VisualStudio\12.0Exp\Extensions\Robin Li\Happy Scaffolding for MVC5\3.1\\Templates\MvcScaffolder\Shared\_Layout.cs.t4
 C:\Users\Administrator\AppData\Local\Microsoft\VisualStudio\12.0Exp\Extensions\Robin Li\Happy Scaffolding for MVC5\3.1\\Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\_SideNavBar.cs.t4
 C:\Users\Administrator\AppData\Local\Microsoft\VisualStudio\12.0Exp\Extensions\Robin Li\Happy Scaffolding for MVC5\3.1\\Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\_TopNavBar.cs.t4
+C:\Users\Administrator\AppData\Local\Microsoft\VisualStudio\12.0Exp\Extensions\Robin Li\Happy Scaffolding for MVC5\3.1\\Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\HtmlExtensions.cs.t4
+C:\Users\Administrator\AppData\Local\Microsoft\VisualStudio\12.0Exp\Extensions\Robin Li\Happy Scaffolding for MVC5\3.1\\Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\PageListExtensions.cs.t4
+C:\Users\Administrator\AppData\Local\Microsoft\VisualStudio\12.0Exp\Extensions\Robin Li\Happy Scaffolding for MVC5\3.1\\Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\sb-admin.cs.t4

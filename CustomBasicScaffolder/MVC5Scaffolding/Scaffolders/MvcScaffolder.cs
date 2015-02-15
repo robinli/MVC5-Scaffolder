@@ -469,6 +469,48 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 , templateName: templatePath
                 , templateParameters: templateParams
                 , skipIfExists: true);
+
+
+            // add HtmlExtensions
+            viewName = "HtmlExtensions";
+            outputPath = Path.Combine("Extensions", viewName);
+            templatePath = Path.Combine("MvcFullDependencyCodeGenerator", viewName);
+            templateParams = new Dictionary<string, object>(){
+               {"DefaultNamespace", project.GetDefaultNamespace()}
+            };
+            AddFileFromTemplate(project: project
+                , outputPath: outputPath
+                , templateName: templatePath
+                , templateParameters: templateParams
+                , skipIfExists: true);
+
+
+            // add PageListExtensions
+            viewName = "PageListExtensions";
+            outputPath = Path.Combine("Extensions", viewName);
+            templatePath = Path.Combine("MvcFullDependencyCodeGenerator", viewName);
+            templateParams = new Dictionary<string, object>(){
+               {"DefaultNamespace", project.GetDefaultNamespace()}
+            };
+            AddFileFromTemplate(project: project
+                , outputPath: outputPath
+                , templateName: templatePath
+                , templateParameters: templateParams
+                , skipIfExists: true);
+
+
+            // add sb_admin.css
+            viewName = "sb-admin";
+            outputPath = Path.Combine("Content", viewName);
+            templatePath = Path.Combine("MvcFullDependencyCodeGenerator", viewName);
+            templateParams = new Dictionary<string, object>(){
+               
+            };
+            AddFileFromTemplate(project: project
+                , outputPath: outputPath
+                , templateName: templatePath
+                , templateParameters: templateParams
+                , skipIfExists: true);
             
         }
 

@@ -90,7 +90,7 @@ if (ReferenceScriptLibraries) {
                     <i class="fa fa-home"></i>  @Html.ActionLink("Home", "Index", "Home")
                 </li>
                  <li>
-                    <i class="fa fa-home"></i>  @Html.ActionLink("<#= modelName #>", "<#= ViewName #>", "<#= modelName #>")
+                    <i class="fa fa-folder-open"></i>  @Html.ActionLink("<#= modelName #>", "Index", "<#= modelName #>")
                 </li>
                 <li class="active">
                     <i class="fa fa-file"></i> <#= ViewName #>
