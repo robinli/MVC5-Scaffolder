@@ -8,6 +8,7 @@
     @Scripts.Render("~/bundles/modernizr")
     <link href="~/Content/themes/base/all.css" rel="stylesheet" />
     <link href="~/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-table.css" rel="stylesheet" />
 </head>
 <body>
     <div id="wrapper">
@@ -43,7 +44,9 @@
 
 
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+        @Scripts.Render("~/bundles/bootstrap")
+        <script src="~/Scripts/bootstrap-table.js"></script>
+    <script src="~/Scripts/extensions/flatJSON/bootstrap-table-flatJSON.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

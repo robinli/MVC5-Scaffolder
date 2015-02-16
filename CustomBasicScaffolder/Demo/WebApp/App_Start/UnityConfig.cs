@@ -49,6 +49,10 @@ namespace WebApp.App_Start
             container.RegisterType<IProductService, ProductService>(new PerRequestLifetimeManager());
             container.RegisterType<IRepositoryAsync<Category>, Repository<Category>>(new PerRequestLifetimeManager());
             container.RegisterType<ICategoryService, CategoryService>(new PerRequestLifetimeManager());
+            container.RegisterType<IRepositoryAsync<Order>, Repository<Order>>(new PerRequestLifetimeManager());
+            container.RegisterType<IOrderService, OrderService>(new PerRequestLifetimeManager());
+            //container.RegisterType<IRepositoryAsync<Order>, Repository<Order>>();
+            //container.RegisterType<IOrderService, OrderService>();
         }
     }
 }
