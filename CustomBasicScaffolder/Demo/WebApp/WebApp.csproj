@@ -388,10 +388,11 @@
     <Content Include="Views\Orders\Index.cshtml" />
     <Content Include="Views\Orders\Create.cshtml" />
     <Content Include="Views\Orders\Edit.cshtml" />
-    <Content Include="Views\Orders\EditForm.cshtml" />
+    <Content Include="Views\Orders\EditForm——.cshtml" />
     <Content Include="Scripts\locale\bootstrap-table-en-US.js.template" />
     <Content Include="Scripts\locale\README.md" />
     <Content Include="Views\Orders\_OrderDetailForm.cshtml" />
+    <Content Include="Views\Orders\EditForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
