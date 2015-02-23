@@ -142,3 +142,4 @@ D:\MVC5\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\obj\Debug\MVC
 D:\MVC5\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\obj\Debug\Happy.Scaffolding.MVC5.dll
 D:\MVC5\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\obj\Debug\Happy.Scaffolding.MVC5.pdb
 D:\MVC5\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\obj\Debug\extension.vsixmanifest
+D:\MVC5\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\bin\Debug\Templates\MvcScaffolder\MvcView\ChildrenEditForm.cs.t4

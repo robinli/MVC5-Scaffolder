@@ -179,7 +179,6 @@ D:\MVC5\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\MVC5Scaf
 D:\MVC5\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\fr-FR\MVC5Scaffolding.resources.dll
 D:\MVC5\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\Newtonsoft.Json.dll
 D:\MVC5\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\Newtonsoft.Json.xml
-D:\MVC5\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Debug\MVC5Scaffolding.csprojResolveAssemblyReference.cache
 D:\MVC5\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Debug\UI\ModelMetadataDialog.g.cs
 D:\MVC5\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Debug\UI\QueryFormSetting.g.cs
 D:\MVC5\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Debug\UI\ResultListSetting.g.cs
@@ -201,3 +200,4 @@ D:\MVC5\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Debug\MVC5Scaf
 D:\MVC5\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Debug\fr-FR\MVC5Scaffolding.resources.dll
 D:\MVC5\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Debug\MVC5Scaffolding.dll
 D:\MVC5\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Debug\MVC5Scaffolding.pdb
+D:\MVC5\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\Templates\MvcScaffolder\MvcView\ChildrenEditForm.cs.t4
