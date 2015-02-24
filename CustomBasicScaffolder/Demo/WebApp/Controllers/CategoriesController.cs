@@ -120,7 +120,9 @@ namespace WebApp.Controllers
             if (ModelState.IsValid)
             {
                 category.ObjectState = ObjectState.Modified;
-                
+                //category = _categoryService.Find(1);
+                //category.Name += "abc";
+                _categoryService.Update(category);
                 _unitOfWork.SaveChanges();
                 DisplaySuccessMessage("Has update a Category record");
                 return RedirectToAction("Index");
