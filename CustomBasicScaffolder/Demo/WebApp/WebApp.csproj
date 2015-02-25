@@ -200,7 +200,9 @@
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\OrdersController.cs" />
+    <Compile Include="Controllers\OrdersController.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Extensions\HtmlExtensions.cs" />
     <Compile Include="Extensions\PageListExtensions.cs" />
