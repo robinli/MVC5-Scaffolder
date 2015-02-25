@@ -209,11 +209,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201502160923041_Order.cs" />
+    <Compile Include="Migrations\201502160923041_Order.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Migrations\201502160923041_Order.Designer.cs">
       <DependentUpon>201502160923041_Order.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Migrations\Configuration.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\CategoryMetadata.cs" />
@@ -295,15 +299,15 @@
     <Content Include="font-awesome\scss\_spinning.scss" />
     <Content Include="font-awesome\scss\_stacked.scss" />
     <Content Include="font-awesome\scss\_variables.scss" />
-    <Content Include="Scripts\extensions\editable\README.md" />
-    <Content Include="Scripts\extensions\export\README.md" />
-    <Content Include="Scripts\extensions\filter\README.md" />
-    <Content Include="Scripts\extensions\flatJSON\README.md" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\extensions\editable\bootstrap-table-editable.js" />
+    <Content Include="Scripts\extensions\editable\README.md" />
     <Content Include="Scripts\extensions\export\bootstrap-table-export.js" />
+    <Content Include="Scripts\extensions\export\README.md" />
     <Content Include="Scripts\extensions\filter\bootstrap-table-filter.js" />
+    <Content Include="Scripts\extensions\filter\README.md" />
     <Content Include="Scripts\extensions\flatJSON\bootstrap-table-flatJSON.js" />
+    <Content Include="Scripts\extensions\flatJSON\README.md" />
     <Content Include="Scripts\extensions\sorting\bootstrap-table_natural-sorting.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -318,6 +322,7 @@
     <Content Include="Scripts\locale\bootstrap-table-de-DE.js" />
     <Content Include="Scripts\locale\bootstrap-table-el-GR.js" />
     <Content Include="Scripts\locale\bootstrap-table-en-US.js" />
+    <Content Include="Scripts\locale\bootstrap-table-en-US.js.template" />
     <Content Include="Scripts\locale\bootstrap-table-es-AR.js" />
     <Content Include="Scripts\locale\bootstrap-table-es-CR.js" />
     <Content Include="Scripts\locale\bootstrap-table-es-NI.js" />
@@ -343,6 +348,7 @@
     <Content Include="Scripts\locale\bootstrap-table-vi-VN.js" />
     <Content Include="Scripts\locale\bootstrap-table-zh-CN.js" />
     <Content Include="Scripts\locale\bootstrap-table-zh-TW.js" />
+    <Content Include="Scripts\locale\README.md" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -406,8 +412,6 @@
     <Content Include="Views\Shared\_SideNavBar.cshtml" />
     <Content Include="Views\Shared\_TopNavBar.cshtml" />
     <Content Include="Views\Orders\EditForm.cshtml" />
-    <Content Include="Scripts\locale\bootstrap-table-en-US.js.template" />
-    <Content Include="Scripts\locale\README.md" />
     <Content Include="Views\Orders\_OrderDetailForm.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\Products\Create.cshtml" />
