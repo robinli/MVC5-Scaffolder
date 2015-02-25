@@ -10,7 +10,7 @@ namespace WebApp.Models
 
     public partial class ProductMetadata
     {
-        [Required(ErrorMessage = "Please enter : Category")]
+      
         [Display(Name = "分类")]
         public Category Category { get; set; }
 

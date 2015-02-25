@@ -22,3 +22,8 @@
 <#@ parameter type="Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata" name="ModelMetadata" #>
 <#@ parameter type="Happy.Scaffolding.MVC.Models.MetaTableInfo" name="MetaTable" #>
 <#@ parameter type="System.Version" name="MvcVersion" #>
+
+
+<#@ parameter type="System.Collections.Generic.Dictionary<string, string>" name="ModelDisplayNames" #>
+<#@ parameter type="System.String" name="ModelNameSpace" #>
+<#@ parameter type="System.Collections.Generic.Dictionary<string, Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata>" name="OneToManyModelMetadata" #>

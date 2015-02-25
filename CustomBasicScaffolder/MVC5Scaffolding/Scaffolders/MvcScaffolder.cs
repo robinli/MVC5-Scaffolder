@@ -13,6 +13,7 @@ using System.IO;
 using Microsoft.AspNet.Scaffolding;
 using Happy.Scaffolding.MVC;
 using Happy.Scaffolding.MVC.Models;
+using System.Reflection;
 
 namespace Happy.Scaffolding.MVC.Scaffolders
 {
@@ -164,7 +165,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             // Get the Entity Framework Meta Data
             IEntityFrameworkService efService = Context.ServiceProvider.GetService<IEntityFrameworkService>();
             ModelMetadata efMetadata = efService.AddRequiredEntity(Context, dbContextTypeName, modelType.FullName);
-
+            var oneToManyModels = GetOneToManyModelDictionary(efMetadata, efService, dbContextTypeName);
             // Create Controller
             string controllerName = codeGeneratorViewModel.ControllerName;
             string controllerRootName = controllerName.Replace("Controller","");
@@ -240,8 +241,33 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                     , isLayoutPageSelected: codeGeneratorViewModel.LayoutPageSelected
                     , layoutPageFile: codeGeneratorViewModel.LayoutPageFile
                     , overwrite: codeGeneratorViewModel.OverwriteViews
+                    , oneToManyModels: oneToManyModels
                     );
             }
+        }
+
+        private Dictionary<string, ModelMetadata> GetOneToManyModelDictionary(ModelMetadata efMetadata, IEntityFrameworkService efService, string dbContextTypeName)
+        {
+            var dict = new Dictionary<string, ModelMetadata>();
+            foreach (var prop in efMetadata.Properties)
+            {
+
+                if (prop.AssociationDirection == AssociationDirection.OneToMany)
+                {
+                    string propname = prop.PropertyName;
+                    //var relmeta = prop.RelatedModel;
+                    string typename = prop.TypeName;
+
+                    ModelMetadata modelMetadata = efService.AddRequiredEntity(Context, dbContextTypeName, typename);
+                    if (!dict.ContainsKey(propname))
+                    {
+                        dict.Add(propname, modelMetadata);
+                    }
+                }
+            }
+
+
+            return dict;
         }
 
 
@@ -376,15 +402,17 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             , bool isLayoutPageSelected = true
             , string layoutPageFile = null
             , bool isBundleConfigPresent=true
-            , bool overwrite = false)
+            , bool overwrite = false
+            , Dictionary<string,ModelMetadata> oneToManyModels = null )
         {
             //Project project = Context.ActiveProject;
             string outputPath = Path.Combine(viewsFolderPath, viewPrefix+viewName);
             string templatePath = Path.Combine("MvcView", viewName);
             string viewDataTypeName = modelType.Namespace.FullName + "." + modelType.Name;
-
+            string modelNameSpace = modelType.Namespace != null ? modelType.Namespace.FullName : String.Empty;
             if (layoutPageFile == null)
                 layoutPageFile = string.Empty;
+            var modelDisplayNames = GetDisplayNames(modelType);
 
             Dictionary<string, object> templateParams = new Dictionary<string, object>(){
                 {"ControllerRootName" , controllerRootName}
@@ -392,12 +420,15 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 , {"ViewPrefix", viewPrefix}
                 , {"ViewName", viewName}
                 , {"ProgramTitle", programTitle}
+                , {"ModelNameSpace", modelNameSpace}
                 , {"ViewDataTypeName", viewDataTypeName}
                 , {"IsPartialView" , false}
                 , {"LayoutPageFile", layoutPageFile}
                 , {"IsLayoutPageSelected", isLayoutPageSelected}
                 , {"ReferenceScriptLibraries", referenceScriptLibraries}
                 , {"IsBundleConfigPresent", isBundleConfigPresent}
+                , {"OneToManyModelMetadata", oneToManyModels}
+                ,{"ModelDisplayNames",modelDisplayNames}
                 //, {"ViewDataTypeShortName", modelType.Name} // 可刪除
                 , {"MetaTable", _ModelMetadataVM.DataModel}
                 , {"JQueryVersion","2.1.0"} // 如何讀取專案的 jQuery 版本
@@ -409,6 +440,21 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 , templateName: templatePath
                 , templateParameters: templateParams
                 , skipIfExists: !overwrite);
+        }
+
+        // Create a mapping between property names and display names in case
+        // the property is decorated with a DisplayAttribute
+        protected IDictionary<string, string> GetDisplayNames(CodeType modelType)
+        {
+            var type = GetReflectionType(modelType.FullName);
+            var lookup = new Dictionary<string, string>();
+            foreach (PropertyInfo prop in type.GetProperties())
+            {
+                var attr = (System.ComponentModel.DataAnnotations.DisplayAttribute)prop.GetCustomAttribute(typeof(System.ComponentModel.DataAnnotations.DisplayAttribute), true);
+                var value = attr != null && !String.IsNullOrWhiteSpace(attr.Name) ? attr.Name : prop.Name;
+                lookup.Add(prop.Name, value);
+            }
+            return lookup;
         }
 
         //add _Layout & _ViewStart

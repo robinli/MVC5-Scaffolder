@@ -40,4 +40,11 @@ string GetPrimaryKeyName() {
 bool IsPropertyGuid(PropertyMetadata property) {
     return String.Equals("System.Guid", property.TypeName, StringComparison.OrdinalIgnoreCase);
 }
+
+
+// Returns either the value of the Display(Name=) attribute or the property name
+string GetDisplayName(string propertyName) {
+	return ModelDisplayNames.ContainsKey(propertyName) ? ModelDisplayNames[propertyName] : propertyName;
+}
+
 #>
