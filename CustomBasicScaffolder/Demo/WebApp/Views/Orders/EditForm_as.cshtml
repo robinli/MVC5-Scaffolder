@@ -1,0 +1,139 @@
+﻿
+
+@model WebApp.Models.Order
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Customer, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Customer, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Customer,"" , new { @class = "text-danger" })
+            </div>
+        </div>
+		
+        <div class="form-group">
+            @Html.LabelFor(model => model.ShippingAddress, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ShippingAddress, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ShippingAddress,"" , new { @class = "text-danger" })
+            </div>
+        </div>
+		
+        <div class="form-group">
+            @Html.LabelFor(model => model.OrderDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.OrderDate, "Date")
+                @Html.ValidationMessageFor(model => model.OrderDate,"" , new { @class = "text-danger" })
+            </div>
+        </div>
+		
+
+	<div role="tabpanel">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+								<li role="presentation" class="active"><a href="#tab-OrderDetails" aria-controls="tab-OrderDetails" role="tab" data-toggle="tab">OrderDetails</a></li>		 
+								        
+			 
+   
+		 </ul>
+		 <!-- Tab panes -->
+         <div class="tab-content">
+		  
+		  <div role="tabpanel" class="tab-pane active" id="tab-OrderDetails">
+                <div id="toolbar" class="btn-group">
+                    <button type="button" id="addOrderDetailsbutton" class="btn btn-default">
+                        <i class="glyphicon glyphicon-plus"></i>
+                    </button>
+
+                    <button type="button" id="removeOrderDetailsbutton" class="btn btn-default">
+                        <i class="glyphicon glyphicon-trash"></i>
+                    </button>
+                </div>
+                <table id="orderdetails-table" data-search="true"
+                       data-flat="false"
+                       data-toolbar="#toolbar"
+                       data-pagination="true"
+                       data-show-refresh="true"
+                       data-show-toggle="true"
+                       data-show-columns="true">
+                    <thead>
+                        <tr>
+                            <th data-formatter="rowindexFormatter">#No</th>
+				
+                            <th data-field="ProductId">ProductId</th>
+        		
+                            <th data-field="Qty">Qty</th>
+        		
+                            <th data-field="Price">Price</th>
+        		
+                            <th data-field="Amount">Amount</th>
+        		
+                            <th data-field="OrderId">OrderId</th>
+                                    <th data-field="action" data-formatter="actionFormatter" data-events="actionEvents">Action</th>
+                        </tr>
+                    </thead>
+                </table>
+
+            </div>
+
+		  </div>
+    </div>
+<script type="text/javascript">
+        var $table = $('#orderdetail-table'),
+        $remove = $('#remove');
+        console.log($table);
+        function rowindexFormatter(value, row, index) {
+            return index + 1;
+        }
+        function actionFormatter(value, row, index) {
+            return [
+                '<a class="edit" href="javascript:void(0)" title="Add">',
+                '<i class="glyphicon glyphicon-edit"></i>',
+                '</a>  ',
+                ' <a class="remove" href="javascript:void(0)" title="Remove">',
+                '<i class="glyphicon glyphicon-remove"></i>',
+                '</a>'
+            ].join('');
+        }
+        window.actionEvents = {
+
+            'click .edit': function (e, value, row, index) {
+                var productid = $('#ProductId');
+                var price = $('#Price');
+                var qty = $('#Qty');
+                var amount = $('#Amount');
+                var rowindex = $('#rowindex');
+                //console.log(row.Product.Id);
+                //productid.val(row.Product.Id);
+                //console.log(productid);
+                rowindex.val(index);
+                productid.val(row.Product.Id);
+                price.val(row.Price);
+                qty.val(row.Qty);
+                amount.val(row.Amount);
+                $('#orderdetailformModal').modal('toggle');
+                console.log(value, row, index);
+            },
+            'click .remove': function (e, value, row, index) {
+                $('#orderdetail-table').bootstrapTable('remove', {
+                    field: 'Id',
+                    values: [row.Id]
+                });
+                console.log(value, row, index);
+            }
+        };
+        $(function () {
+            
+            $table = $('#orderdetails-table').bootstrapTable({
+                data: [
+                ]
+            });
+
+        });
+
+</script>
+
+
+
+
+
+
