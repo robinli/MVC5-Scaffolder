@@ -47,9 +47,12 @@
                        data-pagination="true"
                        data-show-refresh="true"
                        data-show-toggle="true"
-                       data-show-columns="true">
+                       data-show-columns="true"
+                       data-single-select="true"
+                       data-click-to-select="true">
                     <thead>
                         <tr>
+                            <th data-field="state" data-checkbox="true"></th>
                             <th data-formatter="rowindexFormatter">#No</th>
                             <th data-field="ProductName">ProductName</th>
                             <th data-field="Price">Price</th>
@@ -73,7 +76,7 @@
                     <h4 class="modal-title" id="myModalLabel">OrderDetails</h4>
                 </div>
                 <div class="modal-body">
-                    @Html.Partial("_OrderDetailForm")
+                    @*@Html.Partial("_OrderDetailForm")*@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -84,6 +87,8 @@
     </div>
 
     <script type="text/javascript">
+        var details=@Html.Raw(Json.Encode(ViewBag.OrderDetails));
+        console.log(details);
         $orderdetailstable = $('#orderdetail-table');
         $remove = $('#remove');
         console.log($orderdetailstable);
@@ -121,8 +126,8 @@
             },
             'click .remove': function (e, value, row, index) {
                 $('#orderdetail-table').bootstrapTable('remove', {
-                    field: 'Id',
-                    values: [row.Id]
+                    field: '#No',
+                    values: [index]
                 });
                 console.log(value, row, index);
             }
@@ -178,8 +183,7 @@
             });
 
             $orderdetailstable = $('#orderdetail-table').bootstrapTable({
-                data: [
-                ]
+                data: details
             });
 
         });

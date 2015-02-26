@@ -29,8 +29,14 @@
     <!-- /.row -->
      <div class="row">
         <div class="col-lg-12">
-
-@using (Html.BeginForm())
+             
+@*@using (Html.BeginForm())*@
+@using(Ajax.BeginForm("Edit","Orders", null, new AjaxOptions
+           {
+               InsertionMode = InsertionMode.Replace,
+               HttpMethod = "Post",
+               OnSuccess = "updateSuccess"
+           }, new { id = "updateorders" } ))
 {
     @Html.AntiForgeryToken()
     

@@ -34,6 +34,10 @@ else
 <#@ parameter type="System.String" name ="ViewPrefix" #>
 <#@ parameter type="System.String" name ="ModelName" #>
 <#@ parameter type="System.Collections.Generic.HashSet<System.String>" name="RequiredNamespaces" #>
+
+
+<#@ parameter type="System.Collections.Generic.Dictionary<string, Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata>" name="OneToManyModelMetadata" #>
+<#@ parameter type="System.Collections.Generic.Dictionary<string, string>" name="OneToManyAnonymousObjText" #>
 using System;
 using System.Collections.Generic;
 using System.Data;

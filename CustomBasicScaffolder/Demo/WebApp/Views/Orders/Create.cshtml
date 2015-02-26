@@ -57,7 +57,7 @@
 
         <script type="text/javascript">
             var $orderdetailstable = {};
-             
+            var ObjectState = "Added";
             $(document).ready(function () {
 
                 $('#orders').submit(function () {
@@ -72,9 +72,11 @@
                         Customer: $('#Customer','#orders').val(),
                         ShippingAddress: $('#ShippingAddress', '#orders').val(),
                         OrderDate: $('#OrderDate', '#orders').val(),
+                        ObjectState:ObjectState,
                         OrderDetails: orderdetails
                        
                     };
+                    console.log(newitem);
                     $.ajax({
                         url: actionurl,
               

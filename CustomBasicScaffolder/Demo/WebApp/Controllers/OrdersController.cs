@@ -12,9 +12,47 @@ using WebApp.Models;
 using WebApp.Services;
 using WebApp.Repositories;
 using PagedList;
+using Newtonsoft.Json;
+using System.IO;
+using System.Text;
 
 namespace WebApp.Controllers
 {
+    public class JsonNetResult : JsonResult
+    {
+        public JsonSerializerSettings Settings { get; private set; }
+
+        public JsonNetResult()
+        {
+            Settings = new JsonSerializerSettings
+            {
+                //这句是解决问题的关键,也就是json.net官方给出的解决配置选项.
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            };
+        }
+
+        public override void ExecuteResult(ControllerContext context)
+        {
+            if (context == null)
+                throw new ArgumentNullException("context");
+            if (this.JsonRequestBehavior == JsonRequestBehavior.DenyGet &&
+            string.Equals(context.HttpContext.Request.HttpMethod, "GET", StringComparison.OrdinalIgnoreCase))
+                throw new InvalidOperationException("JSON GET is not allowed");
+            HttpResponseBase response = context.HttpContext.Response;
+            response.ContentType = string.IsNullOrEmpty(this.ContentType) ?
+             "application/json" : this.ContentType;
+            if (this.ContentEncoding != null)
+                response.ContentEncoding = this.ContentEncoding;
+            if (this.Data == null)
+                return;
+            var scriptSerializer = JsonSerializer.Create(this.Settings);
+            using (var sw = new StringWriter())
+            {
+                scriptSerializer.Serialize(sw, this.Data);
+                response.Write(sw.ToString());
+            }
+        }
+    }
     public class OrdersController : Controller
     {
         //private StoreContext db = new StoreContext();
@@ -93,10 +131,11 @@ namespace WebApp.Controllers
                 {
                     detail.ObjectState = ObjectState.Added;
                     //detail.Product = null;
-                    detail.Product.ObjectState = ObjectState.Unchanged;
+                    detail.Product.ObjectState = ObjectState.Detached;
+                    
                 }
                 order.ObjectState = ObjectState.Added;
-               _orderService.InsertOrUpdateGraph(order);
+                _orderService.InsertOrUpdateGraph(order);
                 _unitOfWork.SaveChanges();
                 DisplaySuccessMessage("Has append a Order record");
                 return RedirectToAction("Index");
@@ -108,19 +147,36 @@ namespace WebApp.Controllers
             return View(order);
             //return Json("");
         }
-
+        protected override JsonResult Json(object data, string contentType, Encoding contentEncoding,
+        JsonRequestBehavior behavior)
+        {
+            return new JsonNetResult
+            {
+                Data = data,
+                ContentType = contentType,
+                ContentEncoding = contentEncoding,
+                JsonRequestBehavior = behavior
+            };
+        }
         // GET: Orders/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                //return null;
             }
-            Order order = _orderService.Find(id);
+            Order order = _orderService.Query().Include(n=>n.OrderDetails.Select(p=>p.Product)).Select().Where(n=>n.Id==id).First();
+
+            var productRepository = _unitOfWork.Repository<Product>();
+            ViewBag.ProductId = new SelectList(productRepository.Queryable(), "Id", "Name");
+          
+            ViewBag.OrderDetails = order.OrderDetails.Select(n => new { OrderId = n.OrderId, Id = n.Id, ProductId = n.ProductId, ProductName = n.Product.Name,Qty=n.Qty,Price=n.Price, Amount=n.Amount });
             if (order == null)
             {
                 return HttpNotFound();
             }
+            //return Json(order,"", Encoding.UTF8 , JsonRequestBehavior.AllowGet);
             return View(order);
         }
 
@@ -133,12 +189,14 @@ namespace WebApp.Controllers
             if (ModelState.IsValid)
             {
                 order.ObjectState = ObjectState.Modified;
-                //_orderService.Update(order);
+                _orderService.Update(order);
                
                 _unitOfWork.SaveChanges();
                 DisplaySuccessMessage("Has update a Order record");
                 return RedirectToAction("Index");
             }
+            var productRepository = _unitOfWork.Repository<Product>();
+            ViewBag.ProductId = new SelectList(productRepository.Queryable(), "Id", "Name");
             DisplayErrorMessage();
             return View(order);
         }
@@ -184,7 +242,7 @@ namespace WebApp.Controllers
         {
             if (disposing)
             {
-                //_unitOfWork.Dispose();
+                _unitOfWork.Dispose();
             }
             base.Dispose(disposing);
         }

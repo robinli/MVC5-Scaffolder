@@ -148,7 +148,7 @@ else
                 var childrenmodelmeta=OneToManyModelMetadata[property.PropertyName];
           #>
 
-		  <div role="tabpanel" class="tab-pane <#= idx==0?"":"active"  #>" id="tab-<#=property.PropertyName   #>">
+		  <div role="tabpanel" class="tab-pane <#= idx>0?"":"active"  #>" id="tab-<#=property.PropertyName   #>">
                 <div id="toolbar" class="btn-group">
                     <button type="button" id="add<#= property.PropertyName #>button" class="btn btn-default">
                         <i class="glyphicon glyphicon-plus"></i>
@@ -195,7 +195,8 @@ else
         }
 		  #>
 
-
+	</div>
+</div>
 
 
 

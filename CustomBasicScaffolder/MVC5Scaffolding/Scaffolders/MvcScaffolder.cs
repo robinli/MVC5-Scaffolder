@@ -166,6 +166,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             IEntityFrameworkService efService = Context.ServiceProvider.GetService<IEntityFrameworkService>();
             ModelMetadata efMetadata = efService.AddRequiredEntity(Context, dbContextTypeName, modelType.FullName);
             var oneToManyModels = GetOneToManyModelDictionary(efMetadata, efService, dbContextTypeName);
+            var oneToManyAnonymousObjTextDic = GetOneToManyAnonymousObjTextDic(oneToManyModels);
             // Create Controller
             string controllerName = codeGeneratorViewModel.ControllerName;
             string controllerRootName = controllerName.Replace("Controller","");
@@ -190,6 +191,8 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 , modelType: modelType
                 , efMetadata: efMetadata
                 , viewPrefix: viewPrefix
+                , oneToManyAnonymousObjText:oneToManyAnonymousObjTextDic
+                , oneToManyModels:oneToManyModels
                 , overwrite: codeGeneratorViewModel.OverwriteViews);
 
             if (!codeGeneratorViewModel.GenerateViews)
@@ -246,6 +249,16 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             }
         }
 
+        private Dictionary<string ,string > GetOneToManyAnonymousObjTextDic(Dictionary<string, ModelMetadata> oneToManyModels)
+        {
+            Dictionary<string, string> dic = new Dictionary<string, string>();
+            foreach (var item in oneToManyModels)
+            {
+                dic.Add(item.Key, GetAnonymousObjLambdaText(item.Value));
+            }
+            return dic;
+        }
+
         private Dictionary<string, ModelMetadata> GetOneToManyModelDictionary(ModelMetadata efMetadata, IEntityFrameworkService efService, string dbContextTypeName)
         {
             var dict = new Dictionary<string, ModelMetadata>();
@@ -280,6 +293,8 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             , CodeType modelType
             , ModelMetadata efMetadata
             , string viewPrefix
+            , Dictionary<string , string > oneToManyAnonymousObjText
+            , Dictionary<string , ModelMetadata > oneToManyModels
             , bool overwrite = false
             )
         {
@@ -316,6 +331,8 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 , {"ModelTypeName", modelType.Name}
                 , {"ModelVariable", modelTypeVariable}
                 , {"ModelMetadata", efMetadata}
+                , {"OneToManyModelMetadata", oneToManyModels}
+                , {"OneToManyAnonymousObjText", oneToManyAnonymousObjText}
                 , {"EntitySetVariable", modelTypeVariable}
                 , {"UseAsync", false}
                 , {"IsOverpostingProtectionRequired", true}
@@ -343,6 +360,15 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             foreach (PropertyMetadata m in efMetadata.Properties)
                 result += "," + m.PropertyName;
             return result.Substring(1);
+        }
+
+        private string GetAnonymousObjLambdaText(ModelMetadata efMetadata)
+        {
+            string result = "n => new { {0} }";
+            string field = "";
+            foreach (PropertyMetadata m in efMetadata.Properties)
+                field += "," + m.PropertyName + " = n."  + m.PropertyName ;
+            return string.Format(result,field.Substring(1));
         }
 
         private void AddModelMetadata(Project project

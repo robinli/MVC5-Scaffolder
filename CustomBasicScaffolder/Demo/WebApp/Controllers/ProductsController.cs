@@ -114,6 +114,7 @@ namespace WebApp.Controllers
             }
             var categoryRepository = _unitOfWork.Repository<Category>();
             ViewBag.CategoryId = new SelectList(categoryRepository.Queryable(), "Id", "Name", product.CategoryId);
+
             return View(product);
         }
 

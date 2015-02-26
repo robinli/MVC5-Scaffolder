@@ -271,6 +271,7 @@ namespace <#= Namespace #>
             if (ModelState.IsValid)
             {
                 <#= ModelVariable #>.ObjectState = ObjectState.Modified;
+				<#= modelServiceVar #>.Update(<#= ModelVariable #>);
                 
 <# if (UseAsync) { #>
                 await   _unitOfWork.SaveChangesAsync();
