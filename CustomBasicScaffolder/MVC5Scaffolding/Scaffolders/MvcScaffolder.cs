@@ -364,11 +364,12 @@ namespace Happy.Scaffolding.MVC.Scaffolders
 
         private string GetAnonymousObjLambdaText(ModelMetadata efMetadata)
         {
-            string result = "n => new { {0} }";
+            //string result = "n => new { {0} }";
             string field = "";
             foreach (PropertyMetadata m in efMetadata.Properties)
                 field += "," + m.PropertyName + " = n."  + m.PropertyName ;
-            return string.Format(result,field.Substring(1));
+            //return string.Format(result,field.Substring(1));
+            return "n => new { " + field.Substring(1)  + " }";
         }
 
         private void AddModelMetadata(Project project

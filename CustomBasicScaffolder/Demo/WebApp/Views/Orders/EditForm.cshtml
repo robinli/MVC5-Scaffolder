@@ -76,7 +76,7 @@
                     <h4 class="modal-title" id="myModalLabel">OrderDetails</h4>
                 </div>
                 <div class="modal-body">
-                    @*@Html.Partial("_OrderDetailForm")*@
+                    @Html.Partial("_OrderDetailForm", new ViewDataDictionary<WebApp.Models.OrderDetail>())
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>

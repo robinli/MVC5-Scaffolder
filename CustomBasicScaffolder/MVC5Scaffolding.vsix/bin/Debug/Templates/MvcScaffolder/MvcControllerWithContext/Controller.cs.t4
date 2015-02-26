@@ -34,6 +34,10 @@ else
 <#@ parameter type="System.String" name ="ViewPrefix" #>
 <#@ parameter type="System.String" name ="ModelName" #>
 <#@ parameter type="System.Collections.Generic.HashSet<System.String>" name="RequiredNamespaces" #>
+
+
+<#@ parameter type="System.Collections.Generic.Dictionary<string, Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata>" name="OneToManyModelMetadata" #>
+<#@ parameter type="System.Collections.Generic.Dictionary<string, string>" name="OneToManyAnonymousObjText" #>
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -187,6 +191,17 @@ namespace <#= Namespace #>
             var <#= property.ShortTypeName.ToLower() #>Repository = _unitOfWork.Repository<<#= property.ShortTypeName #>>();
             ViewBag.<#= property.ForeignKeyPropertyNames[0] #> = new SelectList(<#= property.ShortTypeName.ToLower() #>Repository.Queryable(), "<#= property.PrimaryKeyNames[0] #>", "<#= property.DisplayPropertyName #>");
 <# } #>
+		   //Detail Models RelatedProperties 
+<# foreach (var submeta in OneToManyModelMetadata) { 
+	    var subrelatedProperties = submeta.Value.RelatedEntities.ToDictionary(item => item.AssociationPropertyName);
+	    var lambdastring=OneToManyAnonymousObjText[submeta.Key];
+	    foreach (var subproperty in subrelatedProperties.Values) {
+#>
+			var <#= subproperty.ShortTypeName.ToLower() #>Repository = _unitOfWork.Repository<<#= subproperty.ShortTypeName #>>();
+            ViewBag.<#= subproperty.ForeignKeyPropertyNames[0] #> = new SelectList(<#= subproperty.ShortTypeName.ToLower() #>Repository.Queryable(), "<#= subproperty.PrimaryKeyNames[0] #>", "<#= subproperty.DisplayPropertyName #>");
+
+<#		}
+   } #>
             return View();
         }
 
@@ -243,6 +258,22 @@ namespace <#= Namespace #>
 <# } else { #>
             <#= ModelTypeName #> <#= ModelVariable #> = <#= modelServiceVar #>.Find(id);
 <# } #>
+
+		   //Detail Models RelatedProperties 
+<# foreach (var submeta in OneToManyModelMetadata) { 
+	    var subrelatedProperties = submeta.Value.RelatedEntities.ToDictionary(item => item.AssociationPropertyName);
+	    var lambdastring=OneToManyAnonymousObjText[submeta.Key];
+	    foreach (var subproperty in subrelatedProperties.Values) {
+#>
+			var <#= subproperty.ShortTypeName.ToLower() #>Repository = _unitOfWork.Repository<<#= subproperty.ShortTypeName #>>();
+            ViewBag.<#= subproperty.ForeignKeyPropertyNames[0] #> = new SelectList(<#= subproperty.ShortTypeName.ToLower() #>Repository.Queryable(), "<#= subproperty.PrimaryKeyNames[0] #>", "<#= subproperty.DisplayPropertyName #>");
+
+			ViewBag.<#= submeta.Key  #> = <#= ModelVariable #>.<#= submeta.Key #>.Select(<#= lambdastring #>);
+
+<#		}
+   } #>
+
+
             if (<#= ModelVariable #> == null)
             {
                 return HttpNotFound();

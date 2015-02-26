@@ -202,3 +202,4 @@ D:\MVC5\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Debug\MVC5Scaf
 D:\MVC5\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Debug\MVC5Scaffolding.pdb
 D:\MVC5\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\Templates\MvcScaffolder\MvcView\ChildrenEditForm.cs.t4
 D:\TSC系统信息\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\Templates\MvcScaffolder\MvcView\ChildrenEditForm.cs.t4
+D:\MVC5\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Debug\MVC5Scaffolding.csprojResolveAssemblyReference.cache

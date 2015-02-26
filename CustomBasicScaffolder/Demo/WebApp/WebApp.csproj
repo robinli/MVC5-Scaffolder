@@ -201,7 +201,8 @@
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\OrdersController.cs">
+    <Compile Include="Controllers\OrdersController.cs" />
+    <Compile Include="Controllers\OrdersController__.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Controllers\ProductsController.cs" />
