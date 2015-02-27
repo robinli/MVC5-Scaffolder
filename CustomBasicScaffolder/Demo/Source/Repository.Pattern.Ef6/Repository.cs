@@ -227,8 +227,12 @@ namespace Repository.Pattern.Ef6
             if (objectState != null && objectState.ObjectState == ObjectState.Added)
                 _context.SyncObjectState((IObjectState)entity);
 
-            // discovered entity with ObjectState.Unchanged, sync this with provider e.g. EF By neo
+            // discovered entity with ObjectState.Detached, sync this with provider e.g. EF By neo
             if (objectState != null && objectState.ObjectState == ObjectState.Detached)
+                _context.SyncObjectState((IObjectState)entity);
+
+            // discovered entity with ObjectState.Unchanged, sync this with provider e.g. EF By neo
+            if (objectState != null && objectState.ObjectState == ObjectState.Unchanged)
                 _context.SyncObjectState((IObjectState)entity);
 
             // Set tracking state for child collections

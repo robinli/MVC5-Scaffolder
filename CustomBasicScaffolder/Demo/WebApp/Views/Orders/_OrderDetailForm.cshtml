@@ -2,10 +2,12 @@
 
 
 @Html.Hidden("rowindex", -1)
+@Html.HiddenFor(model=>model.Id)
 <div class="form-group">
     @Html.LabelFor(model => model.ProductId, "ProductId", htmlAttributes: new { @class = "control-label col-md-2" })
     <div class="col-md-10">
-        @Html.DropDownList("ProductId", null, htmlAttributes: new { @class = "form-control" })
+        @Html.DropDownList("ProductId", null,"--Select--", htmlAttributes: new { @class = "form-control" })
+        @*@Html.DropDownListFor(model => model.ProductId, ViewBag.ProductId as IEnumerable<SelectListItem>, "Select One",new { @class = "form-control" })*@
         @Html.ValidationMessageFor(model => model.ProductId, "", new { @class = "text-danger" })
     </div>
 </div>

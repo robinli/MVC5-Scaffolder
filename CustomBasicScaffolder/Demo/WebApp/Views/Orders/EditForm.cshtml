@@ -1,5 +1,6 @@
 ﻿@model WebApp.Models.Order
 
+@Html.HiddenFor(model=>model.Id,new {id="OrderId"})
 <div class="form-group">
     @Html.LabelFor(model => model.Customer, htmlAttributes: new { @class = "control-label col-md-2" })
     <div class="col-md-10">
@@ -58,6 +59,7 @@
                             <th data-field="Price">Price</th>
                             <th data-field="Qty">Qty</th>
                             <th data-field="Amount">Amount</th>
+                            <th data-field="Id" data-visible="false">Id</th>
                             <th data-field="action" data-formatter="actionFormatter" data-events="actionEvents">Action</th>
                         </tr>
                     </thead>
@@ -75,8 +77,8 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myModalLabel">OrderDetails</h4>
                 </div>
-                <div class="modal-body">
-                    @Html.Partial("_OrderDetailForm", new ViewDataDictionary<WebApp.Models.OrderDetail>())
+                <div class="modal-body" id="orderdetailformModal-body">
+                    @*@Html.Partial("_OrderDetailForm")*@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -87,11 +89,13 @@
     </div>
 
     <script type="text/javascript">
-        var details=@Html.Raw(Json.Encode(ViewBag.OrderDetails));
-        console.log(details);
+   
+        var orderid = -1;
+        var details = [];
+     
         $orderdetailstable = $('#orderdetail-table');
         $remove = $('#remove');
-        console.log($orderdetailstable);
+        //console.log($orderdetailstable);
         function rowindexFormatter(value, row, index) {
             return index + 1;
         }
@@ -108,21 +112,31 @@
         window.actionEvents = {
 
             'click .edit': function (e, value, row, index) {
-                var productid = $('#ProductId');
-                var price = $('#Price');
-                var qty = $('#Qty');
-                var amount = $('#Amount');
-                var rowindex = $('#rowindex');
-                //console.log(row.Product.Id);
-                //productid.val(row.Product.Id);
-                //console.log(productid);
-                rowindex.val(index);
-                productid.val(row.Product.Id);
-                price.val(row.Price);
-                qty.val(row.Qty);
-                amount.val(row.Amount);
-                $('#orderdetailformModal').modal('toggle');
-                console.log(value, row, index);
+                var url="/Orders/EditOrderDetail"
+                $.get(url + '/' + row.Id, function (data) {
+                    //console.log(data);
+                    $('#rowindex').val(index);
+                    if(row.Id>0){
+                        $('#orderdetailformModal-body').html(data);
+                        
+                    }else{
+                        var id = $('#Id');
+                        var productid = $('#ProductId');
+                        var price = $('#Price');
+                        var qty = $('#Qty');
+                        var amount = $('#Amount');
+                        var rowindex = $('#rowindex');
+                        productid.val(row.ProductId);
+                        price.val(row.Price);
+                        qty.val(row.Qty);
+                        id.val(row.Id);
+                        amount.val(row.Amount);
+                    }
+                    $('#orderdetailformModal').modal('toggle');
+                });
+
+
+               // console.log(value, row, index);
             },
             'click .remove': function (e, value, row, index) {
                 $('#orderdetail-table').bootstrapTable('remove', {
@@ -133,9 +147,26 @@
             }
         };
         $(function () {
+            
+            //console.log(orderid);
+            if (ObjectState=="Modified") {
+                orderid = $('#OrderId').val();
+                details=@Html.Raw(Json.Encode(ViewBag.OrderDetails));
+            }else{
+                details=[];
+            }
+    
             $('#neworderdetailbutton').on('click', function (e) {
                 if ($("form").valid()) {
-                    $('#orderdetailformModal').modal('toggle');
+                    var url="/Orders/CreateOrderDetail"
+                    $.get(url  , function (data) {
+                        //console.log(data);
+                        var index=-1;
+                        $('#orderdetailformModal-body').html(data);
+                        $('#rowindex').val(index);
+                        $('#Id').val(0);
+                        $('#orderdetailformModal').modal('toggle');
+                    });
                 }
 
                 e.preventDefault();
@@ -147,9 +178,7 @@
             $('#confirmbutton').on('click', function (e) {
                 if (!$("form").valid()) {
                     e.preventDefault();
-
-                    //Return false regardless of validation to stop form submitting
-                    //prior to ajax doing its thing
+                     
                     return false;
                 }
 
@@ -161,11 +190,12 @@
                 var qty = $('#Qty');
                 var amount = $('#Amount');
                 var rowindex = $('#rowindex');
+                var id=$('#Id');
 
 
                 var product = { "Id": productid.val(), "Name": productid.text() };
                 var orderdetail = {
-                    "Id": 0, "ProductId": product.Id, "ProductName": product.Name, "Product": product, "Price": price.val(), "Qty": qty.val(), "Amount": amount.val()
+                    "Id": id.val(), "ProductId": product.Id, "ProductName": product.Name, "Product": product, "Price": price.val(), "Qty": qty.val(), "Amount": amount.val()
                 }
                 //console.log(orderdetail);
                 if (rowindex.val() == '-1') {

@@ -30,13 +30,15 @@
      <div class="row">
         <div class="col-lg-12">
              
-@*@using (Html.BeginForm())*@
-@using(Ajax.BeginForm("Edit","Orders", null, new AjaxOptions
+ 
+@*@using(Ajax.BeginForm("Edit","Orders", null, new AjaxOptions
            {
                InsertionMode = InsertionMode.Replace,
                HttpMethod = "Post",
                OnSuccess = "updateSuccess"
            }, new { id = "updateorders" } ))
+{*@
+@using (Html.BeginForm("Edit", "Orders", FormMethod.Post, new { id = "orders" }))
 {
     @Html.AntiForgeryToken()
     
@@ -83,5 +85,45 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-    
+    <script type="text/javascript">
+            var $orderdetailstable = {};
+            var ObjectState = "Modified";
+            $(document).ready(function () {
+
+                $('#orders').submit(function () {
+                    var token = $('[name=__RequestVerificationToken]').val();
+                    var serializedForm = $(this).serialize();
+                    var actionurl = $(this).attr('action');
+
+                    var orderdetails = $orderdetailstable.bootstrapTable('getData');
+                    console.log(orderdetails);
+                    var newitem = {
+                        Id: $('#OrderId', '#orders').val(),
+                        Customer: $('#Customer','#orders').val(),
+                        ShippingAddress: $('#ShippingAddress', '#orders').val(),
+                        OrderDate: $('#OrderDate', '#orders').val(),
+                        ObjectState:ObjectState,
+                        OrderDetails: orderdetails
+
+                    };
+                    console.log(newitem);
+                    $.ajax({
+                        url: actionurl,
+
+                        type: "POST",
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify(newitem),
+                        success: function (result) {
+                            self.location = "/Orders/Index";
+                            //alert("success " + result.UserName);
+                        },
+                        error: function (result) {
+                            alert("Failed");
+                        }
+                    });
+                    return false;
+                });
+            });
+</script>
 }

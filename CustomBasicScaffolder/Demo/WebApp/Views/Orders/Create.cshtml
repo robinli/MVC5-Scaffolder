@@ -85,8 +85,8 @@
                         contentType: "application/json; charset=utf-8",
                         data: JSON.stringify(newitem),
                         success: function (result) {
-
-                            alert("success " + result.UserName);
+                            self.location = "/Orders/Index";
+                            //alert("success " + result.UserName);
                         },
                         error: function (result) {
                             alert("Failed");
