@@ -367,6 +367,66 @@ namespace <#= Namespace #>
             return RedirectToAction("<#= ViewPrefix #>Index");
         }
 
+
+<#
+    foreach (PropertyMetadata property in ModelMetadata.Properties) 
+    {
+			
+        if ( property.AssociationDirection == AssociationDirection.OneToMany && OneToManyModelMetadata.ContainsKey(property.PropertyName))
+        {
+            var modelTypeName=property.ShortTypeName;
+            var subModelMeta = OneToManyModelMetadata[property.PropertyName];
+            var subModelIdType = subModelMeta.PrimaryKeys[0].ShortTypeName;
+            var varModelType=modelTypeName.ToLower();
+#>
+        [HttpGet]
+        public ActionResult Edit<#= modelTypeName #>(<#= subModelIdType #>? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var <#= varModelType #>Repository = _unitOfWork.Repository<<#= modelTypeName #>>();
+            var <#= varModelType #> = <#= varModelType #>Repository.Find(id);
+
+            <#  var subrelatedProperties = subModelMeta.RelatedEntities.ToDictionary(item => item.AssociationPropertyName);
+                foreach (var relatedproperty in subrelatedProperties.Values) { #>
+
+            var <#= relatedproperty.ShortTypeName.ToLower() #>Repository = _unitOfWork.Repository<<#= relatedproperty.ShortTypeName #>>();
+             
+            <# } #>
+
+            
+            
+            if (orderdetail == null)
+            {
+            <#  //var subrelatedProperties = subModelMeta.RelatedEntities.ToDictionary(item => item.AssociationPropertyName);
+                foreach (var relatedproperty in subrelatedProperties.Values) { #>
+
+                ViewBag.<#= relatedproperty.ForeignKeyPropertyNames[0] #> = new SelectList(<#= relatedproperty.ShortTypeName.ToLower() #>Repository.Queryable(), "<#= relatedproperty.PrimaryKeyNames[0] #>", "<#= relatedproperty.DisplayPropertyName #>" );
+             
+            <# } #>
+                
+                //return HttpNotFound();
+                return PartialView("_OrderDetailForm", new OrderDetail());
+            }
+            else
+            {
+            <#  //var subrelatedProperties = subModelMeta.RelatedEntities.ToDictionary(item => item.AssociationPropertyName);
+                foreach (var relatedproperty in subrelatedProperties.Values) { #>
+
+                ViewBag.<#= relatedproperty.ForeignKeyPropertyNames[0] #> = new SelectList(<#= relatedproperty.ShortTypeName.ToLower() #>Repository.Queryable(), "<#= relatedproperty.PrimaryKeyNames[0] #>", "<#= relatedproperty.DisplayPropertyName #>" , <#= varModelType #>.<#= relatedproperty.ForeignKeyPropertyNames[0] #> );
+             
+            <# } #>
+                 
+            }
+            return PartialView("_OrderDetailForm", orderdetail);
+
+        }
+<#
+        }
+    }
+#>       
         private void DisplaySuccessMessage(string msgText)
         {
             TempData["SuccessMessage"] = msgText;

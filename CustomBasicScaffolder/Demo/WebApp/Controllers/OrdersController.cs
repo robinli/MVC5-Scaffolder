@@ -50,7 +50,7 @@ namespace WebApp.Controllers
             var order  = _orderService.Queryable().OrderBy(n=>n.Id).AsQueryable();
             if (!string.IsNullOrEmpty(searchString))
             {
-                order  = order .Where(n => n.Customer.Contains(searchString));
+                order  = order .Where(n => n.Name.Contains(searchString));
             }
             int pageSize = 5;
             int pageNumber = (page ?? 1);
@@ -90,23 +90,15 @@ namespace WebApp.Controllers
         // POST: Orders/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        //[ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "OrderDetails,Id,Customer,ShippingAddress,OrderDate")] Order order)
         {
             if (ModelState.IsValid)
             {
-                order.ObjectState = ObjectState.Added;
-                foreach (var detail in order.OrderDetails)
-                {
-                    detail.ObjectState = ObjectState.Added;
-                    if (detail.Product != null)
-                        detail.Product.ObjectState = ObjectState.Detached;
-                }
-               _orderService.InsertOrUpdateGraph(order);
+               _orderService.Insert(order);
                 _unitOfWork.SaveChanges();
                 DisplaySuccessMessage("Has append a Order record");
-                //return RedirectToAction("Index");
-                return Json("{Status:Success}", JsonRequestBehavior.AllowGet);
+                return RedirectToAction("Index");
             }
 
             DisplayErrorMessage();
@@ -120,19 +112,18 @@ namespace WebApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Order order = _orderService.Query().Include(n => n.OrderDetails.Select(p => p.Product)).Select().Where(n => n.Id == id).First();
-            //Order order = _orderService.Find(id);
+            Order order = _orderService.Find(id);
 
 		   //Detail Models RelatedProperties 
-			//var orderRepository = _unitOfWork.Repository<Order>();
-            //ViewBag.OrderId = new SelectList(orderRepository.Queryable(), "Id", "Customer");
+			var orderRepository = _unitOfWork.Repository<Order>();
+            ViewBag.OrderId = new SelectList(orderRepository.Queryable(), "Id", "Customer");
 
-			ViewBag.OrderDetails = order.OrderDetails.Select(n => new {ProductName=n.Product.Name, Id = n.Id,ProductId = n.ProductId,Qty = n.Qty,Price = n.Price,Amount = n.Amount,OrderId = n.OrderId });
+			ViewBag.OrderDetails = order.OrderDetails.Select(n => new { Order = n.Order,Product = n.Product,Id = n.Id,ProductId = n.ProductId,Qty = n.Qty,Price = n.Price,Amount = n.Amount,OrderId = n.OrderId });
 
 			var productRepository = _unitOfWork.Repository<Product>();
             ViewBag.ProductId = new SelectList(productRepository.Queryable(), "Id", "Name");
 
-			//ViewBag.OrderDetails = order.OrderDetails.Select(n => new { Order = n.Order,Product = n.Product,Id = n.Id,ProductId = n.ProductId,Qty = n.Qty,Price = n.Price,Amount = n.Amount,OrderId = n.OrderId });
+			ViewBag.OrderDetails = order.OrderDetails.Select(n => new { Order = n.Order,Product = n.Product,Id = n.Id,ProductId = n.ProductId,Qty = n.Qty,Price = n.Price,Amount = n.Amount,OrderId = n.OrderId });
 
 
 
@@ -146,35 +137,17 @@ namespace WebApp.Controllers
         // POST: Orders/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        //[ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "OrderDetails,Id,Customer,ShippingAddress,OrderDate")] Order order)
         {
             if (ModelState.IsValid)
             {
                 order.ObjectState = ObjectState.Modified;
-                foreach (var detail in order.OrderDetails)
-                {
-                    if (detail.Id == 0)
-                    {
-                        detail.OrderId =order.Id;
-                        detail.ObjectState = ObjectState.Added;
-                    }
-                    else
-                    {
-                        detail.ObjectState = ObjectState.Modified;
-                    }
-                    if (detail.Product != null)
-                    {
-                        //detail.Product = null;
-                        detail.Product.ObjectState = ObjectState.Detached;
-                    }
-                }
-				//_orderService.Update(order);
-                _orderService.InsertOrUpdateGraph(order);
+				_orderService.Update(order);
+                
                 _unitOfWork.SaveChanges();
                 DisplaySuccessMessage("Has update a Order record");
-                //return RedirectToAction("Index");
-                return Json("{Status:Success}", JsonRequestBehavior.AllowGet);
+                return RedirectToAction("Index");
             }
             DisplayErrorMessage();
             return View(order);
@@ -207,6 +180,7 @@ namespace WebApp.Controllers
             return RedirectToAction("Index");
         }
 
+
         [HttpGet]
         public ActionResult EditOrderDetail(int? id)
         {
@@ -215,31 +189,39 @@ namespace WebApp.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             var orderdetailRepository = _unitOfWork.Repository<OrderDetail>();
-            var orderdetail=orderdetailRepository.Find(id);
+            var orderdetail = orderdetailRepository.Find(id);
+            var orderRepository = _unitOfWork.Repository<Order>();
             var productRepository = _unitOfWork.Repository<Product>();
+             
+            
+            
             
             if (orderdetail == null)
             {
-                ViewBag.ProductId = new SelectList(productRepository.Queryable(), "Id", "Name");
+            
+                ViewBag.OrderId = new SelectList(orderRepository.Queryable(), "Id", "Customer" );
+             
+            
+                ViewBag.ProductId = new SelectList(productRepository.Queryable(), "Id", "Name" );
+             
+                            
                 //return HttpNotFound();
                 return PartialView("_OrderDetailForm", new OrderDetail());
             }
             else
             {
-                ViewBag.ProductId = new SelectList(productRepository.Queryable(), "Id", "Name", orderdetail.ProductId);
+            
+                ViewBag.OrderId = new SelectList(orderRepository.Queryable(), "Id", "Customer" , orderdetail.OrderId );
+             
+            
+                ViewBag.ProductId = new SelectList(productRepository.Queryable(), "Id", "Name" , orderdetail.ProductId );
+             
+                             
             }
             return PartialView("_OrderDetailForm", orderdetail);
 
         }
-        [HttpGet]
-        public ActionResult CreateOrderDetail()
-        {
-            var productRepository = _unitOfWork.Repository<Product>();
-            ViewBag.ProductId = new SelectList(productRepository.Queryable(), "Id", "Name");
-            return PartialView("_OrderDetailForm");
-
-        }
-
+       
         private void DisplaySuccessMessage(string msgText)
         {
             TempData["SuccessMessage"] = msgText;

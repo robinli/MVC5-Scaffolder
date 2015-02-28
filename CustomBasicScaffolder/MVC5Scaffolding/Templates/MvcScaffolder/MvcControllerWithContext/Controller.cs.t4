@@ -367,6 +367,87 @@ namespace <#= Namespace #>
             return RedirectToAction("<#= ViewPrefix #>Index");
         }
 
+
+<#
+    foreach (PropertyMetadata property in ModelMetadata.Properties) 
+    {
+			
+        if ( property.AssociationDirection == AssociationDirection.OneToMany && OneToManyModelMetadata.ContainsKey(property.PropertyName))
+        {
+            var modelTypeName=property.ShortTypeName;
+            var subModelMeta = OneToManyModelMetadata[property.PropertyName];
+            var subModelIdType = subModelMeta.PrimaryKeys[0].ShortTypeName;
+            var varModelType=modelTypeName.ToLower();
+            var subrelatedProperties = subModelMeta.RelatedEntities.ToDictionary(item => item.AssociationPropertyName);
+#>
+        // Get Detail Row By Id For Edit
+        // Get : <#= routePrefix #>/Edit<#= modelTypeName #>/:id
+        [HttpGet]
+        public ActionResult Edit<#= modelTypeName #>(<#= subModelIdType #>? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var <#= varModelType #>Repository = _unitOfWork.Repository<<#= modelTypeName #>>();
+            var <#= varModelType #> = <#= varModelType #>Repository.Find(id);
+
+            <#  
+                foreach (var relatedproperty in subrelatedProperties.Values) { #>
+            var <#= relatedproperty.ShortTypeName.ToLower() #>Repository = _unitOfWork.Repository<<#= relatedproperty.ShortTypeName #>>();             
+            <# } #>
+
+            if (orderdetail == null)
+            {
+            <#   
+                foreach (var relatedproperty in subrelatedProperties.Values) { #>
+                ViewBag.<#= relatedproperty.ForeignKeyPropertyNames[0] #> = new SelectList(<#= relatedproperty.ShortTypeName.ToLower() #>Repository.Queryable(), "<#= relatedproperty.PrimaryKeyNames[0] #>", "<#= relatedproperty.DisplayPropertyName #>" );
+            <# } #>
+                
+                //return HttpNotFound();
+                return PartialView("_OrderDetailForm", new OrderDetail());
+            }
+            else
+            {
+            <#   
+                foreach (var relatedproperty in subrelatedProperties.Values) { #>
+                ViewBag.<#= relatedproperty.ForeignKeyPropertyNames[0] #> = new SelectList(<#= relatedproperty.ShortTypeName.ToLower() #>Repository.Queryable(), "<#= relatedproperty.PrimaryKeyNames[0] #>", "<#= relatedproperty.DisplayPropertyName #>" , <#= varModelType #>.<#= relatedproperty.ForeignKeyPropertyNames[0] #> );  
+            <# } #>
+                 
+            }
+            return PartialView("_OrderDetailForm", orderdetail);
+
+        }
+        
+        // Get Create Row By Id For Edit
+        // Get : <#= routePrefix #>/Create<#= modelTypeName #>
+        [HttpGet]
+        public ActionResult Create<#= modelTypeName #>()
+        {
+          <#   foreach (var relatedproperty in subrelatedProperties.Values) { #>
+              var <#= relatedproperty.ShortTypeName.ToLower() #>Repository = _unitOfWork.Repository<<#= relatedproperty.ShortTypeName #>>();    
+              ViewBag.<#= relatedproperty.ForeignKeyPropertyNames[0] #> = new SelectList(<#= relatedproperty.ShortTypeName.ToLower() #>Repository.Queryable(), "<#= relatedproperty.PrimaryKeyNames[0] #>", "<#= relatedproperty.DisplayPropertyName #>" );
+          <# } #>
+            return PartialView("_OrderDetailForm");
+
+        }
+
+        // Post Delete Detail Row By Id
+        // Get : <#= routePrefix #>/Delete<#= modelTypeName #>Confirmed/:id
+        [HttpPost, ActionName("Delete")]
+        public ActionResult Delete<#= modelTypeName #>Confirmed(<#= subModelIdType #>  id)
+        {
+            var <#= varModelType #>Repository = _unitOfWork.Repository<<#= modelTypeName #>>();
+            <#= varModelType #>Repository.Delete(id);
+            _unitOfWork.SaveChanges();
+            DisplaySuccessMessage("Has delete a Order record");
+            return RedirectToAction("Index");
+        }
+
+<#
+        }
+    }
+#>       
         private void DisplaySuccessMessage(string msgText)
         {
             TempData["SuccessMessage"] = msgText;
