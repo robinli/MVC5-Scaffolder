@@ -183,6 +183,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 dbContextNamespace,
                 dbContextTypeName,
                 modelType, efMetadata, false);
+
             AddMvcController(project: project
                 , controllerName: controllerName
                 , controllerRootName: controllerRootName
@@ -339,7 +340,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 , {"IsOverpostingProtectionRequired", true}
                 , {"BindAttributeIncludeText", bindAttributeIncludeText}
                 , {"OverpostingWarningMessage", "To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598."}
-                , {"RequiredNamespaces", new HashSet<string>(){modelType.Namespace.FullName,project.GetDefaultNamespace() + ".Services",project.GetDefaultNamespace() + ".Repositories"}}
+                , {"RequiredNamespaces", new HashSet<string>(){modelType.Namespace.FullName,project.GetDefaultNamespace() + ".Services",project.GetDefaultNamespace() + ".Repositories",project.GetDefaultNamespace() + ".Extensions"}}
                 , {"ViewPrefix", viewPrefix}
             };
 
@@ -603,6 +604,18 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 , templateParameters: templateParams
                 , skipIfExists: true);
 
+            //LinqOrderByColumnsNameExtensions
+            viewName = "LinqOrderByColumnsNameExtensions";
+            outputPath = Path.Combine("Extensions", viewName);
+            templatePath = Path.Combine("MvcFullDependencyCodeGenerator", viewName);
+            templateParams = new Dictionary<string, object>(){
+               {"DefaultNamespace", project.GetDefaultNamespace()}
+            };
+            AddFileFromTemplate(project: project
+                , outputPath: outputPath
+                , templateName: templatePath
+                , templateParameters: templateParams
+                , skipIfExists: true);
 
             // add sb_admin.css
             viewName = "sb-admin";

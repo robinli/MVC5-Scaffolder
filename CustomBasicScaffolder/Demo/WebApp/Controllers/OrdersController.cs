@@ -20,12 +20,12 @@ namespace WebApp.Controllers
     public class OrdersController : Controller
     {
         //private StoreContext db = new StoreContext();
-        private readonly IOrderService  _orderService;
+        private readonly IOrderService  _ordersService;
         private readonly IUnitOfWorkAsync _unitOfWork;
 
-        public OrdersController (IOrderService  orderService, IUnitOfWorkAsync unitOfWork)
+        public OrdersController (IOrderService  ordersService, IUnitOfWorkAsync unitOfWork)
         {
-            _orderService  = orderService;
+            _ordersService  = ordersService;
             _unitOfWork = unitOfWork;
         }
 
@@ -33,8 +33,8 @@ namespace WebApp.Controllers
         public ActionResult Index()
         {
             
-            var order  = _orderService.Queryable().AsQueryable();
-            return View(order  );
+            var orders  = _ordersService.Queryable().AsQueryable();
+            return View(orders  );
         }
 
         // Get :Orders/PageList
@@ -43,7 +43,7 @@ namespace WebApp.Controllers
         {
             int totalCount = 0;
             int pagenum = offset / limit +1;
-                        var orders  = _orderService.Query(new OrderQuery().WithAnySearch(search)).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(pagenum, limit, out totalCount);
+                        var orders  = _ordersService.Query(new OrderQuery().WithAnySearch(search)).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(pagenum, limit, out totalCount);
                         var rows = orders .Select( n => new {  Id = n.Id , Customer = n.Customer , ShippingAddress = n.ShippingAddress , OrderDate = n.OrderDate }).ToList();
             var pagelist = new { total = totalCount, rows = rows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
@@ -57,12 +57,12 @@ namespace WebApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Order order = _orderService.Find(id);
-            if (order == null)
+            Order orders = _ordersService.Find(id);
+            if (orders == null)
             {
                 return HttpNotFound();
             }
-            return View(order);
+            return View(orders);
         }
         
 
@@ -83,18 +83,18 @@ namespace WebApp.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "OrderDetails,Id,Customer,ShippingAddress,OrderDate")] Order order)
+        public ActionResult Create([Bind(Include = "OrderDetails,Id,Customer,ShippingAddress,OrderDate")] Order orders)
         {
             if (ModelState.IsValid)
             {
-               _orderService.Insert(order);
+               _ordersService.Insert(orders);
                 _unitOfWork.SaveChanges();
                 DisplaySuccessMessage("Has append a Order record");
                 return RedirectToAction("Index");
             }
 
             DisplayErrorMessage();
-            return View(order);
+            return View(orders);
         }
 
         // GET: Orders/Edit/5
@@ -104,45 +104,46 @@ namespace WebApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Order order = _orderService.Find(id);
+            var orders = _ordersService.Query(n => n.Id == id).Include(n => n.OrderDetails).Select().First();
+            //Order orders = _ordersService.Find(id);
 
 		   //Detail Models RelatedProperties 
 			var orderRepository = _unitOfWork.Repository<Order>();
             ViewBag.OrderId = new SelectList(orderRepository.Queryable(), "Id", "Customer");
 
-			ViewBag.OrderDetails = order.OrderDetails.Select(n => new { Order = n.Order,Product = n.Product,Id = n.Id,ProductId = n.ProductId,Qty = n.Qty,Price = n.Price,Amount = n.Amount,OrderId = n.OrderId });
+			//ViewBag.OrderDetails = orders.OrderDetails.Select(n => new {  Product = n.Product,Id = n.Id,ProductId = n.ProductId,Qty = n.Qty,Price = n.Price,Amount = n.Amount,OrderId = n.OrderId });
 
 			var productRepository = _unitOfWork.Repository<Product>();
             ViewBag.ProductId = new SelectList(productRepository.Queryable(), "Id", "Name");
 
-			ViewBag.OrderDetails = order.OrderDetails.Select(n => new { Order = n.Order,Product = n.Product,Id = n.Id,ProductId = n.ProductId,Qty = n.Qty,Price = n.Price,Amount = n.Amount,OrderId = n.OrderId });
+			ViewBag.OrderDetails = orders.OrderDetails.Select(n => new {  Product = n.Product,Id = n.Id,ProductId = n.ProductId,Qty = n.Qty,Price = n.Price,Amount = n.Amount,OrderId = n.OrderId });
 
 
 
-            if (order == null)
+            if (orders == null)
             {
                 return HttpNotFound();
             }
-            return View(order);
+            return View(orders);
         }
 
         // POST: Orders/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "OrderDetails,Id,Customer,ShippingAddress,OrderDate")] Order order)
+        public ActionResult Edit([Bind(Include = "OrderDetails,Id,Customer,ShippingAddress,OrderDate")] Order orders)
         {
             if (ModelState.IsValid)
             {
-                order.ObjectState = ObjectState.Modified;
-				_orderService.Update(order);
+                orders.ObjectState = ObjectState.Modified;
+				_ordersService.Update(orders);
                 
                 _unitOfWork.SaveChanges();
                 DisplaySuccessMessage("Has update a Order record");
                 return RedirectToAction("Index");
             }
             DisplayErrorMessage();
-            return View(order);
+            return View(orders);
         }
 
         // GET: Orders/Delete/5
@@ -152,12 +153,12 @@ namespace WebApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Order order = _orderService.Find(id);
-            if (order == null)
+            Order orders = _ordersService.Find(id);
+            if (orders == null)
             {
                 return HttpNotFound();
             }
-            return View(order);
+            return View(orders);
         }
 
         // POST: Orders/Delete/5
@@ -165,8 +166,8 @@ namespace WebApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Order order =  _orderService.Find(id);
-             _orderService.Delete(order);
+            Order orders =  _ordersService.Find(id);
+             _ordersService.Delete(orders);
             _unitOfWork.SaveChanges();
             DisplaySuccessMessage("Has delete a Order record");
             return RedirectToAction("Index");
@@ -216,6 +217,15 @@ namespace WebApp.Controllers
                         var productRepository = _unitOfWork.Repository<Product>();    
               ViewBag.ProductId = new SelectList(productRepository.Queryable(), "Id", "Name" );
                       return PartialView("_OrderDetailForm");
+
+        }
+        [HttpGet]
+        public ActionResult GetOrderDetails(int id)
+        {
+            var orderdetails = _ordersService.GetOrderDetails(id);
+
+
+            return Json(orderdetails.Select(n => new { Product = n.Product, Id = n.Id, ProductId = n.ProductId, Qty = n.Qty, Price = n.Price, Amount = n.Amount, OrderId = n.OrderId }));
 
         }
 

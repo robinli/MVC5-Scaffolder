@@ -1,14 +1,16 @@
-﻿@model PagedList.IPagedList<WebApp.Models.Order>
-@using PagedList.Mvc;
+﻿
+
+@model IEnumerable<WebApp.Models.Order>
+
+
+
 
 @{
     ViewBag.Title = "Index";
 }
 <style type='text/css'>
     /*設定 數字靠右*/
-    td:nth-child(2n) {
-        text-align: right;
-    }
+    td:nth-child(2n){text-align: right;}
 </style>
 
 <div class="container-fluid">
@@ -23,7 +25,7 @@
                 <li>
                     <i class="fa fa-home"></i>  @Html.ActionLink("Home", "Index", "Home")
                 </li>
-
+                 
                 <li class="active">
                     <i class="fa fa-file"></i> Orders
                 </li>
@@ -31,18 +33,20 @@
         </div>
     </div>
     <!-- /.row -->
-    <div class="row">
+     <div class="row">
         <div class="col-lg-12">
             <div id="toolbar" class="btn-group">
-                <button type="button" id="neworderbutton" class="btn btn-default">
+                <button type="button" id="newordersbutton" class="btn btn-default">
                     <i class="glyphicon glyphicon-plus"></i>
                 </button>
 
-                <button type="button" class="btn btn-default">
+                <button type="button" id="deleteordersbutton" class="btn btn-default">
                     <i class="glyphicon glyphicon-trash"></i>
                 </button>
             </div>
-            <table id="orders-table" data-search="true"
+ 
+
+        <table id="orders-table" data-search="true"
                    data-url="/Orders/PageList"
                    data-flat="false"
                    data-toolbar="#toolbar"
@@ -57,26 +61,34 @@
                    data-click-to-select="true">
                 <thead>
                     <tr>
-                        <th data-field="state" data-checkbox="true"></th>
-                        <th data-field="Id" data-sortable="true">Id</th>
-                        <th data-field="Customer" data-sortable="true">Customer</th>
-                        <th data-field="ShippingAddress" data-sortable="true">ShippingAddress</th>
-                        <th data-field="OrderDate" data-sortable="true">OrderDate</th>
+                         <th data-field="state" data-checkbox="true"></th>
+        <th data-field="Id" data-sortable="true" >
+             @Html.DisplayNameFor(model => model.Id)
+        </th>
+        <th data-field="Customer" data-sortable="true" >
+             @Html.DisplayNameFor(model => model.Customer)
+        </th>
+        <th data-field="ShippingAddress" data-sortable="true" >
+             @Html.DisplayNameFor(model => model.ShippingAddress)
+        </th>
+        <th data-field="OrderDate" data-sortable="true" >
+             @Html.DisplayNameFor(model => model.OrderDate)
+        </th>
+        <th data-field="action" data-formatter="actionFormatter" data-events="actionEvents">Action</th>
+    </tr>
+    </thead>
+ 
 
-                        <th data-field="action" data-formatter="actionFormatter" data-events="actionEvents">Action</th>
-                    </tr>
-                </thead>
-            </table>
+</table>
 
-
-
-
-        </div>
+<br />
+ 
+     </div>
     </div>
 </div>
 @section Scripts {
     <script type="text/javascript">
-       var $orderstable = $('#orders-table');
+        var $orderstable = $('#orders-table');
         function actionFormatter(value, row, index) {
             return [
                 '<a class="edit" href="javascript:void(0)" title="Add">',
@@ -87,7 +99,19 @@
                 '</a>'
             ].join('');
         }
+        window.actionEvents = {
 
+            'click .edit': function (e, value, row, index) {
+                 var url="/Orders/Edit/" + row.Id
+                 $(location).attr('href', url);
+            },
+            
+            'click .remove': function (e, value, row, index) {
+                
+                console.log(value, row, index);
+           }
+    
+        }
         
 
         $(document).ready(function (e) {
@@ -96,9 +120,16 @@
                      
                 }
                 );
+             $('#newordersbutton').on('click', function () {
+
+                $(location).attr('href', "/Orders/Create");
+            });
+            $('#deleteordersbutton').on('click', function () {
+
+                 
+            });
         });
-
-
-    </script>
+    
+     </script>
 }
 

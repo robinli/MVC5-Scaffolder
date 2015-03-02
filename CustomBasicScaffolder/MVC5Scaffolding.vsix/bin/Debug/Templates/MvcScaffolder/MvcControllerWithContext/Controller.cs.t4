@@ -134,10 +134,10 @@ namespace <#= Namespace #>
             int totalCount = 0;
             int pagenum = offset / limit +1;
             <# if(!String.IsNullOrEmpty(includeExpressions)) { #>
-            var <#= ModelVariable #>  = <#= modelServiceVar #>.(new <#= ModelTypeName #>Query().WithAnySearch(search))<#= includeExpressions #>)OrderBy(n=>n.OrderBy(sort,order)).SelectPage(pagenum, limit, out totalCount);
+            var <#= ModelVariable #>  = <#= modelServiceVar #>.Query(new <#= ModelTypeName #>Query().WithAnySearch(search))<#= includeExpressions #>)OrderBy(n=>n.OrderBy(sort,order)).SelectPage(pagenum, limit, out totalCount);
             
             <#    } else { #>
-            var <#= ModelVariable #>  = <#= modelServiceVar #>.(new <#= ModelTypeName #>Query().WithAnySearch(search)).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(pagenum, limit, out totalCount);
+            var <#= ModelVariable #>  = <#= modelServiceVar #>.Query(new <#= ModelTypeName #>Query().WithAnySearch(search)).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(pagenum, limit, out totalCount);
             <#    } #>
             var rows = <#= ModelVariable #> .Select( <#= SelectLambdaText #>).ToList();
             var pagelist = new { total = totalCount, rows = rows };

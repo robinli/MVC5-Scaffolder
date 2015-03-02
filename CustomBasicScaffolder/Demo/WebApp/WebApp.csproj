@@ -369,7 +369,7 @@
     <Content Include="Views\Orders\EditForm_as.cshtml">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="Views\Orders\Index.cshtml" />
+    <Content Include="Views\Orders\Index1.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -424,6 +424,7 @@
     <Content Include="Views\Products\Create.cshtml" />
     <Content Include="Views\Products\Edit.cshtml" />
     <Content Include="Views\Products\EditForm.cshtml" />
+    <Content Include="Views\Orders\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
