@@ -31,50 +31,20 @@ using System.Linq;
 using System.Linq.Expressions;
 
 using Repository.Pattern.Repositories;
-
+using Repository.Pattern.Ef6;
 using <#= ModelNamespace #>;
 
 namespace <#=DefaultNamespace #>.Repositories
 {
-  public static class <#= ModelName #>Repository  
+   public class <#= ModelName #>Query:QueryObject<<#= ModelName #>>
     {
- 
-        <#
-        PropertyMetadata primaryKey = ModelMetadata.PrimaryKeys.FirstOrDefault();
-        foreach (PropertyMetadata property in ModelMetadata.Properties) { 
-            if (property.IsForeignKey) {
-
-        #>
-         public static IEnumerable<<#= ModelName #>> GetBy<#= property.PropertyName.Replace("_","") #>(this IRepositoryAsync<<#= ModelName #>> repository, <#= primaryKey.ShortTypeName #> <#= property.PropertyName.Replace("_","").ToLower() #>)
-         {
-             var query= repository
-                .Queryable()
-                .Where(x => x.<#= property.PropertyName #>==<#= property.PropertyName.Replace("_","").ToLower() #>);
-             return query;
-
-         }
-             
-        <#
-          }
-        }
-        #>
-
-        <#
-        //PropertyMetadata primaryKey = ModelMetadata.PrimaryKeys.FirstOrDefault();
-		foreach (PropertyMetadata property in ModelMetadata.Properties) 
-        {           
-            if (property.AssociationDirection == AssociationDirection.OneToMany ) 
-            {               
-        #>
-        public static IEnumerable<<#= property.RelatedModel.ShortTypeName #>>   Get<#= property.PropertyName #> (this IRepositoryAsync<<#= ModelName #>> repository,<#= primaryKey.ShortTypeName #> <#= PrimaryKeyName.ToLower() #>)
+        public <#= ModelName #>Query WithAnySearch(string search)
         {
-            return repository.Query(n => n.<#= PrimaryKeyName #> == <#= PrimaryKeyName.ToLower() #>).Include(x => x.<#= property.PropertyName #>).Select(x => x.<#= property.PropertyName #>).FirstOrDefault();
+            if (!string.IsNullOrEmpty(search))
+                And(<#= QueryLambdaText #>);
+            return this;
         }
-        <#
-            }
-        }
-        #> 
-	}
+    }
 }
 
 

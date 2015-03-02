@@ -66,6 +66,9 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Linq.Dynamic">
+      <HintPath>..\..\packages\System.Linq.Dynamic.1.0.4\lib\net40\System.Linq.Dynamic.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -207,6 +210,7 @@
     </Compile>
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Extensions\HtmlExtensions.cs" />
+    <Compile Include="Extensions\LinqOrderByColumnsNameExtensions.cs" />
     <Compile Include="Extensions\PageListExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -239,6 +243,7 @@
     <Compile Include="Models\StoreContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Categories\CategoryRepository.cs" />
+    <Compile Include="Repositories\Orders\OrderQuery.cs" />
     <Compile Include="Repositories\Orders\OrderRepository.cs">
       <SubType>Code</SubType>
     </Compile>

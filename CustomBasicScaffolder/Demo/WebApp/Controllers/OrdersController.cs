@@ -14,7 +14,7 @@ using WebApp.Models;
 using WebApp.Services;
 using WebApp.Repositories;
 using PagedList;
-
+using WebApp.Extensions;
 namespace WebApp.Controllers
 {
     public class OrdersController : Controller
@@ -30,31 +30,23 @@ namespace WebApp.Controllers
         }
 
         // GET: Orders/Index
-        public ActionResult Index(string sortOrder, string currentFilter, string search_field, string searchString, int? page)
+        public ActionResult Index()
         {
-            ViewBag.CurrentSort = sortOrder;
-            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "Name_desc" : "";
-            if (searchString != null)
-            {
-                page = 1;
-                currentFilter = searchString;
-            }
-            else
-            {
-                searchString = currentFilter;
-            }
+            
+            var order  = _orderService.Queryable().AsQueryable();
+            return View(order  );
+        }
 
-            ViewBag.CurrentFilter = searchString;
-            //string expression = string.Format("{0} = '{1}'", search_field, searchString);
-            //ViewBag.SearchField = search_field;
-            var order  = _orderService.Queryable().OrderBy(n=>n.Id).AsQueryable();
-            if (!string.IsNullOrEmpty(searchString))
-            {
-                order  = order .Where(n => n.Name.Contains(searchString));
-            }
-            int pageSize = 5;
-            int pageNumber = (page ?? 1);
-            return View(order .ToPagedList(pageNumber, pageSize));
+        // Get :Orders/PageList
+        [HttpGet]
+        public ActionResult PageList(int offset = 0, int limit = 10, string search = "", string sort = "", string order = "")
+        {
+            int totalCount = 0;
+            int pagenum = offset / limit +1;
+                        var orders  = _orderService.Query(new OrderQuery().WithAnySearch(search)).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(pagenum, limit, out totalCount);
+                        var rows = orders .Select( n => new {  Id = n.Id , Customer = n.Customer , ShippingAddress = n.ShippingAddress , OrderDate = n.OrderDate }).ToList();
+            var pagelist = new { total = totalCount, rows = rows };
+            return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
 
        
@@ -181,6 +173,8 @@ namespace WebApp.Controllers
         }
 
 
+        // Get Detail Row By Id For Edit
+        // Get : Orders/EditOrderDetail/:id
         [HttpGet]
         public ActionResult EditOrderDetail(int? id)
         {
@@ -190,37 +184,53 @@ namespace WebApp.Controllers
             }
             var orderdetailRepository = _unitOfWork.Repository<OrderDetail>();
             var orderdetail = orderdetailRepository.Find(id);
-            var orderRepository = _unitOfWork.Repository<Order>();
-            var productRepository = _unitOfWork.Repository<Product>();
-             
-            
-            
+
+                        var orderRepository = _unitOfWork.Repository<Order>();             
+                        var productRepository = _unitOfWork.Repository<Product>();             
             
             if (orderdetail == null)
             {
-            
-                ViewBag.OrderId = new SelectList(orderRepository.Queryable(), "Id", "Customer" );
-             
-            
-                ViewBag.ProductId = new SelectList(productRepository.Queryable(), "Id", "Name" );
-             
+                            ViewBag.OrderId = new SelectList(orderRepository.Queryable(), "Id", "Customer" );
+                            ViewBag.ProductId = new SelectList(productRepository.Queryable(), "Id", "Name" );
                             
                 //return HttpNotFound();
                 return PartialView("_OrderDetailForm", new OrderDetail());
             }
             else
             {
-            
-                ViewBag.OrderId = new SelectList(orderRepository.Queryable(), "Id", "Customer" , orderdetail.OrderId );
-             
-            
-                ViewBag.ProductId = new SelectList(productRepository.Queryable(), "Id", "Name" , orderdetail.ProductId );
-             
+                            ViewBag.OrderId = new SelectList(orderRepository.Queryable(), "Id", "Customer" , orderdetail.OrderId );  
+                            ViewBag.ProductId = new SelectList(productRepository.Queryable(), "Id", "Name" , orderdetail.ProductId );  
                              
             }
             return PartialView("_OrderDetailForm", orderdetail);
 
         }
+        
+        // Get Create Row By Id For Edit
+        // Get : Orders/CreateOrderDetail
+        [HttpGet]
+        public ActionResult CreateOrderDetail()
+        {
+                        var orderRepository = _unitOfWork.Repository<Order>();    
+              ViewBag.OrderId = new SelectList(orderRepository.Queryable(), "Id", "Customer" );
+                        var productRepository = _unitOfWork.Repository<Product>();    
+              ViewBag.ProductId = new SelectList(productRepository.Queryable(), "Id", "Name" );
+                      return PartialView("_OrderDetailForm");
+
+        }
+
+        // Post Delete Detail Row By Id
+        // Get : Orders/DeleteOrderDetailConfirmed/:id
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteOrderDetailConfirmed(int  id)
+        {
+            var orderdetailRepository = _unitOfWork.Repository<OrderDetail>();
+            orderdetailRepository.Delete(id);
+            _unitOfWork.SaveChanges();
+            DisplaySuccessMessage("Has delete a Order record");
+            return RedirectToAction("Index");
+        }
+
        
         private void DisplaySuccessMessage(string msgText)
         {

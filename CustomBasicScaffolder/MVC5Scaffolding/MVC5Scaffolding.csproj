@@ -92,6 +92,7 @@
     <Compile Include="Scaffolders\MvcScaffolder.cs" />
     <Compile Include="Scaffolders\MvcScaffolderFactory.cs" />
     <None Include="packages.config" />
+    <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\LinqOrderByColumnsNameExtensions.cs.t4" />
     <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\_SideNavBar.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -208,6 +209,7 @@
     <Compile Include="Utils\StorageMan.cs" />
     <Compile Include="Utils\VisualStudioUtils.cs" />
     <Compile Include="VsConstants.cs" />
+    <None Include="Templates\MvcScaffolder\Repositories\EntityQuery.cs.t4" />
     <None Include="Templates\MvcScaffolder\Repositories\EntityRepositoryExtension.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

@@ -313,12 +313,12 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             string pluralizedName = efMetadata.EntitySetName;
             string modelNameSpace = modelType.Namespace != null ? modelType.Namespace.FullName : String.Empty;
             string relativePath = outputPath.Replace(@"\", @"/");
-
+            string selectLambdaText = GetSelectLambdaText(efMetadata);
 
             //Project project = Context.ActiveProject;
             var templatePath = Path.Combine("MvcControllerWithContext", "Controller");
             var defaultNamespace = GetDefaultNamespace();
-            string modelTypeVariable = GetTypeVariable(modelType.Name);
+            string modelTypeVariable = pluralizedName.ToLower();//GetTypeVariable(modelType.Name);
             string bindAttributeIncludeText =GetBindAttributeIncludeText(efMetadata);
 
             Dictionary<string, object> templateParams=new Dictionary<string, object>(){
@@ -333,6 +333,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 , {"ModelMetadata", efMetadata}
                 , {"OneToManyModelMetadata", oneToManyModels}
                 , {"OneToManyAnonymousObjText", oneToManyAnonymousObjText}
+                , {"SelectLambdaText",selectLambdaText}
                 , {"EntitySetVariable", modelTypeVariable}
                 , {"UseAsync", false}
                 , {"IsOverpostingProtectionRequired", true}
@@ -371,7 +372,38 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             //return string.Format(result,field.Substring(1));
             return "n => new { " + field.Substring(1)  + " }";
         }
+        public string GetQueryLambdaText(ModelMetadata efMetadata)
+        {
+           
+            string linqtxt = "";
+          
+            
+            foreach (PropertyMetadata m in efMetadata.Properties)
+            {
+                
+                if (m.ShortTypeName.ToLower() == "string")
+                {
+                      linqtxt  += "|| " + string.Format("x.{0}.Contains({1}) ", m.PropertyName, "search");
+                }
+                else if (m.ShortTypeName.ToLower() == "int" || m.ShortTypeName.ToLower() == "decimal" || m.ShortTypeName.ToLower() == "float")
+                {
+                    linqtxt += "|| " + string.Format("x.{0}.ToString().Contains({1}) ", m.PropertyName, "search");
+                }
+                else if (m.ShortTypeName.ToLower() == "datetime")
+                {
+                    linqtxt += "|| " + string.Format("x.{0}.ToString().Contains({1}) ", m.PropertyName, "search");
+                }
+            }
+             
+            return  " x => " + linqtxt.Substring(2);
+        }
+        public string GetSelectLambdaText(ModelMetadata efMetadata)
+        {
+            string linqtxt = "";
+            linqtxt = String.Join("", efMetadata.Properties.Where(n => n.IsAssociation == false).Select(n => String.Format(", {0} = n.{1} ", n.PropertyName, n.PropertyName)));
 
+            return "n => new { " + linqtxt.Substring(1) + "}";
+        }
         private void AddModelMetadata(Project project
             , string controllerName
             , string controllerRootName
@@ -659,8 +691,9 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             string modelNameSpace = modelType.Namespace != null ? modelType.Namespace.FullName : String.Empty;
             // Get pluralized name used for web forms folder name
             string pluralizedModelName = efMetadata.EntitySetName;
-            var repositoryTemplates = new[] { "EntityRepositoryExtension" };
+            var repositoryTemplates = new[] { "EntityRepositoryExtension","EntityQuery" };
             var repositoryTemplatesPath = "Repositories";
+            var queryLambdaText = GetQueryLambdaText(efMetadata);
             PropertyMetadata primaryKey = efMetadata.PrimaryKeys.FirstOrDefault();
 
             // Add folder for views. This is necessary to display an error when the folder already exists but 
@@ -676,8 +709,8 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             {
                 var templatePath = Path.Combine(repositoryTemplatesPath, repository);
                 var outputFileName = "";
-                if (repository == "IEntityRepository")
-                    outputFileName = "I" + modelName + "Repository";
+                if (repository == "EntityQuery")
+                    outputFileName = modelName + "Query";
                 else
                     outputFileName = modelName + "Repository";
                 var outputPath = Path.Combine(outputFolderPath, outputFileName);
@@ -698,6 +731,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                         {"ModelName", modelName}, // singular model name (e.g., Movie)
                         {"FolderNamespace", folderNamespace.Replace("_","")}, // the namespace of the current folder (used by C#)
                         {"PluralizedModelName",pluralizedModelName},
+                        {"QueryLambdaText",queryLambdaText},
                         {"ModelNamespace", modelNameSpace} // the namespace of the model (e.g., Samples.Models)               
                     },
                     skipIfExists: true);

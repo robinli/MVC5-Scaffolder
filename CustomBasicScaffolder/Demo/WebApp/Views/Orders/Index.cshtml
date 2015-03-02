@@ -6,7 +6,9 @@
 }
 <style type='text/css'>
     /*設定 數字靠右*/
-    td:nth-child(2n){text-align: right;}
+    td:nth-child(2n) {
+        text-align: right;
+    }
 </style>
 
 <div class="container-fluid">
@@ -21,7 +23,7 @@
                 <li>
                     <i class="fa fa-home"></i>  @Html.ActionLink("Home", "Index", "Home")
                 </li>
-                 
+
                 <li class="active">
                     <i class="fa fa-file"></i> Orders
                 </li>
@@ -29,98 +31,74 @@
         </div>
     </div>
     <!-- /.row -->
-     <div class="row">
+    <div class="row">
         <div class="col-lg-12">
-
- 
-
-@using (Html.BeginForm())
-{
-  
-        <div class="input-group">
-            <div class="input-group-btn search-panel">
-                @Html.ActionLink("Create New", "Create",null, new { @class = "btn btn-default" })
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                    <span id="search_concept">Filter by</span> <span class="caret"></span>
+            <div id="toolbar" class="btn-group">
+                <button type="button" id="neworderbutton" class="btn btn-default">
+                    <i class="glyphicon glyphicon-plus"></i>
                 </button>
-                <ul class="dropdown-menu" role="menu">
-                    <li><a href="#Customer">Customer</a></li>
-                     
-                    <li><a href="#ShippingAddress">ShippingAddress</a></li>
-                     
-                    <li><a href="#OrderDate">OrderDate</a></li>
-                     
-                   
-                </ul>
+
+                <button type="button" class="btn btn-default">
+                    <i class="glyphicon glyphicon-trash"></i>
+                </button>
             </div>
-            <input type="hidden" name="search_field" value="All" id="search_field">
-            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string,new {@class="form-control",placeholder="Search term..."})
-        
-            <span class="input-group-btn">
-                <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
-            </span>
-      
-  
-      
-    </div>
-}
+            <table id="orders-table" data-search="true"
+                   data-url="/Orders/PageList"
+                   data-flat="false"
+                   data-toolbar="#toolbar"
+                   data-pagination="true"
+                   data-show-refresh="true"
+                   data-show-toggle="true"
+                   data-show-columns="true"
+                   data-single-select="true"
+                   data-page-list="[5, 10, 20, 50, 100, 200]"
+                   data-sort-name="Id"
+                   data-side-pagination="server"
+                   data-click-to-select="true">
+                <thead>
+                    <tr>
+                        <th data-field="state" data-checkbox="true"></th>
+                        <th data-field="Id" data-sortable="true">Id</th>
+                        <th data-field="Customer" data-sortable="true">Customer</th>
+                        <th data-field="ShippingAddress" data-sortable="true">ShippingAddress</th>
+                        <th data-field="OrderDate" data-sortable="true">OrderDate</th>
 
-<table class="table">
-    <tr>
-        <th></th>
-        <th>
-            @Html.DisplayNameFor(model => model.Customer)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ShippingAddress)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.OrderDate)
-        </th>
-    </tr>
+                        <th data-field="action" data-formatter="actionFormatter" data-events="actionEvents">Action</th>
+                    </tr>
+                </thead>
+            </table>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id })
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Customer)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ShippingAddress)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.OrderDate)
-        </td>
 
-    </tr>
-}
 
-</table>
 
-<br />
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-
-@Html.PagedListPager(Model, page => Url.Action("Index",
-    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
-
-     </div>
+        </div>
     </div>
 </div>
 @section Scripts {
     <script type="text/javascript">
+       var $orderstable = $('#orders-table');
+        function actionFormatter(value, row, index) {
+            return [
+                '<a class="edit" href="javascript:void(0)" title="Add">',
+                '<i class="glyphicon glyphicon-edit"></i>',
+                '</a>  ',
+                ' <a class="remove" href="javascript:void(0)" title="Remove">',
+                '<i class="glyphicon glyphicon-remove"></i>',
+                '</a>'
+            ].join('');
+        }
+
+        
+
         $(document).ready(function (e) {
-            $('.search-panel .dropdown-menu').find('a').click(function (e) {
-                e.preventDefault();
-                var param = $(this).attr("href").replace("#", "");
-                var concept = $(this).text();
-                $('.search-panel span#search_concept').text(concept);
-                $('.input-group #search_field').val(param);
-            });
+            $orderstable = $('#orders-table').bootstrapTable(
+                {
+                     
+                }
+                );
         });
-    
-    
-     </script>
+
+
+    </script>
 }
 
