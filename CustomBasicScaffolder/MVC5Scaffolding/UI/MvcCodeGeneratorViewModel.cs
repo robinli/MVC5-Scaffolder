@@ -452,6 +452,26 @@ namespace Happy.Scaffolding.MVC.UI
         }
 
 
+
+        private bool _generateMasterDetailRelationship;
+
+        public bool GenerateMasterDetailRelationship
+        {
+            get { return _generateMasterDetailRelationship; }
+            set
+            {
+                Validate();
+
+                if (value == _generateMasterDetailRelationship)
+                {
+                    return;
+                }
+
+                _generateMasterDetailRelationship = value;
+                OnPropertyChanged();
+            }
+        }
+
         private bool _overwriteViews;
 
         public bool OverwriteViews

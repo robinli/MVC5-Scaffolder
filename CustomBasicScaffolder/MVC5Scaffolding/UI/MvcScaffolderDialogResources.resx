@@ -150,6 +150,9 @@
   <data name="Error_PlaceholderIdRequired" xml:space="preserve">
     <value>Please enter the ID of the placeholder control to place the generated content in</value>
   </data>
+  <data name="GenerateMasterDetailRelationship" xml:space="preserve">
+    <value>Generate Master-Detail relationship Action and PageView</value>
+  </data>
   <data name="GenerateViews" xml:space="preserve">
     <value>Generate views</value>
   </data>

@@ -246,6 +246,7 @@
     <Compile Include="Repositories\Categories\CategoryRepository.cs" />
     <Compile Include="Repositories\Orders\OrderQuery.cs" />
     <Compile Include="Repositories\Orders\OrderRepository.cs" />
+    <Compile Include="Repositories\Products\ProductQuery.cs" />
     <Compile Include="Repositories\Products\ProductRepository.cs" />
     <Compile Include="Services\CategoryService.cs" />
     <Compile Include="Services\ICategoryService.cs" />

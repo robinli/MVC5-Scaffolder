@@ -88,7 +88,8 @@
             <StackPanel Style="{StaticResource Section}" IsEnabled="{Binding GenerateViews}">
                 <CheckBox Content="{x:Static self:MvcScaffolderDialogResources.OverwriteCheckBox_Content}" 
                       IsChecked="{Binding OverwriteViews}"  />
-                
+                <CheckBox Content="{x:Static self:MvcScaffolderDialogResources.GenerateMasterDetailRelationship}" 
+                      IsChecked="{Binding GenerateMasterDetailRelationship}"  />
                 <CheckBox Content="{x:Static self:MvcScaffolderDialogResources.ReferenceScriptLibraries}" 
                       IsChecked="{Binding ReferenceScriptLibraries}" />
                 <CheckBox Content="{x:Static self:MvcScaffolderDialogResources.UseLayoutPage}" 

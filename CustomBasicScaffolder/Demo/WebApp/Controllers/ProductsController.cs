@@ -1,4 +1,7 @@
-﻿using System;
+﻿
+
+
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -11,6 +14,7 @@ using Repository.Pattern.Infrastructure;
 using WebApp.Models;
 using WebApp.Services;
 using WebApp.Repositories;
+using WebApp.Extensions;
 using PagedList;
 
 namespace WebApp.Controllers
@@ -18,44 +22,38 @@ namespace WebApp.Controllers
     public class ProductsController : Controller
     {
         //private StoreContext db = new StoreContext();
-        private readonly IProductService  _productService;
+        private readonly IProductService _productService;
         private readonly IUnitOfWorkAsync _unitOfWork;
 
-        public ProductsController (IProductService  productService, IUnitOfWorkAsync unitOfWork)
+        public ProductsController(IProductService productService, IUnitOfWorkAsync unitOfWork)
         {
-            _productService  = productService;
+            _productService = productService;
             _unitOfWork = unitOfWork;
         }
 
         // GET: Products/Index
-        public ActionResult Index(string sortOrder, string currentFilter, string search_field, string searchString, int? page)
+        public ActionResult Index()
         {
-            ViewBag.CurrentSort = sortOrder;
-            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "Name_desc" : "";
-            if (searchString != null)
-            {
-                page = 1;
-                currentFilter = searchString;
-            }
-            else
-            {
-                searchString = currentFilter;
-            }
 
-            ViewBag.CurrentFilter = searchString;
-            //string expression = string.Format("{0} = '{1}'", search_field, searchString);
-            //ViewBag.SearchField = search_field;
-            var product  = _productService.Queryable().Include(p => p.Category).OrderBy(n=>n.Id).AsQueryable();
-            if (!string.IsNullOrEmpty(searchString))
-            {
-                product  = product .Where(n => n.Name.Contains(searchString));
-            }
-            int pageSize = 5;
-            int pageNumber = (page ?? 1);
-             return View(product .ToPagedList(pageNumber, pageSize));
+            var products = _productService.Queryable().Include(p => p.Category).AsQueryable();
+
+            return View(products);
         }
 
-       
+        // Get :Products/PageList
+        [HttpGet]
+        public ActionResult PageList(int offset = 0, int limit = 10, string search = "", string sort = "", string order = "")
+        {
+            int totalCount = 0;
+            int pagenum = offset / limit +1;
+            var product  = _productService.Query(new ProductQuery().WithAnySearch(search)).Include(p => p.Category).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(pagenum, limit, out totalCount);
+            
+            var rows = product .Select( n => new {  Id = n.Id , Name = n.Name , Unit = n.Unit , UnitPrice = n.UnitPrice , StockQty = n.StockQty , ConfirmDateTime = n.ConfirmDateTime , CategoryId = n.CategoryId }).ToList();
+            var pagelist = new { total = totalCount, rows = rows };
+            return Json(pagelist, JsonRequestBehavior.AllowGet);
+        }
+
+
         // GET: Products/Details/5
         public ActionResult Details(int? id)
         {
@@ -70,13 +68,14 @@ namespace WebApp.Controllers
             }
             return View(product);
         }
-        
+
 
         // GET: Products/Create
         public ActionResult Create()
         {
             var categoryRepository = _unitOfWork.Repository<Category>();
             ViewBag.CategoryId = new SelectList(categoryRepository.Queryable(), "Id", "Name");
+            //Detail Models RelatedProperties 
             return View();
         }
 
@@ -88,7 +87,7 @@ namespace WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-               _productService.Insert(product);
+                _productService.Insert(product);
                 _unitOfWork.SaveChanges();
                 DisplaySuccessMessage("Has append a Product record");
                 return RedirectToAction("Index");
@@ -108,13 +107,16 @@ namespace WebApp.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Product product = _productService.Find(id);
+
+            //Detail Models RelatedProperties 
+
+
             if (product == null)
             {
                 return HttpNotFound();
             }
             var categoryRepository = _unitOfWork.Repository<Category>();
             ViewBag.CategoryId = new SelectList(categoryRepository.Queryable(), "Id", "Name", product.CategoryId);
-
             return View(product);
         }
 
@@ -127,7 +129,8 @@ namespace WebApp.Controllers
             if (ModelState.IsValid)
             {
                 product.ObjectState = ObjectState.Modified;
-                
+                _productService.Update(product);
+
                 _unitOfWork.SaveChanges();
                 DisplaySuccessMessage("Has update a Product record");
                 return RedirectToAction("Index");
@@ -158,12 +161,17 @@ namespace WebApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Product product =  _productService.Find(id);
-             _productService.Delete(product);
+            Product product = _productService.Find(id);
+            _productService.Delete(product);
             _unitOfWork.SaveChanges();
             DisplaySuccessMessage("Has delete a Product record");
             return RedirectToAction("Index");
         }
+
+
+
+
+
 
         private void DisplaySuccessMessage(string msgText)
         {

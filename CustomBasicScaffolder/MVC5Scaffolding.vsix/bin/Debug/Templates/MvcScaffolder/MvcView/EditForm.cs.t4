@@ -110,7 +110,7 @@ else
 #>
 
 <#
-    if(OneToManyModelMetadata.Count>0)
+    if( GenerateMasterDetailRelationship && OneToManyModelMetadata.Count>0)
     {
 #>
 	<div role="tabpanel">

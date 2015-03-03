@@ -39,6 +39,8 @@ else
 <#@ parameter type="System.Collections.Generic.Dictionary<string, Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata>" name="OneToManyModelMetadata" #>
 <#@ parameter type="System.Collections.Generic.Dictionary<string, string>" name="OneToManyAnonymousObjText" #>
 <#@ parameter type="System.String" name ="SelectLambdaText" #>
+<#@ parameter type="System.Boolean" name ="GenerateMasterDetailRelationship" #>
+
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -109,7 +111,7 @@ namespace <#= Namespace #>
         includeExpressions = String.Join("", relatedProperties.Values.Select(property => String.Format(".Include({0} => {0}.{1})", lambdaVar, property.AssociationPropertyName)));
 #>
 <# if(!String.IsNullOrEmpty(includeExpressions)) { #>
-            var <#= modelVariablePlural #>  = <#= modelServiceVar #>.Queryable()<#= includeExpressions #>).AsQueryable();
+            var <#= modelVariablePlural #>  = <#= modelServiceVar #>.Queryable()<#= includeExpressions #>.AsQueryable();
             
 <#		if (UseAsync) { #>
           
@@ -122,20 +124,21 @@ namespace <#= Namespace #>
             var <#= modelVariablePlural #>  = <#= modelServiceVar #>.Queryable().AsQueryable();
             return View(await <#= modelVariablePlural #>  );
 <#		} else { #>
-            var <#= ModelVariable #>  = <#= modelServiceVar #>.Queryable().AsQueryable();
+            var <#= modelVariablePlural #>  = <#= modelServiceVar #>.Queryable().AsQueryable();
             return View(<#= modelVariablePlural #>  );
 <#		} #>
 <# } #>
         }
 
         // Get :<#= routePrefix #>/<#= ViewPrefix #>PageList
+        // For Index View Boostrap-Table load  data 
         [HttpGet]
         public ActionResult PageList(int offset = 0, int limit = 10, string search = "", string sort = "", string order = "")
         {
             int totalCount = 0;
             int pagenum = offset / limit +1;
             <# if(!String.IsNullOrEmpty(includeExpressions)) { #>
-            var <#= ModelVariable #>  = <#= modelServiceVar #>.Query(new <#= ModelTypeName #>Query().WithAnySearch(search))<#= includeExpressions #>)OrderBy(n=>n.OrderBy(sort,order)).SelectPage(pagenum, limit, out totalCount);
+            var <#= ModelVariable #>  = <#= modelServiceVar #>.Query(new <#= ModelTypeName #>Query().WithAnySearch(search))<#= includeExpressions #>.OrderBy(n=>n.OrderBy(sort,order)).SelectPage(pagenum, limit, out totalCount);
             
             <#    } else { #>
             var <#= ModelVariable #>  = <#= modelServiceVar #>.Query(new <#= ModelTypeName #>Query().WithAnySearch(search)).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(pagenum, limit, out totalCount);
@@ -179,17 +182,6 @@ namespace <#= Namespace #>
             var <#= property.ShortTypeName.ToLower() #>Repository = _unitOfWork.Repository<<#= property.ShortTypeName #>>();
             ViewBag.<#= property.ForeignKeyPropertyNames[0] #> = new SelectList(<#= property.ShortTypeName.ToLower() #>Repository.Queryable(), "<#= property.PrimaryKeyNames[0] #>", "<#= property.DisplayPropertyName #>");
 <# } #>
-		   //Detail Models RelatedProperties 
-<# foreach (var submeta in OneToManyModelMetadata) { 
-	    var subrelatedProperties = submeta.Value.RelatedEntities.ToDictionary(item => item.AssociationPropertyName);
-	    var lambdastring=OneToManyAnonymousObjText[submeta.Key];
-	    foreach (var subproperty in subrelatedProperties.Values) {
-#>
-			var <#= subproperty.ShortTypeName.ToLower() #>Repository = _unitOfWork.Repository<<#= subproperty.ShortTypeName #>>();
-            ViewBag.<#= subproperty.ForeignKeyPropertyNames[0] #> = new SelectList(<#= subproperty.ShortTypeName.ToLower() #>Repository.Queryable(), "<#= subproperty.PrimaryKeyNames[0] #>", "<#= subproperty.DisplayPropertyName #>");
-
-<#		}
-   } #>
             return View();
         }
 
@@ -212,7 +204,21 @@ namespace <#= Namespace #>
 <# if(!String.IsNullOrEmpty(primaryKeyType) && String.Equals("System.Guid", primaryKeyType, StringComparison.OrdinalIgnoreCase)) { #>
                 <#= ModelVariable #>.<#= primaryKeyName #> = Guid.NewGuid();
 <# } #>
-               <#= modelServiceVar #>.Insert(<#= ModelVariable #>);
+             <#
+                if(GenerateMasterDetailRelationship && OneToManyModelMetadata.Count()>0)
+                {
+             #>
+                <#=  ModelVariable #>.ObjectState = ObjectState.Added;   
+                <# foreach (var submodelname in OneToManyModelMetadata.Keys) { #>
+                foreach (var item in <#=  ModelVariable #>.<#= submodelname #>)
+                {
+                    item.ObjectState = ObjectState.Added;
+                }
+                <# } #>
+                <#=  modelServiceVar #>.InsertOrUpdateGraph(<#=            ModelVariable #>);
+            <#    } else {  #>
+				<#=  modelServiceVar #>.Insert(<#=            ModelVariable #>);
+           <#    } #>
 <# if (UseAsync) {#>
                 await _unitOfWork.SaveChangesAsync();
 <# } else { #>
@@ -247,19 +253,7 @@ namespace <#= Namespace #>
             <#= ModelTypeName #> <#= ModelVariable #> = <#= modelServiceVar #>.Find(id);
 <# } #>
 
-		   //Detail Models RelatedProperties 
-<# foreach (var submeta in OneToManyModelMetadata) { 
-	    var subrelatedProperties = submeta.Value.RelatedEntities.ToDictionary(item => item.AssociationPropertyName);
-	    var lambdastring=OneToManyAnonymousObjText[submeta.Key];
-	    foreach (var subproperty in subrelatedProperties.Values) {
-#>
-			var <#= subproperty.ShortTypeName.ToLower() #>Repository = _unitOfWork.Repository<<#= subproperty.ShortTypeName #>>();
-            ViewBag.<#= subproperty.ForeignKeyPropertyNames[0] #> = new SelectList(<#= subproperty.ShortTypeName.ToLower() #>Repository.Queryable(), "<#= subproperty.PrimaryKeyNames[0] #>", "<#= subproperty.DisplayPropertyName #>");
-
-			ViewBag.<#= submeta.Key  #> = <#= ModelVariable #>.<#= submeta.Key #>.Select(<#= lambdastring #>);
-
-<#		}
-   } #>
+ 
 
 
             if (<#= ModelVariable #> == null)
@@ -290,7 +284,24 @@ namespace <#= Namespace #>
             if (ModelState.IsValid)
             {
                 <#= ModelVariable #>.ObjectState = ObjectState.Modified;
-				<#= modelServiceVar #>.Update(<#= ModelVariable #>);
+                <#
+                    if(GenerateMasterDetailRelationship && OneToManyModelMetadata.Count()>0)
+                    {
+                #>
+                <# foreach (var submodelname in OneToManyModelMetadata.Keys) { #>
+                foreach (var item in <#=  ModelVariable #>.<#= submodelname #>)
+                {
+                    //set ObjectState with conditions
+                    //if(item.Id==0)
+                    //    item.ObjectState = ObjectState.Added;
+                    //else
+                    //    item.ObjectState = ObjectState.Modified;
+                }
+                <# } #>      
+                <#=  modelServiceVar #>.InsertOrUpdateGraph(<#=            ModelVariable #>);
+                <#    } else {  #>
+				<#=  modelServiceVar #>.Update(<#=            ModelVariable #>);
+                <#    } #>
                 
 <# if (UseAsync) { #>
                 await   _unitOfWork.SaveChangesAsync();
@@ -357,16 +368,18 @@ namespace <#= Namespace #>
 
 
 <#
-    foreach (PropertyMetadata property in ModelMetadata.Properties) 
+    if (GenerateMasterDetailRelationship) 
     {
-			
-        if ( property.AssociationDirection == AssociationDirection.OneToMany && OneToManyModelMetadata.ContainsKey(property.PropertyName))
+        foreach (PropertyMetadata property in ModelMetadata.Properties) 
         {
-            var modelTypeName=property.ShortTypeName;
-            var subModelMeta = OneToManyModelMetadata[property.PropertyName];
-            var subModelIdType = subModelMeta.PrimaryKeys[0].ShortTypeName;
-            var varModelType=modelTypeName.ToLower();
-            var subrelatedProperties = subModelMeta.RelatedEntities.ToDictionary(item => item.AssociationPropertyName);
+			
+            if ( property.AssociationDirection == AssociationDirection.OneToMany && OneToManyModelMetadata.ContainsKey(property.PropertyName))
+            {
+                var modelTypeName=property.ShortTypeName;
+                var subModelMeta = OneToManyModelMetadata[property.PropertyName];
+                var subModelIdType = subModelMeta.PrimaryKeys[0].ShortTypeName;
+                var varModelType=modelTypeName.ToLower();
+                var subrelatedProperties = subModelMeta.RelatedEntities.ToDictionary(item => item.AssociationPropertyName);
 #>
         // Get Detail Row By Id For Edit
         // Get : <#= routePrefix #>/Edit<#= modelTypeName #>/:id
@@ -382,15 +395,15 @@ namespace <#= Namespace #>
 
             <#  
                 foreach (var relatedproperty in subrelatedProperties.Values) { #>
-            var <#= relatedproperty.ShortTypeName.ToLower() #>Repository = _unitOfWork.Repository<<#= relatedproperty.ShortTypeName #>>();             
-            <# } #>
+            var <#=     relatedproperty.ShortTypeName.ToLower() #>Repository = _unitOfWork.Repository<<#=     relatedproperty.ShortTypeName #>>();             
+            <#                } #>
 
-            if (orderdetail == null)
+            if (<#= varModelType #> == null)
             {
             <#   
                 foreach (var relatedproperty in subrelatedProperties.Values) { #>
-                ViewBag.<#= relatedproperty.ForeignKeyPropertyNames[0] #> = new SelectList(<#= relatedproperty.ShortTypeName.ToLower() #>Repository.Queryable(), "<#= relatedproperty.PrimaryKeyNames[0] #>", "<#= relatedproperty.DisplayPropertyName #>" );
-            <# } #>
+                ViewBag.<#=     relatedproperty.ForeignKeyPropertyNames[0] #> = new SelectList(<#=     relatedproperty.ShortTypeName.ToLower() #>Repository.Queryable(), "<#=     relatedproperty.PrimaryKeyNames[0] #>", "<#=     relatedproperty.DisplayPropertyName #>" );
+            <#                } #>
                 
                 //return HttpNotFound();
                 return PartialView("_<#= modelTypeName #>Form", new <#= modelTypeName #>());
@@ -399,8 +412,8 @@ namespace <#= Namespace #>
             {
             <#   
                 foreach (var relatedproperty in subrelatedProperties.Values) { #>
-                ViewBag.<#= relatedproperty.ForeignKeyPropertyNames[0] #> = new SelectList(<#= relatedproperty.ShortTypeName.ToLower() #>Repository.Queryable(), "<#= relatedproperty.PrimaryKeyNames[0] #>", "<#= relatedproperty.DisplayPropertyName #>" , <#= varModelType #>.<#= relatedproperty.ForeignKeyPropertyNames[0] #> );  
-            <# } #>
+                ViewBag.<#=     relatedproperty.ForeignKeyPropertyNames[0] #> = new SelectList(<#=     relatedproperty.ShortTypeName.ToLower() #>Repository.Queryable(), "<#=     relatedproperty.PrimaryKeyNames[0] #>", "<#=     relatedproperty.DisplayPropertyName #>" , <#=     varModelType #>.<#=     relatedproperty.ForeignKeyPropertyNames[0] #> );  
+            <#                } #>
                  
             }
             return PartialView("_<#= modelTypeName #>Form",  <#= varModelType #>);
@@ -412,11 +425,11 @@ namespace <#= Namespace #>
         [HttpGet]
         public ActionResult Create<#= modelTypeName #>()
         {
-          <#   foreach (var relatedproperty in subrelatedProperties.Values) { #>
-              var <#= relatedproperty.ShortTypeName.ToLower() #>Repository = _unitOfWork.Repository<<#= relatedproperty.ShortTypeName #>>();    
-              ViewBag.<#= relatedproperty.ForeignKeyPropertyNames[0] #> = new SelectList(<#= relatedproperty.ShortTypeName.ToLower() #>Repository.Queryable(), "<#= relatedproperty.PrimaryKeyNames[0] #>", "<#= relatedproperty.DisplayPropertyName #>" );
-          <# } #>
-            return PartialView("_OrderDetailForm");
+          <#                foreach (var relatedproperty in subrelatedProperties.Values) { #>
+              var <#=     relatedproperty.ShortTypeName.ToLower() #>Repository = _unitOfWork.Repository<<#=     relatedproperty.ShortTypeName #>>();    
+              ViewBag.<#=     relatedproperty.ForeignKeyPropertyNames[0] #> = new SelectList(<#=     relatedproperty.ShortTypeName.ToLower() #>Repository.Queryable(), "<#=     relatedproperty.PrimaryKeyNames[0] #>", "<#=     relatedproperty.DisplayPropertyName #>" );
+          <#                } #>
+            return PartialView("_<#= modelTypeName #>Form");
 
         }
 
@@ -433,34 +446,37 @@ namespace <#= Namespace #>
         }
 
 <#
+            }
         }
     }
 #>       
 
-        <#
-            
-		foreach (PropertyMetadata property in ModelMetadata.Properties) 
+<#
+    if (GenerateMasterDetailRelationship) 
+    {     
+        foreach (PropertyMetadata property in ModelMetadata.Properties) 
         {           
             if (property.AssociationDirection == AssociationDirection.OneToMany ) 
             {       
-            var relmodemeta = OneToManyModelMetadata[property.PropertyName];
-            var relatedEntities = relmodemeta.RelatedEntities;
-            var foreignKeyNames = relatedEntities.Where(n=>n.EntitySetName ==ModelMetadata.EntitySetName).Select(n=>n.ForeignKeyPropertyNames).First();
-            var foreignKeyName = foreignKeyNames[0];
-            var lambdastring=OneToManyAnonymousObjText[property.PropertyName];
-        #>
-         // Get : <#= routePrefix #>/Get<#= property.PropertyName #>By<#= foreignKeyName #>/:id
+                var relmodemeta = OneToManyModelMetadata[property.PropertyName];
+                var relatedEntities = relmodemeta.RelatedEntities;
+                var foreignKeyNames = relatedEntities.Where(n=>n.EntitySetName ==ModelMetadata.EntitySetName).Select(n=>n.ForeignKeyPropertyNames).First();
+                var foreignKeyName = foreignKeyNames[0];
+                var lambdastring=OneToManyAnonymousObjText[property.PropertyName];
+#>
+        // Get : <#= routePrefix #>/Get<#=   property.PropertyName #>By<#= foreignKeyName #>/:id
         [HttpGet]
-        public ActionResult Get<#= property.PropertyName #>By<#= foreignKeyName #>(<#= primaryKeyShortTypeName #> id)
+        public ActionResult Get<#= property.PropertyName #>By<#= foreignKeyName #>(<#=  primaryKeyShortTypeName #> id)
         {
             var <#= property.PropertyName.ToLower() #> = <#= modelServiceVar #>.Get<#= property.PropertyName #>By<#= foreignKeyName #>(id);
             return Json(<#= property.PropertyName.ToLower() #>.Select(<#= lambdastring #>),JsonRequestBehavior.AllowGet);
 
         }
-        <#
+<#
             }
         }
-        #> 
+    }
+#> 
 
         private void DisplaySuccessMessage(string msgText)
         {

@@ -173,6 +173,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             string outputFolderPath = Path.Combine(selectionRelativePath, controllerName);
             string viewPrefix = codeGeneratorViewModel.ViewPrefix;
             string programTitle = codeGeneratorViewModel.ProgramTitle;
+            bool generateMasterDetailRelationship = codeGeneratorViewModel.GenerateMasterDetailRelationship;
             AddEntityRepositoryExtensionTemplates(project, selectionRelativePath,
                 dbContextNamespace,
                 dbContextTypeName,
@@ -198,6 +199,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 , viewPrefix: viewPrefix
                 , oneToManyAnonymousObjText:oneToManyAnonymousObjTextDic
                 , oneToManyModels:oneToManyModels
+                , generateMasterDetailRelationship: generateMasterDetailRelationship
                 , overwrite: codeGeneratorViewModel.OverwriteViews);
 
             if (!codeGeneratorViewModel.GenerateViews)
@@ -249,6 +251,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                     , isLayoutPageSelected: codeGeneratorViewModel.LayoutPageSelected
                     , layoutPageFile: codeGeneratorViewModel.LayoutPageFile
                     , overwrite: codeGeneratorViewModel.OverwriteViews
+                    , generateMasterDetailRelationship: generateMasterDetailRelationship
                     , oneToManyModels: oneToManyModels
                     );
             }
@@ -300,6 +303,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             , string viewPrefix
             , Dictionary<string , string > oneToManyAnonymousObjText
             , Dictionary<string , ModelMetadata > oneToManyModels
+            , bool generateMasterDetailRelationship
             , bool overwrite = false
             )
         {
@@ -338,6 +342,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 , {"ModelMetadata", efMetadata}
                 , {"OneToManyModelMetadata", oneToManyModels}
                 , {"OneToManyAnonymousObjText", oneToManyAnonymousObjText}
+                , {"GenerateMasterDetailRelationship", generateMasterDetailRelationship}
                 , {"SelectLambdaText",selectLambdaText}
                 , {"EntitySetVariable", modelTypeVariable}
                 , {"UseAsync", false}
@@ -467,6 +472,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             , string layoutPageFile = null
             , bool isBundleConfigPresent=true
             , bool overwrite = false
+            , bool generateMasterDetailRelationship = false
             , Dictionary<string,ModelMetadata> oneToManyModels = null )
         {
             //Project project = Context.ActiveProject;
@@ -493,6 +499,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 , {"IsBundleConfigPresent", isBundleConfigPresent}
                 , {"OneToManyModelMetadata", oneToManyModels}
                 ,{"ModelDisplayNames",modelDisplayNames}
+                ,{"GenerateMasterDetailRelationship" ,generateMasterDetailRelationship}
                 //, {"ViewDataTypeShortName", modelType.Name} // 可刪除
                 , {"MetaTable", _ModelMetadataVM.DataModel}
                 , {"JQueryVersion","2.1.0"} // 如何讀取專案的 jQuery 版本
