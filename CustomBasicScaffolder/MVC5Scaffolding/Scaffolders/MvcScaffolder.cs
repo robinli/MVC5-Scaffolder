@@ -177,12 +177,16 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 dbContextNamespace,
                 dbContextTypeName,
                 modelType,
-                efMetadata, false);
+                efMetadata, 
+                oneToManyModels,
+                false);
 
             AddEntityServiceTemplates(project, selectionRelativePath,
                 dbContextNamespace,
                 dbContextTypeName,
-                modelType, efMetadata, false);
+                modelType, efMetadata,
+                oneToManyModels,
+                false);
 
             AddMvcController(project: project
                 , controllerName: controllerName
@@ -319,7 +323,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             //Project project = Context.ActiveProject;
             var templatePath = Path.Combine("MvcControllerWithContext", "Controller");
             var defaultNamespace = GetDefaultNamespace();
-            string modelTypeVariable = pluralizedName.ToLower();//GetTypeVariable(modelType.Name);
+            string modelTypeVariable = GetTypeVariable(modelType.Name);
             string bindAttributeIncludeText =GetBindAttributeIncludeText(efMetadata);
 
             Dictionary<string, object> templateParams=new Dictionary<string, object>(){
@@ -687,6 +691,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
       string dbContextTypeName,
       CodeType modelType,
       ModelMetadata efMetadata,
+      Dictionary<string,ModelMetadata> oneToManyModels,
       bool overwriteViews = true
       
         
@@ -745,6 +750,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                         {"FolderNamespace", folderNamespace.Replace("_","")}, // the namespace of the current folder (used by C#)
                         {"PluralizedModelName",pluralizedModelName},
                         {"QueryLambdaText",queryLambdaText},
+                        {"OneToManyModelMetadata", oneToManyModels},
                         {"ModelNamespace", modelNameSpace} // the namespace of the model (e.g., Samples.Models)               
                     },
                     skipIfExists: true);
@@ -758,6 +764,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
            string dbContextTypeName,
            CodeType modelType,
            ModelMetadata efMetadata,
+           Dictionary<string, ModelMetadata> oneToManyModels,
            bool overwriteViews = true
           
 
@@ -815,6 +822,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                         {"ModelName", modelName}, // singular model name (e.g., Movie)
                         {"FolderNamespace", folderNamespace.Replace("_","")}, // the namespace of the current folder (used by C#)
                         {"PluralizedModelName",pluralizedModelName},
+                        {"OneToManyModelMetadata", oneToManyModels},
                         {"ModelNamespace", modelNameSpace} // the namespace of the model (e.g., Samples.Models)               
                     },
                     skipIfExists: true);

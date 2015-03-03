@@ -23,6 +23,7 @@
 <#@ parameter type="System.String" name="PluralizedModelName" #>             
 <#@ parameter type="System.String" name="PrimaryKeyName" #>           
 <#@ parameter type="Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata" name="ModelMetadata" #>
+<#@ parameter type="System.Collections.Generic.Dictionary<string, Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata>" name="OneToManyModelMetadata" #> 
 
 using System;
 using System.Collections.Generic;
@@ -65,11 +66,15 @@ namespace <#=DefaultNamespace #>.Services
 		foreach (PropertyMetadata property in ModelMetadata.Properties) 
         {           
             if (property.AssociationDirection == AssociationDirection.OneToMany ) 
-            {               
+            {       
+            var relmodemeta = OneToManyModelMetadata[property.PropertyName];
+            var relatedEntities = relmodemeta.RelatedEntities;
+            var foreignKeyNames = relatedEntities.Where(n=>n.EntitySetName ==ModelMetadata.EntitySetName).Select(n=>n.ForeignKeyPropertyNames).First();
+            var foreignKeyName = foreignKeyNames[0];
         #>
-        public IEnumerable<<#= property.RelatedModel.ShortTypeName #>>   Get<#= property.PropertyName #> (<#= primaryKey.ShortTypeName #> <#= PrimaryKeyName.ToLower() #>)
+        public IEnumerable<<#= property.RelatedModel.ShortTypeName #>>   Get<#= property.PropertyName #>By<#= foreignKeyName #> (<#= primaryKey.ShortTypeName #> <#= foreignKeyName.ToLower() #>)
         {
-            return _repository.Get<#= property.PropertyName #>(<#= PrimaryKeyName.ToLower() #>);
+            return _repository.Get<#= property.PropertyName #>By<#= foreignKeyName #>(<#= foreignKeyName.ToLower() #>);
         }
         <#
             }

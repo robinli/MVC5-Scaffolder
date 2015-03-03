@@ -1,7 +1,8 @@
 ﻿
                     
       
-
+    
+ 
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -18,9 +19,9 @@ namespace WebApp.Repositories
     {
  
         
-                public static IEnumerable<Product>   GetProducts (this IRepositoryAsync<Category> repository,int id)
+                public static IEnumerable<Product>   GetProductsByCategoryId (this IRepositoryAsync<Category> repository,int categoryid)
         {
-            return repository.Query(n => n.Id == id).Include(x => x.Products).Select(x => x.Products).FirstOrDefault();
+            return repository.Query(n => n.Id == categoryid).Include(x => x.Products).Select(x => x.Products).FirstOrDefault();
         }
          
 	}

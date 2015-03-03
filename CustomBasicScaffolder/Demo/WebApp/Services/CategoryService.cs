@@ -1,6 +1,7 @@
 ﻿
              
            
+ 
 
 using System;
 using System.Collections.Generic;
@@ -24,9 +25,9 @@ namespace WebApp.Services
             _repository=repository;
         }
         
-                         public IEnumerable<Product>   GetProducts (int id)
+                         public IEnumerable<Product>   GetProductsByCategoryId (int categoryid)
         {
-            return _repository.GetProducts(id);
+            return _repository.GetProductsByCategoryId(categoryid);
         }
          
         

@@ -1,6 +1,8 @@
 ﻿
 
-      
+     
+ 
+ 
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -17,7 +19,7 @@ namespace WebApp.Services
     {
 
          
-                 IEnumerable<Product>   GetProducts (int id);
+                 IEnumerable<Product>   GetProductsByCategoryId (int categoryid);
          
          
  

@@ -13,8 +13,9 @@ using Repository.Pattern.Infrastructure;
 using WebApp.Models;
 using WebApp.Services;
 using WebApp.Repositories;
-using PagedList;
 using WebApp.Extensions;
+using PagedList;
+
 namespace WebApp.Controllers
 {
     public class OrdersController : Controller
@@ -82,12 +83,18 @@ namespace WebApp.Controllers
         // POST: Orders/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "OrderDetails,Id,Customer,ShippingAddress,OrderDate")] Order orders)
+        //[ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "OrderDetails,Id,Customer,ShippingAddress,OrderDate,ObjectState")] Order orders)
         {
             if (ModelState.IsValid)
             {
-               _ordersService.Insert(orders);
+               //_ordersService.Insert(orders);
+                foreach (var item in orders.OrderDetails)
+                {
+                    item.ObjectState = ObjectState.Added;
+                    item.Product = null;
+                }
+                _ordersService.InsertOrUpdateGraph(orders);
                 _unitOfWork.SaveChanges();
                 DisplaySuccessMessage("Has append a Order record");
                 return RedirectToAction("Index");
@@ -104,19 +111,18 @@ namespace WebApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var orders = _ordersService.Query(n => n.Id == id).Include(n => n.OrderDetails).Select().First();
-            //Order orders = _ordersService.Find(id);
+            Order orders = _ordersService.Find(id);
 
-		   //Detail Models RelatedProperties 
-			var orderRepository = _unitOfWork.Repository<Order>();
-            ViewBag.OrderId = new SelectList(orderRepository.Queryable(), "Id", "Customer");
+		    //Detail Models RelatedProperties 
+            //var orderRepository = _unitOfWork.Repository<Order>();
+            //ViewBag.OrderId = new SelectList(orderRepository.Queryable(), "Id", "Customer");
 
-			//ViewBag.OrderDetails = orders.OrderDetails.Select(n => new {  Product = n.Product,Id = n.Id,ProductId = n.ProductId,Qty = n.Qty,Price = n.Price,Amount = n.Amount,OrderId = n.OrderId });
+            //ViewBag.OrderDetails = orders.OrderDetails.Select(n => new { Order = n.Order,Product = n.Product,Id = n.Id,ProductId = n.ProductId,Qty = n.Qty,Price = n.Price,Amount = n.Amount,OrderId = n.OrderId });
 
-			var productRepository = _unitOfWork.Repository<Product>();
-            ViewBag.ProductId = new SelectList(productRepository.Queryable(), "Id", "Name");
+            //var productRepository = _unitOfWork.Repository<Product>();
+            //ViewBag.ProductId = new SelectList(productRepository.Queryable(), "Id", "Name");
 
-			ViewBag.OrderDetails = orders.OrderDetails.Select(n => new {  Product = n.Product,Id = n.Id,ProductId = n.ProductId,Qty = n.Qty,Price = n.Price,Amount = n.Amount,OrderId = n.OrderId });
+            //ViewBag.OrderDetails = orders.OrderDetails.Select(n => new { Order = n.Order,Product = n.Product,Id = n.Id,ProductId = n.ProductId,Qty = n.Qty,Price = n.Price,Amount = n.Amount,OrderId = n.OrderId });
 
 
 
@@ -219,15 +225,6 @@ namespace WebApp.Controllers
                       return PartialView("_OrderDetailForm");
 
         }
-        [HttpGet]
-        public ActionResult GetOrderDetails(int id)
-        {
-            var orderdetails = _ordersService.GetOrderDetails(id);
-
-
-            return Json(orderdetails.Select(n => new { Product = n.Product, Id = n.Id, ProductId = n.ProductId, Qty = n.Qty, Price = n.Price, Amount = n.Amount, OrderId = n.OrderId }));
-
-        }
 
         // Post Delete Detail Row By Id
         // Get : Orders/DeleteOrderDetailConfirmed/:id
@@ -242,6 +239,17 @@ namespace WebApp.Controllers
         }
 
        
+
+        // Get : Orders/GetOrderDetailsByOrderId/:id
+        [HttpGet]
+        public ActionResult GetOrderDetailsByOrderId(int id)
+        {
+            var orderdetails = _ordersService.GetOrderDetailsByOrderId(id);
+            return Json(orderdetails.Select(n => new {Product = n.Product,Id = n.Id,ProductId = n.ProductId,Qty = n.Qty,Price = n.Price,Amount = n.Amount,OrderId = n.OrderId }),JsonRequestBehavior.AllowGet);
+
+        }
+         
+
         private void DisplaySuccessMessage(string msgText)
         {
             TempData["SuccessMessage"] = msgText;

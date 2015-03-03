@@ -23,7 +23,8 @@
 <#@ parameter type="System.String" name="PluralizedModelName" #>                    
 <#@ parameter type="Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata" name="ModelMetadata" #>
 <#@ parameter type="System.String" name="PrimaryKeyName" #>      
-<#@ parameter type="System.String" name="QueryLambdaText" #>     
+<#@ parameter type="System.String" name="QueryLambdaText" #>    
+<#@ parameter type="System.Collections.Generic.Dictionary<string, Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata>" name="OneToManyModelMetadata" #> 
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -64,11 +65,15 @@ namespace <#=DefaultNamespace #>.Repositories
 		foreach (PropertyMetadata property in ModelMetadata.Properties) 
         {           
             if (property.AssociationDirection == AssociationDirection.OneToMany ) 
-            {               
+            {
+            var relmodemeta = OneToManyModelMetadata[property.PropertyName];
+            var relatedEntities = relmodemeta.RelatedEntities;
+             var foreignKeyNames = relatedEntities.Where(n=>n.EntitySetName == ModelMetadata.EntitySetName).Select(n=>n.ForeignKeyPropertyNames).First();
+            var foreignKeyName = foreignKeyNames[0];
         #>
-        public static IEnumerable<<#= property.RelatedModel.ShortTypeName #>>   Get<#= property.PropertyName #> (this IRepositoryAsync<<#= ModelName #>> repository,<#= primaryKey.ShortTypeName #> <#= PrimaryKeyName.ToLower() #>)
+        public static IEnumerable<<#= property.RelatedModel.ShortTypeName #>>   Get<#= property.PropertyName #>By<#= foreignKeyName #> (this IRepositoryAsync<<#= ModelName #>> repository,<#= primaryKey.ShortTypeName #> <#= foreignKeyName.ToLower() #>)
         {
-            return repository.Query(n => n.<#= PrimaryKeyName #> == <#= PrimaryKeyName.ToLower() #>).Include(x => x.<#= property.PropertyName #>).Select(x => x.<#= property.PropertyName #>).FirstOrDefault();
+            return repository.Query(n => n.<#= PrimaryKeyName #> == <#= foreignKeyName.ToLower() #>).Include(x => x.<#= property.PropertyName #>).Select(x => x.<#= property.PropertyName #>).FirstOrDefault();
         }
         <#
             }

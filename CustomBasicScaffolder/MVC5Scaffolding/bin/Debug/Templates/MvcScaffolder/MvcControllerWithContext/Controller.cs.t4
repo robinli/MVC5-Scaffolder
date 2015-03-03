@@ -435,6 +435,32 @@ namespace <#= Namespace #>
         }
     }
 #>       
+
+        <#
+            
+		foreach (PropertyMetadata property in ModelMetadata.Properties) 
+        {           
+            if (property.AssociationDirection == AssociationDirection.OneToMany ) 
+            {       
+            var relmodemeta = OneToManyModelMetadata[property.PropertyName];
+            var relatedEntities = relmodemeta.RelatedEntities;
+            var foreignKeyNames = relatedEntities.Where(n=>n.EntitySetName ==ModelMetadata.EntitySetName).Select(n=>n.ForeignKeyPropertyNames).First();
+            var foreignKeyName = foreignKeyNames[0];
+            var lambdastring=OneToManyAnonymousObjText[property.PropertyName];
+        #>
+         // Get : <#= routePrefix #>/Get<#= property.PropertyName #>By<#= foreignKeyName #>/:id
+        [HttpGet]
+        public ActionResult Get<#= property.PropertyName #>By<#= foreignKeyName #>(<#= primaryKeyShortTypeName #> id)
+        {
+            var <#= property.PropertyName.ToLower() #> = <#= modelServiceVar #>.Get<#= property.PropertyName #>By<#= foreignKeyName #>(id);
+            return Json(orderdetails.Select(<#= lambdastring #>),JsonRequestBehavior.AllowGet);
+
+        }
+        <#
+            }
+        }
+        #> 
+
         private void DisplaySuccessMessage(string msgText)
         {
             TempData["SuccessMessage"] = msgText;

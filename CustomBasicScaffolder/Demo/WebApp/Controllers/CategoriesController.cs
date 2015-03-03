@@ -1,4 +1,6 @@
-﻿using System;
+﻿
+
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -11,6 +13,7 @@ using Repository.Pattern.Infrastructure;
 using WebApp.Models;
 using WebApp.Services;
 using WebApp.Repositories;
+using WebApp.Extensions;
 using PagedList;
 
 namespace WebApp.Controllers
@@ -18,41 +21,33 @@ namespace WebApp.Controllers
     public class CategoriesController : Controller
     {
         //private StoreContext db = new StoreContext();
-        private readonly ICategoryService  _categoryService;
+        private readonly ICategoryService  _categoriesService;
         private readonly IUnitOfWorkAsync _unitOfWork;
 
-        public CategoriesController (ICategoryService  categoryService, IUnitOfWorkAsync unitOfWork)
+        public CategoriesController (ICategoryService  categoriesService, IUnitOfWorkAsync unitOfWork)
         {
-            _categoryService  = categoryService;
+            _categoriesService  = categoriesService;
             _unitOfWork = unitOfWork;
         }
 
         // GET: Categories/Index
-        public ActionResult Index(string sortOrder, string currentFilter, string search_field, string searchString, int? page)
+        public ActionResult Index()
         {
-            ViewBag.CurrentSort = sortOrder;
-            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "Name_desc" : "";
-            if (searchString != null)
-            {
-                page = 1;
-                currentFilter = searchString;
-            }
-            else
-            {
-                searchString = currentFilter;
-            }
+            
+            var categories  = _categoriesService.Queryable().AsQueryable();
+            return View(categories  );
+        }
 
-            ViewBag.CurrentFilter = searchString;
-            //string expression = string.Format("{0} = '{1}'", search_field, searchString);
-            //ViewBag.SearchField = search_field;
-            var category  = _categoryService.Queryable().OrderBy(n=>n.Id).AsQueryable();
-            if (!string.IsNullOrEmpty(searchString))
-            {
-                category  = category .Where(n => n.Name.Contains(searchString));
-            }
-            int pageSize = 5;
-            int pageNumber = (page ?? 1);
-            return View(category .ToPagedList(pageNumber, pageSize));
+        // Get :Categories/PageList
+        [HttpGet]
+        public ActionResult PageList(int offset = 0, int limit = 10, string search = "", string sort = "", string order = "")
+        {
+            int totalCount = 0;
+            int pagenum = offset / limit +1;
+                        var categories  = _categoriesService.Query(new CategoryQuery().WithAnySearch(search)).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(pagenum, limit, out totalCount);
+                        var rows = categories .Select( n => new {  Id = n.Id , Name = n.Name }).ToList();
+            var pagelist = new { total = totalCount, rows = rows };
+            return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
 
        
@@ -63,18 +58,22 @@ namespace WebApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = _categoryService.Find(id);
-            if (category == null)
+            Category categories = _categoriesService.Find(id);
+            if (categories == null)
             {
                 return HttpNotFound();
             }
-            return View(category);
+            return View(categories);
         }
         
 
         // GET: Categories/Create
         public ActionResult Create()
         {
+		   //Detail Models RelatedProperties 
+			var categoryRepository = _unitOfWork.Repository<Category>();
+            ViewBag.CategoryId = new SelectList(categoryRepository.Queryable(), "Id", "Name");
+
             return View();
         }
 
@@ -82,18 +81,18 @@ namespace WebApp.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Products,Name")] Category category)
+        public ActionResult Create([Bind(Include = "Products,Id,Name")] Category categories)
         {
             if (ModelState.IsValid)
             {
-               _categoryService.Insert(category);
+               _categoriesService.Insert(categories);
                 _unitOfWork.SaveChanges();
                 DisplaySuccessMessage("Has append a Category record");
                 return RedirectToAction("Index");
             }
 
             DisplayErrorMessage();
-            return View(category);
+            return View(categories);
         }
 
         // GET: Categories/Edit/5
@@ -103,32 +102,40 @@ namespace WebApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = _categoryService.Find(id);
-            if (category == null)
+            Category categories = _categoriesService.Find(id);
+
+		   //Detail Models RelatedProperties 
+			var categoryRepository = _unitOfWork.Repository<Category>();
+            ViewBag.CategoryId = new SelectList(categoryRepository.Queryable(), "Id", "Name");
+
+			ViewBag.Products = categories.Products.Select(n => new { Category = n.Category,Id = n.Id,Name = n.Name,Unit = n.Unit,UnitPrice = n.UnitPrice,StockQty = n.StockQty,ConfirmDateTime = n.ConfirmDateTime,CategoryId = n.CategoryId });
+
+
+
+            if (categories == null)
             {
                 return HttpNotFound();
             }
-            return View(category);
+            return View(categories);
         }
 
         // POST: Categories/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Products,Id,Name")] Category category)
+        public ActionResult Edit([Bind(Include = "Products,Id,Name")] Category categories)
         {
             if (ModelState.IsValid)
             {
-                category.ObjectState = ObjectState.Modified;
-                //category = _categoryService.Find(1);
-                //category.Name += "abc";
-                _categoryService.Update(category);
+                categories.ObjectState = ObjectState.Modified;
+				_categoriesService.Update(categories);
+                
                 _unitOfWork.SaveChanges();
                 DisplaySuccessMessage("Has update a Category record");
                 return RedirectToAction("Index");
             }
             DisplayErrorMessage();
-            return View(category);
+            return View(categories);
         }
 
         // GET: Categories/Delete/5
@@ -138,12 +145,12 @@ namespace WebApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = _categoryService.Find(id);
-            if (category == null)
+            Category categories = _categoriesService.Find(id);
+            if (categories == null)
             {
                 return HttpNotFound();
             }
-            return View(category);
+            return View(categories);
         }
 
         // POST: Categories/Delete/5
@@ -151,12 +158,78 @@ namespace WebApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Category category =  _categoryService.Find(id);
-             _categoryService.Delete(category);
+            Category categories =  _categoriesService.Find(id);
+             _categoriesService.Delete(categories);
             _unitOfWork.SaveChanges();
             DisplaySuccessMessage("Has delete a Category record");
             return RedirectToAction("Index");
         }
+
+
+        // Get Detail Row By Id For Edit
+        // Get : Categories/EditProduct/:id
+        [HttpGet]
+        public ActionResult EditProduct(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var productRepository = _unitOfWork.Repository<Product>();
+            var product = productRepository.Find(id);
+
+                        var categoryRepository = _unitOfWork.Repository<Category>();
+
+                        if (product == null)
+            {
+                            ViewBag.CategoryId = new SelectList(categoryRepository.Queryable(), "Id", "Name" );
+                            
+                //return HttpNotFound();
+                return PartialView("_OrderDetailForm", new OrderDetail());
+            }
+            else
+            {
+                            ViewBag.CategoryId = new SelectList(categoryRepository.Queryable(), "Id", "Name" , product.CategoryId );  
+                             
+            }
+                        return PartialView("_OrderDetailForm", product);
+
+        }
+        
+        // Get Create Row By Id For Edit
+        // Get : Categories/CreateProduct
+        [HttpGet]
+        public ActionResult CreateProduct()
+        {
+                        var categoryRepository = _unitOfWork.Repository<Category>();    
+              ViewBag.CategoryId = new SelectList(categoryRepository.Queryable(), "Id", "Name" );
+                      return PartialView("_OrderDetailForm");
+
+        }
+
+        // Post Delete Detail Row By Id
+        // Get : Categories/DeleteProductConfirmed/:id
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteProductConfirmed(int  id)
+        {
+            var productRepository = _unitOfWork.Repository<Product>();
+            productRepository.Delete(id);
+            _unitOfWork.SaveChanges();
+            DisplaySuccessMessage("Has delete a Order record");
+            return RedirectToAction("Index");
+        }
+
+       
+
+                 // Get : Categories/GetProductsByCategoryId/:id
+        [HttpGet]
+        public ActionResult GetProductsByCategoryId(int id)
+        {
+            var products = _categoriesService.GetProductsByCategoryId(id);
+            return Json(products.Select(n => new { Category = n.Category, Id = n.Id, Name = n.Name, Unit = n.Unit, UnitPrice = n.UnitPrice, StockQty = n.StockQty, ConfirmDateTime = n.ConfirmDateTime, CategoryId = n.CategoryId }), JsonRequestBehavior.AllowGet);
+
+        }
+         
 
         private void DisplaySuccessMessage(string msgText)
         {

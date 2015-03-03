@@ -1,6 +1,7 @@
 ﻿
              
            
+ 
 
 using System;
 using System.Collections.Generic;
@@ -24,9 +25,9 @@ namespace WebApp.Services
             _repository=repository;
         }
         
-                         public IEnumerable<OrderDetail>   GetOrderDetails (int id)
+        public IEnumerable<OrderDetail>   GetOrderDetailsByOrderId (int orderid)
         {
-            return _repository.GetOrderDetails(id);
+            return _repository.GetOrderDetailsByOrderId(orderid);
         }
          
         

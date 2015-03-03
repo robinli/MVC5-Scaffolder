@@ -62,6 +62,7 @@ namespace <#= Namespace #>
 <#
     var contextTypeName = ContextTypeName;
     var entitySetName = ModelMetadata.EntitySetName;
+    var modelVariablePlural=entitySetName.ToLower();
     var entitySetVar=ModelTypeName.ToLower();
     //var entitySetVar = EntitySetVariable ?? (String.IsNullOrEmpty(entitySetName) ? entitySetName : (entitySetName.Substring(0,1).ToLowerInvariant() + entitySetName.Substring(1)));
     var primaryKeyName = ModelMetadata.PrimaryKeys[0].PropertyName;
@@ -108,21 +109,21 @@ namespace <#= Namespace #>
         includeExpressions = String.Join("", relatedProperties.Values.Select(property => String.Format(".Include({0} => {0}.{1})", lambdaVar, property.AssociationPropertyName)));
 #>
 <# if(!String.IsNullOrEmpty(includeExpressions)) { #>
-            var <#= ModelVariable #>  = <#= modelServiceVar #>.Queryable()<#= includeExpressions #>).AsQueryable();
+            var <#= modelVariablePlural #>  = <#= modelServiceVar #>.Queryable()<#= includeExpressions #>).AsQueryable();
             
 <#		if (UseAsync) { #>
           
-            return View(await <#= ModelVariable #>);
+            return View(await <#= modelVariablePlural #>);
 <#		} else { #>
-             return View(<#= ModelVariable #>);
+             return View(<#= modelVariablePlural #>);
 <#		} #>
 <# } else { #>
 <#		if (UseAsync) { #>
-            var <#= ModelVariable #>  = <#= modelServiceVar #>.Queryable().AsQueryable();
-            return View(await <#= ModelVariable #>  );
+            var <#= modelVariablePlural #>  = <#= modelServiceVar #>.Queryable().AsQueryable();
+            return View(await <#= modelVariablePlural #>  );
 <#		} else { #>
             var <#= ModelVariable #>  = <#= modelServiceVar #>.Queryable().AsQueryable();
-            return View(<#= ModelVariable #>  );
+            return View(<#= modelVariablePlural #>  );
 <#		} #>
 <# } #>
         }
@@ -392,7 +393,7 @@ namespace <#= Namespace #>
             <# } #>
                 
                 //return HttpNotFound();
-                return PartialView("_OrderDetailForm", new OrderDetail());
+                return PartialView("_<#= modelTypeName #>Form", new <#= modelTypeName #>());
             }
             else
             {
@@ -402,7 +403,7 @@ namespace <#= Namespace #>
             <# } #>
                  
             }
-            return PartialView("_OrderDetailForm", orderdetail);
+            return PartialView("_<#= modelTypeName #>Form",  <#= varModelType #>);
 
         }
         
@@ -435,6 +436,32 @@ namespace <#= Namespace #>
         }
     }
 #>       
+
+        <#
+            
+		foreach (PropertyMetadata property in ModelMetadata.Properties) 
+        {           
+            if (property.AssociationDirection == AssociationDirection.OneToMany ) 
+            {       
+            var relmodemeta = OneToManyModelMetadata[property.PropertyName];
+            var relatedEntities = relmodemeta.RelatedEntities;
+            var foreignKeyNames = relatedEntities.Where(n=>n.EntitySetName ==ModelMetadata.EntitySetName).Select(n=>n.ForeignKeyPropertyNames).First();
+            var foreignKeyName = foreignKeyNames[0];
+            var lambdastring=OneToManyAnonymousObjText[property.PropertyName];
+        #>
+         // Get : <#= routePrefix #>/Get<#= property.PropertyName #>By<#= foreignKeyName #>/:id
+        [HttpGet]
+        public ActionResult Get<#= property.PropertyName #>By<#= foreignKeyName #>(<#= primaryKeyShortTypeName #> id)
+        {
+            var <#= property.PropertyName.ToLower() #> = <#= modelServiceVar #>.Get<#= property.PropertyName #>By<#= foreignKeyName #>(id);
+            return Json(<#= property.PropertyName.ToLower() #>.Select(<#= lambdastring #>),JsonRequestBehavior.AllowGet);
+
+        }
+        <#
+            }
+        }
+        #> 
+
         private void DisplaySuccessMessage(string msgText)
         {
             TempData["SuccessMessage"] = msgText;

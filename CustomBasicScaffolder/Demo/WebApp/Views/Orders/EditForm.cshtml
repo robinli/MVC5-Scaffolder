@@ -1,6 +1,6 @@
 ﻿@model WebApp.Models.Order
 
-@Html.HiddenFor(model=>model.Id,new {id="OrderId"})
+@Html.HiddenFor(model=>model.Id,htmlAttributes: new { id = "OrderId" })
 <div class="form-group">
     @Html.LabelFor(model => model.Customer, htmlAttributes: new { @class = "control-label col-md-2" })
     <div class="col-md-10">
@@ -42,7 +42,7 @@
                         <i class="glyphicon glyphicon-trash"></i>
                     </button>
                 </div>
-                <table id="orderdetail-table" data-search="true"
+                <table id="orderdetails-table" data-search="true"
                        data-flat="false"
                        data-toolbar="#toolbar"
                        data-pagination="true"
@@ -89,11 +89,11 @@
     </div>
 
     <script type="text/javascript">
-   
-        var orderid = -1;
+
+        var orderid =-1;
         var details = [];
-     
-        $orderdetailstable = $('#orderdetail-table');
+
+        $orderdetailstable = $('#orderdetails-table');
         $remove = $('#remove');
         //console.log($orderdetailstable);
         function rowindexFormatter(value, row, index) {
@@ -118,7 +118,7 @@
                     $('#rowindex').val(index);
                     if(row.Id>0){
                         $('#orderdetailformModal-body').html(data);
-                        
+
                     }else{
                         var id = $('#Id');
                         var productid = $('#ProductId');
@@ -147,76 +147,78 @@
             }
         };
         $(function () {
-            
-            //console.log(orderid);
+            $orderdetailstable = $('#orderdetails-table').bootstrapTable({
+                data: []
+            });
             if (ObjectState=="Modified") {
                 orderid = $('#OrderId').val();
-                details=@Html.Raw(Json.Encode(ViewBag.OrderDetails));
-            }else{
-                details=[];
-            }
-    
-            $('#neworderdetailbutton').on('click', function (e) {
-                if ($("form").valid()) {
-                    var url="/Orders/CreateOrderDetail"
-                    $.get(url  , function (data) {
-                        //console.log(data);
-                        var index=-1;
-                        $('#orderdetailformModal-body').html(data);
-                        $('#rowindex').val(index);
-                        $('#Id').val(0);
-                        $('#orderdetailformModal').modal('toggle');
-                    });
-                }
+                var url = '/Orders/GetOrderDetailsByOrderId/' + orderid;
+                $.get(url, function (data) {
+                    console.log(data);
+                    $orderdetailstable.bootstrapTable('load', data)
+                })
 
+            } 
+
+        $('#neworderdetailbutton').on('click', function (e) {
+            if ($("form").valid()) {
+                var url="/Orders/CreateOrderDetail"
+                $.get(url  , function (data) {
+                    //console.log(data);
+                    var index=-1;
+                    $('#orderdetailformModal-body').html(data);
+                    $('#rowindex').val(index);
+                    $('#Id').val(0);
+                    $('#orderdetailformModal').modal('toggle');
+                });
+            }
+
+            e.preventDefault();
+
+            //Return false regardless of validation to stop form submitting
+            //prior to ajax doing its thing
+            return false;
+        })
+        $('#confirmbutton').on('click', function (e) {
+            if (!$("form").valid()) {
                 e.preventDefault();
 
-                //Return false regardless of validation to stop form submitting
-                //prior to ajax doing its thing
                 return false;
-            })
-            $('#confirmbutton').on('click', function (e) {
-                if (!$("form").valid()) {
-                    e.preventDefault();
-                     
-                    return false;
-                }
+            }
 
 
-                var data = $orderdetailstable.bootstrapTable('getData');
-                //var orderdetailid = data.length + 1;
-                var productid = $('#ProductId :selected');
-                var price = $('#Price');
-                var qty = $('#Qty');
-                var amount = $('#Amount');
-                var rowindex = $('#rowindex');
-                var id=$('#Id');
+            var data = $orderdetailstable.bootstrapTable('getData');
+            //var orderdetailid = data.length + 1;
+            var productid = $('#ProductId :selected');
+            var price = $('#Price');
+            var qty = $('#Qty');
+            var amount = $('#Amount');
+            var rowindex = $('#rowindex');
+            var id=$('#Id');
 
 
-                var product = { "Id": productid.val(), "Name": productid.text() };
-                var orderdetail = {
-                    "Id": id.val(), "ProductId": product.Id, "ProductName": product.Name, "Product": product, "Price": price.val(), "Qty": qty.val(), "Amount": amount.val()
-                }
-                //console.log(orderdetail);
-                if (rowindex.val() == '-1') {
-                    $orderdetailstable.bootstrapTable('append', orderdetail);
-                } else {
-                    $orderdetailstable.bootstrapTable('updateRow', { index: rowindex.val(), row: orderdetail });
-                }
-                price.val('');
-                qty.val('');
-                amount.val('');
-                rowindex.val('-1');
-                //$('#Price').val('');
+            var product = { "Id": productid.val(), "Name": productid.text() };
+            var orderdetail = {
+                "Id": id.val(), "ProductId": product.Id, "ProductName": product.Name, "Product": product, "Price": price.val(), "Qty": qty.val(), "Amount": amount.val()
+            }
+            //console.log(orderdetail);
+            if (rowindex.val() == '-1') {
+                $orderdetailstable.bootstrapTable('append', orderdetail);
+            } else {
+                $orderdetailstable.bootstrapTable('updateRow', { index: rowindex.val(), row: orderdetail });
+            }
+            price.val('');
+            qty.val('');
+            amount.val('');
+            rowindex.val('-1');
+            //$('#Price').val('');
 
-                $('#orderdetailformModal').modal('toggle');
-            });
-
-            $orderdetailstable = $('#orderdetail-table').bootstrapTable({
-                data: details
-            });
-
+            $('#orderdetailformModal').modal('toggle');
         });
+
+        
+
+    });
 
     </script>
 

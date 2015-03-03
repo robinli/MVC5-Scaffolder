@@ -163,8 +163,7 @@ foreach (PropertyMetadata property in properties) {
             'click .edit': function (e, value, row, index) {
                  var url="/<#= ControllerRootName #>/Edit/" + row.<#= primaryKeyName #>
                  $(location).attr('href', url);
-            });
-            
+            },            
             'click .remove': function (e, value, row, index) {
                 
                 console.log(value, row, index);
