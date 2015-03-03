@@ -1,7 +1,9 @@
 ﻿
 
-@model PagedList.IPagedList<WebApp.Models.Product>
-@using PagedList.Mvc;
+@model IEnumerable<WebApp.Models.Product>
+
+
+
 
 @{
     ViewBag.Title = "Index";
@@ -36,119 +38,108 @@
     <!-- /.row -->
      <div class="row">
         <div class="col-lg-12">
+            <div id="toolbar" class="btn-group">
+                <button type="button" id="newproductsbutton" class="btn btn-default">
+                    <i class="glyphicon glyphicon-plus"></i>
+                </button>
 
+                <button type="button" id="deleteproductsbutton" class="btn btn-default">
+                    <i class="glyphicon glyphicon-trash"></i>
+                </button>
+            </div>
  
 
-@using (Html.BeginForm())
-{
-  
-        <div class="input-group">
-            <div class="input-group-btn search-panel">
-                @Html.ActionLink("Create New", "Create",null, new { @class = "btn btn-default" })
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                    <span id="search_concept">Filter by</span> <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" role="menu">
-                    <li><a href="#Category.Name">Category.Name</a></li>
-                     
-                    <li><a href="#Name">Name</a></li>
-                     
-                    <li><a href="#Unit">Unit</a></li>
-                     
-                    <li><a href="#UnitPrice">UnitPrice</a></li>
-                     
-                    <li><a href="#StockQty">StockQty</a></li>
-                     
-                    <li><a href="#ConfirmDateTime">ConfirmDateTime</a></li>
-                     
-                   
-                </ul>
-            </div>
-            <input type="hidden" name="search_field" value="All" id="search_field">
-            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string,new {@class="form-control",placeholder="Search term..."})
-        
-            <span class="input-group-btn">
-                <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
-            </span>
-      
-  
-      
-    </div>
-}
-
-<table class="table">
-    <tr>
-        <th></th>
-        <th>
-            @Html.DisplayNameFor(model => model.Category.Name)
+        <table id="products-table" data-search="true"
+                   data-url="/Products/PageList"
+                   data-flat="false"
+                   data-toolbar="#toolbar"
+                   data-pagination="true"
+                   data-show-refresh="true"
+                   data-show-toggle="true"
+                   data-show-columns="true"
+                   data-single-select="true"
+                   data-page-list="[5, 10, 20, 50, 100, 200]"
+                   data-sort-name="Id"
+                   data-side-pagination="server"
+                   data-click-to-select="true">
+                <thead>
+                    <tr>
+                         <th data-field="state" data-checkbox="true"></th>
+        <th data-field="Category" data-sortable="true" >
+             @Html.DisplayNameFor(model => model.Category.Name)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
+        <th data-field="Id" data-sortable="true" >
+             @Html.DisplayNameFor(model => model.Id)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Unit)
+        <th data-field="Name" data-sortable="true" >
+             @Html.DisplayNameFor(model => model.Name)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UnitPrice)
+        <th data-field="Unit" data-sortable="true" >
+             @Html.DisplayNameFor(model => model.Unit)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StockQty)
+        <th data-field="UnitPrice" data-sortable="true" >
+             @Html.DisplayNameFor(model => model.UnitPrice)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ConfirmDateTime)
+        <th data-field="StockQty" data-sortable="true" >
+             @Html.DisplayNameFor(model => model.StockQty)
         </th>
+        <th data-field="ConfirmDateTime" data-sortable="true" >
+             @Html.DisplayNameFor(model => model.ConfirmDateTime)
+        </th>
+        <th data-field="action" data-formatter="actionFormatter" data-events="actionEvents">Action</th>
     </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id })
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Category.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Unit)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UnitPrice)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StockQty)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ConfirmDateTime)
-        </td>
-
-    </tr>
-}
+    </thead>
+ 
 
 </table>
 
 <br />
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-
-@Html.PagedListPager(Model, page => Url.Action("Index",
-    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
-
+ 
      </div>
     </div>
 </div>
 @section Scripts {
     <script type="text/javascript">
+        var $productstable = $('#products-table');
+        function actionFormatter(value, row, index) {
+            return [
+                '<a class="edit" href="javascript:void(0)" title="Add">',
+                '<i class="glyphicon glyphicon-edit"></i>',
+                '</a>  ',
+                ' <a class="remove" href="javascript:void(0)" title="Remove">',
+                '<i class="glyphicon glyphicon-remove"></i>',
+                '</a>'
+            ].join('');
+        }
+        window.actionEvents = {
+
+            'click .edit': function (e, value, row, index) {
+                 var url="/Products/Edit/" + row.Id
+                 $(location).attr('href', url);
+            },            
+            'click .remove': function (e, value, row, index) {
+                
+                console.log(value, row, index);
+            }
+    
+        }
+        
+
         $(document).ready(function (e) {
-            $('.search-panel .dropdown-menu').find('a').click(function (e) {
-                e.preventDefault();
-                var param = $(this).attr("href").replace("#", "");
-                var concept = $(this).text();
-                $('.search-panel span#search_concept').text(concept);
-                $('.input-group #search_field').val(param);
+            $productstable = $('#products-table').bootstrapTable(
+                {
+                     
+                }
+                );
+             $('#newproductsbutton').on('click', function () {
+
+                $(location).attr('href', "/Products/Create");
+            });
+            $('#deleteproductsbutton').on('click', function () {
+
+                 
             });
         });
-    
     
      </script>
 }
