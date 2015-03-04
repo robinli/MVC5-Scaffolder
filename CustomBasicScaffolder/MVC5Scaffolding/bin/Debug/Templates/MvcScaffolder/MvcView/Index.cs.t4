@@ -126,9 +126,19 @@ foreach (PropertyMetadata property in properties) {
             continue;
         }
 #>
+        <# if ( property.IsPrimaryKey) { #>
+            <th data-field="<#= property.PropertyName  #>" data-sortable="true"  data-visible="false" >
+             @Html.DisplayNameFor(model => model.<#= GetValueExpression(property) #>)
+            </th>
+        <# } else if (property.AssociationDirection ==  AssociationDirection.ManyToOne ) { #>
+            <th data-field="<#= GetRelatedDisplayNameExpression(property)  #> " data-sortable="true"  >
+             @Html.DisplayNameFor(model => model.<#= GetValueExpression(property) #>)
+            </th>
+        <# } else { #>
         <th data-field="<#= property.PropertyName  #>" data-sortable="true" >
              @Html.DisplayNameFor(model => model.<#= GetValueExpression(property) #>)
         </th>
+        <#            } #>
 <#
     }
 }
@@ -148,6 +158,7 @@ foreach (PropertyMetadata property in properties) {
 @section Scripts {
     <script type="text/javascript">
         var $<#= modelVariable #>table = $('#<#= modelVariable #>-table');
+        var $delete<#= modelVariable #>button = $('#delete<#= modelVariable #>button');
         function actionFormatter(value, row, index) {
             return [
                 '<a class="edit" href="javascript:void(0)" title="Add">',
@@ -165,25 +176,55 @@ foreach (PropertyMetadata property in properties) {
                  $(location).attr('href', url);
             },            
             'click .remove': function (e, value, row, index) {
-                
-                console.log(value, row, index);
+                 delete<#= modelName #>(row.<#= primaryKeyName #>);
+                //console.log(value, row, index);
             }
     
         }
-        
-
+        //jquery post /<#= ControllerRootName #>/Delete/:id
+        function delete<#= modelName #>(id) {
+            var url = '@Url.Action("Delete")';   
+            bootbox.dialog({
+                message: "Are you sure delete " + id,
+                title: "Delete <#= modelName #> ",
+                buttons: {
+                    Cancel: {
+                        label: "Cancel",
+                        className: "btn-default",
+                        callback: function () {
+                           
+                        }
+                    },
+                    OK: {
+                        label: "OK",
+                        className: "btn-success",
+                        callback: function () {
+                            $.post(url, { id: id }, function (data) {
+                                $<#= modelVariable #>table.bootstrapTable('remove', { field: 'Id', values: [id] });
+                                //console.log('remove' + row.Id);
+                            });
+                        }
+                    }
+                }
+            });
+        }
         $(document).ready(function (e) {
             $<#= modelVariable #>table = $('#<#= modelVariable #>-table').bootstrapTable(
                 {
-                     
                 }
                 );
+             $<#= modelVariable #>table.on('check.bs.table uncheck.bs.table check-all.bs.table uncheck-all.bs.table', function () {
+                $delete<#= modelVariable #>button.prop('disabled', !$<#= modelVariable #>table.bootstrapTable('getSelections').length);
+            });
              $('#new<#= modelVariable #>button').on('click', function () {
 
                 $(location).attr('href', "/<#= ControllerRootName #>/Create");
             });
             $('#delete<#= modelVariable #>button').on('click', function () {
-
+                var selected = $<#= modelVariable #>table.bootstrapTable('getSelections');
+                if (selected.length>0) {
+                    deleteOrders(selected[0].<#= primaryKeyName #>);
+                }
                  
             });
         });

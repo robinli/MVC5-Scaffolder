@@ -83,7 +83,7 @@ namespace WebApp.Controllers
         // POST: Orders/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        //[ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "OrderDetails,Id,Customer,ShippingAddress,OrderDate,ObjectState")] Order orders)
         {
             if (ModelState.IsValid)
@@ -136,13 +136,26 @@ namespace WebApp.Controllers
         // POST: Orders/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "OrderDetails,Id,Customer,ShippingAddress,OrderDate")] Order orders)
         {
             if (ModelState.IsValid)
             {
                 orders.ObjectState = ObjectState.Modified;
-				_ordersService.Update(orders);
+                foreach (var item in orders.OrderDetails)
+                {
+                    if (item.Id == 0)
+                    {
+                        item.ObjectState = ObjectState.Added;
+                        item.OrderId = orders.Id;
+                    }
+                    else
+                    {
+                        item.ObjectState = ObjectState.Modified;
+                    }
+                    item.Product = null;
+                }
+				_ordersService.InsertOrUpdateGraph(orders);
                 
                 _unitOfWork.SaveChanges();
                 DisplaySuccessMessage("Has update a Order record");
@@ -169,7 +182,7 @@ namespace WebApp.Controllers
 
         // POST: Orders/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             Order orders =  _ordersService.Find(id);
@@ -228,7 +241,7 @@ namespace WebApp.Controllers
 
         // Post Delete Detail Row By Id
         // Get : Orders/DeleteOrderDetailConfirmed/:id
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         public ActionResult DeleteOrderDetailConfirmed(int  id)
         {
             var orderdetailRepository = _unitOfWork.Repository<OrderDetail>();
@@ -244,8 +257,9 @@ namespace WebApp.Controllers
         [HttpGet]
         public ActionResult GetOrderDetailsByOrderId(int id)
         {
+            var orderdetail = _ordersService.Query(n => n.Id == id).Include(n => n.OrderDetails).Select().First();
             var orderdetails = _ordersService.GetOrderDetailsByOrderId(id);
-            return Json(orderdetails.Select(n => new {Product = n.Product,Id = n.Id,ProductId = n.ProductId,Qty = n.Qty,Price = n.Price,Amount = n.Amount,OrderId = n.OrderId }),JsonRequestBehavior.AllowGet);
+            return Json(orderdetails.Select(n => new {ProductName = n.Product.Name,Id = n.Id,ProductId = n.ProductId,Qty = n.Qty,Price = n.Price,Amount = n.Amount,OrderId = n.OrderId }),JsonRequestBehavior.AllowGet);
 
         }
          

@@ -435,7 +435,7 @@ namespace <#= Namespace #>
 
         // Post Delete Detail Row By Id
         // Get : <#= routePrefix #>/Delete<#= modelTypeName #>Confirmed/:id
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         public ActionResult Delete<#= modelTypeName #>Confirmed(<#= subModelIdType #>  id)
         {
             var <#= varModelType #>Repository = _unitOfWork.Repository<<#= modelTypeName #>>();

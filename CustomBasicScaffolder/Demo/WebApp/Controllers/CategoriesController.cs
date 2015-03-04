@@ -22,21 +22,21 @@ namespace WebApp.Controllers
     public class CategoriesController : Controller
     {
         //private StoreContext db = new StoreContext();
-        private readonly ICategoryService  _categoryService;
+        private readonly ICategoryService _categoryService;
         private readonly IUnitOfWorkAsync _unitOfWork;
 
-        public CategoriesController (ICategoryService  categoryService, IUnitOfWorkAsync unitOfWork)
+        public CategoriesController(ICategoryService categoryService, IUnitOfWorkAsync unitOfWork)
         {
-            _categoryService  = categoryService;
+            _categoryService = categoryService;
             _unitOfWork = unitOfWork;
         }
 
         // GET: Categories/Index
         public ActionResult Index()
         {
-            
-            var categories  = _categoryService.Queryable().AsQueryable();
-            return View(categories  );
+
+            var categories = _categoryService.Queryable().AsQueryable();
+            return View(categories);
         }
 
         // Get :Categories/PageList
@@ -45,14 +45,14 @@ namespace WebApp.Controllers
         public ActionResult PageList(int offset = 0, int limit = 10, string search = "", string sort = "", string order = "")
         {
             int totalCount = 0;
-            int pagenum = offset / limit +1;
-                        var category  = _categoryService.Query(new CategoryQuery().WithAnySearch(search)).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(pagenum, limit, out totalCount);
-                        var rows = category .Select( n => new {  Id = n.Id , Name = n.Name }).ToList();
+            int pagenum = offset / limit + 1;
+            var category = _categoryService.Query(new CategoryQuery().WithAnySearch(search)).OrderBy(n => n.OrderBy(sort, order)).SelectPage(pagenum, limit, out totalCount);
+            var rows = category.Select(n => new { Id = n.Id, Name = n.Name }).ToList();
             var pagelist = new { total = totalCount, rows = rows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
 
-       
+
         // GET: Categories/Details/5
         public ActionResult Details(int? id)
         {
@@ -67,7 +67,7 @@ namespace WebApp.Controllers
             }
             return View(category);
         }
-        
+
 
         // GET: Categories/Create
         public ActionResult Create()
@@ -83,8 +83,8 @@ namespace WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-             				_categoryService.Insert(category);
-                           _unitOfWork.SaveChanges();
+                _categoryService.Insert(category);
+                _unitOfWork.SaveChanges();
                 DisplaySuccessMessage("Has append a Category record");
                 return RedirectToAction("Index");
             }
@@ -102,7 +102,7 @@ namespace WebApp.Controllers
             }
             Category category = _categoryService.Find(id);
 
- 
+
 
 
             if (category == null)
@@ -121,8 +121,8 @@ namespace WebApp.Controllers
             if (ModelState.IsValid)
             {
                 category.ObjectState = ObjectState.Modified;
-                				_categoryService.Update(category);
-                                
+                _categoryService.Update(category);
+
                 _unitOfWork.SaveChanges();
                 DisplaySuccessMessage("Has update a Category record");
                 return RedirectToAction("Index");
@@ -151,17 +151,17 @@ namespace WebApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Category category =  _categoryService.Find(id);
-             _categoryService.Delete(category);
+            Category category = _categoryService.Find(id);
+            _categoryService.Delete(category);
             _unitOfWork.SaveChanges();
             DisplaySuccessMessage("Has delete a Category record");
             return RedirectToAction("Index");
         }
 
 
-       
 
- 
+
+
 
         private void DisplaySuccessMessage(string msgText)
         {

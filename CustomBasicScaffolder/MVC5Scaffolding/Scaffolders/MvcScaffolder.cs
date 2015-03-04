@@ -262,7 +262,8 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             Dictionary<string, string> dic = new Dictionary<string, string>();
             foreach (var item in oneToManyModels)
             {
-                dic.Add(item.Key, GetAnonymousObjLambdaText(item.Value));
+                //dic.Add(item.Key, GetAnonymousObjLambdaText(item.Value));
+                dic.Add(item.Key, GetSelectLambdaText(item.Value));
             }
             return dic;
         }
@@ -410,9 +411,14 @@ namespace Happy.Scaffolding.MVC.Scaffolders
         public string GetSelectLambdaText(ModelMetadata efMetadata)
         {
             string linqtxt = "";
-            linqtxt = String.Join("", efMetadata.Properties.Where(n => n.IsAssociation == false).Select(n => String.Format(", {0} = n.{1} ", n.PropertyName, n.PropertyName)));
+            string linqtxt1 = "";
+            string linqtxt2 = "";
+            linqtxt1= String.Join("",efMetadata.Properties.Where(n=>n.IsAssociation == true && n.AssociationDirection== AssociationDirection.ManyToOne)
+                            .Select(n=> String.Format(",{0}{1} = n.{2}.{3} " ,n.PropertyName,n.RelatedModel.DisplayPropertyName ,n.PropertyName,n.RelatedModel.DisplayPropertyName )));
+            linqtxt2 = String.Join("", efMetadata.Properties.Where(n => n.IsAssociation == false).Select(n => String.Format(", {0} = n.{1} ", n.PropertyName, n.PropertyName)));
 
-            return "n => new { " + linqtxt.Substring(1) + "}";
+            linqtxt = linqtxt1 + linqtxt2;
+            return " n => new { " + linqtxt.Substring(1) + "}";
         }
         private void AddModelMetadata(Project project
             , string controllerName

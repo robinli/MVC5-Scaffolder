@@ -62,9 +62,9 @@
                 <thead>
                     <tr>
                          <th data-field="state" data-checkbox="true"></th>
-        <th data-field="Id" data-sortable="true" >
-             @Html.DisplayNameFor(model => model.Id)
-        </th>
+                        <th data-field="Id" data-sortable="true" data-visible="false">
+                            @Html.DisplayNameFor(model => model.Id)
+                        </th>
         <th data-field="Customer" data-sortable="true" >
              @Html.DisplayNameFor(model => model.Customer)
         </th>
@@ -89,6 +89,7 @@
 @section Scripts {
     <script type="text/javascript">
         var $orderstable = $('#orders-table');
+        var $deleteordersbutton = $('#deleteordersbutton');
         function actionFormatter(value, row, index) {
             return [
                 '<a class="edit" href="javascript:void(0)" title="Add">',
@@ -107,25 +108,59 @@
             },
             
             'click .remove': function (e, value, row, index) {
+                deleteOrders(row.Id);
                 
                 console.log(value, row, index);
            }
     
         }
-        
+        function deleteOrders(id) {
+            var url = '@Url.Action("Delete")';   
+            bootbox.dialog({
+                message: "Are you sure delete " + id,
+                title: "Delete Orders ",
+                buttons: {
+                    Cancel: {
+                        label: "Cancel",
+                        className: "btn-default",
+                        callback: function () {
+                           
+                        }
+                    },
+                    OK: {
+                        label: "OK",
+                        className: "btn-success",
+                        callback: function () {
+                            $.post(url, { id: id }, function (data) {
+                                $orderstable.bootstrapTable('remove', { field: 'Id', values: [id] });
+                                //console.log('remove' + row.Id);
+                            });
+                        }
+                    }
+
+                }
+
+            });
+        }
 
         $(document).ready(function (e) {
+            $deleteordersbutton.prop('disabled', true);
             $orderstable = $('#orders-table').bootstrapTable(
                 {
-                     
                 }
                 );
+            $orderstable.on('check.bs.table uncheck.bs.table check-all.bs.table uncheck-all.bs.table', function () {
+                $deleteordersbutton.prop('disabled', !$orderstable.bootstrapTable('getSelections').length);
+            });
              $('#newordersbutton').on('click', function () {
 
                 $(location).attr('href', "/Orders/Create");
             });
             $('#deleteordersbutton').on('click', function () {
-
+                var selected = $orderstable.bootstrapTable('getSelections');
+                if (selected.length>0) {
+                    deleteOrders(selected[0].Id);
+                }
                  
             });
         });

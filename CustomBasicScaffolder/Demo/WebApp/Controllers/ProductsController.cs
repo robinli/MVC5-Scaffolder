@@ -22,38 +22,39 @@ namespace WebApp.Controllers
     public class ProductsController : Controller
     {
         //private StoreContext db = new StoreContext();
-        private readonly IProductService _productService;
+        private readonly IProductService  _productService;
         private readonly IUnitOfWorkAsync _unitOfWork;
 
-        public ProductsController(IProductService productService, IUnitOfWorkAsync unitOfWork)
+        public ProductsController (IProductService  productService, IUnitOfWorkAsync unitOfWork)
         {
-            _productService = productService;
+            _productService  = productService;
             _unitOfWork = unitOfWork;
         }
 
         // GET: Products/Index
         public ActionResult Index()
         {
-
-            var products = _productService.Queryable().Include(p => p.Category).AsQueryable();
-
-            return View(products);
+            
+            var products  = _productService.Queryable().Include(p => p.Category).AsQueryable();
+            
+             return View(products);
         }
 
         // Get :Products/PageList
+        // For Index View Boostrap-Table load  data 
         [HttpGet]
         public ActionResult PageList(int offset = 0, int limit = 10, string search = "", string sort = "", string order = "")
         {
             int totalCount = 0;
             int pagenum = offset / limit +1;
-            var product  = _productService.Query(new ProductQuery().WithAnySearch(search)).Include(p => p.Category).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(pagenum, limit, out totalCount);
+                        var product  = _productService.Query(new ProductQuery().WithAnySearch(search)).Include(p => p.Category).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(pagenum, limit, out totalCount);
             
-            var rows = product .Select( n => new {  Id = n.Id , Name = n.Name , Unit = n.Unit , UnitPrice = n.UnitPrice , StockQty = n.StockQty , ConfirmDateTime = n.ConfirmDateTime , CategoryId = n.CategoryId }).ToList();
+                        var rows = product .Select( n => new { CategoryName = n.Category.Name , Id = n.Id , Name = n.Name , Unit = n.Unit , UnitPrice = n.UnitPrice , StockQty = n.StockQty , ConfirmDateTime = n.ConfirmDateTime , CategoryId = n.CategoryId }).ToList();
             var pagelist = new { total = totalCount, rows = rows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
 
-
+       
         // GET: Products/Details/5
         public ActionResult Details(int? id)
         {
@@ -68,14 +69,13 @@ namespace WebApp.Controllers
             }
             return View(product);
         }
-
+        
 
         // GET: Products/Create
         public ActionResult Create()
         {
             var categoryRepository = _unitOfWork.Repository<Category>();
             ViewBag.CategoryId = new SelectList(categoryRepository.Queryable(), "Id", "Name");
-            //Detail Models RelatedProperties 
             return View();
         }
 
@@ -87,8 +87,8 @@ namespace WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                _productService.Insert(product);
-                _unitOfWork.SaveChanges();
+             				_productService.Insert(product);
+                           _unitOfWork.SaveChanges();
                 DisplaySuccessMessage("Has append a Product record");
                 return RedirectToAction("Index");
             }
@@ -108,7 +108,7 @@ namespace WebApp.Controllers
             }
             Product product = _productService.Find(id);
 
-            //Detail Models RelatedProperties 
+ 
 
 
             if (product == null)
@@ -129,8 +129,8 @@ namespace WebApp.Controllers
             if (ModelState.IsValid)
             {
                 product.ObjectState = ObjectState.Modified;
-                _productService.Update(product);
-
+                				_productService.Update(product);
+                                
                 _unitOfWork.SaveChanges();
                 DisplaySuccessMessage("Has update a Product record");
                 return RedirectToAction("Index");
@@ -161,17 +161,17 @@ namespace WebApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Product product = _productService.Find(id);
-            _productService.Delete(product);
+            Product product =  _productService.Find(id);
+             _productService.Delete(product);
             _unitOfWork.SaveChanges();
             DisplaySuccessMessage("Has delete a Product record");
             return RedirectToAction("Index");
         }
 
 
+       
 
-
-
+ 
 
         private void DisplaySuccessMessage(string msgText)
         {

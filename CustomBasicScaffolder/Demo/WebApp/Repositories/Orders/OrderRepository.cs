@@ -21,7 +21,7 @@ namespace WebApp.Repositories
         
         public static IEnumerable<OrderDetail>   GetOrderDetailsByOrderId (this IRepositoryAsync<Order> repository,int orderid)
         {
-            return repository.Query(n => n.Id == orderid).Include(x => x.OrderDetails).Select(x => x.OrderDetails).FirstOrDefault();
+            return repository.Query(n => n.Id == orderid).Include(x => x.OrderDetails).Include(x=>x.OrderDetails.Select(y=>y.Product)).Select().First().OrderDetails;
         }
          
 	}

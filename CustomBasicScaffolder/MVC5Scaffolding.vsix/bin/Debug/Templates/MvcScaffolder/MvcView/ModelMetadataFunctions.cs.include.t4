@@ -31,6 +31,12 @@ string GetValueExpression(PropertyMetadata property) {
     return propertyModel != null ? propertyModel.AssociationPropertyName + "." + propertyModel.DisplayPropertyName : property.PropertyName;
 }
 
+string GetRelatedDisplayNameExpression(PropertyMetadata property) {
+    RelatedModelMetadata propertyModel = GetRelatedModelMetadata(property);
+    return propertyModel != null ? propertyModel.AssociationPropertyName + "" + propertyModel.DisplayPropertyName : property.PropertyName;
+}
+
+
 // This will return the primary key property name, if and only if there is exactly
 // one primary key. Returns null if there is no PK, or the PK is composite.
 string GetPrimaryKeyName() {

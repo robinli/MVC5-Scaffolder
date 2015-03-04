@@ -76,6 +76,8 @@
                         OrderDetails: orderdetails
                        
                     };
+                    
+                    newitem.__RequestVerificationToken = token;
                     console.log(newitem);
                     $.ajax({
                         url: actionurl,
