@@ -62,13 +62,13 @@
                 <thead>
                     <tr>
                          <th data-field="state" data-checkbox="true"></th>
-        <th data-field="Id" data-sortable="true" >
+                    <th data-field="Id" data-sortable="true"  data-visible="false" >
              @Html.DisplayNameFor(model => model.Id)
-        </th>
-        <th data-field="Name" data-sortable="true" >
+            </th>
+                        <th data-field="Name" data-sortable="true" >
              @Html.DisplayNameFor(model => model.Name)
         </th>
-        <th data-field="action" data-formatter="actionFormatter" data-events="actionEvents">Action</th>
+                <th data-field="action" data-formatter="actionFormatter" data-events="actionEvents">Action</th>
     </tr>
     </thead>
  
@@ -83,6 +83,7 @@
 @section Scripts {
     <script type="text/javascript">
         var $categoriestable = $('#categories-table');
+        var $deletecategoriesbutton = $('#deletecategoriesbutton');
         function actionFormatter(value, row, index) {
             return [
                 '<a class="edit" href="javascript:void(0)" title="Add">',
@@ -100,25 +101,55 @@
                  $(location).attr('href', url);
             },            
             'click .remove': function (e, value, row, index) {
-                
-                console.log(value, row, index);
+                 deleteCategories(row.Id);
+                //console.log(value, row, index);
             }
     
         }
-        
-
+        //jquery post /Categories/Delete/:id
+        function deleteCategories(id) {
+            var url = '@Url.Action("Delete")';   
+            bootbox.dialog({
+                message: "Are you sure delete " + id,
+                title: "Delete Categories ",
+                buttons: {
+                    Cancel: {
+                        label: "Cancel",
+                        className: "btn-default",
+                        callback: function () {
+                           
+                        }
+                    },
+                    OK: {
+                        label: "OK",
+                        className: "btn-success",
+                        callback: function () {
+                            $.post(url, { id: id }, function (data) {
+                                $categoriestable.bootstrapTable('remove', { field: 'Id', values: [id] });
+                                //console.log('remove' + row.Id);
+                            });
+                        }
+                    }
+                }
+            });
+        }
         $(document).ready(function (e) {
             $categoriestable = $('#categories-table').bootstrapTable(
                 {
-                     
                 }
                 );
+             $categoriestable.on('check.bs.table uncheck.bs.table check-all.bs.table uncheck-all.bs.table', function () {
+                $deletecategoriesbutton.prop('disabled', !$categoriestable.bootstrapTable('getSelections').length);
+            });
              $('#newcategoriesbutton').on('click', function () {
 
                 $(location).attr('href', "/Categories/Create");
             });
             $('#deletecategoriesbutton').on('click', function () {
-
+                var selected = $categoriestable.bootstrapTable('getSelections');
+                if (selected.length>0) {
+                    deleteCategories(selected[0].Id);
+                }
                  
             });
         });

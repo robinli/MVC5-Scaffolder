@@ -223,7 +223,7 @@ foreach (PropertyMetadata property in properties) {
             $('#delete<#= modelVariable #>button').on('click', function () {
                 var selected = $<#= modelVariable #>table.bootstrapTable('getSelections');
                 if (selected.length>0) {
-                    deleteOrders(selected[0].<#= primaryKeyName #>);
+                    delete<#= modelName #>(selected[0].<#= primaryKeyName #>);
                 }
                  
             });

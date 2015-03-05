@@ -1,6 +1,6 @@
 ﻿@model WebApp.Models.Order
 
-@Html.HiddenFor(model=>model.Id,htmlAttributes: new { id = "OrderId" })
+@Html.HiddenFor(model => model.Id, htmlAttributes: new { id = "OrderId" })
 <div class="form-group">
     @Html.LabelFor(model => model.Customer, htmlAttributes: new { @class = "control-label col-md-2" })
     <div class="col-md-10">
@@ -25,147 +25,152 @@
     </div>
 </div>
 
-    <div role="tabpanel">
-        <!-- Nav tabs -->
-        <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active"><a href="#" aria-controls="orderdetail" role="tab" data-toggle="tab">OrderDetails</a></li>
-        </ul>
-        <!-- Tab panes -->
-        <div class="tab-content">
-            <div role="tabpanel" class="tab-pane active" id="orderdetail">
-                <div id="toolbar" class="btn-group">
-                    <button type="button" id="neworderdetailbutton" class="btn btn-default">
-                        <i class="glyphicon glyphicon-plus"></i>
-                    </button>
+<div role="tabpanel">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#" aria-controls="orderdetail" role="tab" data-toggle="tab">OrderDetails</a></li>
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="orderdetail">
+            <div id="toolbar" class="btn-group">
+                <button type="button" id="neworderdetailbutton" class="btn btn-default">
+                    <i class="glyphicon glyphicon-plus"></i>
+                </button>
 
-                    <button type="button" class="btn btn-default">
-                        <i class="glyphicon glyphicon-trash"></i>
-                    </button>
-                </div>
-                <table id="orderdetails-table" data-search="true"
-                       data-flat="false"
-                       data-toolbar="#toolbar"
-                       data-pagination="true"
-                       data-show-refresh="true"
-                       data-show-toggle="true"
-                       data-show-columns="true"
-                       data-single-select="true"
-                       data-click-to-select="true">
-                    <thead>
-                        <tr>
-                            <th data-field="state" data-checkbox="true"></th>
-                            <th data-formatter="rowindexFormatter">#No</th>
-                            <th data-field="ProductName">ProductName</th>
-                            <th data-field="Price">Price</th>
-                            <th data-field="Qty">Qty</th>
-                            <th data-field="Amount">Amount</th>
-                            <th data-field="Id" data-visible="false">Id</th>
-                            <th data-field="action" data-formatter="actionFormatter" data-events="actionEvents">Action</th>
-                        </tr>
-                    </thead>
-                </table>
+                <button type="button" class="btn btn-default">
+                    <i class="glyphicon glyphicon-trash"></i>
+                </button>
+            </div>
+            <table id="orderdetails-table" data-search="true"
+                   data-flat="false"
+                   data-toolbar="#toolbar"
+                   data-pagination="true"
+                   data-show-refresh="true"
+                   data-show-toggle="true"
+                   data-show-columns="true"
+                   data-single-select="true"
+                   data-click-to-select="true">
+                <thead>
+                    <tr>
+                        <th data-field="state" data-checkbox="true"></th>
+                        <th data-formatter="rowindexFormatter">#No</th>
+                        <th data-field="ProductName">ProductName</th>
+                        <th data-field="Price">Price</th>
+                        <th data-field="Qty">Qty</th>
+                        <th data-field="Amount">Amount</th>
+                        <th data-field="Id" data-visible="false">Id</th>
+                        <th data-field="action" data-formatter="actionFormatter" data-events="actionEvents">Action</th>
+                    </tr>
+                </thead>
+            </table>
 
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="orderdetailformModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">OrderDetails</h4>
+            </div>
+            <div class="modal-body" id="orderdetailformModal-body">
+                @*@Html.Partial("_OrderDetailForm")*@
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" id="confirmbutton" class="btn btn-primary">OK</button>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="orderdetailformModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">OrderDetails</h4>
-                </div>
-                <div class="modal-body" id="orderdetailformModal-body">
-                    @*@Html.Partial("_OrderDetailForm")*@
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button type="button" id="confirmbutton" class="btn btn-primary">OK</button>
-                </div>
-            </div>
-        </div>
-    </div>
+<script type="text/javascript">
 
-    <script type="text/javascript">
+    var orderid = -1;
+    var details = [];
+    var currentrowindex = -1;
+    $orderdetailstable = $('#orderdetails-table');
+    $remove = $('#remove');
+    //console.log($orderdetailstable);
+    function rowindexFormatter(value, row, index) {
+        return index + 1;
+    }
+    function actionFormatter(value, row, index) {
+        return [
+            '<a class="edit" href="javascript:void(0)" title="Add">',
+            '<i class="glyphicon glyphicon-edit"></i>',
+            '</a>  ',
+            ' <a class="remove" href="javascript:void(0)" title="Remove">',
+            '<i class="glyphicon glyphicon-remove"></i>',
+            '</a>'
+        ].join('');
+    }
+    window.actionEvents = {
 
-        var orderid =-1;
-        var details = [];
+        'click .edit': function (e, value, row, index) {
+            currentrowindex = index;
+            var url = "/Orders/EditOrderDetail"
+            $.get(url + '/' + row.Id, function (data) {
+                
+                $('#orderdetailformModal-body').html(data);
 
-        $orderdetailstable = $('#orderdetails-table');
-        $remove = $('#remove');
-        //console.log($orderdetailstable);
-        function rowindexFormatter(value, row, index) {
-            return index + 1;
-        }
-        function actionFormatter(value, row, index) {
-            return [
-                '<a class="edit" href="javascript:void(0)" title="Add">',
-                '<i class="glyphicon glyphicon-edit"></i>',
-                '</a>  ',
-                ' <a class="remove" href="javascript:void(0)" title="Remove">',
-                '<i class="glyphicon glyphicon-remove"></i>',
-                '</a>'
-            ].join('');
-        }
-        window.actionEvents = {
-
-            'click .edit': function (e, value, row, index) {
-                var url="/Orders/EditOrderDetail"
-                $.get(url + '/' + row.Id, function (data) {
-                    //console.log(data);
-                    $('#rowindex').val(index);
-                    if(row.Id>0){
-                        $('#orderdetailformModal-body').html(data);
-
-                    }else{
-                        var id = $('#Id');
-                        var productid = $('#ProductId');
-                        var price = $('#Price');
-                        var qty = $('#Qty');
-                        var amount = $('#Amount');
-                        var rowindex = $('#rowindex');
-                        productid.val(row.ProductId);
-                        price.val(row.Price);
-                        qty.val(row.Qty);
-                        id.val(row.Id);
-                        amount.val(row.Amount);
-                    }
-                    $('#orderdetailformModal').modal('toggle');
-                });
-
-
-               // console.log(value, row, index);
-            },
-            'click .remove': function (e, value, row, index) {
-                $('#orderdetail-table').bootstrapTable('remove', {
-                    field: '#No',
-                    values: [index]
-                });
-                console.log(value, row, index);
-            }
-        };
-        $(function () {
-            $orderdetailstable = $('#orderdetails-table').bootstrapTable({
-                data: []
+                if (row.Id > 0) {
+ 
+                } else {
+                    var id = $('#Id');
+                    var productid = $('#ProductId');
+                    var price = $('#Price');
+                    var qty = $('#Qty');
+                    var amount = $('#Amount');
+                    var rowindex = $('#rowindex');
+                    productid.val(row.ProductId);
+                    price.val(row.Price);
+                    qty.val(row.Qty);
+                    id.val(row.Id);
+                    amount.val(row.Amount);
+                }
+                $('#orderdetailformModal').modal('toggle');
             });
-            if (ObjectState=="Modified") {
-                orderid = $('#OrderId').val();
-                var url = '/Orders/GetOrderDetailsByOrderId/' + orderid;
-                $.get(url, function (data) {
-                    console.log(data);
-                    $orderdetailstable.bootstrapTable('load', data)
-                })
 
-            } 
+
+            // console.log(value, row, index);
+        },
+        'click .remove': function (e, value, row, index) {
+           
+            
+           
+            $('#orderdetails-table').bootstrapTable('remove', {
+                field: '$index',
+                values: [index]
+            });
+            console.log(value, row, index);
+        }
+    };
+    $(function () {
+        $orderdetailstable = $('#orderdetails-table').bootstrapTable({
+            data: []
+        });
+        if (ObjectState == "Modified") {
+            orderid = $('#OrderId').val();
+            var url = '/Orders/GetOrderDetailsByOrderId/' + orderid;
+            $.get(url, function (data) {
+                console.log(data);
+                $orderdetailstable.bootstrapTable('load', data)
+            })
+
+        }
 
         $('#neworderdetailbutton').on('click', function (e) {
             if ($("form").valid()) {
-                var url="/Orders/CreateOrderDetail"
-                $.get(url  , function (data) {
+                currentrowindex = -1;
+                var url = "/Orders/CreateOrderDetail"
+                $.get(url, function (data) {
                     //console.log(data);
-                    var index=-1;
+                    var index = -1;
                     $('#orderdetailformModal-body').html(data);
                     $('#rowindex').val(index);
                     $('#Id').val(0);
@@ -194,7 +199,7 @@
             var qty = $('#Qty');
             var amount = $('#Amount');
             var rowindex = $('#rowindex');
-            var id=$('#Id');
+            var id = $('#Id');
 
 
             var product = { "Id": productid.val(), "Name": productid.text() };
@@ -202,10 +207,10 @@
                 "Id": id.val(), "ProductId": product.Id, "ProductName": product.Name, "Product": product, "Price": price.val(), "Qty": qty.val(), "Amount": amount.val()
             }
             //console.log(orderdetail);
-            if (rowindex.val() == '-1') {
+            if (currentrowindex == '-1') {
                 $orderdetailstable.bootstrapTable('append', orderdetail);
             } else {
-                $orderdetailstable.bootstrapTable('updateRow', { index: rowindex.val(), row: orderdetail });
+                $orderdetailstable.bootstrapTable('updateRow', { index: currentrowindex, row: orderdetail });
             }
             price.val('');
             qty.val('');
@@ -216,11 +221,11 @@
             $('#orderdetailformModal').modal('toggle');
         });
 
-        
+
 
     });
 
-    </script>
+</script>
 
 
 

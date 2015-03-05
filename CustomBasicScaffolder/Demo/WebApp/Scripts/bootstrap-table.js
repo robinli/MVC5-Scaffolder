@@ -1425,21 +1425,27 @@
     };
 
     BootstrapTable.prototype.remove = function (params) {
+        //console.log(params);
+        //console.log(this.options.data);
         var len = this.options.data.length,
             i, row;
-
+   
         if (!params.hasOwnProperty('field') || !params.hasOwnProperty('values')) {
             return;
         }
+        if (params.field == '$index') {   
+            for (var vi = params.values.length - 1 ; vi >= 0;vi--)
+                this.options.data.splice(params.values[vi], 1);
+        } else {
+            for (i = len - 1; i >= 0; i--) {
+                row = this.options.data[i];
 
-        for (i = len - 1; i >= 0; i--) {
-            row = this.options.data[i];
-
-            if (!row.hasOwnProperty(params.field)) {
-                return;
-            }
-            if ($.inArray(row[params.field], params.values) !== -1) {
-                this.options.data.splice(i, 1);
+                if (!row.hasOwnProperty(params.field)) {
+                    return;
+                }
+                if ($.inArray(row[params.field], params.values) !== -1) {
+                    this.options.data.splice(i, 1);
+                }
             }
         }
 

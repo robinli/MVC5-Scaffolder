@@ -50,7 +50,27 @@
             //$($(this).parent().find("i")[0]).removeClass("fa fa-fw fa-folder-o").addClass("fa fa-fw fa-folder-open");
             $($(this).parent().find("i")[1]).removeClass("fa fa-fw fa-caret-right").addClass("fa fa-fw fa-caret-down");
         })
+        
+        function stripTrailingSlash(str) {
+                if (str.substr(-1) == '/') {
+                    return str.substr(0, str.length - 1);
+                }
+                return str;
+            }
 
+         var url = window.location.pathname;
+         var activePage = stripTrailingSlash(url);
+            //console.log(activePage);
+         $('.navbar li').removeClass('active');
+         $('.nav li a').each(function () {
+                var currentPage = stripTrailingSlash($(this).attr('href'));
+                console.log(activePage.indexOf(currentPage));
+                if (activePage.indexOf(currentPage)>=0) {
+                    $(this).parent().addClass('active');
+                    //console.log($(this).parent().parent());
+                    $(this).parent().parent(). collapse('show')
+                }
+          });
          
 
     });

@@ -151,6 +151,12 @@ ul.alert-dropdown {
     color: #fff;
 }
 
+.side-nav>li>ul> .active > a
+{
+    background-color: #000 !important;
+    color: #fff;
+}
+
 /* Flot Chart Containers */
 
 .flot-chart {

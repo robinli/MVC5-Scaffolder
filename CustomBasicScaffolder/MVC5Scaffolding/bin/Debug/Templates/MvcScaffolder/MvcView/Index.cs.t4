@@ -131,7 +131,7 @@ foreach (PropertyMetadata property in properties) {
              @Html.DisplayNameFor(model => model.<#= GetValueExpression(property) #>)
             </th>
         <# } else if (property.AssociationDirection ==  AssociationDirection.ManyToOne ) { #>
-            <th data-field="<#= GetRelatedDisplayNameExpression(property)  #> " data-sortable="true"  >
+            <th data-field="<#= GetRelatedDisplayNameExpression(property)  #>" data-sortable="false"  >
              @Html.DisplayNameFor(model => model.<#= GetValueExpression(property) #>)
             </th>
         <# } else { #>
@@ -223,7 +223,7 @@ foreach (PropertyMetadata property in properties) {
             $('#delete<#= modelVariable #>button').on('click', function () {
                 var selected = $<#= modelVariable #>table.bootstrapTable('getSelections');
                 if (selected.length>0) {
-                    deleteOrders(selected[0].<#= primaryKeyName #>);
+                    delete<#= modelName #>(selected[0].<#= primaryKeyName #>);
                 }
                  
             });
