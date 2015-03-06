@@ -178,7 +178,19 @@ else
         }
 		#>
 		
-                            <th data-field="<#= chproperty.PropertyName  #>"><#= GetDisplayName(chproperty.PropertyName)  #></th>
+                            <# if ( chproperty.IsPrimaryKey) { #>
+            <th data-field="<#= chproperty.PropertyName  #>"   data-visible="false" >
+             @Html.DisplayNameFor(model => model.<#= GetValueExpression(chproperty,childrenmodelmeta) #>)
+            </th>
+        <# } else if (chproperty.AssociationDirection ==  AssociationDirection.ManyToOne ) { #>
+            <th data-field="<#= GetRelatedDisplayNameExpression(chproperty,childrenmodelmeta)  #>"  >
+             @Html.DisplayNameFor(model => model.<#= GetValueExpression(chproperty,childrenmodelmeta) #>)
+            </th>
+        <# } else { #>
+        <th data-field="<#= chproperty.PropertyName  #>"  >
+             @Html.DisplayNameFor(model => model.<#= GetValueExpression(chproperty,childrenmodelmeta) #>)
+        </th>
+        <#            } #>
         <# 
     }
     }

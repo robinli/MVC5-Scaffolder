@@ -19,6 +19,22 @@ RelatedModelMetadata GetRelatedModelMetadata(PropertyMetadata property){
     return propertyModel;
 }
 
+RelatedModelMetadata GetRelatedModelMetadata(PropertyMetadata property,Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata metadata ){
+    RelatedModelMetadata propertyModel;
+    IDictionary<string, RelatedModelMetadata> relatedProperties;
+    if(metadata.RelatedEntities != null)
+    {
+        relatedProperties = metadata.RelatedEntities.ToDictionary(item => item.AssociationPropertyName);
+    }
+    else
+    {
+        relatedProperties = new Dictionary<string, RelatedModelMetadata>();
+    }
+    relatedProperties.TryGetValue(property.PropertyName, out propertyModel);
+
+    return propertyModel;
+}
+
 // A foreign key, e.g. CategoryID, will have an association name of Category
 string GetAssociationName(PropertyMetadata property) {
     RelatedModelMetadata propertyModel = GetRelatedModelMetadata(property);
@@ -31,8 +47,18 @@ string GetValueExpression(PropertyMetadata property) {
     return propertyModel != null ? propertyModel.AssociationPropertyName + "." + propertyModel.DisplayPropertyName : property.PropertyName;
 }
 
+string GetValueExpression(PropertyMetadata property, Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata metadata) {
+    RelatedModelMetadata propertyModel = GetRelatedModelMetadata(property,metadata);
+    return propertyModel != null ? propertyModel.AssociationPropertyName + "." + propertyModel.DisplayPropertyName : property.PropertyName;
+}
+
 string GetRelatedDisplayNameExpression(PropertyMetadata property) {
     RelatedModelMetadata propertyModel = GetRelatedModelMetadata(property);
+    return propertyModel != null ? propertyModel.AssociationPropertyName + "" + propertyModel.DisplayPropertyName : property.PropertyName;
+}
+
+string GetRelatedDisplayNameExpression(PropertyMetadata property,Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata metadata) {
+    RelatedModelMetadata propertyModel = GetRelatedModelMetadata(property,metadata);
     return propertyModel != null ? propertyModel.AssociationPropertyName + "" + propertyModel.DisplayPropertyName : property.PropertyName;
 }
 
