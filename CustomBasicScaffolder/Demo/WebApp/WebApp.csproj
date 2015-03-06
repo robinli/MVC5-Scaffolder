@@ -358,13 +358,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Views\Orders\Create.cshtml">
-      <SubType>Code</SubType>
-    </Content>
-    <Content Include="Views\Orders\Edit.cshtml">
-      <SubType>Code</SubType>
-    </Content>
-    <Content Include="Views\Orders\EditForm_as.cshtml">
+    <Content Include="Views\Orders\Create1.cshtml">
       <SubType>Code</SubType>
     </Content>
     <Content Include="Views\Orders\Index1.cshtml" />
@@ -424,6 +418,8 @@
     <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\Categories\Index.cshtml" />
     <Content Include="Views\Orders\_OrderDetailEditForm.cshtml" />
+    <Content Include="Views\Orders\Edit.cshtml" />
+    <Content Include="Views\Orders\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

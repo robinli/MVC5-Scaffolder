@@ -165,6 +165,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             // Get the Entity Framework Meta Data
             IEntityFrameworkService efService = Context.ServiceProvider.GetService<IEntityFrameworkService>();
             ModelMetadata efMetadata = efService.AddRequiredEntity(Context, dbContextTypeName, modelType.FullName);
+        
             var oneToManyModels = GetOneToManyModelDictionary(efMetadata, efService, dbContextTypeName);
             var oneToManyAnonymousObjTextDic = GetOneToManyAnonymousObjTextDic(oneToManyModels);
             // Create Controller
@@ -329,7 +330,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             var dict = new Dictionary<string, ModelMetadata>();
             foreach (var prop in efMetadata.Properties)
             {
-
+             
                 if (prop.AssociationDirection == AssociationDirection.OneToMany)
                 {
                     string propname = prop.PropertyName;
@@ -364,6 +365,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             , bool overwrite = false
             )
         {
+            
             if (modelType == null)
             {
                 throw new ArgumentNullException("modelType");

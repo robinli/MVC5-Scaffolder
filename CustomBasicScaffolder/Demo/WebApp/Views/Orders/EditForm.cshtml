@@ -1,6 +1,6 @@
 ﻿@model WebApp.Models.Order
 
-@Html.HiddenFor(model => model.Id, htmlAttributes: new { id = "OrderId" })
+@Html.HiddenFor(model => model.Id)
 <div class="form-group">
     @Html.LabelFor(model => model.Customer, htmlAttributes: new { @class = "control-label col-md-2" })
     <div class="col-md-10">
@@ -186,7 +186,7 @@
             data: []
         });
         if (ObjectState == "Modified") {
-            orderid = $('#OrderId').val();
+            orderid = $('#Id').val();
             var url = '/Orders/GetOrderDetailsByOrderId/' + orderid;
             $.get(url, function (data) {
                 //console.log(data);
@@ -203,7 +203,6 @@
                     //console.log(data);
                     var index = -1;
                     $('#orderdetailformModal-body').html(data);
-                    $('#rowindex').val(index);
                     $('#Id').val(0);
                     $('#orderdetailformModal').modal('toggle');
                 });
@@ -226,7 +225,7 @@
             }
 
 
-            var data = $orderdetailstable.bootstrapTable('getData');
+            //var data = $orderdetailstable.bootstrapTable('getData');
             //var orderdetailid = data.length + 1;
             var productid = $('#ProductId :selected');
             var price = $('#Price');
@@ -248,7 +247,7 @@
             price.val('');
             qty.val('');
             amount.val('');
-            rowindex.val('-1');
+         
             //$('#Price').val('');
 
             $('#orderdetailformModal').modal('toggle');

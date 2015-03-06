@@ -32,7 +32,7 @@
     <div class="row">
         <div class="col-lg-12">
 
-            @using (Html.BeginForm("Create", "Orders", FormMethod.Post, new  {id="orders" }))
+            @using (Html.BeginForm())
             {
                 @Html.AntiForgeryToken()
 
@@ -54,34 +54,30 @@
 
     @section Scripts {
         @Scripts.Render("~/bundles/jqueryval")
-
         <script type="text/javascript">
-            var $orderdetailstable = {};
             var ObjectState = "Added";
+
+            var $orderdetailstable = {};
             $(document).ready(function () {
 
-                $('#orders').submit(function () {
-                    var token = $('[name=__RequestVerificationToken]').val(); 
+                $('form').submit(function () {
+                    var token = $('[name=__RequestVerificationToken]').val();
                     var serializedForm = $(this).serialize();
                     var actionurl = $(this).attr('action');
 
                     var orderdetails = $orderdetailstable.bootstrapTable('getData');
-                    //console.log(orderdetails);
+
                     var newitem = {
-                        Id:0,
-                        Customer: $('#Customer','#orders').val(),
-                        ShippingAddress: $('#ShippingAddress', '#orders').val(),
-                        OrderDate: $('#OrderDate', '#orders').val(),
-                        ObjectState:ObjectState,
-                        OrderDetails: orderdetails
-                       
+                        OrderDetails: orderdetails,
+
+                        Id: $('#Id', 'form').val(),
+                        Customer: $('#Customer', 'form').val(),
+                        ShippingAddress: $('#ShippingAddress', 'form').val(),
+                        OrderDate: $('#OrderDate', 'form').val(),
+                        ObjectState: ObjectState
                     };
-                    
-                    newitem.__RequestVerificationToken = token;
-                    console.log(newitem);
                     $.ajax({
                         url: actionurl,
-              
                         type: "POST",
                         dataType: "json",
                         contentType: "application/json; charset=utf-8",
@@ -92,15 +88,18 @@
                             } else {
                                 alert(result.err);
                             }
-                            //alert("success " + result.UserName);
+
                         },
                         error: function (result) {
-                            //alert("Failed");
-                            console.log(result);
+                            alert("Failed" + result);
                         }
                     });
                     return false;
+
+
                 });
             });
         </script>
+
+
     }

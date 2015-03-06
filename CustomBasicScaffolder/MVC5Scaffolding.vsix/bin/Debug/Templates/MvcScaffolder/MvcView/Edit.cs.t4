@@ -161,6 +161,70 @@ if(IsLayoutPageSelected && ReferenceScriptLibraries && IsBundleConfigPresent) {
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+    var ObjectState = "Modified";   
+    <#  if(GenerateMasterDetailRelationship  && OneToManyModelMetadata.Count >0) { #>
+            <# foreach(var item in OneToManyModelMetadata) {
+                var boostraptablevar = "$" + item.Key.ToLower()  + "table";
+                var detailnamevar=item.Key.ToLower();
+            #>                     
+             var <#= boostraptablevar #> = {};
+            <# } #>
+            $(document).ready(function () {
+
+                $('form').submit(function () {
+                    var token = $('[name=__RequestVerificationToken]').val();
+                    var serializedForm = $(this).serialize();
+                    var actionurl = $(this).attr('action');
+                    <# foreach(var item in OneToManyModelMetadata) {
+                        var boostraptablevar = "$" + item.Key.ToLower()  + "table";
+                        var detailnamevar=item.Key.ToLower();
+                     #>                     
+                        var <#= detailnamevar #> = <#= boostraptablevar #>.bootstrapTable('getData');
+                     <# } #>
+                    
+                     var newitem = {
+                        <# foreach(var property  in  ModelMetadata.Properties) {
+                            if(property.IsPrimaryKey) {
+                        #>                  
+                                <#= property.PropertyName #>: $('#<#= property.PropertyName #>', 'form').val(),
+                        <# } else if (property.AssociationDirection == AssociationDirection.OneToMany) { #>
+                                <#= property.PropertyName #>: <#= property.PropertyName.ToLower() #> ,
+                        <# } else  { #>
+                                <#= property.PropertyName #>: $('#<#= property.PropertyName #>', 'form').val(),
+                        <#
+                             }
+                          }
+                        #>
+                        ObjectState:ObjectState 
+                    };
+                    $.ajax({
+                        url: actionurl,
+                        type: "POST",
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify(newitem),
+                        success: function (result) {
+                            if (result.success) {
+                                self.location = "/<#= ControllerRootName #>/Index";
+                            } else {
+                                alert(result.err);
+                            }
+                            
+                        },
+                        error: function (result) {
+                            alert("Failed" + result);
+                        }
+                    });
+                    return false;
+                    
+
+                });
+            });
+      
+    <#   } #>
+  </script>
+
 }
 <#
 }

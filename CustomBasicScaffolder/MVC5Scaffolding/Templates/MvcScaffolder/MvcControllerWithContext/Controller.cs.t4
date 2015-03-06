@@ -424,7 +424,7 @@ namespace <#= Namespace #>
             <#                } #>
                 
                 //return HttpNotFound();
-                return PartialView("_<#= modelTypeName #>Form", new <#= modelTypeName #>());
+                return PartialView("_<#= modelTypeName #>EditForm", new <#= modelTypeName #>());
             }
             else
             {
@@ -434,7 +434,7 @@ namespace <#= Namespace #>
             <#                } #>
                  
             }
-            return PartialView("_<#= modelTypeName #>Form",  <#= varModelType #>);
+            return PartialView("_<#= modelTypeName #>EditForm",  <#= varModelType #>);
 
         }
         
@@ -447,7 +447,7 @@ namespace <#= Namespace #>
               var <#=     relatedproperty.ShortTypeName.ToLower() #>Repository = _unitOfWork.Repository<<#=     relatedproperty.ShortTypeName #>>();    
               ViewBag.<#=     relatedproperty.ForeignKeyPropertyNames[0] #> = new SelectList(<#=     relatedproperty.ShortTypeName.ToLower() #>Repository.Queryable(), "<#=     relatedproperty.PrimaryKeyNames[0] #>", "<#=     relatedproperty.DisplayPropertyName #>" );
           <#                } #>
-            return PartialView("_<#= modelTypeName #>Form");
+            return PartialView("_<#= modelTypeName #>EditForm");
 
         }
 
