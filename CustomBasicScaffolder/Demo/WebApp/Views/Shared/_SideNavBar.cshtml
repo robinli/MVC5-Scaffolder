@@ -40,7 +40,7 @@
 <script type="text/javascript">
     $(function () {
         $('.nav  .collapse').on('hidden.bs.collapse', function () {
-            console.log($(this).parent().find("i.fa fa-fw fa-folder-open"));
+            //console.log($(this).parent().find("i.fa fa-fw fa-folder-open"));
             //$($(this).parent().find("i")[0]).removeClass("fa fa-fw fa-folder-open").addClass("fa fa-fw fa-folder-o");
             //$(this).parent().find("i.fa fa-fw fa-folder-open").removeClass("fa fa-fw fa-folder-open").addClass("fa fa-fw fa-folder-o");
             $($(this).parent().find("i")[1]).removeClass("fa fa-fw fa-caret-down").addClass("fa fa-fw fa-caret-right");
@@ -65,7 +65,7 @@
             $('.navbar li').removeClass('active');
             $('.nav li a').each(function () {
                 var currentPage = stripTrailingSlash($(this).attr('href'));
-                console.log(activePage.indexOf(currentPage));
+                //console.log(activePage.indexOf(currentPage));
                 if (activePage.indexOf(currentPage)>=0) {
                     $(this).parent().addClass('active');
                     //console.log($(this).parent().parent());

@@ -255,8 +255,64 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                     , oneToManyModels: oneToManyModels
                     );
             }
+            foreach (var property in efMetadata.Properties)
+            {
+                if (property.AssociationDirection == AssociationDirection.OneToMany)
+                {
+                    string _detialViewName="_DetailEditForm";
+                    var detailModelMeta = oneToManyModels[property.PropertyName];
+                    var modelTypeName = property.RelatedModel.ShortTypeName;
+                    var modelDisplayNames = GetDisplayNames(modelType);
+                    AddDetailsView(project
+                        , viewFolderPath
+                        , viewPrefix
+                        , _detialViewName
+                        , programTitle
+                        , controllerRootName
+                        , modelTypeName
+                        , modelType
+                        , detailModelMeta
+                        , modelDisplayNames
+                        , codeGeneratorViewModel.OverwriteViews);
+                }
+            }
         }
 
+        private void AddDetailsView(Project project
+            , string viewsFolderPath
+            , string viewPrefix
+            , string viewName
+            , string programTitle
+            , string controllerRootName
+            , string modelTypeName
+            , CodeType modelType
+            , ModelMetadata efMetadata
+            , IDictionary<string, string> modelDisplayNames
+            , bool overwrite = false
+           )
+        {
+
+            string outputPath = Path.Combine(viewsFolderPath, "_"+modelTypeName+"EditForm");
+            string templatePath = Path.Combine("MvcView", viewName);
+            string viewDataTypeName = modelType.Namespace.FullName + "." + modelTypeName;
+            string modelNameSpace = modelType.Namespace != null ? modelType.Namespace.FullName : String.Empty;
+            Dictionary<string, object> templateParams = new Dictionary<string, object>(){
+               {"ControllerRootName" , controllerRootName}
+                , {"ModelMetadata", efMetadata}
+                , {"ViewPrefix", viewPrefix}
+                , {"ViewName", viewName}
+                , {"ProgramTitle", programTitle}
+                , {"ModelNameSpace", modelNameSpace}
+                , {"ViewDataTypeName", viewDataTypeName}
+                , {"ModelDisplayNames",modelDisplayNames}
+                , {"IsPartialView" , true}
+            };
+            AddFileFromTemplate(project: project
+                , outputPath: outputPath
+                , templateName: templatePath
+                , templateParameters: templateParams
+                , skipIfExists: true);
+        }
         private Dictionary<string ,string > GetOneToManyAnonymousObjTextDic(Dictionary<string, ModelMetadata> oneToManyModels)
         {
             Dictionary<string, string> dic = new Dictionary<string, string>();

@@ -12,6 +12,7 @@ namespace WebApp.Models
     {
         [Key]
         public int Id { get; set; }
+         [Required(ErrorMessage = "必选")]
         public int ProductId { get; set; }
         [ForeignKey("ProductId")]
         public Product Product { get; set; }
@@ -24,7 +25,7 @@ namespace WebApp.Models
         [Required(ErrorMessage = "必填")]
         [Range(1, 9999)]
         public decimal Amount { get; set; }
-
+       
         public int OrderId { get; set; }
         [ForeignKey("OrderId")]
         public Order Order { get; set; }

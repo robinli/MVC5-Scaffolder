@@ -40,3 +40,4 @@ C:\Users\Administrator\AppData\Local\Microsoft\VisualStudio\12.0Exp\Extensions\R
 C:\Users\Administrator\AppData\Local\Microsoft\VisualStudio\12.0Exp\Extensions\Robin Li\Happy Scaffolding for MVC5\3.1\\MVC5Scaffolding.pdb
 C:\Users\Administrator\AppData\Local\Microsoft\VisualStudio\12.0Exp\Extensions\Robin Li\Happy Scaffolding for MVC5\3.1\\Templates\MvcScaffolder\Repositories\EntityQuery.cs.t4
 C:\Users\Administrator\AppData\Local\Microsoft\VisualStudio\12.0Exp\Extensions\Robin Li\Happy Scaffolding for MVC5\3.1\\Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\LinqOrderByColumnsNameExtensions.cs.t4
+C:\Users\Administrator\AppData\Local\Microsoft\VisualStudio\12.0Exp\Extensions\Robin Li\Happy Scaffolding for MVC5\3.1\\Templates\MvcScaffolder\MvcView\_DetailEditForm.cs.t4

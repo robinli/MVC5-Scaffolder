@@ -138,12 +138,12 @@ namespace <#= Namespace #>
             int totalCount = 0;
             int pagenum = offset / limit +1;
             <# if(!String.IsNullOrEmpty(includeExpressions)) { #>
-            var <#= ModelVariable #>  = <#= modelServiceVar #>.Query(new <#= ModelTypeName #>Query().WithAnySearch(search))<#= includeExpressions #>.OrderBy(n=>n.OrderBy(sort,order)).SelectPage(pagenum, limit, out totalCount);
+            var <#= modelVariablePlural #>  = <#= modelServiceVar #>.Query(new <#= ModelTypeName #>Query().WithAnySearch(search))<#= includeExpressions #>.OrderBy(n=>n.OrderBy(sort,order)).SelectPage(pagenum, limit, out totalCount);
             
             <#    } else { #>
-            var <#= ModelVariable #>  = <#= modelServiceVar #>.Query(new <#= ModelTypeName #>Query().WithAnySearch(search)).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(pagenum, limit, out totalCount);
+            var <#= modelVariablePlural #>  = <#= modelServiceVar #>.Query(new <#= ModelTypeName #>Query().WithAnySearch(search)).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(pagenum, limit, out totalCount);
             <#    } #>
-            var rows = <#= ModelVariable #> .Select( <#= SelectLambdaText #>).ToList();
+            var rows = <#= modelVariablePlural #> .Select( <#= SelectLambdaText #>).ToList();
             var pagelist = new { total = totalCount, rows = rows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
@@ -224,6 +224,10 @@ namespace <#= Namespace #>
 <# } else { #>
                 _unitOfWork.SaveChanges();
 <# } #>
+                if (Request.IsAjaxRequest())
+                {
+                    return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+                }
                 DisplaySuccessMessage("Has append a <#= ModelTypeName #> record");
                 return RedirectToAction("<#= ViewPrefix #>Index");
             }
@@ -232,6 +236,11 @@ namespace <#= Namespace #>
             var <#= property.ShortTypeName.ToLower() #>Repository = _unitOfWork.Repository<<#= property.ShortTypeName #>>();
             ViewBag.<#= property.ForeignKeyPropertyNames[0] #> = new SelectList(<#= property.ShortTypeName.ToLower() #>Repository.Queryable(), "<#= property.PrimaryKeyNames[0] #>", "<#= property.DisplayPropertyName #>", <#= ModelVariable #>.<#= property.ForeignKeyPropertyNames[0] #>);
 <# } #>
+            if (Request.IsAjaxRequest())
+            {
+                var modelStateErrors =String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n=>n.ErrorMessage)));
+                return Json(new { success = false, err = modelStateErrors }, JsonRequestBehavior.AllowGet);
+            }
             DisplayErrorMessage();
             return View(<#= ModelVariable #>);
         }
@@ -252,10 +261,6 @@ namespace <#= Namespace #>
 <# } else { #>
             <#= ModelTypeName #> <#= ModelVariable #> = <#= modelServiceVar #>.Find(id);
 <# } #>
-
- 
-
-
             if (<#= ModelVariable #> == null)
             {
                 return HttpNotFound();
@@ -308,6 +313,10 @@ namespace <#= Namespace #>
 <# } else { #>
                 _unitOfWork.SaveChanges();
 <# } #>
+                if (Request.IsAjaxRequest())
+                {
+                    return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+                }
                 DisplaySuccessMessage("Has update a <#= ModelTypeName #> record");
                 return RedirectToAction("<#= ViewPrefix #>Index");
             }
@@ -315,6 +324,11 @@ namespace <#= Namespace #>
             var <#= property.ShortTypeName.ToLower() #>Repository = _unitOfWork.Repository<<#= property.ShortTypeName #>>();
             ViewBag.<#= property.ForeignKeyPropertyNames[0] #> = new SelectList(<#= property.ShortTypeName.ToLower() #>Repository.Queryable(), "<#= property.PrimaryKeyNames[0] #>", "<#= property.DisplayPropertyName #>", <#= ModelVariable #>.<#= property.ForeignKeyPropertyNames[0] #>);
 <# } #>
+            if (Request.IsAjaxRequest())
+            {
+                var modelStateErrors =String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n=>n.ErrorMessage)));
+                return Json(new { success = false, err = modelStateErrors }, JsonRequestBehavior.AllowGet);
+            }
             DisplayErrorMessage();
             return View(<#= ModelVariable #>);
         }
@@ -362,6 +376,10 @@ namespace <#= Namespace #>
 <# } else { #>
             _unitOfWork.SaveChanges();
 <# } #>
+           if (Request.IsAjaxRequest())
+                {
+                    return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+                }
             DisplaySuccessMessage("Has delete a <#= ModelTypeName #> record");
             return RedirectToAction("<#= ViewPrefix #>Index");
         }
@@ -434,13 +452,17 @@ namespace <#= Namespace #>
         }
 
         // Post Delete Detail Row By Id
-        // Get : <#= routePrefix #>/Delete<#= modelTypeName #>Confirmed/:id
-        [HttpPost]
+        // Get : <#= routePrefix #>/Delete<#= modelTypeName #>/:id
+        [HttpPost,ActionName("Delete<#= modelTypeName #>")]
         public ActionResult Delete<#= modelTypeName #>Confirmed(<#= subModelIdType #>  id)
         {
             var <#= varModelType #>Repository = _unitOfWork.Repository<<#= modelTypeName #>>();
             <#= varModelType #>Repository.Delete(id);
             _unitOfWork.SaveChanges();
+            if (Request.IsAjaxRequest())
+            {
+                return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+            }
             DisplaySuccessMessage("Has delete a Order record");
             return RedirectToAction("Index");
         }
@@ -469,7 +491,11 @@ namespace <#= Namespace #>
         public ActionResult Get<#= property.PropertyName #>By<#= foreignKeyName #>(<#=  primaryKeyShortTypeName #> id)
         {
             var <#= property.PropertyName.ToLower() #> = <#= modelServiceVar #>.Get<#= property.PropertyName #>By<#= foreignKeyName #>(id);
-            return Json(<#= property.PropertyName.ToLower() #>.Select(<#= lambdastring #>),JsonRequestBehavior.AllowGet);
+            if (Request.IsAjaxRequest())
+            {
+                return Json(<#= property.PropertyName.ToLower() #>.Select(<#= lambdastring #>),JsonRequestBehavior.AllowGet);
+            }  
+            return View(<#= property.PropertyName.ToLower() #>); 
 
         }
 <#

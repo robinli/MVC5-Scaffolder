@@ -66,7 +66,7 @@
                     var actionurl = $(this).attr('action');
 
                     var orderdetails = $orderdetailstable.bootstrapTable('getData');
-                    console.log(orderdetails);
+                    //console.log(orderdetails);
                     var newitem = {
                         Id:0,
                         Customer: $('#Customer','#orders').val(),
@@ -87,11 +87,16 @@
                         contentType: "application/json; charset=utf-8",
                         data: JSON.stringify(newitem),
                         success: function (result) {
-                            self.location = "/Orders/Index";
+                            if (result.success) {
+                                self.location = "/Orders/Index";
+                            } else {
+                                alert(result.err);
+                            }
                             //alert("success " + result.UserName);
                         },
                         error: function (result) {
-                            alert("Failed");
+                            //alert("Failed");
+                            console.log(result);
                         }
                     });
                     return false;

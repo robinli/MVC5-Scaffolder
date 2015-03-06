@@ -87,8 +87,8 @@ namespace WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-             				_productService.Insert(product);
-                           _unitOfWork.SaveChanges();
+             	_productService.Insert(product);
+                _unitOfWork.SaveChanges();
                 DisplaySuccessMessage("Has append a Product record");
                 return RedirectToAction("Index");
             }
