@@ -23,7 +23,7 @@
 
 @model <#= ViewDataTypeName #>
 
-<# var primaryKey = ModelMetadata.PrimaryKeys[0].PropertyName #>
+<# var primaryKey = ModelMetadata.PrimaryKeys[0].PropertyName; #>
 
 
 

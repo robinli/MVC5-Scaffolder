@@ -22,21 +22,21 @@ namespace WebApp.Controllers
     public class OrdersController : Controller
     {
         //private StoreContext db = new StoreContext();
-        private readonly IOrderService  _orderService;
+        private readonly IOrderService _orderService;
         private readonly IUnitOfWorkAsync _unitOfWork;
 
-        public OrdersController (IOrderService  orderService, IUnitOfWorkAsync unitOfWork)
+        public OrdersController(IOrderService orderService, IUnitOfWorkAsync unitOfWork)
         {
-            _orderService  = orderService;
+            _orderService = orderService;
             _unitOfWork = unitOfWork;
         }
 
         // GET: Orders/Index
         public ActionResult Index()
         {
-            
-            var orders  = _orderService.Queryable().AsQueryable();
-            return View(orders  );
+
+            var orders = _orderService.Queryable().AsQueryable();
+            return View(orders);
         }
 
         // Get :Orders/PageList
@@ -45,14 +45,14 @@ namespace WebApp.Controllers
         public ActionResult PageList(int offset = 0, int limit = 10, string search = "", string sort = "", string order = "")
         {
             int totalCount = 0;
-            int pagenum = offset / limit +1;
-                        var orders  = _orderService.Query(new OrderQuery().WithAnySearch(search)).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(pagenum, limit, out totalCount);
-                        var rows = orders .Select(  n => new {  Id = n.Id , Customer = n.Customer , ShippingAddress = n.ShippingAddress , OrderDate = n.OrderDate }).ToList();
+            int pagenum = offset / limit + 1;
+            var orders = _orderService.Query(new OrderQuery().WithAnySearch(search)).OrderBy(n => n.OrderBy(sort, order)).SelectPage(pagenum, limit, out totalCount);
+            var rows = orders.Select(n => new { Id = n.Id, Customer = n.Customer, ShippingAddress = n.ShippingAddress, OrderDate = n.OrderDate }).ToList();
             var pagelist = new { total = totalCount, rows = rows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
 
-       
+
         // GET: Orders/Details/5
         public ActionResult Details(int? id)
         {
@@ -67,7 +67,7 @@ namespace WebApp.Controllers
             }
             return View(order);
         }
-        
+
 
         // GET: Orders/Create
         public ActionResult Create()
@@ -83,13 +83,13 @@ namespace WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                             order.ObjectState = ObjectState.Added;   
-                                foreach (var item in order.OrderDetails)
+                order.ObjectState = ObjectState.Added;
+                foreach (var item in order.OrderDetails)
                 {
                     item.ObjectState = ObjectState.Added;
                 }
-                                _orderService.InsertOrUpdateGraph(order);
-                            _unitOfWork.SaveChanges();
+                _orderService.InsertOrUpdateGraph(order);
+                _unitOfWork.SaveChanges();
                 if (Request.IsAjaxRequest())
                 {
                     return Json(new { success = true }, JsonRequestBehavior.AllowGet);
@@ -100,7 +100,7 @@ namespace WebApp.Controllers
 
             if (Request.IsAjaxRequest())
             {
-                var modelStateErrors =String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n=>n.ErrorMessage)));
+                var modelStateErrors = String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n => n.ErrorMessage)));
                 return Json(new { success = false, err = modelStateErrors }, JsonRequestBehavior.AllowGet);
             }
             DisplayErrorMessage();
@@ -131,17 +131,18 @@ namespace WebApp.Controllers
             if (ModelState.IsValid)
             {
                 order.ObjectState = ObjectState.Modified;
-                                                foreach (var item in order.OrderDetails)
+                foreach (var item in order.OrderDetails)
                 {
+                    item.OrderId = order.Id;
                     //set ObjectState with conditions
-                    //if(item.Id==0)
-                    //    item.ObjectState = ObjectState.Added;
-                    //else
-                    //    item.ObjectState = ObjectState.Modified;
+                    if (item.Id == 0)
+                        item.ObjectState = ObjectState.Added;
+                    else
+                        item.ObjectState = ObjectState.Modified;
                 }
-                      
+
                 _orderService.InsertOrUpdateGraph(order);
-                                
+
                 _unitOfWork.SaveChanges();
                 if (Request.IsAjaxRequest())
                 {
@@ -152,7 +153,7 @@ namespace WebApp.Controllers
             }
             if (Request.IsAjaxRequest())
             {
-                var modelStateErrors =String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n=>n.ErrorMessage)));
+                var modelStateErrors = String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n => n.ErrorMessage)));
                 return Json(new { success = false, err = modelStateErrors }, JsonRequestBehavior.AllowGet);
             }
             DisplayErrorMessage();
@@ -179,13 +180,13 @@ namespace WebApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Order order =  _orderService.Find(id);
-             _orderService.Delete(order);
+            Order order = _orderService.Find(id);
+            _orderService.Delete(order);
             _unitOfWork.SaveChanges();
-           if (Request.IsAjaxRequest())
-                {
-                    return Json(new { success = true }, JsonRequestBehavior.AllowGet);
-                }
+            if (Request.IsAjaxRequest())
+            {
+                return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+            }
             DisplaySuccessMessage("Has delete a Order record");
             return RedirectToAction("Index");
         }
@@ -203,44 +204,44 @@ namespace WebApp.Controllers
             var orderdetailRepository = _unitOfWork.Repository<OrderDetail>();
             var orderdetail = orderdetailRepository.Find(id);
 
-                        var orderRepository = _unitOfWork.Repository<Order>();             
-                        var productRepository = _unitOfWork.Repository<Product>();             
-            
+            var orderRepository = _unitOfWork.Repository<Order>();
+            var productRepository = _unitOfWork.Repository<Product>();
+
             if (orderdetail == null)
             {
-                            ViewBag.OrderId = new SelectList(orderRepository.Queryable(), "Id", "Customer" );
-                            ViewBag.ProductId = new SelectList(productRepository.Queryable(), "Id", "Name" );
-                            
+                ViewBag.OrderId = new SelectList(orderRepository.Queryable(), "Id", "Customer");
+                ViewBag.ProductId = new SelectList(productRepository.Queryable(), "Id", "Name");
+
                 //return HttpNotFound();
                 return PartialView("_OrderDetailEditForm", new OrderDetail());
             }
             else
             {
-                            ViewBag.OrderId = new SelectList(orderRepository.Queryable(), "Id", "Customer" , orderdetail.OrderId );  
-                            ViewBag.ProductId = new SelectList(productRepository.Queryable(), "Id", "Name" , orderdetail.ProductId );  
-                             
+                ViewBag.OrderId = new SelectList(orderRepository.Queryable(), "Id", "Customer", orderdetail.OrderId);
+                ViewBag.ProductId = new SelectList(productRepository.Queryable(), "Id", "Name", orderdetail.ProductId);
+
             }
-            return PartialView("_OrderDetailEditForm",  orderdetail);
+            return PartialView("_OrderDetailEditForm", orderdetail);
 
         }
-        
+
         // Get Create Row By Id For Edit
         // Get : Orders/CreateOrderDetail
         [HttpGet]
         public ActionResult CreateOrderDetail()
         {
-                        var orderRepository = _unitOfWork.Repository<Order>();    
-              ViewBag.OrderId = new SelectList(orderRepository.Queryable(), "Id", "Customer" );
-                        var productRepository = _unitOfWork.Repository<Product>();    
-              ViewBag.ProductId = new SelectList(productRepository.Queryable(), "Id", "Name" );
-                      return PartialView("_OrderDetailEditForm");
+            var orderRepository = _unitOfWork.Repository<Order>();
+            ViewBag.OrderId = new SelectList(orderRepository.Queryable(), "Id", "Customer");
+            var productRepository = _unitOfWork.Repository<Product>();
+            ViewBag.ProductId = new SelectList(productRepository.Queryable(), "Id", "Name");
+            return PartialView("_OrderDetailEditForm");
 
         }
 
         // Post Delete Detail Row By Id
         // Get : Orders/DeleteOrderDetail/:id
-        [HttpPost,ActionName("DeleteOrderDetail")]
-        public ActionResult DeleteOrderDetailConfirmed(int  id)
+        [HttpPost, ActionName("DeleteOrderDetail")]
+        public ActionResult DeleteOrderDetailConfirmed(int id)
         {
             var orderdetailRepository = _unitOfWork.Repository<OrderDetail>();
             orderdetailRepository.Delete(id);
@@ -253,7 +254,7 @@ namespace WebApp.Controllers
             return RedirectToAction("Index");
         }
 
-       
+
 
         // Get : Orders/GetOrderDetailsByOrderId/:id
         [HttpGet]
@@ -262,12 +263,12 @@ namespace WebApp.Controllers
             var orderdetails = _orderService.GetOrderDetailsByOrderId(id);
             if (Request.IsAjaxRequest())
             {
-                return Json(orderdetails.Select( n => new { OrderCustomer = n.Order.Customer ,ProductName = n.Product.Name , Id = n.Id , ProductId = n.ProductId , Qty = n.Qty , Price = n.Price , Amount = n.Amount , OrderId = n.OrderId }),JsonRequestBehavior.AllowGet);
-            }  
-            return View(orderdetails); 
+                return Json(orderdetails.Select(n => new { OrderCustomer = n.Order.Customer, ProductName = n.Product.Name, Id = n.Id, ProductId = n.ProductId, Qty = n.Qty, Price = n.Price, Amount = n.Amount, OrderId = n.OrderId }), JsonRequestBehavior.AllowGet);
+            }
+            return View(orderdetails);
 
         }
- 
+
 
         private void DisplaySuccessMessage(string msgText)
         {

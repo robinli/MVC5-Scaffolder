@@ -537,8 +537,10 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             , bool isBundleConfigPresent=true
             , bool overwrite = false
             , bool generateMasterDetailRelationship = false
-            , Dictionary<string,ModelMetadata> oneToManyModels = null )
+            , Dictionary<string,ModelMetadata> oneToManyModels = null
+            )
         {
+           
             //Project project = Context.ActiveProject;
             string outputPath = Path.Combine(viewsFolderPath, viewPrefix+viewName);
             string templatePath = Path.Combine("MvcView", viewName);
@@ -551,6 +553,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             Dictionary<string, object> templateParams = new Dictionary<string, object>(){
                 {"ControllerRootName" , controllerRootName}
                 , {"ModelMetadata", efMetadata}
+                , {"ModelTypeName", modelType.Name}
                 , {"ViewPrefix", viewPrefix}
                 , {"ViewName", viewName}
                 , {"ProgramTitle", programTitle}
@@ -582,6 +585,18 @@ namespace Happy.Scaffolding.MVC.Scaffolders
         protected IDictionary<string, string> GetDisplayNames(CodeType modelType)
         {
             var type = GetReflectionType(modelType.FullName);
+            var lookup = new Dictionary<string, string>();
+            foreach (PropertyInfo prop in type.GetProperties())
+            {
+                var attr = (System.ComponentModel.DataAnnotations.DisplayAttribute)prop.GetCustomAttribute(typeof(System.ComponentModel.DataAnnotations.DisplayAttribute), true);
+                var value = attr != null && !String.IsNullOrWhiteSpace(attr.Name) ? attr.Name : prop.Name;
+                lookup.Add(prop.Name, value);
+            }
+            return lookup;
+        }
+        protected IDictionary<string, string> GetDisplayNames(string fullclassName)
+        {
+            var type = GetReflectionType(fullclassName);
             var lookup = new Dictionary<string, string>();
             foreach (PropertyInfo prop in type.GetProperties())
             {

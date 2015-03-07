@@ -258,6 +258,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-table.css" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\PagedList.css" />
@@ -304,6 +306,9 @@
     <Content Include="font-awesome\scss\_spinning.scss" />
     <Content Include="font-awesome\scss\_stacked.scss" />
     <Content Include="font-awesome\scss\_variables.scss" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\extensions\editable\bootstrap-table-editable.js" />
     <Content Include="Scripts\extensions\editable\README.md" />
@@ -358,6 +363,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Views\Orders\EditForm.cshtml" />
     <Content Include="Views\Orders\Index1.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -403,7 +409,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_SideNavBar.cshtml" />
     <Content Include="Views\Shared\_TopNavBar.cshtml" />
-    <Content Include="Views\Orders\EditForm.cshtml" />
+    <Content Include="Views\Orders\EditForm1.cshtml" />
     <Content Include="Views\Orders\_OrderDetailForm.cshtml" />
     <Content Include="Views\Products\Create.cshtml" />
     <Content Include="Views\Products\Edit.cshtml" />
@@ -422,9 +428,6 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
   </ItemGroup>
