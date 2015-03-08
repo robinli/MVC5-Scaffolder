@@ -234,7 +234,8 @@
                     //console.log(data);
                     var index = -1;
                     $('#orderdetailformModal-body').html(data);
-                    $('#Id').val(0);
+                    $('#Id', '#orderdetailformModal-body' ).val(0);
+					$('#OrderId' , '#orderdetailformModal-body').val(orderid );
                     $('#orderdetailformModal').modal('toggle');
                 });
             }
@@ -252,15 +253,15 @@
                 e.preventDefault();
                 return false;
             }
-								var ordercustomer = $('#OrderId :selected').text();
-								var productname = $('#ProductId :selected').text();
-							 					var id = $('#Id').val();
-				 							 					var productid = $('#ProductId :selected').val();
+								var ordercustomer = $('#OrderId :selected' , '#orderdetailformModal-body').text();
+								var productname = $('#ProductId :selected' , '#orderdetailformModal-body').text();
+							 					var id = $('#Id' , '#orderdetailformModal-body').val();
+				 							 					var productid = $('#ProductId :selected' , '#orderdetailformModal-body').val();
 					
-				 							 					var qty = $('#Qty').val();
-				 							 					var price = $('#Price').val();
-				 							 					var amount = $('#Amount').val();
-				 							 					var orderid = $('#OrderId :selected').val();
+				 							 					var qty = $('#Qty' , '#orderdetailformModal-body').val();
+				 							 					var price = $('#Price' , '#orderdetailformModal-body').val();
+				 							 					var amount = $('#Amount' , '#orderdetailformModal-body').val();
+				 							 					var orderid = $('#OrderId :selected' , '#orderdetailformModal-body').val();
 					
 				 			            
             var orderdetail = {

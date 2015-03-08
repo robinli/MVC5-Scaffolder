@@ -412,7 +412,8 @@ else
                     //console.log(data);
                     var index = -1;
                     $('#<#= detailmodeltypenameVar  #>formModal-body').html(data);
-                    $('#<#= primaryKey  #>').val(0);
+                    $('#<#= childrenmodelpk  #>', '#<#= detailmodeltypenameVar  #>formModal-body' ).val(0);
+					$('#<#= foreignKeyName #>' , '#<#= detailmodeltypenameVar  #>formModal-body').val(<#= primaryKeyVar #> );
                     $('#<#= detailmodeltypenameVar  #>formModal').modal('toggle');
                 });
             }
@@ -438,17 +439,17 @@ else
 						var fieldName=chproperty.PropertyName;
 			#>
 				 <#  if (chproperty.IsForeignKey) {#>
-					var <#= fieldNameVar #> = $('#<#= fieldName #> :selected').val();
+					var <#= fieldNameVar #> = $('#<#= fieldName #> :selected' , '#<#= detailmodeltypenameVar  #>formModal-body').val();
 					
 				 <# } else { #>
-					var <#= fieldNameVar #> = $('#<#= fieldName #>').val();
+					var <#= fieldNameVar #> = $('#<#= fieldName #>' , '#<#= detailmodeltypenameVar  #>formModal-body').val();
 				 <# } #>
 			<#
                } else if (chproperty.AssociationDirection== AssociationDirection.ManyToOne) { 
 				   var fieldNameVar = (chproperty.PropertyName + chproperty.RelatedModel.DisplayPropertyName).ToLower();
 				   var  fieldName = GetForeignKeyPropertyName(childrenmodelmeta,chproperty.PropertyName);
 			#>
-					var <#= fieldNameVar #> = $('#<#= fieldName #> :selected').text();
+					var <#= fieldNameVar #> = $('#<#= fieldName #> :selected' , '#<#= detailmodeltypenameVar  #>formModal-body').text();
 			<# }} #>
             
             var <#= detailmodeltypenameVar #> = {

@@ -83,4 +83,8 @@ string GetForeignKeyPropertyName(Microsoft.AspNet.Scaffolding.Core.Metadata.Mode
 	return metadata.RelatedEntities.Where(n=>n.AssociationPropertyName==associationPropertyName).Select(n=>n.ForeignKeyPropertyNames).First()[0];
 }
 
+string GetForeignKeyPropertyNameWithRelateMode(Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata modelMdetadata,string relatedmodeTypename){
+		return modelMdetadata.RelatedEntities.Where(n => n.ShortTypeName == relatedmodeTypename).Select(n => n.ForeignKeyPropertyNames).First()[0];
+}
+
 #>
