@@ -79,4 +79,8 @@ string GetDisplayName(string propertyName) {
 	return ModelDisplayNames.ContainsKey(propertyName) ? ModelDisplayNames[propertyName] : propertyName;
 }
 
+string GetForeignKeyPropertyName(Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata metadata,string associationPropertyName){
+	return metadata.RelatedEntities.Where(n=>n.AssociationPropertyName==associationPropertyName).Select(n=>n.ForeignKeyPropertyNames).First()[0];
+}
+
 #>

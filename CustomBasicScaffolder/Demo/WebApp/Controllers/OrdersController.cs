@@ -135,7 +135,7 @@ namespace WebApp.Controllers
                 {
                     item.OrderId = order.Id;
                     //set ObjectState with conditions
-                    if (item.Id == 0)
+                    if (item.Id <= 0)
                         item.ObjectState = ObjectState.Added;
                     else
                         item.ObjectState = ObjectState.Modified;

@@ -165,7 +165,8 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             // Get the Entity Framework Meta Data
             IEntityFrameworkService efService = Context.ServiceProvider.GetService<IEntityFrameworkService>();
             ModelMetadata efMetadata = efService.AddRequiredEntity(Context, dbContextTypeName, modelType.FullName);
-        
+            
+            var fieldDisplayNames = GetAllFieldDisplayNames(modelType, efMetadata);
             var oneToManyModels = GetOneToManyModelDictionary(efMetadata, efService, dbContextTypeName);
             var oneToManyAnonymousObjTextDic = GetOneToManyAnonymousObjTextDic(oneToManyModels);
             // Create Controller
@@ -277,6 +278,30 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                         , codeGeneratorViewModel.OverwriteViews);
                 }
             }
+        }
+        
+        private IDictionary<string,string> GetAllFieldDisplayNames(CodeType modelType, ModelMetadata efMetadata)
+        {
+            IDictionary<string, string> dic = new Dictionary<string, string>();
+            dic = GetDisplayNames(modelType);
+            foreach (var property in efMetadata.Properties)
+            {
+                if (property.AssociationDirection == AssociationDirection.OneToMany)
+                {
+                    string typename= property.RelatedModel.TypeName;
+                    var dis = GetDisplayNames(typename);
+                    foreach (var item in dis)
+                    {
+                        if (!dic.ContainsKey(item.Key))
+                        {
+                            dic.Add(item.Key, item.Value);
+ 
+                        }
+                    }
+                }
+            }
+            return dic;
+
         }
 
         private void AddDetailsView(Project project
@@ -549,6 +574,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             if (layoutPageFile == null)
                 layoutPageFile = string.Empty;
             var modelDisplayNames = GetDisplayNames(modelType);
+            
 
             Dictionary<string, object> templateParams = new Dictionary<string, object>(){
                 {"ControllerRootName" , controllerRootName}

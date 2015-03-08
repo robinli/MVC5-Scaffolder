@@ -76,6 +76,7 @@ if (ReferenceScriptLibraries) {
 #>
 <#
     var modelName =  ModelMetadata.EntitySetName;
+	var primaryKey = ModelMetadata.PrimaryKeys[0].PropertyName;
  #>
 <div class="container-fluid">
     <!-- Page Heading -->
@@ -131,7 +132,7 @@ if (ReferenceScriptLibraries) {
 }
 </div>
 </div>
- 
+ </div>
 
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -162,8 +163,12 @@ if(IsLayoutPageSelected && ReferenceScriptLibraries && IsBundleConfigPresent) {
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script type="text/javascript">
-    var ObjectState = "Modified";   
-    <#  if(GenerateMasterDetailRelationship  && OneToManyModelMetadata.Count >0) { #>
+	
+    <#  if(GenerateMasterDetailRelationship  && OneToManyModelMetadata.Count >0) { 
+		var primaryKeyVar = ModelTypeName.ToLower() + primaryKey.ToLower();
+	#>
+		var <#= primaryKeyVar #> = 0;
+		var ObjectState = "Modified";   
             <# foreach(var item in OneToManyModelMetadata) {
                 var boostraptablevar = "$" + item.Key.ToLower()  + "table";
                 var detailnamevar=item.Key.ToLower();
@@ -171,7 +176,7 @@ if(IsLayoutPageSelected && ReferenceScriptLibraries && IsBundleConfigPresent) {
              var <#= boostraptablevar #> = {};
             <# } #>
             $(document).ready(function () {
-
+				<#= primaryKeyVar #> = $('#<#= primaryKey  #>', 'form').val();
                 $('form').submit(function () {
                     var token = $('[name=__RequestVerificationToken]').val();
                     var serializedForm = $(this).serialize();
@@ -187,7 +192,7 @@ if(IsLayoutPageSelected && ReferenceScriptLibraries && IsBundleConfigPresent) {
                         <# foreach(var property  in  ModelMetadata.Properties) {
                             if(property.IsPrimaryKey) {
                         #>                  
-                                <#= property.PropertyName #>: $('#<#= property.PropertyName #>', 'form').val(),
+                                <#= property.PropertyName #>: <#= primaryKeyVar #> ,
                         <# } else if (property.AssociationDirection == AssociationDirection.OneToMany) { #>
                                 <#= property.PropertyName #>: <#= property.PropertyName.ToLower() #> ,
                         <# } else  { #>
@@ -213,7 +218,8 @@ if(IsLayoutPageSelected && ReferenceScriptLibraries && IsBundleConfigPresent) {
                             
                         },
                         error: function (result) {
-                            alert("Failed" + result);
+                            console.log(result.statusText + result.responseText);
+                            alert(result.statusText + result.responseText);
                         }
                     });
                     return false;
