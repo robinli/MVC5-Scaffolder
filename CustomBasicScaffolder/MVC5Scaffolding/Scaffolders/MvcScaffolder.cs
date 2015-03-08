@@ -168,6 +168,10 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             
             var fieldDisplayNames = GetAllFieldDisplayNames(modelType, efMetadata);
             var oneToManyModels = GetOneToManyModelDictionary(efMetadata, efService, dbContextTypeName);
+            foreach (var m in oneToManyModels.Values)
+            {
+                string fk = GetForeignKeyName(m, "Order");
+            }
             var oneToManyAnonymousObjTextDic = GetOneToManyAnonymousObjTextDic(oneToManyModels);
             // Create Controller
             string controllerName = codeGeneratorViewModel.ControllerName;
@@ -257,6 +261,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                     , oneToManyModels: oneToManyModels
                     );
             }
+            
             foreach (var property in efMetadata.Properties)
             {
                 if (property.AssociationDirection == AssociationDirection.OneToMany)
@@ -279,7 +284,10 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 }
             }
         }
-        
+        private string GetForeignKeyName(Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata modelMdetadata, string relatedmodeTypename)
+        {
+            return modelMdetadata.RelatedEntities.Where(n => n.ShortTypeName == relatedmodeTypename).Select(n => n.ForeignKeyPropertyNames).First()[0];
+        }
         private IDictionary<string,string> GetAllFieldDisplayNames(CodeType modelType, ModelMetadata efMetadata)
         {
             IDictionary<string, string> dic = new Dictionary<string, string>();

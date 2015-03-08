@@ -209,9 +209,14 @@ namespace <#= Namespace #>
                 {
              #>
                 <#=  ModelVariable #>.ObjectState = ObjectState.Added;   
-                <# foreach (var submodelname in OneToManyModelMetadata.Keys) { #>
+                <# foreach (var submodelname in OneToManyModelMetadata.Keys) { 
+					var submodel = OneToManyModelMetadata[submodelname];
+					var submodelkey=submodel.PrimaryKeys[0].PropertyName;
+					var submodelforeignkey  = GetForeignKeyName(submodel,ModelTypeName);
+				#>
                 foreach (var item in <#=  ModelVariable #>.<#= submodelname #>)
                 {
+					item.<#=  submodelforeignkey #> = <#=  ModelVariable #>.<#=  primaryKeyName  #> ;
                     item.ObjectState = ObjectState.Added;
                 }
                 <# } #>
@@ -293,14 +298,19 @@ namespace <#= Namespace #>
                     if(GenerateMasterDetailRelationship && OneToManyModelMetadata.Count()>0)
                     {
                 #>
-                <# foreach (var submodelname in OneToManyModelMetadata.Keys) { #>
+                <# foreach (var submodelname in OneToManyModelMetadata.Keys) { 
+					var submodel = OneToManyModelMetadata[submodelname];
+					var submodelkey=submodel.PrimaryKeys[0].PropertyName;
+					var submodelforeignkey  = GetForeignKeyName(submodel,ModelTypeName);
+				#>
                 foreach (var item in <#=  ModelVariable #>.<#= submodelname #>)
                 {
+					item.<#= submodelforeignkey #> = <#= ModelVariable #>.<#= primaryKeyName  #> ;
                     //set ObjectState with conditions
-                    //if(item.Id==0)
-                    //    item.ObjectState = ObjectState.Added;
-                    //else
-                    //    item.ObjectState = ObjectState.Modified;
+                    if(item.<#= submodelkey #> <= 0)
+                        item.ObjectState = ObjectState.Added;
+                    else
+                        item.ObjectState = ObjectState.Modified;
                 }
                 <# } #>      
                 <#=  modelServiceVar #>.InsertOrUpdateGraph(<#=            ModelVariable #>);
@@ -548,5 +558,8 @@ namespace <#= Namespace #>
 
     bool IsGuid(string typeName) {
         return String.Equals("System.Guid", typeName, StringComparison.OrdinalIgnoreCase);
+    }
+	string GetForeignKeyName(Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata modelMdetadata,string relatedmodeTypename){
+		return modelMdetadata.RelatedEntities.Where(n => n.ShortTypeName == relatedmodeTypename).Select(n => n.ForeignKeyPropertyNames).First()[0];
     }
 #>

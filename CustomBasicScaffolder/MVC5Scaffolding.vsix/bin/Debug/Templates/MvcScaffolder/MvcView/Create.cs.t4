@@ -171,7 +171,9 @@ if(IsLayoutPageSelected && ReferenceScriptLibraries && IsBundleConfigPresent) {
                                 <#= property.PropertyName #>: <#= primaryKeyVar #>,
                         <# } else if (property.AssociationDirection == AssociationDirection.OneToMany) { #>
                                 <#= property.PropertyName #>: <#= property.PropertyName.ToLower() #> ,
-                        <# } else  { #>
+                        <# } else if(property.IsForeignKey)  { #>
+								<#= property.PropertyName #>: $('#<#= property.PropertyName.ToLower() #> :selected').val();
+						<# } else { #>
                                 <#= property.PropertyName #>: $('#<#= property.PropertyName #>', 'form').val(),
                         <#
                              }

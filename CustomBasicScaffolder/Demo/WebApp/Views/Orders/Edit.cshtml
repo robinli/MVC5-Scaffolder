@@ -119,8 +119,8 @@
                             
                         },
                         error: function (result) {
-                            console.log(result);
-                            alert("Failed" + result);
+                            console.log(result.statusText + result.responseText);
+                            alert(result.statusText + result.responseText);
                         }
                     });
                     return false;
