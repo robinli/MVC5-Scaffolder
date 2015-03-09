@@ -13,7 +13,7 @@ namespace WebApp.Models
             : base("Name=DefaultConnection")
         { 
         }
-
+         
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
 

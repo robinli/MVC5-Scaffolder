@@ -163,7 +163,8 @@ else
                         <i class="glyphicon glyphicon-trash"></i>
                     </button>
                 </div>
-                <table id="<#= detailmodelnameVar  #>-table" data-search="true"
+                <div class="table-responsive">
+                <table id="<#= detailmodelnameVar  #>-table"  class="table table-striped" data-search="true"
                        data-flat="false"
                        data-toolbar="#toolbar"
                        data-pagination="true"
@@ -201,7 +202,7 @@ else
                         </tr>
                     </thead>
                 </table>
-
+                </div>
             </div>
 
 		  <# 

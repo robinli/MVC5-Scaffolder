@@ -45,45 +45,45 @@
                 </button>
             </div>
  
+            <div class="table-responsive">
+                <table id="orders-table" data-search="true" class="table   table-striped "
+                       data-url="/Orders/PageList"
+                       data-flat="false"
+                       data-toolbar="#toolbar"
+                       data-pagination="true"
+                       data-show-refresh="true"
+                       data-show-toggle="true"
+                       data-show-columns="true"
+                       data-single-select="true"
+                       data-page-list="[5, 10, 20, 50, 100, 200]"
+                       data-sort-name="Id"
+                       data-side-pagination="server"
+                       data-click-to-select="true">
+                    <thead>
+                        <tr>
+                            <th data-field="state" data-checkbox="true"></th>
+                            <th data-field="Id" data-sortable="true" data-visible="false">
+                                @Html.DisplayNameFor(model => model.Id)
+                            </th>
+                            <th data-field="Customer" data-sortable="true">
+                                @Html.DisplayNameFor(model => model.Customer)
+                            </th>
+                            <th data-field="ShippingAddress" data-sortable="true">
+                                @Html.DisplayNameFor(model => model.ShippingAddress)
+                            </th>
+                            <th data-field="OrderDate" data-sortable="true">
+                                @Html.DisplayNameFor(model => model.OrderDate)
+                            </th>
+                            <th data-field="action" data-formatter="actionFormatter" data-events="actionEvents">Action</th>
+                        </tr>
+                    </thead>
 
-        <table id="orders-table" data-search="true"
-                   data-url="/Orders/PageList"
-                   data-flat="false"
-                   data-toolbar="#toolbar"
-                   data-pagination="true"
-                   data-show-refresh="true"
-                   data-show-toggle="true"
-                   data-show-columns="true"
-                   data-single-select="true"
-                   data-page-list="[5, 10, 20, 50, 100, 200]"
-                   data-sort-name="Id"
-                   data-side-pagination="server"
-                   data-click-to-select="true">
-                <thead>
-                    <tr>
-                         <th data-field="state" data-checkbox="true"></th>
-                        <th data-field="Id" data-sortable="true" data-visible="false">
-                            @Html.DisplayNameFor(model => model.Id)
-                        </th>
-        <th data-field="Customer" data-sortable="true" >
-             @Html.DisplayNameFor(model => model.Customer)
-        </th>
-        <th data-field="ShippingAddress" data-sortable="true" >
-             @Html.DisplayNameFor(model => model.ShippingAddress)
-        </th>
-        <th data-field="OrderDate" data-sortable="true" >
-             @Html.DisplayNameFor(model => model.OrderDate)
-        </th>
-        <th data-field="action" data-formatter="actionFormatter" data-events="actionEvents">Action</th>
-    </tr>
-    </thead>
- 
 
-</table>
+                </table>
+            </div>
+                <br />
 
-<br />
- 
-     </div>
+            </div>
     </div>
 </div>
 @section Scripts {

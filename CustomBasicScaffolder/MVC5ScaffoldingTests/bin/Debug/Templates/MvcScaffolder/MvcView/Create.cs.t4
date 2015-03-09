@@ -76,6 +76,7 @@ if (ReferenceScriptLibraries) {
 #>
 <#
     var modelName =  ModelMetadata.EntitySetName;
+	var primaryKey = ModelMetadata.PrimaryKeys[0].PropertyName;
 #>
 <div class="container-fluid">
     <!-- Page Heading -->
@@ -128,7 +129,7 @@ if (ReferenceScriptLibraries) {
         </div>
     </div>
 }
-
+    </div>
  </div>
 </div>
 <#
@@ -137,6 +138,77 @@ if(IsLayoutPageSelected && ReferenceScriptLibraries && IsBundleConfigPresent) {
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+     <script type="text/javascript">
+     
+    <#  if(GenerateMasterDetailRelationship  && OneToManyModelMetadata.Count >0) { 
+		var primaryKeyVar = ModelTypeName.ToLower() + primaryKey.ToLower();
+	#>
+		var <#= primaryKeyVar #> = 0;
+		var ObjectState = "Added";  
+            <# foreach(var item in OneToManyModelMetadata) {
+                var boostraptablevar = "$" + item.Key.ToLower()  + "table";
+                var detailnamevar=item.Key.ToLower();
+            #>                     
+             var <#= boostraptablevar #> = {};
+            <# } #>
+            $(document).ready(function () {
+
+                $('form').submit(function () {
+                    var token = $('[name=__RequestVerificationToken]').val();
+                    var serializedForm = $(this).serialize();
+                    var actionurl = $(this).attr('action');
+                    <# foreach(var item in OneToManyModelMetadata) {
+                        var boostraptablevar = "$" + item.Key.ToLower()  + "table";
+                        var detailnamevar=item.Key.ToLower();
+                     #>                     
+                        var <#= detailnamevar #> = <#= boostraptablevar #>.bootstrapTable('getData');
+                     <# } #>
+                    
+                     var newitem = {
+                        <# foreach(var property  in  ModelMetadata.Properties) {
+                            if(property.IsPrimaryKey) {
+                        #>                  
+                                <#= property.PropertyName #>: <#= primaryKeyVar #>,
+                        <# } else if (property.AssociationDirection == AssociationDirection.OneToMany) { #>
+                                <#= property.PropertyName #>: <#= property.PropertyName.ToLower() #> ,
+                        <# } else if(property.IsForeignKey)  { #>
+								<#= property.PropertyName #>: $('#<#= property.PropertyName.ToLower() #> :selected').val();
+						<# } else { #>
+                                <#= property.PropertyName #>: $('#<#= property.PropertyName #>', 'form').val(),
+                        <#
+                             }
+                          }
+                        #>
+                        ObjectState:ObjectState 
+                    };
+                    $.ajax({
+                        url: actionurl,
+                        type: "POST",
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify(newitem),
+                        success: function (result) {
+                            if (result.success) {
+                                self.location = "/<#= ControllerRootName #>/Index";
+                            } else {
+                                alert(result.err);
+                            }
+                            
+                        },
+                        error: function (result) {
+                            console.log(result.statusText + result.responseText);
+                            alert(result.statusText + result.responseText);
+                        }
+                    });
+                    return false;
+                    
+
+                });
+            });
+  <#   } #>
+        </script>
+
+
 }
 <#
 }

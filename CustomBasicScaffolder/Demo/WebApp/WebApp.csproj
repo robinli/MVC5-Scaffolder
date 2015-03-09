@@ -215,11 +215,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201502160923041_Order.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Migrations\201502160923041_Order.Designer.cs">
-      <DependentUpon>201502160923041_Order.cs</DependentUpon>
+    <Compile Include="Migrations\201503090427556_InitialCreate.cs" />
+    <Compile Include="Migrations\201503090427556_InitialCreate.Designer.cs">
+      <DependentUpon>201503090427556_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs">
       <SubType>Code</SubType>
@@ -229,6 +227,7 @@
     <Compile Include="Models\CategoryMetadata.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ModelBuilder.cs" />
     <Compile Include="Models\Order.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -262,6 +261,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\imgs\pinlayer2.png" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\sb-admin.css" />
     <Content Include="favicon.ico" />
@@ -423,6 +423,8 @@
     <Content Include="Views\Orders\Create.cshtml" />
     <Content Include="Views\Orders\Edit.cshtml" />
     <Content Include="Views\Orders\EditForm.cshtml" />
+    <Content Include="Views\Shared\_LoginLayout.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\String.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -446,8 +448,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201502160923041_Order.resx">
-      <DependentUpon>201502160923041_Order.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201503090427556_InitialCreate.resx">
+      <DependentUpon>201503090427556_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

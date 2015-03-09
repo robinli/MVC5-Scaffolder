@@ -7,6 +7,11 @@ using Repository.Pattern.DataContext;
 using WebApp.Models;
 using Repository.Pattern.Repositories;
 using WebApp.Services;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.Entity;
+using Microsoft.Owin.Security;
+using System.Web;
 
 namespace WebApp.App_Start
 {
@@ -51,6 +56,10 @@ namespace WebApp.App_Start
             //container.RegisterType<ICategoryService, CategoryService>(new PerRequestLifetimeManager());
             //container.RegisterType<IRepositoryAsync<Order>, Repository<Order>>(new PerRequestLifetimeManager());
             //container.RegisterType<IOrderService, OrderService>(new PerRequestLifetimeManager());
+            container.RegisterType<DbContext, ApplicationDbContext>(new HierarchicalLifetimeManager());
+            container.RegisterType<ApplicationDbContext>(new HierarchicalLifetimeManager());
+            container.RegisterType<IUserStore<ApplicationUser>, UserStore<ApplicationUser>>(new HierarchicalLifetimeManager());
+            container.RegisterType<IAuthenticationManager>(new InjectionFactory(o => HttpContext.Current.GetOwinContext().Authentication));
 
             container.RegisterType<IUnitOfWorkAsync, UnitOfWork>(new PerRequestLifetimeManager());
             container.RegisterType<IDataContextAsync, StoreContext>(new PerRequestLifetimeManager());
