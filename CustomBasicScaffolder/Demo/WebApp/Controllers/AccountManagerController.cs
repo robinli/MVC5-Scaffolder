@@ -117,7 +117,11 @@ namespace WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await UserManager.UpdateAsync(user);
+                var item = await UserManager.FindByIdAsync(user.Id);
+                item.UserName = user.UserName;
+                item.PhoneNumber = user.PhoneNumber;
+                item.Email = user.Email;
+                var result = await UserManager.UpdateAsync(item);
                 if (result.Succeeded)
                 {
                     return RedirectToAction("Index", "AccountManager");

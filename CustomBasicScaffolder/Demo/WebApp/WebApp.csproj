@@ -210,9 +210,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Controllers\ProductsController.cs" />
-    <Compile Include="Controllers\RoleManagerController.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Extensions\HtmlExtensions.cs" />
     <Compile Include="Extensions\LinqOrderByColumnsNameExtensions.cs" />
     <Compile Include="Extensions\PageListExtensions.cs" />
@@ -434,9 +431,6 @@
     <Content Include="Views\Shared\EditorTemplates\String1.cshtml" />
     <Content Include="Views\AccountManager\Index.cshtml" />
     <Content Include="Views\AccountManager\Create.cshtml" />
-    <Content Include="Views\RoleManager\Create.cshtml" />
-    <Content Include="Views\RoleManager\Edit.cshtml" />
-    <Content Include="Views\RoleManager\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
