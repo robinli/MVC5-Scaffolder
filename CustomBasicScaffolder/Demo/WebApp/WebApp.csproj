@@ -202,9 +202,11 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AccountManagerController.cs" />
+    <Compile Include="Controllers\ButtonAttribute.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ManagementController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\OrdersController__.cs">
       <SubType>Code</SubType>
@@ -227,8 +229,8 @@
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\CategoryMetadata.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ManagementViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\ModelBuilder.cs" />
     <Compile Include="Models\Order.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -431,6 +433,13 @@
     <Content Include="Views\Shared\EditorTemplates\String1.cshtml" />
     <Content Include="Views\AccountManager\Index.cshtml" />
     <Content Include="Views\AccountManager\Create.cshtml" />
+    <Content Include="Views\Management\Index.cshtml" />
+    <Content Include="Views\Management\_AccountRecordPartial.cshtml" />
+    <Content Include="Views\Management\_AddAccountPartial.cshtml" />
+    <Content Include="Views\Management\_AddRolePartial.cshtml" />
+    <Content Include="Views\Management\_AttachRolePartial.cshtml" />
+    <Content Include="Views\Management\_DeleteAccountPartial.cshtml" />
+    <Content Include="Views\Management\_RoleRecordPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
