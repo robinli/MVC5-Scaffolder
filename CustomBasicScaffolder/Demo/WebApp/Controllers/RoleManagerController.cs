@@ -13,45 +13,36 @@ using WebApp.Extensions;
 namespace WebApp.Controllers
 {
     [Authorize]
-    public class AccountManagerController : Controller
+    public class RoleManagerController : Controller
     {
-        private ApplicationUserManager _userManager;
+        private ApplicationRoleManager _roleManager;
 
-        public AccountManagerController()
+        public RoleManagerController()
         {
         }
 
-        public AccountManagerController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        public RoleManagerController(ApplicationRoleManager roleManager)
         {
-            UserManager = userManager;
-            SignInManager = signInManager;
+            RoleManager = roleManager;
+
         }
-        public ApplicationUserManager UserManager
+        public ApplicationRoleManager RoleManager
         {
             get
             {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                return _roleManager;
             }
             private set
             {
-                _userManager = value;
+                _roleManager = value;
             }
         }
-        private ApplicationSignInManager _signInManager;
 
-        public ApplicationSignInManager SignInManager
-        {
-            get
-            {
-                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-            }
-            private set { _signInManager = value; }
-        }
         public ActionResult Index()
         {
             return View();
         }
-        // Get :AccountManager/PageList
+        // Get :RoleManager/PageList
         // For Index View Boostrap-Table load  data 
         [HttpGet]
         public ActionResult PageList(int offset = 0, int limit = 10, string search = "", string sort = "", string order = "")
@@ -59,10 +50,10 @@ namespace WebApp.Controllers
             int totalCount = 0;
             int pagenum = offset / limit + 1;
 
-            var users = _userManager.Users.Where(n => n.UserName.Contains(search) || n.Email.Contains(search) || n.PhoneNumber.Contains(search)).OrderByName(sort, order);
-            totalCount = users.Count();
-            var datalist = users.Skip(offset).Take(limit);
-            var rows = datalist.Select(n => new { Id = n.Id, UserName = n.UserName, Email = n.Email, PhoneNumber = n.PhoneNumber, AccessFailedCount = n.AccessFailedCount, LockoutEnabled = n.LockoutEnabled, LockoutEndDateUtc = n.LockoutEndDateUtc }).ToList();
+            var roles = _roleManager.Roles.Where(n => n.Name.Contains(search)).OrderByName(sort, order);
+            totalCount = roles.Count();
+            var datalist = roles.Skip(offset).Take(limit);
+            var rows = datalist.Select(n => new { Id = n.Id, Name = n.Name }).ToList();
             var pagelist = new { total = totalCount, rows = rows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
@@ -74,12 +65,12 @@ namespace WebApp.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(RegisterViewModel model)
+        public async Task<ActionResult> Create(ApplicationRole role)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
+
+                var result = await _roleManager.CreateAsync(role);
                 if (result.Succeeded)
                 {
                     //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
@@ -90,41 +81,41 @@ namespace WebApp.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "AccountManager");
+                    return RedirectToAction("Index", "RoleManager");
                 }
                 AddErrors(result);
             }
 
             // If we got this far, something failed, redisplay form
-            return View(model);
+            return View(role);
         }
         [HttpGet]
         public async Task<ActionResult> Edit(string id)
         {
 
-            var user = await UserManager.FindByIdAsync(id);
-            if (user == null)
+            var role = await _roleManager.FindByIdAsync(id);
+            if (role == null)
             {
                 return View("Error");
             }
 
-            return View(user);
+            return View(role);
 
         }
 
         [HttpPost]
-        public async Task<ActionResult> Edit(ApplicationUser user)
+        public async Task<ActionResult> Edit(ApplicationRole role)
         {
             if (ModelState.IsValid)
             {
-                var result = await UserManager.UpdateAsync(user);
+                var result = await _roleManager.UpdateAsync(role);
                 if (result.Succeeded)
                 {
                     return RedirectToAction("Index", "AccountManager");
                 }
                 AddErrors(result);
             }
-            return View(user);
+            return View(role);
 
         }
 
@@ -133,8 +124,8 @@ namespace WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await UserManager.FindByIdAsync(id);
-                var result = await UserManager.DeleteAsync(user);
+                var role = await _roleManager.FindByIdAsync(id);
+                var result = await _roleManager.DeleteAsync(role);
                 if (result.Succeeded)
                 {
                     if (Request.IsAjaxRequest())
@@ -165,4 +156,5 @@ namespace WebApp.Controllers
             return RedirectToAction("Index", "Home");
         }
     }
+    
 }

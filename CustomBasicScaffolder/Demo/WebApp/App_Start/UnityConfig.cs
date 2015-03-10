@@ -58,6 +58,8 @@ namespace WebApp.App_Start
             //container.RegisterType<IOrderService, OrderService>(new PerRequestLifetimeManager());
             container.RegisterType<DbContext, ApplicationDbContext>(new HierarchicalLifetimeManager());
             container.RegisterType<ApplicationDbContext>(new HierarchicalLifetimeManager());
+
+       
             container.RegisterType<IUserStore<ApplicationUser>, UserStore<ApplicationUser>>(new HierarchicalLifetimeManager());
             container.RegisterType<IAuthenticationManager>(new InjectionFactory(o => HttpContext.Current.GetOwinContext().Authentication));
 
