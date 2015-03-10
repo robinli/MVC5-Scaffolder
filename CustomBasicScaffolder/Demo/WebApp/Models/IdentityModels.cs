@@ -18,6 +18,10 @@ namespace WebApp.Models
         }
     }
 
+    public class ApplicationRole : IdentityRole
+    {
+    }
+
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
@@ -30,4 +34,6 @@ namespace WebApp.Models
             return new ApplicationDbContext();
         }
     }
+
+   
 }

@@ -97,8 +97,8 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
                 </button>
             </div>
  
-
-        <table id="<#= modelVariable #>-table" data-search="true"
+       <div class="table-responsive">
+        <table id="<#= modelVariable #>-table" class="table table-striped" data-search="true"
                    data-url="/<#= ControllerRootName #>/PageList"
                    data-flat="false"
                    data-toolbar="#toolbar"
@@ -149,7 +149,7 @@ foreach (PropertyMetadata property in properties) {
  
 
 </table>
-
+</div>
 <br />
  
      </div>

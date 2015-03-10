@@ -141,7 +141,7 @@
              $categoriestable.on('check.bs.table uncheck.bs.table check-all.bs.table uncheck-all.bs.table', function () {
                 $deletecategoriesbutton.prop('disabled', !$categoriestable.bootstrapTable('getSelections').length);
             });
-             $('#newcategoriesbutton').on('click', function () {
+            $('#newcategoriesbutton').on('click', function () {
 
                 $(location).attr('href', "/Categories/Create");
             });

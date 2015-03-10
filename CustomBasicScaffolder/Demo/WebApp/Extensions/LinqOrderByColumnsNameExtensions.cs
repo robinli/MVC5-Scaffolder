@@ -50,5 +50,34 @@ namespace WebApp.Extensions
         {
             return OrderingHelper(source, propertyName, true, true);
         }
+
+        public static IQueryable<T> OrderByName<T>(this IQueryable<T> q, string SortField, bool Ascending = true)
+        {
+            if (SortField.IndexOf("DESC") > 0)
+            {
+                SortField = SortField.Split(new char[] { ' ' })[0];
+                Ascending = false;
+            }
+            var param = Expression.Parameter(typeof(T), "p");
+            var prop = Expression.Property(param, SortField);
+            var exp = Expression.Lambda(prop, param);
+            string method = Ascending ? "OrderBy" : "OrderByDescending";
+            Type[] types = new Type[] { q.ElementType, exp.Body.Type };
+            var mce = Expression.Call(typeof(Queryable), method, types, q.Expression, exp);
+            return q.Provider.CreateQuery<T>(mce);
+        }
+        public static IQueryable<T> OrderByName<T>(this IQueryable<T> q, string SortField, string order = "desc")
+        {
+            if (order.ToLower() == "desc")
+            {
+                return OrderByName(q, SortField, false);
+            }
+            else
+            {
+                return OrderByName(q, SortField, true);
+            }
+        }
+
+
     }
 }
