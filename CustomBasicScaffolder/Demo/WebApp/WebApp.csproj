@@ -191,6 +191,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\ApplicationRoleManager.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\CustomModelBinders.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -226,6 +227,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ApplicationRole.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\CategoryMetadata.cs" />
     <Compile Include="Models\IdentityModels.cs" />
