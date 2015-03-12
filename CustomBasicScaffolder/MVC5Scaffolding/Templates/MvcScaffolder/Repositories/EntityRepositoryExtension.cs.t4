@@ -73,7 +73,9 @@ namespace <#=DefaultNamespace #>.Repositories
         #>
         public static IEnumerable<<#= property.RelatedModel.ShortTypeName #>>   Get<#= property.PropertyName #>By<#= foreignKeyName #> (this IRepositoryAsync<<#= ModelName #>> repository,<#= primaryKey.ShortTypeName #> <#= foreignKeyName.ToLower() #>)
         {
-            return repository.Query(n => n.<#= PrimaryKeyName #> == <#= foreignKeyName.ToLower() #>).Include(x => x.<#= property.PropertyName #>).Select(x => x.<#= property.PropertyName #>).FirstOrDefault();
+            var query = repository.Query(n => n.<#= PrimaryKeyName #> == <#= foreignKeyName.ToLower() #>).Include(x => x.<#= property.PropertyName #>).Select().FirstOrDefault();
+            return query.<#= property.PropertyName #>;
+            //return repository.Query(n => n.<#= PrimaryKeyName #> == <#= foreignKeyName.ToLower() #>).Include(x => x.<#= property.PropertyName #>).Select(x => x.<#= property.PropertyName #>).FirstOrDefault();
         }
         <#
             }

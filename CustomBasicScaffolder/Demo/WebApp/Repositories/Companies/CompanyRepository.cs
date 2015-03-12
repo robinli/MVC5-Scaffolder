@@ -21,7 +21,9 @@ namespace WebApp.Repositories
         
                 public static IEnumerable<Department>   GetDepartmentsByCompanyId (this IRepositoryAsync<Company> repository,int companyid)
         {
-            return repository.Query(n => n.Id == companyid).Include(x => x.Departments).Select(x => x.Departments).FirstOrDefault();
+            var query = repository.Query(n => n.Id == companyid).Include(x => x.Departments).Select().First();
+            return query.Departments;
+            //return repository.Query(n => n.Id == companyid).Include(x => x.Departments).Select(x => x.Departments).FirstOrDefault();
         }
          
 	}
