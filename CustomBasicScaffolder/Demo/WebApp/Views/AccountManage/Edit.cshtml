@@ -1,6 +1,7 @@
 ﻿
+@using WebApp.Models
 
-@model WebApp.Models.ApplicationUser
+@model ApplicationUser
 
 @{
     ViewBag.Title = "Edit";
@@ -22,7 +23,7 @@
                     <i class="fa fa-home"></i>  @Html.ActionLink("Home", "Index", "Home")
                 </li>
                  <li>
-                    <i class="fa fa-folder-open"></i>  @Html.ActionLink("Users", "Index", "AccountManager")
+                    <i class="fa fa-folder-open"></i>  @Html.ActionLink("Users", "Index", "AccountManage")
                 </li>
                 <li class="active">
                     <i class="fa fa-file"></i> Edit

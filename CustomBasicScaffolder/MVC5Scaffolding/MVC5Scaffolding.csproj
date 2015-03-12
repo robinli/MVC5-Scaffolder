@@ -93,6 +93,12 @@
     <Compile Include="Scaffolders\MvcScaffolder.cs" />
     <Compile Include="Scaffolders\MvcScaffolderFactory.cs" />
     <None Include="packages.config" />
+    <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\Account\Login.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\Account\Register.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\RoleManager\ManagementController.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -129,16 +135,23 @@
     <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\RoleManager\View\Management\Index.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\UserManager\AccountManagerController.cs.t4">
+    <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\UserManage\AccountManageController.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\UserManager\View\AccountManager\Create.cs.t4">
+    <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\UserManage\View\AccountManage\Create.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\UserManager\View\AccountManager\Edit.cs.t4">
+    <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\UserManage\View\AccountManage\Edit.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\UserManager\View\AccountManager\Index.cs.t4">
+    <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\UserManage\View\AccountManage\Index.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\_LoginLayout.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\_LoginPartial.cs.t4">
+      <SubType>Code</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\_SideNavBar.cs.t4">

@@ -10,7 +10,7 @@ using WebApp.Models;
 
 namespace WebApp
 {
-    /// <summary>
+   /// <summary>
     /// Please add this code to Startup.Auth.cs registration class
     /// app.CreatePerOwinContext<ApplicationRoleManager>(ApplicationRoleManager.Create);
     /// </summary>

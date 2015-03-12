@@ -48,7 +48,7 @@
 
             <div class="table-responsive">
                 <table id="users-table" data-search="true" class="table table-striped"
-                       data-url="/AccountManager/PageList"
+                       data-url="/AccountManage/PageList"
                        data-flat="false"
                        data-toolbar="#toolbar"
                        data-pagination="true"
@@ -115,7 +115,7 @@
         window.actionEvents = {
 
             'click .edit': function (e, value, row, index) {
-                 var url="/AccountManager/Edit/" + row.Id
+                 var url="/AccountManage/Edit/" + row.Id
                  $(location).attr('href', url);
             },
             'click .remove': function (e, value, row, index) {
@@ -125,7 +125,7 @@
 
         }
 
-        //jquery post /AccountManager/Delete/:id
+        //jquery post /AccountManage/Delete/:id
         function deleteUsers(id) {
             var url = '@Url.Action("Delete")';
             bootbox.dialog({
@@ -163,7 +163,7 @@
 
             $('#newusersbutton').on('click', function () {
 
-                $(location).attr('href', "/AccountManager/Create");
+                $(location).attr('href', "/AccountManage/Create");
             });
             $('#deleteusersbutton').on('click', function () {
                 var selected = $userstable.bootstrapTable('getSelections');

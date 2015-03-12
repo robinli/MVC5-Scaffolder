@@ -673,6 +673,18 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 , templateParameters: templateParams
                 , skipIfExists: true);
 
+            // add _LoginLayout
+            viewName = "_LoginLayout";
+            outputPath = Path.Combine(viewRootPath, "Shared", viewName);
+            templatePath = Path.Combine("MvcFullDependencyCodeGenerator", viewName);
+            templateParams = new Dictionary<string, object>(){
+               {"DefaultNamespace", project.GetDefaultNamespace()}
+            };
+            AddFileFromTemplate(project: project
+                , outputPath: outputPath
+                , templateName: templatePath
+                , templateParameters: templateParams
+                , skipIfExists: true);
 
             // add _SideNavBar
             viewName = "_SideNavBar";
@@ -689,6 +701,19 @@ namespace Happy.Scaffolding.MVC.Scaffolders
 
             // add _TopNavBar
             viewName = "_TopNavBar";
+            outputPath = Path.Combine(viewRootPath, "Shared", viewName);
+            templatePath = Path.Combine("MvcFullDependencyCodeGenerator", viewName);
+            templateParams = new Dictionary<string, object>(){
+               {"DefaultNamespace", project.GetDefaultNamespace()}
+            };
+            AddFileFromTemplate(project: project
+                , outputPath: outputPath
+                , templateName: templatePath
+                , templateParameters: templateParams
+                , skipIfExists: true);
+
+            // add _LoginPartial
+            viewName = "_LoginPartial";
             outputPath = Path.Combine(viewRootPath, "Shared", viewName);
             templatePath = Path.Combine("MvcFullDependencyCodeGenerator", viewName);
             templateParams = new Dictionary<string, object>(){
@@ -753,7 +778,127 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 , templateName: templatePath
                 , templateParameters: templateParams
                 , skipIfExists: true);
-            
+
+
+            //RoleManager
+            // add ApplicationRole.cs
+            viewName = "ApplicationRole";
+            outputPath = Path.Combine("Models", viewName);
+            templatePath = Path.Combine("MvcFullDependencyCodeGenerator\\RoleManager", viewName);
+            templateParams = new Dictionary<string, object>(){
+               {"DefaultNamespace", project.GetDefaultNamespace()}
+            };
+            AddFileFromTemplate(project: project
+                , outputPath: outputPath
+                , templateName: templatePath
+                , templateParameters: templateParams
+                , skipIfExists: true);
+
+
+            // add ApplicationRoleManager.cs
+            viewName = "ApplicationRoleManager";
+            outputPath = Path.Combine("App_Start", viewName);
+            templatePath = Path.Combine("MvcFullDependencyCodeGenerator\\RoleManager", viewName);
+            templateParams = new Dictionary<string, object>(){
+               {"DefaultNamespace", project.GetDefaultNamespace()}
+            };
+            AddFileFromTemplate(project: project
+                , outputPath: outputPath
+                , templateName: templatePath
+                , templateParameters: templateParams
+                , skipIfExists: true);
+
+            // add ManagementController.cs
+            viewName = "ManagementController";
+            outputPath = Path.Combine("Controllers", viewName);
+            templatePath = Path.Combine("MvcFullDependencyCodeGenerator\\RoleManager", viewName);
+            templateParams = new Dictionary<string, object>(){
+               {"DefaultNamespace", project.GetDefaultNamespace()}
+            };
+            AddFileFromTemplate(project: project
+                , outputPath: outputPath
+                , templateName: templatePath
+                , templateParameters: templateParams
+                , skipIfExists: true);
+
+            // add ManagementViewModels.cs
+            viewName = "ManagementViewModels";
+            outputPath = Path.Combine("Models", viewName);
+            templatePath = Path.Combine("MvcFullDependencyCodeGenerator\\RoleManager", viewName);
+            templateParams = new Dictionary<string, object>(){
+               {"DefaultNamespace", project.GetDefaultNamespace()}
+            };
+            AddFileFromTemplate(project: project
+                , outputPath: outputPath
+                , templateName: templatePath
+                , templateParameters: templateParams
+                , skipIfExists: true);
+
+            // add managerviews\
+            var managerviews = new string[] { "Index", "_RoleRecordPartial", "_DeleteAccountPartial", "_AttachRolePartial", "_AddRolePartial", "_AddAccountPartial", "_AccountRecordPartial" };
+            foreach (string vname in managerviews)
+            {
+                viewName = vname;
+                outputPath = Path.Combine(viewRootPath,"Management", viewName);
+                templatePath = Path.Combine("MvcFullDependencyCodeGenerator\\RoleManager\\View", viewName);
+                templateParams = new Dictionary<string, object>(){
+               {"DefaultNamespace", project.GetDefaultNamespace()}
+            };
+                AddFileFromTemplate(project: project
+                    , outputPath: outputPath
+                    , templateName: templatePath
+                    , templateParameters: templateParams
+                    , skipIfExists: true);
+            }
+
+            var accountmanageviews = new string[] { "Index", "Edit", "Create" };
+            foreach (string vname in accountmanageviews)
+            {
+                viewName = vname;
+                outputPath = Path.Combine(viewRootPath,"AccountManage", viewName);
+                templatePath = Path.Combine("MvcFullDependencyCodeGenerator\\UserManage\\View\\AccountManage", viewName);
+                templateParams = new Dictionary<string, object>(){
+               {"DefaultNamespace", project.GetDefaultNamespace()}
+            };
+                AddFileFromTemplate(project: project
+                    , outputPath: outputPath
+                    , templateName: templatePath
+                    , templateParameters: templateParams
+                    , skipIfExists: true);
+            }
+
+            var loginviews = new string[] { "Login", "Register"};
+            foreach (string vname in loginviews)
+            {
+                viewName = vname;
+                outputPath = Path.Combine(viewRootPath,"Account", viewName);
+                templatePath = Path.Combine("MvcFullDependencyCodeGenerator\\Account", viewName);
+                templateParams = new Dictionary<string, object>(){
+               {"DefaultNamespace", project.GetDefaultNamespace()}
+            };
+                AddFileFromTemplate(project: project
+                    , outputPath: outputPath
+                    , templateName: templatePath
+                    , templateParameters: templateParams
+                    , skipIfExists: true);
+            }
+
+            // add AccountManageController.cs
+            viewName = "AccountManageController";
+            outputPath = Path.Combine("Controllers", viewName);
+            templatePath = Path.Combine("MvcFullDependencyCodeGenerator\\UserManage", viewName);
+            templateParams = new Dictionary<string, object>(){
+               {"DefaultNamespace", project.GetDefaultNamespace()}
+            };
+            AddFileFromTemplate(project: project
+                , outputPath: outputPath
+                , templateName: templatePath
+                , templateParameters: templateParams
+                , skipIfExists: true);
+
+           
+
+
         }
 
         private void AddDataFieldTemplates(Project project, string viewRootPath)

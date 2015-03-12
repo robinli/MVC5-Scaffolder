@@ -202,7 +202,7 @@
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AccountManagerController.cs" />
+    <Compile Include="Controllers\AccountManageController.cs" />
     <Compile Include="Controllers\ButtonAttribute.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -369,9 +369,6 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Views\AccountManager\Edit.cshtml">
-      <SubType>Code</SubType>
-    </Content>
     <Content Include="Views\Orders\Index1.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -397,8 +394,8 @@
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />
     <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\Login11.cshtml" />
+    <Content Include="Views\Account\Register11.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\SendCode.cshtml" />
@@ -410,13 +407,13 @@
     <Content Include="Views\Manage\SetPassword.cshtml" />
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
-    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial11.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Date.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Date.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\DateTime.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_SideNavBar.cshtml" />
-    <Content Include="Views\Shared\_TopNavBar.cshtml" />
+    <Content Include="Views\Shared\_TopNavBar11.cshtml" />
     <Content Include="Views\Orders\EditForm1.cshtml" />
     <Content Include="Views\Orders\_OrderDetailForm.cshtml" />
     <Content Include="Views\Products\Create.cshtml" />
@@ -434,15 +431,20 @@
     <Content Include="Views\Orders\EditForm.cshtml" />
     <Content Include="Views\Shared\_LoginLayout.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\String1.cshtml" />
-    <Content Include="Views\AccountManager\Index.cshtml" />
-    <Content Include="Views\AccountManager\Create.cshtml" />
+    <Content Include="Views\AccountManage\Index.cshtml" />
+    <Content Include="Views\AccountManage\Edit.cshtml" />
+    <Content Include="Views\AccountManage\Create.cshtml" />
     <Content Include="Views\Management\Index.cshtml" />
-    <Content Include="Views\Management\_AccountRecordPartial.cshtml" />
-    <Content Include="Views\Management\_AddAccountPartial.cshtml" />
-    <Content Include="Views\Management\_AddRolePartial.cshtml" />
-    <Content Include="Views\Management\_AttachRolePartial.cshtml" />
-    <Content Include="Views\Management\_DeleteAccountPartial.cshtml" />
     <Content Include="Views\Management\_RoleRecordPartial.cshtml" />
+    <Content Include="Views\Management\_DeleteAccountPartial.cshtml" />
+    <Content Include="Views\Management\_AttachRolePartial.cshtml" />
+    <Content Include="Views\Management\_AddRolePartial.cshtml" />
+    <Content Include="Views\Management\_AddAccountPartial.cshtml" />
+    <Content Include="Views\Management\_AccountRecordPartial.cshtml" />
+    <Content Include="Views\Shared\_TopNavBar.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

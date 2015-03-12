@@ -1,7 +1,4 @@
-﻿<#@ template language="C#" HostSpecific="True" #>
-<#@ output extension="cs" #>
-<#@ parameter type="System.String" name="DefaultNamespace" #>
-
+﻿
  
 
 using System;
@@ -14,21 +11,21 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using <#= DefaultNamespace #>.Models;
-using <#= DefaultNamespace #>.Extensions;
+using WebApp.Models;
+using WebApp.Extensions;
 
-namespace <#= DefaultNamespace #>.Controllers
+namespace WebApp.Controllers
 {
     [Authorize]
-    public class AccountManagerController : Controller
+    public class AccountManageController : Controller
     {
         private ApplicationUserManager _userManager;
 
-        public AccountManagerController()
+        public AccountManageController()
         {
         }
 
-        public AccountManagerController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        public AccountManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;

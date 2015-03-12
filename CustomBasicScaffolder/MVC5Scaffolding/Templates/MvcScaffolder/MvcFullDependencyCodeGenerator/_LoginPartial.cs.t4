@@ -1,4 +1,7 @@
-﻿
+﻿<#@ template language="C#" HostSpecific="True" #>
+<#@ output extension=".cshtml" #>
+<#@ parameter type="System.String" name="DefaultNamespace" #>
+
 @using Microsoft.AspNet.Identity
 @if (Request.IsAuthenticated)
 {

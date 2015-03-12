@@ -19,15 +19,12 @@
         <li>
             <a href="javascript:;" data-toggle="collapse" data-target="#systemmanager"><i class="fa fa-fw fa-wrench"></i> 系统管理 <i class="fa fa-fw fa-caret-down"></i></a>
             <ul id="systemmanager" class="collapse">
-                <li class="active">
-                    <a href="#"><i class="fa fa-fw fa-user"></i>用户管理</a>
-
+               <li>
+                    <a href="/AccountManage"><i class="fa fa-fw fa-user"></i>用户管理</a>
                 </li>
+              
                 <li>
-                    <a href="#"><i class="fa fa-fw fa-group"></i>角色管理</a>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-fw fa-lock"></i>授权管理</a>
+                    <a href="/Management"><i class="fa fa-fw fa-lock"></i>授权管理</a>
                 </li>
             </ul>
         </li>
