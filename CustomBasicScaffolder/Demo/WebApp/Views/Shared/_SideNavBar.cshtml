@@ -3,6 +3,17 @@
     <ul class="nav navbar-nav side-nav">
 
         <li>
+            <a href="javascript:;" data-toggle="collapse" data-target="#model2"><i class="fa fa-fw fa-folder-o"></i> 组织架构 <i class="fa fa-fw fa-caret-down"></i></a>
+            <ul id="model2" class="collapse">
+                <li>
+                    @Html.ActionLink("Company", "Index", "Companies")
+                </li>
+                <li>
+                    @Html.ActionLink("Department", "Index", "Departments")
+                </li>
+               
+            </ul>
+
             <a href="javascript:;" data-toggle="collapse" data-target="#model1"><i class="fa fa-fw fa-folder-o"></i> 业务系统 <i class="fa fa-fw fa-caret-down"></i></a>
             <ul id="model1" class="collapse">
                 <li >

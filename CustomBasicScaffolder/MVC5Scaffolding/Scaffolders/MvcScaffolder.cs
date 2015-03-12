@@ -168,10 +168,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             
             var fieldDisplayNames = GetAllFieldDisplayNames(modelType, efMetadata);
             var oneToManyModels = GetOneToManyModelDictionary(efMetadata, efService, dbContextTypeName);
-            foreach (var m in oneToManyModels.Values)
-            {
-                string fk = GetForeignKeyName(m, "Order");
-            }
+
             var oneToManyAnonymousObjTextDic = GetOneToManyAnonymousObjTextDic(oneToManyModels);
             // Create Controller
             string controllerName = codeGeneratorViewModel.ControllerName;

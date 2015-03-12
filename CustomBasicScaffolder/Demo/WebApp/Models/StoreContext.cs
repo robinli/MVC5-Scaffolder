@@ -19,5 +19,9 @@ namespace WebApp.Models
 
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
+
+        public System.Data.Entity.DbSet<WebApp.Models.Company> Companies { get; set; }
+
+        public System.Data.Entity.DbSet<WebApp.Models.Department> Departments { get; set; }
     }
 }

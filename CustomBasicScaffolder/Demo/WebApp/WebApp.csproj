@@ -205,6 +205,8 @@
     <Compile Include="Controllers\AccountManageController.cs" />
     <Compile Include="Controllers\ButtonAttribute.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
+    <Compile Include="Controllers\CompaniesController.cs" />
+    <Compile Include="Controllers\DepartmentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ManagementController.cs" />
@@ -223,6 +225,14 @@
     <Compile Include="Migrations\201503090427556_InitialCreate.Designer.cs">
       <DependentUpon>201503090427556_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201503120617411_company.cs" />
+    <Compile Include="Migrations\201503120617411_company.Designer.cs">
+      <DependentUpon>201503120617411_company.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503120708062_department.cs" />
+    <Compile Include="Migrations\201503120708062_department.Designer.cs">
+      <DependentUpon>201503120708062_department.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -230,6 +240,16 @@
     <Compile Include="Models\ApplicationRole.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\CategoryMetadata.cs" />
+    <Compile Include="Models\Company.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\CompanyMetadata.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\Department.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\DepartmentMetadata.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManagementViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -248,12 +268,20 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Categories\CategoryQuery.cs" />
     <Compile Include="Repositories\Categories\CategoryRepository.cs" />
+    <Compile Include="Repositories\Companies\CompanyQuery.cs" />
+    <Compile Include="Repositories\Companies\CompanyRepository.cs" />
+    <Compile Include="Repositories\Departments\DepartmentQuery.cs" />
+    <Compile Include="Repositories\Departments\DepartmentRepository.cs" />
     <Compile Include="Repositories\Orders\OrderQuery.cs" />
     <Compile Include="Repositories\Orders\OrderRepository.cs" />
     <Compile Include="Repositories\Products\ProductQuery.cs" />
     <Compile Include="Repositories\Products\ProductRepository.cs" />
     <Compile Include="Services\CategoryService.cs" />
+    <Compile Include="Services\CompanyService.cs" />
+    <Compile Include="Services\DepartmentService.cs" />
     <Compile Include="Services\ICategoryService.cs" />
+    <Compile Include="Services\ICompanyService.cs" />
+    <Compile Include="Services\IDepartmentService.cs" />
     <Compile Include="Services\IOrderService.cs" />
     <Compile Include="Services\IProductService.cs" />
     <Compile Include="Services\OrderService.cs" />
@@ -369,7 +397,6 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Views\Orders\Index1.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -394,8 +421,6 @@
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />
     <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
-    <Content Include="Views\Account\Login11.cshtml" />
-    <Content Include="Views\Account\Register11.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\SendCode.cshtml" />
@@ -407,28 +432,19 @@
     <Content Include="Views\Manage\SetPassword.cshtml" />
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
-    <Content Include="Views\Shared\_LoginPartial11.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Date.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Date.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\DateTime.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_SideNavBar.cshtml" />
-    <Content Include="Views\Shared\_TopNavBar11.cshtml" />
-    <Content Include="Views\Orders\EditForm1.cshtml" />
-    <Content Include="Views\Orders\_OrderDetailForm.cshtml" />
     <Content Include="Views\Products\Create.cshtml" />
     <Content Include="Views\Products\Edit.cshtml" />
     <Content Include="Views\Products\EditForm.cshtml" />
-    <Content Include="Views\Orders\Index.cshtml" />
     <Content Include="Views\Categories\Create.cshtml" />
     <Content Include="Views\Categories\Edit.cshtml" />
     <Content Include="Views\Categories\EditForm.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\Categories\Index.cshtml" />
-    <Content Include="Views\Orders\_OrderDetailEditForm.cshtml" />
-    <Content Include="Views\Orders\Create.cshtml" />
-    <Content Include="Views\Orders\Edit.cshtml" />
-    <Content Include="Views\Orders\EditForm.cshtml" />
     <Content Include="Views\Shared\_LoginLayout.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\String1.cshtml" />
     <Content Include="Views\AccountManage\Index.cshtml" />
@@ -445,6 +461,20 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Orders\Index.cshtml" />
+    <Content Include="Views\Orders\Create.cshtml" />
+    <Content Include="Views\Orders\Edit.cshtml" />
+    <Content Include="Views\Orders\EditForm.cshtml" />
+    <Content Include="Views\Orders\_OrderDetailEditForm.cshtml" />
+    <Content Include="Views\Companies\Index.cshtml" />
+    <Content Include="Views\Companies\Create.cshtml" />
+    <Content Include="Views\Companies\Edit.cshtml" />
+    <Content Include="Views\Companies\EditForm.cshtml" />
+    <Content Include="Views\Companies\_DepartmentEditForm.cshtml" />
+    <Content Include="Views\Departments\Index.cshtml" />
+    <Content Include="Views\Departments\Create.cshtml" />
+    <Content Include="Views\Departments\Edit.cshtml" />
+    <Content Include="Views\Departments\EditForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -470,6 +500,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201503090427556_InitialCreate.resx">
       <DependentUpon>201503090427556_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503120617411_company.resx">
+      <DependentUpon>201503120617411_company.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503120708062_department.resx">
+      <DependentUpon>201503120708062_department.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

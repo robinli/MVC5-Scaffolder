@@ -72,6 +72,12 @@ namespace WebApp.App_Start
             container.RegisterType<ICategoryService, CategoryService>();
             container.RegisterType<IRepositoryAsync<Order>, Repository<Order>>();
             container.RegisterType<IOrderService, OrderService>();
+
+            container.RegisterType<IRepositoryAsync<Company>, Repository<Company>>();
+            container.RegisterType<ICompanyService, CompanyService>();
+
+            container.RegisterType<IRepositoryAsync<Department>, Repository<Department>>();
+            container.RegisterType<IDepartmentService, DepartmentService>();
             //container.RegisterType<IRepositoryAsync<Order>, Repository<Order>>();
             //container.RegisterType<IOrderService, OrderService>();
         }

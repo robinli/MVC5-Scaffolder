@@ -5,7 +5,7 @@
 
 <# var primaryKey = ModelMetadata.PrimaryKeys[0].PropertyName; #>
 
- @Html.HiddenFor(model => model.<#= primaryKey #>)
+ @*@Html.HiddenFor(model => model.<#= primaryKey #>)*@
 
 <#
 // "form-control" attribute is only supported for all EditorFor() in System.Web.Mvc 5.1.0.0 or later versions, except for checkbox, which uses a div in Bootstrap
@@ -34,7 +34,7 @@ else
 <#
         if (property.IsForeignKey) {
 #>
-            @Html.LabelFor(model => model.<#= property.PropertyName #>, "<#= GetAssociationName(property) #>", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.<#= property.PropertyName #>, htmlAttributes: new { @class = "control-label col-md-2" })
 <#
         } else {
 #>
@@ -396,7 +396,8 @@ else
             data: []
         });
         if (ObjectState == "Modified") {
-            <#= primaryKeyVar #> = $('#<#= primaryKey  #>').val();
+             <#= primaryKeyVar #> =@Model.<#= primaryKey  #>;
+            //<#= primaryKeyVar #> = $('#<#= primaryKey  #>').val();
             var url = '/<#= ControllerRootName #>/Get<#= property.PropertyName #>By<#= foreignKeyName #>/' + <#= primaryKeyVar #>;
             $.get(url, function (data) {
                 //console.log(data);
