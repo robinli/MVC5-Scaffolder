@@ -93,12 +93,8 @@
     <Compile Include="Scaffolders\MvcScaffolder.cs" />
     <Compile Include="Scaffolders\MvcScaffolderFactory.cs" />
     <None Include="packages.config" />
-    <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\Account\Login.cs.t4">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\Account\Register.cs.t4">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\Account\Login.cs.t4" />
+    <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\Account\Register.cs.t4" />
     <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\RoleManager\ManagementController.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
