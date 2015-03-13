@@ -177,7 +177,8 @@ namespace WebApp.Controllers
         {
             if (disposing)
             {
-                //_unitOfWork.Dispose();
+                _unitOfWork.Dispose();
+               
             }
             base.Dispose(disposing);
         }
