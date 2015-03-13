@@ -1,3 +1,17 @@
 ﻿@model DateTime?
+<div class="input-group date">
+    @Html.TextBox("", Model, null, new { @class = "form-control" })<span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+</div>
 
-@Html.TextBox("", Model, "{0:yyyy-MM-dd}", new { type = "Date", @class = "form-control" } )
+
+<script>
+    $(document).ready(function (e) {
+        $('#@Html.IdFor(m => m)').datepicker({
+            format: "yyyy/mm/dd",
+            language: "zh-CN",
+            calendarWeeks: true,
+            autoclose: true,
+            todayHighlight: true
+        });
+    })
+ </script>
