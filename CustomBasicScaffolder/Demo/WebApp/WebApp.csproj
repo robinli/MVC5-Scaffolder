@@ -606,6 +606,7 @@
     <Content Include="Views\Orders\EditForm.cshtml" />
     <Content Include="Views\Orders\_OrderDetailEditForm.cshtml" />
     <Content Include="Views\Companies\Index.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\BaseCode.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

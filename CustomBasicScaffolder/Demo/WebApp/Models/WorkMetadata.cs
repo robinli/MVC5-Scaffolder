@@ -21,6 +21,7 @@ namespace WebApp.Models
 
         [Required(ErrorMessage = "Please enter : 状态")]
         [Display(Name = "状态")]
+        [UIHint("BaseCode")]
         [MaxLength(10)]
         public string Status { get; set; }
 
