@@ -903,7 +903,8 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             Dictionary<string, object> templateParams = new Dictionary<string, object>();
 
             var fieldTemplates = new[] { 
-                "EditorTemplates\\Date"
+                "EditorTemplates\\Date",
+                "EditorTemplates\\Slider"
                 , "DisplayTemplates\\Date"
                 , "DisplayTemplates\\DateTime"
             };

@@ -270,8 +270,12 @@
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductMetadata.cs" />
     <Compile Include="Models\StoreContext.cs" />
-    <Compile Include="Models\Task.cs" />
-    <Compile Include="Models\WorkMetadata.cs" />
+    <Compile Include="Models\Task.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\WorkMetadata.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Categories\CategoryQuery.cs" />
     <Compile Include="Repositories\Categories\CategoryRepository.cs" />
@@ -283,8 +287,12 @@
     <Compile Include="Repositories\Orders\OrderRepository.cs" />
     <Compile Include="Repositories\Products\ProductQuery.cs" />
     <Compile Include="Repositories\Products\ProductRepository.cs" />
-    <Compile Include="Repositories\Works\WorkQuery.cs" />
-    <Compile Include="Repositories\Works\WorkRepository.cs" />
+    <Compile Include="Repositories\Works\WorkQuery.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Repositories\Works\WorkRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Services\CategoryService.cs" />
     <Compile Include="Services\CompanyService.cs" />
     <Compile Include="Services\DepartmentService.cs" />
@@ -293,10 +301,14 @@
     <Compile Include="Services\IDepartmentService.cs" />
     <Compile Include="Services\IOrderService.cs" />
     <Compile Include="Services\IProductService.cs" />
-    <Compile Include="Services\IWorkService.cs" />
+    <Compile Include="Services\IWorkService.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Services\OrderService.cs" />
     <Compile Include="Services\ProductService.cs" />
-    <Compile Include="Services\WorkService.cs" />
+    <Compile Include="Services\WorkService.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -518,6 +530,12 @@
     <Content Include="Views\Shared\EditorTemplates\Int.cshtml">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="Views\Works\Create.cshtml" />
+    <Content Include="Views\Works\Edit.cshtml" />
+    <Content Include="Views\Works\EditForm.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\Works\Index.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -588,10 +606,6 @@
     <Content Include="Views\Orders\EditForm.cshtml" />
     <Content Include="Views\Orders\_OrderDetailEditForm.cshtml" />
     <Content Include="Views\Companies\Index.cshtml" />
-    <Content Include="Views\Works\Index.cshtml" />
-    <Content Include="Views\Works\Create.cshtml" />
-    <Content Include="Views\Works\Edit.cshtml" />
-    <Content Include="Views\Works\EditForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
