@@ -11,6 +11,7 @@ namespace WebApp.Models
         public Company()
         {
             Departments = new HashSet<Department>();
+            Employee = new HashSet<Employee>();
         }
         [Key]
         public int Id { get; set; }
@@ -22,6 +23,6 @@ namespace WebApp.Models
         public int Employees { get; set; }
 
         public virtual ICollection<Department> Departments { get; set; }
-
+        public virtual ICollection<Employee> Employee { get; set; }
     }
 }

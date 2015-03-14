@@ -25,5 +25,7 @@ namespace WebApp.Models
         public System.Data.Entity.DbSet<WebApp.Models.Department> Departments { get; set; }
 
         public System.Data.Entity.DbSet<WebApp.Models.Work> Works { get; set; }
+
+        public System.Data.Entity.DbSet<WebApp.Models.Employee> Employees { get; set; }
     }
 }

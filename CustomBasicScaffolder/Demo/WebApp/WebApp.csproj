@@ -222,21 +222,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201503090427556_InitialCreate.cs" />
-    <Compile Include="Migrations\201503090427556_InitialCreate.Designer.cs">
-      <DependentUpon>201503090427556_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201503140537405_44.cs" />
+    <Compile Include="Migrations\201503140537405_44.Designer.cs">
+      <DependentUpon>201503140537405_44.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201503120617411_company.cs" />
-    <Compile Include="Migrations\201503120617411_company.Designer.cs">
-      <DependentUpon>201503120617411_company.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201503120708062_department.cs" />
-    <Compile Include="Migrations\201503120708062_department.Designer.cs">
-      <DependentUpon>201503120708062_department.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201503130023113_work.cs" />
-    <Compile Include="Migrations\201503130023113_work.Designer.cs">
-      <DependentUpon>201503130023113_work.cs</DependentUpon>
+    <Compile Include="Migrations\201503140559462_222.cs" />
+    <Compile Include="Migrations\201503140559462_222.Designer.cs">
+      <DependentUpon>201503140559462_222.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs">
       <SubType>Code</SubType>
@@ -519,10 +511,6 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Views\Companies\Create.cshtml" />
-    <Content Include="Views\Companies\Edit.cshtml" />
-    <Content Include="Views\Companies\EditForm.cshtml" />
-    <Content Include="Views\Companies\_DepartmentEditForm.cshtml" />
     <Content Include="Views\Departments\Create.cshtml" />
     <Content Include="Views\Departments\Edit.cshtml" />
     <Content Include="Views\Departments\EditForm.cshtml" />
@@ -605,8 +593,14 @@
     <Content Include="Views\Orders\Edit.cshtml" />
     <Content Include="Views\Orders\EditForm.cshtml" />
     <Content Include="Views\Orders\_OrderDetailEditForm.cshtml" />
-    <Content Include="Views\Companies\Index.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\BaseCode.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Slider.cshtml" />
+    <Content Include="Views\Companies\Index.cshtml" />
+    <Content Include="Views\Companies\Create.cshtml" />
+    <Content Include="Views\Companies\Edit.cshtml" />
+    <Content Include="Views\Companies\_DepartmentEditForm.cshtml" />
+    <Content Include="Views\Companies\_EmployeeEditForm.cshtml" />
+    <Content Include="Views\Companies\EditForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -630,17 +624,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201503090427556_InitialCreate.resx">
-      <DependentUpon>201503090427556_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201503140537405_44.resx">
+      <DependentUpon>201503140537405_44.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503120617411_company.resx">
-      <DependentUpon>201503120617411_company.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503120708062_department.resx">
-      <DependentUpon>201503120708062_department.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503130023113_work.resx">
-      <DependentUpon>201503130023113_work.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201503140559462_222.resx">
+      <DependentUpon>201503140559462_222.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

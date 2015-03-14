@@ -154,7 +154,7 @@ else
           #>
 
 		  <div role="tabpanel" class="tab-pane <#= idx>0?"":"active"  #>" id="tab-<#=property.PropertyName   #>">
-                <div id="toolbar" class="btn-group">
+                <div id="toolbar-<#=property.PropertyName   #>" class="btn-group">
                     <button type="button" id="add<#= detailmodelnameVar #>button" class="btn btn-default">
                         <i class="glyphicon glyphicon-plus"></i>
                     </button>
@@ -166,7 +166,7 @@ else
                 <div class="table-responsive">
                 <table id="<#= detailmodelnameVar  #>-table"  class="table table-striped" data-search="true"
                        data-flat="false"
-                       data-toolbar="#toolbar"
+                       data-toolbar="#toolbar-<#=property.PropertyName   #>"
                        data-pagination="true"
                        data-show-refresh="true"
                        data-show-toggle="true"
@@ -187,7 +187,12 @@ else
                             <# if ( chproperty.IsPrimaryKey || chproperty.IsForeignKey ) { #>
             <th data-field="<#= chproperty.PropertyName  #>"   data-visible="false" > <#= GetDisplayName(chproperty.PropertyName) #>
             </th>
-        <# } else if (chproperty.AssociationDirection ==  AssociationDirection.ManyToOne ) { #>
+        <# } else if (chproperty.AssociationDirection ==  AssociationDirection.ManyToOne && HasRelatedMasterModel(childrenmodelmeta,chproperty.PropertyName) ) { #>
+			
+            <th data-field="<#= GetRelatedDisplayNameExpression(chproperty,childrenmodelmeta)  #>" data-visible="false"  > <#= GetDisplayName(chproperty.PropertyName) #>
+            </th>
+		<#	} else if (chproperty.AssociationDirection ==  AssociationDirection.ManyToOne && !HasRelatedMasterModel(childrenmodelmeta,chproperty.PropertyName) ) { #>
+			
             <th data-field="<#= GetRelatedDisplayNameExpression(chproperty,childrenmodelmeta)  #>"  > <#= GetDisplayName(chproperty.PropertyName) #>
             </th>
         <# } else { #>
@@ -205,7 +210,7 @@ else
                 </div>
             </div>
 
-		  <# 
+		  <# idx++;
             }
         }
 		  #>
@@ -243,6 +248,7 @@ else
         </div>
     </div>
 </div>
+<!-- End Modal  <#= detailmodeltypename   #>-->
 <# }} #>
 
 <# } #>
@@ -318,12 +324,15 @@ else
         {
             if (property.AssociationDirection == AssociationDirection.OneToMany && OneToManyModelMetadata.ContainsKey(property.PropertyName))
             { 
+				idx ++;
+				var detailscount=OneToManyModelMetadata.Count;
 				var detailmodeltypename = property.RelatedModel.ShortTypeName;
 				var detailmodeltypenameVar= detailmodeltypename.ToLower();
                 var childrenmodelmeta=OneToManyModelMetadata[property.PropertyName];
 				var childrenmodelpk=childrenmodelmeta.PrimaryKeys[0].PropertyName;
 				var detailmodelpluralnameVar=property.PropertyName.ToLower();
 				var boostraptablevar = "$" + property.PropertyName.ToLower()  + "table";
+				
 				
      #>
         'click #<#= detailmodelpluralnameVar #>edit': function (e, value, row, index) {
@@ -367,12 +376,13 @@ else
                     values: [index]
                 });
             }
-        }
-    };
-
+        } <# if(idx < detailscount) {#> , <# } #>
 	<# }
 	} 
 	#>
+    };
+
+	
 	$(function () {
 		<#
 		idx=0;

@@ -60,3 +60,5 @@ C:\Users\Administrator\AppData\Local\Microsoft\VisualStudio\12.0Exp\Extensions\R
 C:\Users\Administrator\AppData\Local\Microsoft\VisualStudio\12.0Exp\Extensions\Robin Li\Happy Scaffolding for MVC5\3.1\\Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\Account\Register.cs.t4
 C:\Users\Administrator\AppData\Local\Microsoft\VisualStudio\12.0Exp\Extensions\Robin Li\Happy Scaffolding for MVC5\3.1\\Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\_LoginLayout.cs.t4
 C:\Users\Administrator\AppData\Local\Microsoft\VisualStudio\12.0Exp\Extensions\Robin Li\Happy Scaffolding for MVC5\3.1\\Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\_LoginPartial.cs.t4
+C:\Users\Administrator\AppData\Local\Microsoft\VisualStudio\12.0Exp\Extensions\Robin Li\Happy Scaffolding for MVC5\3.1\\Templates\MvcScaffolder\DataFieldTemplates\EditorTemplates\BaseCode.cs.t4
+C:\Users\Administrator\AppData\Local\Microsoft\VisualStudio\12.0Exp\Extensions\Robin Li\Happy Scaffolding for MVC5\3.1\\Templates\MvcScaffolder\DataFieldTemplates\EditorTemplates\Slider.cs.t4

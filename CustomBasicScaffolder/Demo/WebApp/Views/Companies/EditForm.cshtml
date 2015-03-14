@@ -60,13 +60,16 @@
 								<li role="presentation" class="active"><a href="#tab-Departments" aria-controls="tab-Departments" role="tab" data-toggle="tab">Departments</a></li>		 
 								        
 			 
+								<li role="presentation"  ><a href="#tab-Employee" aria-controls="tab-Employee" role="tab" data-toggle="tab">Employee</a></li>		 		 
+								        
+			 
    
 		 </ul>
 		 <!-- Tab panes -->
          <div class="tab-content">
 		  
 		  <div role="tabpanel" class="tab-pane active" id="tab-Departments">
-                <div id="toolbar" class="btn-group">
+                <div id="toolbar-Departments" class="btn-group">
                     <button type="button" id="adddepartmentsbutton" class="btn btn-default">
                         <i class="glyphicon glyphicon-plus"></i>
                     </button>
@@ -78,7 +81,7 @@
                 <div class="table-responsive">
                 <table id="departments-table"  class="table table-striped" data-search="true"
                        data-flat="false"
-                       data-toolbar="#toolbar"
+                       data-toolbar="#toolbar-Departments"
                        data-pagination="true"
                        data-show-refresh="true"
                        data-show-toggle="true"
@@ -87,9 +90,10 @@
                         <tr>
                             <th data-formatter="departmentsrowindexFormatter">#No</th>
 				
-                                        <th data-field="CompanyName"  > Company
+                            			
+            <th data-field="CompanyName" data-visible="false"  > Company
             </th>
-                		
+		        		
                                         <th data-field="Id"   data-visible="false" > Id
             </th>
                 		
@@ -102,6 +106,57 @@
                                         <th data-field="CompanyId"   data-visible="false" > CompanyId
             </th>
                                             <th data-field="action" data-formatter="departmentsactionFormatter" data-events="actionEvents">Action</th>
+                        </tr>
+                    </thead>
+                </table>
+                </div>
+            </div>
+
+		  
+		  <div role="tabpanel" class="tab-pane " id="tab-Employee">
+                <div id="toolbar-Employee" class="btn-group">
+                    <button type="button" id="addemployeebutton" class="btn btn-default">
+                        <i class="glyphicon glyphicon-plus"></i>
+                    </button>
+
+                    <button type="button" id="removeemployeebutton" class="btn btn-default">
+                        <i class="glyphicon glyphicon-trash"></i>
+                    </button>
+                </div>
+                <div class="table-responsive">
+                <table id="employee-table"  class="table table-striped" data-search="true"
+                       data-flat="false"
+                       data-toolbar="#toolbar-Employee"
+                       data-pagination="true"
+                       data-show-refresh="true"
+                       data-show-toggle="true"
+                       data-show-columns="true">
+                    <thead>
+                        <tr>
+                            <th data-formatter="employeerowindexFormatter">#No</th>
+				
+                            			
+            <th data-field="CompanyName" data-visible="false"  > Company
+            </th>
+		        		
+                                        <th data-field="Id"   data-visible="false" > Id
+            </th>
+                		
+                                    <th data-field="Name"  > Name
+        </th>
+                		
+                                    <th data-field="Sex"  > Sex
+        </th>
+                		
+                                    <th data-field="Age"  > Age
+        </th>
+                		
+                                    <th data-field="Brithday"  > Brithday
+        </th>
+                		
+                                        <th data-field="CompanyId"   data-visible="false" > CompanyId
+            </th>
+                                            <th data-field="action" data-formatter="employeeactionFormatter" data-events="actionEvents">Action</th>
                         </tr>
                     </thead>
                 </table>
@@ -130,6 +185,26 @@
         </div>
     </div>
 </div>
+<!-- End Modal  Department-->
+<!-- Modal  Employee-->
+<div class="modal fade" id="employeeformModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Employee</h4>
+            </div>
+            <div class="modal-body" id="employeeformModal-body">
+                @*@Html.Partial("_OrderDetailForm")*@
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" id="employeeconfirmbutton" class="btn btn-primary">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal  Employee-->
 
 
 
@@ -177,6 +252,47 @@
             '</a>'
         ].join('');
     }
+	 
+	 function deleteEmployee(id) {
+        var url = '@Url.Action("DeleteEmployee")';
+        bootbox.dialog({
+            message: "Are you sure delete " + id,
+            title: "Delete Employee ",
+            buttons: {
+                Cancel: {
+                    label: "Cancel",
+                    className: "btn-default",
+                    callback: function () {
+
+                    }
+                },
+                OK: {
+                    label: "OK",
+                    className: "btn-success",
+                    callback: function () {
+                        $.post(url, { id: id }, function (data) {
+                            $employeetable.bootstrapTable('remove', { field: 'Id', values: [id] });
+                            //console.log('remove' + row.Id);
+                        });
+                    }
+                }
+            }
+        });
+    }
+
+	function employeerowindexFormatter(value, row, index) {
+        return index + 1;
+    }
+    function employeeactionFormatter(value, row, index) {
+        return [
+            '<a class="edit" id="employeeedit" href="javascript:void(0)" title="Add">',
+            '<i class="glyphicon glyphicon-edit"></i>',
+            '</a>  ',
+            ' <a class="remove" id="employeeremove" href="javascript:void(0)" title="Remove">',
+            '<i class="glyphicon glyphicon-remove"></i>',
+            '</a>'
+        ].join('');
+    }
 	  
 	 
 	 window.actionEvents = {
@@ -217,10 +333,55 @@
                     values: [index]
                 });
             }
-        }
-    };
+        }  , 	        'click #employeeedit': function (e, value, row, index) {
+            currentrowindex = index;
+            var url = "/Companies/EditEmployee"
+            $.get(url + '/' + row.Id, function (data) {
+                $('#employeeformModal-body').html(data);
+                if (row.Id > 0) {
+									//var id = $('#Id','#employeeformModal-body');
+					//id.val(row.Id);
+									//var name = $('#Name','#employeeformModal-body');
+					//name.val(row.Name);
+									//var sex = $('#Sex','#employeeformModal-body');
+					//sex.val(row.Sex);
+									//var age = $('#Age','#employeeformModal-body');
+					//age.val(row.Age);
+									//var brithday = $('#Brithday','#employeeformModal-body');
+					//brithday.val(row.Brithday);
+									//var companyid = $('#CompanyId','#employeeformModal-body');
+					//companyid.val(row.CompanyId);
+				                } else {
+									var id = $('#Id','#employeeformModal-body');
+					id.val(row.Id);
+									var name = $('#Name','#employeeformModal-body');
+					name.val(row.Name);
+									var sex = $('#Sex','#employeeformModal-body');
+					sex.val(row.Sex);
+									var age = $('#Age','#employeeformModal-body');
+					age.val(row.Age);
+									var brithday = $('#Brithday','#employeeformModal-body');
+					brithday.val(row.Brithday);
+									var companyid = $('#CompanyId','#employeeformModal-body');
+					companyid.val(row.CompanyId);
+				                    
+                }
+                $('#employeeformModal').modal('toggle');
+            });
+        } ,
+        'click #employeeremove': function (e, value, row, index) {
+            if (row.Id > 0) {
+                deleteEmployee(row.Id);
+            } else {
+                $employeetable.bootstrapTable('remove', {
+                    field: '$index',
+                    values: [index]
+                });
+            }
+        } 	    };
 
-		$(function () {
+	
+	$(function () {
 				$departmentstable = $('#departments-table').bootstrapTable({
             data: []
         });
@@ -285,6 +446,76 @@
             }
 
             $('#departmentformModal').modal('toggle');
+        });
+
+				$employeetable = $('#employee-table').bootstrapTable({
+            data: []
+        });
+        if (ObjectState == "Modified") {
+             companyid =@Model.Id;
+            //companyid = $('#Id').val();
+            var url = '/Companies/GetEmployeeByCompanyId/' + companyid;
+            $.get(url, function (data) {
+                //console.log(data);
+                $employeetable.bootstrapTable('load', data)
+            })
+
+        }
+
+        $('#addemployeebutton').on('click', function (e) {
+            if ($("form").valid()) {
+                currentrowindex = -1;
+                var url = "/Companies/CreateEmployee"
+                $.get(url, function (data) {
+                    //console.log(data);
+                    var index = -1;
+                    $('#employeeformModal-body').html(data);
+                    $('#Id', '#employeeformModal-body' ).val(0);
+					$('#CompanyId' , '#employeeformModal-body').val(companyid );
+                    $('#employeeformModal').modal('toggle');
+                });
+            }
+            e.preventDefault();
+            //Return false regardless of validation to stop form submitting
+            //prior to ajax doing its thing
+            return false;
+        })
+
+		$('#employeeconfirmbutton').on('click', function (e) {
+            $("form").removeData("validator");
+            $("form").removeData("unobtrusiveValidation");
+            $.validator.unobtrusive.parse("form");
+            if (!$('form').valid()) {
+                e.preventDefault();
+                return false;
+            }
+								var companyname = $('#CompanyId :selected' , '#employeeformModal-body').text();
+							 					var id = $('#Id' , '#employeeformModal-body').val();
+				 							 					var name = $('#Name' , '#employeeformModal-body').val();
+				 							 					var sex = $('#Sex' , '#employeeformModal-body').val();
+				 							 					var age = $('#Age' , '#employeeformModal-body').val();
+				 							 					var brithday = $('#Brithday' , '#employeeformModal-body').val();
+				 							 					var companyid = $('#CompanyId :selected' , '#employeeformModal-body').val();
+					
+				 			            
+            var employee = {
+               					CompanyName :companyname ,
+							 					Id : id ,
+				 							 					Name : name ,
+				 							 					Sex : sex ,
+				 							 					Age : age ,
+				 							 					Brithday : brithday ,
+				 							 					 CompanyId :companyid ,
+					
+				 								ObjectState:'Added'
+            }
+            if (currentrowindex == '-1') {
+                $employeetable.bootstrapTable('append', employee);
+            } else {
+                $employeetable.bootstrapTable('updateRow', { index: currentrowindex, row: employee });
+            }
+
+            $('#employeeformModal').modal('toggle');
         });
 
 		

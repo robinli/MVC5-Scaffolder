@@ -86,6 +86,8 @@
 		var ObjectState = "Modified";   
                                  
              var $departmentstable = {};
+                                 
+             var $employeetable = {};
                         $(document).ready(function () {
 				companyid = $('#Id', 'form').val();
                 $('form').submit(function () {
@@ -94,9 +96,12 @@
                     var actionurl = $(this).attr('action');
                                          
                         var departments = $departmentstable.bootstrapTable('getData');
+                                          
+                        var employee = $employeetable.bootstrapTable('getData');
                                          
                      var newitem = {
                                                         Departments: departments ,
+                                                        Employee: employee ,
                                           
                                 Id: companyid ,
                                                         Name: $('#Name', 'form').val(),

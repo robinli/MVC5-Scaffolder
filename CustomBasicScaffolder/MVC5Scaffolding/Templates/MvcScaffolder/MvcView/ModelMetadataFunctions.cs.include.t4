@@ -87,4 +87,15 @@ string GetForeignKeyPropertyNameWithRelateMode(Microsoft.AspNet.Scaffolding.Core
 		return modelMdetadata.RelatedEntities.Where(n => n.ShortTypeName == relatedmodeTypename).Select(n => n.ForeignKeyPropertyNames).First()[0];
 }
 
+
+bool HasRelatedMasterModel(Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata modelMdetadata,string propertyName){
+ 
+		bool result =  modelMdetadata.Properties.Where(n => n.PropertyName == propertyName && n.RelatedModel.TypeName == ViewDataTypeName).Any();
+        
+}
+bool HasRelatedMasterModelWithForeignKey(Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata modelMdetadata,string propertyName){
+ 
+	return modelMdetadata.RelatedEntities.Where(n => n.ForeignKeyPropertyNames[0] == propertyName && n.TypeName == ViewDataTypeName).Any();
+}
+
 #>

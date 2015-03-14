@@ -20,4 +20,19 @@ namespace WebApp.Models
          [Display(Name = "所在公司")]
         public Company Company { get;set;}
     }
+
+    public partial class Employee:Entity
+    {
+        [Key]
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Sex { get; set; }
+        public int Age { get; set; }
+        public DateTime Brithday { get; set; }
+
+        public int CompanyId { get; set; }
+        [ForeignKey("CompanyId")]
+        public Company Company { get; set; }
+
+    }
 }

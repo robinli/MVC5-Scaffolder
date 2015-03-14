@@ -25,6 +25,12 @@ namespace WebApp.Repositories
             return query.Departments;
             //return repository.Query(n => n.Id == companyid).Include(x => x.Departments).Select(x => x.Departments).FirstOrDefault();
         }
+                public static IEnumerable<Employee>   GetEmployeeByCompanyId (this IRepositoryAsync<Company> repository,int companyid)
+        {
+            var query = repository.Query(n => n.Id == companyid).Include(x => x.Employee).Select().FirstOrDefault();
+            return query.Employee;
+            //return repository.Query(n => n.Id == companyid).Include(x => x.Employee).Select(x => x.Employee).FirstOrDefault();
+        }
          
 	}
 }

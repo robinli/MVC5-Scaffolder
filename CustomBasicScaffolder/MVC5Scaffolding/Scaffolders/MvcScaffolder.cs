@@ -281,6 +281,16 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 }
             }
         }
+
+        private bool HasRelatedMasterModel(Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata modelMdetadata, string propertyName)
+        {
+            bool result= modelMdetadata.Properties.Where(n => n.PropertyName == propertyName && n.RelatedModel.TypeName == "").Any();
+            if (!result)
+            {
+                return modelMdetadata.RelatedEntities.Where(n => n.ForeignKeyPropertyNames[0] == propertyName && n.TypeName == "").Any();
+            }
+                return result;
+        }
         private string GetForeignKeyName(Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata modelMdetadata, string relatedmodeTypename)
         {
             return modelMdetadata.RelatedEntities.Where(n => n.ShortTypeName == relatedmodeTypename).Select(n => n.ForeignKeyPropertyNames).First()[0];
@@ -904,6 +914,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
 
             var fieldTemplates = new[] { 
                 "EditorTemplates\\Date",
+                "EditorTemplates\\BaseCode",
                 "EditorTemplates\\Slider"
                 , "DisplayTemplates\\Date"
                 , "DisplayTemplates\\DateTime"

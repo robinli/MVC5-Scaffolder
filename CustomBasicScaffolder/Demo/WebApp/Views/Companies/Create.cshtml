@@ -62,6 +62,8 @@
 		var ObjectState = "Added";  
                                  
              var $departmentstable = {};
+                                 
+             var $employeetable = {};
                         $(document).ready(function () {
 
                 $('form').submit(function () {
@@ -70,9 +72,12 @@
                     var actionurl = $(this).attr('action');
                                          
                         var departments = $departmentstable.bootstrapTable('getData');
+                                          
+                        var employee = $employeetable.bootstrapTable('getData');
                                          
                      var newitem = {
                                                         Departments: departments ,
+                                                        Employee: employee ,
                                           
                                 Id: companyid,
                                                         Name: $('#Name', 'form').val(),

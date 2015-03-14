@@ -21,6 +21,8 @@ namespace WebApp.Services
          
                  IEnumerable<Department>   GetDepartmentsByCompanyId (int companyid);
          
+                 IEnumerable<Employee>   GetEmployeeByCompanyId (int companyid);
+         
          
  
 	}

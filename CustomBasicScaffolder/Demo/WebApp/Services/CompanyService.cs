@@ -29,6 +29,10 @@ namespace WebApp.Services
         {
             return _repository.GetDepartmentsByCompanyId(companyid);
         }
+                public IEnumerable<Employee>   GetEmployeeByCompanyId (int companyid)
+        {
+            return _repository.GetEmployeeByCompanyId(companyid);
+        }
          
         
     }

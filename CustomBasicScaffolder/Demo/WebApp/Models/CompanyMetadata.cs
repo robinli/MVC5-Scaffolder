@@ -1,5 +1,6 @@
 ﻿using Repository.Pattern.Ef6;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace WebApp.Models
@@ -12,7 +13,10 @@ namespace WebApp.Models
     public partial class CompanyMetadata
     {
         [Display(Name = "部门")]
-        public Department Departments { get; set; }
+        public ICollection<Department> Departments { get; set; }
+
+        [Display(Name = "员工")]
+        public ICollection<Employee> Employee { get; set; }
 
         [Required(ErrorMessage = "Please enter : Id")]
         [Display(Name = "Id")]
