@@ -215,7 +215,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Controllers\ProductsController.cs" />
-    <Compile Include="Controllers\WorksController.cs" />
+    <Compile Include="Controllers\WorksController.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Extensions\HtmlExtensions.cs" />
     <Compile Include="Extensions\LinqOrderByColumnsNameExtensions.cs" />
     <Compile Include="Extensions\PageListExtensions.cs" />
@@ -286,10 +288,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Services\CategoryService.cs" />
-    <Compile Include="Services\CompanyService.cs" />
+    <Compile Include="Services\Companies\CompanyService.cs" />
+    <Compile Include="Services\Companies\ICompanyService.cs" />
     <Compile Include="Services\DepartmentService.cs" />
     <Compile Include="Services\ICategoryService.cs" />
-    <Compile Include="Services\ICompanyService.cs" />
     <Compile Include="Services\IDepartmentService.cs" />
     <Compile Include="Services\IOrderService.cs" />
     <Compile Include="Services\IProductService.cs" />

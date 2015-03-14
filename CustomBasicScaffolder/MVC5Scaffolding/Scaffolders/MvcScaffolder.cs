@@ -1063,7 +1063,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
 
             // Add folder for views. This is necessary to display an error when the folder already exists but 
             // the folder is excluded in Visual Studio: see https://github.com/Superexpert/WebFormsScaffolding/issues/18
-            string outputFolderPath = Path.Combine("Services");
+            string outputFolderPath = Path.Combine("Services", pluralizedModelName.Replace("_", ""));
             //AddFolder(Context.ActiveProject, outputFolderPath);
 
 
