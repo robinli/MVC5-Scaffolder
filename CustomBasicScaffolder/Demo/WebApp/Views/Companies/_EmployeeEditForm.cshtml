@@ -31,9 +31,9 @@
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.Brithday,   htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Brithday,  htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Brithday, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Brithday,"Date", new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Brithday,"" , new { @class = "text-danger" })
             </div>
         </div>

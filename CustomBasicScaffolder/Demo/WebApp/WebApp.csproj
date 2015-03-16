@@ -392,6 +392,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\dateFormat.js" />
     <Content Include="Scripts\extensions\editable\bootstrap-table-editable.js" />
     <Content Include="Scripts\extensions\editable\README.md" />
     <Content Include="Scripts\extensions\export\bootstrap-table-export.js" />
@@ -406,6 +407,7 @@
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.11.3.js" />
     <Content Include="Scripts\jquery-ui-1.11.3.min.js" />
+    <Content Include="Scripts\jquery.dateFormat.js" />
     <Content Include="Scripts\jquery.validate.bootstrap.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />

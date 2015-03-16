@@ -341,6 +341,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             string templatePath = Path.Combine("MvcView", viewName);
             string viewDataTypeName = modelType.Namespace.FullName + "." + modelTypeName;
             string modelNameSpace = modelType.Namespace != null ? modelType.Namespace.FullName : String.Empty;
+            
             string masterModelTypeName = modelNameSpace + "." + modelType.Name;
             Dictionary<string, object> templateParams = new Dictionary<string, object>(){
                {"ControllerRootName" , controllerRootName}

@@ -349,7 +349,7 @@ namespace WebApp.Controllers
             var employee = _companyService.GetEmployeeByCompanyId(id);
             if (Request.IsAjaxRequest())
             {
-                return Json(employee.Select( n => new { CompanyName = n.Company.Name , Id = n.Id , Name = n.Name , Sex = n.Sex , Age = n.Age , Brithday = n.Brithday , CompanyId = n.CompanyId }),JsonRequestBehavior.AllowGet);
+                return Json(employee.Select( n => new { CompanyName = n.Company.Name , Id = n.Id , Name = n.Name , Sex = n.Sex , Age = n.Age , Brithday = n.Brithday.ToShortDateString() , CompanyId = n.CompanyId }),JsonRequestBehavior.AllowGet);
             }  
             return View(employee); 
 
