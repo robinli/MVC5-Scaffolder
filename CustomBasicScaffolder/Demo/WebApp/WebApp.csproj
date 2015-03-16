@@ -224,13 +224,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201503140537405_44.cs" />
-    <Compile Include="Migrations\201503140537405_44.Designer.cs">
-      <DependentUpon>201503140537405_44.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201503140559462_222.cs" />
-    <Compile Include="Migrations\201503140559462_222.Designer.cs">
-      <DependentUpon>201503140559462_222.cs</DependentUpon>
+    <Compile Include="Migrations\201503160100165_dddd.cs" />
+    <Compile Include="Migrations\201503160100165_dddd.Designer.cs">
+      <DependentUpon>201503160100165_dddd.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs">
       <SubType>Code</SubType>
@@ -600,9 +596,9 @@
     <Content Include="Views\Companies\Index.cshtml" />
     <Content Include="Views\Companies\Create.cshtml" />
     <Content Include="Views\Companies\Edit.cshtml" />
+    <Content Include="Views\Companies\EditForm.cshtml" />
     <Content Include="Views\Companies\_DepartmentEditForm.cshtml" />
     <Content Include="Views\Companies\_EmployeeEditForm.cshtml" />
-    <Content Include="Views\Companies\EditForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -626,11 +622,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201503140537405_44.resx">
-      <DependentUpon>201503140537405_44.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503140559462_222.resx">
-      <DependentUpon>201503140559462_222.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201503160100165_dddd.resx">
+      <DependentUpon>201503160100165_dddd.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

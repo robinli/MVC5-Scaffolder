@@ -21,22 +21,27 @@ namespace WebApp.Controllers
 {
     public class CompaniesController : Controller
     {
+        
+        //Please RegisterType UnityConfig.cs
+        //container.RegisterType<IRepositoryAsync<Company>, Repository<Company>>();
+        //container.RegisterType<ICompanyService, CompanyService>();
+        
         //private StoreContext db = new StoreContext();
-        private readonly ICompanyService _companyService;
+        private readonly ICompanyService  _companyService;
         private readonly IUnitOfWorkAsync _unitOfWork;
 
-        public CompaniesController(ICompanyService companyService, IUnitOfWorkAsync unitOfWork)
+        public CompaniesController (ICompanyService  companyService, IUnitOfWorkAsync unitOfWork)
         {
-            _companyService = companyService;
+            _companyService  = companyService;
             _unitOfWork = unitOfWork;
         }
 
         // GET: Companies/Index
         public ActionResult Index()
         {
-
-            var companies = _companyService.Queryable().AsQueryable();
-            return View(companies);
+            
+            var companies  = _companyService.Queryable().AsQueryable();
+            return View(companies  );
         }
 
         // Get :Companies/PageList
@@ -45,14 +50,14 @@ namespace WebApp.Controllers
         public ActionResult PageList(int offset = 0, int limit = 10, string search = "", string sort = "", string order = "")
         {
             int totalCount = 0;
-            int pagenum = offset / limit + 1;
-            var companies = _companyService.Query(new CompanyQuery().WithAnySearch(search)).OrderBy(n => n.OrderBy(sort, order)).SelectPage(pagenum, limit, out totalCount);
-            var rows = companies.Select(n => new { Id = n.Id, Name = n.Name, Address = n.Address, City = n.City, Province = n.Province, RegisterDate = n.RegisterDate, Employees = n.Employees }).ToList();
+            int pagenum = offset / limit +1;
+                        var companies  = _companyService.Query(new CompanyQuery().WithAnySearch(search)).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(pagenum, limit, out totalCount);
+                        var rows = companies .Select(  n => new {  Id = n.Id , Name = n.Name , Address = n.Address , City = n.City , Province = n.Province , RegisterDate = n.RegisterDate , Employees = n.Employees }).ToList();
             var pagelist = new { total = totalCount, rows = rows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
 
-
+       
         // GET: Companies/Details/5
         public ActionResult Details(int? id)
         {
@@ -67,7 +72,7 @@ namespace WebApp.Controllers
             }
             return View(company);
         }
-
+        
 
         // GET: Companies/Create
         public ActionResult Create()
@@ -85,19 +90,19 @@ namespace WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                company.ObjectState = ObjectState.Added;
-                foreach (var item in company.Departments)
+                             company.ObjectState = ObjectState.Added;   
+                                foreach (var item in company.Departments)
                 {
-                    item.CompanyId = company.Id;
+					item.CompanyId = company.Id ;
                     item.ObjectState = ObjectState.Added;
                 }
-                foreach (var item in company.Employee)
+                                foreach (var item in company.Employee)
                 {
-                    item.CompanyId = company.Id;
+					item.CompanyId = company.Id ;
                     item.ObjectState = ObjectState.Added;
                 }
-                _companyService.InsertOrUpdateGraph(company);
-                _unitOfWork.SaveChanges();
+                                _companyService.InsertOrUpdateGraph(company);
+                            _unitOfWork.SaveChanges();
                 if (Request.IsAjaxRequest())
                 {
                     return Json(new { success = true }, JsonRequestBehavior.AllowGet);
@@ -108,7 +113,7 @@ namespace WebApp.Controllers
 
             if (Request.IsAjaxRequest())
             {
-                var modelStateErrors = String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n => n.ErrorMessage)));
+                var modelStateErrors =String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n=>n.ErrorMessage)));
                 return Json(new { success = false, err = modelStateErrors }, JsonRequestBehavior.AllowGet);
             }
             DisplayErrorMessage();
@@ -139,27 +144,27 @@ namespace WebApp.Controllers
             if (ModelState.IsValid)
             {
                 company.ObjectState = ObjectState.Modified;
-                foreach (var item in company.Departments)
+                                                foreach (var item in company.Departments)
                 {
-                    item.CompanyId = company.Id;
+					item.CompanyId = company.Id ;
                     //set ObjectState with conditions
-                    if (item.Id <= 0)
+                    if(item.Id <= 0)
                         item.ObjectState = ObjectState.Added;
                     else
                         item.ObjectState = ObjectState.Modified;
                 }
-                foreach (var item in company.Employee)
+                                foreach (var item in company.Employee)
                 {
-                    item.CompanyId = company.Id;
+					item.CompanyId = company.Id ;
                     //set ObjectState with conditions
-                    if (item.Id <= 0)
+                    if(item.Id <= 0)
                         item.ObjectState = ObjectState.Added;
                     else
                         item.ObjectState = ObjectState.Modified;
                 }
-
+                      
                 _companyService.InsertOrUpdateGraph(company);
-
+                                
                 _unitOfWork.SaveChanges();
                 if (Request.IsAjaxRequest())
                 {
@@ -170,7 +175,7 @@ namespace WebApp.Controllers
             }
             if (Request.IsAjaxRequest())
             {
-                var modelStateErrors = String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n => n.ErrorMessage)));
+                var modelStateErrors =String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n=>n.ErrorMessage)));
                 return Json(new { success = false, err = modelStateErrors }, JsonRequestBehavior.AllowGet);
             }
             DisplayErrorMessage();
@@ -197,13 +202,13 @@ namespace WebApp.Controllers
         //[ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Company company = _companyService.Find(id);
-            _companyService.Delete(company);
+            Company company =  _companyService.Find(id);
+             _companyService.Delete(company);
             _unitOfWork.SaveChanges();
-            if (Request.IsAjaxRequest())
-            {
-                return Json(new { success = true }, JsonRequestBehavior.AllowGet);
-            }
+           if (Request.IsAjaxRequest())
+                {
+                    return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+                }
             DisplaySuccessMessage("Has delete a Company record");
             return RedirectToAction("Index");
         }
@@ -221,39 +226,39 @@ namespace WebApp.Controllers
             var departmentRepository = _unitOfWork.Repository<Department>();
             var department = departmentRepository.Find(id);
 
-            var companyRepository = _unitOfWork.Repository<Company>();
-
+                        var companyRepository = _unitOfWork.Repository<Company>();             
+            
             if (department == null)
             {
-                ViewBag.CompanyId = new SelectList(companyRepository.Queryable(), "Id", "Name");
-
+                            ViewBag.CompanyId = new SelectList(companyRepository.Queryable(), "Id", "Name" );
+                            
                 //return HttpNotFound();
                 return PartialView("_DepartmentEditForm", new Department());
             }
             else
             {
-                ViewBag.CompanyId = new SelectList(companyRepository.Queryable(), "Id", "Name", department.CompanyId);
-
+                            ViewBag.CompanyId = new SelectList(companyRepository.Queryable(), "Id", "Name" , department.CompanyId );  
+                             
             }
-            return PartialView("_DepartmentEditForm", department);
+            return PartialView("_DepartmentEditForm",  department);
 
         }
-
+        
         // Get Create Row By Id For Edit
         // Get : Companies/CreateDepartment
         [HttpGet]
         public ActionResult CreateDepartment()
         {
-            var companyRepository = _unitOfWork.Repository<Company>();
-            ViewBag.CompanyId = new SelectList(companyRepository.Queryable(), "Id", "Name");
-            return PartialView("_DepartmentEditForm");
+                        var companyRepository = _unitOfWork.Repository<Company>();    
+              ViewBag.CompanyId = new SelectList(companyRepository.Queryable(), "Id", "Name" );
+                      return PartialView("_DepartmentEditForm");
 
         }
 
         // Post Delete Detail Row By Id
         // Get : Companies/DeleteDepartment/:id
-        [HttpPost, ActionName("DeleteDepartment")]
-        public ActionResult DeleteDepartmentConfirmed(int id)
+        [HttpPost,ActionName("DeleteDepartment")]
+        public ActionResult DeleteDepartmentConfirmed(int  id)
         {
             var departmentRepository = _unitOfWork.Repository<Department>();
             departmentRepository.Delete(id);
@@ -278,39 +283,39 @@ namespace WebApp.Controllers
             var employeeRepository = _unitOfWork.Repository<Employee>();
             var employee = employeeRepository.Find(id);
 
-            var companyRepository = _unitOfWork.Repository<Company>();
-
+                        var companyRepository = _unitOfWork.Repository<Company>();             
+            
             if (employee == null)
             {
-                ViewBag.CompanyId = new SelectList(companyRepository.Queryable(), "Id", "Name");
-
+                            ViewBag.CompanyId = new SelectList(companyRepository.Queryable(), "Id", "Name" );
+                            
                 //return HttpNotFound();
                 return PartialView("_EmployeeEditForm", new Employee());
             }
             else
             {
-                ViewBag.CompanyId = new SelectList(companyRepository.Queryable(), "Id", "Name", employee.CompanyId);
-
+                            ViewBag.CompanyId = new SelectList(companyRepository.Queryable(), "Id", "Name" , employee.CompanyId );  
+                             
             }
-            return PartialView("_EmployeeEditForm", employee);
+            return PartialView("_EmployeeEditForm",  employee);
 
         }
-
+        
         // Get Create Row By Id For Edit
         // Get : Companies/CreateEmployee
         [HttpGet]
         public ActionResult CreateEmployee()
         {
-            var companyRepository = _unitOfWork.Repository<Company>();
-            ViewBag.CompanyId = new SelectList(companyRepository.Queryable(), "Id", "Name");
-            return PartialView("_EmployeeEditForm");
+                        var companyRepository = _unitOfWork.Repository<Company>();    
+              ViewBag.CompanyId = new SelectList(companyRepository.Queryable(), "Id", "Name" );
+                      return PartialView("_EmployeeEditForm");
 
         }
 
         // Post Delete Detail Row By Id
         // Get : Companies/DeleteEmployee/:id
-        [HttpPost, ActionName("DeleteEmployee")]
-        public ActionResult DeleteEmployeeConfirmed(int id)
+        [HttpPost,ActionName("DeleteEmployee")]
+        public ActionResult DeleteEmployeeConfirmed(int  id)
         {
             var employeeRepository = _unitOfWork.Repository<Employee>();
             employeeRepository.Delete(id);
@@ -323,7 +328,7 @@ namespace WebApp.Controllers
             return RedirectToAction("Index");
         }
 
-
+       
 
         // Get : Companies/GetDepartmentsByCompanyId/:id
         [HttpGet]
@@ -332,9 +337,9 @@ namespace WebApp.Controllers
             var departments = _companyService.GetDepartmentsByCompanyId(id);
             if (Request.IsAjaxRequest())
             {
-                return Json(departments.Select(n => new { CompanyName = n.Company.Name, Id = n.Id, Name = n.Name, Manager = n.Manager, CompanyId = n.CompanyId }), JsonRequestBehavior.AllowGet);
-            }
-            return View(departments);
+                return Json(departments.Select( n => new { CompanyName = n.Company.Name , Id = n.Id , Name = n.Name , Manager = n.Manager , CompanyId = n.CompanyId }),JsonRequestBehavior.AllowGet);
+            }  
+            return View(departments); 
 
         }
         // Get : Companies/GetEmployeeByCompanyId/:id
@@ -344,12 +349,12 @@ namespace WebApp.Controllers
             var employee = _companyService.GetEmployeeByCompanyId(id);
             if (Request.IsAjaxRequest())
             {
-                return Json(employee.Select(n => new { CompanyName = n.Company.Name, Id = n.Id, Name = n.Name, Sex = n.Sex, Age = n.Age, Brithday = n.Brithday, CompanyId = n.CompanyId }), JsonRequestBehavior.AllowGet);
-            }
-            return View(employee);
+                return Json(employee.Select( n => new { CompanyName = n.Company.Name , Id = n.Id , Name = n.Name , Sex = n.Sex , Age = n.Age , Brithday = n.Brithday , CompanyId = n.CompanyId }),JsonRequestBehavior.AllowGet);
+            }  
+            return View(employee); 
 
         }
-
+ 
 
         private void DisplaySuccessMessage(string msgText)
         {

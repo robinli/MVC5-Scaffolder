@@ -89,6 +89,11 @@ namespace <#= Namespace #>
 #>
     public class <#= ControllerName #> : Controller
     {
+        
+        //Please RegisterType UnityConfig.cs
+        //container.RegisterType<IRepositoryAsync<<#=ModelTypeName #>>, Repository<<#=ModelTypeName #>>>();
+        //container.RegisterType<I<#=ModelTypeName #>Service, <#=ModelTypeName #>Service>();
+        
         //private <#= ContextTypeName #> db = new <#= ContextTypeName #>();
         private readonly <#= modelService #>  <#= modelServiceVar #>;
         private readonly IUnitOfWorkAsync _unitOfWork;

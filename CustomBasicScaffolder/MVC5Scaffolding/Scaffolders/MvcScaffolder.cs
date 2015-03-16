@@ -177,6 +177,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             string viewPrefix = codeGeneratorViewModel.ViewPrefix;
             string programTitle = codeGeneratorViewModel.ProgramTitle;
             bool generateMasterDetailRelationship = codeGeneratorViewModel.GenerateMasterDetailRelationship;
+            
             AddEntityRepositoryExtensionTemplates(project, selectionRelativePath,
                 dbContextNamespace,
                 dbContextTypeName,
@@ -277,6 +278,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                         , modelType
                         , detailModelMeta
                         , modelDisplayNames
+                        
                         , codeGeneratorViewModel.OverwriteViews);
                 }
             }
@@ -285,11 +287,12 @@ namespace Happy.Scaffolding.MVC.Scaffolders
         private bool HasRelatedMasterModel(Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata modelMdetadata, string propertyName)
         {
             bool result= modelMdetadata.Properties.Where(n => n.PropertyName == propertyName && n.RelatedModel.TypeName == "").Any();
+
             if (!result)
             {
                 return modelMdetadata.RelatedEntities.Where(n => n.ForeignKeyPropertyNames[0] == propertyName && n.TypeName == "").Any();
             }
-                return result;
+            return result;
         }
         private string GetForeignKeyName(Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata modelMdetadata, string relatedmodeTypename)
         {
@@ -329,6 +332,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             , CodeType modelType
             , ModelMetadata efMetadata
             , IDictionary<string, string> modelDisplayNames
+           
             , bool overwrite = false
            )
         {
@@ -337,6 +341,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             string templatePath = Path.Combine("MvcView", viewName);
             string viewDataTypeName = modelType.Namespace.FullName + "." + modelTypeName;
             string modelNameSpace = modelType.Namespace != null ? modelType.Namespace.FullName : String.Empty;
+            string masterModelTypeName = modelNameSpace + "." + modelType.Name;
             Dictionary<string, object> templateParams = new Dictionary<string, object>(){
                {"ControllerRootName" , controllerRootName}
                 , {"ModelMetadata", efMetadata}
@@ -346,6 +351,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 , {"ModelNameSpace", modelNameSpace}
                 , {"ViewDataTypeName", viewDataTypeName}
                 , {"ModelDisplayNames",modelDisplayNames}
+                ,{"MasterModelTypeName" , masterModelTypeName}
                 , {"IsPartialView" , true}
             };
             AddFileFromTemplate(project: project
