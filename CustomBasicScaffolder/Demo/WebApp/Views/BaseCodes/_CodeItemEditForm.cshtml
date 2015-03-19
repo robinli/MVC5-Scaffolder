@@ -36,7 +36,16 @@
        @*--End ForeignKey BaseCodeId RelatedMasterModel  ---*@
 
 
- 
+ <script type="text/javascript">
+    $(function () {
+        var $code = $('#@Html.IdFor(model=>model.Code)');
+        var $text = $('#@Html.IdFor(model=>model.Text)');
+         $code.on('change', function () {
+             $text.val($code.val());
+         })
+         
+     })
+</script>
 
 
 
