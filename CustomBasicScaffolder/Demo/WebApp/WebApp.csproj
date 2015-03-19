@@ -306,14 +306,10 @@
     <Compile Include="Services\IDepartmentService.cs" />
     <Compile Include="Services\IOrderService.cs" />
     <Compile Include="Services\IProductService.cs" />
-    <Compile Include="Services\IWorkService.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Services\OrderService.cs" />
     <Compile Include="Services\ProductService.cs" />
-    <Compile Include="Services\WorkService.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Services\Works\IWorkService.cs" />
+    <Compile Include="Services\Works\WorkService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -538,7 +534,6 @@
     <Content Include="Views\Works\EditForm.cshtml">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="Views\Works\Index.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -621,6 +616,7 @@
     <Content Include="Views\BaseCodes\Edit.cshtml" />
     <Content Include="Views\BaseCodes\EditForm.cshtml" />
     <Content Include="Views\BaseCodes\Index.cshtml" />
+    <Content Include="Views\Works\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

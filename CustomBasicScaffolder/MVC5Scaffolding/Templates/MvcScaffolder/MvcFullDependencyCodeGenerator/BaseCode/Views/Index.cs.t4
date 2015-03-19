@@ -12,10 +12,7 @@
 @{
     ViewBag.Title = "Index";
 }
-<style type='text/css'>
-    /*設定 數字靠右*/
-    td:nth-child(1n){text-align: right;}
-</style>
+ 
 
 <div class="container-fluid">
     <!-- Page Heading -->

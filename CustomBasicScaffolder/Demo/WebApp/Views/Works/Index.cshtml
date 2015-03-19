@@ -8,13 +8,7 @@
 @{
     ViewBag.Title = "Index";
 }
-<style type='text/css'>
-    /*設定 數字靠右*/
-    td:nth-child(1n){text-align: right;}
-    td:nth-child(7n){text-align: right;}
-    td:nth-child(8n){text-align: right;}
-    td:nth-child(9n){text-align: right;}
-</style>
+
 
 <div class="container-fluid">
     <!-- Page Heading -->
@@ -65,28 +59,28 @@
                 <thead>
                     <tr>
                          <th data-field="state" data-checkbox="true"></th>
-                        <th data-field="Name" data-sortable="true" >
-                            @Html.DisplayNameFor(model => model.Name)
-                        </th>
-                        <th data-field="Status" data-sortable="true"  >
-                            @Html.DisplayNameFor(model => model.Status)
-                        </th>
-                        <th data-field="StartDate" data-sortable="true" >
+                <th data-field="Name" data-sortable="true" data-align="left" >
+             @Html.DisplayNameFor(model => model.Name)
+        </th>
+                        <th data-field="Status" data-sortable="true" data-align="left" >
+             @Html.DisplayNameFor(model => model.Status)
+        </th>
+                        <th data-field="StartDate" data-sortable="true" data-align="right" >
              @Html.DisplayNameFor(model => model.StartDate)
         </th>
-                        <th data-field="EndDate" data-sortable="true" >
+                        <th data-field="EndDate" data-sortable="true" data-align="right" >
              @Html.DisplayNameFor(model => model.EndDate)
         </th>
-                        <th data-field="Enableed" data-sortable="true" >
+                        <th data-field="Enableed" data-sortable="true" data-align="right" >
              @Html.DisplayNameFor(model => model.Enableed)
         </th>
-                        <th data-field="Hour" data-sortable="true" >
+                        <th data-field="Hour" data-sortable="true" data-align="right" >
              @Html.DisplayNameFor(model => model.Hour)
         </th>
-                        <th data-field="Priority" data-sortable="true" >
+                        <th data-field="Priority" data-sortable="true" data-align="right" >
              @Html.DisplayNameFor(model => model.Priority)
         </th>
-                        <th data-field="Score" data-sortable="true" >
+                        <th data-field="Score" data-sortable="true" data-align="right" >
              @Html.DisplayNameFor(model => model.Score)
         </th>
                 <th data-field="action" data-formatter="actionFormatter" data-events="actionEvents">Action</th>

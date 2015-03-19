@@ -176,6 +176,7 @@ else
                             <th data-formatter="<#= detailmodelnameVar  #>rowindexFormatter">#No</th>
 		<#  
 	foreach (PropertyMetadata chproperty in childrenmodelmeta.Properties) {
+                    var tdalign=chproperty.ShortTypeName=="string"?"left":"right";
     if (chproperty.Scaffold ) {
 
         // If the property is a primary key and Guid, then the Guid is generated in the controller. Hence, this propery is not displayed on the view.
@@ -185,18 +186,18 @@ else
 		#>
 		
                             <# if ( chproperty.IsPrimaryKey || chproperty.IsForeignKey ) { #>
-            <th data-field="<#= chproperty.PropertyName  #>"   data-visible="false" > <#= GetDisplayName(chproperty.PropertyName) #>
+            <th data-field="<#= chproperty.PropertyName  #>"   data-visible="false" data-align="<#= tdalign #>" > <#= GetDisplayName(chproperty.PropertyName) #>
             </th>
         <# } else if (chproperty.AssociationDirection ==  AssociationDirection.ManyToOne && HasRelatedMasterModel(childrenmodelmeta,chproperty.PropertyName) ) { #>
 			
-            <th data-field="<#= GetRelatedDisplayNameExpression(chproperty,childrenmodelmeta)  #>" data-visible="false"  > <#= GetDisplayName(chproperty.PropertyName) #>
+            <th data-field="<#= GetRelatedDisplayNameExpression(chproperty,childrenmodelmeta)  #>" data-visible="false" data-align="<#= tdalign #>"  > <#= GetDisplayName(chproperty.PropertyName) #>
             </th>
 		<#	} else if (chproperty.AssociationDirection ==  AssociationDirection.ManyToOne && !HasRelatedMasterModel(childrenmodelmeta,chproperty.PropertyName) ) { #>
 			
-            <th data-field="<#= GetRelatedDisplayNameExpression(chproperty,childrenmodelmeta)  #>"  > <#= GetDisplayName(chproperty.PropertyName) #>
+            <th data-field="<#= GetRelatedDisplayNameExpression(chproperty,childrenmodelmeta)  #>"  data-align="<#= tdalign #>" > <#= GetDisplayName(chproperty.PropertyName) #>
             </th>
         <# } else { #>
-        <th data-field="<#= chproperty.PropertyName  #>"  > <#= GetDisplayName(chproperty.PropertyName) #>
+        <th data-field="<#= chproperty.PropertyName  #>" data-align="<#= tdalign #>"  > <#= GetDisplayName(chproperty.PropertyName) #>
         </th>
         <#            } #>
         <# 

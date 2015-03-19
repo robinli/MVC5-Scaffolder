@@ -165,7 +165,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             // Get the Entity Framework Meta Data
             IEntityFrameworkService efService = Context.ServiceProvider.GetService<IEntityFrameworkService>();
             ModelMetadata efMetadata = efService.AddRequiredEntity(Context, dbContextTypeName, modelType.FullName);
-            
+           
             var fieldDisplayNames = GetAllFieldDisplayNames(modelType, efMetadata);
             var oneToManyModels = GetOneToManyModelDictionary(efMetadata, efService, dbContextTypeName);
 

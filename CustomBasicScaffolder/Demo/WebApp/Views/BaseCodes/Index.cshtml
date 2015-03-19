@@ -9,11 +9,7 @@
 @{
     ViewBag.Title = "Index";
 }
-<style type='text/css'>
-    /*設定 數字靠右*/
-    td:nth-child(1n){text-align: right;}
-</style>
-
+ 
 <div class="container-fluid">
     <!-- Page Heading -->
     <div class="row">
@@ -66,9 +62,9 @@
                     <th data-field="Id" data-sortable="true"  data-visible="false" >
              @Html.DisplayNameFor(model => model.Id)
             </th>
-                        <th data-field="CodeType" data-sortable="true" >
-             @Html.DisplayNameFor(model => model.CodeType)
-        </th>
+                        <th data-field="CodeType" data-sortable="true" data-align="right">
+                            @Html.DisplayNameFor(model => model.CodeType)
+                        </th>
                         <th data-field="Description" data-sortable="true" >
              @Html.DisplayNameFor(model => model.Description)
         </th>

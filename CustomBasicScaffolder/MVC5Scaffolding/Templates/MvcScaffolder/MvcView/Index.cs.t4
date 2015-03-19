@@ -28,19 +28,7 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
 }
 #>
 }
-<style type='text/css'>
-    /*設定 數字靠右*/
-<#
-        for (int x=0; x<MetaTable.Columns.Count; x++) {
-            MetaColumnInfo column=MetaTable.Columns[x];
-            if(column.IsNumeric){
-#>
-    td:nth-child(<#= x+1 #>n){text-align: right;}
-<#      
-            }
-}
-#>
-</style>
+
 
 <#
 } else {
@@ -117,6 +105,7 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
 <#
 IEnumerable<PropertyMetadata> properties = ModelMetadata.Properties;
 foreach (PropertyMetadata property in properties) {
+        var tdalign=property.ShortTypeName=="string"?"left":"right";
     if (property.Scaffold && !property.IsForeignKey) {
 #>
 <#
@@ -131,11 +120,11 @@ foreach (PropertyMetadata property in properties) {
              @Html.DisplayNameFor(model => model.<#= GetValueExpression(property) #>)
             </th>
         <# } else if (property.AssociationDirection ==  AssociationDirection.ManyToOne ) { #>
-            <th data-field="<#= GetRelatedDisplayNameExpression(property)  #>" data-sortable="false"  >
+            <th data-field="<#= GetRelatedDisplayNameExpression(property)  #>" data-sortable="false" data-align="<#= tdalign #>"  >
              @Html.DisplayNameFor(model => model.<#= GetValueExpression(property) #>)
             </th>
         <# } else { #>
-        <th data-field="<#= property.PropertyName  #>" data-sortable="true" >
+        <th data-field="<#= property.PropertyName  #>" data-sortable="true" data-align="<#= tdalign #>" >
              @Html.DisplayNameFor(model => model.<#= GetValueExpression(property) #>)
         </th>
         <#            } #>
