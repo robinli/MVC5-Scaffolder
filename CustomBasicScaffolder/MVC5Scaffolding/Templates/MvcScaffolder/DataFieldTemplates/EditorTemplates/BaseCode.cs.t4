@@ -3,19 +3,19 @@
 
 @model String
 @Html.DropDownListFor(model => model, new[] {new SelectListItem() {  Value="" , Text="---Select---"}}, new { @class = "form-control" })
-<script>
+<script  type="text/javascript" >
     $(document).ready(function (e) {
-        var data = [];
+        
         var type='@ViewData["CodeType"]';
         var $select = $('#@Html.IdFor(m => m)');
-        var selectedval='@Model';
-        if(type=='Status'){
-            data = [{ Code: '开始', Text: '开始' }, { Code: '结束', Text: '结束' }, { Code: '取消', Text: '取消' }];
-        }
-        $.each(data,function(key, value) 
-        {
-            $select.append('<option value=' + value.Code + '>' + value.Text + '</option>');
+        var selectedval = '@Model';
+        $.get('/BaseCodes/GetCodeItems', { codetype: type }, function (data) {
+            $.each(data, function (key, value) {
+                $select.append('<option value=' + value.Code + '>' + value.Text + '</option>');
+            });
+            $select.val(selectedval);
         });
-        $select.val(selectedval);
+      
+        
     })
 </script>

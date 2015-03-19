@@ -203,6 +203,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AccountManageController.cs" />
+    <Compile Include="Controllers\BaseCodesController.cs" />
     <Compile Include="Controllers\ButtonAttribute.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\CompaniesController.cs" />
@@ -228,11 +229,21 @@
     <Compile Include="Migrations\201503160100165_dddd.Designer.cs">
       <DependentUpon>201503160100165_dddd.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201503190044153_basecdoe.cs" />
+    <Compile Include="Migrations\201503190044153_basecdoe.Designer.cs">
+      <DependentUpon>201503190044153_basecdoe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503190157011_un.cs" />
+    <Compile Include="Migrations\201503190157011_un.Designer.cs">
+      <DependentUpon>201503190157011_un.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationRole.cs" />
+    <Compile Include="Models\BaseCode.cs" />
+    <Compile Include="Models\BaseCodeMetadata.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\CategoryMetadata.cs" />
     <Compile Include="Models\Company.cs">
@@ -267,6 +278,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\BaseCodes\BaseCodeQuery.cs" />
+    <Compile Include="Repositories\BaseCodes\BaseCodeRepository.cs" />
     <Compile Include="Repositories\Categories\CategoryQuery.cs" />
     <Compile Include="Repositories\Categories\CategoryRepository.cs" />
     <Compile Include="Repositories\Companies\CompanyQuery.cs" />
@@ -283,6 +296,8 @@
     <Compile Include="Repositories\Works\WorkRepository.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Services\BaseCodes\BaseCodeService.cs" />
+    <Compile Include="Services\BaseCodes\IBaseCodeService.cs" />
     <Compile Include="Services\CategoryService.cs" />
     <Compile Include="Services\Companies\CompanyService.cs" />
     <Compile Include="Services\Companies\ICompanyService.cs" />
@@ -601,6 +616,11 @@
     <Content Include="Views\Companies\EditForm.cshtml" />
     <Content Include="Views\Companies\_DepartmentEditForm.cshtml" />
     <Content Include="Views\Companies\_EmployeeEditForm.cshtml" />
+    <Content Include="Views\BaseCodes\_CodeItemEditForm.cshtml" />
+    <Content Include="Views\BaseCodes\Create.cshtml" />
+    <Content Include="Views\BaseCodes\Edit.cshtml" />
+    <Content Include="Views\BaseCodes\EditForm.cshtml" />
+    <Content Include="Views\BaseCodes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -626,6 +646,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201503160100165_dddd.resx">
       <DependentUpon>201503160100165_dddd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503190044153_basecdoe.resx">
+      <DependentUpon>201503190044153_basecdoe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503190157011_un.resx">
+      <DependentUpon>201503190157011_un.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

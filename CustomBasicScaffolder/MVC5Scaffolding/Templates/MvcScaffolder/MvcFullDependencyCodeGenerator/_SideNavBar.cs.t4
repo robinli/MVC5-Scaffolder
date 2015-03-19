@@ -26,6 +26,9 @@
                 <li>
                     <a href="/Management"><i class="fa fa-fw fa-lock"></i>授权管理</a>
                 </li>
+                <li>
+                    <a href="/BaseCodes"><i class="fa fa-fw fa-adjust"></i>基础代码管理</a>
+                </li>
             </ul>
         </li>
     </ul>

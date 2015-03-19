@@ -910,7 +910,85 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 , templateParameters: templateParams
                 , skipIfExists: true);
 
-           
+           //add basecode
+            // add BaseCodesController.cs
+            viewName = "BaseCodesController";
+            outputPath = Path.Combine("Controllers", viewName);
+            templatePath = Path.Combine("MvcFullDependencyCodeGenerator\\BaseCode", viewName);
+            templateParams = new Dictionary<string, object>(){
+               {"DefaultNamespace", project.GetDefaultNamespace()}
+            };
+            AddFileFromTemplate(project: project
+                , outputPath: outputPath
+                , templateName: templatePath
+                , templateParameters: templateParams
+                , skipIfExists: true);
+
+
+            var basecodeviews = new string[] { "_CodeItemEditForm", "Create", "Edit", "EditForm", "Index" };
+            foreach (string vname in basecodeviews)
+            {
+                viewName = vname;
+                outputPath = Path.Combine(viewRootPath, "BaseCodes", viewName);
+                templatePath = Path.Combine("MvcFullDependencyCodeGenerator\\BaseCode\\Views", viewName);
+                templateParams = new Dictionary<string, object>(){
+               {"DefaultNamespace", project.GetDefaultNamespace()}
+            };
+                AddFileFromTemplate(project: project
+                    , outputPath: outputPath
+                    , templateName: templatePath
+                    , templateParameters: templateParams
+                    , skipIfExists: true);
+            }
+            var basecodemodels = new string[] { "BaseCode", "BaseCodeMetadata" };
+            foreach (string vname in basecodemodels)
+            {
+                viewName = vname;
+                outputPath = Path.Combine("Models", viewName);
+                templatePath = Path.Combine("MvcFullDependencyCodeGenerator\\BaseCode\\Models", viewName);
+                templateParams = new Dictionary<string, object>(){
+               {"DefaultNamespace", project.GetDefaultNamespace()}
+            };
+                AddFileFromTemplate(project: project
+                    , outputPath: outputPath
+                    , templateName: templatePath
+                    , templateParameters: templateParams
+                    , skipIfExists: true);
+            }
+
+            var basecodeservices = new string[] { "BaseCodeService", "IBaseCodeService" };
+            foreach (string vname in basecodeservices)
+            {
+                viewName = vname;
+                outputPath = Path.Combine("Services","BaseCodes", viewName);
+                templatePath = Path.Combine("MvcFullDependencyCodeGenerator\\BaseCode\\Services", viewName);
+                templateParams = new Dictionary<string, object>(){
+               {"DefaultNamespace", project.GetDefaultNamespace()}
+            };
+                AddFileFromTemplate(project: project
+                    , outputPath: outputPath
+                    , templateName: templatePath
+                    , templateParameters: templateParams
+                    , skipIfExists: true);
+            }
+
+            var basecoderepository = new string[] { "BaseCodeQuery", "BaseCodeRepository" };
+            foreach (string vname in basecoderepository)
+            {
+                viewName = vname;
+                outputPath = Path.Combine("Repositories", "BaseCodes", viewName);
+                templatePath = Path.Combine("MvcFullDependencyCodeGenerator\\BaseCode\\Repositories", viewName);
+                templateParams = new Dictionary<string, object>(){
+               {"DefaultNamespace", project.GetDefaultNamespace()}
+            };
+                AddFileFromTemplate(project: project
+                    , outputPath: outputPath
+                    , templateName: templatePath
+                    , templateParameters: templateParams
+                    , skipIfExists: true);
+            }
+
+           //end basecode
 
 
         }

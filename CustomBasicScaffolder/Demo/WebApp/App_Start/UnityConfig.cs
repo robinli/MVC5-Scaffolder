@@ -81,6 +81,11 @@ namespace WebApp.App_Start
 
             container.RegisterType<IRepositoryAsync<Work>, Repository<Work>>();
             container.RegisterType<IWorkService, WorkService>();
+
+            container.RegisterType<IRepositoryAsync<BaseCode>, Repository<BaseCode>>();
+            container.RegisterType<IBaseCodeService, BaseCodeService>();
+            container.RegisterType<IRepositoryAsync<CodeItem>, Repository<CodeItem>>();
+            //container.RegisterType<ICodeItemService, CodeItemService>();
             //container.RegisterType<IRepositoryAsync<Order>, Repository<Order>>();
             //container.RegisterType<IOrderService, OrderService>();
         }
