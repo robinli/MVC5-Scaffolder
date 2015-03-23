@@ -160,6 +160,15 @@ namespace Happy.Scaffolding.MVC.UI {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Set Form Layout Columns  .
+        /// </summary>
+        public static string FormViewCols {
+            get {
+                return ResourceManager.GetString("FormViewCols", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Generate Master-Detail relationship Action and PageView.
         /// </summary>
         public static string GenerateMasterDetailRelationship {

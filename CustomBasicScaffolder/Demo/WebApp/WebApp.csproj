@@ -225,17 +225,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201503160100165_dddd.cs" />
-    <Compile Include="Migrations\201503160100165_dddd.Designer.cs">
-      <DependentUpon>201503160100165_dddd.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201503190044153_basecdoe.cs" />
-    <Compile Include="Migrations\201503190044153_basecdoe.Designer.cs">
-      <DependentUpon>201503190044153_basecdoe.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201503190157011_un.cs" />
-    <Compile Include="Migrations\201503190157011_un.Designer.cs">
-      <DependentUpon>201503190157011_un.cs</DependentUpon>
+    <Compile Include="Migrations\201503230120520_init.cs" />
+    <Compile Include="Migrations\201503230120520_init.Designer.cs">
+      <DependentUpon>201503230120520_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs">
       <SubType>Code</SubType>
@@ -640,14 +632,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201503160100165_dddd.resx">
-      <DependentUpon>201503160100165_dddd.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503190044153_basecdoe.resx">
-      <DependentUpon>201503190044153_basecdoe.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503190157011_un.resx">
-      <DependentUpon>201503190157011_un.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201503230120520_init.resx">
+      <DependentUpon>201503230120520_init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

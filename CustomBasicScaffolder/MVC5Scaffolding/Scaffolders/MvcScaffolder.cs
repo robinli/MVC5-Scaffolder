@@ -177,6 +177,8 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             string viewPrefix = codeGeneratorViewModel.ViewPrefix;
             string programTitle = codeGeneratorViewModel.ProgramTitle;
             bool generateMasterDetailRelationship = codeGeneratorViewModel.GenerateMasterDetailRelationship;
+            bool checkformcols = codeGeneratorViewModel.CheckFormViewCols;
+            int formcols = codeGeneratorViewModel.FormViewCols;
             
             AddEntityRepositoryExtensionTemplates(project, selectionRelativePath,
                 dbContextNamespace,

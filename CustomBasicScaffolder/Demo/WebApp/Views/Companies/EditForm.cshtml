@@ -3,177 +3,183 @@
 
 @*@Html.HiddenFor(model => model.Id)*@
 
-<div class="form-group">
-    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-    <div class="col-md-10">
-        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-    </div>
-</div>
-
-<div class="form-group">
-    @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
-    <div class="col-md-10">
-        @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
-        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
-    </div>
-</div>
-
-<div class="form-group">
-    @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label col-md-2" })
-    <div class="col-md-10">
-        @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control" } })
-        @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
-    </div>
-</div>
-
-<div class="form-group">
-    @Html.LabelFor(model => model.Province, htmlAttributes: new { @class = "control-label col-md-2" })
-    <div class="col-md-10">
-        @Html.EditorFor(model => model.Province, new { htmlAttributes = new { @class = "form-control" } })
-        @Html.ValidationMessageFor(model => model.Province, "", new { @class = "text-danger" })
-    </div>
-</div>
-
-<div class="form-group">
-    @Html.LabelFor(model => model.RegisterDate, htmlAttributes: new { @class = "control-label col-md-2" })
-    <div class="col-md-10">
-        @Html.EditorFor(model => model.RegisterDate, "Date")
-        @Html.ValidationMessageFor(model => model.RegisterDate, "", new { @class = "text-danger" })
-    </div>
-</div>
-
-<div class="form-group">
-    @Html.LabelFor(model => model.Employees, htmlAttributes: new { @class = "control-label col-md-2" })
-    <div class="col-md-10">
-        @Html.EditorFor(model => model.Employees, new { htmlAttributes = new { @class = "form-control" } })
-        @Html.ValidationMessageFor(model => model.Employees, "", new { @class = "text-danger" })
-    </div>
-</div>
-
-
-<div role="tabpanel">
-    <!-- Nav tabs -->
-    <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#tab-Departments" aria-controls="tab-Departments" role="tab" data-toggle="tab">Departments</a></li>
-
-
-        <li role="presentation"><a href="#tab-Employee" aria-controls="tab-Employee" role="tab" data-toggle="tab">Employee</a></li>
-
-
-
-    </ul>
-    <!-- Tab panes -->
-    <div class="tab-content">
-
-        <div role="tabpanel" class="tab-pane active" id="tab-Departments">
-            <div id="toolbar-Departments" class="btn-group">
-                <button type="button" id="adddepartmentsbutton" class="btn btn-default">
-                    <i class="glyphicon glyphicon-plus"></i>
-                </button>
-
-                <button type="button" id="removedepartmentsbutton" class="btn btn-default">
-                    <i class="glyphicon glyphicon-trash"></i>
-                </button>
-            </div>
-            <div class="table-responsive">
-                <table id="departments-table" class="table table-striped" data-search="true"
-                       data-flat="false"
-                       data-toolbar="#toolbar-Departments"
-                       data-pagination="true"
-                       data-show-refresh="true"
-                       data-show-toggle="true"
-                       data-show-columns="true">
-                    <thead>
-                        <tr>
-                            <th data-formatter="departmentsrowindexFormatter">#No</th>
-
-
-                            <th data-field="CompanyName" data-visible="false">
-                                Company
-                            </th>
-
-                            <th data-field="Id" data-visible="false">
-                                Id
-                            </th>
-
-                            <th data-field="Name">
-                                Name
-                            </th>
-
-                            <th data-field="Manager">
-                                Manager
-                            </th>
-
-                            <th data-field="CompanyId" data-visible="false">
-                                CompanyId
-                            </th>
-                            <th data-field="action" data-formatter="departmentsactionFormatter" data-events="actionEvents">Action</th>
-                        </tr>
-                    </thead>
-                </table>
-            </div>
+<div class="col-lg-6 col-md-6 col-sm-6">
+    <div class="form-group">
+        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
         </div>
+    </div>
 
-
-        <div role="tabpanel" class="tab-pane " id="tab-Employee">
-            <div id="toolbar-Employee" class="btn-group">
-                <button type="button" id="addemployeebutton" class="btn btn-default">
-                    <i class="glyphicon glyphicon-plus"></i>
-                </button>
-
-                <button type="button" id="removeemployeebutton" class="btn btn-default">
-                    <i class="glyphicon glyphicon-trash"></i>
-                </button>
-            </div>
-            <div class="table-responsive">
-                <table id="employee-table" class="table table-striped" data-search="true"
-                       data-flat="false"
-                       data-toolbar="#toolbar-Employee"
-                       data-pagination="true"
-                       data-show-refresh="true"
-                       data-show-toggle="true"
-                       data-show-columns="true">
-                    <thead>
-                        <tr>
-                            <th data-formatter="employeerowindexFormatter">#No</th>
-
-
-                            <th data-field="CompanyName" data-visible="false">
-                                Company
-                            </th>
-
-                            <th data-field="Id" data-visible="false">
-                                Id
-                            </th>
-
-                            <th data-field="Name">
-                                Name
-                            </th>
-
-                            <th data-field="Sex">
-                                Sex
-                            </th>
-
-                            <th data-field="Age">
-                                Age
-                            </th>
-
-                            <th data-field="Brithday" data-formatter="dateformat">
-                                Brithday
-                            </th>
-
-                            <th data-field="CompanyId" data-visible="false">
-                                CompanyId
-                            </th>
-                            <th data-field="action" data-formatter="employeeactionFormatter" data-events="actionEvents">Action</th>
-                        </tr>
-                    </thead>
-                </table>
-            </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
         </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+        </div>
+    </div>
+</div>
+<div class="col-lg-6 col-md-6 col-sm-6">
+    <div class="form-group">
+        @Html.LabelFor(model => model.Province, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Province, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Province, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.RegisterDate, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.RegisterDate, "Date")
+            @Html.ValidationMessageFor(model => model.RegisterDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Employees, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Employees, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Employees, "", new { @class = "text-danger" })
+        </div>
+    </div>
+</div>
 
 
+
+<div class="tabs">
+    <div role="tabpanel">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#tab-Departments" aria-controls="tab-Departments" role="tab" data-toggle="tab">Departments</a></li>
+
+
+            <li role="presentation"><a href="#tab-Employee" aria-controls="tab-Employee" role="tab" data-toggle="tab">Employee</a></li>
+
+
+
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+
+            <div role="tabpanel" class="tab-pane active" id="tab-Departments">
+                <div id="toolbar-Departments" class="btn-group">
+                    <button type="button" id="adddepartmentsbutton" class="btn btn-default">
+                        <i class="glyphicon glyphicon-plus"></i>
+                    </button>
+
+                    <button type="button" id="removedepartmentsbutton" class="btn btn-default">
+                        <i class="glyphicon glyphicon-trash"></i>
+                    </button>
+                </div>
+                <div class="table-responsive">
+                    <table id="departments-table" class="table table-striped" data-search="true"
+                           data-flat="false"
+                           data-toolbar="#toolbar-Departments"
+                           data-pagination="true"
+                           data-show-refresh="true"
+                           data-show-toggle="true"
+                           data-show-columns="true">
+                        <thead>
+                            <tr>
+                                <th data-formatter="departmentsrowindexFormatter">#No</th>
+
+
+                                <th data-field="CompanyName" data-visible="false">
+                                    Company
+                                </th>
+
+                                <th data-field="Id" data-visible="false">
+                                    Id
+                                </th>
+
+                                <th data-field="Name">
+                                    Name
+                                </th>
+
+                                <th data-field="Manager">
+                                    Manager
+                                </th>
+
+                                <th data-field="CompanyId" data-visible="false">
+                                    CompanyId
+                                </th>
+                                <th data-field="action" data-formatter="departmentsactionFormatter" data-events="actionEvents">Action</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+
+
+            <div role="tabpanel" class="tab-pane " id="tab-Employee">
+                <div id="toolbar-Employee" class="btn-group">
+                    <button type="button" id="addemployeebutton" class="btn btn-default">
+                        <i class="glyphicon glyphicon-plus"></i>
+                    </button>
+
+                    <button type="button" id="removeemployeebutton" class="btn btn-default">
+                        <i class="glyphicon glyphicon-trash"></i>
+                    </button>
+                </div>
+                <div class="table-responsive">
+                    <table id="employee-table" class="table table-striped" data-search="true"
+                           data-flat="false"
+                           data-toolbar="#toolbar-Employee"
+                           data-pagination="true"
+                           data-show-refresh="true"
+                           data-show-toggle="true"
+                           data-show-columns="true">
+                        <thead>
+                            <tr>
+                                <th data-formatter="employeerowindexFormatter">#No</th>
+
+
+                                <th data-field="CompanyName" data-visible="false">
+                                    Company
+                                </th>
+
+                                <th data-field="Id" data-visible="false">
+                                    Id
+                                </th>
+
+                                <th data-field="Name">
+                                    Name
+                                </th>
+
+                                <th data-field="Sex">
+                                    Sex
+                                </th>
+
+                                <th data-field="Age">
+                                    Age
+                                </th>
+
+                                <th data-field="Brithday" data-formatter="dateformat">
+                                    Brithday
+                                </th>
+
+                                <th data-field="CompanyId" data-visible="false">
+                                    CompanyId
+                                </th>
+                                <th data-field="action" data-formatter="employeeactionFormatter" data-events="actionEvents">Action</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+
+
+        </div>
     </div>
 </div>
 

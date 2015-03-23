@@ -472,6 +472,44 @@ namespace Happy.Scaffolding.MVC.UI
             }
         }
 
+        private bool _checkformViewCols;
+
+        public bool CheckFormViewCols
+        {
+            get { return _checkformViewCols; }
+            set
+            {
+                Validate();
+
+                if (value == _checkformViewCols)
+                {
+                    return;
+                }
+
+                _checkformViewCols = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private int _formViewCols = 2;
+
+        public int FormViewCols
+        {
+            get { return _formViewCols; }
+            set
+            {
+                Validate();
+
+                if (value == _formViewCols)
+                {
+                    return;
+                }
+
+                _formViewCols = value;
+                OnPropertyChanged();
+            }
+        }
+
         private bool _overwriteViews;
 
         public bool OverwriteViews
@@ -512,6 +550,15 @@ namespace Happy.Scaffolding.MVC.UI
             }
         }
 
+        public ObservableCollection<int> ColNumCollection
+        {
+            get
+            {
+                int[] cols = new int[] { 2, 3, 4, 6, 12 };
+                return new ObservableCollection<int>(cols);
+
+            }
+        }
 
         private bool IsReallyValidWebProjectEntityType(CodeType codeType)
         {
