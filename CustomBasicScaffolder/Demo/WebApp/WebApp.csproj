@@ -600,7 +600,6 @@
     <Content Include="Views\Companies\Index.cshtml" />
     <Content Include="Views\Companies\Create.cshtml" />
     <Content Include="Views\Companies\Edit.cshtml" />
-    <Content Include="Views\Companies\EditForm.cshtml" />
     <Content Include="Views\Companies\_DepartmentEditForm.cshtml" />
     <Content Include="Views\Companies\_EmployeeEditForm.cshtml" />
     <Content Include="Views\BaseCodes\_CodeItemEditForm.cshtml" />
@@ -609,6 +608,7 @@
     <Content Include="Views\BaseCodes\EditForm.cshtml" />
     <Content Include="Views\BaseCodes\Index.cshtml" />
     <Content Include="Views\Works\Index.cshtml" />
+    <Content Include="Views\Companies\EditForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

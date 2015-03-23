@@ -179,7 +179,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             bool generateMasterDetailRelationship = codeGeneratorViewModel.GenerateMasterDetailRelationship;
             bool checkformcols = codeGeneratorViewModel.CheckFormViewCols;
             int formcols = codeGeneratorViewModel.FormViewCols;
-            
+             
             AddEntityRepositoryExtensionTemplates(project, selectionRelativePath,
                 dbContextNamespace,
                 dbContextTypeName,
@@ -259,6 +259,8 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                     , overwrite: codeGeneratorViewModel.OverwriteViews
                     , generateMasterDetailRelationship: generateMasterDetailRelationship
                     , oneToManyModels: oneToManyModels
+                    , checkedFormCols:checkformcols
+                    , formClos: formcols
                     );
             }
             
@@ -586,6 +588,8 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             , bool isBundleConfigPresent=true
             , bool overwrite = false
             , bool generateMasterDetailRelationship = false
+            , bool checkedFormCols=false
+            , int formClos=2
             , Dictionary<string,ModelMetadata> oneToManyModels = null
             )
         {
@@ -599,7 +603,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 layoutPageFile = string.Empty;
             var modelDisplayNames = GetDisplayNames(modelType);
             
-
+      
             Dictionary<string, object> templateParams = new Dictionary<string, object>(){
                 {"ControllerRootName" , controllerRootName}
                 , {"ModelMetadata", efMetadata}
@@ -616,6 +620,8 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 , {"IsBundleConfigPresent", isBundleConfigPresent}
                 , {"OneToManyModelMetadata", oneToManyModels}
                 ,{"ModelDisplayNames",modelDisplayNames}
+                ,{"CheckedFromLayoutCols",checkedFormCols}
+                ,{"FromLayoutCols",formClos}
                 ,{"GenerateMasterDetailRelationship" ,generateMasterDetailRelationship}
                 //, {"ViewDataTypeShortName", modelType.Name} // 可刪除
                 , {"MetaTable", _ModelMetadataVM.DataModel}

@@ -29,3 +29,6 @@
 <#@ parameter type="System.Collections.Generic.Dictionary<string, Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata>" name="OneToManyModelMetadata" #>
 <#@ parameter type="System.Boolean" name ="GenerateMasterDetailRelationship" #>
 <#@ parameter type="System.String" name ="ModelTypeName" #>
+
+<#@ parameter type="System.Boolean" name ="CheckedFromLayoutCols" #>
+<#@ parameter type="System.Int32" name ="FromLayoutCols" #>
