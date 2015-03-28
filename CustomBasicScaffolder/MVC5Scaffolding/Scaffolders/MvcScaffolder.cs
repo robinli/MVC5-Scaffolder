@@ -843,6 +843,19 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 , templateParameters: templateParams
                 , skipIfExists: true);
 
+            // add ButtonAttribute
+            viewName = "ButtonAttribute";
+            outputPath = Path.Combine("Controllers", viewName);
+            templatePath = Path.Combine("MvcFullDependencyCodeGenerator\\RoleManager", viewName);
+            templateParams = new Dictionary<string, object>(){
+               {"DefaultNamespace", project.GetDefaultNamespace()}
+            };
+            AddFileFromTemplate(project: project
+                , outputPath: outputPath
+                , templateName: templatePath
+                , templateParameters: templateParams
+                , skipIfExists: true);
+
             // add ManagementViewModels.cs
             viewName = "ManagementViewModels";
             outputPath = Path.Combine("Models", viewName);
