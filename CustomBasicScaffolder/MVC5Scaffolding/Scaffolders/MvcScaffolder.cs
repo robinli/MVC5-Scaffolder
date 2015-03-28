@@ -231,7 +231,15 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             }
             // EditorTemplates, DisplayTemplates
             AddDataFieldTemplates(project, viewRootPath);
-            
+
+            var modelDisplayNames = new Dictionary<string, string>();
+            foreach (var property in efMetadata.Properties)
+            {
+                if (property.AssociationDirection == AssociationDirection.OneToMany)
+                {
+                   modelDisplayNames = GetDisplayNames(property.RelatedModel.TypeName);
+                }
+            }
         
             // Views for  C.R.U.D 
             string viewFolderPath = Path.Combine(viewRootPath, controllerRootName);
@@ -261,6 +269,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                     , oneToManyModels: oneToManyModels
                     , checkedFormCols:checkformcols
                     , formClos: formcols
+                    , modelDisplayNames:modelDisplayNames
                     );
             }
             
@@ -271,7 +280,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                     string _detialViewName="_DetailEditForm";
                     var detailModelMeta = oneToManyModels[property.PropertyName];
                     var modelTypeName = property.RelatedModel.ShortTypeName;
-                    var modelDisplayNames = GetDisplayNames(modelType);
+                   
                     AddDetailsView(project
                         , viewFolderPath
                         , viewPrefix
@@ -305,7 +314,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
         private IDictionary<string,string> GetAllFieldDisplayNames(CodeType modelType, ModelMetadata efMetadata)
         {
             IDictionary<string, string> dic = new Dictionary<string, string>();
-            dic = GetDisplayNames(modelType);
+            dic = GetDisplayNames(modelType.FullName);
             foreach (var property in efMetadata.Properties)
             {
                 if (property.AssociationDirection == AssociationDirection.OneToMany)
@@ -591,6 +600,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             , bool checkedFormCols=false
             , int formClos=2
             , Dictionary<string,ModelMetadata> oneToManyModels = null
+            , Dictionary<string, string> modelDisplayNames=null
             )
         {
            
@@ -601,8 +611,9 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             string modelNameSpace = modelType.Namespace != null ? modelType.Namespace.FullName : String.Empty;
             if (layoutPageFile == null)
                 layoutPageFile = string.Empty;
-            var modelDisplayNames = GetDisplayNames(modelType);
-            
+
+            if (modelDisplayNames == null)
+                modelDisplayNames = GetDisplayNames(modelType.FullName);
       
             Dictionary<string, object> templateParams = new Dictionary<string, object>(){
                 {"ControllerRootName" , controllerRootName}
@@ -638,19 +649,23 @@ namespace Happy.Scaffolding.MVC.Scaffolders
 
         // Create a mapping between property names and display names in case
         // the property is decorated with a DisplayAttribute
-        protected IDictionary<string, string> GetDisplayNames(CodeType modelType)
-        {
-            var type = GetReflectionType(modelType.FullName);
-            var lookup = new Dictionary<string, string>();
-            foreach (PropertyInfo prop in type.GetProperties())
-            {
-                var attr = (System.ComponentModel.DataAnnotations.DisplayAttribute)prop.GetCustomAttribute(typeof(System.ComponentModel.DataAnnotations.DisplayAttribute), true);
-                var value = attr != null && !String.IsNullOrWhiteSpace(attr.Name) ? attr.Name : prop.Name;
-                lookup.Add(prop.Name, value);
-            }
-            return lookup;
-        }
-        protected IDictionary<string, string> GetDisplayNames(string fullclassName)
+        //protected Dictionary<string, string> GetDisplayNames(string modelmetaTypeName)
+        //{
+        //    var type = GetReflectionType(modelmetaTypeName);
+        //    var lookup = new Dictionary<string, string>();
+        //    foreach (PropertyInfo prop in type.GetProperties())
+        //    {
+        //        var attr = (System.ComponentModel.DataAnnotations.DisplayAttribute)prop.GetCustomAttribute(typeof(System.ComponentModel.DataAnnotations.DisplayAttribute), true);
+        //        var value = attr != null && !String.IsNullOrWhiteSpace(attr.Name) ? attr.Name : prop.Name;
+        //        if (!lookup.ContainsKey(prop.Name))
+        //        {
+        //            lookup.Add(prop.Name, value);
+        //        }
+        //    }
+        //    return lookup;
+             
+        //}
+        protected Dictionary<string, string> GetDisplayNames(string fullclassName)
         {
             var type = GetReflectionType(fullclassName);
             var lookup = new Dictionary<string, string>();
@@ -658,7 +673,8 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             {
                 var attr = (System.ComponentModel.DataAnnotations.DisplayAttribute)prop.GetCustomAttribute(typeof(System.ComponentModel.DataAnnotations.DisplayAttribute), true);
                 var value = attr != null && !String.IsNullOrWhiteSpace(attr.Name) ? attr.Name : prop.Name;
-                lookup.Add(prop.Name, value);
+                if (!lookup.ContainsKey(prop.Name))
+                    lookup.Add(prop.Name, value);
             }
             return lookup;
         }

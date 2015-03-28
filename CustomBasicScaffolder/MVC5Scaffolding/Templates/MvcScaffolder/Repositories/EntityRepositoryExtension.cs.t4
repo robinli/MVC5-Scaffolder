@@ -70,10 +70,15 @@ namespace <#=DefaultNamespace #>.Repositories
             var relatedEntities = relmodemeta.RelatedEntities;
              var foreignKeyNames = relatedEntities.Where(n=>n.EntitySetName == ModelMetadata.EntitySetName).Select(n=>n.ForeignKeyPropertyNames).First();
             var foreignKeyName = foreignKeyNames[0];
+			 var relatedProperties = relmodemeta.RelatedEntities.Where(n=>n.ShortTypeName != ModelName).ToDictionary(item => item.AssociationPropertyName);
+			var includeExpressions = "";
+			includeExpressions = String.Join("", relatedProperties.Values.Select(p => String.Format(".Include({0} => {0}.{1})", "x", p.AssociationPropertyName)));
+ 
         #>
         public static IEnumerable<<#= property.RelatedModel.ShortTypeName #>>   Get<#= property.PropertyName #>By<#= foreignKeyName #> (this IRepositoryAsync<<#= ModelName #>> repository,<#= primaryKey.ShortTypeName #> <#= foreignKeyName.ToLower() #>)
         {
-            var query = repository.Query(n => n.<#= PrimaryKeyName #> == <#= foreignKeyName.ToLower() #>).Include(x => x.<#= property.PropertyName #>).Select().FirstOrDefault();
+			
+            var query = repository.Query(n => n.<#= PrimaryKeyName #> == <#= foreignKeyName.ToLower() #>)<#= includeExpressions  #>.Include(x => x.<#= property.PropertyName #>).Select().FirstOrDefault();
             return query.<#= property.PropertyName #>;
             //return repository.Query(n => n.<#= PrimaryKeyName #> == <#= foreignKeyName.ToLower() #>).Include(x => x.<#= property.PropertyName #>).Select(x => x.<#= property.PropertyName #>).FirstOrDefault();
         }
