@@ -165,14 +165,14 @@ if(IsLayoutPageSelected && ReferenceScriptLibraries && IsBundleConfigPresent) {
                      <# } #>
                     
                      var newitem = {
-                        <# foreach(var property  in  ModelMetadata.Properties) {
+                        <# foreach(var property  in  ModelMetadata.Properties.Where(n=>n.Scaffold )) {
                             if(property.IsPrimaryKey) {
                         #>                  
                                 <#= property.PropertyName #>: <#= primaryKeyVar #>,
                         <# } else if (property.AssociationDirection == AssociationDirection.OneToMany) { #>
                                 <#= property.PropertyName #>: <#= property.PropertyName.ToLower() #> ,
                         <# } else if(property.IsForeignKey)  { #>
-								<#= property.PropertyName #>: $('#<#= property.PropertyName.ToLower() #> :selected').val();
+								<#= property.PropertyName #>: $('#<#= property.PropertyName #> :selected','form').val(),
 						<# } else { #>
                                 <#= property.PropertyName #>: $('#<#= property.PropertyName #>', 'form').val(),
                         <#
