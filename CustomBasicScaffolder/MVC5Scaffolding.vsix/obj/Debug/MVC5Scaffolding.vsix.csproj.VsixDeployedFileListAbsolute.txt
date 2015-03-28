@@ -74,3 +74,4 @@ C:\Users\Administrator\AppData\Local\Microsoft\VisualStudio\12.0Exp\Extensions\R
 C:\Users\Administrator\AppData\Local\Microsoft\VisualStudio\12.0Exp\Extensions\Robin Li\Happy Scaffolding for MVC5\3.1\\Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\BaseCode\Services\BaseCodeService.cs.t4
 C:\Users\Administrator\AppData\Local\Microsoft\VisualStudio\12.0Exp\Extensions\Robin Li\Happy Scaffolding for MVC5\3.1\\Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\BaseCode\Services\IBaseCodeService.cs.t4
 C:\Users\Administrator\AppData\Local\Microsoft\VisualStudio\12.0Exp\Extensions\Robin Li\Happy Scaffolding for MVC5\3.1\\Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\BaseCode\BaseCodesController.cs.t4
+C:\Users\Administrator\AppData\Local\Microsoft\VisualStudio\12.0Exp\Extensions\Robin Li\Happy Scaffolding for MVC5\3.1\\Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\RoleManager\ButtonAttribute.cs.t4

@@ -457,3 +457,4 @@ D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Debug\
 D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Debug\fr-FR\MVC5Scaffolding.resources.dll
 D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Debug\MVC5Scaffolding.dll
 D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Debug\MVC5Scaffolding.pdb
+D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\RoleManager\ButtonAttribute.cs.t4

@@ -22,15 +22,22 @@ namespace WebApp
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
-
+ 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
+                      "~/Scripts/bootstrap-table.js",
+                      "~/Scripts/extensions/editable/bootstrap-table-editable.js",
+                      "~/Scripts/extensions/export/bootstrap-table-export.js",
+                      "~/Scripts/extensions/filter/bootstrap-table-filter.js",
+                      "~/Scripts/extensions/flatJSON/bootstrap-table-flatJSON.js",
+                      "~/Scripts/extensions/sorting/bootstrap-table-natural-sorting.js",
                       "~/Scripts/bootstrap-datepicker.js",
                       "~/Scripts/bootbox.js",
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                       "~/Content/bootstrap-table.css",
                       "~/Content/sb-admin.css"));
 
             // Set EnableOptimizations to false for debugging. For more information,

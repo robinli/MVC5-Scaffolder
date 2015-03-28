@@ -498,7 +498,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             string linqtxt = "";
           
             
-            foreach (PropertyMetadata m in efMetadata.Properties)
+            foreach (PropertyMetadata m in efMetadata.Properties.Where(n=>n.Scaffold))
             {
                 
                 if (m.ShortTypeName.ToLower() == "string")
@@ -522,7 +522,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             string linqtxt = "";
             string linqtxt1 = "";
             string linqtxt2 = "";
-            linqtxt1= String.Join("",efMetadata.Properties.Where(n=>n.IsAssociation == true && n.AssociationDirection== AssociationDirection.ManyToOne)
+            linqtxt1= String.Join("",efMetadata.Properties.Where(n=>n.IsAssociation == true && n.AssociationDirection== AssociationDirection.ManyToOne && n.Scaffold)
                             .Select(n=> String.Format(",{0}{1} = n.{2}.{3} " ,n.PropertyName,n.RelatedModel.DisplayPropertyName ,n.PropertyName,n.RelatedModel.DisplayPropertyName )));
             linqtxt2 = String.Join("", efMetadata.Properties.Where(n => n.IsAssociation == false).Select(n => String.Format(", {0} = n.{1} ", n.PropertyName, n.PropertyName)));
 

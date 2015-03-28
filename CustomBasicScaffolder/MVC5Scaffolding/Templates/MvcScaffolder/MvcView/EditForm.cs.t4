@@ -206,7 +206,7 @@
         }
 		#>
 		
-                            <# if ( chproperty.IsPrimaryKey || chproperty.IsForeignKey ) { #>
+        <# if ( chproperty.IsPrimaryKey || chproperty.IsForeignKey ) { #>
             <th data-field="<#= chproperty.PropertyName  #>"   data-visible="false" data-align="<#= tdalign #>" > <#= GetDisplayName(chproperty.PropertyName) #>
             </th>
         <# } else if (chproperty.AssociationDirection ==  AssociationDirection.ManyToOne && HasRelatedMasterModel(childrenmodelmeta,chproperty.PropertyName) ) { #>
@@ -217,7 +217,7 @@
 			
             <th data-field="<#= GetRelatedDisplayNameExpression(chproperty,childrenmodelmeta)  #>"  data-align="<#= tdalign #>" > <#= GetDisplayName(chproperty.PropertyName) #>
             </th>
-        <# } else { #>
+        <# } else if (chproperty.AssociationDirection !=  AssociationDirection.OneToMany) {  #>
         <th data-field="<#= chproperty.PropertyName  #>" data-align="<#= tdalign #>"  > <#= GetDisplayName(chproperty.PropertyName) #>
         </th>
         <#            } #>
