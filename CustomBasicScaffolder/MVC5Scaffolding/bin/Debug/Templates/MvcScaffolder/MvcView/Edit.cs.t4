@@ -106,8 +106,15 @@ if (ReferenceScriptLibraries) {
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
+    <#
+	    string divclass="";
+		if(FromLayoutCols>3){
+			divclass="";
+        }else{
+			divclass = "form-horizontal";
+        }
+	#>
+    <div class="<#= divclass #>">
         <h4><#= ProgramTitle #></h4>
         <hr />
 <# 
