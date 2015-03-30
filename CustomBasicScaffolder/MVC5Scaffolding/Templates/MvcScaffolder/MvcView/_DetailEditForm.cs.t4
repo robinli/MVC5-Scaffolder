@@ -53,7 +53,7 @@ foreach (PropertyMetadata property in ModelMetadata.Properties) {
       @*<div class="form-group">
             @Html.LabelFor(model => model.<#=  property.PropertyName #>,  htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("<#=  property.PropertyName #>", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.<#=  property.PropertyName #>, ViewBag.<#= property.PropertyName #> as List<SelectListItem>,"---Select---", htmlAttributes: new { @class = "form-control" }) 
                 @Html.ValidationMessageFor(model => model.<#=                    property.PropertyName #>,"" , new { @class = "text-danger" })
             </div>
         </div>*@
@@ -63,7 +63,7 @@ foreach (PropertyMetadata property in ModelMetadata.Properties) {
 		<div class="form-group">
             @Html.LabelFor(model => model.<#= property.PropertyName #>,   htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("<#= property.PropertyName #>", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.<#= property.PropertyName #>, ViewBag.<#= property.PropertyName #> as List<SelectListItem>,"---Select---", htmlAttributes: new { @class = "form-control" }) 
                 @Html.ValidationMessageFor(model => model.<#=  property.PropertyName #>,"" , new { @class = "text-danger" })
             </div>
         </div>
