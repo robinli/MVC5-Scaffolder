@@ -340,7 +340,7 @@
     }
     function <#= detailmodelnameVar  #>actionFormatter(value, row, index) {
         return [
-            '<a class="edit" id="<#=detailmodelnameVar  #>edit" href="javascript:void(0)" title="Add">',
+            '<a class="edit" id="<#=detailmodelnameVar  #>edit" href="javascript:void(0)" title="Edit">',
             '<i class="glyphicon glyphicon-edit"></i>',
             '</a>  ',
             ' <a class="remove" id="<#= detailmodelnameVar #>remove" href="javascript:void(0)" title="Remove">',
