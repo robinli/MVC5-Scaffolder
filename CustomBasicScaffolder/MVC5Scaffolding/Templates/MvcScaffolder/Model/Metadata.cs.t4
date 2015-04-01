@@ -27,6 +27,8 @@ namespace <#= Namespace #>
 <#
 foreach (PropertyMetadata property in ModelMetadata.Properties) {
         MetaColumnInfo column = MetaTable[property.PropertyName];
+        if(column == null)
+            continue;
         if(property.IsPrimaryKey || !MetaTable[property.PropertyName].Nullable){
 #>
         [Required(ErrorMessage = "Please enter : <#= column.DisplayName #>")]

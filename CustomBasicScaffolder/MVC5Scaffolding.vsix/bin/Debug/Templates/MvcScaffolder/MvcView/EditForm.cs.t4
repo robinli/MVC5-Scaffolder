@@ -42,7 +42,7 @@
 		<div class="form-group">
             @Html.LabelFor(model => model.<#=                        property.PropertyName #>,   htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-			    @Html.DropDownListFor(model => model.<#=                        property.PropertyName #>, ViewBag.<#=                        property.PropertyName #> as List<SelectListItem>,"---Select---", htmlAttributes: new { @class = "form-control" }) 
+			    @Html.DropDownListFor(model => model.<#=     property.PropertyName #>, ViewBag.<#=                        property.PropertyName #> as List<SelectListItem>,"---Select---", htmlAttributes: new { @class = "form-control" }) 
                 @Html.ValidationMessageFor(model => model.<#=                        property.PropertyName #>,"" , new { @class = "text-danger" })
             </div>
         </div>
@@ -114,7 +114,7 @@
 		<div class="form-group">
             @Html.LabelFor(model => model.<#=                                property.PropertyName #>,   htmlAttributes: new { @class = "control-label <#= labelcolsize #>" })
             <div class="<#= fieldcolsize #>">
-                @Html.DropDownList("<#=                                property.PropertyName #>", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.<#=     property.PropertyName #>, ViewBag.<#=                        property.PropertyName #> as List<SelectListItem>,"---Select---", htmlAttributes: new { @class = "form-control" }) 
                 @Html.ValidationMessageFor(model => model.<#=                                property.PropertyName #>,"" , new { @class = "text-danger" })
             </div>
         </div>
@@ -340,7 +340,7 @@
     }
     function <#= detailmodelnameVar  #>actionFormatter(value, row, index) {
         return [
-            '<a class="edit" id="<#=detailmodelnameVar  #>edit" href="javascript:void(0)" title="Add">',
+            '<a class="edit" id="<#=detailmodelnameVar  #>edit" href="javascript:void(0)" title="Edit">',
             '<i class="glyphicon glyphicon-edit"></i>',
             '</a>  ',
             ' <a class="remove" id="<#= detailmodelnameVar #>remove" href="javascript:void(0)" title="Remove">',
