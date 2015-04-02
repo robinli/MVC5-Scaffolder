@@ -27,7 +27,7 @@
 <# var primaryKey = ModelMetadata.PrimaryKeys[0].PropertyName; #>
 
 
-
+<div class="form-horizontal">
 
 <#
 // "form-control" attribute is only supported for all EditorFor() in System.Web.Mvc 5.1.0.0 or later versions, except for checkbox, which uses a div in Bootstrap
@@ -35,6 +35,7 @@ string boolType = "System.Boolean";
 Version requiredMvcVersion = new Version("5.1.0.0");
     bool isControlHtmlAttributesSupported = true;
 // The following chained if-statement outputs the file header code and markup for a partial view, a view using a layout page, or a regular view.
+
 
 foreach (PropertyMetadata property in ModelMetadata.Properties) {
     if (property.Scaffold && !property.IsReadOnly && !property.IsAssociation) {
@@ -86,7 +87,7 @@ foreach (PropertyMetadata property in ModelMetadata.Properties) {
 #>
 
  
-
+</div>
 
 <#@ include file="ModelMetadataFunctions.cs.include.t4" #>
 <#+
