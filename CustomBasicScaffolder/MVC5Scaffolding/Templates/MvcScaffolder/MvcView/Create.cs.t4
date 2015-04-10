@@ -174,10 +174,11 @@ if(IsLayoutPageSelected && ReferenceScriptLibraries && IsBundleConfigPresent) {
                     
                      var newitem = {
                         <# foreach(var property  in  ModelMetadata.Properties.Where(n=>true ).OrderByDescending(n=>n.Scaffold).ThenBy(n=>n.IsForeignKey).ThenBy(n=>n.PropertyName)) {
-                            if(property.IsPrimaryKey) {
-                        #>                 
-                                <#= property.PropertyName #>: <#= primaryKeyVar #>,
+                            if(property.IsPrimaryKey) { #>
+								//primaryKey
+								<#= property.PropertyName #>: <#= primaryKeyVar #>,
                         <# } else if (property.AssociationDirection == AssociationDirection.OneToMany) { #>
+								//detailTables
                                 <#= property.PropertyName #>: <#= property.PropertyName.ToLower() #> ,
                         <# } else if(property.IsForeignKey)  { #>
 								<#= property.PropertyName #>: $('#<#= property.PropertyName #> :selected','form').val(),
