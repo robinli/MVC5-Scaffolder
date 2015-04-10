@@ -159,6 +159,11 @@ var fieldCount = ModelMetadata.Properties.Where(n=>n.Scaffold && !n.IsReadOnly &
 	</div>
 
 <#    } #>
+
+		@* output all Scaffold = false Hiden field *@
+		<#   foreach (PropertyMetadata hidenproperty in ModelMetadata.Properties.Where(n=>(!n.Scaffold || n.IsReadOnly) && !n.IsAssociation)) { #>
+			@Html.HiddenFor(model => model.<#= hidenproperty.PropertyName #>)
+		<# } #>
 </div>
 
 <#@ include file="ModelMetadataFunctions.cs.include.t4" #>
