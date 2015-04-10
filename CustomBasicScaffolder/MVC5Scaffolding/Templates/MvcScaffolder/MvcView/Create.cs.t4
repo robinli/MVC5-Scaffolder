@@ -173,7 +173,7 @@ if(IsLayoutPageSelected && ReferenceScriptLibraries && IsBundleConfigPresent) {
                      <# } #>
                     
                      var newitem = {
-                        <# foreach(var property  in  ModelMetadata.Properties.Where(n=>n.Scaffold )) {
+                        <# foreach(var property  in  ModelMetadata.Properties.Where(n=>true )) {
                             if(property.IsPrimaryKey) {
                         #>                  
                                 <#= property.PropertyName #>: <#= primaryKeyVar #>,
