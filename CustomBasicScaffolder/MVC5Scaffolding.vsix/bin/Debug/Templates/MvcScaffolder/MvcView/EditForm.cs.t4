@@ -383,7 +383,7 @@
                 $('#<#= detailmodeltypenameVar #>formModal-body').html(data);
                 if (row.Id > 0) {
 				<#  
-				foreach (PropertyMetadata chproperty in childrenmodelmeta.Properties.Where(n=>n.Scaffold )) {
+				foreach (PropertyMetadata chproperty in childrenmodelmeta.Properties.Where(n=>true)) {
 					if (!chproperty.IsAssociation) {
 						// If the property is a primary key and Guid, then the Guid is generated in the controller. Hence, this propery is not displayed on the view.
 						var fieldNameVar=chproperty.PropertyName.ToLower();
@@ -394,7 +394,7 @@
 				<# }} #>
                 } else {
 				<#  
-				foreach (PropertyMetadata chproperty in childrenmodelmeta.Properties.Where(n=>n.Scaffold )) {
+				foreach (PropertyMetadata chproperty in childrenmodelmeta.Properties.Where(n=>true )) {
 					if (!chproperty.IsAssociation) {
 						// If the property is a primary key and Guid, then the Guid is generated in the controller. Hence, this propery is not displayed on the view.
 						var fieldNameVar=chproperty.PropertyName.ToLower();
@@ -485,7 +485,7 @@
                 return false;
             }
 			<#  
-				foreach (PropertyMetadata chproperty in childrenmodelmeta.Properties.Where(n=>n.Scaffold )) {
+				foreach (PropertyMetadata chproperty in childrenmodelmeta.Properties.Where(n=>true )) {
 					if (!chproperty.IsAssociation) {
 						// If the property is a primary key and Guid, then the Guid is generated in the controller. Hence, this propery is not displayed on the view.
 						var fieldNameVar=chproperty.PropertyName.ToLower();
@@ -507,7 +507,7 @@
             
             var <#= detailmodeltypenameVar #> = {
                <#  
-				foreach (PropertyMetadata chproperty in childrenmodelmeta.Properties.Where(n=>n.Scaffold )) {
+				foreach (PropertyMetadata chproperty in childrenmodelmeta.Properties.Where(n=>true )) {
 					if (!chproperty.IsAssociation) {
 						// If the property is a primary key and Guid, then the Guid is generated in the controller. Hence, this propery is not displayed on the view.
 						var fieldNameVar=chproperty.PropertyName.ToLower();

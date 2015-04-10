@@ -196,7 +196,9 @@ if(IsLayoutPageSelected && ReferenceScriptLibraries && IsBundleConfigPresent) {
                      <# } #>
                     
                      var newitem = {
-                        <# foreach(var property  in  ModelMetadata.Properties.Where(n=>n.Scaffold )) {
+						
+
+                        <# foreach(var property  in  ModelMetadata.Properties.Where(n=>true ).OrderByDescending(n=>n.Scaffold).ThenBy(n=>n.IsForeignKey).ThenBy(n=>n.PropertyName)) {
                             if(property.IsPrimaryKey) {
                         #>                  
                                 <#= property.PropertyName #>: <#= primaryKeyVar #>,
