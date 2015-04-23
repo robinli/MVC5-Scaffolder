@@ -102,6 +102,7 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
                 <thead>
                     <tr>
                          <th data-field="state" data-checkbox="true"></th>
+						 <th data-field="action" data-formatter="actionFormatter" data-events="actionEvents">Action</th>
 <#
 IEnumerable<PropertyMetadata> properties = ModelMetadata.Properties;
 foreach (PropertyMetadata property in properties) {
@@ -132,7 +133,7 @@ foreach (PropertyMetadata property in properties) {
     }
 }
 #>
-        <th data-field="action" data-formatter="actionFormatter" data-events="actionEvents">Action</th>
+       
     </tr>
     </thead>
  
@@ -150,12 +151,15 @@ foreach (PropertyMetadata property in properties) {
         var $delete<#= modelVariable #>button = $('#delete<#= modelVariable #>button');
         function actionFormatter(value, row, index) {
             return [
-                '<a class="edit" href="javascript:void(0)" title="Edit">',
-                '<i class="glyphicon glyphicon-edit"></i>',
-                '</a>  ',
-                ' <a class="remove" href="javascript:void(0)" title="Remove">',
-                '<i class="glyphicon glyphicon-remove"></i>',
-                '</a>'
+                   '<div class="btn-group">',
+                    '<button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">',
+                    '    <span class="glyphicon glyphicon-cog"  ></span> <span class="caret"></span>',
+                    '</button>',
+                    '<ul class="dropdown-menu" role="menu">',
+                    '<li><a class="edit" href="javascript:void(0)" title="Edit"><span class="glyphicon glyphicon-pencil"  ></span> Edit</a></li>',
+                    '<li><a class="remove" href="javascript:void(0)" title="Remove" ><span class="glyphicon glyphicon-minus"  ></span> Delete</a></li>',
+                    '</ul>',
+                    '</div>'
             ].join('');
         }
         window.actionEvents = {

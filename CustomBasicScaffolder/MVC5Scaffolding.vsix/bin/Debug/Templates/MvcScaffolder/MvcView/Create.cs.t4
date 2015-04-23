@@ -162,6 +162,8 @@ if(IsLayoutPageSelected && ReferenceScriptLibraries && IsBundleConfigPresent) {
             $(document).ready(function () {
 
                 $('form').submit(function () {
+					if (!$('form').valid())
+						return false;
                     var token = $('[name=__RequestVerificationToken]').val();
                     var serializedForm = $(this).serialize();
                     var actionurl = $(this).attr('action');
