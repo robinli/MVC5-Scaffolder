@@ -56,7 +56,7 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
 <div class="container-fluid">
     <!-- Page Heading -->
     <div class="row">
-       
+        <div class="col-lg-12">
             <h1 class="page-header">
                 <#= ProgramTitle #>
                 <small><#= ViewName #></small>
@@ -70,11 +70,11 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
                     <i class="fa fa-file"></i> <#= modelName #>
                 </li>
             </ol>
-      
+        </div>
     </div>
     <!-- /.row -->
      <div class="row">
-      
+        <div class="col-lg-12">
             <div id="toolbar" class="btn-group">
                 <button type="button" id="new<#= modelVariable #>button" class="btn btn-default">
                     <i class="glyphicon glyphicon-plus"></i>
@@ -139,7 +139,8 @@ foreach (PropertyMetadata property in properties) {
  
 
 </table>
- 
+</div>
+<br />
  
      </div>
     </div>
