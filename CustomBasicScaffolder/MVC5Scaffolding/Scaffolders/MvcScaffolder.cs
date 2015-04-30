@@ -505,9 +505,10 @@ namespace Happy.Scaffolding.MVC.Scaffolders
         {
            
             string linqtxt = "";
-          
-            
-            foreach (PropertyMetadata m in efMetadata.Properties.Where(n=>n.Scaffold))
+
+
+            foreach (PropertyMetadata m in efMetadata.Properties.Where(n => n.Scaffold && n.ShortTypeName.ToLower() != "int"
+                && n.ShortTypeName.ToLower() != "decimal" && n.ShortTypeName.ToLower() != "float"))
             {
                 
                 if (m.ShortTypeName.ToLower() == "string")
