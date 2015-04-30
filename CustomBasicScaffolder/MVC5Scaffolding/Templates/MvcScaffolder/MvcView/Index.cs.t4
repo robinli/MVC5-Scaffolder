@@ -83,6 +83,10 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
                 <button type="button" id="delete<#= modelVariable #>button" class="btn btn-default">
                     <i class="glyphicon glyphicon-trash"></i>
                 </button>
+
+				 <button type="button" id="popupsearchbutton" class="btn btn-default">
+                    <i class="glyphicon glyphicon-search"></i>搜索
+                </button>
             </div>
  
        <div class="table-responsive">
@@ -144,6 +148,26 @@ foreach (PropertyMetadata property in properties) {
  
      </div>
     </div>
+
+	<!--Popup Modal Search-->
+    <div class="modal fade" id="popupsearchModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog  modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Search</h4>
+                </div>
+                <div class="modal-body" id="popupsearchModal-body">
+                    @Html.Partial("_PopupSearch")
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="popupsearchCanclebutton" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" id="popupsearchOKbutton" class="btn btn-primary">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+	<!--Popup Modal Search-->
 </div>
 @section Scripts {
     <script type="text/javascript">
@@ -219,6 +243,10 @@ foreach (PropertyMetadata property in properties) {
                     delete<#= modelName #>(selected[0].<#= primaryKeyName #>);
                 }
                  
+            });
+
+			$('#popupsearchbutton').on('click', function () {
+                $('#popupsearchModal').modal('toggle');
             });
         });
     

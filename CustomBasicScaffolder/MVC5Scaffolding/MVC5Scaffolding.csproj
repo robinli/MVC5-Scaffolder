@@ -316,6 +316,9 @@
     <Compile Include="Utils\StorageMan.cs" />
     <Compile Include="Utils\VisualStudioUtils.cs" />
     <Compile Include="VsConstants.cs" />
+    <None Include="Templates\MvcScaffolder\MvcView\_PopupSearch.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Templates\MvcScaffolder\MvcView\_DetailEditForm.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
