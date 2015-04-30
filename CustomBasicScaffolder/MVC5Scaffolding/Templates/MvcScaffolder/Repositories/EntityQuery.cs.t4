@@ -45,10 +45,10 @@ namespace <#=DefaultNamespace #>.Repositories
             return this;
         }
 
-		public <#= ModelName #>Query WithPopupSearch(string para="")
+		public <#= ModelName #>Query WithPopupSearch(string search,string para="")
         {
-            //if (!string.IsNullOrEmpty(p))
-            //    And(x=>x.xxx==para);
+            if (!string.IsNullOrEmpty(search))
+                And(<#= QueryLambdaText #>);
             return this;
         }
     }

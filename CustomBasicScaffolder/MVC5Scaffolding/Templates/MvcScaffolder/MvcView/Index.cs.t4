@@ -248,6 +248,12 @@ foreach (PropertyMetadata property in properties) {
 			$('#popupsearchbutton').on('click', function () {
                 $('#popupsearchModal').modal('toggle');
             });
+
+			$('#popupsearchOKbutton').click(function () {
+                 //para = $('#para').val();  
+                $('#popupsearchModal').modal('toggle');
+                $<#= modelVariable #>table.bootstrapTable('refresh');
+            });
         });
     
      </script>
