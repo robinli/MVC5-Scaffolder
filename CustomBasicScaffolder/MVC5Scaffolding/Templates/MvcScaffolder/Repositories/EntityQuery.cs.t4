@@ -44,6 +44,13 @@ namespace <#=DefaultNamespace #>.Repositories
                 And(<#= QueryLambdaText #>);
             return this;
         }
+
+		public <#= ModelName #>Query WithPopupSearch(string para="")
+        {
+            //if (!string.IsNullOrEmpty(p))
+            //    And(x=>x.xxx==para);
+            return this;
+        }
     }
 }
 

@@ -370,3 +370,4 @@ D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\obj\D
 D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\obj\Debug\extension.vsixmanifest
 D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\bin\Debug\Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\RoleManager\ButtonAttribute.cs.t4
 D:\MVC5-Scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\bin\Debug\Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\RoleManager\ButtonAttribute.cs.t4
+D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\bin\Debug\Templates\MvcScaffolder\MvcView\_PopupSearch.cs.t4
