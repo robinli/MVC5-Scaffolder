@@ -156,8 +156,8 @@ if (ReferenceScriptLibraries) {
                 @using (Html.BeginForm("<#= ViewPrefix #>Delete", "<#= ControllerRootName #>", new { id=Model.<#= GetPrimaryKeyName() #>}))
                 {
                     @Html.AntiForgeryToken()
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-warning">Delete</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal"> 取消 </button>
+                    <button type="submit" class="btn btn-warning"> 保存 </button>
                 }
             </div>
         </div>
