@@ -19,7 +19,14 @@ namespace WebApp.Repositories
         public CategoryQuery WithAnySearch(string search)
         {
             if (!string.IsNullOrEmpty(search))
-                And( x =>  x.Id.ToString().Contains(search) || x.Name.Contains(search) );
+                And( x =>  x.Name.Contains(search) );
+            return this;
+        }
+
+		public CategoryQuery WithPopupSearch(string search,string para="")
+        {
+            if (!string.IsNullOrEmpty(search))
+                And( x =>  x.Name.Contains(search) );
             return this;
         }
     }

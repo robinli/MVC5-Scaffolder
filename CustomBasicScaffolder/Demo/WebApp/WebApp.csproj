@@ -290,11 +290,11 @@
     </Compile>
     <Compile Include="Services\BaseCodes\BaseCodeService.cs" />
     <Compile Include="Services\BaseCodes\IBaseCodeService.cs" />
-    <Compile Include="Services\CategoryService.cs" />
+    <Compile Include="Services\Categories\CategoryService.cs" />
+    <Compile Include="Services\Categories\ICategoryService.cs" />
     <Compile Include="Services\Companies\CompanyService.cs" />
     <Compile Include="Services\Companies\ICompanyService.cs" />
     <Compile Include="Services\DepartmentService.cs" />
-    <Compile Include="Services\ICategoryService.cs" />
     <Compile Include="Services\IDepartmentService.cs" />
     <Compile Include="Services\IOrderService.cs" />
     <Compile Include="Services\IProductService.cs" />
@@ -569,11 +569,7 @@
     <Content Include="Views\Products\Create.cshtml" />
     <Content Include="Views\Products\Edit.cshtml" />
     <Content Include="Views\Products\EditForm.cshtml" />
-    <Content Include="Views\Categories\Create.cshtml" />
-    <Content Include="Views\Categories\Edit.cshtml" />
-    <Content Include="Views\Categories\EditForm.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
-    <Content Include="Views\Categories\Index.cshtml" />
     <Content Include="Views\Shared\_LoginLayout.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\String1.cshtml" />
     <Content Include="Views\AccountManage\Index.cshtml" />
@@ -609,6 +605,12 @@
     <Content Include="Views\BaseCodes\Index.cshtml" />
     <Content Include="Views\Works\Index.cshtml" />
     <Content Include="Views\Companies\EditForm.cshtml" />
+    <Content Include="Views\Categories\Index.cshtml" />
+    <Content Include="Views\Categories\Create.cshtml" />
+    <Content Include="Views\Categories\Edit.cshtml" />
+    <Content Include="Views\Categories\EditForm.cshtml" />
+    <Content Include="Views\Categories\_PopupSearch.cshtml" />
+    <Content Include="Views\Categories\_ProductEditForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

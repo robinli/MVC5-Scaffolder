@@ -1,5 +1,6 @@
 ﻿
 
+
 @model WebApp.Models.Category
 
 @{
@@ -37,8 +38,7 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
+        <div class="form-horizontal">
         <h4>Category</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -53,7 +53,7 @@
 }
 </div>
 </div>
- 
+ </div>
 
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -70,8 +70,8 @@
                 @using (Html.BeginForm("Delete", "Categories", new { id=Model.Id}))
                 {
                     @Html.AntiForgeryToken()
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-warning">Delete</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal"> 取消 </button>
+                    <button type="submit" class="btn btn-warning"> 保存 </button>
                 }
             </div>
         </div>
@@ -80,4 +80,58 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+	
+    		var categoryid = 0;
+		var ObjectState = "Modified";   
+                                 
+             var $productstable = {};
+                        $(document).ready(function () {
+				categoryid = $('#Id', 'form').val();
+                $('form').submit(function () {
+					if (!$('form').valid())
+						return false;
+                    var token = $('[name=__RequestVerificationToken]').val();
+                    var serializedForm = $(this).serialize();
+                    var actionurl = $(this).attr('action');
+                                         
+                        var products = $productstable.bootstrapTable('getData');
+                                         
+                     var newitem = {
+						
+
+                        								//primaryKey   
+								Id: categoryid,
+                                                        Name: $('#Name', 'form').val(),
+                        								//detailTables
+                                Products: products ,
+                                                ObjectState:ObjectState 
+                    };
+                    $.ajax({
+                        url: actionurl,
+                        type: "POST",
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify(newitem),
+                        success: function (result) {
+                            if (result.success) {
+                                self.location = "/Categories/Index";
+                            } else {
+                                alert(result.err);
+                            }
+                            
+                        },
+                        error: function (result) {
+                            console.log(result.statusText + result.responseText);
+                            alert(result.statusText + result.responseText);
+                        }
+                    });
+                    return false;
+                    
+
+                });
+            });
+      
+      </script>
+
 }

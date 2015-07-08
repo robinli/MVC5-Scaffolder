@@ -19,9 +19,10 @@ namespace WebApp.Repositories
     {
  
         
-                public static IEnumerable<Product>   GetProductsByCategoryId (this IRepositoryAsync<Category> repository,int categoryid)
+                public static IEnumerable<WebApp.Models.Product>   GetProductsByCategoryId (this IRepositoryAsync<Category> repository,int categoryid)
         {
-            return repository.Query(n => n.Id == categoryid).Include(x => x.Products).Select(x => x.Products).FirstOrDefault();
+			var productRepository = repository.GetRepository<WebApp.Models.Product>(); 
+            return productRepository.Queryable().Include(x => x.Category).Where(n => n.CategoryId == categoryid);
         }
          
 	}
