@@ -72,7 +72,7 @@
 
         var actve_a_s = $(".nav li a[href = '" + pathnamestr + "']");
         //console.log(actve_a_s);
-        if (actve_a_s.length > 0) {
+        if (actve_a_s.length > 0) { 
             //$('.navbar li').removeClass('active');
             //console.log($(actve_a_s[0]).parent().parent().collapse);
             $(actve_a_s[0]).parent().addClass('active');
