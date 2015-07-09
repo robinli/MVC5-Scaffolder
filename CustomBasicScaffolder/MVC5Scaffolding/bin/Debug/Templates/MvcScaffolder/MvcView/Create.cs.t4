@@ -16,7 +16,7 @@ if(IsPartialView) {
 #>
 
 @{
-    ViewBag.Title = "<#= ViewName#>";
+    ViewBag.Title = "<#= ProgramTitle #>";
 <#
 if (!String.IsNullOrEmpty(LayoutPageFile)) {
 #>
@@ -41,7 +41,7 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title><#= ViewName #></title>
+    <title><#= ProgramTitle #></title>
 </head>
 <body>
 <#
@@ -131,7 +131,8 @@ if (ReferenceScriptLibraries) {
 #>
         @Html.Partial("<#= ViewPrefix #>EditForm")
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
+				<p></p>
+             <div class="text-center">
                 <input type="submit" value=" 保存 " class="btn btn-primary" />
             </div>
         </div>
