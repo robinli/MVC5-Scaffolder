@@ -80,7 +80,7 @@ namespace <#= DefaultNamespace #>.Controllers
             var roles = UserManager.GetRolesAsync(this.User.Identity.GetUserId()).Result.ToArray();
             //var roles = new string[] { "admin" };
             var menus = _roleMenuService.RenderMenus(roles);
-            return PartialView("_navMenu", menus);
+            return PartialView("_navMenuBar", menus);
         }
         public ActionResult GetMenus(string roleName)
         {

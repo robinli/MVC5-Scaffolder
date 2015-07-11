@@ -294,8 +294,8 @@
     <Compile Include="Services\Categories\ICategoryService.cs" />
     <Compile Include="Services\Companies\CompanyService.cs" />
     <Compile Include="Services\Companies\ICompanyService.cs" />
-    <Compile Include="Services\DepartmentService.cs" />
-    <Compile Include="Services\IDepartmentService.cs" />
+    <Compile Include="Services\Departments\DepartmentService.cs" />
+    <Compile Include="Services\Departments\IDepartmentService.cs" />
     <Compile Include="Services\IOrderService.cs" />
     <Compile Include="Services\IProductService.cs" />
     <Compile Include="Services\OrderService.cs" />
@@ -611,6 +611,7 @@
     <Content Include="Views\Categories\EditForm.cshtml" />
     <Content Include="Views\Categories\_PopupSearch.cshtml" />
     <Content Include="Views\Categories\_ProductEditForm.cshtml" />
+    <Content Include="Views\Departments\_PopupSearch.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
