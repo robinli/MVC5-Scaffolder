@@ -30,9 +30,9 @@ namespace <#= DefaultNamespace #>.Repositories
          }
              
         
-         public static IEnumerable<TMSApp.Web.Models.MenuItem>   GetSubMenusByParentId (this IRepositoryAsync<MenuItem> repository,int parentid)
+         public static IEnumerable<MenuItem>   GetSubMenusByParentId (this IRepositoryAsync<MenuItem> repository,int parentid)
         {
-			var menuitemRepository = repository.GetRepository<TMSApp.Web.Models.MenuItem>(); 
+			var menuitemRepository = repository.GetRepository<MenuItem>(); 
             return menuitemRepository.Queryable().Include(x => x.Parent).Where(n => n.ParentId == parentid);
         }
          

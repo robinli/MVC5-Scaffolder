@@ -195,6 +195,9 @@
     <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\RoleManager\View\Management\Index.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\RoleMenu\Models\RoleMenuViewModel.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\RoleMenu\RoleMenusController.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

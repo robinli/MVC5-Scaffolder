@@ -1140,7 +1140,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                     , templateParameters: templateParams
                     , skipIfExists: true);
             }
-            var rolemenummodels = new string[] { "RoleMenu", "RoleMenuMetadata" };
+            var rolemenummodels = new string[] { "RoleMenu", "RoleMenuMetadata", "RoleMenuViewModel" };
             foreach (string vname in rolemenummodels)
             {
                 viewName = vname;
@@ -1156,7 +1156,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                     , skipIfExists: true);
             }
 
-            var rolemanuservices = new string[] { "RoleMenuService", "RoleMenuService" };
+            var rolemanuservices = new string[] { "RoleMenuService", "IRoleMenuService" };
             foreach (string vname in rolemanuservices)
             {
                 viewName = vname;

@@ -97,3 +97,4 @@ C:\Users\Administrator\AppData\Local\Microsoft\VisualStudio\12.0Exp\Extensions\R
 C:\Users\Administrator\AppData\Local\Microsoft\VisualStudio\12.0Exp\Extensions\Robin Li\Happy Scaffolding for MVC5\3.1\\Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\RoleMenu\Services\RoleMenuService.cs.t4
 C:\Users\Administrator\AppData\Local\Microsoft\VisualStudio\12.0Exp\Extensions\Robin Li\Happy Scaffolding for MVC5\3.1\\Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\RoleMenu\Views\_navMenuBar.cs.t4
 C:\Users\Administrator\AppData\Local\Microsoft\VisualStudio\12.0Exp\Extensions\Robin Li\Happy Scaffolding for MVC5\3.1\\Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\RoleMenu\Views\Index.cs.t4
+C:\Users\Administrator\AppData\Local\Microsoft\VisualStudio\12.0Exp\Extensions\Robin Li\Happy Scaffolding for MVC5\3.1\\Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\RoleMenu\Models\RoleMenuViewModel.cs.t4

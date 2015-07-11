@@ -78,9 +78,9 @@ namespace <#=DefaultNamespace #>.Repositories
 			 includeExpressions = String.Join("", relatedProperties.Values.Select(p => String.Format(".Include({0} => {0}.{1})", "x", p.AssociationPropertyName)));
  
         #>
-        public static IEnumerable<<#= detailmodeltypename #>>   Get<#= property.PropertyName #>By<#= foreignKeyName #> (this IRepositoryAsync<<#= ModelName #>> repository,<#= primaryKey.ShortTypeName #> <#= foreignKeyName.ToLower() #>)
+        public static IEnumerable<<#= detailmodelshottypename #>>   Get<#= property.PropertyName #>By<#= foreignKeyName #> (this IRepositoryAsync<<#= ModelName #>> repository,<#= primaryKey.ShortTypeName #> <#= foreignKeyName.ToLower() #>)
         {
-			var <#= detailmodelshottypename.ToLower() #>Repository = repository.GetRepository<<#= detailmodeltypename #>>(); 
+			var <#= detailmodelshottypename.ToLower() #>Repository = repository.GetRepository<<#= detailmodelshottypename #>>(); 
             return <#= detailmodelshottypename.ToLower() #>Repository.Queryable()<#= includeExpressions #>.Where(n => n.<#= foreignKeyName #> == <#= foreignKeyName.ToLower() #>);
         }
         <#
