@@ -1,0 +1,67 @@
+﻿<#@ template language="C#" HostSpecific="True" #>
+<#@ output extension=".cshtml" #>
+<#@ parameter type="System.String" name="DefaultNamespace" #>
+
+@using <#= DefaultNamespace #>.Models 
+
+@model  IEnumerable<MenuItem>
+
+ 
+@{
+
+
+    // Hent nodes på 2. niveau
+    var nodes = Model;
+
+    // Check om nogle nodes på 2. niveau eksisterer
+    if (nodes.Any())
+    {
+        <ul class="nav navbar-nav side-nav" id="side-nav" style="overflow-x:hidden">
+            @* Loop igennem det øverste (2.) niveau af nodes *@
+            @foreach (var node in nodes.Where(x=>x.ParentId==null))
+            {
+                // Start den rekursive metode til rendering af træstruktur
+                @RenderSubMenuRecursive(node)
+            }
+           
+        </ul>
+              
+        
+    }
+}
+
+@* Helper metode til at rendere venstremenu som træstruktur *@
+@helper RenderSubMenuRecursive(TMSApp.Web.Models.MenuItem node)
+{
+    // Reference til alle childnodes af den givne node, som er sat til at blive vist på sitet
+    var childNodes = Model.Where(x => x.ParentId == node.Id);
+    if (childNodes.Any())
+    {
+
+        <li>
+            <a href="javascript:;" data-toggle="collapse" data-target="#@node.Code"><i class="fa fa-fw fa-folder-o"></i> @node.Title <i class="fa fa-fw fa-caret-right"></i></a>
+            <ul id="@node.Code" class="collapse">
+                @foreach (var childNode in childNodes)
+                {
+                     @RenderSubMenuRecursive(childNode)
+                }
+            </ul>
+        </li>
+    }
+    else
+    {
+        <li>
+            <a href="@node.Url">@node.Title</a>
+        </li>
+    }
+
+
+
+
+    
+}
+
+
+
+
+

@@ -1,0 +1,64 @@
+﻿ 
+
+
+@model WebApp.Models.Product
+
+
+ 
+
+<div class="form-horizontal">
+
+    @Html.Hidden("Id",-1)
+    @*@Html.HiddenFor(model => model.Id)*@ 
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name,   htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Name,"" , new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Unit,   htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Unit, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Unit,"" , new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.UnitPrice,   htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                                @Html.EditorFor(model => model.UnitPrice, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.UnitPrice,"" , new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.StockQty,   htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                                @Html.EditorFor(model => model.StockQty, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.StockQty,"" , new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ConfirmDateTime,   htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                                @Html.EditorFor(model => model.ConfirmDateTime, "Date" ,new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ConfirmDateTime,"" , new { @class = "text-danger" })
+            </div>
+        </div>
+      @*--ForeignKey CategoryId RelatedMasterModel  ---*@
+      @Html.HiddenFor(model => model.CategoryId)
+      @*<div class="form-group">
+            @Html.LabelFor(model => model.CategoryId,  htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.CategoryId, ViewBag.CategoryId as List<SelectListItem>,"---Select---", htmlAttributes: new { @class = "form-control" }) 
+                @Html.ValidationMessageFor(model => model.CategoryId,"" , new { @class = "text-danger" })
+            </div>
+        </div>*@
+       @*--End ForeignKey CategoryId RelatedMasterModel  ---*@
+
+
+		<!-- output all Scaffold = false Hiden field -->
+				<!-- end output all Scaffold = false Hiden field -->
+</div>
+
+
