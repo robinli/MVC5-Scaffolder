@@ -43,7 +43,7 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title><#= ViewName #></title>
+    <title><#= ProgramTitle #></title>
 </head>
 <body>
 <#
