@@ -21,27 +21,27 @@ namespace WebApp.Controllers
 {
     public class CategoriesController : Controller
     {
-        
+
         //Please RegisterType UnityConfig.cs
         //container.RegisterType<IRepositoryAsync<Category>, Repository<Category>>();
         //container.RegisterType<ICategoryService, CategoryService>();
-        
+
         //private StoreContext db = new StoreContext();
-        private readonly ICategoryService  _categoryService;
+        private readonly ICategoryService _categoryService;
         private readonly IUnitOfWorkAsync _unitOfWork;
 
-        public CategoriesController (ICategoryService  categoryService, IUnitOfWorkAsync unitOfWork)
+        public CategoriesController(ICategoryService categoryService, IUnitOfWorkAsync unitOfWork)
         {
-            _categoryService  = categoryService;
+            _categoryService = categoryService;
             _unitOfWork = unitOfWork;
         }
 
         // GET: Categories/Index
         public ActionResult Index()
         {
-            
-            var categories  = _categoryService.Queryable().AsQueryable();
-            return View(categories  );
+
+            var categories = _categoryService.Queryable();
+            return View(categories);
         }
 
         // Get :Categories/PageList
@@ -50,14 +50,14 @@ namespace WebApp.Controllers
         public ActionResult PageList(int offset = 0, int limit = 10, string search = "", string sort = "", string order = "")
         {
             int totalCount = 0;
-            int pagenum = offset / limit +1;
-                        var categories  = _categoryService.Query(new CategoryQuery().WithAnySearch(search)).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(pagenum, limit, out totalCount);
-                        var rows = categories .Select(  n => new {  Id = n.Id , Name = n.Name }).ToList();
+            int pagenum = offset / limit + 1;
+            var categories = _categoryService.Query(new CategoryQuery().WithAnySearch(search)).OrderBy(n => n.OrderBy(sort, order)).SelectPage(pagenum, limit, out totalCount);
+            var rows = categories.Select(n => new { Id = n.Id, Name = n.Name }).ToList();
             var pagelist = new { total = totalCount, rows = rows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
 
-       
+
         // GET: Categories/Details/5
         public ActionResult Details(int? id)
         {
@@ -72,7 +72,7 @@ namespace WebApp.Controllers
             }
             return View(category);
         }
-        
+
 
         // GET: Categories/Create
         public ActionResult Create()
@@ -90,14 +90,14 @@ namespace WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                             category.ObjectState = ObjectState.Added;   
-                                foreach (var item in category.Products)
+                category.ObjectState = ObjectState.Added;
+                foreach (var item in category.Products)
                 {
-					item.CategoryId = category.Id ;
+                    item.CategoryId = category.Id;
                     item.ObjectState = ObjectState.Added;
                 }
-                                _categoryService.InsertOrUpdateGraph(category);
-                            _unitOfWork.SaveChanges();
+                _categoryService.InsertOrUpdateGraph(category);
+                _unitOfWork.SaveChanges();
                 if (Request.IsAjaxRequest())
                 {
                     return Json(new { success = true }, JsonRequestBehavior.AllowGet);
@@ -108,7 +108,7 @@ namespace WebApp.Controllers
 
             if (Request.IsAjaxRequest())
             {
-                var modelStateErrors =String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n=>n.ErrorMessage)));
+                var modelStateErrors = String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n => n.ErrorMessage)));
                 return Json(new { success = false, err = modelStateErrors }, JsonRequestBehavior.AllowGet);
             }
             DisplayErrorMessage();
@@ -139,18 +139,18 @@ namespace WebApp.Controllers
             if (ModelState.IsValid)
             {
                 category.ObjectState = ObjectState.Modified;
-                                                foreach (var item in category.Products)
+                foreach (var item in category.Products)
                 {
-					item.CategoryId = category.Id ;
+                    item.CategoryId = category.Id;
                     //set ObjectState with conditions
-                    if(item.Id <= 0)
+                    if (item.Id <= 0)
                         item.ObjectState = ObjectState.Added;
                     else
                         item.ObjectState = ObjectState.Modified;
                 }
-                      
+
                 _categoryService.InsertOrUpdateGraph(category);
-                                
+
                 _unitOfWork.SaveChanges();
                 if (Request.IsAjaxRequest())
                 {
@@ -161,7 +161,7 @@ namespace WebApp.Controllers
             }
             if (Request.IsAjaxRequest())
             {
-                var modelStateErrors =String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n=>n.ErrorMessage)));
+                var modelStateErrors = String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n => n.ErrorMessage)));
                 return Json(new { success = false, err = modelStateErrors }, JsonRequestBehavior.AllowGet);
             }
             DisplayErrorMessage();
@@ -188,13 +188,13 @@ namespace WebApp.Controllers
         //[ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Category category =  _categoryService.Find(id);
-             _categoryService.Delete(category);
+            Category category = _categoryService.Find(id);
+            _categoryService.Delete(category);
             _unitOfWork.SaveChanges();
-           if (Request.IsAjaxRequest())
-                {
-                    return Json(new { success = true }, JsonRequestBehavior.AllowGet);
-                }
+            if (Request.IsAjaxRequest())
+            {
+                return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+            }
             DisplaySuccessMessage("Has delete a Category record");
             return RedirectToAction("Index");
         }
@@ -212,39 +212,39 @@ namespace WebApp.Controllers
             var productRepository = _unitOfWork.Repository<Product>();
             var product = productRepository.Find(id);
 
-                        var categoryRepository = _unitOfWork.Repository<Category>();             
-            
+            var categoryRepository = _unitOfWork.Repository<Category>();
+
             if (product == null)
             {
-                            ViewBag.CategoryId = new SelectList(categoryRepository.Queryable(), "Id", "Name" );
-                            
+                ViewBag.CategoryId = new SelectList(categoryRepository.Queryable(), "Id", "Name");
+
                 //return HttpNotFound();
                 return PartialView("_ProductEditForm", new Product());
             }
             else
             {
-                            ViewBag.CategoryId = new SelectList(categoryRepository.Queryable(), "Id", "Name" , product.CategoryId );  
-                             
+                ViewBag.CategoryId = new SelectList(categoryRepository.Queryable(), "Id", "Name", product.CategoryId);
+
             }
-            return PartialView("_ProductEditForm",  product);
+            return PartialView("_ProductEditForm", product);
 
         }
-        
+
         // Get Create Row By Id For Edit
         // Get : Categories/CreateProduct
         [HttpGet]
         public ActionResult CreateProduct()
         {
-                        var categoryRepository = _unitOfWork.Repository<Category>();    
-              ViewBag.CategoryId = new SelectList(categoryRepository.Queryable(), "Id", "Name" );
-                      return PartialView("_ProductEditForm");
+            var categoryRepository = _unitOfWork.Repository<Category>();
+            ViewBag.CategoryId = new SelectList(categoryRepository.Queryable(), "Id", "Name");
+            return PartialView("_ProductEditForm");
 
         }
 
         // Post Delete Detail Row By Id
         // Get : Categories/DeleteProduct/:id
-        [HttpPost,ActionName("DeleteProduct")]
-        public ActionResult DeleteProductConfirmed(int  id)
+        [HttpPost, ActionName("DeleteProduct")]
+        public ActionResult DeleteProductConfirmed(int id)
         {
             var productRepository = _unitOfWork.Repository<Product>();
             productRepository.Delete(id);
@@ -257,7 +257,7 @@ namespace WebApp.Controllers
             return RedirectToAction("Index");
         }
 
-       
+
 
         // Get : Categories/GetProductsByCategoryId/:id
         [HttpGet]
@@ -266,12 +266,12 @@ namespace WebApp.Controllers
             var products = _categoryService.GetProductsByCategoryId(id);
             if (Request.IsAjaxRequest())
             {
-                return Json(products.Select( n => new { CategoryName = (n.Category==null?"": n.Category.Name) , Id = n.Id , Name = n.Name , Unit = n.Unit , UnitPrice = n.UnitPrice , StockQty = n.StockQty , ConfirmDateTime = n.ConfirmDateTime , CategoryId = n.CategoryId }),JsonRequestBehavior.AllowGet);
-            }  
-            return View(products); 
+                return Json(products.Select(n => new { CategoryName = (n.Category == null ? "" : n.Category.Name), Id = n.Id, Name = n.Name, Unit = n.Unit, UnitPrice = n.UnitPrice, StockQty = n.StockQty, ConfirmDateTime = n.ConfirmDateTime, CategoryId = n.CategoryId }), JsonRequestBehavior.AllowGet);
+            }
+            return View(products);
 
         }
- 
+
 
         private void DisplaySuccessMessage(string msgText)
         {

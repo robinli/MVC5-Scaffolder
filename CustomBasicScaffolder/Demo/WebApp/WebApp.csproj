@@ -205,6 +205,7 @@
     <Compile Include="Controllers\AccountManageController.cs" />
     <Compile Include="Controllers\BaseCodesController.cs" />
     <Compile Include="Controllers\ButtonAttribute.cs" />
+    <Compile Include="Controllers\Categories1Controller.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\CompaniesController.cs" />
     <Compile Include="Controllers\DepartmentsController.cs" />
@@ -634,6 +635,11 @@
     <Content Include="Views\MenuItems\Index.cshtml" />
     <Content Include="Views\RoleMenus\_navMenuBar.cshtml" />
     <Content Include="Views\RoleMenus\Index.cshtml" />
+    <Content Include="Views\Categories1\Create.cshtml" />
+    <Content Include="Views\Categories1\Delete.cshtml" />
+    <Content Include="Views\Categories1\Details.cshtml" />
+    <Content Include="Views\Categories1\Edit.cshtml" />
+    <Content Include="Views\Categories1\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

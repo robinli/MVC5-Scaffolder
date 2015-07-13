@@ -1,0 +1,184 @@
+﻿@model IEnumerable<WebApp.Models.Category>
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Category
+                <small>Index</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li>
+                    <i class="fa fa-home"></i>  @Html.ActionLink("Home", "Index", "Home")
+                </li>
+
+                <li class="active">
+                    <i class="fa fa-file"></i> Categories
+                </li>
+            </ol>
+        </div>
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div id="toolbar" class="btn-group">
+                <button type="button" id="newcategoriesbutton" class="btn btn-default">
+                    <i class="glyphicon glyphicon-plus"></i> 新增
+                </button>
+                <button type="button" id="deletecategoriesbutton" class="btn btn-default">
+                    <i class="glyphicon glyphicon-trash"></i> 删除
+                </button>
+                <button type="button" id="popupsearchbutton" class="btn btn-default">
+                    <i class="glyphicon glyphicon-search"></i> 搜索
+                </button>
+            </div>
+
+            <div class="table-responsive">
+                <table id="categories-table" class="table table-striped" data-search="true"
+                       data-url="/Categories1/PageList"
+                       data-flat="false"
+                       data-toolbar="#toolbar"
+                       data-pagination="true"
+                       data-show-refresh="true"
+                       data-show-toggle="true"
+                       data-show-columns="true"
+                       data-single-select="true"
+                       data-page-list="[5, 10, 20, 50, 100, 200]"
+                       data-sort-name="Id"
+                       data-side-pagination="server"
+                       data-click-to-select="true">
+                    <thead>
+                        <tr>
+                            <th data-field="state" data-checkbox="true"></th>
+                            <th data-field="action" data-formatter="actionFormatter" data-events="actionEvents">Action</th>
+                            <th data-field="Id" data-sortable="true" data-visible="false">
+                                @Html.DisplayNameFor(model => model.Id)
+                            </th>
+                            <th data-field="Name" data-sortable="true" data-align="left">
+                                @Html.DisplayNameFor(model => model.Name)
+                            </th>
+
+                        </tr>
+                    </thead>
+
+                </table>
+            </div>
+            <br />
+
+        </div>
+    </div>
+    <!--Popup Modal Search-->
+    <div class="modal fade" id="popupsearchModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog  modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Search</h4>
+                </div>
+                <div class="modal-body" id="popupsearchModal-body">
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="popupsearchCanclebutton" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" id="popupsearchOKbutton" class="btn btn-primary">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Popup Modal Search-->
+</div>
+@section Scripts {
+    <script type="text/javascript">
+        var $categoriestable = $('#categories-table');
+        var $deletecategoriesbutton = $('#deletecategoriesbutton');
+        function actionFormatter(value, row, index) {
+            return [
+                   '<div class="btn-group">',
+                    '<button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">',
+                    '    <span class="glyphicon glyphicon-cog"  ></span> <span class="caret"></span>',
+                    '</button>',
+                    '<ul class="dropdown-menu" role="menu">',
+                    '<li><a class="edit" href="javascript:void(0)" title="编辑"><span class="glyphicon glyphicon-pencil"  ></span> 编辑 </a></li>',
+                    '<li><a class="remove" href="javascript:void(0)" title="删除" ><span class="glyphicon glyphicon-minus"  ></span> 删除</a></li>',
+                    '</ul>',
+                    '</div>'
+            ].join('');
+        }
+        window.actionEvents = {
+
+            'click .edit': function (e, value, row, index) {
+                 var url="/Categories/Edit/" + row.Id
+                 $(location).attr('href', url);
+            },
+            'click .remove': function (e, value, row, index) {
+                 deleteCategories(row.Id);
+                //console.log(value, row, index);
+            }
+
+        }
+        //jquery post /Categories/Delete/:id
+        function deleteCategories(id) {
+            var url = '@Url.Action("Delete")';
+            bootbox.dialog({
+                message: "你确定要删除该记录吗？ " + id,
+                title: "Delete Categories ",
+                buttons: {
+                    Cancel: {
+                        label: "Cancel",
+                        className: "btn-default",
+                        callback: function () {
+
+                        }
+                    },
+                    OK: {
+                        label: "OK",
+                        className: "btn-success",
+                        callback: function () {
+                            $.post(url, { id: id }, function (data) {
+                                $categoriestable.bootstrapTable('remove', { field: 'Id', values: [id] });
+                                //console.log('remove' + row.Id);
+                            });
+                        }
+                    }
+                }
+            });
+        }
+        $(document).ready(function (e) {
+            $categoriestable = $('#categories-table').bootstrapTable(
+                {
+                }
+                );
+             $categoriestable.on('check.bs.table uncheck.bs.table check-all.bs.table uncheck-all.bs.table', function () {
+                $deletecategoriesbutton.prop('disabled', !$categoriestable.bootstrapTable('getSelections').length);
+            });
+             $('#newcategoriesbutton').on('click', function () {
+
+                $(location).attr('href', "/Categories/Create");
+            });
+            $('#deletecategoriesbutton').on('click', function () {
+                var selected = $categoriestable.bootstrapTable('getSelections');
+                if (selected.length>0) {
+                    deleteCategories(selected[0].Id);
+                }
+
+            });
+
+			$('#popupsearchbutton').on('click', function () {
+                $('#popupsearchModal').modal('toggle');
+            });
+
+			$('#popupsearchOKbutton').click(function () {
+                 //para = $('#para').val();
+                $('#popupsearchModal').modal('toggle');
+                $categoriestable.bootstrapTable('refresh');
+            });
+        });
+
+    </script>
+}
