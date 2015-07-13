@@ -18,13 +18,18 @@
         </li>
         <li>
             <a href="javascript:;" data-toggle="collapse" data-target="#systemmanager"><i class="fa fa-fw fa-wrench"></i> 系统管理 <i class="fa fa-fw fa-caret-down"></i></a>
-            <ul id="systemmanager" class="collapse">
-               <li>
+             <ul id="systemmanager" class="collapse">
+                <li  >
                     <a href="/AccountManage"><i class="fa fa-fw fa-user"></i>用户管理</a>
                 </li>
-              
+                <li >
+                    <a href="/MenuItems"><i class="fa fa-fw fa-bars"></i>菜单管理</a>
+                </li>
                 <li>
                     <a href="/Management"><i class="fa fa-fw fa-lock"></i>授权管理</a>
+                </li>
+                <li>
+                    <a href="/RoleMenus"><i class="fa fa-fw fa-check-square-o"></i>菜单授权</a>
                 </li>
                 <li>
                     <a href="/BaseCodes"><i class="fa fa-fw fa-adjust"></i>基础代码管理</a>
@@ -38,7 +43,7 @@
 
 
 <script type="text/javascript">
-    $(function () {
+     $(function () {
         $(window).resize(function (e) {
            $('#side-nav').css('height', $(window).height() - 50);
         });
@@ -62,8 +67,9 @@
 
         var pathnamestr = window.location.pathname;
         var url;
-        if (pathnamestr.indexOf('/', pathnamestr.indexOf('/') + 1) > 0)
+        if (pathnamestr.indexOf('/', pathnamestr.indexOf('/') + 1) > 0) {
             url = pathnamestr.substr(0, pathnamestr.indexOf('/', pathnamestr.indexOf('/') + 1)) + window.location.search;
+        }
         else
             url = pathnamestr + window.location.search;
         var activePage = stripTrailingSlash(url);
@@ -71,21 +77,37 @@
         $('.navbar li').removeClass('active');
 
         var actve_a_s = $(".nav li a[href = '" + pathnamestr + "']");
-        //console.log(actve_a_s);
-        if (actve_a_s.length > 0) { 
-            //$('.navbar li').removeClass('active');
-            //console.log($(actve_a_s[0]).parent().parent().collapse);
+        
+        if (actve_a_s.length > 0) {
             $(actve_a_s[0]).parent().addClass('active');
             $(actve_a_s[0]).parent().parent().collapse('show');
         }
         else {
-            $('.nav li a').each(function () {
-                var currentPage = stripTrailingSlash($(this).attr('href'));
-                if (activePage.indexOf(currentPage) >= 0) {
-                    $(this).parent().addClass('active');
-                    $(this).parent().parent().collapse('show');
+            actve_a_s = $(".nav li a[href = '" + pathnamestr + window.location.search + "']");
+            if (actve_a_s.length > 0) {
+                $(actve_a_s[0]).parent().addClass('active');
+                $(actve_a_s[0]).parent().parent().collapse('show');
+            }
+            else {
+                var ss = $('.nav li a[href$="' + window.location.search + '"]:eq(0)');
+                if (ss.length>0) {
+                    ss.parent().addClass('active');
+                    ss.parent().parent().collapse('show');
+                } 
+                else {
+                    var set_a_bool = false;
+                    $('.nav li a').each(function () {
+                        var currentPage = stripTrailingSlash($(this).attr('href'));
+
+                        //console.log(activePage+"---"+currentPage);
+                        if (activePage.indexOf(currentPage) >= 0) {
+                            $(this).parent().addClass('active');
+                            $(this).parent().parent().collapse('show');
+                            set_a_bool = true;
+                        }
+                    });
                 }
-            });
+            }
         }
 
     });

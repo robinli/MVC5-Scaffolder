@@ -123,6 +123,42 @@
     <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\BaseCode\Views\Index.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\MenuItem\MenuItemsController.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\MenuItem\Models\MenuItem.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\MenuItem\Models\MenuItemMetadata.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\MenuItem\Repositories\MenuItemQuery.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\MenuItem\Repositories\MenuItemRepository.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\MenuItem\Services\MenuItemService.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\MenuItem\Services\IMenuItemService.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\MenuItem\Views\Create.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\MenuItem\Views\Edit.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\MenuItem\Views\EditForm.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\MenuItem\Views\Index.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\MenuItem\Views\_MenuItemEditForm.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\RoleManager\ManagementController.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -157,6 +193,36 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\RoleManager\View\Management\Index.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\RoleMenu\Models\RoleMenuViewModel.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\RoleMenu\RoleMenusController.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\RoleMenu\Models\RoleMenu.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\RoleMenu\Models\RoleMenuMetadata.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\RoleMenu\Repositories\RoleMenuQuery.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\RoleMenu\Repositories\RoleMenuRepository.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\RoleMenu\Services\IRoleMenuService.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\RoleMenu\Services\RoleMenuService.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\RoleMenu\Views\_navMenuBar.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\RoleMenu\Views\Index.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\UserManage\AccountManageController.cs.t4">

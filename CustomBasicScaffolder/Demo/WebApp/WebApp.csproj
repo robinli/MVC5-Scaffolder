@@ -211,11 +211,13 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ManagementController.cs" />
+    <Compile Include="Controllers\MenuItemsController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\OrdersController__.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\RoleMenusController.cs" />
     <Compile Include="Controllers\WorksController.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -251,6 +253,8 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManagementViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MenuItem.cs" />
+    <Compile Include="Models\MenuItemMetadata.cs" />
     <Compile Include="Models\Order.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -262,6 +266,9 @@
     </Compile>
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductMetadata.cs" />
+    <Compile Include="Models\RoleMenu.cs" />
+    <Compile Include="Models\RoleMenuMetadata.cs" />
+    <Compile Include="Models\RoleMenuViewModel.cs" />
     <Compile Include="Models\StoreContext.cs" />
     <Compile Include="Models\Task.cs">
       <SubType>Code</SubType>
@@ -278,10 +285,14 @@
     <Compile Include="Repositories\Companies\CompanyRepository.cs" />
     <Compile Include="Repositories\Departments\DepartmentQuery.cs" />
     <Compile Include="Repositories\Departments\DepartmentRepository.cs" />
+    <Compile Include="Repositories\MenuItems\MenuItemQuery.cs" />
+    <Compile Include="Repositories\MenuItems\MenuItemRepository.cs" />
     <Compile Include="Repositories\Orders\OrderQuery.cs" />
     <Compile Include="Repositories\Orders\OrderRepository.cs" />
     <Compile Include="Repositories\Products\ProductQuery.cs" />
     <Compile Include="Repositories\Products\ProductRepository.cs" />
+    <Compile Include="Repositories\RoleMenus\RoleMenuQuery.cs" />
+    <Compile Include="Repositories\RoleMenus\RoleMenuRepository.cs" />
     <Compile Include="Repositories\Works\WorkQuery.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -294,12 +305,16 @@
     <Compile Include="Services\Categories\ICategoryService.cs" />
     <Compile Include="Services\Companies\CompanyService.cs" />
     <Compile Include="Services\Companies\ICompanyService.cs" />
-    <Compile Include="Services\DepartmentService.cs" />
-    <Compile Include="Services\IDepartmentService.cs" />
+    <Compile Include="Services\Departments\DepartmentService.cs" />
+    <Compile Include="Services\Departments\IDepartmentService.cs" />
     <Compile Include="Services\IOrderService.cs" />
     <Compile Include="Services\IProductService.cs" />
+    <Compile Include="Services\MenuItems\IMenuItemService.cs" />
+    <Compile Include="Services\MenuItems\MenuItemService.cs" />
     <Compile Include="Services\OrderService.cs" />
     <Compile Include="Services\ProductService.cs" />
+    <Compile Include="Services\RoleMenus\IRoleMenuService.cs" />
+    <Compile Include="Services\RoleMenus\RoleMenuService.cs" />
     <Compile Include="Services\Works\IWorkService.cs" />
     <Compile Include="Services\Works\WorkService.cs" />
     <Compile Include="Startup.cs" />
@@ -611,6 +626,14 @@
     <Content Include="Views\Categories\EditForm.cshtml" />
     <Content Include="Views\Categories\_PopupSearch.cshtml" />
     <Content Include="Views\Categories\_ProductEditForm.cshtml" />
+    <Content Include="Views\Departments\_PopupSearch.cshtml" />
+    <Content Include="Views\MenuItems\_MenuItemEditForm.cshtml" />
+    <Content Include="Views\MenuItems\Create.cshtml" />
+    <Content Include="Views\MenuItems\Edit.cshtml" />
+    <Content Include="Views\MenuItems\EditForm.cshtml" />
+    <Content Include="Views\MenuItems\Index.cshtml" />
+    <Content Include="Views\RoleMenus\_navMenuBar.cshtml" />
+    <Content Include="Views\RoleMenus\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

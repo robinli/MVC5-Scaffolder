@@ -1,0 +1,195 @@
+﻿<#@ template language="C#" HostSpecific="True" #>
+<#@ output extension=".cshtml" #>
+<#@ parameter type="System.String" name="DefaultNamespace" #>
+
+@using <#= DefaultNamespace #>.Models 
+
+@model IEnumerable<RoleMenu>
+
+
+
+
+@{
+    ViewBag.Title = "菜单授权";
+}
+
+
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                菜单授权
+                <small></small>
+            </h1>
+            <ol class="breadcrumb">
+                <li>
+                    <i class="fa fa-home"></i>  @Html.ActionLink("Home", "Index", "Home")
+                </li>
+
+                <li class="active">
+                    <i class="fa fa-file"></i> 菜单授权
+                </li>
+            </ol>
+        </div>
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h5>选择角色|用户</h5>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="panel-body">
+                    <ul class="list-group">
+                        @foreach (var item in ViewBag.Roles)
+                        {
+                            <li class="list-group-item">
+                                <span class="badge">@item.Count</span>
+                                <span>@item.RoleName</span>
+                            </li>
+                        }
+
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <span class="panel-title">授权菜单</span> <button id="savebutton" class="btn btn-default pull-right">保存</button>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="panel-body">
+                    <div id="jstree" style="margin-top:20px;" class="proton-demo">
+                        <ul>
+                            @{
+                                foreach (var node in ViewBag.Menus)
+                                {
+                                    <li data-jstree='{"Id":"@node.Id","Code":"@node.Code","Url":"@node.Url","opened" : true}'>
+                                        @node.Title
+                                        @if (node.SubMenus.Count > 0)
+                                        {
+                                            <ul>
+                                                @foreach (var subnode in node.SubMenus)
+                                                {
+                                                    <li data-jstree='{  "Id":"@subnode.Id","Code":"@subnode.Code","Url":"@subnode.Url"}'>
+                                                        @subnode.Title
+                                                    </li>
+                                                }
+
+
+                                            </ul>
+                                        }
+                                    </li>
+                                }
+                            }
+
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+@section Scripts {
+    <script type="text/javascript">
+        var $jstree = {};
+        var selectednodes = [];
+        var selectedrole = {};
+        var $currenitem = {};
+        var list = [];
+        $(function () {
+            $('#savebutton').attr('disabled', true);
+            $jstree = $('#jstree').jstree({
+                "checkbox": {
+                    "keep_selected_style": false
+                },
+                "plugins": ["checkbox"],
+                'core': {
+                    "multiple": true,
+                    "animation": 1,
+                    'themes': {
+                        'name': 'proton',
+                        'responsive': true
+                    }
+                }
+            }).on("changed.jstree",
+                function (evt, data) {
+                    //alert(data.node.text);
+                    if (selectedrole.length > 0) {
+                        $('#savebutton').attr('disabled', false);
+                    }
+                });
+
+
+            $('.list-group-item').click(function () {
+                $currenitem = $(this);
+                selectedrole = $(this).children("span:eq(1)").text();
+                console.log($(this).children("span:eq(1)").text());
+                $.get('/RoleMenus/GetMenus', { roleName: selectedrole }, function (data, status, q) {
+                    console.log(data);
+                    $jstree.jstree(true).deselect_all();
+                    var nodes = $jstree.jstree().get_json('#', { 'flat': true });
+                    $.each(data, function (index, item) {
+                        $.each(nodes, function (n, node) {
+                            if (node.data.jstree.Id == item.MenuId) {
+                                $jstree.jstree("select_node", node.id);
+                            }
+                        })
+
+                    })
+
+                });
+                //getSelect();
+            });
+
+            function save() {
+                selectednodes = $jstree.jstree().get_selected('full', true);
+                list = [];
+                $.each(selectednodes, function (i, data) {
+                    if (selectedrole.length > 0) {
+                        var item = { 'RoleName': selectedrole, 'MenuId': data.data.jstree.Id };
+                        list.push(item);
+                    }
+                });
+                if (list.length == 0) {
+                    if (selectedrole.length > 0) {
+                        list.push({ 'RoleName': selectedrole, 'MenuId': 0 });
+                    }
+                }
+                //console.log(list);
+                if (selectedrole.length > 0 && list.length > 0) {
+                    $.post('/RoleMenus/Submit', { selectmenus: list }, function (data, status, q) {
+                        $('#savebutton').attr('disabled', true);
+                        var count = $jstree.jstree().get_selected('full', true).length;
+                        $currenitem.children("span:eq(0)").text(count);
+
+                        console.log(data);
+                    });
+                }
+            }
+
+            $('#savebutton').click(function () { save(); })
+
+
+            $.get('/RoleMenus/RenderMenus', function (data, status, q) {
+
+                console.log(data);
+            })
+
+        });
+
+
+
+    </script>
+}
+

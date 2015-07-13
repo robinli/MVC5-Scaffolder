@@ -1029,6 +1029,167 @@ namespace Happy.Scaffolding.MVC.Scaffolders
            //end basecode
 
 
+            //add menuitem
+            // add MenuItemsController.cs
+            viewName = "MenuItemsController";
+            outputPath = Path.Combine("Controllers", viewName);
+            templatePath = Path.Combine("MvcFullDependencyCodeGenerator\\MenuItem", viewName);
+            templateParams = new Dictionary<string, object>(){
+               {"DefaultNamespace", project.GetDefaultNamespace()}
+            };
+            AddFileFromTemplate(project: project
+                , outputPath: outputPath
+                , templateName: templatePath
+                , templateParameters: templateParams
+                , skipIfExists: true);
+
+
+            var menitemviews = new string[] { "_MenuItemEditForm", "Create", "Edit", "EditForm", "Index" };
+            foreach (string vname in menitemviews)
+            {
+                viewName = vname;
+                outputPath = Path.Combine(viewRootPath, "MenuItems", viewName);
+                templatePath = Path.Combine("MvcFullDependencyCodeGenerator\\MenuItem\\Views", viewName);
+                templateParams = new Dictionary<string, object>(){
+               {"DefaultNamespace", project.GetDefaultNamespace()}
+            };
+                AddFileFromTemplate(project: project
+                    , outputPath: outputPath
+                    , templateName: templatePath
+                    , templateParameters: templateParams
+                    , skipIfExists: true);
+            }
+            var menuitemmodels = new string[] { "MenuItem", "MenuItemMetadata" };
+            foreach (string vname in menuitemmodels)
+            {
+                viewName = vname;
+                outputPath = Path.Combine("Models", viewName);
+                templatePath = Path.Combine("MvcFullDependencyCodeGenerator\\MenuItem\\Models", viewName);
+                templateParams = new Dictionary<string, object>(){
+               {"DefaultNamespace", project.GetDefaultNamespace()}
+            };
+                AddFileFromTemplate(project: project
+                    , outputPath: outputPath
+                    , templateName: templatePath
+                    , templateParameters: templateParams
+                    , skipIfExists: true);
+            }
+
+            var menuitemservices = new string[] { "MenuItemService", "IMenuItemService" };
+            foreach (string vname in menuitemservices)
+            {
+                viewName = vname;
+                outputPath = Path.Combine("Services", "MenuItems", viewName);
+                templatePath = Path.Combine("MvcFullDependencyCodeGenerator\\MenuItem\\Services", viewName);
+                templateParams = new Dictionary<string, object>(){
+               {"DefaultNamespace", project.GetDefaultNamespace()}
+            };
+                AddFileFromTemplate(project: project
+                    , outputPath: outputPath
+                    , templateName: templatePath
+                    , templateParameters: templateParams
+                    , skipIfExists: true);
+            }
+
+            var menuitemrepository = new string[] { "MenuItemQuery", "MenuItemRepository" };
+            foreach (string vname in menuitemrepository)
+            {
+                viewName = vname;
+                outputPath = Path.Combine("Repositories", "MenuItems", viewName);
+                templatePath = Path.Combine("MvcFullDependencyCodeGenerator\\MenuItem\\Repositories", viewName);
+                templateParams = new Dictionary<string, object>(){
+               {"DefaultNamespace", project.GetDefaultNamespace()}
+            };
+                AddFileFromTemplate(project: project
+                    , outputPath: outputPath
+                    , templateName: templatePath
+                    , templateParameters: templateParams
+                    , skipIfExists: true);
+            }
+
+            //end menuitem
+
+
+            //add rolemenu
+            // add RoleMenusController.cs
+            viewName = "RoleMenusController";
+            outputPath = Path.Combine("Controllers", viewName);
+            templatePath = Path.Combine("MvcFullDependencyCodeGenerator\\RoleMenu", viewName);
+            templateParams = new Dictionary<string, object>(){
+               {"DefaultNamespace", project.GetDefaultNamespace()}
+            };
+            AddFileFromTemplate(project: project
+                , outputPath: outputPath
+                , templateName: templatePath
+                , templateParameters: templateParams
+                , skipIfExists: true);
+
+
+            var rolemenuviews = new string[] { "_navMenuBar", "Index" };
+            foreach (string vname in rolemenuviews)
+            {
+                viewName = vname;
+                outputPath = Path.Combine(viewRootPath, "RoleMenus", viewName);
+                templatePath = Path.Combine("MvcFullDependencyCodeGenerator\\RoleMenu\\Views", viewName);
+                templateParams = new Dictionary<string, object>(){
+               {"DefaultNamespace", project.GetDefaultNamespace()}
+            };
+                AddFileFromTemplate(project: project
+                    , outputPath: outputPath
+                    , templateName: templatePath
+                    , templateParameters: templateParams
+                    , skipIfExists: true);
+            }
+            var rolemenummodels = new string[] { "RoleMenu", "RoleMenuMetadata", "RoleMenuViewModel" };
+            foreach (string vname in rolemenummodels)
+            {
+                viewName = vname;
+                outputPath = Path.Combine("Models", viewName);
+                templatePath = Path.Combine("MvcFullDependencyCodeGenerator\\RoleMenu\\Models", viewName);
+                templateParams = new Dictionary<string, object>(){
+               {"DefaultNamespace", project.GetDefaultNamespace()}
+            };
+                AddFileFromTemplate(project: project
+                    , outputPath: outputPath
+                    , templateName: templatePath
+                    , templateParameters: templateParams
+                    , skipIfExists: true);
+            }
+
+            var rolemanuservices = new string[] { "RoleMenuService", "IRoleMenuService" };
+            foreach (string vname in rolemanuservices)
+            {
+                viewName = vname;
+                outputPath = Path.Combine("Services", "RoleMenus", viewName);
+                templatePath = Path.Combine("MvcFullDependencyCodeGenerator\\RoleMenu\\Services", viewName);
+                templateParams = new Dictionary<string, object>(){
+               {"DefaultNamespace", project.GetDefaultNamespace()}
+            };
+                AddFileFromTemplate(project: project
+                    , outputPath: outputPath
+                    , templateName: templatePath
+                    , templateParameters: templateParams
+                    , skipIfExists: true);
+            }
+
+            var rolemenurepository = new string[] { "RoleMenuQuery", "RoleMenuRepository" };
+            foreach (string vname in rolemenurepository)
+            {
+                viewName = vname;
+                outputPath = Path.Combine("Repositories", "RoleMenus", viewName);
+                templatePath = Path.Combine("MvcFullDependencyCodeGenerator\\RoleMenu\\Repositories", viewName);
+                templateParams = new Dictionary<string, object>(){
+               {"DefaultNamespace", project.GetDefaultNamespace()}
+            };
+                AddFileFromTemplate(project: project
+                    , outputPath: outputPath
+                    , templateName: templatePath
+                    , templateParameters: templateParams
+                    , skipIfExists: true);
+            }
+
+            //end menuitem
+
         }
 
         private void AddDataFieldTemplates(Project project, string viewRootPath)
