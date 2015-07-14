@@ -308,11 +308,11 @@
     <Compile Include="Services\Departments\DepartmentService.cs" />
     <Compile Include="Services\Departments\IDepartmentService.cs" />
     <Compile Include="Services\IOrderService.cs" />
-    <Compile Include="Services\IProductService.cs" />
     <Compile Include="Services\MenuItems\IMenuItemService.cs" />
     <Compile Include="Services\MenuItems\MenuItemService.cs" />
     <Compile Include="Services\OrderService.cs" />
-    <Compile Include="Services\ProductService.cs" />
+    <Compile Include="Services\Products\IProductService.cs" />
+    <Compile Include="Services\Products\ProductService.cs" />
     <Compile Include="Services\RoleMenus\IRoleMenuService.cs" />
     <Compile Include="Services\RoleMenus\RoleMenuService.cs" />
     <Compile Include="Services\Works\IWorkService.cs" />
@@ -583,7 +583,7 @@
     <Content Include="Views\Shared\_SideNavBar.cshtml" />
     <Content Include="Views\Products\Create.cshtml" />
     <Content Include="Views\Products\Edit.cshtml" />
-    <Content Include="Views\Products\EditForm.cshtml" />
+    <Content Include="Views\Products\EditForm1.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\Shared\_LoginLayout.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\String1.cshtml" />
@@ -634,6 +634,8 @@
     <Content Include="Views\MenuItems\Index.cshtml" />
     <Content Include="Views\RoleMenus\_navMenuBar.cshtml" />
     <Content Include="Views\RoleMenus\Index.cshtml" />
+    <Content Include="Views\Products\_PopupSearch.cshtml" />
+    <Content Include="Views\Products\EditForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
