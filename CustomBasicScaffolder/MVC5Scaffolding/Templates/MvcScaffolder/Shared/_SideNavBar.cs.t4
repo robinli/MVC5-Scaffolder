@@ -1,0 +1,95 @@
+﻿<#@ template language="C#" HostSpecific="True" #>
+<#@ output extension=".cshtml" #>
+<#@ parameter type="System.String" name="DefaultNamespace" #>
+
+<div class="collapse navbar-collapse navbar-ex1-collapse">
+    <ul class="nav navbar-nav side-nav">
+
+        <li>
+            <a href="javascript:;" data-toggle="collapse" data-target="#model1"><i class="fa fa-fw fa-folder-o"></i> 业务系统 <i class="fa fa-fw fa-caret-down"></i></a>
+            <ul id="model1" class="collapse">
+                <li>
+                    @Html.ActionLink("Category", "Index", "Categories")
+                </li>
+                <li>
+                    @Html.ActionLink("Product", "Index", "Products")
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:;" data-toggle="collapse" data-target="#systemmanager"><i class="fa fa-fw fa-wrench"></i> 系统管理 <i class="fa fa-fw fa-caret-down"></i></a>
+            <ul id="systemmanager" class="collapse">
+                <li class="active">
+                    <a href="#"><i class="fa fa-fw fa-user"></i>用户管理</a>
+
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-fw fa-group"></i>角色管理</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-fw fa-lock"></i>授权管理</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+@Scripts.Render("~/bundles/jquery")
+
+
+<script type="text/javascript">
+    $(function () {
+        $(window).resize(function (e) {
+           $('#side-nav').css('height', $(window).height() - 50);
+        });
+        $('#side-nav').css('height', $(window).height() - 50);
+        $('.nav  .collapse').on('hidden.bs.collapse', function () {
+         var a = $(this).parent().find('[data-target=#' + $(this)[0].id + ']');
+            $($(a[0]).find('i')[1]).removeClass("fa fa-fw fa-caret-down").addClass("fa fa-fw fa-caret-right");
+            $('.nav navbar-nav side-nav').tinyscrollbar();
+        })
+        $('.nav   .collapse').on('show.bs.collapse', function () {
+           var a = $(this).parent().find('[data-target=#' + $(this)[0].id + ']');
+            $($(a[0]).find('i')[1]).removeClass("fa fa-fw fa-caret-right").addClass("fa fa-fw fa-caret-down");
+            //$('.nav navbar-nav side-nav').tinyscrollbar();
+
+
+        })
+
+
+        function stripTrailingSlash(str) {
+            if (str.substr(-1) == '/') {
+                return str.substr(0, str.length - 1);
+            }
+            return str;
+        }
+        var pathnamestr = window.location.pathname;
+        var url;
+        if (pathnamestr.indexOf('/', pathnamestr.indexOf('/') + 1) > 0)
+            url = pathnamestr.substr(0, pathnamestr.indexOf('/', pathnamestr.indexOf('/') + 1)) + window.location.search;
+        else
+            url = pathnamestr + window.location.search;
+        var activePage = stripTrailingSlash(url);
+        
+        $('.navbar li').removeClass('active');
+
+        var actve_a_s = $(".nav li a[href = '" + pathnamestr + "']");
+
+        if (actve_a_s.length > 0) {
+            $('.navbar li').removeClass('active');
+            $(actve_a_s[0]).parent().addClass('active');
+            $(actve_a_s[0]).parent().parent().collapse('show');
+        }
+        else {
+            $('.nav li a').each(function () {
+                var currentPage = stripTrailingSlash($(this).attr('href'));
+                if (activePage.indexOf(currentPage) >= 0) {
+                    $(this).parent().addClass('active');
+                    $(this).parent().parent().collapse('show');
+                }
+            });
+        }
+
+    });
+
+</script>

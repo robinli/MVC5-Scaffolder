@@ -32,7 +32,15 @@ else
 <#@ parameter type="System.String" name="BindAttributeIncludeText" #>
 <#@ parameter type="System.String" name ="OverpostingWarningMessage" #>
 <#@ parameter type="System.String" name ="ViewPrefix" #>
+<#@ parameter type="System.String" name ="ModelName" #>
 <#@ parameter type="System.Collections.Generic.HashSet<System.String>" name="RequiredNamespaces" #>
+
+
+<#@ parameter type="System.Collections.Generic.Dictionary<string, Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata>" name="OneToManyModelMetadata" #>
+<#@ parameter type="System.Collections.Generic.Dictionary<string, string>" name="OneToManyAnonymousObjText" #>
+<#@ parameter type="System.String" name ="SelectLambdaText" #>
+<#@ parameter type="System.Boolean" name ="GenerateMasterDetailRelationship" #>
+
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -44,16 +52,21 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Repository.Pattern.UnitOfWork;
+using Repository.Pattern.Infrastructure;
 <# foreach (var namespaceName in RequiredNamespaces) { #>
 using <#= namespaceName #>;
 <# } #>
+
 
 namespace <#= Namespace #>
 {
 <#
     var contextTypeName = ContextTypeName;
     var entitySetName = ModelMetadata.EntitySetName;
-    var entitySetVar = EntitySetVariable ?? (String.IsNullOrEmpty(entitySetName) ? entitySetName : (entitySetName.Substring(0, length:1).ToLowerInvariant() + entitySetName.Substring(1)));
+    var modelVariablePlural=entitySetName.ToLower();
+    var entitySetVar=ModelTypeName.ToLower();
+    //var entitySetVar = EntitySetVariable ?? (String.IsNullOrEmpty(entitySetName) ? entitySetName : (entitySetName.Substring(0,1).ToLowerInvariant() + entitySetName.Substring(1)));
     var primaryKeyName = ModelMetadata.PrimaryKeys[0].PropertyName;
     var primaryKeyShortTypeName = ModelMetadata.PrimaryKeys[0].ShortTypeName;
     var primaryKeyDefaultValue = ModelMetadata.PrimaryKeys[0].DefaultValue;
@@ -61,8 +74,10 @@ namespace <#= Namespace #>
     var primaryKeyNullableTypeName = GetNullableTypeName(primaryKeyType, primaryKeyShortTypeName);
     var lambdaVar = ModelVariable[0];
     var relatedProperties = ModelMetadata.RelatedEntities.ToDictionary(item => item.AssociationPropertyName);
-
+    
     string bindAttribute;
+    var modelService= "I" + ModelTypeName + "Service";
+    var modelServiceVar= "_" + ModelVariable + "Service";
     if (IsOverpostingProtectionRequired)
     {
         bindAttribute = String.Format("[Bind(Include = \"{0}\")] ", BindAttributeIncludeText);
@@ -74,7 +89,20 @@ namespace <#= Namespace #>
 #>
     public class <#= ControllerName #> : Controller
     {
-        private <#= ContextTypeName #> db = new <#= ContextTypeName #>();
+        
+        //Please RegisterType UnityConfig.cs
+        //container.RegisterType<IRepositoryAsync<<#=ModelTypeName #>>, Repository<<#=ModelTypeName #>>>();
+        //container.RegisterType<I<#=ModelTypeName #>Service, <#=ModelTypeName #>Service>();
+        
+        //private <#= ContextTypeName #> db = new <#= ContextTypeName #>();
+        private readonly <#= modelService #>  <#= modelServiceVar #>;
+        private readonly IUnitOfWorkAsync _unitOfWork;
+
+        public <#= ControllerName #> (<#= modelService #>  <#= ModelVariable  #>Service, IUnitOfWorkAsync unitOfWork)
+        {
+            <#= modelServiceVar #>  = <#= ModelVariable  #>Service;
+            _unitOfWork = unitOfWork;
+        }
 
         // GET: <#= routePrefix #>/<#= ViewPrefix #>Index
 <# if (UseAsync) { #>
@@ -83,27 +111,50 @@ namespace <#= Namespace #>
         public ActionResult <#= ViewPrefix #>Index()
 <# } #>
         {
+            
 <#  var includeExpressions = "";
         includeExpressions = String.Join("", relatedProperties.Values.Select(property => String.Format(".Include({0} => {0}.{1})", lambdaVar, property.AssociationPropertyName)));
 #>
 <# if(!String.IsNullOrEmpty(includeExpressions)) { #>
-            var <#= entitySetVar #> = db.<#= entitySetName #><#= includeExpressions #>;
+            var <#= modelVariablePlural #>  = <#= modelServiceVar #>.Queryable()<#= includeExpressions #>.AsQueryable();
+            
 <#		if (UseAsync) { #>
-            return View(await <#= entitySetVar #>.ToListAsync());
+          
+            return View(await <#= modelVariablePlural #>);
 <#		} else { #>
-            return View(<#= entitySetVar #>.ToList());
+             return View(<#= modelVariablePlural #>);
 <#		} #>
 <# } else { #>
 <#		if (UseAsync) { #>
-            return View(await db.<#= entitySetName #><#= includeExpressions #>.ToListAsync());
+            var <#= modelVariablePlural #>  = <#= modelServiceVar #>.Queryable().AsQueryable();
+            return View(await <#= modelVariablePlural #>  );
 <#		} else { #>
-            return View(db.<#= entitySetName #><#= includeExpressions #>.ToList());
+            var <#= modelVariablePlural #>  = <#= modelServiceVar #>.Queryable().AsQueryable();
+            return View(<#= modelVariablePlural #>  );
 <#		} #>
 <# } #>
         }
 
-        /*
-        // GET: <#= routePrefix #>/<#= ViewPrefix #>Details/5
+        // Get :<#= routePrefix #>/<#= ViewPrefix #>PageList
+        // For Index View Boostrap-Table load  data 
+        [HttpGet]
+        public ActionResult PageList(int offset = 0, int limit = 10, string search = "", string sort = "", string order = "")
+        {
+            int totalCount = 0;
+            int pagenum = offset / limit +1;
+            <# if(!String.IsNullOrEmpty(includeExpressions)) { #>
+            var <#= modelVariablePlural #>  = <#= modelServiceVar #>.Query(new <#= ModelTypeName #>Query().WithAnySearch(search))<#= includeExpressions #>.OrderBy(n=>n.OrderBy(sort,order)).SelectPage(pagenum, limit, out totalCount);
+            
+            <#    } else { #>
+            var <#= modelVariablePlural #>  = <#= modelServiceVar #>.Query(new <#= ModelTypeName #>Query().WithAnySearch(search)).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(pagenum, limit, out totalCount);
+            <#    } #>
+            var rows = <#= modelVariablePlural #> .Select( <#= SelectLambdaText #>).ToList();
+            var pagelist = new { total = totalCount, rows = rows };
+            return Json(pagelist, JsonRequestBehavior.AllowGet);
+        }
+
+       
+        // GET: <#=            routePrefix #>/<#= ViewPrefix #>Details/5
 <# if (UseAsync) { #>
         public async Task<ActionResult> <#= ViewPrefix #>Details(<#= primaryKeyNullableTypeName #> id)
 <# } else { #>
@@ -115,9 +166,11 @@ namespace <#= Namespace #>
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 <# if (UseAsync) { #>
-            <#= ModelTypeName #> <#= ModelVariable #> = await db.<#= entitySetName #>.FindAsync(id);
+
+            <#= ModelTypeName #>  <#= ModelVariable #> = await <#= modelServiceVar #>.FindAsync(id);
+
 <# } else { #>
-            <#= ModelTypeName #> <#= ModelVariable #> = db.<#= entitySetName #>.Find(id);
+            <#= ModelTypeName #> <#= ModelVariable #> = <#= modelServiceVar #>.Find(id);
 <# } #>
             if (<#= ModelVariable #> == null)
             {
@@ -125,15 +178,18 @@ namespace <#= Namespace #>
             }
             return View(<#= ModelVariable #>);
         }
-        */
+        
 
         // GET: <#= routePrefix #>/<#= ViewPrefix #>Create
         public ActionResult <#= ViewPrefix #>Create()
         {
+            <#= ModelTypeName #> <#= ModelVariable #> = new <#= ModelTypeName #>();
+            //set default value
 <# foreach (var property in relatedProperties.Values) { #>
-            ViewBag.<#= property.ForeignKeyPropertyNames[0] #> = new SelectList(db.<#= property.EntitySetName #>, "<#= property.PrimaryKeyNames[0] #>", "<#= property.DisplayPropertyName #>");
+            var <#= property.ShortTypeName.ToLower() #>Repository = _unitOfWork.Repository<<#= property.ShortTypeName #>>();
+            ViewBag.<#= property.ForeignKeyPropertyNames[0] #> = new SelectList(<#= property.ShortTypeName.ToLower() #>Repository.Queryable(), "<#= property.PrimaryKeyNames[0] #>", "<#= property.DisplayPropertyName #>");
 <# } #>
-            return View();
+            return View(<#= ModelVariable #>);
         }
 
         // POST: <#= routePrefix #>/<#= ViewPrefix #>Create
@@ -143,7 +199,7 @@ namespace <#= Namespace #>
         // <#= line #>
 <# } } #>
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
 <# if (UseAsync) { #>
         public async Task<ActionResult> <#= ViewPrefix #>Create(<#= bindAttribute #><#= ModelTypeName #> <#= ModelVariable #>)
 <# } else { #>
@@ -155,19 +211,48 @@ namespace <#= Namespace #>
 <# if(!String.IsNullOrEmpty(primaryKeyType) && String.Equals("System.Guid", primaryKeyType, StringComparison.OrdinalIgnoreCase)) { #>
                 <#= ModelVariable #>.<#= primaryKeyName #> = Guid.NewGuid();
 <# } #>
-                db.<#= entitySetName #>.Add(<#= ModelVariable #>);
+             <#
+                if(GenerateMasterDetailRelationship && OneToManyModelMetadata.Count()>0)
+                {
+             #>
+                <#=  ModelVariable #>.ObjectState = ObjectState.Added;   
+                <# foreach (var submodelname in OneToManyModelMetadata.Keys) { 
+					var submodel = OneToManyModelMetadata[submodelname];
+					var submodelkey=submodel.PrimaryKeys[0].PropertyName;
+					var submodelforeignkey  = GetForeignKeyName(submodel,ModelTypeName);
+				#>
+                foreach (var item in <#=  ModelVariable #>.<#= submodelname #>)
+                {
+					item.<#=  submodelforeignkey #> = <#=  ModelVariable #>.<#=  primaryKeyName  #> ;
+                    item.ObjectState = ObjectState.Added;
+                }
+                <# } #>
+                <#=  modelServiceVar #>.InsertOrUpdateGraph(<#=            ModelVariable #>);
+            <#    } else {  #>
+				<#=  modelServiceVar #>.Insert(<#=            ModelVariable #>);
+           <#    } #>
 <# if (UseAsync) {#>
-                await db.SaveChangesAsync();
+                await _unitOfWork.SaveChangesAsync();
 <# } else { #>
-                db.SaveChanges();
+                _unitOfWork.SaveChanges();
 <# } #>
+                if (Request.IsAjaxRequest())
+                {
+                    return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+                }
                 DisplaySuccessMessage("Has append a <#= ModelTypeName #> record");
                 return RedirectToAction("<#= ViewPrefix #>Index");
             }
 
 <# foreach (var property in relatedProperties.Values) { #>
-            ViewBag.<#= property.ForeignKeyPropertyNames[0] #> = new SelectList(db.<#= property.EntitySetName #>, "<#= property.PrimaryKeyNames[0] #>", "<#= property.DisplayPropertyName #>", <#= ModelVariable #>.<#= property.ForeignKeyPropertyNames[0] #>);
+            var <#= property.ShortTypeName.ToLower() #>Repository = _unitOfWork.Repository<<#= property.ShortTypeName #>>();
+            ViewBag.<#= property.ForeignKeyPropertyNames[0] #> = new SelectList(<#= property.ShortTypeName.ToLower() #>Repository.Queryable(), "<#= property.PrimaryKeyNames[0] #>", "<#= property.DisplayPropertyName #>", <#= ModelVariable #>.<#= property.ForeignKeyPropertyNames[0] #>);
 <# } #>
+            if (Request.IsAjaxRequest())
+            {
+                var modelStateErrors =String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n=>n.ErrorMessage)));
+                return Json(new { success = false, err = modelStateErrors }, JsonRequestBehavior.AllowGet);
+            }
             DisplayErrorMessage();
             return View(<#= ModelVariable #>);
         }
@@ -184,16 +269,17 @@ namespace <#= Namespace #>
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 <# if (UseAsync) { #>
-            <#= ModelTypeName #> <#= ModelVariable #> = await db.<#= entitySetName #>.FindAsync(id);
+            <#= ModelTypeName #> <#= ModelVariable #> = await <#= modelServiceVar #>.FindAsync(id);
 <# } else { #>
-            <#= ModelTypeName #> <#= ModelVariable #> = db.<#= entitySetName #>.Find(id);
+            <#= ModelTypeName #> <#= ModelVariable #> = <#= modelServiceVar #>.Find(id);
 <# } #>
             if (<#= ModelVariable #> == null)
             {
                 return HttpNotFound();
             }
 <# foreach (var property in relatedProperties.Values) { #>
-            ViewBag.<#= property.ForeignKeyPropertyNames[0] #> = new SelectList(db.<#= property.EntitySetName #>, "<#= property.PrimaryKeyNames[0] #>", "<#= property.DisplayPropertyName #>", <#= ModelVariable #>.<#= property.ForeignKeyPropertyNames[0] #>);
+            var <#= property.ShortTypeName.ToLower() #>Repository = _unitOfWork.Repository<<#= property.ShortTypeName #>>();
+            ViewBag.<#= property.ForeignKeyPropertyNames[0] #> = new SelectList(<#= property.ShortTypeName.ToLower() #>Repository.Queryable(), "<#= property.PrimaryKeyNames[0] #>", "<#= property.DisplayPropertyName #>", <#= ModelVariable #>.<#= property.ForeignKeyPropertyNames[0] #>);
 <# } #>
             return View(<#= ModelVariable #>);
         }
@@ -205,7 +291,7 @@ namespace <#= Namespace #>
         // <#= line #>
 <# } } #>
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
 <# if (UseAsync) { #>
         public async Task<ActionResult> <#= ViewPrefix #>Edit(<#= bindAttribute #><#= ModelTypeName #> <#= ModelVariable #>)
 <# } else { #>
@@ -214,18 +300,52 @@ namespace <#= Namespace #>
         {
             if (ModelState.IsValid)
             {
-                db.Entry(<#= ModelVariable #>).State = EntityState.Modified;
+                <#= ModelVariable #>.ObjectState = ObjectState.Modified;
+                <#
+                    if(GenerateMasterDetailRelationship && OneToManyModelMetadata.Count()>0)
+                    {
+                #>
+                <# foreach (var submodelname in OneToManyModelMetadata.Keys) { 
+					var submodel = OneToManyModelMetadata[submodelname];
+					var submodelkey=submodel.PrimaryKeys[0].PropertyName;
+					var submodelforeignkey  = GetForeignKeyName(submodel,ModelTypeName);
+				#>
+                foreach (var item in <#=  ModelVariable #>.<#= submodelname #>)
+                {
+					item.<#= submodelforeignkey #> = <#= ModelVariable #>.<#= primaryKeyName  #> ;
+                    //set ObjectState with conditions
+                    if(item.<#= submodelkey #> <= 0)
+                        item.ObjectState = ObjectState.Added;
+                    else
+                        item.ObjectState = ObjectState.Modified;
+                }
+                <# } #>      
+                <#=  modelServiceVar #>.InsertOrUpdateGraph(<#=            ModelVariable #>);
+                <#    } else {  #>
+				<#=  modelServiceVar #>.Update(<#=            ModelVariable #>);
+                <#    } #>
+                
 <# if (UseAsync) { #>
-                await db.SaveChangesAsync();
+                await   _unitOfWork.SaveChangesAsync();
 <# } else { #>
-                db.SaveChanges();
+                _unitOfWork.SaveChanges();
 <# } #>
+                if (Request.IsAjaxRequest())
+                {
+                    return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+                }
                 DisplaySuccessMessage("Has update a <#= ModelTypeName #> record");
                 return RedirectToAction("<#= ViewPrefix #>Index");
             }
 <# foreach (var property in relatedProperties.Values) { #>
-            ViewBag.<#= property.ForeignKeyPropertyNames[0] #> = new SelectList(db.<#= property.EntitySetName #>, "<#= property.PrimaryKeyNames[0] #>", "<#= property.DisplayPropertyName #>", <#= ModelVariable #>.<#= property.ForeignKeyPropertyNames[0] #>);
+            var <#= property.ShortTypeName.ToLower() #>Repository = _unitOfWork.Repository<<#= property.ShortTypeName #>>();
+            ViewBag.<#= property.ForeignKeyPropertyNames[0] #> = new SelectList(<#= property.ShortTypeName.ToLower() #>Repository.Queryable(), "<#= property.PrimaryKeyNames[0] #>", "<#= property.DisplayPropertyName #>", <#= ModelVariable #>.<#= property.ForeignKeyPropertyNames[0] #>);
 <# } #>
+            if (Request.IsAjaxRequest())
+            {
+                var modelStateErrors =String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n=>n.ErrorMessage)));
+                return Json(new { success = false, err = modelStateErrors }, JsonRequestBehavior.AllowGet);
+            }
             DisplayErrorMessage();
             return View(<#= ModelVariable #>);
         }
@@ -242,9 +362,9 @@ namespace <#= Namespace #>
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 <# if (UseAsync) { #>
-            <#= ModelTypeName #> <#= ModelVariable #> = await db.<#= entitySetName #>.FindAsync(id);
+            <#= ModelTypeName #> <#= ModelVariable #> = await <#= modelServiceVar #>.FindAsync(id);
 <# } else { #>
-            <#= ModelTypeName #> <#= ModelVariable #> = db.<#= entitySetName #>.Find(id);
+            <#= ModelTypeName #> <#= ModelVariable #> = <#= modelServiceVar #>.Find(id);
 <# } #>
             if (<#= ModelVariable #> == null)
             {
@@ -255,7 +375,7 @@ namespace <#= Namespace #>
 
         // POST: <#= routePrefix #>/<#= ViewPrefix #>Delete/5
         [HttpPost, ActionName("<#= ViewPrefix #>Delete")]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
 <# if (UseAsync) { #>
         public async Task<ActionResult> <#= ViewPrefix #>DeleteConfirmed(<#= primaryKeyShortTypeName #> id)
 <# } else { #>
@@ -263,19 +383,143 @@ namespace <#= Namespace #>
 <# } #>
         {
 <# if (UseAsync) { #>
-            <#= ModelTypeName #> <#= ModelVariable #> = await db.<#= entitySetName #>.FindAsync(id);
+            <#= ModelTypeName #> <#= ModelVariable #> = await  <#= modelServiceVar #>.FindAsync(id);
 <# } else { #>
-            <#= ModelTypeName #> <#= ModelVariable #> = db.<#= entitySetName #>.Find(id);
+            <#= ModelTypeName #> <#= ModelVariable #> =  <#= modelServiceVar #>.Find(id);
 <# } #>
-            db.<#= entitySetName #>.Remove(<#= ModelVariable #>);
+             <#= modelServiceVar #>.Delete(<#= ModelVariable #>);
 <# if (UseAsync) { #>
-            await db.SaveChangesAsync();
+            await _unitOfWork.SaveChangesAsync();
 <# } else { #>
-            db.SaveChanges();
+            _unitOfWork.SaveChanges();
 <# } #>
+           if (Request.IsAjaxRequest())
+                {
+                    return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+                }
             DisplaySuccessMessage("Has delete a <#= ModelTypeName #> record");
             return RedirectToAction("<#= ViewPrefix #>Index");
         }
+
+
+<#
+    if (GenerateMasterDetailRelationship) 
+    {
+        foreach (PropertyMetadata property in ModelMetadata.Properties) 
+        {
+			
+            if ( property.AssociationDirection == AssociationDirection.OneToMany && OneToManyModelMetadata.ContainsKey(property.PropertyName))
+            {
+                var modelTypeName=property.ShortTypeName;
+                var subModelMeta = OneToManyModelMetadata[property.PropertyName];
+                var subModelIdType = subModelMeta.PrimaryKeys[0].ShortTypeName;
+                var varModelType=modelTypeName.ToLower();
+                var subrelatedProperties = subModelMeta.RelatedEntities.ToDictionary(item => item.AssociationPropertyName);
+#>
+        // Get Detail Row By Id For Edit
+        // Get : <#= routePrefix #>/Edit<#= modelTypeName #>/:id
+        [HttpGet]
+        public ActionResult Edit<#= modelTypeName #>(<#= subModelIdType #>? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var <#= varModelType #>Repository = _unitOfWork.Repository<<#= modelTypeName #>>();
+            var <#= varModelType #> = <#= varModelType #>Repository.Find(id);
+
+            <#  
+                foreach (var relatedproperty in subrelatedProperties.Values) { #>
+            var <#=     relatedproperty.ShortTypeName.ToLower() #>Repository = _unitOfWork.Repository<<#=     relatedproperty.ShortTypeName #>>();             
+            <#                } #>
+
+            if (<#= varModelType #> == null)
+            {
+            <#   
+                foreach (var relatedproperty in subrelatedProperties.Values) { #>
+                ViewBag.<#=     relatedproperty.ForeignKeyPropertyNames[0] #> = new SelectList(<#=     relatedproperty.ShortTypeName.ToLower() #>Repository.Queryable(), "<#=     relatedproperty.PrimaryKeyNames[0] #>", "<#=     relatedproperty.DisplayPropertyName #>" );
+            <#                } #>
+                
+                //return HttpNotFound();
+                return PartialView("_<#= modelTypeName #>EditForm", new <#= modelTypeName #>());
+            }
+            else
+            {
+            <#   
+                foreach (var relatedproperty in subrelatedProperties.Values) { #>
+                ViewBag.<#=     relatedproperty.ForeignKeyPropertyNames[0] #> = new SelectList(<#=     relatedproperty.ShortTypeName.ToLower() #>Repository.Queryable(), "<#=     relatedproperty.PrimaryKeyNames[0] #>", "<#=     relatedproperty.DisplayPropertyName #>" , <#=     varModelType #>.<#=     relatedproperty.ForeignKeyPropertyNames[0] #> );  
+            <#                } #>
+                 
+            }
+            return PartialView("_<#= modelTypeName #>EditForm",  <#= varModelType #>);
+
+        }
+        
+        // Get Create Row By Id For Edit
+        // Get : <#= routePrefix #>/Create<#= modelTypeName #>
+        [HttpGet]
+        public ActionResult Create<#= modelTypeName #>()
+        {
+          <#                foreach (var relatedproperty in subrelatedProperties.Values) { #>
+              var <#=     relatedproperty.ShortTypeName.ToLower() #>Repository = _unitOfWork.Repository<<#=     relatedproperty.ShortTypeName #>>();    
+              ViewBag.<#=     relatedproperty.ForeignKeyPropertyNames[0] #> = new SelectList(<#=     relatedproperty.ShortTypeName.ToLower() #>Repository.Queryable(), "<#=     relatedproperty.PrimaryKeyNames[0] #>", "<#=     relatedproperty.DisplayPropertyName #>" );
+          <#                } #>
+            return PartialView("_<#= modelTypeName #>EditForm");
+
+        }
+
+        // Post Delete Detail Row By Id
+        // Get : <#= routePrefix #>/Delete<#= modelTypeName #>/:id
+        [HttpPost,ActionName("Delete<#= modelTypeName #>")]
+        public ActionResult Delete<#= modelTypeName #>Confirmed(<#= subModelIdType #>  id)
+        {
+            var <#= varModelType #>Repository = _unitOfWork.Repository<<#= modelTypeName #>>();
+            <#= varModelType #>Repository.Delete(id);
+            _unitOfWork.SaveChanges();
+            if (Request.IsAjaxRequest())
+            {
+                return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+            }
+            DisplaySuccessMessage("Has delete a Order record");
+            return RedirectToAction("Index");
+        }
+
+<#
+            }
+        }
+    }
+#>       
+
+<#
+    if (GenerateMasterDetailRelationship) 
+    {     
+        foreach (PropertyMetadata property in ModelMetadata.Properties) 
+        {           
+            if (property.AssociationDirection == AssociationDirection.OneToMany ) 
+            {       
+                var relmodemeta = OneToManyModelMetadata[property.PropertyName];
+                var relatedEntities = relmodemeta.RelatedEntities;
+                var foreignKeyNames = relatedEntities.Where(n=>n.EntitySetName ==ModelMetadata.EntitySetName).Select(n=>n.ForeignKeyPropertyNames).First();
+                var foreignKeyName = foreignKeyNames[0];
+                var lambdastring=OneToManyAnonymousObjText[property.PropertyName];
+#>
+        // Get : <#= routePrefix #>/Get<#=   property.PropertyName #>By<#= foreignKeyName #>/:id
+        [HttpGet]
+        public ActionResult Get<#= property.PropertyName #>By<#= foreignKeyName #>(<#=  primaryKeyShortTypeName #> id)
+        {
+            var <#= property.PropertyName.ToLower() #> = <#= modelServiceVar #>.Get<#= property.PropertyName #>By<#= foreignKeyName #>(id);
+            if (Request.IsAjaxRequest())
+            {
+                return Json(<#= property.PropertyName.ToLower() #>.Select(<#= lambdastring #>),JsonRequestBehavior.AllowGet);
+            }  
+            return View(<#= property.PropertyName.ToLower() #>); 
+
+        }
+<#
+            }
+        }
+    }
+#> 
 
         private void DisplaySuccessMessage(string msgText)
         {
@@ -291,7 +535,7 @@ namespace <#= Namespace #>
         {
             if (disposing)
             {
-                db.Dispose();
+                _unitOfWork.Dispose();
             }
             base.Dispose(disposing);
         }
@@ -321,5 +565,8 @@ namespace <#= Namespace #>
 
     bool IsGuid(string typeName) {
         return String.Equals("System.Guid", typeName, StringComparison.OrdinalIgnoreCase);
+    }
+	string GetForeignKeyName(Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata modelMdetadata,string relatedmodeTypename){
+		return modelMdetadata.RelatedEntities.Where(n => n.ShortTypeName == relatedmodeTypename).Select(n => n.ForeignKeyPropertyNames).First()[0];
     }
 #>

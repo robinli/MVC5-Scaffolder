@@ -88,7 +88,19 @@
             <StackPanel Style="{StaticResource Section}" IsEnabled="{Binding GenerateViews}">
                 <CheckBox Content="{x:Static self:MvcScaffolderDialogResources.OverwriteCheckBox_Content}" 
                       IsChecked="{Binding OverwriteViews}"  />
-                
+                <CheckBox Content="{x:Static self:MvcScaffolderDialogResources.GenerateMasterDetailRelationship}" 
+                      IsChecked="{Binding GenerateMasterDetailRelationship}"  />
+                <StackPanel  Orientation="Horizontal">
+                    <CheckBox Content="{x:Static self:MvcScaffolderDialogResources.FormViewCols}" 
+                      IsChecked="{Binding CheckFormViewCols}"  />
+                    <ComboBox  IsEnabled="{Binding CheckFormViewCols}" 
+                               ItemsSource="{Binding ColNumCollection}"
+                              SelectedValue="{Binding FormViewCols, Mode=TwoWay}"
+                              Width="35">
+                        
+                        
+                    </ComboBox>
+                </StackPanel>
                 <CheckBox Content="{x:Static self:MvcScaffolderDialogResources.ReferenceScriptLibraries}" 
                       IsChecked="{Binding ReferenceScriptLibraries}" />
                 <CheckBox Content="{x:Static self:MvcScaffolderDialogResources.UseLayoutPage}" 

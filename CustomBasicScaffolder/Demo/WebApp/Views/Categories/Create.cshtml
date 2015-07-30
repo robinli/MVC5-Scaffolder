@@ -1,0 +1,112 @@
+﻿
+
+
+@model WebApp.Models.Category
+
+@{
+    ViewBag.Title = "Create";
+}
+
+
+
+
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Category
+                <small>Create</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li>
+                    <i class="fa fa-home"></i>  @Html.ActionLink("Home", "Index", "Home")
+                </li>
+                 <li>
+                    <i class="fa fa-folder-open"></i>  @Html.ActionLink("Categories", "Index", "Categories")
+                </li>
+                <li class="active">
+                    <i class="fa fa-file"></i> Create
+                </li>
+            </ol>
+        </div>
+    </div>
+    <!-- /.row -->
+     <div class="row">
+        <div class="col-lg-12">
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+        <div class="form-horizontal">
+        <h4>Category</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.Partial("EditForm")
+        <div class="form-group">
+            <div class="text-center">
+                <input type="submit" value=" 保存 " class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+    </div>
+ </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+     <script type="text/javascript">
+     
+    		var categoryid = 0;
+		var ObjectState = "Added";  
+                                 
+             var $productstable = {};
+                        $(document).ready(function () {
+
+                $('form').submit(function () {
+					if (!$('form').valid())
+						return false;
+                    var token = $('[name=__RequestVerificationToken]').val();
+                    var serializedForm = $(this).serialize();
+                    var actionurl = $(this).attr('action');
+                                         
+                        var products = $productstable.bootstrapTable('getData');
+                                         
+                     var newitem = {
+                        								//primaryKey
+								Id: categoryid,
+                                                        Name: $('#Name', 'form').val(),
+                        								//detailTables
+                                Products: products ,
+                                                ObjectState:ObjectState 
+                    };
+                    $.ajax({
+                        url: actionurl,
+                        type: "POST",
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify(newitem),
+                        success: function (result) {
+                            if (result.success) {
+                                self.location = "/Categories/Index";
+                            } else {
+                                alert(result.err);
+                            }
+                            
+                        },
+                        error: function (result) {
+                            console.log(result.statusText + result.responseText);
+                            alert(result.statusText + result.responseText);
+                        }
+                    });
+                    return false;
+                    
+
+                });
+            });
+          </script>
+
+
+}

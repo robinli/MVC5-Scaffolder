@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <style>
+        body {
+          
+    background: url(http://s18.postimg.org/l7yq0ir3t/pick8_1.jpg);
+	background-color: #444;
+    background: url(http://s18.postimg.org/l7yq0ir3t/pick8_1.jpg),url(http://s18.postimg.org/l7yq0ir3t/pick8_1.jpg),url(http://s18.postimg.org/l7yq0ir3t/pick8_1.jpg);  
+        }
+
+.vertical-offset-100{
+    padding-top:100px;
+}
+    </style>
+</head>
+<body>
+    <div>
+        @RenderBody()
+    </div>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenLite.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(document).mousemove(function (e) {
+                TweenLite.to($('body'),
+                   .5,
+                   {
+                       css:
+                         {
+                             backgroundPosition: "" + parseInt(event.pageX / 8) + "px " + parseInt(event.pageY / '12') + "px, " + parseInt(event.pageX / '15') + "px " + parseInt(event.pageY / '15') + "px, " + parseInt(event.pageX / '30') + "px " + parseInt(event.pageY / '30') + "px"
+                         }
+                   });
+            });
+        });
+    </script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

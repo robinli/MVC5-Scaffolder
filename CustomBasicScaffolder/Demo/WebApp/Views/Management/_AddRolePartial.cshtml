@@ -1,0 +1,12 @@
+﻿
+@using WebApp.Models
+@model RoleViewModel
+
+@using (Html.BeginForm("Roles", "Management", FormMethod.Post, new { @class = "form-inline", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder="角色" })
+    </div>
+    <input type="submit" value="添加" class="btn btn-primary" />
+}

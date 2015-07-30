@@ -1,0 +1,58 @@
+﻿
+<#@ Template Language="C#" HostSpecific="True"  #>
+<#@ Output Extension="cs" #>
+<#@ ScaffoldingAssembly Processor="ScaffoldingAssemblyLoader" #>
+<#@ assembly name="System.ComponentModel.DataAnnotations" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Data.Entity" #>
+<#@ assembly name="System.Data.Linq" #>
+<#@ assembly name="EnvDTE" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.ComponentModel.DataAnnotations" #>
+<#@ import namespace="System.Data.Linq.Mapping" #>
+<#@ import namespace="System.Data.Objects.DataClasses" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Reflection" #>
+<#@ import namespace="Microsoft.AspNet.Scaffolding.Core.Metadata" #>
+<#@ parameter type="System.String" name="DefaultNamespace" #>
+<#@ parameter type="System.String" name="ModelNamespace" #>
+<#@ parameter type="System.String" name="FolderNamespace" #>
+<#@ parameter type="System.String" name="ModelName" #>
+<#@ parameter type="System.String" name="PluralizedModelName" #>                    
+<#@ parameter type="Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata" name="ModelMetadata" #>
+<#@ parameter type="System.String" name="PrimaryKeyName" #>      
+<#@ parameter type="System.String" name="QueryLambdaText" #>     
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Linq.Expressions;
+
+using Repository.Pattern.Repositories;
+using Repository.Pattern.Ef6;
+using <#= ModelNamespace #>;
+
+namespace <#=DefaultNamespace #>.Repositories
+{
+   public class <#= ModelName #>Query:QueryObject<<#= ModelName #>>
+    {
+        public <#= ModelName #>Query WithAnySearch(string search)
+        {
+            if (!string.IsNullOrEmpty(search))
+                And(<#= QueryLambdaText #>);
+            return this;
+        }
+
+		public <#= ModelName #>Query WithPopupSearch(string search,string para="")
+        {
+            if (!string.IsNullOrEmpty(search))
+                And(<#= QueryLambdaText #>);
+            return this;
+        }
+    }
+}
+
+
+

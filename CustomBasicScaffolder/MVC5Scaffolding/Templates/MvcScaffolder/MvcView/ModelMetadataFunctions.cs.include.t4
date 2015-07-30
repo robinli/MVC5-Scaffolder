@@ -19,6 +19,22 @@ RelatedModelMetadata GetRelatedModelMetadata(PropertyMetadata property){
     return propertyModel;
 }
 
+RelatedModelMetadata GetRelatedModelMetadata(PropertyMetadata property,Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata metadata ){
+    RelatedModelMetadata propertyModel;
+    IDictionary<string, RelatedModelMetadata> relatedProperties;
+    if(metadata.RelatedEntities != null)
+    {
+        relatedProperties = metadata.RelatedEntities.ToDictionary(item => item.AssociationPropertyName);
+    }
+    else
+    {
+        relatedProperties = new Dictionary<string, RelatedModelMetadata>();
+    }
+    relatedProperties.TryGetValue(property.PropertyName, out propertyModel);
+
+    return propertyModel;
+}
+
 // A foreign key, e.g. CategoryID, will have an association name of Category
 string GetAssociationName(PropertyMetadata property) {
     RelatedModelMetadata propertyModel = GetRelatedModelMetadata(property);
@@ -31,6 +47,22 @@ string GetValueExpression(PropertyMetadata property) {
     return propertyModel != null ? propertyModel.AssociationPropertyName + "." + propertyModel.DisplayPropertyName : property.PropertyName;
 }
 
+string GetValueExpression(PropertyMetadata property, Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata metadata) {
+    RelatedModelMetadata propertyModel = GetRelatedModelMetadata(property,metadata);
+    return propertyModel != null ? propertyModel.AssociationPropertyName + "." + propertyModel.DisplayPropertyName : property.PropertyName;
+}
+
+string GetRelatedDisplayNameExpression(PropertyMetadata property) {
+    RelatedModelMetadata propertyModel = GetRelatedModelMetadata(property);
+    return propertyModel != null ? propertyModel.AssociationPropertyName + "" + propertyModel.DisplayPropertyName : property.PropertyName;
+}
+
+string GetRelatedDisplayNameExpression(PropertyMetadata property,Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata metadata) {
+    RelatedModelMetadata propertyModel = GetRelatedModelMetadata(property,metadata);
+    return propertyModel != null ? propertyModel.AssociationPropertyName + "" + propertyModel.DisplayPropertyName : property.PropertyName;
+}
+
+
 // This will return the primary key property name, if and only if there is exactly
 // one primary key. Returns null if there is no PK, or the PK is composite.
 string GetPrimaryKeyName() {
@@ -40,4 +72,31 @@ string GetPrimaryKeyName() {
 bool IsPropertyGuid(PropertyMetadata property) {
     return String.Equals("System.Guid", property.TypeName, StringComparison.OrdinalIgnoreCase);
 }
+
+
+// Returns either the value of the Display(Name=) attribute or the property name
+string GetDisplayName(string propertyName) {
+	return ModelDisplayNames.ContainsKey(propertyName) ? ModelDisplayNames[propertyName] : propertyName;
+}
+
+string GetForeignKeyPropertyName(Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata metadata,string associationPropertyName){
+	return metadata.RelatedEntities.Where(n=>n.AssociationPropertyName==associationPropertyName).Select(n=>n.ForeignKeyPropertyNames).First()[0];
+}
+
+string GetForeignKeyPropertyNameWithRelateMode(Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata modelMdetadata,string relatedmodeTypename){
+		return modelMdetadata.RelatedEntities.Where(n => n.ShortTypeName == relatedmodeTypename).Select(n => n.ForeignKeyPropertyNames).First()[0];
+}
+
+
+bool HasRelatedMasterModel(Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata modelMdetadata,string propertyName){
+	return  modelMdetadata.Properties.Where(n => n.PropertyName == propertyName && n.RelatedModel.TypeName == ViewDataTypeName).Any();
+}
+bool HasRelatedMasterModelWithForeignKey(Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata modelMdetadata,string propertyName){
+	return modelMdetadata.RelatedEntities.Where(n => n.ForeignKeyPropertyNames[0] == propertyName && n.TypeName == ViewDataTypeName).Any();
+}
+
+bool HasRelatedMasterModelWithForeignKey(Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata modelMdetadata,string propertyName,string masterModelTypeName){
+	return modelMdetadata.RelatedEntities.Where(n => n.ForeignKeyPropertyNames[0] == propertyName && n.TypeName == masterModelTypeName).Any();
+}
+
 #>

@@ -13,6 +13,6 @@
         internal const string VSProjectItemKindPhysicalFolder = "{6BB5F8EF-4483-11D3-8BCF-00C04F8EC28C}";
 
         internal const string CSharpCodeModelLanguageGuid = "{B5E9BD34-6D3E-4B5D-925E-8A43B79820B4}";
-        internal const string VBCodeModelLanguageGuid = "{B5E9BD33-6D3E-4B5D-925E-8A43B79820B4}";
+        internal const string VBCodeModelLanguageGuid = "{B5E9BD33-6D3E-4B5D-925E-8A43B79820B4}"; 
     }
 }

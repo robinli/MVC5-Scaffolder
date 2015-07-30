@@ -1,0 +1,269 @@
+﻿
+@using WebApp.Models 
+
+@model  BaseCode
+
+
+ @*@Html.HiddenFor(model => model.Id)*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CodeType, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CodeType, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CodeType,"" , new { @class = "text-danger" })
+            </div>
+        </div>
+		
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Description,"" , new { @class = "text-danger" })
+            </div>
+        </div>
+		
+
+	<div role="tabpanel">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+								<li role="presentation" class="active"><a href="#tab-CodeItems" aria-controls="tab-CodeItems" role="tab" data-toggle="tab">CodeItems</a></li>		 
+								        
+			 
+   
+		 </ul>
+		 <!-- Tab panes -->
+         <div class="tab-content">
+		  
+		  <div role="tabpanel" class="tab-pane active" id="tab-CodeItems">
+                <div id="toolbar-CodeItems" class="btn-group">
+                    <button type="button" id="addcodeitemsbutton" class="btn btn-default">
+                        <i class="glyphicon glyphicon-plus"></i>
+                    </button>
+
+                    <button type="button" id="removecodeitemsbutton" class="btn btn-default">
+                        <i class="glyphicon glyphicon-trash"></i>
+                    </button>
+                </div>
+                <div class="table-responsive">
+                <table id="codeitems-table"  class="table table-striped" data-search="true"
+                       data-flat="false"
+                       data-toolbar="#toolbar-CodeItems"
+                       data-pagination="true"
+                       data-show-refresh="true"
+                       data-show-toggle="true"
+                       data-show-columns="true">
+                    <thead>
+                        <tr>
+                            <th data-formatter="codeitemsrowindexFormatter">#No</th>
+				
+                            			
+            <th data-field="BaseCodeCodeType" data-visible="false"  > BaseCode
+            </th>
+		        		
+                                        <th data-field="Id"   data-visible="false" > Id
+            </th>
+                		
+                                    <th data-field="Code"  > Code
+        </th>
+                		
+                            <th data-field="Text" data-align="left">
+                                Text
+                            </th>
+                		
+                                        <th data-field="BaseCodeId"   data-visible="false" > BaseCodeId
+            </th>
+                                            <th data-field="action" data-formatter="codeitemsactionFormatter" data-events="actionEvents">Action</th>
+                        </tr>
+                    </thead>
+                </table>
+                </div>
+            </div>
+
+		  
+	</div>
+</div>
+
+<!-- Modal  CodeItem-->
+<div class="modal fade" id="codeitemformModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">CodeItem</h4>
+            </div>
+            <div class="modal-body" id="codeitemformModal-body">
+                @*@Html.Partial("_OrderDetailForm")*@
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" id="codeitemconfirmbutton" class="btn btn-primary">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal  CodeItem-->
+
+
+
+<script type="text/javascript">
+	
+	var currentrowindex = -1;
+	
+	 function deleteCodeItem(id) {
+        var url = '@Url.Action("DeleteCodeItem")';
+        bootbox.dialog({
+            message: "Are you sure delete " + id,
+            title: "Delete CodeItem ",
+            buttons: {
+                Cancel: {
+                    label: "Cancel",
+                    className: "btn-default",
+                    callback: function () {
+
+                    }
+                },
+                OK: {
+                    label: "OK",
+                    className: "btn-success",
+                    callback: function () {
+                        $.post(url, { id: id }, function (data) {
+                            $codeitemstable.bootstrapTable('remove', { field: 'Id', values: [id] });
+                            //console.log('remove' + row.Id);
+                        });
+                    }
+                }
+            }
+        });
+    }
+
+	function codeitemsrowindexFormatter(value, row, index) {
+        return index + 1;
+    }
+    function codeitemsactionFormatter(value, row, index) {
+        return [
+            '<a class="edit" id="codeitemsedit" href="javascript:void(0)" title="Add">',
+            '<i class="glyphicon glyphicon-edit"></i>',
+            '</a>  ',
+            ' <a class="remove" id="codeitemsremove" href="javascript:void(0)" title="Remove">',
+            '<i class="glyphicon glyphicon-remove"></i>',
+            '</a>'
+        ].join('');
+    }
+	  
+	 
+	 window.actionEvents = {
+	         'click #codeitemsedit': function (e, value, row, index) {
+            currentrowindex = index;
+            var url = "/BaseCodes/EditCodeItem"
+            $.get(url + '/' + row.Id, function (data) {
+                $('#codeitemformModal-body').html(data);
+                if (row.Id > 0) {
+									//var id = $('#Id','#codeitemformModal-body');
+					//id.val(row.Id);
+									//var code = $('#Code','#codeitemformModal-body');
+					//code.val(row.Code);
+									//var text = $('#Text','#codeitemformModal-body');
+					//text.val(row.Text);
+									//var basecodeid = $('#BaseCodeId','#codeitemformModal-body');
+					//basecodeid.val(row.BaseCodeId);
+				                } else {
+									var id = $('#Id','#codeitemformModal-body');
+					id.val(row.Id);
+									var code = $('#Code','#codeitemformModal-body');
+					code.val(row.Code);
+									var text = $('#Text','#codeitemformModal-body');
+					text.val(row.Text);
+									var basecodeid = $('#BaseCodeId','#codeitemformModal-body');
+					basecodeid.val(row.BaseCodeId);
+				                    
+                }
+                $('#codeitemformModal').modal('toggle');
+            });
+        } ,
+        'click #codeitemsremove': function (e, value, row, index) {
+            if (row.Id > 0) {
+                deleteCodeItem(row.Id);
+            } else {
+                $codeitemstable.bootstrapTable('remove', {
+                    field: '$index',
+                    values: [index]
+                });
+            }
+        } 	    };
+
+	
+	$(function () {
+				$codeitemstable = $('#codeitems-table').bootstrapTable({
+            data: []
+        });
+        if (ObjectState == "Modified") {
+             basecodeid =@Model.Id;
+            //basecodeid = $('#Id').val();
+            var url = '/BaseCodes/GetCodeItemsByBaseCodeId/' + basecodeid;
+            $.get(url, function (data) {
+                //console.log(data);
+                $codeitemstable.bootstrapTable('load', data)
+            })
+
+        }
+
+        $('#addcodeitemsbutton').on('click', function (e) {
+            if ($("form").valid()) {
+                currentrowindex = -1;
+                var url = "/BaseCodes/CreateCodeItem"
+                $.get(url, function (data) {
+                    //console.log(data);
+                    var index = -1;
+                    $('#codeitemformModal-body').html(data);
+                    $('#Id', '#codeitemformModal-body' ).val(0);
+					$('#BaseCodeId' , '#codeitemformModal-body').val(basecodeid );
+                    $('#codeitemformModal').modal('toggle');
+                });
+            }
+            e.preventDefault();
+            //Return false regardless of validation to stop form submitting
+            //prior to ajax doing its thing
+            return false;
+        })
+
+		$('#codeitemconfirmbutton').on('click', function (e) {
+            $("form").removeData("validator");
+            $("form").removeData("unobtrusiveValidation");
+            $.validator.unobtrusive.parse("form");
+            if (!$('form').valid()) {
+                e.preventDefault();
+                return false;
+            }
+								var basecodecodetype = $('#BaseCodeId :selected' , '#codeitemformModal-body').text();
+							 					var id = $('#Id' , '#codeitemformModal-body').val();
+				 							 					var code = $('#Code' , '#codeitemformModal-body').val();
+				 							 					var text = $('#Text' , '#codeitemformModal-body').val();
+				 							 					var basecodeid = $('#BaseCodeId :selected' , '#codeitemformModal-body').val();
+					
+				 			            
+            var codeitem = {
+               					BaseCodeCodeType :basecodecodetype ,
+							 					Id : id ,
+				 							 					Code : code ,
+				 							 					Text : text ,
+				 							 					 BaseCodeId :basecodeid ,
+					
+				 								ObjectState:'Added'
+            }
+            if (currentrowindex == '-1') {
+                $codeitemstable.bootstrapTable('append', codeitem);
+            } else {
+                $codeitemstable.bootstrapTable('updateRow', { index: currentrowindex, row: codeitem });
+            }
+
+            $('#codeitemformModal').modal('toggle');
+        });
+
+		
+	});
+
+
+</script>
+
+
+

@@ -1,0 +1,188 @@
+﻿@model IEnumerable<WebApp.Models.Product>
+
+
+
+
+@{
+    ViewBag.Title = "Index";
+}
+<style type='text/css'>
+    /*設定 數字靠右*/
+    td:nth-child(2n) {
+        text-align: right;
+    }
+
+    td:nth-child(5n) {
+        text-align: right;
+    }
+
+    td:nth-child(6n) {
+        text-align: right;
+    }
+
+    td:nth-child(8n) {
+        text-align: right;
+    }
+</style>
+
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Product
+                <small>Index</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li>
+                    <i class="fa fa-home"></i>  @Html.ActionLink("Home", "Index", "Home")
+                </li>
+
+                <li class="active">
+                    <i class="fa fa-file"></i> Products
+                </li>
+            </ol>
+        </div>
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div id="toolbar" class="btn-group">
+                <button type="button" id="newproductsbutton" class="btn btn-default">
+                    <i class="glyphicon glyphicon-plus"></i>
+                </button>
+
+                <button type="button" id="deleteproductsbutton" class="btn btn-default">
+                    <i class="glyphicon glyphicon-trash"></i>
+                </button>
+            </div>
+
+
+            <table id="products-table" data-search="true"
+                   data-url="/Products/PageList"
+                   data-flat="false"
+                   data-toolbar="#toolbar"
+                   data-pagination="true"
+                   data-show-refresh="true"
+                   data-show-toggle="true"
+                   data-show-columns="true"
+                   data-single-select="true"
+                   data-page-list="[5, 10, 20, 50, 100, 200]"
+                   data-sort-name="Id"
+                   data-side-pagination="server"
+                   data-click-to-select="true">
+                <thead>
+                    <tr>
+                        <th data-field="state" data-checkbox="true"></th>
+                        <th data-field="CategoryName" data-sortable="false">
+                            @Html.DisplayNameFor(model => model.Category.Name)
+                        </th>
+                        <th data-field="Id" data-sortable="true" data-visible="false">
+                            @Html.DisplayNameFor(model => model.Id)
+                        </th>
+                        <th data-field="Name" data-sortable="true">
+                            @Html.DisplayNameFor(model => model.Name)
+                        </th>
+                        <th data-field="Unit" data-sortable="true">
+                            @Html.DisplayNameFor(model => model.Unit)
+                        </th>
+                        <th data-field="UnitPrice" data-sortable="true">
+                            @Html.DisplayNameFor(model => model.UnitPrice)
+                        </th>
+                        <th data-field="StockQty" data-sortable="true">
+                            @Html.DisplayNameFor(model => model.StockQty)
+                        </th>
+                        <th data-field="ConfirmDateTime" data-sortable="true">
+                            @Html.DisplayNameFor(model => model.ConfirmDateTime)
+                        </th>
+                        <th data-field="action" data-formatter="actionFormatter" data-events="actionEvents">Action</th>
+                    </tr>
+                </thead>
+
+
+            </table>
+
+            <br />
+
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script type="text/javascript">
+        var $productstable = $('#products-table');
+        var $deleteproductsbutton = $('#deleteproductsbutton');
+        function actionFormatter(value, row, index) {
+            return [
+                '<a class="edit" href="javascript:void(0)" title="Add">',
+                '<i class="glyphicon glyphicon-edit"></i>',
+                '</a>  ',
+                ' <a class="remove" href="javascript:void(0)" title="Remove">',
+                '<i class="glyphicon glyphicon-remove"></i>',
+                '</a>'
+            ].join('');
+        }
+        window.actionEvents = {
+
+            'click .edit': function (e, value, row, index) {
+                var url = "/Products/Edit/" + row.Id
+                $(location).attr('href', url);
+            },
+            'click .remove': function (e, value, row, index) {
+                deleteProducts(row.Id);
+                //console.log(value, row, index);
+            }
+
+        }
+        //jquery post /Products/Delete/:id
+        function deleteProducts(id) {
+            var url = '@Url.Action("Delete")';
+            bootbox.dialog({
+                message: "Are you sure delete " + id,
+                title: "Delete Products ",
+                buttons: {
+                    Cancel: {
+                        label: "Cancel",
+                        className: "btn-default",
+                        callback: function () {
+
+                        }
+                    },
+                    OK: {
+                        label: "OK",
+                        className: "btn-success",
+                        callback: function () {
+                            $.post(url, { id: id }, function (data) {
+                                $productstable.bootstrapTable('remove', { field: 'Id', values: [id] });
+                                //console.log('remove' + row.Id);
+                            });
+                        }
+                    }
+                }
+            });
+        }
+        $(document).ready(function (e) {
+            $productstable = $('#products-table').bootstrapTable(
+                {
+                }
+                );
+           
+            $productstable.on('check.bs.table uncheck.bs.table check-all.bs.table uncheck-all.bs.table', function () {
+                console.log($productstable.bootstrapTable('getData'));
+                $deleteproductsbutton.prop('disabled', !$productstable.bootstrapTable('getSelections').length);
+            });
+            $('#newproductsbutton').on('click', function () {
+
+                $(location).attr('href', "/Products/Create");
+            });
+            $('#deleteproductsbutton').on('click', function () {
+                var selected = $productstable.bootstrapTable('getSelections');
+                if (selected.length > 0) {
+                    deleteOrders(selected[0].Id);
+                }
+
+            });
+        });
+
+    </script>
+}
+

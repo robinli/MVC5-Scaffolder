@@ -1,0 +1,58 @@
+﻿<#@ template language="C#" HostSpecific="True" #>
+<#@ output extension=".cshtml" #>
+<#@ parameter type="System.String" name="DefaultNamespace" #>
+
+@using <#= DefaultNamespace #>.Models
+@model ManagementViewModel
+
+@{
+    ViewBag.Title = "Role Page";
+}
+
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Management
+                <small>Index</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li>
+                    <i class="fa fa-home"></i>  @Html.ActionLink("Home", "Index", "Home")
+                </li>
+
+                <li class="active">
+                    <i class="fa fa-file"></i> Management
+                </li>
+            </ol>
+        </div>
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+
+            <div class="col-md-4">
+                <h3>角色</h3>
+                @Html.Partial("_AddRolePartial", new RoleViewModel())
+                <table id="role-table" class="table">
+                    @foreach (var role in Model.Roles)
+        {
+        @Html.Partial("_RoleRecordPartial", role);
+        }
+                </table>
+            </div>
+            <div class="col-md-8">
+                <h3>用户</h3>
+                @Html.Partial("_AddAccountPartial", new AccountViewModel())
+                <table id="account-table" class="table">
+                    @foreach (var user in Model.Users)
+        {
+        @Html.Partial("_AccountRecordPartial", new AccountRecordViewModel { User = user, Roles = Model.Roles})
+        }
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>

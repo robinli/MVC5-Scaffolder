@@ -1,0 +1,94 @@
+﻿
+<div class="collapse navbar-collapse navbar-ex1-collapse">
+    <ul class="nav navbar-nav side-nav">
+
+        <li>
+            <a href="javascript:;" data-toggle="collapse" data-target="#model2"><i class="fa fa-fw fa-folder-o"></i> 组织架构 <i class="fa fa-fw fa-caret-down"></i></a>
+            <ul id="model2" class="collapse">
+                <li>
+                    @Html.ActionLink("Company", "Index", "Companies")
+                </li>
+                <li>
+                    @Html.ActionLink("Department", "Index", "Departments")
+                </li>
+
+                <li>
+                    @Html.ActionLink("Work", "Index", "Works")
+                </li>
+               
+            </ul>
+
+            <a href="javascript:;" data-toggle="collapse" data-target="#model1"><i class="fa fa-fw fa-folder-o"></i> 业务系统 <i class="fa fa-fw fa-caret-down"></i></a>
+            <ul id="model1" class="collapse">
+                <li >
+                    @Html.ActionLink("Category", "Index", "Categories")
+                </li>
+                <li>
+                    @Html.ActionLink("Product", "Index", "Products")
+                </li>
+                <li>
+                    @Html.ActionLink("Order", "Index", "Orders")
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:;" data-toggle="collapse" data-target="#systemmanager"><i class="fa fa-fw fa-wrench"></i> 系统管理 <i class="fa fa-fw fa-caret-down"></i></a>
+            <ul id="systemmanager" class="collapse">
+                <li class="active">
+                    <a href="/AccountManage"><i class="fa fa-fw fa-user"></i>用户管理</a>
+                </li>
+              
+                <li>
+                    <a href="/Management"><i class="fa fa-fw fa-lock"></i>授权管理</a>
+                </li>
+                <li>
+                    <a href="/BaseCodes"><i class="fa fa-fw fa-adjust"></i>基础代码管理</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+@Scripts.Render("~/bundles/jquery")
+
+
+<script type="text/javascript">
+    $(function () {
+        $('.nav  .collapse').on('hidden.bs.collapse', function () {
+            //console.log($(this).parent().find("i.fa fa-fw fa-folder-open"));
+            //$($(this).parent().find("i")[0]).removeClass("fa fa-fw fa-folder-open").addClass("fa fa-fw fa-folder-o");
+            //$(this).parent().find("i.fa fa-fw fa-folder-open").removeClass("fa fa-fw fa-folder-open").addClass("fa fa-fw fa-folder-o");
+            $($(this).parent().find("i")[1]).removeClass("fa fa-fw fa-caret-down").addClass("fa fa-fw fa-caret-right");
+        })
+        $('.nav   .collapse').on('show.bs.collapse', function () {
+            //console.log($(this).parent().find("i")[0]);
+            //$($(this).parent().find("i")[0]).removeClass("fa fa-fw fa-folder-o").addClass("fa fa-fw fa-folder-open");
+            $($(this).parent().find("i")[1]).removeClass("fa fa-fw fa-caret-right").addClass("fa fa-fw fa-caret-down");
+        })
+
+     
+            function stripTrailingSlash(str) {
+                if (str.substr(-1) == '/') {
+                    return str.substr(0, str.length - 1);
+                }
+                return str;
+            }
+
+            var url = window.location.pathname;
+            var activePage = stripTrailingSlash(url);
+            //console.log(activePage);
+            $('.navbar li').removeClass('active');
+            $('.nav li a').each(function () {
+                var currentPage = stripTrailingSlash($(this).attr('href'));
+                //console.log(activePage.indexOf(currentPage));
+                if (activePage.indexOf(currentPage)>=0) {
+                    $(this).parent().addClass('active');
+                    //console.log($(this).parent().parent());
+                    $(this).parent().parent(). collapse('show')
+                }
+            });
+      
+
+    });
+
+</script>

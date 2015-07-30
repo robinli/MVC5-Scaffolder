@@ -1,0 +1,79 @@
+﻿
+
+@model WebApp.Models.Work
+
+
+ @*@Html.HiddenFor(model => model.Id)*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name,"" , new { @class = "text-danger" })
+            </div>
+        </div>
+		
+        <div class="form-group">
+            @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Status, new { CodeType="Status" })
+                @Html.ValidationMessageFor(model => model.Status,"" , new { @class = "text-danger" })
+            </div>
+        </div>
+		
+        <div class="form-group">
+            @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.StartDate, "Date")
+                @Html.ValidationMessageFor(model => model.StartDate,"" , new { @class = "text-danger" })
+            </div>
+        </div>
+		
+        <div class="form-group">
+            @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EndDate, "Date")
+                @Html.ValidationMessageFor(model => model.EndDate,"" , new { @class = "text-danger" })
+            </div>
+        </div>
+		
+        <div class="form-group">
+            @Html.LabelFor(model => model.Enableed, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+               
+                    @Html.EditorFor(model => model.Enableed, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Enableed,"" , new { @class = "text-danger" })
+            
+            </div>
+        </div>
+		
+        <div class="form-group">
+            @Html.LabelFor(model => model.Hour, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Hour,"Int",null, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Hour,"" , new { @class = "text-danger" })
+            </div>
+        </div>
+		
+        <div class="form-group">
+            @Html.LabelFor(model => model.Priority, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Priority, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Priority,"" , new { @class = "text-danger" })
+            </div>
+        </div>
+		
+        <div class="form-group">
+            @Html.LabelFor(model => model.Score, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Score, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Score,"" , new { @class = "text-danger" })
+            </div>
+        </div>
+		
+
+
+
+
+
+

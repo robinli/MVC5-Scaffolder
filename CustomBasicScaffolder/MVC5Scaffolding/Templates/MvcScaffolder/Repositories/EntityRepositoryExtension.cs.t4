@@ -1,0 +1,94 @@
+﻿
+<#@ Template Language="C#" HostSpecific="True"  #>
+<#@ Output Extension="cs" #>
+<#@ ScaffoldingAssembly Processor="ScaffoldingAssemblyLoader" #>
+<#@ assembly name="System.ComponentModel.DataAnnotations" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Data.Entity" #>
+<#@ assembly name="System.Data.Linq" #>
+<#@ assembly name="EnvDTE" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.ComponentModel.DataAnnotations" #>
+<#@ import namespace="System.Data.Linq.Mapping" #>
+<#@ import namespace="System.Data.Objects.DataClasses" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Reflection" #>
+<#@ import namespace="Microsoft.AspNet.Scaffolding.Core.Metadata" #>
+<#@ parameter type="System.String" name="DefaultNamespace" #>
+<#@ parameter type="System.String" name="ModelNamespace" #>
+<#@ parameter type="System.String" name="FolderNamespace" #>
+<#@ parameter type="System.String" name="ModelName" #>
+<#@ parameter type="System.String" name="PluralizedModelName" #>                    
+<#@ parameter type="Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata" name="ModelMetadata" #>
+<#@ parameter type="System.String" name="PrimaryKeyName" #>      
+<#@ parameter type="System.String" name="QueryLambdaText" #>    
+<#@ parameter type="System.Collections.Generic.Dictionary<string, Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata>" name="OneToManyModelMetadata" #> 
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Linq.Expressions;
+
+using Repository.Pattern.Repositories;
+
+using <#= ModelNamespace #>;
+
+namespace <#=DefaultNamespace #>.Repositories
+{
+  public static class <#= ModelName #>Repository  
+    {
+ 
+        <#
+        PropertyMetadata primaryKey = ModelMetadata.PrimaryKeys.FirstOrDefault();
+        foreach (PropertyMetadata property in ModelMetadata.Properties) { 
+            if (property.IsForeignKey) {
+
+        #>
+         public static IEnumerable<<#= ModelName #>> GetBy<#= property.PropertyName.Replace("_","") #>(this IRepositoryAsync<<#= ModelName #>> repository, <#= primaryKey.ShortTypeName #> <#= property.PropertyName.Replace("_","").ToLower() #>)
+         {
+             var query= repository
+                .Queryable()
+                .Where(x => x.<#= property.PropertyName #>==<#= property.PropertyName.Replace("_","").ToLower() #>);
+             return query;
+
+         }
+             
+        <#
+          }
+        }
+        #>
+
+        <#
+        //PropertyMetadata primaryKey = ModelMetadata.PrimaryKeys.FirstOrDefault();
+		foreach (PropertyMetadata property in ModelMetadata.Properties) 
+        {           
+            if (property.AssociationDirection == AssociationDirection.OneToMany ) 
+            {
+             var relmodemeta = OneToManyModelMetadata[property.PropertyName];
+             var relatedEntities = relmodemeta.RelatedEntities;
+		     var detailmodeltypename = property.TypeName;
+			 var detailmodelshottypename =property.ShortTypeName;
+             var foreignKeyNames = relatedEntities.Where(n=>n.EntitySetName == ModelMetadata.EntitySetName).Select(n=>n.ForeignKeyPropertyNames).First();
+             var foreignKeyName = foreignKeyNames[0].Replace("_","");
+			 //var relatedProperties = relmodemeta.RelatedEntities.Where(n=>n.ShortTypeName != ModelName).ToDictionary(item => item.AssociationPropertyName);
+			 var relatedProperties = relmodemeta.RelatedEntities.ToDictionary(item => item.AssociationPropertyName);
+			 var includeExpressions = "";
+			 includeExpressions = String.Join("", relatedProperties.Values.Select(p => String.Format(".Include({0} => {0}.{1})", "x", p.AssociationPropertyName)));
+ 
+        #>
+        public static IEnumerable<<#= detailmodelshottypename #>>   Get<#= property.PropertyName #>By<#= foreignKeyName #> (this IRepositoryAsync<<#= ModelName #>> repository,<#= primaryKey.ShortTypeName #> <#= foreignKeyName.ToLower() #>)
+        {
+			var <#= detailmodelshottypename.ToLower() #>Repository = repository.GetRepository<<#= detailmodelshottypename #>>(); 
+            return <#= detailmodelshottypename.ToLower() #>Repository.Queryable()<#= includeExpressions #>.Where(n => n.<#= foreignKeyName #> == <#= foreignKeyName.ToLower() #>);
+        }
+        <#
+            }
+        }
+        #> 
+	}
+}
+
+
+

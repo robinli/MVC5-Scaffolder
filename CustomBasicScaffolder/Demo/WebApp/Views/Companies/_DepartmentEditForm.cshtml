@@ -1,0 +1,41 @@
+﻿ 
+
+
+@model WebApp.Models.Department
+
+
+
+
+
+    @Html.Hidden("Id",-1)
+    @*@Html.HiddenFor(model => model.Id)*@ 
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name,   htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name,"" , new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Manager,   htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Manager, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Manager,"" , new { @class = "text-danger" })
+            </div>
+        </div>
+      @*--ForeignKey CompanyId RelatedMasterModel  ---*@
+      @Html.HiddenFor(model => model.CompanyId)
+      @*<div class="form-group">
+            @Html.LabelFor(model => model.CompanyId,  htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("CompanyId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CompanyId,"" , new { @class = "text-danger" })
+            </div>
+        </div>*@
+       @*--End ForeignKey CompanyId RelatedMasterModel  ---*@
+
+
+ 
+
+
+

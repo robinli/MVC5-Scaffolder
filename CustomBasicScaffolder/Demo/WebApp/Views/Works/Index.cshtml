@@ -1,0 +1,174 @@
+﻿
+
+@model IEnumerable<WebApp.Models.Work>
+
+
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Work
+                <small>Index</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li>
+                    <i class="fa fa-home"></i>  @Html.ActionLink("Home", "Index", "Home")
+                </li>
+                 
+                <li class="active">
+                    <i class="fa fa-file"></i> Works
+                </li>
+            </ol>
+        </div>
+    </div>
+    <!-- /.row -->
+     <div class="row">
+        <div class="col-lg-12">
+            <div id="toolbar" class="btn-group">
+                <button type="button" id="newworksbutton" class="btn btn-default">
+                    <i class="glyphicon glyphicon-plus"></i>
+                </button>
+
+                <button type="button" id="deleteworksbutton" class="btn btn-default">
+                    <i class="glyphicon glyphicon-trash"></i>
+                </button>
+            </div>
+ 
+       <div class="table-responsive">
+        <table id="works-table" class="table table-striped" data-search="true"
+                   data-url="/Works/PageList"
+                   data-flat="false"
+                   data-toolbar="#toolbar"
+                   data-pagination="true"
+                   data-show-refresh="true"
+                   data-show-toggle="true"
+                   data-show-columns="true"
+                   data-single-select="true"
+                   data-page-list="[5, 10, 20, 50, 100, 200]"
+                   data-sort-name="Id"
+                   data-side-pagination="server"
+                   data-click-to-select="true">
+                <thead>
+                    <tr>
+                         <th data-field="state" data-checkbox="true"></th>
+                <th data-field="Name" data-sortable="true" data-align="left" >
+             @Html.DisplayNameFor(model => model.Name)
+        </th>
+                        <th data-field="Status" data-sortable="true" data-align="left" >
+             @Html.DisplayNameFor(model => model.Status)
+        </th>
+                        <th data-field="StartDate" data-sortable="true" data-align="right" >
+             @Html.DisplayNameFor(model => model.StartDate)
+        </th>
+                        <th data-field="EndDate" data-sortable="true" data-align="right" >
+             @Html.DisplayNameFor(model => model.EndDate)
+        </th>
+                        <th data-field="Enableed" data-sortable="true" data-align="right" >
+             @Html.DisplayNameFor(model => model.Enableed)
+        </th>
+                        <th data-field="Hour" data-sortable="true" data-align="right" >
+             @Html.DisplayNameFor(model => model.Hour)
+        </th>
+                        <th data-field="Priority" data-sortable="true" data-align="right" >
+             @Html.DisplayNameFor(model => model.Priority)
+        </th>
+                        <th data-field="Score" data-sortable="true" data-align="right" >
+             @Html.DisplayNameFor(model => model.Score)
+        </th>
+                <th data-field="action" data-formatter="actionFormatter" data-events="actionEvents">Action</th>
+    </tr>
+    </thead>
+ 
+
+</table>
+</div>
+<br />
+ 
+     </div>
+    </div>
+</div>
+@section Scripts {
+    <script type="text/javascript">
+        var $workstable = $('#works-table');
+        var $deleteworksbutton = $('#deleteworksbutton');
+        function actionFormatter(value, row, index) {
+            return [
+                '<a class="edit" href="javascript:void(0)" title="Add">',
+                '<i class="glyphicon glyphicon-edit"></i>',
+                '</a>  ',
+                ' <a class="remove" href="javascript:void(0)" title="Remove">',
+                '<i class="glyphicon glyphicon-remove"></i>',
+                '</a>'
+            ].join('');
+        }
+        window.actionEvents = {
+
+            'click .edit': function (e, value, row, index) {
+                 var url="/Works/Edit/" + row.Id
+                 $(location).attr('href', url);
+            },            
+            'click .remove': function (e, value, row, index) {
+                 deleteWorks(row.Id);
+                //console.log(value, row, index);
+            }
+    
+        }
+        //jquery post /Works/Delete/:id
+        function deleteWorks(id) {
+            var url = '@Url.Action("Delete")';   
+            bootbox.dialog({
+                message: "Are you sure delete " + id,
+                title: "Delete Works ",
+                buttons: {
+                    Cancel: {
+                        label: "Cancel",
+                        className: "btn-default",
+                        callback: function () {
+                           
+                        }
+                    },
+                    OK: {
+                        label: "OK",
+                        className: "btn-success",
+                        callback: function () {
+                            $.post(url, { id: id }, function (data) {
+                                $workstable.bootstrapTable('remove', { field: 'Id', values: [id] });
+                                //console.log('remove' + row.Id);
+                            });
+                        }
+                    }
+                }
+            });
+        }
+        $(document).ready(function (e) {
+            $workstable = $('#works-table').bootstrapTable(
+                {
+                }
+                );
+             $workstable.on('check.bs.table uncheck.bs.table check-all.bs.table uncheck-all.bs.table', function () {
+                $deleteworksbutton.prop('disabled', !$workstable.bootstrapTable('getSelections').length);
+            });
+             $('#newworksbutton').on('click', function () {
+
+                $(location).attr('href', "/Works/Create");
+            });
+            $('#deleteworksbutton').on('click', function () {
+                var selected = $workstable.bootstrapTable('getSelections');
+                if (selected.length>0) {
+                    deleteWorks(selected[0].Id);
+                }
+                 
+            });
+        });
+    
+     </script>
+}
+

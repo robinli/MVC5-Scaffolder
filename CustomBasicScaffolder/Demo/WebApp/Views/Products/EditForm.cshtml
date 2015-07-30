@@ -1,0 +1,100 @@
+﻿@model WebApp.Models.Product
+
+<div class="form-group col-lg-6 col-md-6">
+    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-3" })
+    <div class="control-group col-md-9  ">
+        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+        <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+        <span class="glyphicon glyphicon-warning-sign form-control-feedback" aria-hidden="true"></span>
+        <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+        <div class="help-block">
+           @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger control-group-addon " })
+        </div>
+        
+    </div>
+</div>
+
+<div class="form-group col-lg-6 col-md-6">
+    @Html.LabelFor(model => model.Unit, htmlAttributes: new { @class = "control-label col-md-3" })
+    <div class="col-md-9">
+        @Html.EditorFor(model => model.Unit, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.Unit, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group col-lg-6 col-md-6">
+    @Html.LabelFor(model => model.UnitPrice, htmlAttributes: new { @class = "control-label col-md-3" })
+    <div class="col-md-9">
+        @Html.EditorFor(model => model.UnitPrice, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.UnitPrice, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group col-lg-6 col-md-6">
+    @Html.LabelFor(model => model.StockQty, htmlAttributes: new { @class = "control-label col-md-3" })
+    <div class="col-md-9">
+        @Html.EditorFor(model => model.StockQty, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.StockQty, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group col-lg-6 col-md-6">
+    @Html.LabelFor(model => model.ConfirmDateTime, htmlAttributes: new { @class = "control-label col-md-3" })
+    <div class="col-md-9">
+        @Html.EditorFor(model => model.ConfirmDateTime, "Date")
+        @Html.ValidationMessageFor(model => model.ConfirmDateTime, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group col-lg-6 col-md-6">
+    @Html.LabelFor(model => model.CategoryId, "CategoryId", htmlAttributes: new { @class = "control-label col-md-3" })
+    <div class="col-md-9">
+        @Html.DropDownListFor(model => model.CategoryId, ViewBag.CategoryId as List<SelectListItem>, "---Select---", htmlAttributes: new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+
+<script>
+    $(function () {
+        var defaultOptions = {
+            errorClass: 'has-error',
+            validClass: 'has-success',
+            validIcon: 'glyphicon glyphicon-ok form-control-feedback',
+            invalidIcon: 'glyphicon glyphicon-remove form-control-feedback',
+            highlight: function (element, errorClass, validClass, validIcon, invalidIcon) {
+                $(element).closest(".form-group")
+                .addClass(errorClass)
+                .removeClass(validClass);
+                //debugger;
+                $(element).next()
+                .addClass(invalidIcon)
+                .removeClass(validIcon);
+            },
+            unhighlight: function (element, errorClass, validClass, validIcon, invalidIcon) {
+                $(element).closest(".form-group")
+                .removeClass(errorClass)
+                .addClass(validClass);
+                //debugger;
+                $(element).next()
+                .removeClass(invalidIcon)
+                .addClass(validIcon);
+            },
+            ignore: ":hidden:not(select)"
+        };
+
+        $.validator.setDefaults(defaultOptions);
+
+        $.validator.unobtrusive.options = {
+            errorClass: defaultOptions.errorClass,
+            validClass: defaultOptions.validClass,
+        };
+
+        //$.validator.setDefaults({ ignore: ":hidden:not(select)" });
+        $('#CategoryId').chosen();
+    })
+        
+</script>
+
+
+

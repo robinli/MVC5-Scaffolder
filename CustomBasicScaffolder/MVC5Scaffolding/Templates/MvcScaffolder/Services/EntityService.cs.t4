@@ -1,0 +1,88 @@
+﻿
+<#@ Template Language="C#" HostSpecific="True"  #>
+<#@ Output Extension="cs" #>
+<#@ ScaffoldingAssembly Processor="ScaffoldingAssemblyLoader" #>
+<#@ assembly name="System.ComponentModel.DataAnnotations" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Data.Entity" #>
+<#@ assembly name="System.Data.Linq" #>
+<#@ assembly name="EnvDTE" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.ComponentModel.DataAnnotations" #>
+<#@ import namespace="System.Data.Linq.Mapping" #>
+<#@ import namespace="System.Data.Objects.DataClasses" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Reflection" #>
+<#@ import namespace="Microsoft.AspNet.Scaffolding.Core.Metadata" #>
+<#@ parameter type="System.String" name="DefaultNamespace" #>
+<#@ parameter type="System.String" name="ModelNamespace" #>
+<#@ parameter type="System.String" name="FolderNamespace" #>
+<#@ parameter type="System.String" name="ModelName" #>
+<#@ parameter type="System.String" name="PluralizedModelName" #>             
+<#@ parameter type="System.String" name="PrimaryKeyName" #>           
+<#@ parameter type="Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata" name="ModelMetadata" #>
+<#@ parameter type="System.Collections.Generic.Dictionary<string, Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata>" name="OneToManyModelMetadata" #> 
+
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Linq.Expressions;
+using Repository.Pattern.Repositories;
+using Service.Pattern;
+
+using <#= ModelNamespace #>;
+using <#= DefaultNamespace #>.Repositories;
+namespace <#=DefaultNamespace #>.Services
+{
+    public class <#= ModelName #>Service : Service< <#= ModelName #> >, I<#= ModelName #>Service
+    {
+
+        private readonly IRepositoryAsync<<#= ModelName #>> _repository;
+        public  <#= ModelName #>Service(IRepositoryAsync< <#= ModelName #>> repository)
+            : base(repository)
+        {
+            _repository=repository;
+        }
+        
+        <# 
+            PropertyMetadata primaryKey = ModelMetadata.PrimaryKeys.FirstOrDefault();
+           foreach (PropertyMetadata property in ModelMetadata.Properties) { 
+                if (property.IsForeignKey) {
+
+        #>
+         public  IEnumerable<<#= ModelName #>> GetBy<#= property.PropertyName.Replace("_","") #>(<#= primaryKey.ShortTypeName #>  <#= property.PropertyName.Replace("_","").ToLower() #>)
+         {
+            return _repository.GetBy<#= property.PropertyName.Replace("_","") #>(<#= property.PropertyName.Replace("_","").ToLower() #>);
+         }
+         <#
+                }
+            }
+         #>
+         <#
+            //PropertyMetadata primaryKey = ModelMetadata.PrimaryKeys.FirstOrDefault();
+		foreach (PropertyMetadata property in ModelMetadata.Properties) 
+        {           
+            if (property.AssociationDirection == AssociationDirection.OneToMany ) 
+            {       
+            var relmodemeta = OneToManyModelMetadata[property.PropertyName];
+            var relatedEntities = relmodemeta.RelatedEntities;
+            var foreignKeyNames = relatedEntities.Where(n=>n.EntitySetName ==ModelMetadata.EntitySetName).Select(n=>n.ForeignKeyPropertyNames).First();
+            var foreignKeyName = foreignKeyNames[0];
+        #>
+        public IEnumerable<<#= property.RelatedModel.ShortTypeName #>>   Get<#= property.PropertyName #>By<#= foreignKeyName #> (<#= primaryKey.ShortTypeName #> <#= foreignKeyName.ToLower() #>)
+        {
+            return _repository.Get<#= property.PropertyName #>By<#= foreignKeyName #>(<#= foreignKeyName.ToLower() #>);
+        }
+        <#
+            }
+        }
+        #> 
+        
+    }
+}
+
+
+

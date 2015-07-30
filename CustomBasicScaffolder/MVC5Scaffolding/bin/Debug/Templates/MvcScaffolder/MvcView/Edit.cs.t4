@@ -16,7 +16,7 @@ if(IsPartialView) {
 #>
 
 @{
-    ViewBag.Title = "<#= ViewName #>";
+    ViewBag.Title = "<#= ProgramTitle #>";
 <#
 if (!String.IsNullOrEmpty(LayoutPageFile)) {
 #>
@@ -26,7 +26,7 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
 #>
 }
 
-<h2><#= ViewName#></h2>
+
 
 <#
 } else {
@@ -41,7 +41,7 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title><#= ViewName #></title>
+    <title><#= ProgramTitle #></title>
 </head>
 <body>
 <#
@@ -74,11 +74,47 @@ if (ReferenceScriptLibraries) {
 <#
 }
 #>
+<#
+    var modelName =  ModelMetadata.EntitySetName;
+	var primaryKey = ModelMetadata.PrimaryKeys[0].PropertyName;
+ #>
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                <#= ProgramTitle #>
+                <small><#= ViewName #></small>
+            </h1>
+            <ol class="breadcrumb">
+                <li>
+                    <i class="fa fa-home"></i>  @Html.ActionLink("Home", "Index", "Home")
+                </li>
+                 <li>
+                    <i class="fa fa-folder-open"></i>  @Html.ActionLink("<#= modelName #>", "Index", "<#= modelName #>")
+                </li>
+                <li class="active">
+                    <i class="fa fa-file"></i> <#= ViewName #>
+                </li>
+            </ol>
+        </div>
+    </div>
+    <!-- /.row -->
+     <div class="row">
+        <div class="col-lg-12">
+
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
+    <#
+	    string divclass="";
+		if(FromLayoutCols>3){
+			divclass="";
+        }else{
+			divclass = "form-horizontal";
+        }
+	#>
+    <div class="<#= divclass #>">
         <h4><#= ProgramTitle #></h4>
         <hr />
 <# 
@@ -94,17 +130,17 @@ if (ReferenceScriptLibraries) {
 #>
         @Html.Partial("<#= ViewPrefix #>EditForm")
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" class="btn btn-primary" value="Save" />
-                <input type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal" value="Delete" />
+             <p></p>
+             <div class="text-center">
+                <input type="submit" class="btn btn-primary" value=" 保存 " /> 
+                <input type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal" value=" 删除 " />
             </div>
         </div>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "<#= ViewPrefix #>Index")
 </div>
+</div>
+ </div>
 
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -121,8 +157,8 @@ if (ReferenceScriptLibraries) {
                 @using (Html.BeginForm("<#= ViewPrefix #>Delete", "<#= ControllerRootName #>", new { id=Model.<#= GetPrimaryKeyName() #>}))
                 {
                     @Html.AntiForgeryToken()
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-warning">Delete</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal"> 取消 </button>
+                    <button type="submit" class="btn btn-warning"> 保存 </button>
                 }
             </div>
         </div>
@@ -134,6 +170,82 @@ if(IsLayoutPageSelected && ReferenceScriptLibraries && IsBundleConfigPresent) {
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+	
+    <#  if(GenerateMasterDetailRelationship  && OneToManyModelMetadata.Count >0) { 
+		var primaryKeyVar = ModelTypeName.ToLower() + primaryKey.ToLower();
+	#>
+		var <#= primaryKeyVar #> = 0;
+		var ObjectState = "Modified";   
+            <# foreach(var item in OneToManyModelMetadata) {
+                var boostraptablevar = "$" + item.Key.ToLower()  + "table";
+                var detailnamevar=item.Key.ToLower();
+            #>                     
+             var <#= boostraptablevar #> = {};
+            <# } #>
+            $(document).ready(function () {
+				<#= primaryKeyVar #> = $('#<#= primaryKey  #>', 'form').val();
+                $('form').submit(function () {
+					if (!$('form').valid())
+						return false;
+                    var token = $('[name=__RequestVerificationToken]').val();
+                    var serializedForm = $(this).serialize();
+                    var actionurl = $(this).attr('action');
+                    <# foreach(var item in OneToManyModelMetadata) {
+                        var boostraptablevar = "$" + item.Key.ToLower()  + "table";
+                        var detailnamevar=item.Key.ToLower();
+                     #>                     
+                        var <#= detailnamevar #> = <#= boostraptablevar #>.bootstrapTable('getData');
+                     <# } #>
+                    
+                     var newitem = {
+						
+
+                        <# foreach(var property  in  ModelMetadata.Properties.Where(n=>true ).OrderByDescending(n=>n.Scaffold).ThenBy(n=>n.IsForeignKey).ThenBy(n=>n.PropertyName)) {
+                            if(property.IsPrimaryKey) {  #>
+								//primaryKey   
+								<#= property.PropertyName #>: <#= primaryKeyVar #>,
+                        <# } else if (property.AssociationDirection == AssociationDirection.OneToMany) { #>
+								//detailTables
+                                <#= property.PropertyName #>: <#= property.PropertyName.ToLower() #> ,
+                        <# } else if(property.IsForeignKey)  { #>
+								<#= property.PropertyName #>: $('#<#= property.PropertyName #> :selected','form').val(),
+						<# } else  if (property.AssociationDirection != AssociationDirection.ManyToOne) { #>
+                                <#= property.PropertyName #>: $('#<#= property.PropertyName #>', 'form').val(),
+                        <#
+                             }
+                          }
+                        #>
+                        ObjectState:ObjectState 
+                    };
+                    $.ajax({
+                        url: actionurl,
+                        type: "POST",
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify(newitem),
+                        success: function (result) {
+                            if (result.success) {
+                                self.location = "/<#= ControllerRootName #>/Index";
+                            } else {
+                                alert(result.err);
+                            }
+                            
+                        },
+                        error: function (result) {
+                            console.log(result.statusText + result.responseText);
+                            alert(result.statusText + result.responseText);
+                        }
+                    });
+                    return false;
+                    
+
+                });
+            });
+      
+    <#   } #>
+  </script>
+
 }
 <#
 }

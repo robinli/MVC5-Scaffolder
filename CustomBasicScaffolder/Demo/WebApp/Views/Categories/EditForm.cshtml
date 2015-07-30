@@ -1,0 +1,305 @@
+﻿
+
+
+@model WebApp.Models.Category
+
+
+ @*@Html.HiddenFor(model => model.Id)*@
+
+
+
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+
+                <div class="form-group">
+            @Html.LabelFor(model => model.Name,   htmlAttributes: new { @class = "control-label  col-md-3 col-sm-3" })
+            <div class=" col-md-9 col-sm-9">
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Name,"" , new { @class = "text-danger" })
+            </div>
+        </div>
+    
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+
+            
+        </div>
+		
+		<!-- output all Scaffold = false Hiden field -->
+				<!--end output all Scaffold = false Hiden field -->
+    </div>
+
+
+    <!-- details tabs -->
+    <div class="tabs">
+	<div role="tabpanel">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+								<li role="presentation" class="active"><a href="#tab-Products" aria-controls="tab-Products" role="tab" data-toggle="tab">Products</a></li>		 
+								        
+			 
+   
+		 </ul>
+		 <!-- Tab panes -->
+         <div class="tab-content">
+		  
+		  <div role="tabpanel" class="tab-pane active" id="tab-Products">
+                <div id="toolbar-Products" class="btn-group">
+                    <button type="button" id="addproductsbutton" class="btn btn-default">
+                        <i class="glyphicon glyphicon-plus"></i>
+                    </button>
+
+                    <button type="button" id="removeproductsbutton" class="btn btn-default">
+                        <i class="glyphicon glyphicon-trash"></i>
+                    </button>
+                </div>
+                <div class="table-responsive">
+                <table id="products-table"  class="table table-striped" data-search="true"
+                       data-flat="false"
+                       data-toolbar="#toolbar-Products"
+                       data-pagination="true"
+                       data-show-refresh="true"
+                       data-show-toggle="true"
+                       data-show-columns="true">
+                    <thead>
+                        <tr>
+                            <th data-formatter="productsrowindexFormatter">#No</th>
+				
+        			
+            <th data-field="CategoryName" data-visible="false" data-align="right"  > Category
+            </th>
+		        		
+                    <th data-field="Id"   data-visible="false" data-align="right" > Id
+            </th>
+                		
+                <th data-field="Name" data-align="left"  > Name
+        </th>
+                		
+                <th data-field="Unit" data-align="left"  > Unit
+        </th>
+                		
+                <th data-field="UnitPrice" data-align="right"  > UnitPrice
+        </th>
+                		
+                <th data-field="StockQty" data-align="right"  > StockQty
+        </th>
+                		
+                <th data-field="ConfirmDateTime" data-align="right"  > ConfirmDateTime
+        </th>
+                		
+                    <th data-field="CategoryId"   data-visible="false" data-align="right" > CategoryId
+            </th>
+                                            <th data-field="action" data-formatter="productsactionFormatter" data-events="actionEvents">Action</th>
+                        </tr>
+                    </thead>
+                </table>
+                </div>
+            </div>
+
+		  
+	</div>
+</div>
+</div>
+<!--end details tabs -->
+<!-- Modal  Product-->
+<div class="modal fade" id="productformModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Product</h4>
+            </div>
+            <div class="modal-body" id="productformModal-body">
+                @*@Html.Partial("_OrderDetailForm")*@
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" id="productconfirmbutton" class="btn btn-primary">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal  Product-->
+
+
+
+<script type="text/javascript">
+	
+	var currentrowindex = -1;
+	
+	 function deleteProduct(id) {
+        var url = '@Url.Action("DeleteProduct")';
+        bootbox.dialog({
+            message: "Are you sure delete " + id,
+            title: "Delete Product ",
+            buttons: {
+                Cancel: {
+                    label: "Cancel",
+                    className: "btn-default",
+                    callback: function () {
+
+                    }
+                },
+                OK: {
+                    label: "OK",
+                    className: "btn-success",
+                    callback: function () {
+                        $.post(url, { id: id }, function (data) {
+                            $productstable.bootstrapTable('remove', { field: 'Id', values: [id] });
+                            //console.log('remove' + row.Id);
+                        });
+                    }
+                }
+            }
+        });
+    }
+
+	function productsrowindexFormatter(value, row, index) {
+        return index + 1;
+    }
+    function productsactionFormatter(value, row, index) {
+        return [
+            '<a class="edit" id="productsedit" href="javascript:void(0)" title="Edit">',
+            '<i class="glyphicon glyphicon-edit"></i>',
+            '</a>  ',
+            ' <a class="remove" id="productsremove" href="javascript:void(0)" title="Remove">',
+            '<i class="glyphicon glyphicon-remove"></i>',
+            '</a>'
+        ].join('');
+    }
+	  
+	 
+	 window.actionEvents = {
+	         'click #productsedit': function (e, value, row, index) {
+            currentrowindex = index;
+            var url = "/Categories/EditProduct"
+            $.get(url + '/' + row.Id, function (data) {
+                $('#productformModal-body').html(data);
+                if (row.Id > 0) {
+									//var id = $('#Id','#productformModal-body');
+					//id.val(row.Id);
+									//var name = $('#Name','#productformModal-body');
+					//name.val(row.Name);
+									//var unit = $('#Unit','#productformModal-body');
+					//unit.val(row.Unit);
+									//var unitprice = $('#UnitPrice','#productformModal-body');
+					//unitprice.val(row.UnitPrice);
+									//var stockqty = $('#StockQty','#productformModal-body');
+					//stockqty.val(row.StockQty);
+									//var confirmdatetime = $('#ConfirmDateTime','#productformModal-body');
+					//confirmdatetime.val(row.ConfirmDateTime);
+									//var categoryid = $('#CategoryId','#productformModal-body');
+					//categoryid.val(row.CategoryId);
+				                } else {
+									var id = $('#Id','#productformModal-body');
+					id.val(row.Id);
+									var name = $('#Name','#productformModal-body');
+					name.val(row.Name);
+									var unit = $('#Unit','#productformModal-body');
+					unit.val(row.Unit);
+									var unitprice = $('#UnitPrice','#productformModal-body');
+					unitprice.val(row.UnitPrice);
+									var stockqty = $('#StockQty','#productformModal-body');
+					stockqty.val(row.StockQty);
+									var confirmdatetime = $('#ConfirmDateTime','#productformModal-body');
+					confirmdatetime.val(row.ConfirmDateTime);
+									var categoryid = $('#CategoryId','#productformModal-body');
+					categoryid.val(row.CategoryId);
+				                    
+                }
+                $('#productformModal').modal('toggle');
+            });
+        } ,
+        'click #productsremove': function (e, value, row, index) {
+            if (row.Id > 0) {
+                deleteProduct(row.Id);
+            } else {
+                $productstable.bootstrapTable('remove', {
+                    field: '$index',
+                    values: [index]
+                });
+            }
+        } 	    };
+
+	
+	$(function () {
+				$productstable = $('#products-table').bootstrapTable({
+            data: []
+        });
+        if (ObjectState == "Modified") {
+             categoryid =@Model.Id;
+            //categoryid = $('#Id').val();
+            var url = '/Categories/GetProductsByCategoryId/' + categoryid;
+            $.get(url, function (data) {
+                //console.log(data);
+                $productstable.bootstrapTable('load', data)
+            })
+
+        }
+
+        $('#addproductsbutton').on('click', function (e) {
+            if ($("form").valid()) {
+                currentrowindex = -1;
+                var url = "/Categories/CreateProduct"
+                $.get(url, function (data) {
+                    //console.log(data);
+                    var index = -1;
+                    $('#productformModal-body').html(data);
+                    $('#Id', '#productformModal-body' ).val(0);
+					$('#CategoryId' , '#productformModal-body').val(categoryid );
+                    $('#productformModal').modal('toggle');
+                });
+            }
+            e.preventDefault();
+            //Return false regardless of validation to stop form submitting
+            //prior to ajax doing its thing
+            return false;
+        })
+
+		$('#productconfirmbutton').on('click', function (e) {
+            $("form").removeData("validator");
+            $("form").removeData("unobtrusiveValidation");
+            $.validator.unobtrusive.parse("form");
+            if (!$('form').valid()) {
+                e.preventDefault();
+                return false;
+            }
+								var categoryname = $('#CategoryId :selected' , '#productformModal-body').text();
+							 					var id = $('#Id' , '#productformModal-body').val();
+				 							 					var name = $('#Name' , '#productformModal-body').val();
+				 							 					var unit = $('#Unit' , '#productformModal-body').val();
+				 							 					var unitprice = $('#UnitPrice' , '#productformModal-body').val();
+				 							 					var stockqty = $('#StockQty' , '#productformModal-body').val();
+				 							 					var confirmdatetime = $('#ConfirmDateTime' , '#productformModal-body').val();
+				 							 					var categoryid = $('#CategoryId :selected' , '#productformModal-body').val();
+					
+				 			            
+            var product = {
+               					CategoryName :categoryname ,
+							 					Id : id ,
+				 							 					Name : name ,
+				 							 					Unit : unit ,
+				 							 					UnitPrice : unitprice ,
+				 							 					StockQty : stockqty ,
+				 							 					ConfirmDateTime : confirmdatetime ,
+				 							 					 CategoryId :categoryid ,
+					
+				 								ObjectState:'Added'
+            }
+            if (currentrowindex == '-1') {
+                $productstable.bootstrapTable('append', product);
+            } else {
+                $productstable.bootstrapTable('updateRow', { index: currentrowindex, row: product });
+            }
+
+            $('#productformModal').modal('toggle');
+        });
+
+		
+	});
+
+
+</script>
+
+
+
