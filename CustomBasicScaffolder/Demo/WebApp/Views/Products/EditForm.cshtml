@@ -1,7 +1,5 @@
 ﻿
 
-<<<<<<< HEAD
-=======
 <div class="form-group col-lg-6 col-md-6">
     @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-3" })
     <div class="control-group col-md-9  ">
@@ -15,15 +13,7 @@
         
     </div>
 </div>
->>>>>>> 87a183a129078ae159d3012339c6f694dc004ab5
 
-@model WebApp.Models.Product
-
-
- @*@Html.HiddenFor(model => model.Id)*@
-
-
-<<<<<<< HEAD
 
     <div class="row">
          
@@ -72,22 +62,19 @@
 			        </div>
    
 		
-		<!-- output all Scaffold = false Hiden field -->
-				<!--end output all Scaffold = false Hiden field -->
-=======
+
 <div class="form-group col-lg-6 col-md-6">
     @Html.LabelFor(model => model.CategoryId, "CategoryId", htmlAttributes: new { @class = "control-label col-md-3" })
     <div class="col-md-9">
         @Html.DropDownListFor(model => model.CategoryId, ViewBag.CategoryId as List<SelectListItem>, "---Select---", htmlAttributes: new { @class = "form-control" })
         @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
->>>>>>> 87a183a129078ae159d3012339c6f694dc004ab5
+
     </div>
 
+</div>
 
-<<<<<<< HEAD
 
 
-=======
 <script>
     $(function () {
         var defaultOptions = {

@@ -655,6 +655,9 @@
     <Content Include="Views\Categories1\Details.cshtml" />
     <Content Include="Views\Categories1\Edit.cshtml" />
     <Content Include="Views\Categories1\Index.cshtml" />
+    <Content Include="Views\Products\EditForm.cshtml">
+      <SubType>Code</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
