@@ -16,6 +16,7 @@ namespace WebApp.Models
 
         [Required(ErrorMessage = "Please enter : Id")]
         [Display(Name = "Id")]
+     
         public int Id { get; set; }
 
         [Required(ErrorMessage = "必填")]
