@@ -108,20 +108,21 @@ foreach (PropertyMetadata property in properties) {
 #>
         <# if ( property.IsPrimaryKey) { #>
 			<th data-options="field:'<#= property.PropertyName  #>',width:80">@Html.DisplayNameFor(model => model.<#= GetValueExpression(property) #>)</th>
-        <# } else if ( property.IsForeignKey ) {
-			
-		 #>
-			<th data-options="field:'<#= property.PropertyName  #>',width:100,
+        <# } else if (property.AssociationDirection ==  AssociationDirection.ManyToOne ) { 
+			   string foreignKeyPropertyName = GetForeignKeyPropertyName(ModelMetadata,property.PropertyName);
+			   RelatedModelMetadata relatedModel = GetRelatedModelMetadata(property);
+		#>
+			<th data-options="field:'<#= foreignKeyPropertyName  #>',width:100,
                         formatter:function(value,row){
                             return row.<#= GetRelatedDisplayNameExpression(property)  #>;
                         },
                         editor:{
                             type:'combobox',
                             options:{
-                                valueField:'Id',
-                                textField:'Name',
+                                valueField:'<#= relatedModel.PrimaryKeyNames[0]  #>',
+                                textField:'<#= relatedModel.DisplayPropertyName   #>',
                                 method:'get',
-                                url:'/<#= ControllerRootName #>/Get<#= property.PropertyName #>s',
+                                url:'/<#= ControllerRootName #>/Get<#=  relatedModel.EntitySetName  #>',
                                 required:true
                             }
                         }">@Html.DisplayNameFor(model => model.<#= GetValueExpression(property) #>)</th>
