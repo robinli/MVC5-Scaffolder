@@ -108,8 +108,10 @@ foreach (PropertyMetadata property in properties) {
 #>
         <# if ( property.IsPrimaryKey) { #>
 			<th data-options="field:'<#= property.PropertyName  #>',width:80">@Html.DisplayNameFor(model => model.<#= GetValueExpression(property) #>)</th>
-        <# } else if (property.AssociationDirection ==  AssociationDirection.ManyToOne ) { #>
-			<th data-options="field:'<#= GetRelatedDisplayNameExpression(property)  #>',width:100,
+        <# } else if ( property.IsForeignKey ) {
+			
+		 #>
+			<th data-options="field:'<#= property.PropertyName  #>',width:100,
                         formatter:function(value,row){
                             return row.<#= GetRelatedDisplayNameExpression(property)  #>;
                         },
