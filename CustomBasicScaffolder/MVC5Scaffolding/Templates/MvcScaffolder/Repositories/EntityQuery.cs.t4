@@ -33,6 +33,7 @@ using System.Linq.Expressions;
 using Repository.Pattern.Repositories;
 using Repository.Pattern.Ef6;
 using <#= ModelNamespace #>;
+using <#= DefaultNamespace #>.Extensions;
 
 namespace <#=DefaultNamespace #>.Repositories
 {
@@ -49,6 +50,63 @@ namespace <#=DefaultNamespace #>.Repositories
         {
             if (!string.IsNullOrEmpty(search))
                 And(<#= QueryLambdaText #>);
+            return this;
+        }
+
+		public <#= ModelName #>Query Withfilter(IEnumerable<filterRule> filters)
+        {
+           if (filters != null)
+           {
+               foreach (var rule in filters)
+               {
+                  <#
+					IEnumerable<PropertyMetadata> properties = ModelMetadata.Properties;
+				    foreach (PropertyMetadata property in properties) {
+						 if (property.Scaffold && !property.IsForeignKey) {
+				  #>
+
+					<# 
+						if(property.ShortTypeName=="string") {
+					#>
+						if (rule.field == "<#= property.PropertyName  #>")
+						{
+							And(x => x.<#= property.PropertyName #>.Contains(rule.value));
+						}
+				    <# 
+					   // end if
+						} 
+					#>
+
+				    <# 
+						if(property.ShortTypeName=="int" || property.ShortTypeName=="float" || property.ShortTypeName=="decimal" || property.ShortTypeName=="double") {
+					#>
+						if (rule.field == "<#= property.PropertyName  #>")
+						{
+							And(x => x.<#= property.PropertyName #> == Convert.ToInt32(rule.value));
+						}
+				   <# 
+					   // end if
+						} #>
+
+					 <# 
+						if(property.ShortTypeName=="DateTime" ) {
+					#>
+						if (rule.field == "<#= property.PropertyName  #>")
+						{
+							And(x => x.<#= property.PropertyName #> .Value.Date == Convert.ToDateTime(rule.value).Date);
+						}
+				   <# 
+					   // end if
+						} #>
+				<# 
+					//end if end foreach  
+						 }
+                    }
+				 #>
+					
+                   
+               }
+           }
             return this;
         }
     }

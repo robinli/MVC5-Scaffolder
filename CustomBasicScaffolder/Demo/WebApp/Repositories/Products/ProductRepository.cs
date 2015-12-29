@@ -23,6 +23,7 @@ namespace WebApp.Repositories
                 .Queryable()
                 .Where(x => x.CategoryId==categoryid);
              return query;
+                     
 
          }
              

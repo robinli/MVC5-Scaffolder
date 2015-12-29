@@ -16,6 +16,8 @@ using WebApp.Services;
 using WebApp.Repositories;
 using WebApp.Extensions;
 using PagedList;
+using System.Web.Script.Serialization;
+using Newtonsoft.Json;
 
 namespace WebApp.Controllers
 {
@@ -23,6 +25,7 @@ namespace WebApp.Controllers
     {
         //private StoreContext db = new StoreContext();
         private readonly IProductService  _productService;
+        
         private readonly IUnitOfWorkAsync _unitOfWork;
 
         public ProductsController (IProductService  productService, IUnitOfWorkAsync unitOfWork)
@@ -39,20 +42,65 @@ namespace WebApp.Controllers
             
              return View(products);
         }
-
-        // Get :Products/PageList
-        // For Index View Boostrap-Table load  data 
-        [HttpGet]
-        public ActionResult PageList(int offset = 0, int limit = 10, string search = "", string sort = "", string order = "")
+        public ActionResult GetCategories()
         {
+            var categoryRepository = _unitOfWork.Repository<Category>();
+            var data = categoryRepository.Queryable().ToList();
+            var rows = data.Select(n => new { Id = n.Id, Name = n.Name });
+            return Json(rows, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult GetData(int page = 1, int rows = 10, string sort = "Id", string order = "asc", string filterRules = "")
+        {
+            var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
+
             int totalCount = 0;
-            int pagenum = offset / limit +1;
-                        var product  = _productService.Query(new ProductQuery().WithAnySearch(search)).Include(p => p.Category).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(pagenum, limit, out totalCount);
-            
-                        var rows = product .Select( n => new { CategoryName = n.Category.Name , Id = n.Id , Name = n.Name , Unit = n.Unit , UnitPrice = n.UnitPrice , StockQty = n.StockQty , ConfirmDateTime = n.ConfirmDateTime , CategoryId = n.CategoryId }).ToList();
-            var pagelist = new { total = totalCount, rows = rows };
+            //int pagenum = offset / limit + 1;
+            var product = _productService.Query(new ProductQuery().Withfilter(filters)).Include(p => p.Category).OrderBy(n => n.OrderBy(sort, order)).SelectPage(page, rows, out totalCount);
+
+            var data = product.Select(n => new { CategoryName = n.Category.Name,CategoryId = n.CategoryId, Id = n.Id, Name = n.Name, Unit = n.Unit, UnitPrice = n.UnitPrice, StockQty = n.StockQty, ConfirmDateTime = n.ConfirmDateTime }).ToList();
+            var pagelist = new { total = totalCount, rows = data };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
+        public ActionResult Save(ProductChangeModel products)
+        {
+            if (products.updated != null)
+            {
+                foreach (var updated in products.updated)
+                {
+                    _productService.Update(updated);
+                }
+            }
+            if (products.deleted != null)
+            {
+                foreach (var deleted in products.deleted)
+                {
+                    _productService.Delete(deleted);
+                }
+            }
+            if (products.inserted != null)
+            {
+                foreach (var inserted in products.inserted)
+                {
+                    _productService.Insert(inserted);
+                }
+            }
+            _unitOfWork.SaveChanges();
+            //products = new Dictionary<string, List<Product>>();
+            //var list= new List<Product>();
+            //list.Add(new Product(){ Id=1, Name="Name"});
+
+
+            //products.Add("updated", list);
+            //products.Add("deleted", list);
+            //products.Add("create", list);
+            //JavaScriptSerializer js = new JavaScriptSerializer();
+
+            //var str = js.Serialize(products);
+            Console.Write(products);
+            return Json(new {Success=true}, JsonRequestBehavior.AllowGet);
+        }
+        
+         
 
        
         // GET: Products/Details/5
@@ -191,5 +239,12 @@ namespace WebApp.Controllers
             }
             base.Dispose(disposing);
         }
+    }
+
+    public class ProductChangeModel
+    {
+        public IEnumerable<Product> inserted { get; set; }
+        public IEnumerable<Product> deleted { get; set; }
+        public IEnumerable<Product> updated { get; set; }
     }
 }
