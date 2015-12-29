@@ -51,7 +51,8 @@
 
             <table id="product_datagrid" class="easyui-datagrid" title="Row Editing in DataGrid" style="width:auto;height:auto"
                    data-options="
-                iconCls: 'icon-edit',
+                 rownumbers:true,
+                 
                 remoteFilter: true,
                 singleSelect: true,
                 toolbar: '#product_tb',
@@ -62,11 +63,12 @@
                    ">
                 <thead>
                     <tr>
+                        @*<th data-options="field:'ck',checkbox:true"></th>*@
                         <th data-options="field:'Id',width:80">Product ID</th>
                         <th data-options="field:'Name',width:100,editor:'textbox'">Product Name</th>
                         <th data-options="field:'CategoryId',width:100,
                         formatter:function(value,row){
-                            return row.CategoryName;
+                             return row.CategoryName;
                         },
                         editor:{
                             type:'combobox',
@@ -112,11 +114,15 @@
                 var ed = $('#product_datagrid').datagrid('getEditor', { index: editIndex, field: 'CategoryId' });
                 var categoryname = $(ed.target).combobox('getText');
                 var categoryid = $(ed.target).combobox('getValue');
-                console.log($('#product_datagrid').datagrid('getRows')[editIndex]);
+                console.log(categoryname, categoryid);
+                console.log(1,$dg.datagrid('getRows')[editIndex]);
                 $('#product_datagrid').datagrid('getRows')[editIndex]['CategoryName'] = categoryname;
                 $('#product_datagrid').datagrid('getRows')[editIndex]['CategoryId'] = categoryid;
                 $('#product_datagrid').datagrid('endEdit', editIndex);
+                console.log(2,$dg.datagrid('getRows')[editIndex]);
                 editIndex = undefined;
+
+                
                 return true;
             } else {
                 return false;
@@ -139,15 +145,15 @@
         }
         function append() {
             if (endEditing()) {
-                $('#product_datagrid').datagrid('appendRow', { status: 'P' });
-                editIndex = $('#dg').datagrid('getRows').length - 1;
-                $('#product_datagrid').datagrid('selectRow', editIndex)
+                $dg.datagrid('appendRow', { status: 'P' });
+                editIndex = $dg.datagrid('getRows').length - 1;
+                $dg.datagrid('selectRow', editIndex)
                         .datagrid('beginEdit', editIndex);
             }
         }
         function removeit() {
             if (editIndex == undefined) { return }
-            $('#product_datagrid').datagrid('cancelEdit', editIndex)
+            $dg.datagrid('cancelEdit', editIndex)
                     .datagrid('deleteRow', editIndex);
             editIndex = undefined;
         }
@@ -202,15 +208,15 @@
               
                 }
 
-                $('#product_datagrid').datagrid('acceptChanges');
+                $dg.datagrid('acceptChanges');
             }
         }
         function reject() {
-            $('#product_datagrid').datagrid('rejectChanges');
+            $dg.datagrid('rejectChanges');
             editIndex = undefined;
         }
         function getChanges() {
-            var rows = $('#product_datagrid').datagrid('getChanges');
+            var rows = $dg.datagrid('getChanges');
             alert(rows.length + ' rows are changed!');
         }
         $(function () {

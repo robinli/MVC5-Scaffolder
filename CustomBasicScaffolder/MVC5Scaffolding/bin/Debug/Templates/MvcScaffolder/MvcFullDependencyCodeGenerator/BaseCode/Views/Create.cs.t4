@@ -1,0 +1,115 @@
+﻿
+<#@ template language="C#" HostSpecific="True" #>
+<#@ output extension=".cshtml" #>
+<#@ parameter type="System.String" name="DefaultNamespace" #>
+
+@using <#= DefaultNamespace #>.Models 
+
+@model  BaseCode
+
+@{
+    ViewBag.Title = "Create";
+}
+
+
+
+
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                BaseCode
+                <small>Create</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li>
+                    <i class="fa fa-home"></i>  @Html.ActionLink("Home", "Index", "Home")
+                </li>
+                 <li>
+                    <i class="fa fa-folder-open"></i>  @Html.ActionLink("BaseCodes", "Index", "BaseCodes")
+                </li>
+                <li class="active">
+                    <i class="fa fa-file"></i> Create
+                </li>
+            </ol>
+        </div>
+    </div>
+    <!-- /.row -->
+     <div class="row">
+        <div class="col-lg-12">
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>BaseCode</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.Partial("EditForm")
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+    </div>
+ </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+     <script type="text/javascript">
+     
+    		var basecodeid = 0;
+		var ObjectState = "Added";  
+                                 
+             var $codeitemstable = {};
+                        $(document).ready(function () {
+
+                $('form').submit(function () {
+                    var token = $('[name=__RequestVerificationToken]').val();
+                    var serializedForm = $(this).serialize();
+                    var actionurl = $(this).attr('action');
+                                         
+                        var codeitems = $codeitemstable.bootstrapTable('getData');
+                                         
+                     var newitem = {
+                                                        CodeItems: codeitems ,
+                                          
+                                Id: basecodeid,
+                                                        CodeType: $('#CodeType', 'form').val(),
+                                                        Description: $('#Description', 'form').val(),
+                                                ObjectState:ObjectState 
+                    };
+                    $.ajax({
+                        url: actionurl,
+                        type: "POST",
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify(newitem),
+                        success: function (result) {
+                            if (result.success) {
+                                self.location = "/BaseCodes/Index";
+                            } else {
+                                alert(result.err);
+                            }
+                            
+                        },
+                        error: function (result) {
+                            console.log(result );
+                            //console.log(result.statusText + result.responseText);
+                            alert(result.status + result.statusText);
+                        }
+                    });
+                    return false;
+                    
+
+                });
+            });
+          </script>
+
+
+}

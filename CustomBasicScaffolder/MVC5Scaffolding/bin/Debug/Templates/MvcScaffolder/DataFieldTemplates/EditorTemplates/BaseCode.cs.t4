@@ -1,0 +1,21 @@
+﻿<#@ template language="C#" HostSpecific="True" #>
+<#@ output extension="cshtml" #>
+
+@model String
+@Html.DropDownListFor(model => model, new[] {new SelectListItem() {  Value="" , Text="---Select---"}}, new { @class = "form-control" })
+<script  type="text/javascript" >
+    $(document).ready(function (e) {
+        
+        var type='@ViewData["CodeType"]';
+        var $select = $('#@Html.IdFor(m => m)');
+        var selectedval = '@Model';
+        $.get('/BaseCodes/GetCodeItems', { codetype: type }, function (data) {
+            $.each(data, function (key, value) {
+                $select.append('<option value=' + value.Code + '>' + value.Text + '</option>');
+            });
+            $select.val(selectedval);
+        });
+      
+        
+    })
+</script>

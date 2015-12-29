@@ -1,0 +1,347 @@
+﻿<#@ template language="C#" HostSpecific="True" #>
+<#@ output extension=".cshtml" #>
+<#@ parameter type="System.String" name="DefaultNamespace" #>
+
+@using <#= DefaultNamespace #>.Models 
+@model MenuItem
+
+@*@Html.HiddenFor(model => model.Id)*@
+
+
+
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-6">
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label  col-md-3 col-sm-3" })
+            <div class=" col-md-9 col-sm-9">
+                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label  col-md-3 col-sm-3" })
+            <div class=" col-md-9 col-sm-9">
+                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsEnabled, htmlAttributes: new { @class = "control-label  col-md-3 col-sm-3" })
+            <div class=" col-md-9 col-sm-9">
+                @Html.EditorFor(model => model.IsEnabled, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.IsEnabled, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6">
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label  col-md-3 col-sm-3" })
+            <div class=" col-md-9 col-sm-9">
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Url, htmlAttributes: new { @class = "control-label  col-md-3 col-sm-3" })
+            <div class=" col-md-9 col-sm-9">
+                @Html.EditorFor(model => model.Url, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Url, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ParentId, htmlAttributes: new { @class = "control-label  col-md-3 col-sm-3" })
+            <div class=" col-md-9 col-sm-9">
+                @Html.DropDownListFor(model => model.ParentId, ViewBag.ParentId as List<SelectListItem>, "---Select---", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ParentId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+    </div>
+
+    <!-- output all Scaffold = false Hiden field -->
+    <!--end output all Scaffold = false Hiden field -->
+</div>
+
+
+<!-- details tabs -->
+<div class="tabs">
+    <div role="tabpanel">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#tab-SubMenus" aria-controls="tab-SubMenus" role="tab" data-toggle="tab">SubMenus</a></li>
+
+
+
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+
+            <div role="tabpanel" class="tab-pane active" id="tab-SubMenus">
+                <div id="toolbar-SubMenus" class="btn-group">
+                    <button type="button" id="addsubmenusbutton" class="btn btn-default">
+                        <i class="glyphicon glyphicon-plus"></i>
+                    </button>
+
+                    <button type="button" id="removesubmenusbutton" class="btn btn-default">
+                        <i class="glyphicon glyphicon-trash"></i>
+                    </button>
+                </div>
+                <div class="table-responsive">
+                    <table id="submenus-table" class="table table-striped" data-search="true"
+                           data-flat="false"
+                           data-toolbar="#toolbar-SubMenus"
+                           data-pagination="true"
+                           data-show-refresh="true"
+                           data-show-toggle="true"
+                           data-show-columns="true">
+                        <thead>
+                            <tr>
+                                <th data-formatter="submenusrowindexFormatter">#No</th>
+
+
+                                <th data-field="ParentTitle" data-visible="false" data-align="right">
+                                    Parent
+                                </th>
+
+
+                                <th data-field="Id" data-visible="false" data-align="right">
+                                    Id
+                                </th>
+
+                                <th data-field="Title" data-align="left">
+                                    Title
+                                </th>
+
+                                <th data-field="Description" data-align="left">
+                                    Description
+                                </th>
+
+                                <th data-field="Code" data-align="left">
+                                    Code
+                                </th>
+
+                                <th data-field="Url" data-align="left">
+                                    Url
+                                </th>
+
+                                <th data-field="IsEnabled" data-align="right">
+                                    IsEnabled
+                                </th>
+
+                                <th data-field="ParentId" data-visible="false" data-align="right">
+                                    ParentId
+                                </th>
+                                <th data-field="action" data-formatter="submenusactionFormatter" data-events="actionEvents">Action</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<!--end details tabs -->
+<!-- Modal  MenuItem-->
+<div class="modal fade" id="menuitemformModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">MenuItem</h4>
+            </div>
+            <div class="modal-body" id="menuitemformModal-body">
+                @*@Html.Partial("_OrderDetailForm")*@
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" id="menuitemconfirmbutton" class="btn btn-primary">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal  MenuItem-->
+
+
+
+<script type="text/javascript">
+
+    var currentrowindex = -1;
+
+    function deleteMenuItem(id) {
+        var url = '@Url.Action("DeleteMenuItem")';
+        bootbox.dialog({
+            message: "Are you sure delete " + id,
+            title: "Delete MenuItem ",
+            buttons: {
+                Cancel: {
+                    label: "Cancel",
+                    className: "btn-default",
+                    callback: function () {
+
+                    }
+                },
+                OK: {
+                    label: "OK",
+                    className: "btn-success",
+                    callback: function () {
+                        $.post(url, { id: id }, function (data) {
+                            $submenustable.bootstrapTable('remove', { field: 'Id', values: [id] });
+                            //console.log('remove' + row.Id);
+                        });
+                    }
+                }
+            }
+        });
+    }
+
+    function submenusrowindexFormatter(value, row, index) {
+        return index + 1;
+    }
+    function submenusactionFormatter(value, row, index) {
+        return [
+            '<a class="edit" id="submenusedit" href="javascript:void(0)" title="Edit">',
+            '<i class="glyphicon glyphicon-edit"></i>',
+            '</a>  ',
+            ' <a class="remove" id="submenusremove" href="javascript:void(0)" title="Remove">',
+            '<i class="glyphicon glyphicon-remove"></i>',
+            '</a>'
+        ].join('');
+    }
+
+
+    window.actionEvents = {
+        'click #submenusedit': function (e, value, row, index) {
+            currentrowindex = index;
+            var url = "/MenuItems/EditMenuItem"
+            $.get(url + '/' + row.Id, function (data) {
+                $('#menuitemformModal-body').html(data);
+                if (row.Id > 0) {
+                    //var id = $('#Id','#menuitemformModal-body');
+                    //id.val(row.Id);
+                    //var title = $('#Title','#menuitemformModal-body');
+                    //title.val(row.Title);
+                    //var description = $('#Description','#menuitemformModal-body');
+                    //description.val(row.Description);
+                    //var code = $('#Code','#menuitemformModal-body');
+                    //code.val(row.Code);
+                    //var url = $('#Url','#menuitemformModal-body');
+                    //url.val(row.Url);
+                    //var isenabled = $('#IsEnabled','#menuitemformModal-body');
+                    //isenabled.val(row.IsEnabled);
+                    //var parentid = $('#ParentId','#menuitemformModal-body');
+                    //parentid.val(row.ParentId);
+                } else {
+                    var id = $('#Id','#menuitemformModal-body');
+                    id.val(row.Id);
+                    var title = $('#Title','#menuitemformModal-body');
+                    title.val(row.Title);
+                    var description = $('#Description','#menuitemformModal-body');
+                    description.val(row.Description);
+                    var code = $('#Code','#menuitemformModal-body');
+                    code.val(row.Code);
+                    var url = $('#Url','#menuitemformModal-body');
+                    url.val(row.Url);
+                    var isenabled = $('#IsEnabled','#menuitemformModal-body');
+                    isenabled.val(row.IsEnabled);
+                    var parentid = $('#ParentId','#menuitemformModal-body');
+                    parentid.val(row.ParentId);
+
+                }
+                $('#menuitemformModal').modal('toggle');
+            });
+        } ,
+        'click #submenusremove': function (e, value, row, index) {
+            if (row.Id > 0) {
+                deleteMenuItem(row.Id);
+            } else {
+                $submenustable.bootstrapTable('remove', {
+                    field: '$index',
+                    values: [index]
+                });
+            }
+        } 	    };
+
+
+    $(function () {
+        $submenustable = $('#submenus-table').bootstrapTable({
+            data: []
+        });
+        if (ObjectState == "Modified") {
+            menuitemid =@Model.Id;
+            //menuitemid = $('#Id').val();
+            var url = '/MenuItems/GetSubMenusByParentId/' + menuitemid;
+            $.get(url, function (data) {
+                //console.log(data);
+                $submenustable.bootstrapTable('load', data)
+            })
+
+        }
+
+        $('#addsubmenusbutton').on('click', function (e) {
+            if ($("form").valid()) {
+                currentrowindex = -1;
+                var url = "/MenuItems/CreateMenuItem"
+                $.get(url, function (data) {
+                    //console.log(data);
+                    var index = -1;
+                    $('#menuitemformModal-body').html(data);
+                    $('#Id', '#menuitemformModal-body' ).val(0);
+                    $('#ParentId' , '#menuitemformModal-body').val(menuitemid );
+                    $('#menuitemformModal').modal('toggle');
+                });
+            }
+            e.preventDefault();
+            //Return false regardless of validation to stop form submitting
+            //prior to ajax doing its thing
+            return false;
+        })
+
+        $('#menuitemconfirmbutton').on('click', function (e) {
+            $("form").removeData("validator");
+            $("form").removeData("unobtrusiveValidation");
+            $.validator.unobtrusive.parse("form");
+            if (!$('form').valid()) {
+                e.preventDefault();
+                return false;
+            }
+            var parenttitle = $('#ParentId :selected' , '#menuitemformModal-body').text();
+            var id = $('#Id' , '#menuitemformModal-body').val();
+            var title = $('#Title' , '#menuitemformModal-body').val();
+            var description = $('#Description' , '#menuitemformModal-body').val();
+            var code = $('#Code' , '#menuitemformModal-body').val();
+            var url = $('#Url' , '#menuitemformModal-body').val();
+            var isenabled = $('#IsEnabled' , '#menuitemformModal-body').val();
+            var parentid = $('#ParentId :selected' , '#menuitemformModal-body').val();
+
+
+            var menuitem = {
+                ParentTitle :parenttitle ,
+                Id : id ,
+                Title : title ,
+                Description : description ,
+                Code : code ,
+                Url : url ,
+                IsEnabled : isenabled ,
+                ParentId :parentid ,
+
+                ObjectState:'Added'
+            }
+            if (currentrowindex == '-1') {
+                $submenustable.bootstrapTable('append', menuitem);
+            } else {
+                $submenustable.bootstrapTable('updateRow', { index: currentrowindex, row: menuitem });
+            }
+
+            $('#menuitemformModal').modal('toggle');
+        });
+
+
+    });
+
+
+</script>

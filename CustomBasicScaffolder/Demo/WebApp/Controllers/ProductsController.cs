@@ -61,7 +61,7 @@ namespace WebApp.Controllers
             var pagelist = new { total = totalCount, rows = data };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult Save(ProductChangeModel products)
+        public ActionResult SaveData(ProductChangeViewModel products)
         {
             if (products.updated != null)
             {
@@ -85,18 +85,6 @@ namespace WebApp.Controllers
                 }
             }
             _unitOfWork.SaveChanges();
-            //products = new Dictionary<string, List<Product>>();
-            //var list= new List<Product>();
-            //list.Add(new Product(){ Id=1, Name="Name"});
-
-
-            //products.Add("updated", list);
-            //products.Add("deleted", list);
-            //products.Add("create", list);
-            //JavaScriptSerializer js = new JavaScriptSerializer();
-
-            //var str = js.Serialize(products);
-            Console.Write(products);
             return Json(new {Success=true}, JsonRequestBehavior.AllowGet);
         }
         
@@ -241,7 +229,7 @@ namespace WebApp.Controllers
         }
     }
 
-    public class ProductChangeModel
+    public class ProductChangeViewModel
     {
         public IEnumerable<Product> inserted { get; set; }
         public IEnumerable<Product> deleted { get; set; }
