@@ -435,7 +435,6 @@ D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\
 D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\fr-FR\MVC5Scaffolding.resources.dll
 D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\Newtonsoft.Json.dll
 D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\Newtonsoft.Json.xml
-D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Debug\MVC5Scaffolding.csprojResolveAssemblyReference.cache
 D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Debug\UI\ModelMetadataDialog.g.cs
 D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Debug\UI\QueryFormSetting.g.cs
 D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Debug\UI\ResultListSetting.g.cs

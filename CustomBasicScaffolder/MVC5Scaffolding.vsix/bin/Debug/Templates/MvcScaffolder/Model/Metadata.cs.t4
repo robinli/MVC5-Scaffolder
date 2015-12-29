@@ -47,6 +47,17 @@ foreach (PropertyMetadata property in ModelMetadata.Properties) {
 }
 #>
     }
+
+
+
+
+	public class <#= ModelTypeName #>ChangeViewModel
+    {
+        public IEnumerable<<#= ModelTypeName #>> inserted { get; set; }
+        public IEnumerable<<#= ModelTypeName #>> deleted { get; set; }
+        public IEnumerable<<#= ModelTypeName #>> updated { get; set; }
+    }
+
 }
 <#+
 // This function converts the primary key short type name to its nullable equivalent when possible. This is required to make

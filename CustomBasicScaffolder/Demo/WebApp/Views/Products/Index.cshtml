@@ -6,24 +6,6 @@
 @{
     ViewBag.Title = "Index";
 }
-<style type='text/css'>
-    /*設定 數字靠右*/
-    td:nth-child(2n) {
-        text-align: right;
-    }
-
-    td:nth-child(5n) {
-        text-align: right;
-    }
-
-    td:nth-child(6n) {
-        text-align: right;
-    }
-
-    td:nth-child(8n) {
-        text-align: right;
-    }
-</style>
 
 <div class="container-fluid">
     <!-- Page Heading -->
@@ -52,7 +34,6 @@
             <table id="product_datagrid" class="easyui-datagrid" title="Row Editing in DataGrid" style="width:auto;height:auto"
                    data-options="
                  rownumbers:true,
-                 
                 remoteFilter: true,
                 singleSelect: true,
                 toolbar: '#product_tb',

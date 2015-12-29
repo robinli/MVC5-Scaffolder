@@ -75,42 +75,28 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
     <!-- /.row -->
      <div class="row">
         <div class="col-lg-12">
-            <div id="toolbar" class="btn-group">
-                <button type="button" id="new<#= modelVariable #>button" class="btn btn-default">
-                    <i class="glyphicon glyphicon-plus"></i> 新增
-                </button>
-
-                <button type="button" id="delete<#= modelVariable #>button" class="btn btn-default">
-                    <i class="glyphicon glyphicon-trash"></i> 删除
-                </button>
-
-				 <button type="button" id="popupsearchbutton" class="btn btn-default">
-                    <i class="glyphicon glyphicon-search"></i> 搜索
-                </button>
-            </div>
+           
  
-       <div class="table-responsive">
-        <table id="<#= modelVariable #>-table" class="table table-striped" data-search="true"
-                   data-url="/<#= ControllerRootName #>/PageList"
-                   data-flat="false"
-                   data-toolbar="#toolbar"
-                   data-pagination="true"
-                   data-show-refresh="true"
-                   data-show-toggle="true"
-                   data-show-columns="true"
-                   data-single-select="true"
-                   data-page-list="[5, 10, 20, 50, 100, 200]"
-                   data-sort-name="Id"
-                   data-side-pagination="server"
-                   data-click-to-select="true">
+       <table id="<#= modelVariable #>_datagrid" class="easyui-datagrid" title="<#= modelName #> DataGrid" style="width:auto;height:auto"
+                   data-options="
+                 rownumbers:true,
+                 
+                remoteFilter: true,
+                singleSelect: true,
+                toolbar: '#product_tb',
+                url: '/<#= ControllerRootName #>/GetData',
+                method: 'get',
+                onClickCell: onClickCell,
+                pagination: 'true'
+                   ">
                 <thead>
                     <tr>
-                         <th data-field="state" data-checkbox="true"></th>
-						 <th data-field="action" data-formatter="actionFormatter" data-events="actionEvents">Action</th>
+                        @*<th data-options="field:'ck',checkbox:true"></th>*@
 <#
 IEnumerable<PropertyMetadata> properties = ModelMetadata.Properties;
 foreach (PropertyMetadata property in properties) {
         var tdalign=property.ShortTypeName=="string"?"left":"right";
+		var fieldtypename = property.ShortTypeName;
     if (property.Scaffold && !property.IsForeignKey) {
 #>
 <#
@@ -121,17 +107,44 @@ foreach (PropertyMetadata property in properties) {
         }
 #>
         <# if ( property.IsPrimaryKey) { #>
-            <th data-field="<#= property.PropertyName  #>" data-sortable="true"  data-visible="false" >
-             @Html.DisplayNameFor(model => model.<#= GetValueExpression(property) #>)
-            </th>
+			<th data-options="field:'<#= property.PropertyName  #>',width:80">@Html.DisplayNameFor(model => model.<#= GetValueExpression(property) #>)</th>
         <# } else if (property.AssociationDirection ==  AssociationDirection.ManyToOne ) { #>
-            <th data-field="<#= GetRelatedDisplayNameExpression(property)  #>" data-sortable="false" data-align="<#= tdalign #>"  >
-             @Html.DisplayNameFor(model => model.<#= GetValueExpression(property) #>)
-            </th>
+			<th data-options="field:'<#= GetRelatedDisplayNameExpression(property)  #>',width:100,
+                        formatter:function(value,row){
+                            return row.<#= GetRelatedDisplayNameExpression(property)  #>;
+                        },
+                        editor:{
+                            type:'combobox',
+                            options:{
+                                valueField:'Id',
+                                textField:'Name',
+                                method:'get',
+                                url:'/<#= ControllerRootName #>/Get<#= property.PropertyName #>s',
+                                required:true
+                            }
+                        }">@Html.DisplayNameFor(model => model.<#= GetValueExpression(property) #>)</th>
+
+           
         <# } else { #>
-        <th data-field="<#= property.PropertyName  #>" data-sortable="true" data-align="<#= tdalign #>" >
-             @Html.DisplayNameFor(model => model.<#= GetValueExpression(property) #>)
-        </th>
+
+		<#
+			if(fieldtypename=="string") {
+		#>
+		     <th data-options="field:'<#= property.PropertyName #>',width:120,editor:'textbox' ">@Html.DisplayNameFor(model => model.<#= GetValueExpression(property) #>)</th>
+		<# } #>
+
+		<#
+			if(fieldtypename=="int" || fieldtypename=="float"|| fieldtypename=="decimal") {
+		#>
+		     <th data-options="field:'<#=  property.PropertyName  #>',width:100,align:'right',editor:{type:'numberbox',options:{precision:2}}">@Html.DisplayNameFor(model => model.<#= GetValueExpression(property) #>)</th>
+		<# } #>
+
+		<#
+			if(fieldtypename=="DateTime" ) {
+		#>
+		     <th data-options="field:'<#=  property.PropertyName  #>',width:160,align:'right',editor:{type:'datetimebox',options:{}}">@Html.DisplayNameFor(model => model.<#= GetValueExpression(property) #>)</th>
+		<# } #>
+
         <#            } #>
 <#
     }
@@ -143,118 +156,17 @@ foreach (PropertyMetadata property in properties) {
  
 
 </table>
-</div>
+ 
 <br />
  
      </div>
     </div>
 
-	<!--Popup Modal Search-->
-    <div class="modal fade" id="popupsearchModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog  modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Search</h4>
-                </div>
-                <div class="modal-body" id="popupsearchModal-body">
-                    @Html.Partial("_PopupSearch")
-                </div>
-                <div class="modal-footer">
-                    <button type="button" id="popupsearchCanclebutton" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button type="button" id="popupsearchOKbutton" class="btn btn-primary">OK</button>
-                </div>
-            </div>
-        </div>
-    </div>
-	<!--Popup Modal Search-->
+	 
 </div>
 @section Scripts {
     <script type="text/javascript">
-        var $<#= modelVariable #>table = $('#<#= modelVariable #>-table');
-        var $delete<#= modelVariable #>button = $('#delete<#= modelVariable #>button');
-        function actionFormatter(value, row, index) {
-            return [
-                   '<div class="btn-group">',
-                    '<button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">',
-                    '    <span class="glyphicon glyphicon-cog"  ></span> <span class="caret"></span>',
-                    '</button>',
-                    '<ul class="dropdown-menu" role="menu">',
-                    '<li><a class="edit" href="javascript:void(0)" title="编辑"><span class="glyphicon glyphicon-pencil"  ></span> 编辑 </a></li>',
-                    '<li><a class="remove" href="javascript:void(0)" title="删除" ><span class="glyphicon glyphicon-minus"  ></span> 删除</a></li>',
-                    '</ul>',
-                    '</div>'
-            ].join('');
-        }
-        window.actionEvents = {
-
-            'click .edit': function (e, value, row, index) {
-                 var url="/<#= ControllerRootName #>/Edit/" + row.<#= primaryKeyName #>
-                 $(location).attr('href', url);
-            },            
-            'click .remove': function (e, value, row, index) {
-                 delete<#= modelName #>(row.<#= primaryKeyName #>);
-                //console.log(value, row, index);
-            }
-    
-        }
-        //jquery post /<#= ControllerRootName #>/Delete/:id
-        function delete<#= modelName #>(id) {
-            var url = '@Url.Action("Delete")';   
-            bootbox.dialog({
-                message: "你确定要删除该记录吗？ " + id,
-                title: "Delete <#= modelName #> ",
-                buttons: {
-                    Cancel: {
-                        label: "Cancel",
-                        className: "btn-default",
-                        callback: function () {
-                           
-                        }
-                    },
-                    OK: {
-                        label: "OK",
-                        className: "btn-success",
-                        callback: function () {
-                            $.post(url, { id: id }, function (data) {
-                                $<#= modelVariable #>table.bootstrapTable('remove', { field: 'Id', values: [id] });
-                                //console.log('remove' + row.Id);
-                            });
-                        }
-                    }
-                }
-            });
-        }
-        $(document).ready(function (e) {
-            $<#= modelVariable #>table = $('#<#= modelVariable #>-table').bootstrapTable(
-                {
-                }
-                );
-             $<#= modelVariable #>table.on('check.bs.table uncheck.bs.table check-all.bs.table uncheck-all.bs.table', function () {
-                $delete<#= modelVariable #>button.prop('disabled', !$<#= modelVariable #>table.bootstrapTable('getSelections').length);
-            });
-             $('#new<#= modelVariable #>button').on('click', function () {
-
-                $(location).attr('href', "/<#= ControllerRootName #>/Create");
-            });
-            $('#delete<#= modelVariable #>button').on('click', function () {
-                var selected = $<#= modelVariable #>table.bootstrapTable('getSelections');
-                if (selected.length>0) {
-                    delete<#= modelName #>(selected[0].<#= primaryKeyName #>);
-                }
-                 
-            });
-
-			$('#popupsearchbutton').on('click', function () {
-                $('#popupsearchModal').modal('toggle');
-            });
-
-			$('#popupsearchOKbutton').click(function () {
-                 //para = $('#para').val();  
-                $('#popupsearchModal').modal('toggle');
-                $<#= modelVariable #>table.bootstrapTable('refresh');
-            });
-        });
+         var $dg = $('#<#= modelVariable #>_datagrid');
     
      </script>
 }
