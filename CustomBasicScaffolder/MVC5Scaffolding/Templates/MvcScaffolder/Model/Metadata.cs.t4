@@ -14,6 +14,7 @@
 <#@ parameter type="Happy.Scaffolding.MVC.Models.MetaTableInfo" name="MetaTable" #>
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace <#= Namespace #>
 {

@@ -78,6 +78,12 @@ string GetRelatedDisplayNameExpression(PropertyMetadata property,Microsoft.AspNe
     return propertyModel != null ? propertyModel.AssociationPropertyName + "" + propertyModel.DisplayPropertyName : property.PropertyName;
 }
 
+string GetRelatedDisplayNameExpression(string foreignKeyName,Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata metadata) {
+    RelatedModelMetadata propertyModel = GetRelatedModelMetadata(foreignKeyName,metadata);
+    return propertyModel != null ? propertyModel.AssociationPropertyName + "" + propertyModel.DisplayPropertyName : foreignKeyName;
+}
+
+
 
 // This will return the primary key property name, if and only if there is exactly
 // one primary key. Returns null if there is no PK, or the PK is composite.

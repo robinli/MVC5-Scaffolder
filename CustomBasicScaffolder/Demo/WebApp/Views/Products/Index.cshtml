@@ -7,12 +7,13 @@
     ViewBag.Title = "Index";
 }
 
+
 <div class="container-fluid">
     <!-- Page Heading -->
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">
-                Product
+
                 <small>Index</small>
             </h1>
             <ol class="breadcrumb">
@@ -29,14 +30,15 @@
     <!-- /.row -->
     <div class="row">
         <div class="col-lg-12">
-         
 
-            <table id="product_datagrid" class="easyui-datagrid" title="Row Editing in DataGrid" style="width:auto;height:auto"
+
+            <table id="products_datagrid" class="easyui-datagrid" title="Products DataGrid" style="width:auto;height:auto"
                    data-options="
                  rownumbers:true,
+
                 remoteFilter: true,
                 singleSelect: true,
-                toolbar: '#product_tb',
+                toolbar: '#products_toolbar',
                 url: '/Products/GetData',
                 method: 'get',
                 onClickCell: onClickCell,
@@ -45,11 +47,25 @@
                 <thead>
                     <tr>
                         @*<th data-options="field:'ck',checkbox:true"></th>*@
-                        <th data-options="field:'Id',width:80">Product ID</th>
-                        <th data-options="field:'Name',width:100,editor:'textbox'">Product Name</th>
+                        <th data-options="field:'Id',width:80">@Html.DisplayNameFor(model => model.Id)</th>
+
+                        <th data-options="field:'Name',width:140,editor:{type:'textbox',options:{required:true} }">@Html.DisplayNameFor(model => model.Name)</th>
+
+
+                        <th data-options="field:'Unit',width:140,editor:'textbox' ">@Html.DisplayNameFor(model => model.Unit)</th>
+
+
+                        <th data-options="field:'UnitPrice',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">@Html.DisplayNameFor(model => model.UnitPrice)</th>
+
+
+                        <th data-options="field:'StockQty',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">@Html.DisplayNameFor(model => model.StockQty)</th>
+
+
+                        <th data-options="field:'ConfirmDateTime',width:160,align:'right',editor:{type:'datetimebox',options:{}}">@Html.DisplayNameFor(model => model.ConfirmDateTime)</th>
+
                         <th data-options="field:'CategoryId',width:100,
                         formatter:function(value,row){
-                             return row.CategoryName;
+                            return row.CategoryName;
                         },
                         editor:{
                             type:'combobox',
@@ -60,50 +76,50 @@
                                 url:'/Products/GetCategories',
                                 required:true
                             }
-                        }">Category</th>
+                        }">@Html.DisplayNameFor(model => model.CategoryId)</th>
 
-                        <th data-options="field:'UnitPrice',width:100,align:'right',editor:{type:'numberbox',options:{precision:1}}">Unit Price</th>
-                        <th data-options="field:'StockQty',width:80,align:'right',editor:'numberbox'">Stock Qty</th>
-                        <th data-options="field:'Unit',width:80,editor:'textbox' ">Unit</th>
-                        <th data-options="field:'ConfirmDateTime',width:250,editor:'datetimebox'">Confirm DateTime</th>
+
 
                     </tr>
                 </thead>
-            </table>
 
-            <div id="product_tb" style="height:auto">
+
+            </table>
+            <div id="products_toolbar" style="height:auto">
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append()">Append</a>
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">Remove</a>
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">Accept</a>
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">Reject</a>
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="getChanges()">GetChanges</a>
             </div>
-
             <br />
 
         </div>
     </div>
+
+
 </div>
 @section Scripts {
     <script type="text/javascript">
-        var $dg = $('#product_datagrid');
-      
+        var $dg = $('#products_datagrid');
         var editIndex = undefined;
         function endEditing() {
             if (editIndex == undefined) { return true }
-            if ($('#product_datagrid').datagrid('validateRow', editIndex)) {
-                var ed = $('#product_datagrid').datagrid('getEditor', { index: editIndex, field: 'CategoryId' });
+            if ($dg.datagrid('validateRow', editIndex)) {
+
+                var ed = $dg.datagrid('getEditor', { index: editIndex, field: 'CategoryId' });
                 var categoryname = $(ed.target).combobox('getText');
                 var categoryid = $(ed.target).combobox('getValue');
-                console.log(categoryname, categoryid);
-                console.log(1,$dg.datagrid('getRows')[editIndex]);
-                $('#product_datagrid').datagrid('getRows')[editIndex]['CategoryName'] = categoryname;
-                $('#product_datagrid').datagrid('getRows')[editIndex]['CategoryId'] = categoryid;
-                $('#product_datagrid').datagrid('endEdit', editIndex);
-                console.log(2,$dg.datagrid('getRows')[editIndex]);
+                //console.log(categoryname, categoryid);
+                //console.log(1,$dg.datagrid('getRows')[editIndex]);
+                $dg.datagrid('getRows')[editIndex]['CategoryName'] = categoryname;
+                $dg.datagrid('getRows')[editIndex]['CategoryId'] = categoryid;
+                $dg.datagrid('endEdit', editIndex);
+                //console.log(2,$dg.datagrid('getRows')[editIndex]);
+
                 editIndex = undefined;
 
-                
+
                 return true;
             } else {
                 return false;
@@ -112,15 +128,15 @@
         function onClickCell(index, field) {
             if (editIndex != index) {
                 if (endEditing()) {
-                    $('#product_datagrid').datagrid('selectRow', index)
+                    $dg.datagrid('selectRow', index)
                             .datagrid('beginEdit', index);
-                    var ed = $('#product_datagrid').datagrid('getEditor', { index: index, field: field });
+                    var ed = $dg.datagrid('getEditor', { index: index, field: field });
                     if (ed) {
                         ($(ed.target).data('textbox') ? $(ed.target).textbox('textbox') : $(ed.target)).focus();
                     }
                     editIndex = index;
                 } else {
-                    $('#product_datagrid').datagrid('selectRow', editIndex);
+                    $dg.datagrid('selectRow', editIndex);
                 }
             }
         }
@@ -142,51 +158,30 @@
             if (endEditing()) {
                 if ($dg.datagrid('getChanges').length) {
                     var inserted = $dg.datagrid('getChanges', "inserted");
-                    console.log('inserted', inserted);
                     var deleted = $dg.datagrid('getChanges', "deleted");
-                    console.log('deleted', deleted);
                     var updated = $dg.datagrid('getChanges', "updated");
-                    console.log('updated', updated);
-
                     var effectRow = new Object();
-              
                     if (inserted.length) {
-             
-                        //effectRow["inserted"] = JSON.stringify(inserted);
                         effectRow.inserted = inserted;
-                        //effectRow["inserted"] = inserted;
                     }
-            
                     if (deleted.length) {
-             
-                        //effectRow["deleted"] = JSON.stringify(deleted);
                         effectRow.deleted = deleted;
-                        //effectRow["deleted"] = deleted;
                     }
-        
                     if (updated.length) {
-         
-                        //effectRow["updated"] = JSON.stringify(updated);
                         effectRow.updated = updated;
-                        //effectRow["updated"] = updated;
                     }
                     console.log(JSON.stringify(effectRow));
-                    $.post("/Products/Save", effectRow, function (rsp) {
+                    $.post("/Products/SaveData", effectRow, function (rsp) {
                         console.log(rsp);
                         if (rsp.Success) {
-                           
                             $.messager.alert("提示", "提交成功！");
-                         
                             $dg.datagrid('acceptChanges');
-                          
                         }
-                     
                     }, "JSON").error(function () {
-                       
-                        $.messager.alert("提示", "提交错误了！");
-                      
+                        $.messager.alert("错误", "提交错误了！", 'error');
+
                     });
-              
+
                 }
 
                 $dg.datagrid('acceptChanges');
@@ -200,11 +195,12 @@
             var rows = $dg.datagrid('getChanges');
             alert(rows.length + ' rows are changed!');
         }
+
+
         $(function () {
 
-           $dg.datagrid('enableFilter');
+            $dg.datagrid('enableFilter');
         })
-       
     </script>
 }
 

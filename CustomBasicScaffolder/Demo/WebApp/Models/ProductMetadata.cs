@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace WebApp.Models
@@ -44,5 +45,12 @@ namespace WebApp.Models
         [Display(Name = "CategoryId")]
         public int CategoryId { get; set; }
 
+    }
+
+    public class ProductChangeViewModel
+    {
+        public IEnumerable<Product> inserted { get; set; }
+        public IEnumerable<Product> deleted { get; set; }
+        public IEnumerable<Product> updated { get; set; }
     }
 }

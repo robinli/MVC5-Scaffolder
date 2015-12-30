@@ -116,21 +116,25 @@ namespace <#= Namespace #>
         includeExpressions = String.Join("", relatedProperties.Values.Select(property => String.Format(".Include({0} => {0}.{1})", lambdaVar, property.AssociationPropertyName)));
 #>
 <# if(!String.IsNullOrEmpty(includeExpressions)) { #>
-            var <#= modelVariablePlural #>  = <#= modelServiceVar #>.Queryable()<#= includeExpressions #>.AsQueryable();
+            //var <#= modelVariablePlural #>  = <#= modelServiceVar #>.Queryable()<#= includeExpressions #>.AsQueryable();
             
 <#		if (UseAsync) { #>
           
-            return View(await <#= modelVariablePlural #>);
+            //return View(await <#= modelVariablePlural #>);
+			return View();
 <#		} else { #>
-             return View(<#= modelVariablePlural #>);
+             //return View(<#= modelVariablePlural #>);
+			 return View();
 <#		} #>
 <# } else { #>
 <#		if (UseAsync) { #>
-            var <#= modelVariablePlural #>  = <#= modelServiceVar #>.Queryable().AsQueryable();
-            return View(await <#= modelVariablePlural #>  );
+            //var <#= modelVariablePlural #>  = <#= modelServiceVar #>.Queryable().AsQueryable();
+            //return View(await <#= modelVariablePlural #>  );
+			return View();
 <#		} else { #>
-            var <#= modelVariablePlural #>  = <#= modelServiceVar #>.Queryable().AsQueryable();
-            return View(<#= modelVariablePlural #>  );
+            //var <#= modelVariablePlural #>  = <#= modelServiceVar #>.Queryable().AsQueryable();
+            //return View(<#= modelVariablePlural #>  );
+			return View();
 <#		} #>
 <# } #>
         }
@@ -138,20 +142,72 @@ namespace <#= Namespace #>
         // Get :<#= routePrefix #>/<#= ViewPrefix #>PageList
         // For Index View Boostrap-Table load  data 
         [HttpGet]
-        public ActionResult PageList(int offset = 0, int limit = 10, string search = "", string sort = "", string order = "")
+        public ActionResult GetData(int page = 1, int rows = 10, string sort = "Id", string order = "asc", string filterRules = "")
         {
+			var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
             int totalCount = 0;
-            int pagenum = offset / limit +1;
+            //int pagenum = offset / limit +1;
             <# if(!String.IsNullOrEmpty(includeExpressions)) { #>
-            var <#= modelVariablePlural #>  = <#= modelServiceVar #>.Query(new <#= ModelTypeName #>Query().WithAnySearch(search))<#= includeExpressions #>.OrderBy(n=>n.OrderBy(sort,order)).SelectPage(pagenum, limit, out totalCount);
+			 
+            var <#= modelVariablePlural #>  = <#= modelServiceVar #>.Query(new <#= ModelTypeName #>Query().Withfilter(filters))<#= includeExpressions #>.OrderBy(n=>n.OrderBy(sort,order)).SelectPage(page, rows, out totalCount);
             
             <#    } else { #>
-            var <#= modelVariablePlural #>  = <#= modelServiceVar #>.Query(new <#= ModelTypeName #>Query().WithAnySearch(search)).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(pagenum, limit, out totalCount);
+            var <#= modelVariablePlural #>  = <#= modelServiceVar #>.Query(new <#= ModelTypeName #>Query().Withfilter(filters)).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(page, rows, out totalCount);
             <#    } #>
             var rows = <#= modelVariablePlural #> .Select( <#= SelectLambdaText #>).ToList();
             var pagelist = new { total = totalCount, rows = rows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
+
+		[HttpPost]
+		public ActionResult SaveData(<#= ModelTypeName #>ChangeViewModel <#= modelVariablePlural #>)
+        {
+            if (<#= modelVariablePlural #>.updated != null)
+            {
+                foreach (var updated in <#= modelVariablePlural #>.updated)
+                {
+                    <#= modelServiceVar #>.Update(updated);
+                }
+            }
+            if (<#= modelVariablePlural #>.deleted != null)
+            {
+                foreach (var deleted in <#= modelVariablePlural #>.deleted)
+                {
+                    <#= modelServiceVar #>.Delete(deleted);
+                }
+            }
+            if (<#= modelVariablePlural #>.inserted != null)
+            {
+                foreach (var inserted in <#= modelVariablePlural #>.inserted)
+                {
+                    <#= modelServiceVar #>.Insert(inserted);
+                }
+            }
+            _unitOfWork.SaveChanges();
+
+            return Json(new {Success=true}, JsonRequestBehavior.AllowGet);
+        }
+
+		<# 
+			  foreach(RelatedModelMetadata relatedModel in 	ModelMetadata.RelatedEntities)
+		      {
+					  string relForeignKey = relatedModel.ForeignKeyPropertyNames[0];
+					  //string reldisplayname = GetRelatedDisplayNameExpression(relForeignKey,ModelMetadata);
+					  string relModelName= relatedModel.EntitySetName;
+					  string relModelType= relatedModel.TypeName;
+					  string relModelPk=relatedModel.PrimaryKeyNames[0];
+					  string relModelDisplayName=relatedModel.DisplayPropertyName;
+		#>
+		public ActionResult Get<#= relModelName #>()
+        {
+            var <#= relModelType.ToLower() #>Repository = _unitOfWork.Repository<<#= relModelType #>>();
+            var data = <#= relModelType.ToLower() #>Repository.Queryable().ToList();
+            var rows = data.Select(n => new { <#= relModelPk #> = n.<#= relModelPk #>, <#= relModelDisplayName #> = n.<#= relModelDisplayName #> });
+            return Json(rows, JsonRequestBehavior.AllowGet);
+        }
+		<#
+			} 
+		 #>
 
        
         // GET: <#=            routePrefix #>/<#= ViewPrefix #>Details/5
