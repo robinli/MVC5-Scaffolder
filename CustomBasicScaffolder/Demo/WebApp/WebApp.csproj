@@ -359,6 +359,7 @@
     <Content Include="Angular\js\translations.js" />
     <Content Include="Angular\js\ui-router\angular-ui-router.min.js" />
     <Content Include="Content\animate.css" />
+    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\patterns\3.png" />
     <Content Include="Content\patterns\4.png" />
     <Content Include="Content\patterns\header-profile-skin-1.png" />
@@ -551,6 +552,8 @@
     <Content Include="img\p_big3.jpg" />
     <Content Include="img\rails_logo.png" />
     <Content Include="img\zender_logo.png" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\demo\chartjs-demo.js" />
     <Content Include="Scripts\demo\flot-demo.js" />
     <Content Include="Scripts\demo\morris-demo.js" />
@@ -764,6 +767,7 @@
     <Content Include="Angular\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Project_Readme.html" />
+    <Content Include="Views\Shared\skin-config.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Source\Repository.Pattern.Ef6\Repository.Pattern.Ef6.csproj">
