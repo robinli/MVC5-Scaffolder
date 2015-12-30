@@ -133,7 +133,7 @@ foreach (PropertyMetadata property in properties) {
 		<#
 			if(fieldtypename=="string") {
 		#>
-		     <th data-options="field:'<#= property.PropertyName #>',width:140,editor:'textbox' ">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
+		     <th data-options="field:'<#= property.PropertyName #>',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
 		<# } else if(fieldtypename=="int" || fieldtypename=="float"|| fieldtypename=="decimal") {
 		#>
 		     <th data-options="field:'<#=  property.PropertyName  #>',width:100,align:'right',editor:{type:'numberbox',options:{precision:2}}">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
