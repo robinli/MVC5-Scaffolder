@@ -1,6 +1,4 @@
-﻿
-
-@model WebApp.Models.Product
+﻿@model WebApp.Models.Product
 
 @{
     ViewBag.Title = "Create";
@@ -9,52 +7,59 @@
 
 
 
-<div class="container-fluid">
-    <!-- Page Heading -->
-    <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header">
-                Product
-                <small>Create</small>
-            </h1>
-            <ol class="breadcrumb">
-                <li>
-                    <i class="fa fa-home"></i>  @Html.ActionLink("Home", "Index", "Home")
-                </li>
-                 <li>
-                    <i class="fa fa-folder-open"></i>  @Html.ActionLink("Products", "Index", "Products")
-                </li>
-                <li class="active">
-                    <i class="fa fa-file"></i> Create
-                </li>
-            </ol>
-        </div>
-    </div>
-    <!-- /.row -->
-     <div class="row">
-        <div class="col-lg-12">
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Product Form <small>create new prodct</small></h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="form_basic.html#">
+                        <i class="fa fa-wrench"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li>
+                            <a href="form_basic.html#">Config option 1</a>
+                        </li>
+                        <li>
+                            <a href="form_basic.html#">Config option 2</a>
+                        </li>
+                    </ul>
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div class="row">
+                    <!--form-->
+                    @using (Html.BeginForm())
+                    {
+                        @*@Html.AntiForgeryToken()*@
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Product</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.Partial("EditForm")
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-primary" />
+
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.Partial("EditForm")
+                       
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-2">
+                                <button class="btn btn-white" type="reset">Cancel</button>
+                                <button class="btn btn-primary" type="submit">Save</button>
+                            </div>
+                        </div>
+
+                    }
+                    <!--end form-->
+                </div>
             </div>
         </div>
     </div>
-}
-
- </div>
 </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-    
-}
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+
+        }
