@@ -13,6 +13,8 @@
 
     <link href="~/Content/animate.css" rel="stylesheet">
     <link href="~/Content/style.css" rel="stylesheet">
+    <link href="~/Scripts/easyui/themes/metro/easyui.css" rel="stylesheet" />
+    <link href="~/Scripts/easyui/themes/icon.css" rel="stylesheet" />
 
 </head>
 
@@ -48,7 +50,7 @@
                         </div>
                     </li>
                     <li>
-                        <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">组织架构</span> <span class="fa arrow"></span></a>
+                        <a href="index.html"><i class="fa fa-sitemap"></i> <span class="nav-label">组织架构</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
                             <li>
                                 @Html.ActionLink("Company", "Index", "Companies")
@@ -64,7 +66,7 @@
                     </li>
                 
                     <li>
-                        <a href="empty_page.html#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">业务系统</span><span class="fa arrow"></span></a>
+                        <a href="empty_page.html#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">业务系统</span><span class="fa arrow"></span><span class="label label-warning pull-right">16/24</span></a>
                         <ul class="nav nav-second-level collapse">
                             <li>
                                 @Html.ActionLink("Category", "Index", "Categories")
@@ -78,7 +80,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="mailbox.html"><i class="fa fa-envelope"></i> <span class="nav-label">系统管理 </span><span class="label label-warning pull-right">16/24</span></a>
+                        <a href="mailbox.html"><i class="fa fa-database"></i> <span class="nav-label">系统管理 </span></a>
                         <ul class="nav nav-second-level collapse">
                             <li>
                                 <a href="/AccountManage"><i class="fa fa-fw fa-user"></i>用户管理</a>
@@ -238,7 +240,7 @@
                 </div>
             </div>
 
-            <div class="wrapper wrapper-content">
+            <div class="wrapper wrapper-content animated fadeInRight ">
                 @RenderBody()
             </div>
             <div class="footer">
@@ -254,7 +256,8 @@
     </div>
 
     <!-- Mainly scripts -->
-    <script src="~/Scripts/jquery-2.1.1.js"></script>
+    <script src="~/Scripts/jquery-2.1.4.min.js"></script>
+  
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="~/Scripts/plugins/metisMenu/jquery.metisMenu.js"></script>
     <script src="~/Scripts/plugins/slimscroll/jquery.slimscroll.min.js"></script>
@@ -262,7 +265,10 @@
     <!-- Custom and plugin javascript -->
     <script src="~/Scripts/inspinia.js"></script>
     <script src="~/Scripts/plugins/pace/pace.min.js"></script>
-
+    <script src="~/Scripts/easyui/jquery.easyui.min.js"></script>
+    <script src="~/Scripts/easyui/plugins/datagrid-filter.js"></script>
+    <script src="~/Scripts/easyui/plugins/jquery.edatagrid.js"></script>
+    <script src="~/Scripts/easyui/locale/easyui-lang-zh_CN.js"></script>
     @RenderSection("scripts", required: false)
 
     <script>

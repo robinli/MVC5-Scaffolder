@@ -16,7 +16,7 @@ if(IsPartialView) {
 #>
 
 @{
-    ViewBag.Title = "<#= ProgramTitle #>";
+    ViewBag.Title = "<#= ControllerRootName #>";
 <#
 if (!String.IsNullOrEmpty(LayoutPageFile)) {
 #>
@@ -41,7 +41,7 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title><#= ProgramTitle #></title>
+    <title><#= ControllerRootName #></title>
 </head>
 <body>
 <#
@@ -78,30 +78,32 @@ if (ReferenceScriptLibraries) {
     var modelName =  ModelMetadata.EntitySetName;
 	var primaryKey = ModelMetadata.PrimaryKeys[0].PropertyName;
 #>
-<div class="container-fluid">
-    <!-- Page Heading -->
-    <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header">
-                <#= ProgramTitle #>
-                <small><#= ViewName #></small>
-            </h1>
-            <ol class="breadcrumb">
-                <li>
-                    <i class="fa fa-home"></i>  @Html.ActionLink("Home", "Index", "Home")
-                </li>
-                 <li>
-                    <i class="fa fa-folder-open"></i>  @Html.ActionLink("<#= modelName #>", "Index", "<#= modelName #>")
-                </li>
-                <li class="active">
-                    <i class="fa fa-file"></i> <#= ViewName #>
-                </li>
-            </ol>
-        </div>
-    </div>
-    <!-- /.row -->
-     <div class="row">
-        <div class="col-lg-12">
+<div class="row">
+            <div class="col-lg-7">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5><#=  modelName #> form<small></small></h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="form_basic.html#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="form_basic.html#">Config option 1</a>
+                                </li>
+                                <li><a href="form_basic.html#">Config option 2</a>
+                                </li>
+                            </ul>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+							 <div class="col-sm-12 col-md-12">
 
 @using (Html.BeginForm()) 
 {
@@ -116,8 +118,7 @@ if (ReferenceScriptLibraries) {
         }
 	#>
     <div class="<#= divclass #>">
-        <h4><#= ProgramTitle #></h4>
-        <hr />
+    
 <# 
     if (isControlHtmlAttributesSupported) {
 #>
@@ -130,16 +131,18 @@ if (ReferenceScriptLibraries) {
     }
 #>
         @Html.Partial("<#= ViewPrefix #>EditForm")
-        <div class="form-group">
-				<p></p>
-             <div class="text-center">
-                <input type="submit" value=" 保存 " class="btn btn-primary" />
-            </div>
-        </div>
-    </div>
+         <div class="hr-line-dashed"></div>
+                                <div class="form-group">
+                                    <div class="col-sm-4 col-sm-offset-2">
+                                        <button class="btn btn-white" type="submit">Cancel</button>
+                                        <button class="btn btn-primary" type="submit">Save changes</button>
+                                    </div>
+                                </div>
+			</div>
 }
     </div>
  </div>
+</div>
 </div>
 <#
 if(IsLayoutPageSelected && ReferenceScriptLibraries && IsBundleConfigPresent) {

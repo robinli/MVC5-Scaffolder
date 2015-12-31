@@ -42,6 +42,7 @@ else
 <#@ parameter type="System.Boolean" name ="GenerateMasterDetailRelationship" #>
 
 using System;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -194,7 +195,7 @@ namespace <#= Namespace #>
 					  string relForeignKey = relatedModel.ForeignKeyPropertyNames[0];
 					  //string reldisplayname = GetRelatedDisplayNameExpression(relForeignKey,ModelMetadata);
 					  string relModelName= relatedModel.EntitySetName;
-					  string relModelType= relatedModel.TypeName;
+					  string relModelType= relatedModel.ShortTypeName;
 					  string relModelPk=relatedModel.PrimaryKeyNames[0];
 					  string relModelDisplayName=relatedModel.DisplayPropertyName;
 		#>

@@ -4,38 +4,42 @@
 
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Product";
 }
 
 
-<div class="container-fluid">
-    <!-- Page Heading -->
-    <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header">
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Product Data</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="table_data_tables.html#">
+                        <i class="fa fa-wrench"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li>
+                            <a href="table_data_tables.html#">Config option 1</a>
+                        </li>
+                        <li>
+                            <a href="table_data_tables.html#">Config option 2</a>
+                        </li>
+                    </ul>
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
 
-                <small>Index</small>
-            </h1>
-            <ol class="breadcrumb">
-                <li>
-                    <i class="fa fa-home"></i>  @Html.ActionLink("Home", "Index", "Home")
-                </li>
-
-                <li class="active">
-                    <i class="fa fa-file"></i> Products
-                </li>
-            </ol>
-        </div>
-    </div>
-    <!-- /.row -->
-    <div class="row">
-        <div class="col-lg-12">
-
-
-            <table id="products_datagrid" class="easyui-datagrid" title="Products DataGrid" style="width:auto;height:auto"
-                   data-options="
+                <div class="table-responsive">
+                    <table id="products_datagrid" class="easyui-datagrid" title="Products DataGrid" style="width:auto;height:auto"
+                           data-options="
                  rownumbers:true,
-
+                     iconCls: 'fa fa-list',
                 remoteFilter: true,
                 singleSelect: true,
                 toolbar: '#products_toolbar',
@@ -44,26 +48,26 @@
                 onClickCell: onClickCell,
                 pagination: 'true'
                    ">
-                <thead>
-                    <tr>
-                        @*<th data-options="field:'ck',checkbox:true"></th>*@
-                        <th data-options="field:'Id',width:80">@Html.DisplayNameFor(model => model.Id)</th>
+                        <thead>
+                            <tr>
+                                @*<th data-options="field:'ck',checkbox:true"></th>*@
+                                <th data-options="field:'Id',width:80">@Html.DisplayNameFor(model => model.Id)</th>
 
-                        <th data-options="field:'Name',width:140,editor:{type:'textbox',options:{required:true} }">@Html.DisplayNameFor(model => model.Name)</th>
-
-
-                        <th data-options="field:'Unit',width:140,editor:'textbox' ">@Html.DisplayNameFor(model => model.Unit)</th>
+                                <th data-options="field:'Name',width:140,editor:{type:'textbox',options:{required:true} }">@Html.DisplayNameFor(model => model.Name)</th>
 
 
-                        <th data-options="field:'UnitPrice',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">@Html.DisplayNameFor(model => model.UnitPrice)</th>
+                                <th data-options="field:'Unit',width:140,editor:'textbox' ">@Html.DisplayNameFor(model => model.Unit)</th>
 
 
-                        <th data-options="field:'StockQty',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">@Html.DisplayNameFor(model => model.StockQty)</th>
+                                <th data-options="field:'UnitPrice',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">@Html.DisplayNameFor(model => model.UnitPrice)</th>
 
 
-                        <th data-options="field:'ConfirmDateTime',width:160,align:'right',editor:{type:'datetimebox',options:{}}">@Html.DisplayNameFor(model => model.ConfirmDateTime)</th>
+                                <th data-options="field:'StockQty',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">@Html.DisplayNameFor(model => model.StockQty)</th>
 
-                        <th data-options="field:'CategoryId',width:100,
+
+                                <th data-options="field:'ConfirmDateTime',width:160,align:'right',editor:{type:'datetimebox',options:{}}">@Html.DisplayNameFor(model => model.ConfirmDateTime)</th>
+
+                                <th data-options="field:'CategoryId',width:100,
                         formatter:function(value,row){
                             return row.CategoryName;
                         },
@@ -84,21 +88,24 @@
                 </thead>
 
 
-            </table>
-            <div id="products_toolbar" style="height:auto">
-                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append()">Append</a>
-                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">Remove</a>
-                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">Accept</a>
-                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">Reject</a>
-                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="getChanges()">GetChanges</a>
-            </div>
-            <br />
+                </table>
+                <div id="products_toolbar" style="height:auto">
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append()">Append</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">Remove</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">Accept</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">Reject</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="getChanges()">GetChanges</a>
+                </div>
+                </div>
 
+            </div>
         </div>
     </div>
-
-
 </div>
+
+
+            
+       
 @section Scripts {
     <script type="text/javascript">
         var $dg = $('#products_datagrid');
