@@ -87,13 +87,13 @@ if (ReferenceScriptLibraries) {
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
                             </a>
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="form_basic.html#">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                                 <i class="fa fa-wrench"></i>
                             </a>
                             <ul class="dropdown-menu dropdown-user">
-                                <li><a href="form_basic.html#">Config option 1</a>
+                                <li><a href="#">Config option 1</a>
                                 </li>
-                                <li><a href="form_basic.html#">Config option 2</a>
+                                <li><a href="#">Config option 2</a>
                                 </li>
                             </ul>
                             <a class="close-link">
@@ -117,7 +117,7 @@ if (ReferenceScriptLibraries) {
 			divclass = "form-horizontal";
         }
 	#>
-    <div class="<#= divclass #>">
+    
     
 <# 
     if (isControlHtmlAttributesSupported) {
@@ -129,27 +129,30 @@ if (ReferenceScriptLibraries) {
         @Html.ValidationSummary(true)
 <#      
     }
-#>
+#>		
+		<div class="row">
         @Html.Partial("<#= ViewPrefix #>EditForm")
-         <div class="hr-line-dashed"></div>
+		</div>
+		<div class="row">
+        <div class="hr-line-dashed"></div>
                                 <div class="form-group">
                                     <div class="col-sm-4 col-sm-offset-2">
-                                        <button class="btn btn-white" type="submit">Cancel</button>
-                                        <button class="btn btn-primary" type="submit">Save changes</button>
+                                        <button class="btn btn-white" type="reset">Cancel</button>
+                                        <button class="btn btn-primary" type="submit">Save</button>
                                     </div>
                                 </div>
-			</div>
+	    </div>
 }
     </div>
- </div>
-</div>
+        </div>
+    </div>
 </div>
 <#
 if(IsLayoutPageSelected && ReferenceScriptLibraries && IsBundleConfigPresent) {
 #>
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+ 
      <script type="text/javascript">
      
     <#  if(GenerateMasterDetailRelationship  && OneToManyModelMetadata.Count >0) { 
