@@ -210,6 +210,35 @@ namespace <#= Namespace #>
 			} 
 		 #>
 
+		<# 
+		if( GenerateMasterDetailRelationship && OneToManyModelMetadata.Count>0)
+		{
+			   foreach (var submodelname in OneToManyModelMetadata.Keys) { 
+					var submodel = OneToManyModelMetadata[submodelname];
+				    foreach(RelatedModelMetadata submodelrelatedModel in submodel.RelatedEntities){
+					  string relForeignKey = submodelrelatedModel.ForeignKeyPropertyNames[0];
+					  //string reldisplayname = GetRelatedDisplayNameExpression(relForeignKey,ModelMetadata);
+					  string relModelName= submodelrelatedModel.EntitySetName;
+					  string relModelType= submodelrelatedModel.ShortTypeName;
+					  string relModelPk=submodelrelatedModel.PrimaryKeyNames[0];
+					  string relModelDisplayName=submodelrelatedModel.DisplayPropertyName;
+					  var isexist = ModelMetadata.RelatedEntities.Where(x=>x.ShortTypeName==relModelType).Any();
+					  if(!isexist){
+		#>
+		public ActionResult Get<#= relModelName #>()
+        {
+            var <#= relModelType.ToLower() #>Repository = _unitOfWork.Repository<<#= relModelType #>>();
+            var data = <#= relModelType.ToLower() #>Repository.Queryable().ToList();
+            var rows = data.Select(n => new { <#= relModelPk #> = n.<#= relModelPk #>, <#= relModelDisplayName #> = n.<#= relModelDisplayName #> });
+            return Json(rows, JsonRequestBehavior.AllowGet);
+        }
+		<#
+                      }
+                    }
+               }
+        }
+		#>
+
        
         // GET: <#=            routePrefix #>/<#= ViewPrefix #>Details/5
 <# if (UseAsync) { #>

@@ -16,7 +16,7 @@ if(IsPartialView) {
 #>
 
 @{
-    ViewBag.Title = "<#= ControllerRootName #>";
+    ViewBag.Title = "<#= ControllerRootName #> | <#=  ViewName #>";
 <#
 if (!String.IsNullOrEmpty(LayoutPageFile)) {
 #>
@@ -41,7 +41,7 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title><#= ControllerRootName #></title>
+    <title><#= ControllerRootName #> | <#=  ViewName #></title>
 </head>
 <body>
 <#
@@ -82,7 +82,7 @@ if (ReferenceScriptLibraries) {
             <div class="col-lg-7">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5><#=  modelName #> form<small></small></h5>
+                        <h5><#=  modelName #> form<small> create new <#=  modelName #></small></h5>
                         <div class="ibox-tools">
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
