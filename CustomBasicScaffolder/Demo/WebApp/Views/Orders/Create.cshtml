@@ -37,24 +37,24 @@
             <div class="ibox-content">
 
                 <!--form-->
-                @using (Html.BeginForm("Create", "Orders", FormMethod.Post, new  {Class="form-horizontal" }))
-                {
-                    @*@Html.AntiForgeryToken()*@
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                  
-                        @Html.Partial("EditForm")
-                   
-                    <div class="row">
-                        <div class="hr-line-dashed"></div>
-                        <div class="form-group">
-                            <div class="col-sm-4 col-sm-offset-2">
-                                <button class="btn btn-white" type="reset">Cancel</button>
-                                <button class="btn btn-primary" type="submit">Save</button>
-                            </div>
-                        </div>
-                    </div>
+                                @using (Html.BeginForm("Create", "Orders", FormMethod.Post, new { Class = "" }))
+                                {
+                                    <div class="form-horizontal">
+                                        @*@Html.AntiForgeryToken()*@
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                        @Html.Partial("EditForm")
 
-                }
+                                        <div class="row">
+                                            <div class="hr-line-dashed"></div>
+                                            <div class="form-group">
+                                                <div class="col-sm-4 col-sm-offset-2">
+                                                    <button class="btn btn-white" type="reset">Cancel</button>
+                                                    <button class="btn btn-primary" type="submit">Save</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
                 <!--end form-->
 
             </div>
@@ -66,7 +66,7 @@
     @Scripts.Render("~/bundles/jqueryval")
      <script type="text/javascript">
      
-    		var orderid = 0;
+        var orderid = 0;
 		var ObjectState = "Added";  
 		var $orderdetailstable = $('#orderdetail_datagrid');
              //var $orderdetailstable = {};

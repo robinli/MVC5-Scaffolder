@@ -1,64 +1,62 @@
-﻿
+﻿@model WebApp.Models.Order
 
-@model WebApp.Models.Order
 
- 
- @*@Html.HiddenFor(model => model.Id)*@
+@*@Html.HiddenFor(model => model.Id)*@
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Customer, htmlAttributes: new { @class = "col-md-2 control-label " })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Customer, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Customer,"" , new { @class = "text-danger" })
-            </div>
-        </div>
-		
-        <div class="form-group">
-            @Html.LabelFor(model => model.ShippingAddress, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ShippingAddress, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ShippingAddress,"" , new { @class = "text-danger" })
-            </div>
-        </div>
-		
-        <div class="form-group">
-            @Html.LabelFor(model => model.OrderDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.OrderDate, "Date")
-                @Html.ValidationMessageFor(model => model.OrderDate,"" , new { @class = "text-danger" })
-            </div>
-        </div>
-		
+<div class="form-group">
+    @Html.LabelFor(model => model.Customer, htmlAttributes: new { @class = "col-md-2 control-label " })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.Customer, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.Customer, "", new { @class = "text-danger" })
+    </div>
+</div>
 
-	<div class="tabs-container">
+<div class="form-group">
+    @Html.LabelFor(model => model.ShippingAddress, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.ShippingAddress, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.ShippingAddress, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.OrderDate, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.OrderDate, "Date")
+        @Html.ValidationMessageFor(model => model.OrderDate, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+
+<div class="tabs-container">
     <!-- Nav tabs -->
-        <ul class="nav nav-tabs">
-            <li class="active"><a data-toggle="tab" href="#tab-OrderDetails"> OrderDetails</a></li>
-        </ul>
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#tab-OrderDetails"> OrderDetails</a></li>
+    </ul>
     <!-- Tab panes -->
-        <div class="tab-content">
+    <div class="tab-content">
 
 
-            <div id="tab-OrderDetails" class="tab-pane active">
+        <div id="tab-OrderDetails" class="tab-pane active">
 
-                <div class="panel-body">
+            <div class="panel-body">
 
-                    <table id="orderdetail_datagrid" class="easyui-datagrid" title="OrderDetails DataGrid" style="width:auto;height:400px"
-                           data-options="
-                 rownumbers:true,
-                 iconCls: 'fa fa-list',
-                remoteFilter: false,
-                singleSelect: true,
-                toolbar: '#orderdetail_toolbar',
-                method: 'get',
-                onClickCell: onClickCell,
-                pagination: 'true'
-                   ">
-                        <thead>
-                            <tr>
-                                @*<th data-options="field:'ck',checkbox:true"></th>*@
-                                <th data-options="field:'Id',width:80">Order Detail Id</th>
-                                <th data-options="field:'ProductId',width:100,
+                <table id="orderdetail_datagrid" class="easyui-datagrid" title="OrderDetails DataGrid" style="width:auto;height:400px"
+                       data-options="
+                            rownumbers:true,
+                            iconCls: 'fa fa-list',
+                            remoteFilter: false,
+                            singleSelect: true,
+                            toolbar: '#orderdetail_toolbar',
+                            method: 'get',
+                            onClickCell: onClickCell,
+                            pagination: 'true'
+                    " >
+                    <thead>
+                        <tr>
+                            @*<th data-options="field:'ck',checkbox:true"></th>*@
+                            <th data-options="field:'Id',width:80">Order Detail Id</th>
+                            <th data-options="field:'ProductId',width:100,
                                                 formatter:function(value,row){
                                                     return row.ProductName;
                                                 },
@@ -79,59 +77,59 @@
 
 
 
-                                <th data-options="field:'Qty',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">Qty</th>
+                            <th data-options="field:'Qty',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">Qty</th>
 
 
-                                <th data-options="field:'Price',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">Price</th>
+                            <th data-options="field:'Price',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">Price</th>
 
-                                <th data-options="field:'Amount',width:100,align:'right',editor:{type:'numberbox',options:{precision:2}}">Amount</th>
+                            <th data-options="field:'Amount',width:100,align:'right',editor:{type:'numberbox',options:{precision:2}}">Amount</th>
 
-                                @*<th data-options="field:'OrderId',width:100,
-                                                formatter:function(value,row){
-                                                    return row.OrderId;
-                                                },
-                                                editor:{
-                                                    type:'combobox',
-                                                    options:{
-                                                        valueField:'Id',
-                                                        textField:'Customer',
-                                                        method:'get',
-                                                        url:'/Orders/GetOrders',
-                                                        required:true
-                                                    }
-                                                }">OrderId</th>*@
-
-
+                            @*<th data-options="field:'OrderId',width:100,
+                                formatter:function(value,row){
+                                    return row.OrderId;
+                                },
+                                editor:{
+                                    type:'combobox',
+                                    options:{
+                                        valueField:'Id',
+                                        textField:'Customer',
+                                        method:'get',
+                                        url:'/Orders/GetOrders',
+                                        required:true
+                                    }
+                                }">OrderId</th>*@
 
 
 
-                            </tr>
-                        </thead>
 
 
-                    </table>
-                    <div id="orderdetail_toolbar" style="height:auto">
-                        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append()">Append</a>
-                        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">Remove</a>
-                        @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">Accept</a>*@
-                        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">Reject</a>
-                        @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="getChanges()">GetChanges</a>*@
-                    </div>
-            </div>
+                        </tr>
+                    </thead>
+
+
+                </table>
+                <div id="orderdetail_toolbar" style="height:auto">
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append()">Append</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">Remove</a>
+                    @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">Accept</a>*@
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">Reject</a>
+                    @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="getChanges()">GetChanges</a>*@
                 </div>
-
-
+            </div>
         </div>
-        </div>
- 
 
- 
+
+    </div>
+</div>
+
+
+
 
 
 
 <script type="text/javascript">
 
-   
+
     var editIndex = undefined;
     function endEditing() {
         if (editIndex == undefined) { return true }
@@ -227,7 +225,7 @@
     }
 
     $(function () {
-        
+
         $orderdetailstable.datagrid('loading');
         $.get('/Orders/GetOrderDetailsByOrderId/' + @Model.Id, function (data) {
             //console.log(data);

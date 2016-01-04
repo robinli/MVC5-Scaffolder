@@ -107,27 +107,16 @@ if (ReferenceScriptLibraries) {
 
 @using (Html.BeginForm())
 {
-    @Html.AntiForgeryToken()
+    @*@Html.AntiForgeryToken()*@
     <#
-	    string divclass="";
-		if(FromLayoutCols>3){
-			divclass="";
-        }else{
-			divclass = "form-horizontal";
-        }
+		if(FromLayoutCols<3){
 	#>
+		<div class="form-horizontal">
+	<# } #>
  
-<# 
-    if (isControlHtmlAttributesSupported) {
-#>
+ 
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-<#        
-    } else {
-#>
-        @Html.ValidationSummary(true)
-<#      
-    }
-#>
+ 
        <div class="row">
         @Html.Partial("<#= ViewPrefix #>EditForm")
 		</div>
@@ -140,6 +129,12 @@ if (ReferenceScriptLibraries) {
                                     </div>
                                 </div>
 	    </div>
+
+		 <#
+		if(FromLayoutCols<3){
+		#>
+		</div>
+		<# } #>
 }
  </div>
         </div>
@@ -161,10 +156,10 @@ if(IsLayoutPageSelected && ReferenceScriptLibraries && IsBundleConfigPresent) {
 		var <#= primaryKeyVar #> = 0;
 		var ObjectState = "Modified";   
             <# foreach(var item in OneToManyModelMetadata) {
-                var boostraptablevar = "$" + item.Key.ToLower()  + "table";
+                var boostraptablevar = "$" + item.Key.ToLower()  + "datagrid";
                 var detailnamevar=item.Key.ToLower();
             #>                     
-             var <#= boostraptablevar #> = {};
+             var <#= boostraptablevar #> = $('#<#=  detailnamevar #>_datagrid');
             <# } #>
             $(document).ready(function () {
 				<#= primaryKeyVar #> = $('#<#= primaryKey  #>', 'form').val();
@@ -175,7 +170,7 @@ if(IsLayoutPageSelected && ReferenceScriptLibraries && IsBundleConfigPresent) {
                     var serializedForm = $(this).serialize();
                     var actionurl = $(this).attr('action');
                     <# foreach(var item in OneToManyModelMetadata) {
-                        var boostraptablevar = "$" + item.Key.ToLower()  + "table";
+                        var boostraptablevar = "$" + item.Key.ToLower()  + "datagrid";
                         var detailnamevar=item.Key.ToLower();
                      #>                     
                         var <#= detailnamevar #> = <#= boostraptablevar #>.bootstrapTable('getData');
