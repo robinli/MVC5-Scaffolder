@@ -224,7 +224,7 @@
                             singleSelect: true,
                             toolbar: '#<#= detailmodelnameVar #>_toolbar',
                             method: 'get',
-                            onClickCell: onClickCell,
+                            onClickCell: <#= detailmodelnameVar #>_onClickCell,
                             pagination: 'true'
                     " >
                     <thead>
@@ -325,6 +325,68 @@ foreach (PropertyMetadata subproperty in subproperties) {
                 var detailnamevar=item.Key.ToLower();
 				var submodelmetadata =  item.Value;
       #>  
+	var <#= detailnamevar #>editIndex = undefined;
+    function <#= detailnamevar #>_endEditing() {
+        if (<#= detailnamevar #>editIndex == undefined) { return true }
+        if (<#= boostraptablevar #>.datagrid('validateRow', editIndex)) {
+
+            var ed = <#= boostraptablevar #>.datagrid('getEditor', { index: editIndex, field: 'ProductId' });
+            var productname = $(ed.target).combobox('getText');
+            var productid = $(ed.target).combobox('getValue');
+          
+            <#= boostraptablevar #>.datagrid('getRows')[editIndex]['ProductName'] = productname;
+            <#= boostraptablevar #>.datagrid('getRows')[editIndex]['ProductId'] = productid;
+            <#= boostraptablevar #>.datagrid('endEdit', editIndex);
+            
+
+            <#= detailnamevar #>editIndex = undefined;
+
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+    function <#= detailnamevar #>_onClickCell(index, field) {
+        if (editIndex != index) {
+            if (endEditing()) {
+                <#= boostraptablevar #>.datagrid('selectRow', index)
+                        .datagrid('beginEdit', index);
+                var ed = <#= boostraptablevar #>.datagrid('getEditor', { index: index, field: field });
+                if (ed) {
+                    ($(ed.target).data('textbox') ? $(ed.target).textbox('textbox') : $(ed.target)).focus();
+                }
+                 <#= detailnamevar #>editIndex = index;
+            } else {
+                <#= boostraptablevar #>.datagrid('selectRow', editIndex);
+            }
+        }
+    }
+    function <#= detailnamevar #>_append() {
+        if (endEditing()) {
+            <#= boostraptablevar #>.datagrid('appendRow', { status: 'P' });
+            <#= detailnamevar #>editIndex = <#= boostraptablevar #>..datagrid('getRows').length - 1;
+            <#= boostraptablevar #>..datagrid('selectRow', editIndex)
+                    .datagrid('beginEdit', editIndex);
+        }
+    }
+    function <#= detailnamevar #>_removeit() {
+        if (editIndex == undefined) { return }
+        <#= boostraptablevar #>.datagrid('cancelEdit', editIndex)
+                .datagrid('deleteRow', editIndex);
+        <#= detailnamevar #>editIndex = undefined;
+    }
+   
+    function <#= detailnamevar #>_reject() {
+        <#= boostraptablevar #>.datagrid('rejectChanges');
+        <#= detailnamevar #>editIndex = undefined;
+    }
+    function <#= detailnamevar #>_getChanges() {
+        var rows = <#= boostraptablevar #>.datagrid('getChanges');
+        alert(rows.length + ' rows are changed!');
+    }
+
+
 
 	  <# } #>
 
@@ -335,7 +397,8 @@ foreach (PropertyMetadata subproperty in subproperties) {
 
 <#@ include file="ModelMetadataFunctions.cs.include.t4" #>
 <#+
-string OutputEditorTemplate(string typeName) {
+
+string OutputEditorTemplate (string typeName) {
         return( typeName=="DateTime" ? ", \"Date\"" : "");
 }
 

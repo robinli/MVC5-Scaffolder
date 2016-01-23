@@ -182,39 +182,7 @@
                 .datagrid('deleteRow', editIndex);
         editIndex = undefined;
     }
-    //function accept() {
-    //    if (endEditing()) {
-    //        if ($orderdetailstable.datagrid('getChanges').length) {
-    //            var inserted = $orderdetailstable.datagrid('getChanges', "inserted");
-    //            var deleted = $orderdetailstable.datagrid('getChanges', "deleted");
-    //            var updated = $orderdetailstable.datagrid('getChanges', "updated");
-    //            var effectRow = new Object();
-    //            if (inserted.length) {
-    //                effectRow.inserted = inserted;
-    //            }
-    //            if (deleted.length) {
-    //                effectRow.deleted = deleted;
-    //            }
-    //            if (updated.length) {
-    //                effectRow.updated = updated;
-    //            }
-    //            console.log(JSON.stringify(effectRow));
-    //            $.post("/Products/SaveData", effectRow, function (rsp) {
-    //                console.log(rsp);
-    //                if (rsp.Success) {
-    //                    $.messager.alert("提示", "提交成功！");
-    //                    $orderdetailstable.datagrid('acceptChanges');
-    //                }
-    //            }, "JSON").error(function () {
-    //                $.messager.alert("错误", "提交错误了！", 'error');
-
-    //            });
-
-    //        }
-
-    //        $orderdetailstable.datagrid('acceptChanges');
-    //    }
-    //}
+   
     function reject() {
         $orderdetailstable.datagrid('rejectChanges');
         editIndex = undefined;
@@ -223,6 +191,7 @@
         var rows = $orderdetailstable.datagrid('getChanges');
         alert(rows.length + ' rows are changed!');
     }
+
 
     $(function () {
 
