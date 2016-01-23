@@ -329,15 +329,25 @@ foreach (PropertyMetadata subproperty in subproperties) {
     function <#= detailnamevar #>_endEditing() {
         if (<#= detailnamevar #>editIndex == undefined) { return true }
         if (<#= boostraptablevar #>.datagrid('validateRow', editIndex)) {
+			<# 
+				RelatedModelMetadata[] relmodelms = submodelmetadata.RelatedEntities;
+				foreach(RelatedModelMetadata relmodelm in relmodelms) 
+                {
+					var fkeyname=relmodelm.ShortTypeName +  relmodelm.PrimaryKeyNames[0];
+					var fdispname = relmodelm.ShortTypeName + relmodelm.DisplayPropertyName;
 
-            var ed = <#= boostraptablevar #>.datagrid('getEditor', { index: editIndex, field: 'ProductId' });
-            var productname = $(ed.target).combobox('getText');
-            var productid = $(ed.target).combobox('getValue');
+			#>
+            var ed = <#= boostraptablevar #>.datagrid('getEditor', { index: editIndex, field: '<#= fkeyname #>' });
+            var <#= fdispname #> = $(ed.target).combobox('getText');
+            var <#= fkeyname #> = $(ed.target).combobox('getValue');
           
-            <#= boostraptablevar #>.datagrid('getRows')[editIndex]['ProductName'] = productname;
-            <#= boostraptablevar #>.datagrid('getRows')[editIndex]['ProductId'] = productid;
+            <#= boostraptablevar #>.datagrid('getRows')[editIndex]['<#= fdispname #>'] = <#= fdispname #>;
+            <#= boostraptablevar #>.datagrid('getRows')[editIndex]['<#= fkeyname #>'] = <#= fkeyname #>;
             <#= boostraptablevar #>.datagrid('endEdit', editIndex);
             
+			<# 
+                }
+			#>
 
             <#= detailnamevar #>editIndex = undefined;
 
