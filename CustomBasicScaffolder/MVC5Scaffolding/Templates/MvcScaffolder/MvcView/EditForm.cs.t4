@@ -408,10 +408,7 @@ foreach (PropertyMetadata subproperty in subproperties) {
 <#@ include file="ModelMetadataFunctions.cs.include.t4" #>
 <#+
 
-string OutputEditorTemplate (string typeName) {
-        return( typeName=="DateTime" ? ", \"Date\"" : "");
-}
-
+	;
 string OutputEditorTemplateOrFormAttributes(string typeName){
         return( typeName=="DateTime" ? ", \"Date\"" : ", new { htmlAttributes = new { @class = \"form-control\" } }" );
 }
