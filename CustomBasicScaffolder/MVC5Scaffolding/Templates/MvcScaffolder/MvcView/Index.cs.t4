@@ -142,7 +142,7 @@ foreach (PropertyMetadata property in properties) {
 		     <th data-options="field:'<#= property.PropertyName #>',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
 		<# } else if(fieldtypename=="int" || fieldtypename=="float"|| fieldtypename=="decimal") {
 		#>
-		     <th data-options="field:'<#=  property.PropertyName  #>',width:100,align:'right',editor:{type:'numberbox',options:{precision:2}}">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
+		     <th data-options="field:'<#=  property.PropertyName  #>',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
 		<# } else if(fieldtypename=="DateTime" ) {
 		#>
 		     <th data-options="field:'<#=  property.PropertyName  #>',width:160,align:'right',editor:{type:'datetimebox',options:{}}">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
@@ -255,7 +255,7 @@ foreach (PropertyMetadata property in properties) {
                         effectRow.updated = updated;
                     }
                     console.log(JSON.stringify(effectRow));
-                    $.post("/<#= modelName #>/SaveData", effectRow, function (rsp) {
+                    $.post("/<#= ControllerRootName #>/SaveData", effectRow, function (rsp) {
                         console.log(rsp);
                         if (rsp.Success) {
                             $.messager.alert("提示", "提交成功！");
@@ -282,7 +282,7 @@ foreach (PropertyMetadata property in properties) {
 
 
 		 $(function () {
-
+		  
            $dg.datagrid('enableFilter');
         })
      </script>

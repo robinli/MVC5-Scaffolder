@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace WebApp.Models
@@ -52,5 +53,13 @@ namespace WebApp.Models
         [Range(1, 100)]
         public decimal Score { get; set; }
 
+    }
+
+
+    public class WorkChangeViewModel
+    {
+        public IEnumerable<Work> inserted { get; set; }
+        public IEnumerable<Work> deleted { get; set; }
+        public IEnumerable<Work> updated { get; set; }
     }
 }

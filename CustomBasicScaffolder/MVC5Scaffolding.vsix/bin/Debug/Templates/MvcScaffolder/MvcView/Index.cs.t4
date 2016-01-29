@@ -196,10 +196,11 @@ foreach (PropertyMetadata property in properties) {
                 //console.log(1,$dg.datagrid('getRows')[editIndex]);
                 $dg.datagrid('getRows')[editIndex]['<#= reldisplayname #>'] =  <#= reldisplayname.ToLower() #>;
                 $dg.datagrid('getRows')[editIndex]['<#=  relForeignKey #>'] = <#= relForeignKey.ToLower() #>;
-                $dg.datagrid('endEdit', editIndex);
+                
                 //console.log(2,$dg.datagrid('getRows')[editIndex]);
 
 				<# } #>
+				$dg.datagrid('endEdit', editIndex);
                 editIndex = undefined;
 
                 
@@ -254,7 +255,7 @@ foreach (PropertyMetadata property in properties) {
                         effectRow.updated = updated;
                     }
                     console.log(JSON.stringify(effectRow));
-                    $.post("/Products/SaveData", effectRow, function (rsp) {
+                    $.post("/<#= ControllerRootName #>/SaveData", effectRow, function (rsp) {
                         console.log(rsp);
                         if (rsp.Success) {
                             $.messager.alert("提示", "提交成功！");
@@ -281,7 +282,7 @@ foreach (PropertyMetadata property in properties) {
 
 
 		 $(function () {
-
+		  
            $dg.datagrid('enableFilter');
         })
      </script>

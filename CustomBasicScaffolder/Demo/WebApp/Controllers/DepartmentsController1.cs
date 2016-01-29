@@ -2,7 +2,6 @@
 
 
 using System;
-using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -16,22 +15,17 @@ using WebApp.Models;
 using WebApp.Services;
 using WebApp.Repositories;
 using WebApp.Extensions;
-
+using PagedList;
 
 namespace WebApp.Controllers
 {
-    public class DepartmentsController : Controller
+    public class DepartmentsController1 : Controller
     {
-        
-        //Please RegisterType UnityConfig.cs
-        //container.RegisterType<IRepositoryAsync<Department>, Repository<Department>>();
-        //container.RegisterType<IDepartmentService, DepartmentService>();
-        
         //private StoreContext db = new StoreContext();
         private readonly IDepartmentService  _departmentService;
         private readonly IUnitOfWorkAsync _unitOfWork;
 
-        public DepartmentsController (IDepartmentService  departmentService, IUnitOfWorkAsync unitOfWork)
+        public DepartmentsController1 (IDepartmentService  departmentService, IUnitOfWorkAsync unitOfWork)
         {
             _departmentService  = departmentService;
             _unitOfWork = unitOfWork;
@@ -41,66 +35,25 @@ namespace WebApp.Controllers
         public ActionResult Index()
         {
             
-            //var departments  = _departmentService.Queryable().Include(d => d.Company).AsQueryable();
+            var departments  = _departmentService.Queryable().Include(d => d.Company).AsQueryable();
             
-             //return View(departments);
-			 return View();
+             return View(departments);
         }
 
         // Get :Departments/PageList
         // For Index View Boostrap-Table load  data 
         [HttpGet]
-        public ActionResult GetData(int page = 1, int rows = 10, string sort = "Id", string order = "asc", string filterRules = "")
+        public ActionResult PageList(int offset = 0, int limit = 10, string search = "", string sort = "", string order = "")
         {
-			var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
             int totalCount = 0;
-            //int pagenum = offset / limit +1;
-            			 
-            var departments  = _departmentService.Query(new DepartmentQuery().Withfilter(filters)).Include(d => d.Company).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(page, rows, out totalCount);
+            int pagenum = offset / limit +1;
+                        var departments  = _departmentService.Query(new DepartmentQuery().WithAnySearch(search)).Include(d => d.Company).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(pagenum, limit, out totalCount);
             
-                        var datarows = departments .Select(  n => new { CompanyName = (n.Company==null?"": n.Company.Name) , Id = n.Id , Name = n.Name , Manager = n.Manager , CompanyId = n.CompanyId }).ToList();
-            var pagelist = new { total = totalCount, rows = datarows };
+                        var rows = departments .Select(  n => new { CompanyName = n.Company.Name , Id = n.Id , Name = n.Name , Manager = n.Manager , CompanyId = n.CompanyId }).ToList();
+            var pagelist = new { total = totalCount, rows = rows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
 
-		[HttpPost]
-		public ActionResult SaveData(DepartmentChangeViewModel departments)
-        {
-            if (departments.updated != null)
-            {
-                foreach (var updated in departments.updated)
-                {
-                    _departmentService.Update(updated);
-                }
-            }
-            if (departments.deleted != null)
-            {
-                foreach (var deleted in departments.deleted)
-                {
-                    _departmentService.Delete(deleted);
-                }
-            }
-            if (departments.inserted != null)
-            {
-                foreach (var inserted in departments.inserted)
-                {
-                    _departmentService.Insert(inserted);
-                }
-            }
-            _unitOfWork.SaveChanges();
-
-            return Json(new {Success=true}, JsonRequestBehavior.AllowGet);
-        }
-
-				public ActionResult GetCompanies()
-        {
-            var companyRepository = _unitOfWork.Repository<Company>();
-            var data = companyRepository.Queryable().ToList();
-            var rows = data.Select(n => new { Id = n.Id, Name = n.Name });
-            return Json(rows, JsonRequestBehavior.AllowGet);
-        }
-		
-		
        
         // GET: Departments/Details/5
         public ActionResult Details(int? id)
@@ -254,7 +207,7 @@ namespace WebApp.Controllers
         {
             if (disposing)
             {
-                _unitOfWork.Dispose();
+                //_unitOfWork.Dispose();
             }
             base.Dispose(disposing);
         }

@@ -79,7 +79,7 @@ if (ReferenceScriptLibraries) {
 	var primaryKey = ModelMetadata.PrimaryKeys[0].PropertyName;
 #>
 <div class="row">
-            <div class="col-lg-7">
+            <div class="col-md-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5><#=  modelName #> form<small> create new <#=  modelName #></small></h5>
@@ -102,8 +102,7 @@ if (ReferenceScriptLibraries) {
                         </div>
                     </div>
                     <div class="ibox-content">
-                        <div class="row">
-							 <div class="col-sm-12 col-md-12">
+                 
 
 @using (Html.BeginForm()) 
 {
@@ -117,9 +116,9 @@ if (ReferenceScriptLibraries) {
 		
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
  
-		<div class="row">
+		 
         @Html.Partial("<#= ViewPrefix #>EditForm")
-		</div>
+	 
 		<div class="row">
         <div class="hr-line-dashed"></div>
                                 <div class="form-group">

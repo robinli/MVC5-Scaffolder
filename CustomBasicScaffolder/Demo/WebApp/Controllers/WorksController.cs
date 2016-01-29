@@ -2,6 +2,7 @@
 
 
 using System;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -15,12 +16,17 @@ using WebApp.Models;
 using WebApp.Services;
 using WebApp.Repositories;
 using WebApp.Extensions;
-using PagedList;
+
 
 namespace WebApp.Controllers
 {
     public class WorksController : Controller
     {
+        
+        //Please RegisterType UnityConfig.cs
+        //container.RegisterType<IRepositoryAsync<Work>, Repository<Work>>();
+        //container.RegisterType<IWorkService, WorkService>();
+        
         //private StoreContext db = new StoreContext();
         private readonly IWorkService  _workService;
         private readonly IUnitOfWorkAsync _unitOfWork;
@@ -35,23 +41,56 @@ namespace WebApp.Controllers
         public ActionResult Index()
         {
             
-            var works  = _workService.Queryable().AsQueryable();
-            return View(works  );
+            //var works  = _workService.Queryable().AsQueryable();
+            //return View(works  );
+			return View();
         }
 
         // Get :Works/PageList
         // For Index View Boostrap-Table load  data 
         [HttpGet]
-        public ActionResult PageList(int offset = 0, int limit = 10, string search = "", string sort = "", string order = "")
+        public ActionResult GetData(int page = 1, int rows = 10, string sort = "Id", string order = "asc", string filterRules = "")
         {
+			var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
             int totalCount = 0;
-            int pagenum = offset / limit +1;
-                        var works  = _workService.Query(new WorkQuery().WithAnySearch(search)).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(pagenum, limit, out totalCount);
-                        var rows = works .Select(  n => new {  Id = n.Id , Name = n.Name , Status = n.Status , StartDate = n.StartDate , EndDate = n.EndDate , Enableed = n.Enableed , Hour = n.Hour , Priority = n.Priority , Score = n.Score }).ToList();
-            var pagelist = new { total = totalCount, rows = rows };
+            //int pagenum = offset / limit +1;
+                        var works  = _workService.Query(new WorkQuery().Withfilter(filters)).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(page, rows, out totalCount);
+                        var datarows = works .Select(  n => new {  Name = n.Name , Status = n.Status , StartDate = n.StartDate , EndDate = n.EndDate , Enableed = n.Enableed , Hour = n.Hour , Priority = n.Priority , Score = n.Score }).ToList();
+            var pagelist = new { total = totalCount, rows = datarows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
 
+		[HttpPost]
+		public ActionResult SaveData(WorkChangeViewModel works)
+        {
+            if (works.updated != null)
+            {
+                foreach (var updated in works.updated)
+                {
+                    _workService.Update(updated);
+                }
+            }
+            if (works.deleted != null)
+            {
+                foreach (var deleted in works.deleted)
+                {
+                    _workService.Delete(deleted);
+                }
+            }
+            if (works.inserted != null)
+            {
+                foreach (var inserted in works.inserted)
+                {
+                    _workService.Insert(inserted);
+                }
+            }
+            _unitOfWork.SaveChanges();
+
+            return Json(new {Success=true}, JsonRequestBehavior.AllowGet);
+        }
+
+		
+		
        
         // GET: Works/Details/5
         public ActionResult Details(int? id)

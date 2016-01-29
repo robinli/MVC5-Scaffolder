@@ -219,9 +219,7 @@
     </Compile>
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\RoleMenusController.cs" />
-    <Compile Include="Controllers\WorksController.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Controllers\WorksController.cs" />
     <Compile Include="Extensions\filterRule.cs" />
     <Compile Include="Extensions\HtmlExtensions.cs" />
     <Compile Include="Extensions\LinqOrderByColumnsNameExtensions.cs" />
@@ -236,6 +234,10 @@
     <Compile Include="Migrations\201601290639496_dd.cs" />
     <Compile Include="Migrations\201601290639496_dd.Designer.cs">
       <DependentUpon>201601290639496_dd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601291059392_d.cs" />
+    <Compile Include="Migrations\201601291059392_d.Designer.cs">
+      <DependentUpon>201601291059392_d.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs">
       <SubType>Code</SubType>
@@ -297,12 +299,8 @@
     <Compile Include="Repositories\Products\ProductRepository.cs" />
     <Compile Include="Repositories\RoleMenus\RoleMenuQuery.cs" />
     <Compile Include="Repositories\RoleMenus\RoleMenuRepository.cs" />
-    <Compile Include="Repositories\Works\WorkQuery.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Repositories\Works\WorkRepository.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Repositories\Works\WorkQuery.cs" />
+    <Compile Include="Repositories\Works\WorkRepository.cs" />
     <Compile Include="Services\BaseCodes\BaseCodeService.cs" />
     <Compile Include="Services\BaseCodes\IBaseCodeService.cs" />
     <Compile Include="Services\Categories\CategoryService.cs" />
@@ -1014,16 +1012,7 @@
     <Content Include="Scripts\plugins\validate\jquery.validate.min.js" />
     <Content Include="Scripts\plugins\video\responsible-video.js" />
     <Content Include="Scripts\plugins\wow\wow.min.js" />
-    <Content Include="Views\Departments\Create.cshtml" />
-    <Content Include="Views\Departments\Edit.cshtml" />
-    <Content Include="Views\Departments\EditForm.cshtml" />
-    <Content Include="Views\Departments\Index.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Int.cshtml">
-      <SubType>Code</SubType>
-    </Content>
-    <Content Include="Views\Works\Create.cshtml" />
-    <Content Include="Views\Works\Edit.cshtml" />
-    <Content Include="Views\Works\EditForm.cshtml">
       <SubType>Code</SubType>
     </Content>
     <Content Include="Web.config" />
@@ -1100,7 +1089,6 @@
     <Content Include="Views\BaseCodes\Edit.cshtml" />
     <Content Include="Views\BaseCodes\EditForm.cshtml" />
     <Content Include="Views\BaseCodes\Index.cshtml" />
-    <Content Include="Views\Works\Index.cshtml" />
     <Content Include="Views\Companies\EditForm.cshtml" />
     <Content Include="Views\Categories\Index.cshtml" />
     <Content Include="Views\Categories\Create.cshtml" />
@@ -1116,11 +1104,6 @@
     <Content Include="Views\MenuItems\Index.cshtml" />
     <Content Include="Views\RoleMenus\_navMenuBar.cshtml" />
     <Content Include="Views\RoleMenus\Index.cshtml" />
-    <Content Include="Views\Categories1\Create.cshtml" />
-    <Content Include="Views\Categories1\Delete.cshtml" />
-    <Content Include="Views\Categories1\Details.cshtml" />
-    <Content Include="Views\Categories1\Edit.cshtml" />
-    <Content Include="Views\Categories1\Index.cshtml" />
     <Content Include="Views\Products\_PopupSearch.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
@@ -1150,6 +1133,15 @@
     <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\Companies\_PopupSearch.cshtml" />
     <Content Include="Views\Companies\Index.cshtml" />
+    <Content Include="Views\Departments\Index.cshtml" />
+    <Content Include="Views\Departments\Create.cshtml" />
+    <Content Include="Views\Departments\EditForm.cshtml" />
+    <Content Include="Views\Departments\Edit.cshtml" />
+    <Content Include="Views\Works\Index.cshtml" />
+    <Content Include="Views\Works\_PopupSearch.cshtml" />
+    <Content Include="Views\Works\Create.cshtml" />
+    <Content Include="Views\Works\Edit.cshtml" />
+    <Content Include="Views\Works\EditForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Source\Repository.Pattern.Ef6\Repository.Pattern.Ef6.csproj">
@@ -1171,6 +1163,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201601290639496_dd.resx">
       <DependentUpon>201601290639496_dd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601291059392_d.resx">
+      <DependentUpon>201601291059392_d.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
