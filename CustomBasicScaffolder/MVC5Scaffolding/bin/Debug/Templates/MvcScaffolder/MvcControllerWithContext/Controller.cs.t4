@@ -155,8 +155,8 @@ namespace <#= Namespace #>
             <#    } else { #>
             var <#= modelVariablePlural #>  = <#= modelServiceVar #>.Query(new <#= ModelTypeName #>Query().Withfilter(filters)).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(page, rows, out totalCount);
             <#    } #>
-            var rows = <#= modelVariablePlural #> .Select( <#= SelectLambdaText #>).ToList();
-            var pagelist = new { total = totalCount, rows = rows };
+            var datarows = <#= modelVariablePlural #> .Select( <#= SelectLambdaText #>).ToList();
+            var pagelist = new { total = totalCount, rows = datarows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
 

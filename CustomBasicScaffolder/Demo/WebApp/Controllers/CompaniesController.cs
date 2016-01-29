@@ -2,6 +2,7 @@
 
 
 using System;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -15,7 +16,7 @@ using WebApp.Models;
 using WebApp.Services;
 using WebApp.Repositories;
 using WebApp.Extensions;
-using PagedList;
+
 
 namespace WebApp.Controllers
 {
@@ -40,23 +41,56 @@ namespace WebApp.Controllers
         public ActionResult Index()
         {
             
-            var companies  = _companyService.Queryable().AsQueryable();
-            return View(companies  );
+            //var companies  = _companyService.Queryable().AsQueryable();
+            //return View(companies  );
+			return View();
         }
 
         // Get :Companies/PageList
         // For Index View Boostrap-Table load  data 
         [HttpGet]
-        public ActionResult PageList(int offset = 0, int limit = 10, string search = "", string sort = "", string order = "")
+        public ActionResult GetData(int page = 1, int rows = 10, string sort = "Id", string order = "asc", string filterRules = "")
         {
+			var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
             int totalCount = 0;
-            int pagenum = offset / limit +1;
-                        var companies  = _companyService.Query(new CompanyQuery().WithAnySearch(search)).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(pagenum, limit, out totalCount);
-                        var rows = companies .Select(  n => new {  Id = n.Id , Name = n.Name , Address = n.Address , City = n.City , Province = n.Province , RegisterDate = n.RegisterDate , Employees = n.Employees }).ToList();
-            var pagelist = new { total = totalCount, rows = rows };
+            //int pagenum = offset / limit +1;
+                        var companies  = _companyService.Query(new CompanyQuery().Withfilter(filters)).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(page, rows, out totalCount);
+                        var datarows = companies .Select(  n => new {  Id = n.Id , Name = n.Name , Address = n.Address , City = n.City , Province = n.Province , RegisterDate = n.RegisterDate , Employees = n.Employees }).ToList();
+            var pagelist = new { total = totalCount, rows = datarows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
 
+		[HttpPost]
+		public ActionResult SaveData(CompanyChangeViewModel companies)
+        {
+            if (companies.updated != null)
+            {
+                foreach (var updated in companies.updated)
+                {
+                    _companyService.Update(updated);
+                }
+            }
+            if (companies.deleted != null)
+            {
+                foreach (var deleted in companies.deleted)
+                {
+                    _companyService.Delete(deleted);
+                }
+            }
+            if (companies.inserted != null)
+            {
+                foreach (var inserted in companies.inserted)
+                {
+                    _companyService.Insert(inserted);
+                }
+            }
+            _unitOfWork.SaveChanges();
+
+            return Json(new {Success=true}, JsonRequestBehavior.AllowGet);
+        }
+
+		
+		
        
         // GET: Companies/Details/5
         public ActionResult Details(int? id)
@@ -90,19 +124,8 @@ namespace WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                             company.ObjectState = ObjectState.Added;   
-                                foreach (var item in company.Departments)
-                {
-					item.CompanyId = company.Id ;
-                    item.ObjectState = ObjectState.Added;
-                }
-                                foreach (var item in company.Employee)
-                {
-					item.CompanyId = company.Id ;
-                    item.ObjectState = ObjectState.Added;
-                }
-                                _companyService.InsertOrUpdateGraph(company);
-                            _unitOfWork.SaveChanges();
+             				_companyService.Insert(company);
+                           _unitOfWork.SaveChanges();
                 if (Request.IsAjaxRequest())
                 {
                     return Json(new { success = true }, JsonRequestBehavior.AllowGet);
@@ -144,26 +167,7 @@ namespace WebApp.Controllers
             if (ModelState.IsValid)
             {
                 company.ObjectState = ObjectState.Modified;
-                                                foreach (var item in company.Departments)
-                {
-					item.CompanyId = company.Id ;
-                    //set ObjectState with conditions
-                    if(item.Id <= 0)
-                        item.ObjectState = ObjectState.Added;
-                    else
-                        item.ObjectState = ObjectState.Modified;
-                }
-                                foreach (var item in company.Employee)
-                {
-					item.CompanyId = company.Id ;
-                    //set ObjectState with conditions
-                    if(item.Id <= 0)
-                        item.ObjectState = ObjectState.Added;
-                    else
-                        item.ObjectState = ObjectState.Modified;
-                }
-                      
-                _companyService.InsertOrUpdateGraph(company);
+                				_companyService.Update(company);
                                 
                 _unitOfWork.SaveChanges();
                 if (Request.IsAjaxRequest())
@@ -214,146 +218,8 @@ namespace WebApp.Controllers
         }
 
 
-        // Get Detail Row By Id For Edit
-        // Get : Companies/EditDepartment/:id
-        [HttpGet]
-        public ActionResult EditDepartment(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var departmentRepository = _unitOfWork.Repository<Department>();
-            var department = departmentRepository.Find(id);
-
-                        var companyRepository = _unitOfWork.Repository<Company>();             
-            
-            if (department == null)
-            {
-                            ViewBag.CompanyId = new SelectList(companyRepository.Queryable(), "Id", "Name" );
-                            
-                //return HttpNotFound();
-                return PartialView("_DepartmentEditForm", new Department());
-            }
-            else
-            {
-                            ViewBag.CompanyId = new SelectList(companyRepository.Queryable(), "Id", "Name" , department.CompanyId );  
-                             
-            }
-            return PartialView("_DepartmentEditForm",  department);
-
-        }
-        
-        // Get Create Row By Id For Edit
-        // Get : Companies/CreateDepartment
-        [HttpGet]
-        public ActionResult CreateDepartment()
-        {
-                        var companyRepository = _unitOfWork.Repository<Company>();    
-              ViewBag.CompanyId = new SelectList(companyRepository.Queryable(), "Id", "Name" );
-                      return PartialView("_DepartmentEditForm");
-
-        }
-
-        // Post Delete Detail Row By Id
-        // Get : Companies/DeleteDepartment/:id
-        [HttpPost,ActionName("DeleteDepartment")]
-        public ActionResult DeleteDepartmentConfirmed(int  id)
-        {
-            var departmentRepository = _unitOfWork.Repository<Department>();
-            departmentRepository.Delete(id);
-            _unitOfWork.SaveChanges();
-            if (Request.IsAjaxRequest())
-            {
-                return Json(new { success = true }, JsonRequestBehavior.AllowGet);
-            }
-            DisplaySuccessMessage("Has delete a Order record");
-            return RedirectToAction("Index");
-        }
-
-        // Get Detail Row By Id For Edit
-        // Get : Companies/EditEmployee/:id
-        [HttpGet]
-        public ActionResult EditEmployee(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var employeeRepository = _unitOfWork.Repository<Employee>();
-            var employee = employeeRepository.Find(id);
-
-                        var companyRepository = _unitOfWork.Repository<Company>();             
-            
-            if (employee == null)
-            {
-                            ViewBag.CompanyId = new SelectList(companyRepository.Queryable(), "Id", "Name" );
-                            
-                //return HttpNotFound();
-                return PartialView("_EmployeeEditForm", new Employee());
-            }
-            else
-            {
-                            ViewBag.CompanyId = new SelectList(companyRepository.Queryable(), "Id", "Name" , employee.CompanyId );  
-                             
-            }
-            return PartialView("_EmployeeEditForm",  employee);
-
-        }
-        
-        // Get Create Row By Id For Edit
-        // Get : Companies/CreateEmployee
-        [HttpGet]
-        public ActionResult CreateEmployee()
-        {
-                        var companyRepository = _unitOfWork.Repository<Company>();    
-              ViewBag.CompanyId = new SelectList(companyRepository.Queryable(), "Id", "Name" );
-                      return PartialView("_EmployeeEditForm");
-
-        }
-
-        // Post Delete Detail Row By Id
-        // Get : Companies/DeleteEmployee/:id
-        [HttpPost,ActionName("DeleteEmployee")]
-        public ActionResult DeleteEmployeeConfirmed(int  id)
-        {
-            var employeeRepository = _unitOfWork.Repository<Employee>();
-            employeeRepository.Delete(id);
-            _unitOfWork.SaveChanges();
-            if (Request.IsAjaxRequest())
-            {
-                return Json(new { success = true }, JsonRequestBehavior.AllowGet);
-            }
-            DisplaySuccessMessage("Has delete a Order record");
-            return RedirectToAction("Index");
-        }
-
        
 
-        // Get : Companies/GetDepartmentsByCompanyId/:id
-        [HttpGet]
-        public ActionResult GetDepartmentsByCompanyId(int id)
-        {
-            var departments = _companyService.GetDepartmentsByCompanyId(id);
-            if (Request.IsAjaxRequest())
-            {
-                return Json(departments.Select( n => new { CompanyName = n.Company.Name , Id = n.Id , Name = n.Name , Manager = n.Manager , CompanyId = n.CompanyId }),JsonRequestBehavior.AllowGet);
-            }  
-            return View(departments); 
-
-        }
-        // Get : Companies/GetEmployeeByCompanyId/:id
-        [HttpGet]
-        public ActionResult GetEmployeeByCompanyId(int id)
-        {
-            var employee = _companyService.GetEmployeeByCompanyId(id);
-            if (Request.IsAjaxRequest())
-            {
-                return Json(employee.Select( n => new { CompanyName = n.Company.Name , Id = n.Id , Name = n.Name , Sex = n.Sex , Age = n.Age , Brithday = n.Brithday.ToShortDateString() , CompanyId = n.CompanyId }),JsonRequestBehavior.AllowGet);
-            }  
-            return View(employee); 
-
-        }
  
 
         private void DisplaySuccessMessage(string msgText)

@@ -7,3 +7,12 @@ D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Dem
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Service.Pattern\obj\Debug\Service.Pattern.csprojResolveAssemblyReference.cache
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Service.Pattern\obj\Debug\Service.Pattern.dll
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Service.Pattern\obj\Debug\Service.Pattern.pdb
+D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Service.Pattern\bin\Debug\Service.Pattern.dll.config
+D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Service.Pattern\bin\Debug\Service.Pattern.dll
+D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Service.Pattern\bin\Debug\Service.Pattern.pdb
+D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Service.Pattern\bin\Debug\Repository.Pattern.dll
+D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Service.Pattern\bin\Debug\System.Net.Http.dll
+D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Service.Pattern\bin\Debug\Repository.Pattern.pdb
+D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Service.Pattern\obj\Debug\Service.Pattern.csprojResolveAssemblyReference.cache
+D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Service.Pattern\obj\Debug\Service.Pattern.dll
+D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Service.Pattern\obj\Debug\Service.Pattern.pdb
