@@ -293,7 +293,6 @@ D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\bin\D
 D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\bin\Debug\Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\Account\Register.cs.t4
 D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\bin\Debug\Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\BaseCode\Views\_CodeItemEditForm.cs.t4
 D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\bin\Debug\Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\BaseCode\Views\Create.cs.t4
-D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\bin\Debug\Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\BaseCode\Views\Edit.cs.t4
 D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\bin\Debug\Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\BaseCode\Views\EditForm.cs.t4
 D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\bin\Debug\Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\BaseCode\Views\Index.cs.t4
 D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\bin\Debug\Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\RoleManager\ManagementController.cs.t4

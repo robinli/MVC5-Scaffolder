@@ -108,13 +108,11 @@
     <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\Account\Register.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\BaseCode\Views\Edit.cs.t4" />
     <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\BaseCode\Views\_CodeItemEditForm.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\BaseCode\Views\Create.cs.t4">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\BaseCode\Views\Edit.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\BaseCode\Views\EditForm.cs.t4">

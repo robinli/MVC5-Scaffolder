@@ -21,7 +21,7 @@ using <#= DefaultNamespace #>.Extensions;
 
 namespace <#= DefaultNamespace #>.Controllers
 {
-    public class BaseCodesController : Controller
+    ppublic class BaseCodesController : Controller
     {
 
         //Please RegisterType UnityConfig.cs
@@ -42,21 +42,61 @@ namespace <#= DefaultNamespace #>.Controllers
         public ActionResult Index()
         {
 
-            var basecodes = _baseCodeService.Queryable().AsQueryable();
-            return View(basecodes);
+            //var basecodes  = _baseCodeService.Queryable().AsQueryable();
+            //return View(basecodes  );
+            return View();
         }
 
         // Get :BaseCodes/PageList
         // For Index View Boostrap-Table load  data 
         [HttpGet]
-        public ActionResult PageList(int offset = 0, int limit = 10, string search = "", string sort = "", string order = "")
+        public ActionResult GetData(int page = 1, int rows = 10, string sort = "Id", string order = "asc", string filterRules = "")
         {
+            var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
             int totalCount = 0;
-            int pagenum = offset / limit + 1;
-            var basecodes = _baseCodeService.Query(new BaseCodeQuery().WithAnySearch(search)).Include(n => n.CodeItems).OrderBy(n => n.OrderBy(sort, order)).SelectPage(pagenum, limit, out totalCount);
-            var rows = basecodes.Select(n => new { Id = n.Id, CodeType = n.CodeType, Description = n.Description, CodeItems = String.Join("", n.CodeItems.Select(x => String.Format("<br>Code:{0} Text:{1}", x.Code, x.Text))) }).ToList();
-            var pagelist = new { total = totalCount, rows = rows };
+            //int pagenum = offset / limit +1;
+            var basecodes = _baseCodeService.Query(new BaseCodeQuery().Withfilter(filters)).OrderBy(n => n.OrderBy(sort, order)).SelectPage(page, rows, out totalCount);
+            var datarows = basecodes.Select(n => new { Id = n.Id, CodeType = n.CodeType, Description = n.Description }).ToList();
+            var pagelist = new { total = totalCount, rows = datarows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult SaveData(BaseCodeChangeViewModel basecodes)
+        {
+            if (basecodes.updated != null)
+            {
+                foreach (var updated in basecodes.updated)
+                {
+                    _baseCodeService.Update(updated);
+                }
+            }
+            if (basecodes.deleted != null)
+            {
+                foreach (var deleted in basecodes.deleted)
+                {
+                    _baseCodeService.Delete(deleted);
+                }
+            }
+            if (basecodes.inserted != null)
+            {
+                foreach (var inserted in basecodes.inserted)
+                {
+                    _baseCodeService.Insert(inserted);
+                }
+            }
+            _unitOfWork.SaveChanges();
+
+            return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public ActionResult GetBaseCodes()
+        {
+            var basecodeRepository = _unitOfWork.Repository<BaseCode>();
+            var data = basecodeRepository.Queryable().ToList();
+            var rows = data.Select(n => new { Id = n.Id, CodeType = n.CodeType });
+            return Json(rows, JsonRequestBehavior.AllowGet);
         }
 
 
@@ -98,7 +138,6 @@ namespace <#= DefaultNamespace #>.Controllers
                     item.BaseCodeId = baseCode.Id;
                     item.ObjectState = ObjectState.Added;
                 }
-                
                 _baseCodeService.InsertOrUpdateGraph(baseCode);
                 _unitOfWork.SaveChanges();
                 if (Request.IsAjaxRequest())
@@ -269,22 +308,13 @@ namespace <#= DefaultNamespace #>.Controllers
             var codeitems = _baseCodeService.GetCodeItemsByBaseCodeId(id);
             if (Request.IsAjaxRequest())
             {
-                return Json(codeitems.Select(n => new { BaseCodeCodeType = n.BaseCode.CodeType, Id = n.Id, Code = n.Code, Text = n.Text, BaseCodeId = n.BaseCodeId }), JsonRequestBehavior.AllowGet);
+                return Json((codeitems==null?null:codeitems.Select(n => new { BaseCodeCodeType = (n.BaseCode == null ? "" : n.BaseCode.CodeType), Id = n.Id, Code = n.Code, Text = n.Text, BaseCodeId = n.BaseCodeId })), JsonRequestBehavior.AllowGet);
             }
             return View(codeitems);
 
         }
 
-        [HttpGet]
-        public ActionResult GetCodeItems(string codetype)
-        {
-            var items = _baseCodeService.GetCodeItemsByCodeType(codetype);
-            if (Request.IsAjaxRequest())
-            {
-                return Json(items.Select(n => new { Code = n.Code,  Text = n.Text }), JsonRequestBehavior.AllowGet);
-            }
-            return View(items);
-        }
+
         private void DisplaySuccessMessage(string msgText)
         {
             TempData["SuccessMessage"] = msgText;
