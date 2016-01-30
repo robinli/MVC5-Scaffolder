@@ -1,8 +1,6 @@
 ﻿
 
-
 using System;
-using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -20,18 +18,19 @@ using WebApp.Extensions;
 
 namespace WebApp.Controllers
 {
-    public class MenuItemsController : Controller
+     public class MenuItemsController1 : Controller
     {
 
         //Please RegisterType UnityConfig.cs
         //container.RegisterType<IRepositoryAsync<MenuItem>, Repository<MenuItem>>();
         //container.RegisterType<IMenuItemService, MenuItemService>();
 
-        //private StoreContext db = new StoreContext();
+        //private TmsAppContext db = new TmsAppContext();
         private readonly IMenuItemService _menuItemService;
         private readonly IUnitOfWorkAsync _unitOfWork;
 
-        public MenuItemsController(IMenuItemService menuItemService, IUnitOfWorkAsync unitOfWork)
+
+        public MenuItemsController1(IMenuItemService menuItemService, IUnitOfWorkAsync unitOfWork)
         {
             _menuItemService = menuItemService;
             _unitOfWork = unitOfWork;
@@ -41,65 +40,24 @@ namespace WebApp.Controllers
         public ActionResult Index()
         {
 
-            //var menuitems  = _menuItemService.Queryable().Include(m => m.Parent).AsQueryable();
+            var menuitems = _menuItemService.Queryable().Include(m => m.Parent).AsQueryable();
 
-            //return View(menuitems);
-            return View();
+            return View(menuitems);
         }
 
         // Get :MenuItems/PageList
         // For Index View Boostrap-Table load  data 
         [HttpGet]
-        public ActionResult GetData(int page = 1, int rows = 10, string sort = "Id", string order = "asc", string filterRules = "")
+        public ActionResult PageList(int offset = 0, int limit = 10, string search = "", string sort = "", string order = "")
         {
-            var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
             int totalCount = 0;
-            //int pagenum = offset / limit +1;
+            int pagenum = offset / limit + 1;
+            var menuitems = _menuItemService.Query(new MenuItemQuery().WithAnySearch(search)).Include(m => m.Parent).OrderBy(n => n.OrderBy(sort, order)).SelectPage(pagenum, limit, out totalCount);
 
-            var menuitems = _menuItemService.Query(new MenuItemQuery().Withfilter(filters)).Include(m => m.Parent).OrderBy(n => n.OrderBy(sort, order)).SelectPage(page, rows, out totalCount);
-
-            var datarows = menuitems.Select(n => new { ParentTitle = (n.Parent == null ? "" : n.Parent.Title), Id = n.Id, Title = n.Title, Description = n.Description, Code = n.Code, Url = n.Url, IsEnabled = n.IsEnabled, ParentId = n.ParentId }).ToList();
-            var pagelist = new { total = totalCount, rows = datarows };
+            var rows = menuitems.Select(n => new { ParentTitle = (n.Parent == null ? "" : n.Parent.Title), Id = n.Id, Title = n.Title, Description = n.Description, Code = n.Code, Url = n.Url, IsEnabled = n.IsEnabled, ParentId = n.ParentId }).ToList();
+            var pagelist = new { total = totalCount, rows = rows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
-
-        [HttpPost]
-        public ActionResult SaveData(MenuItemChangeViewModel menuitems)
-        {
-            if (menuitems.updated != null)
-            {
-                foreach (var updated in menuitems.updated)
-                {
-                    _menuItemService.Update(updated);
-                }
-            }
-            if (menuitems.deleted != null)
-            {
-                foreach (var deleted in menuitems.deleted)
-                {
-                    _menuItemService.Delete(deleted);
-                }
-            }
-            if (menuitems.inserted != null)
-            {
-                foreach (var inserted in menuitems.inserted)
-                {
-                    _menuItemService.Insert(inserted);
-                }
-            }
-            _unitOfWork.SaveChanges();
-
-            return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
-        }
-
-        public ActionResult GetMenuItems()
-        {
-            var menuitemRepository = _unitOfWork.Repository<MenuItem>();
-            var data = menuitemRepository.Queryable().ToList();
-            var rows = data.Select(n => new { Id = n.Id, Title = n.Title });
-            return Json(rows, JsonRequestBehavior.AllowGet);
-        }
-
 
 
         // GET: MenuItems/Details/5
@@ -122,6 +80,7 @@ namespace WebApp.Controllers
         public ActionResult Create()
         {
             MenuItem menuItem = new MenuItem();
+            menuItem.IsEnabled = true;
             //set default value
             var menuitemRepository = _unitOfWork.Repository<MenuItem>();
             ViewBag.ParentId = new SelectList(menuitemRepository.Queryable(), "Id", "Title");
@@ -271,7 +230,7 @@ namespace WebApp.Controllers
                 ViewBag.ParentId = new SelectList(menuitemRepository.Queryable(), "Id", "Title");
 
                 //return HttpNotFound();
-                return PartialView("_MenuItemEditForm", new MenuItem());
+                return PartialView("_MenuItemEditForm", new MenuItem() { IsEnabled = true });
             }
             else
             {

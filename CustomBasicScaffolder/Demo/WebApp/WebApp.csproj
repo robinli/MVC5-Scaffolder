@@ -231,21 +231,9 @@
     <Compile Include="Migrations\201503230120520_init.Designer.cs">
       <DependentUpon>201503230120520_init.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201601290639496_dd.cs" />
-    <Compile Include="Migrations\201601290639496_dd.Designer.cs">
-      <DependentUpon>201601290639496_dd.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201601291059392_d.cs" />
-    <Compile Include="Migrations\201601291059392_d.Designer.cs">
-      <DependentUpon>201601291059392_d.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201601300232375_base.cs" />
-    <Compile Include="Migrations\201601300232375_base.Designer.cs">
-      <DependentUpon>201601300232375_base.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201601300845113_dx.cs" />
-    <Compile Include="Migrations\201601300845113_dx.Designer.cs">
-      <DependentUpon>201601300845113_dx.cs</DependentUpon>
+    <Compile Include="Migrations\201601300856405_dx.cs" />
+    <Compile Include="Migrations\201601300856405_dx.Designer.cs">
+      <DependentUpon>201601300856405_dx.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs">
       <SubType>Code</SubType>
@@ -1100,11 +1088,11 @@
     <Content Include="Views\Categories\_PopupSearch.cshtml" />
     <Content Include="Views\Categories\_ProductEditForm.cshtml" />
     <Content Include="Views\Departments\_PopupSearch.cshtml" />
-    <Content Include="Views\MenuItems\_MenuItemEditForm.cshtml" />
-    <Content Include="Views\MenuItems\Create.cshtml" />
-    <Content Include="Views\MenuItems\Edit.cshtml" />
-    <Content Include="Views\MenuItems\EditForm.cshtml" />
-    <Content Include="Views\MenuItems\Index.cshtml" />
+    <Content Include="Views\MenuItems1\_MenuItemEditForm.cshtml" />
+    <Content Include="Views\MenuItems1\Create.cshtml" />
+    <Content Include="Views\MenuItems1\Edit.cshtml" />
+    <Content Include="Views\MenuItems1\EditForm.cshtml" />
+    <Content Include="Views\MenuItems1\Index.cshtml" />
     <Content Include="Views\RoleMenus\_navMenuBar.cshtml" />
     <Content Include="Views\RoleMenus\Index.cshtml" />
     <Content Include="Views\Products\_PopupSearch.cshtml" />
@@ -1151,6 +1139,12 @@
     <Content Include="Views\BaseCodes\EditForm.cshtml" />
     <Content Include="Views\BaseCodes\_PopupSearch.cshtml" />
     <Content Include="Views\BaseCodes\_CodeItemEditForm.cshtml" />
+    <Content Include="Views\MenuItems\Index.cshtml" />
+    <Content Include="Views\MenuItems\Create.cshtml" />
+    <Content Include="Views\MenuItems\Edit.cshtml" />
+    <Content Include="Views\MenuItems\EditForm.cshtml" />
+    <Content Include="Views\MenuItems\_PopupSearch.cshtml" />
+    <Content Include="Views\MenuItems\_MenuItemEditForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Source\Repository.Pattern.Ef6\Repository.Pattern.Ef6.csproj">
@@ -1170,17 +1164,8 @@
     <EmbeddedResource Include="Migrations\201503230120520_init.resx">
       <DependentUpon>201503230120520_init.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201601290639496_dd.resx">
-      <DependentUpon>201601290639496_dd.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201601291059392_d.resx">
-      <DependentUpon>201601291059392_d.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201601300232375_base.resx">
-      <DependentUpon>201601300232375_base.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201601300845113_dx.resx">
-      <DependentUpon>201601300845113_dx.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201601300856405_dx.resx">
+      <DependentUpon>201601300856405_dx.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

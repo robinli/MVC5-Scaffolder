@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace WebApp.Models
@@ -45,5 +46,13 @@ namespace WebApp.Models
         [Display(Name = "是否启用")]
         public bool IsEnabled { get; set; }
 
+    }
+
+
+    public class MenuItemChangeViewModel
+    {
+        public IEnumerable<MenuItem> inserted { get; set; }
+        public IEnumerable<MenuItem> deleted { get; set; }
+        public IEnumerable<MenuItem> updated { get; set; }
     }
 }
