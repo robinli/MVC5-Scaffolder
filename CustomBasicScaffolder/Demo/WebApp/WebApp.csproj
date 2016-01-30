@@ -318,6 +318,17 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\jsTree\docs.css" />
+    <Content Include="Content\jsTree\themes\default-dark\32px.png" />
+    <Content Include="Content\jsTree\themes\default-dark\40px.png" />
+    <Content Include="Content\jsTree\themes\default-dark\style.css" />
+    <Content Include="Content\jsTree\themes\default-dark\style.min.css" />
+    <Content Include="Content\jsTree\themes\default-dark\throbber.gif" />
+    <Content Include="Content\jsTree\themes\default\32px.png" />
+    <Content Include="Content\jsTree\themes\default\40px.png" />
+    <Content Include="Content\jsTree\themes\default\style.css" />
+    <Content Include="Content\jsTree\themes\default\style.min.css" />
+    <Content Include="Content\jsTree\themes\default\throbber.gif" />
     <Content Include="Content\sb-admin.css" />
     <Content Include="Properties\Angular\css\animate.css" />
     <Content Include="Properties\Angular\css\bootstrap.min.css" />
@@ -938,6 +949,8 @@
     <Content Include="Scripts\jquery-2.1.4.min.js" />
     <Content Include="Scripts\jquery-ui-1.10.4.min.js" />
     <Content Include="Scripts\jquery-ui.custom.min.js" />
+    <Content Include="Scripts\jsTree3\jstree.js" />
+    <Content Include="Scripts\jsTree3\jstree.min.js" />
     <Content Include="Scripts\plugins\blueimp\jquery.blueimp-gallery.min.js" />
     <Content Include="Scripts\plugins\chartist\chartist.min.js" />
     <Content Include="Scripts\plugins\chartJs\Chart.min.js" />
@@ -1088,11 +1101,6 @@
     <Content Include="Views\Categories\_PopupSearch.cshtml" />
     <Content Include="Views\Categories\_ProductEditForm.cshtml" />
     <Content Include="Views\Departments\_PopupSearch.cshtml" />
-    <Content Include="Views\MenuItems1\_MenuItemEditForm.cshtml" />
-    <Content Include="Views\MenuItems1\Create.cshtml" />
-    <Content Include="Views\MenuItems1\Edit.cshtml" />
-    <Content Include="Views\MenuItems1\EditForm.cshtml" />
-    <Content Include="Views\MenuItems1\Index.cshtml" />
     <Content Include="Views\RoleMenus\_navMenuBar.cshtml" />
     <Content Include="Views\RoleMenus\Index.cshtml" />
     <Content Include="Views\Products\_PopupSearch.cshtml" />

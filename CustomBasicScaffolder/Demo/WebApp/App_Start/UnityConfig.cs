@@ -92,6 +92,10 @@ namespace WebApp.App_Start
             container.RegisterType<IMenuItemService, MenuItemService>();
             container.RegisterType<IRepositoryAsync<MenuItem>, Repository<MenuItem>>();
 
+            container.RegisterType<IRepositoryAsync<RoleMenu>, Repository<RoleMenu>>();
+            container.RegisterType<IRoleMenuService, RoleMenuService>();
+            container.RegisterType<IRepositoryAsync<RoleMenu>, Repository<RoleMenu>>();
+
             //container.RegisterType<ICodeItemService, CodeItemService>();
             //container.RegisterType<IRepositoryAsync<Order>, Repository<Order>>();
             //container.RegisterType<IOrderService, OrderService>();

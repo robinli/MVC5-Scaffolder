@@ -1,0 +1,47 @@
+﻿@{
+    Layout = null;
+
+    ViewBag.Title = string.Format("jsTree 3.1.1 - {0}", ViewBag.Title);
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+
+    <link rel="stylesheet" href="http://static.jstree.com/3.0.0-beta5/assets/bootstrap/css/bootstrap.css" />
+    <link href="~/Content/jsTree/docs.css" rel="stylesheet" />
+    <link href="~/Content/jsTree/themes/default/style.css" rel="stylesheet"/>
+    <script src="~/Scripts/jquery-1.9.1.js"></script>
+    <script src="~/Scripts/jsTree3/jstree.js"></script>
+
+</head>
+<body>
+    <header id="head">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-12">
+                    <h1 id="logo"><a href="http://jstree.com">jsTree - jQuery tree plugin<span>3.1.1</span></a></h1>
+                </div>
+                <div class="col-md-6 col-sm-8">
+                    <nav>
+                        <ul class="nav nav-pills" id="menu"><li class="active"><li class="active"><a href="/jsTree3/Demo"> @ViewBag.Title</a></ul>
+</nav>
+                </div>
+                <div class="col-md-3 col-sm-4">
+
+                </div>
+            </div>
+        </div>
+    </header>
+    <div>
+        <div class="container" id="content">
+            <div class="row page" id="docs" style="display:block;">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+</body>
+</html>

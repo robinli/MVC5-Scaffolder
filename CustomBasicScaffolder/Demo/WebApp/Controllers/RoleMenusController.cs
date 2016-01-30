@@ -18,7 +18,7 @@ using WebApp.Extensions;
 
 namespace WebApp.Controllers
 {
-      [Authorize]
+     // [Authorize]
     public class RoleMenusController : Controller
     {
         //private ApplicationUserManager userManager;
@@ -78,6 +78,14 @@ namespace WebApp.Controllers
             var roles = new string[] { "admin" };
             var menus = _roleMenuService.RenderMenus(roles);
             return PartialView("_navMenuBar", menus);
+        }
+        public ActionResult GetMenuList()
+        {
+           var menus = _menuItemService.Queryable().Include(x => x.SubMenus).Where(x => x.IsEnabled);
+           var totalCount = menus.Count();
+           var datarows = menus.Select(x => new { Id = x.Id, Title = x.Title, Code = x.Code, _parentId = x.ParentId, Url = x.Url, Create = false, Edit = false, Delete = false });
+           var pagelist = new { total = totalCount, rows = datarows };
+           return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
         public ActionResult GetMenus(string roleName)
         {
