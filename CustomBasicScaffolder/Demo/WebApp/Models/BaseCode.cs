@@ -32,11 +32,12 @@ namespace WebApp.Models
     {
         [Key]
         public int Id { get; set; }
-         [MaxLength(20), Display(Name = "值"), Required(ErrorMessage = "必填"), Index(IsUnique = true)]
+         [MaxLength(20), Display(Name = "值"), Required(ErrorMessage = "必填"), Index("CodeItem_IX", 1, IsUnique = true)]
         public string Code { get; set; }
         [MaxLength(20), Display(Name = "显示"), Required(ErrorMessage = "必填")]
         public string Text { get; set; }
 
+        [Required(ErrorMessage = "必填"), Index("CodeItem_IX", 2,IsUnique = true)]
         public int BaseCodeId { get; set; }
         [ForeignKey("BaseCodeId")]
         public BaseCode BaseCode { get; set; }

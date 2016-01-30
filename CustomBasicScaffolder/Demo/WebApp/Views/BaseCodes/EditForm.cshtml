@@ -104,10 +104,10 @@
     function codeitems_endEditing() {
         if ( codeitemseditIndex == undefined) { return true }
         if ($codeitemsdatagrid.datagrid('validateRow', codeitemseditIndex)) {
+		 
             
             
-            
-            $codeitemsdatagrid.datagrid('endEdit', codeitemseditIndex);
+						$codeitemsdatagrid.datagrid('endEdit', codeitemseditIndex);
             codeitemseditIndex = undefined;
 
 
@@ -133,7 +133,7 @@
     }
     function codeitems_append() {
         if (codeitems_endEditing()) {
-            $codeitemsdatagrid.datagrid('appendRow', { status: 'P' });
+            $codeitemsdatagrid.datagrid('appendRow', {   });
             codeitemseditIndex = $codeitemsdatagrid.datagrid('getRows').length - 1;
             $codeitemsdatagrid.datagrid('selectRow', codeitemseditIndex )
                     .datagrid('beginEdit', codeitemseditIndex);
@@ -156,20 +156,18 @@
     }
 
 
-    $(function () {
-        $.get('/BaseCodes/GetCodeItemsByBaseCodeId/' + @Model.Id,function(data){
-            console.log(data);
+	  
+	$(function () {
+	
+		$.get('/BaseCodes/GetCodeItemsByBaseCodeId/' + @Model.Id,function(data){
+            //console.log(data);
             $codeitemsdatagrid.datagrid('loadData',data);
         
         })
 
 
-    });
-
-
-
-	  
-
+	
+	});
 </script>
 
 
