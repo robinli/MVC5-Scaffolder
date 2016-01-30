@@ -222,15 +222,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 , efMetadata: efMetadata
                 , overwrite: codeGeneratorViewModel.OverwriteViews);
             
-            //_ViewStart & Create _Layout
-            string viewRootPath = GetViewsFolderPath(selectionRelativePath);
-            if (codeGeneratorViewModel.LayoutPageSelected)
-            {
-                string areaName = GetAreaName(selectionRelativePath);
-                AddDependencyFile(project, viewRootPath, areaName);
-            }
-            // EditorTemplates, DisplayTemplates
-            AddDataFieldTemplates(project, viewRootPath);
+            
 
             var modelDisplayNames = new Dictionary<string, string>();
             foreach (var property in efMetadata.Properties)
@@ -240,7 +232,10 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                    modelDisplayNames = GetDisplayNames(property.RelatedModel.TypeName);
                 }
             }
-        
+
+            //_ViewStart & Create _Layout
+            string viewRootPath = GetViewsFolderPath(selectionRelativePath);
+
             // Views for  C.R.U.D 
             string viewFolderPath = Path.Combine(viewRootPath, controllerRootName);
             // Shared Layout Views
@@ -295,6 +290,15 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                         , codeGeneratorViewModel.OverwriteViews);
                 }
             }
+
+            
+            if (codeGeneratorViewModel.LayoutPageSelected)
+            {
+                string areaName = GetAreaName(selectionRelativePath);
+                AddDependencyFile(project, viewRootPath, areaName);
+            }
+            // EditorTemplates, DisplayTemplates
+            AddDataFieldTemplates(project, viewRootPath);
         }
 
         private bool HasRelatedMasterModel(Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata modelMdetadata, string propertyName)
@@ -805,18 +809,18 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 , templateParameters: templateParams
                 , skipIfExists: true);
 
-            // add sb_admin.css
-            viewName = "sb-admin";
-            outputPath = Path.Combine("Content", viewName);
-            templatePath = Path.Combine("MvcFullDependencyCodeGenerator", viewName);
-            templateParams = new Dictionary<string, object>(){
+            //// add sb_admin.css
+            //viewName = "sb-admin";
+            //outputPath = Path.Combine("Content", viewName);
+            //templatePath = Path.Combine("MvcFullDependencyCodeGenerator", viewName);
+            //templateParams = new Dictionary<string, object>(){
                
-            };
-            AddFileFromTemplate(project: project
-                , outputPath: outputPath
-                , templateName: templatePath
-                , templateParameters: templateParams
-                , skipIfExists: true);
+            //};
+            //AddFileFromTemplate(project: project
+            //    , outputPath: outputPath
+            //    , templateName: templatePath
+            //    , templateParameters: templateParams
+            //    , skipIfExists: true);
 
 
             //RoleManager

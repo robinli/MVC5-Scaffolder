@@ -1,6 +1,6 @@
-﻿
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace WebApp.Models
 {
@@ -11,19 +11,31 @@ namespace WebApp.Models
 
     public partial class BaseCodeMetadata
     {
+        [Display(Name = "CodeItems")]
+        public CodeItem CodeItems { get; set; }
+
         [Required(ErrorMessage = "Please enter : Id")]
         [Display(Name = "Id")]
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Please enter : 代码类型")]
-        [Display(Name = "代码类型")]
-        [MaxLength(20)]
+        [Required(ErrorMessage = "Please enter : 代码类")]
+        [Display(Name = "代码类")]
+        [MaxLength(30)]
         public string CodeType { get; set; }
 
-        [Required(ErrorMessage = "Please enter : 描述")]
         [Display(Name = "描述")]
-        [MaxLength(50)]
         public string Description { get; set; }
 
     }
+
+
+
+
+	public class BaseCodeChangeViewModel
+    {
+        public IEnumerable<BaseCode> inserted { get; set; }
+        public IEnumerable<BaseCode> deleted { get; set; }
+        public IEnumerable<BaseCode> updated { get; set; }
+    }
+
 }

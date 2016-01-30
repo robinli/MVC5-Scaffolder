@@ -170,7 +170,9 @@ if(IsLayoutPageSelected && ReferenceScriptLibraries && IsBundleConfigPresent) {
                     <# foreach(var item in OneToManyModelMetadata) {
                         var boostraptablevar = "$" + item.Key.ToLower()  + "datagrid";
                         var detailnamevar=item.Key.ToLower();
-                     #>                     
+                     #> 
+						if (!<#= detailnamevar #>_endEditing())
+								return false;                    
                         var <#= detailnamevar #> = <#= boostraptablevar #>.datagrid('getChanges');
                     <# } #>
                     

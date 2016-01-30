@@ -239,6 +239,10 @@
     <Compile Include="Migrations\201601291059392_d.Designer.cs">
       <DependentUpon>201601291059392_d.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201601300232375_base.cs" />
+    <Compile Include="Migrations\201601300232375_base.Designer.cs">
+      <DependentUpon>201601300232375_base.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -1012,6 +1016,7 @@
     <Content Include="Scripts\plugins\validate\jquery.validate.min.js" />
     <Content Include="Scripts\plugins\video\responsible-video.js" />
     <Content Include="Scripts\plugins\wow\wow.min.js" />
+    <Content Include="Views\BaseCodes\Create.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Int.cshtml">
       <SubType>Code</SubType>
     </Content>
@@ -1084,11 +1089,11 @@
     <Content Include="Views\Companies\Edit.cshtml" />
     <Content Include="Views\Companies\_DepartmentEditForm.cshtml" />
     <Content Include="Views\Companies\_EmployeeEditForm.cshtml" />
-    <Content Include="Views\BaseCodes\_CodeItemEditForm.cshtml" />
-    <Content Include="Views\BaseCodes\Create.cshtml" />
-    <Content Include="Views\BaseCodes\Edit.cshtml" />
-    <Content Include="Views\BaseCodes\EditForm.cshtml" />
-    <Content Include="Views\BaseCodes\Index.cshtml" />
+    <Content Include="Views\BaseCodes1\_CodeItemEditForm.cshtml" />
+    <Content Include="Views\BaseCodes1\Create.cshtml" />
+    <Content Include="Views\BaseCodes1\Edit.cshtml" />
+    <Content Include="Views\BaseCodes1\EditForm.cshtml" />
+    <Content Include="Views\BaseCodes1\Index.cshtml" />
     <Content Include="Views\Companies\EditForm.cshtml" />
     <Content Include="Views\Categories\Index.cshtml" />
     <Content Include="Views\Categories\Create.cshtml" />
@@ -1142,6 +1147,11 @@
     <Content Include="Views\Works\Create.cshtml" />
     <Content Include="Views\Works\Edit.cshtml" />
     <Content Include="Views\Works\EditForm.cshtml" />
+    <Content Include="Views\BaseCodes\Index.cshtml" />
+    <Content Include="Views\BaseCodes\_PopupSearch.cshtml" />
+    <Content Include="Views\BaseCodes\_CodeItemEditForm.cshtml" />
+    <Content Include="Views\BaseCodes\Edit.cshtml" />
+    <Content Include="Views\BaseCodes\EditForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Source\Repository.Pattern.Ef6\Repository.Pattern.Ef6.csproj">
@@ -1166,6 +1176,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201601291059392_d.resx">
       <DependentUpon>201601291059392_d.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601300232375_base.resx">
+      <DependentUpon>201601300232375_base.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
