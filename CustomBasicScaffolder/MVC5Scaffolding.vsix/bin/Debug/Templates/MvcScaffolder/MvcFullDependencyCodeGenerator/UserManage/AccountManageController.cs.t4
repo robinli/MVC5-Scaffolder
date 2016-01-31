@@ -14,6 +14,8 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 using <#= DefaultNamespace #>.Models;
 using <#= DefaultNamespace #>.Extensions;
 
