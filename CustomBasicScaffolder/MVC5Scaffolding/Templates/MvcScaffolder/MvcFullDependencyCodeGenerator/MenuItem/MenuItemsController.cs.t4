@@ -13,6 +13,7 @@ using System.Web;
 using System.Web.Mvc;
 using Repository.Pattern.UnitOfWork;
 using Repository.Pattern.Infrastructure;
+using Newtonsoft.Json;
 using <#= DefaultNamespace #>.Models;
 using <#= DefaultNamespace #>.Services;
 using <#= DefaultNamespace #>.Repositories;
