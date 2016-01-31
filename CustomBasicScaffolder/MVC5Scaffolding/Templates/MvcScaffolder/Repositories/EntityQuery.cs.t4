@@ -82,7 +82,8 @@ namespace <#=DefaultNamespace #>.Repositories
 					#>
 						if (rule.field == "<#= property.PropertyName  #>")
 						{
-							And(x => x.<#= property.PropertyName #> == Convert.ToInt32(rule.value));
+							int val = Convert.ToInt32(rule.value);
+							And(x => x.<#= property.PropertyName #> == val);
 						}
 				   <# 
 					   // end if

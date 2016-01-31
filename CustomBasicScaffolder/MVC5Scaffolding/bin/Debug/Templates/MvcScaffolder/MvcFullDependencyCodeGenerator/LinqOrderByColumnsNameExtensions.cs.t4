@@ -10,6 +10,14 @@ using System.Web;
 
 namespace <#= DefaultNamespace #>.Extensions
 {
+
+	 public class filterRule
+     {
+         public string field { get; set; }
+         public string op { get; set; }
+         public string value { get; set; }
+     }
+
      public static  class LinqOrderByColumnsNameExtensions
     {
         private static IOrderedQueryable<T> OrderingHelper<T>(IQueryable<T> source, string propertyName, bool descending, bool anotherLevel)
