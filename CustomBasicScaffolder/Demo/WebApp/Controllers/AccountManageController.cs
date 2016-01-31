@@ -13,10 +13,12 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using WebApp.Models;
 using WebApp.Extensions;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace WebApp.Controllers
 {
-    [Authorize]
+   // [Authorize]
     public class AccountManageController : Controller
     {
         private ApplicationUserManager _userManager;
@@ -69,6 +71,69 @@ namespace WebApp.Controllers
             var rows = datalist.Select(n => new { Id = n.Id, UserName = n.UserName, Email = n.Email, PhoneNumber = n.PhoneNumber, AccessFailedCount = n.AccessFailedCount, LockoutEnabled = n.LockoutEnabled, LockoutEndDateUtc = n.LockoutEndDateUtc }).ToList();
             var pagelist = new { total = totalCount, rows = rows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public ActionResult GetData(int page = 1, int rows = 10, string sort = "Id", string order = "asc", string filterRules = "")
+        {
+            var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
+            int totalCount = 0;
+
+            var users = _userManager.Users.OrderByName(sort, order);
+            if (filters != null)
+            {
+                foreach (var filter in filters)
+                {
+                    if (filter.field == "UserName")
+                    {
+                        users = users.Where(x => x.UserName.Contains(filter.value));
+                    }
+                    if (filter.field == "Email")
+                    {
+                        users = users.Where(x => x.Email.Contains(filter.value));
+                    }
+                    if (filter.field == "PhoneNumber")
+                    {
+                        users = users.Where(x => x.PhoneNumber.Contains(filter.value));
+                    }
+                }
+            }
+            totalCount = users.Count();
+            var datalist = users.Skip(page).Take(rows);
+            var datarows = datalist.Select(n => new { Id = n.Id, UserName = n.UserName, Email = n.Email, PhoneNumber = n.PhoneNumber, AccessFailedCount = n.AccessFailedCount, LockoutEnabled = n.LockoutEnabled, LockoutEndDateUtc = n.LockoutEndDateUtc }).ToList();
+            var pagelist = new { total = totalCount, rows = datarows };
+            return Json(pagelist, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult SaveData(UserChangeViewModel users)
+        {
+            if (users.updated != null)
+            {
+                foreach (var updated in users.updated)
+                {
+                    var user = new ApplicationUser { UserName = updated.UserName, Email = updated.Email };
+                    var result = UserManager.Update(user);
+                }
+            }
+            if (users.deleted != null)
+            {
+                foreach (var deleted in users.deleted)
+                {
+                    var user = new ApplicationUser { UserName = deleted.UserName, Email = deleted.Email };
+                    var result = UserManager.Delete(user);
+                }
+            }
+            if (users.inserted != null)
+            {
+                foreach (var inserted in users.inserted)
+                {
+                    var user = new ApplicationUser { UserName = inserted.UserName, Email = inserted.Email };
+                    var result =   UserManager.Create(user, "123456");
+                }
+            }
+           
+
+            return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]

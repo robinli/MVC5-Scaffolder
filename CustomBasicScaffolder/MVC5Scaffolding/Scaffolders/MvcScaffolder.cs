@@ -701,72 +701,72 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 , templateParameters: templateParams
                 , skipIfExists: true);
 
-            // add _ViewStart
-            viewName = "_Layout";
-            outputPath = Path.Combine(viewRootPath, "Shared", viewName);
-            templatePath = Path.Combine("MvcFullDependencyCodeGenerator", viewName);
-            templateParams = new Dictionary<string, object>(){
-                {"IsBundleConfigPresent", true}
-                , {"JQueryVersion",""}
-                , {"ModernizrVersion", ""}
-            };
-            AddFileFromTemplate(project: project
-                , outputPath: outputPath
-                , templateName: templatePath
-                , templateParameters: templateParams
-                , skipIfExists: true);
+            //// add _ViewStart
+            //viewName = "_Layout";
+            //outputPath = Path.Combine(viewRootPath, "Shared", viewName);
+            //templatePath = Path.Combine("MvcFullDependencyCodeGenerator", viewName);
+            //templateParams = new Dictionary<string, object>(){
+            //    {"IsBundleConfigPresent", true}
+            //    , {"JQueryVersion",""}
+            //    , {"ModernizrVersion", ""}
+            //};
+            //AddFileFromTemplate(project: project
+            //    , outputPath: outputPath
+            //    , templateName: templatePath
+            //    , templateParameters: templateParams
+            //    , skipIfExists: true);
 
-            // add _LoginLayout
-            viewName = "_LoginLayout";
-            outputPath = Path.Combine(viewRootPath, "Shared", viewName);
-            templatePath = Path.Combine("MvcFullDependencyCodeGenerator", viewName);
-            templateParams = new Dictionary<string, object>(){
-               {"DefaultNamespace", project.GetDefaultNamespace()}
-            };
-            AddFileFromTemplate(project: project
-                , outputPath: outputPath
-                , templateName: templatePath
-                , templateParameters: templateParams
-                , skipIfExists: true);
+            //// add _LoginLayout
+            //viewName = "_LoginLayout";
+            //outputPath = Path.Combine(viewRootPath, "Shared", viewName);
+            //templatePath = Path.Combine("MvcFullDependencyCodeGenerator", viewName);
+            //templateParams = new Dictionary<string, object>(){
+            //   {"DefaultNamespace", project.GetDefaultNamespace()}
+            //};
+            //AddFileFromTemplate(project: project
+            //    , outputPath: outputPath
+            //    , templateName: templatePath
+            //    , templateParameters: templateParams
+            //    , skipIfExists: true);
 
-            // add _SideNavBar
-            viewName = "_SideNavBar";
-            outputPath = Path.Combine(viewRootPath, "Shared", viewName);
-            templatePath = Path.Combine("MvcFullDependencyCodeGenerator", viewName);
-            templateParams = new Dictionary<string, object>(){
-               {"DefaultNamespace", project.GetDefaultNamespace()}
-            };
-            AddFileFromTemplate(project: project
-                , outputPath: outputPath
-                , templateName: templatePath
-                , templateParameters: templateParams
-                , skipIfExists: true);
+            //// add _SideNavBar
+            //viewName = "_SideNavBar";
+            //outputPath = Path.Combine(viewRootPath, "Shared", viewName);
+            //templatePath = Path.Combine("MvcFullDependencyCodeGenerator", viewName);
+            //templateParams = new Dictionary<string, object>(){
+            //   {"DefaultNamespace", project.GetDefaultNamespace()}
+            //};
+            //AddFileFromTemplate(project: project
+            //    , outputPath: outputPath
+            //    , templateName: templatePath
+            //    , templateParameters: templateParams
+            //    , skipIfExists: true);
 
-            // add _TopNavBar
-            viewName = "_TopNavBar";
-            outputPath = Path.Combine(viewRootPath, "Shared", viewName);
-            templatePath = Path.Combine("MvcFullDependencyCodeGenerator", viewName);
-            templateParams = new Dictionary<string, object>(){
-               {"DefaultNamespace", project.GetDefaultNamespace()}
-            };
-            AddFileFromTemplate(project: project
-                , outputPath: outputPath
-                , templateName: templatePath
-                , templateParameters: templateParams
-                , skipIfExists: true);
+            //// add _TopNavBar
+            //viewName = "_TopNavBar";
+            //outputPath = Path.Combine(viewRootPath, "Shared", viewName);
+            //templatePath = Path.Combine("MvcFullDependencyCodeGenerator", viewName);
+            //templateParams = new Dictionary<string, object>(){
+            //   {"DefaultNamespace", project.GetDefaultNamespace()}
+            //};
+            //AddFileFromTemplate(project: project
+            //    , outputPath: outputPath
+            //    , templateName: templatePath
+            //    , templateParameters: templateParams
+            //    , skipIfExists: true);
 
-            // add _LoginPartial
-            viewName = "_LoginPartial";
-            outputPath = Path.Combine(viewRootPath, "Shared", viewName);
-            templatePath = Path.Combine("MvcFullDependencyCodeGenerator", viewName);
-            templateParams = new Dictionary<string, object>(){
-               {"DefaultNamespace", project.GetDefaultNamespace()}
-            };
-            AddFileFromTemplate(project: project
-                , outputPath: outputPath
-                , templateName: templatePath
-                , templateParameters: templateParams
-                , skipIfExists: true);
+            //// add _LoginPartial
+            //viewName = "_LoginPartial";
+            //outputPath = Path.Combine(viewRootPath, "Shared", viewName);
+            //templatePath = Path.Combine("MvcFullDependencyCodeGenerator", viewName);
+            //templateParams = new Dictionary<string, object>(){
+            //   {"DefaultNamespace", project.GetDefaultNamespace()}
+            //};
+            //AddFileFromTemplate(project: project
+            //    , outputPath: outputPath
+            //    , templateName: templatePath
+            //    , templateParameters: templateParams
+            //    , skipIfExists: true);
 
 
             // add HtmlExtensions

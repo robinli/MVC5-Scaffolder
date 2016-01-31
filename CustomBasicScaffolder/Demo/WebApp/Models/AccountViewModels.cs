@@ -109,4 +109,19 @@ namespace WebApp.Models
         [Display(Name = "Email")]
         public string Email { get; set; }
     }
+
+
+    public class UserViewModel
+    {
+        public string UserName { get; set; }
+        public string Email { get; set; }
+        public string PhoneNumber { get; set; }
+    }
+
+    public class UserChangeViewModel
+    {
+        public IEnumerable<UserViewModel> inserted { get; set; }
+        public IEnumerable<UserViewModel> deleted { get; set; }
+        public IEnumerable<UserViewModel> updated { get; set; }
+    }
 }

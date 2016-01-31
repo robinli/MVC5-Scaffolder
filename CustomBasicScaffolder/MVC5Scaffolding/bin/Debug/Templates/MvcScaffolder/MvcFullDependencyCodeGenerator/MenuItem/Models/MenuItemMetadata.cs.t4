@@ -49,4 +49,10 @@ namespace <#= DefaultNamespace #>.Models
         public bool IsEnabled { get; set; }
 
     }
+	public class MenuItemChangeViewModel
+    {
+        public IEnumerable<MenuItem> inserted { get; set; }
+        public IEnumerable<MenuItem> deleted { get; set; }
+        public IEnumerable<MenuItem> updated { get; set; }
+    }
 }
