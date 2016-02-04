@@ -261,7 +261,7 @@
 														textField:'<#= relatedModel.DisplayPropertyName   #>',
 														method:'get',
 														url:'/<#= ControllerRootName #>/Get<#=  relatedModel.EntitySetName  #>',
-														required:true
+														required:false
 														}
 												}"> <#= GetDisplayName(foreignKeyPropertyName) #> </th>
 
@@ -275,7 +275,7 @@
 							<# } else if (fieldtypename=="int" || fieldtypename=="float"|| fieldtypename=="decimal") {  #>
 								<th data-options="field:'<#=  subproperty.PropertyName  #>',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}"> <#= GetDisplayName(subproperty.PropertyName) #> </th>
 							<# } else if(fieldtypename=="DateTime" ) {	#>
-								<th data-options="field:'<#=  subproperty.PropertyName  #>',width:160,align:'right',editor:{type:'datetimebox',options:{}}"> <#= GetDisplayName(subproperty.PropertyName) #></th>
+								<th data-options="field:'<#=  subproperty.PropertyName  #>',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}} ,formatter:dateformatter"> <#= GetDisplayName(subproperty.PropertyName) #></th>
 							<# } else { #>
 								<th data-options="field:'<#= subproperty.PropertyName #>',width:120,editor:'textbox' "> <#= GetDisplayName(subproperty.PropertyName) #></th>
 							<# } #>
