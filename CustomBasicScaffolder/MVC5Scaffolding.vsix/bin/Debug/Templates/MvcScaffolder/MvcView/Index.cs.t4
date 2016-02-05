@@ -283,7 +283,67 @@ foreach (PropertyMetadata property in properties) {
 
 		 $(function () {
 		  
-           $dg.datagrid('enableFilter');
+           $dg.datagrid('enableFilter',[
+		   <# 
+				foreach(var property in  ModelMetadata.Properties.Where(x=>x.ShortTypeName=="DateTime"))
+				{
+
+		   #>
+				{
+                      field: '<#= property.PropertyName #>',
+                      type: 'datebox',
+                      options: {
+                          onChange: function (value) {
+                              if (value == '') {
+                                  $dg.datagrid('removeFilterRule', '<#= property.PropertyName #>');
+                              } else {
+                                  $dg.datagrid('addFilterRule', {
+                                      field: '<#= property.PropertyName #>',
+                                      op: 'equal',
+                                      value: value
+                                  });
+                              }
+                              $dg.datagrid('doFilter');
+                          }
+                      }
+                  },
+		   <# 
+                }
+		   #>
+		   
+		   <# 
+			foreach(var property in  ModelMetadata.Properties.Where(x=>x.IsForeignKey==true))
+			{
+			   string foreignKeyPropertyName = property.PropertyName;
+			   RelatedModelMetadata relatedModel = GetRelatedModelMetadata(foreignKeyPropertyName,ModelMetadata);
+		   #>
+		   {
+				 field: '<#= foreignKeyPropertyName #>',
+				 type:'combobox',
+                 options:{
+                                valueField:'<#= relatedModel.PrimaryKeyNames[0]  #>',
+                                textField:'<#= relatedModel.DisplayPropertyName   #>',
+                                method:'get',
+                                url:'/<#= ControllerRootName #>/Get<#=  relatedModel.EntitySetName  #>',
+								onChange: function (value) {
+								if (value == '') {
+									$dg.datagrid('removeFilterRule', '<#=  foreignKeyPropertyName #>');
+								} else {
+									$dg.datagrid('addFilterRule', {
+										field: '<#=  foreignKeyPropertyName #>',
+									    op: 'equal',
+										value: value
+                                });
+                            }
+                            $dg.datagrid('doFilter');
+                        }
+					}
+		   },
+		   <# 
+			} 
+			#>
+		   
+		   ]);
         })
      </script>
 }

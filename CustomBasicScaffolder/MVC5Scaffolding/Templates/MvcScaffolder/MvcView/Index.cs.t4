@@ -192,12 +192,10 @@ foreach (PropertyMetadata property in properties) {
                 var ed = $dg.datagrid('getEditor', { index: editIndex, field: '<#= relForeignKey #>' });
                 var <#= reldisplayname.ToLower() #> = $(ed.target).combobox('getText');
                 var <#= relForeignKey.ToLower() #> = $(ed.target).combobox('getValue');
-                //console.log(categoryname, categoryid);
-                //console.log(1,$dg.datagrid('getRows')[editIndex]);
+               
                 $dg.datagrid('getRows')[editIndex]['<#= reldisplayname #>'] =  <#= reldisplayname.ToLower() #>;
                 $dg.datagrid('getRows')[editIndex]['<#=  relForeignKey #>'] = <#= relForeignKey.ToLower() #>;
-                
-                //console.log(2,$dg.datagrid('getRows')[editIndex]);
+ 
 
 				<# } #>
 				$dg.datagrid('endEdit', editIndex);
@@ -283,7 +281,67 @@ foreach (PropertyMetadata property in properties) {
 
 		 $(function () {
 		  
-           $dg.datagrid('enableFilter');
+           $dg.datagrid('enableFilter',[
+		   <# 
+				foreach(var property in  ModelMetadata.Properties.Where(x=>x.ShortTypeName=="DateTime"))
+				{
+
+		   #>
+				{
+                      field: '<#= property.PropertyName #>',
+                      type: 'datebox',
+                      options: {
+                          onChange: function (value) {
+                              if (value == '') {
+                                  $dg.datagrid('removeFilterRule', '<#= property.PropertyName #>');
+                              } else {
+                                  $dg.datagrid('addFilterRule', {
+                                      field: '<#= property.PropertyName #>',
+                                      op: 'equal',
+                                      value: value
+                                  });
+                              }
+                              $dg.datagrid('doFilter');
+                          }
+                      }
+                  },
+		   <# 
+                }
+		   #>
+		   
+		   <# 
+			foreach(var property in  ModelMetadata.Properties.Where(x=>x.IsForeignKey==true))
+			{
+			   string foreignKeyPropertyName = property.PropertyName;
+			   RelatedModelMetadata relatedModel = GetRelatedModelMetadata(foreignKeyPropertyName,ModelMetadata);
+		   #>
+		   {
+				 field: '<#= foreignKeyPropertyName #>',
+				 type:'combobox',
+                 options:{
+                                valueField:'<#= relatedModel.PrimaryKeyNames[0]  #>',
+                                textField:'<#= relatedModel.DisplayPropertyName   #>',
+                                method:'get',
+                                url:'/<#= ControllerRootName #>/Get<#=  relatedModel.EntitySetName  #>',
+								onChange: function (value) {
+								if (value == '') {
+									$dg.datagrid('removeFilterRule', '<#=  foreignKeyPropertyName #>');
+								} else {
+									$dg.datagrid('addFilterRule', {
+										field: '<#=  foreignKeyPropertyName #>',
+									    op: 'equal',
+										value: value
+                                });
+                            }
+                            $dg.datagrid('doFilter');
+                        }
+					}
+		   },
+		   <# 
+			} 
+			#>
+		   
+		   ]);
         })
      </script>
 }

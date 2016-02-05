@@ -62,7 +62,7 @@ namespace <#=DefaultNamespace #>.Repositories
                   <#
 					IEnumerable<PropertyMetadata> properties = ModelMetadata.Properties;
 				    foreach (PropertyMetadata property in properties) {
-						 if (property.Scaffold && !property.IsForeignKey) {
+						 if (property.Scaffold && property.IsForeignKey) {
 				  #>
 
 					<# 
@@ -93,8 +93,9 @@ namespace <#=DefaultNamespace #>.Repositories
 						if(property.ShortTypeName=="DateTime" ) {
 					#>
 						if (rule.field == "<#= property.PropertyName  #>")
-						{
-							And(x => x.<#= property.PropertyName #> .Value.Date == Convert.ToDateTime(rule.value).Date);
+						{	
+							var date = Convert.ToDateTime(rule.value) ;
+							And(x => SqlFunctions.DateDiff("d", date, x.<#= property.PropertyName #>)>0);
 						}
 				   <# 
 					   // end if
