@@ -192,12 +192,10 @@ foreach (PropertyMetadata property in properties) {
                 var ed = $dg.datagrid('getEditor', { index: editIndex, field: '<#= relForeignKey #>' });
                 var <#= reldisplayname.ToLower() #> = $(ed.target).combobox('getText');
                 var <#= relForeignKey.ToLower() #> = $(ed.target).combobox('getValue');
-                //console.log(categoryname, categoryid);
-                //console.log(1,$dg.datagrid('getRows')[editIndex]);
+               
                 $dg.datagrid('getRows')[editIndex]['<#= reldisplayname #>'] =  <#= reldisplayname.ToLower() #>;
                 $dg.datagrid('getRows')[editIndex]['<#=  relForeignKey #>'] = <#= relForeignKey.ToLower() #>;
-                
-                //console.log(2,$dg.datagrid('getRows')[editIndex]);
+ 
 
 				<# } #>
 				$dg.datagrid('endEdit', editIndex);
@@ -285,7 +283,7 @@ foreach (PropertyMetadata property in properties) {
 		  
            $dg.datagrid('enableFilter',[
 		   <# 
-				foreach(var property in  ModelMetadata.Properties.Where(x=>x.ShortTypeName=="DateTime"))
+				foreach(var property in  ModelMetadata.Properties.Where(x=>x.ShortTypeName=="DateTime" && x.Scaffold==true))
 				{
 
 		   #>
@@ -312,7 +310,7 @@ foreach (PropertyMetadata property in properties) {
 		   #>
 		   
 		   <# 
-			foreach(var property in  ModelMetadata.Properties.Where(x=>x.IsForeignKey==true))
+			foreach(var property in  ModelMetadata.Properties.Where(x=>x.IsForeignKey==true && x.Scaffold==true))
 			{
 			   string foreignKeyPropertyName = property.PropertyName;
 			   RelatedModelMetadata relatedModel = GetRelatedModelMetadata(foreignKeyPropertyName,ModelMetadata);
