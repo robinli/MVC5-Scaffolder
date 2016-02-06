@@ -29,7 +29,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-
+using System.Data.Entity.SqlServer;
 using Repository.Pattern.Repositories;
 using Repository.Pattern.Ef6;
 using <#= ModelNamespace #>;
@@ -62,7 +62,7 @@ namespace <#=DefaultNamespace #>.Repositories
                   <#
 					IEnumerable<PropertyMetadata> properties = ModelMetadata.Properties;
 				    foreach (PropertyMetadata property in properties) {
-						 if (property.Scaffold && property.IsForeignKey) {
+						 if (property.Scaffold && !property.IsAssociation) {
 				  #>
 
 					<# 
