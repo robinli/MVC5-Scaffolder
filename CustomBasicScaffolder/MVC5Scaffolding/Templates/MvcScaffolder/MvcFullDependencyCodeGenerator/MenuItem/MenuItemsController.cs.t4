@@ -326,6 +326,13 @@ namespace <#= DefaultNamespace #>.Controllers
 
         }
 
+		[HttpPost]
+        public ActionResult CreateWithController()
+        {
+            _menuItemService.CreateWithController();
+            _unitOfWork.SaveChanges();
+            return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
+        }
 
         private void DisplaySuccessMessage(string msgText)
         {

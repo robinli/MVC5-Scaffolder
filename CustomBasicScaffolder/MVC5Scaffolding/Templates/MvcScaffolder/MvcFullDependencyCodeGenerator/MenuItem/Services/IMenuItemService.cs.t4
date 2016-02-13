@@ -27,7 +27,7 @@ namespace <#= DefaultNamespace #>.Services
 
         IEnumerable<MenuItem> AllMenus();
 
-
+		 IEnumerable<MenuItem> CreateWithController();
 
 
 

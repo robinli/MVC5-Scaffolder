@@ -98,7 +98,8 @@
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">Accept</a>
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">Reject</a>
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="getChanges()">GetChanges</a>
-            </div>
+				<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-sitemap',plain:true" onclick="createWithController()">生成菜单</a>
+			</div>
 				</div>
 
             </div>
@@ -108,6 +109,20 @@
 @section Scripts {
     <script type="text/javascript">
          var $dg = $('#menuitems_datagrid');
+
+		 function createWithController() {
+            $.messager.progress({ title: '正在处理请耐心等待！' });
+            $.post('/MenuItems/CreateWithController', function (data, textStatus, jqXHR) {
+                //console.log(data);
+                $.messager.progress('close');
+                $.messager.alert("提示", "成功创建菜单！", 'info', function () {
+                    $dg.datagrid('reload');
+                });
+
+            });
+
+        }
+
 		 var editIndex = undefined;
         function endEditing() {
             if (editIndex == undefined) { return true }
@@ -183,6 +198,7 @@
                         if (rsp.Success) {
                             $.messager.alert("提示", "提交成功！");
                             $dg.datagrid('acceptChanges');
+							$dg.datagrid('reload');
                         }
                     }, "JSON").error(function () {
                         $.messager.alert("错误", "提交错误了！",'error');

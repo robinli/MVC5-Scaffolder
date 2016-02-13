@@ -201,6 +201,7 @@ foreach (PropertyMetadata property in properties) {
                             'swf': '/scripts/uploadify/uploadify.swf',
                             'uploader': '/FileUpload/Upload',
                             'buttonText': '选择EXCEL',
+							'uploadLimit' : 1,
                             'displayData': 'speed',
                             width: 120,
                             successTimeout: 100000,
@@ -211,7 +212,7 @@ foreach (PropertyMetadata property in properties) {
                             'onFallback' : function() {
                                 $.messager.progress('close');
                                 $.messager.alert('导入错误', '导入错误，请重试！<br>', 'error');
-                                $('#file_upload').uploadify('destroy')
+                                $('#file_upload').uploadify('cancel')
                             },
                             'onUploadStart': function () {
                                 $.messager.progress({ title: '正在处理请耐心等待！' });
@@ -221,11 +222,11 @@ foreach (PropertyMetadata property in properties) {
                             'onUploadError': function (file, errorCode, errorMsg, errorString) {
                                 $.messager.progress('close');
                                 $.messager.alert('导入错误', '导入错误，请修改后再倒入！<br>' + errorMsg, 'error');
-                                $('#file_upload').uploadify('destroy')
+                                $('#file_upload').uploadify('cancel')
                             },
                             'onUploadSuccess': function (file, data, response) {
                                 $.messager.progress('close');
-                                console.log(file, data, response);
+                                //console.log(file, data, response);
                                 $('#alert1').hide('normal');
                                 $('#alert2').hide('normal');
                                 $('#w').window('close');
@@ -234,7 +235,8 @@ foreach (PropertyMetadata property in properties) {
                                 if (data.success == "false") {
                                     $.messager.alert('导入错误', '导入错误，请修改后再倒入！<br>' + data.message, 'error');
                                 } else {
-                                    $.messager.alert('导入完成', '导入完成，请修改后再倒入！<br>', 'info');
+                                    $.messager.alert('导入完成', '导入完成！<br>', 'info');
+									$dg.datagrid('reload');
                                 }
                                 //alert('The file ' + file.name + ' was successfully uploaded with a response of ' + response + ':' + data);
                                 
@@ -329,6 +331,7 @@ foreach (PropertyMetadata property in properties) {
                         if (rsp.Success) {
                             $.messager.alert("提示", "提交成功！");
                             $dg.datagrid('acceptChanges');
+							$dg.datagrid('reload');
                         }
                     }, "JSON").error(function () {
                         $.messager.alert("错误", "提交错误了！",'error');
