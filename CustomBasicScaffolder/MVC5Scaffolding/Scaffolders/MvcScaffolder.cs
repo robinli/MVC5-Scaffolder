@@ -1047,6 +1047,21 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 , templateParameters: templateParams
                 , skipIfExists: true);
 
+           
+            // add MenuItemsController.cs
+            viewName = "FileUploadController";
+            outputPath = Path.Combine("Controllers", viewName);
+            templatePath = Path.Combine("MvcFullDependencyCodeGenerator\\MenuItem", viewName);
+            templateParams = new Dictionary<string, object>(){
+               {"DefaultNamespace", project.GetDefaultNamespace()}
+            };
+            AddFileFromTemplate(project: project
+                , outputPath: outputPath
+                , templateName: templatePath
+                , templateParameters: templateParams
+                , skipIfExists: true);
+
+
 
             var menitemviews = new string[] { "_MenuItemEditForm", "Create", "Edit", "EditForm", "Index" };
             foreach (string vname in menitemviews)
