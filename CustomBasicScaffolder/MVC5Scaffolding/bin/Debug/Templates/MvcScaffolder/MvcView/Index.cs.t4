@@ -147,8 +147,14 @@ foreach (PropertyMetadata property in properties) {
 		<# } else if(fieldtypename=="DateTime" ) {
 		#>
 		     <th data-options="field:'<#=  property.PropertyName  #>',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
+		<# } else if(fieldtypename=="bool" || fieldtypename=="Boolean" ){ #>
+			 <th data-options="field:'<#= property.PropertyName #>',width:120,editor: {type:'combobox'
+                                                ,options:{
+                                                panelHeight: 'auto',
+                                                data: [ { value: 'true', text: 'true' },{ value: 'false', text: 'false' } ],
+                                                required:true}}">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
 		<# } else { #>
-			 <th data-options="field:'<#= property.PropertyName #>',width:120,editor:'textbox' ">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
+			<th data-options="field:'<#= property.PropertyName #>',width:120,editor:'textbox' ">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
 		<# } #>
 
         <#            } #>
