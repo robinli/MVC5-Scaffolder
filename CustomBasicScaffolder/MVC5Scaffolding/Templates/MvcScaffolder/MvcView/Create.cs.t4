@@ -3,7 +3,7 @@
 <#@ include file="Imports.include.t4" #>
 @model <#= ViewDataTypeName #>
 <#
-	ProgramTitle =(string.IsNullOrEmpty(ProgramTitle)==true?ControllerRootName:ProgramTitle);
+	var PageTitle =(string.IsNullOrEmpty(ProgramTitle)==true?ControllerRootName:ProgramTitle);
 // "form-control" attribute is only supported for all EditorFor() in System.Web.Mvc 5.1.0.0 or later versions, except for checkbox, which uses a div in Bootstrap
 string boolType = "System.Boolean";
 Version requiredMvcVersion = new Version("5.1.0.0");
@@ -17,7 +17,7 @@ if(IsPartialView) {
 #>
 
 @{
-    ViewBag.Title = "<#= ProgramTitle #> | <#=  ViewName #>";
+    ViewBag.Title = "<#= PageTitle #> | <#=  ViewName #>";
 <#
 if (!String.IsNullOrEmpty(LayoutPageFile)) {
 #>
@@ -42,7 +42,7 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title><#= ProgramTitle #> | <#=  ViewName #></title>
+    <title><#= PageTitle #> | <#=  ViewName #></title>
 </head>
 <body>
 <#
@@ -83,7 +83,7 @@ if (ReferenceScriptLibraries) {
             <div class="col-md-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5><#=  ProgramTitle #> form<small> create new <#=  modelName #></small></h5>
+                        <h5><#=  PageTitle #> form<small> create new <#=  modelName #></small></h5>
                         <div class="ibox-tools">
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
