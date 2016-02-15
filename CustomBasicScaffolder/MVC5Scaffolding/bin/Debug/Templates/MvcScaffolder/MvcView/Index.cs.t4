@@ -6,6 +6,7 @@
 <#
     var modelVariable = ModelMetadata.EntitySetName.ToLower();
     var primaryKeyName = GetPrimaryKeyName(); 
+	ProgramTitle =(string.IsNullOrEmpty(ProgramTitle)==true?ControllerRootName:ProgramTitle);
 #>
 
 
@@ -19,7 +20,7 @@ if(IsPartialView) {
 #>
 
 @{
-    ViewBag.Title = "<#= ControllerRootName #>";
+    ViewBag.Title = "<#= ProgramTitle #>";
 <#
 if (!String.IsNullOrEmpty(LayoutPageFile)) {
 #>
@@ -43,7 +44,7 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title><#= ControllerRootName #></title>
+    <title><#= ProgramTitle #></title>
 </head>
 <body>
 <#
@@ -57,7 +58,7 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
     <div class="col-lg-12">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5><#=  modelName #> Data</h5>
+                <h5><#=  ProgramTitle #> Data</h5>
                 <div class="ibox-tools">
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
@@ -83,7 +84,7 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
                 <div class="table-responsive">
            
  
-       <table id="<#= modelVariable #>_datagrid" class="easyui-datagrid" title="<#= modelName #> DataGrid" style="width:auto;height:auto"
+       <table id="<#= modelVariable #>_datagrid" class="easyui-datagrid" title="<#= ProgramTitle #> DataGrid" style="width:auto;height:auto"
                    data-options="
                  rownumbers:true,
                  
