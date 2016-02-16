@@ -89,17 +89,29 @@ namespace <#=DefaultNamespace #>.Repositories
 					   // end if
 						} #>
 
-					 <# 
-						if(property.ShortTypeName=="DateTime" && !string.IsNullOrEmpty(rule.value)) {
+					<# 
+						if(property.ShortTypeName=="DateTime" ) {
 					#>
-						if (rule.field == "<#= property.PropertyName  #>")
+						if (rule.field == "<#= property.PropertyName  #>" && !string.IsNullOrEmpty(rule.value))
 						{	
 							var date = Convert.ToDateTime(rule.value) ;
 							And(x => SqlFunctions.DateDiff("d", date, x.<#= property.PropertyName #>)>0);
 						}
 				   <# 
-					   // end if
-						} #>
+					   } // end if
+				   #>
+
+				    <# 
+						if(property.ShortTypeName=="bool" || property.ShortTypeName=="Boolean") {
+					#>
+						if (rule.field == "<#= property.PropertyName  #>" && !string.IsNullOrEmpty(rule.value))
+						{	
+							 var boolval=Convert.ToBoolean(rule.value);
+							 And(x => x.<#= property.PropertyName #> == boolval);
+						}
+				   <# 
+					   } // end if
+				   #>
 				<# 
 					//end if end foreach  
 						 }

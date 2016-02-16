@@ -108,6 +108,36 @@
     <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\Account\Register.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\DataTableImport\DataTableImportMappingsController.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\DataTableImport\Models\DataTableImport.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\DataTableImport\Repositories\DataTableImportMappingQuery.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\DataTableImport\Repositories\DataTableImportMappingRepository.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\DataTableImport\Services\DataTableImportMappingService.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\DataTableImport\Services\IDataTableImportMappingService.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\DataTableImport\Views\Create.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\DataTableImport\Views\Edit.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\DataTableImport\Views\EditForm.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\DataTableImport\Views\Index.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\BaseCode\Views\Edit.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
