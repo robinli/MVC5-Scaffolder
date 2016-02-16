@@ -613,3 +613,4 @@ D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\
 D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\DataTableImport\Services\MappingService.cs.t4
 D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\DataTableImport\Services\IMappingService.cs.t4
 D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\DataTableImport\DataTableImportMappingsController.cs.t4
+D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Debug\MVC5Scaffolding.csprojResolveAssemblyReference.cache
