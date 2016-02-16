@@ -603,7 +603,6 @@ D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\MVC
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Debug\MVC5Scaffolding.pdb
 D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\BaseCode\Views\Edit.cs.t4
 D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\MenuItem\FileUploadController.cs.t4
-D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\DataTableImport\DataTableImportMappingsController.t4
 D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\DataTableImport\Models\DataTableImport.cs.t4
 D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\DataTableImport\Views\Create.cs.t4
 D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\DataTableImport\Views\Edit.cs.t4
@@ -613,3 +612,4 @@ D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\
 D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\DataTableImport\Repositories\MappingRepository.cs.t4
 D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\DataTableImport\Services\MappingService.cs.t4
 D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\DataTableImport\Services\IMappingService.cs.t4
+D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\DataTableImport\DataTableImportMappingsController.cs.t4
