@@ -68,7 +68,7 @@ namespace <#=DefaultNamespace #>.Repositories
 					<# 
 						if(property.ShortTypeName=="string") {
 					#>
-						if (rule.field == "<#= property.PropertyName  #>")
+						if (rule.field == "<#= property.PropertyName  #>"  && !string.IsNullOrEmpty(rule.value))
 						{
 							And(x => x.<#= property.PropertyName #>.Contains(rule.value));
 						}
@@ -80,7 +80,7 @@ namespace <#=DefaultNamespace #>.Repositories
 				    <# 
 						if(property.ShortTypeName=="int" || property.ShortTypeName=="float" || property.ShortTypeName=="decimal" || property.ShortTypeName=="double") {
 					#>
-						if (rule.field == "<#= property.PropertyName  #>")
+						if (rule.field == "<#= property.PropertyName  #>" && !string.IsNullOrEmpty(rule.value))
 						{
 							int val = Convert.ToInt32(rule.value);
 							And(x => x.<#= property.PropertyName #> == val);
@@ -90,7 +90,7 @@ namespace <#=DefaultNamespace #>.Repositories
 						} #>
 
 					 <# 
-						if(property.ShortTypeName=="DateTime" ) {
+						if(property.ShortTypeName=="DateTime" && !string.IsNullOrEmpty(rule.value)) {
 					#>
 						if (rule.field == "<#= property.PropertyName  #>")
 						{	
