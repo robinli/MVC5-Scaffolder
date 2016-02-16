@@ -35,16 +35,21 @@ using Service.Pattern;
 
 using <#= ModelNamespace #>;
 using <#= DefaultNamespace #>.Repositories;
+
+using System.Data;
+
 namespace <#=DefaultNamespace #>.Services
 {
     public class <#= ModelName #>Service : Service< <#= ModelName #> >, I<#= ModelName #>Service
     {
 
         private readonly IRepositoryAsync<<#= ModelName #>> _repository;
-        public  <#= ModelName #>Service(IRepositoryAsync< <#= ModelName #>> repository)
+		 private readonly IDataTableImportMappingService _mappingservice;
+        public  <#= ModelName #>Service(IRepositoryAsync< <#= ModelName #>> repository,IDataTableImportMappingService mappingservice)
             : base(repository)
         {
             _repository=repository;
+			_mappingservice = mappingservice;
         }
         
         <# 
@@ -81,6 +86,31 @@ namespace <#=DefaultNamespace #>.Services
         }
         #> 
         
+
+		public void ImportDataTable(System.Data.DataTable datatable)
+        {
+            foreach (DataRow row in datatable.Rows)
+            {
+                 
+                <#= ModelName #> item = new <#= ModelName #>();
+                foreach (DataColumn col in datatable.Columns)
+                {
+                    var sourcefieldname = col.ColumnName;
+                    var mapping = _mappingservice.FindMapping("<#= ModelName #>", sourcefieldname);
+                    if (mapping != null && row[sourcefieldname] != DBNull.Value)
+                    {
+                        
+                        Type <#= ModelName.ToLower() #>type = item.GetType();
+                        <#= ModelName.ToLower() #>type.GetProperty(mapping.FieldName).SetValue(item, row[sourcefieldname]);
+                    }
+
+                }
+                
+                this.Insert(item);
+               
+
+            }
+        }
     }
 }
 
