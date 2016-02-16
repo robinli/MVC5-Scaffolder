@@ -34,6 +34,7 @@ using Repository.Pattern.Repositories;
 using Service.Pattern;
 using <#= ModelNamespace #>;
 using <#= DefaultNamespace #>.Repositories;
+using System.Data;
 
 namespace <#=DefaultNamespace #>.Services
 {
@@ -70,5 +71,6 @@ namespace <#=DefaultNamespace #>.Services
         }
         #> 
  
+		void ImportDataTable(DataTable datatable);
 	}
 }
