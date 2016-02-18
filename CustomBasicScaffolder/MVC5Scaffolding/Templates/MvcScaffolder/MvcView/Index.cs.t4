@@ -210,8 +210,9 @@ foreach (PropertyMetadata property in properties) {
                             'buttonText': '选择EXCEL',
 							'uploadLimit' : 1,
                             'displayData': 'speed',
-                            width: 120,
-                            successTimeout: 100000,
+							'formData': { 'modelType': '<#= ModelTypeName  #>' },
+                            'width': 120,
+                            'successTimeout': 100000,
                             'onUploadComplete': function (file) {
                                 $('#alert1').hide('normal');
                                 $('#alert2').show('normal');
@@ -332,7 +333,7 @@ foreach (PropertyMetadata property in properties) {
                     if (updated.length) {
                         effectRow.updated = updated;
                     }
-                    console.log(JSON.stringify(effectRow));
+                    //console.log(JSON.stringify(effectRow));
                     $.post("/<#= ControllerRootName #>/SaveData", effectRow, function (rsp) {
                         console.log(rsp);
                         if (rsp.Success) {
