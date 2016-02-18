@@ -101,7 +101,9 @@ namespace <#=DefaultNamespace #>.Services
                     {
                         
                         Type <#= ModelName.ToLower() #>type = item.GetType();
-                        <#= ModelName.ToLower() #>type.GetProperty(mapping.FieldName).SetValue(item, row[sourcefieldname]);
+						PropertyInfo propertyInfo = <#= ModelName.ToLower() #>type.GetProperty(mapping.FieldName);
+						propertyInfo.SetValue(item, Convert.ChangeType(row[sourcefieldname], propertyInfo.PropertyType), null);
+                        //<#= ModelName.ToLower() #>type.GetProperty(mapping.FieldName).SetValue(item, row[sourcefieldname]);
                     }
 
                 }
