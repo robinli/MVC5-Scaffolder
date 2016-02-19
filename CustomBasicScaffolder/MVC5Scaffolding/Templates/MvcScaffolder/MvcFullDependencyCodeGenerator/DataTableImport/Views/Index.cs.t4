@@ -45,6 +45,9 @@
 
                     <table id="datatableimportmappings_datagrid" class="easyui-datagrid" title="Excel导入配置 DataGrid" style="width:auto;height:auto"
                            data-options="
+						     idField:'Id',
+                            sortName:'Id',
+                            sortorder:'asc',
                  rownumbers:true,
                  remoteFilter: true,
                 singleSelect: true,

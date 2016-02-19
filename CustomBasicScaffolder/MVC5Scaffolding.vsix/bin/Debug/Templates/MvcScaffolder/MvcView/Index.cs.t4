@@ -87,7 +87,9 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
        <table id="<#= modelVariable #>_datagrid" class="easyui-datagrid" title="<#= PageTitle #> DataGrid" style="width:auto;height:auto"
                    data-options="
                  rownumbers:true,
-                 
+                 idField:'<#= primaryKeyName #>',
+                 sortName:'<#= primaryKeyName #>',
+                 sortorder:'asc',
                 remoteFilter: true,
                 singleSelect: true,
                 toolbar: '#<#= modelVariable  #>_toolbar',
@@ -114,12 +116,12 @@ foreach (PropertyMetadata property in properties) {
         //}
 #>
         <# if ( property.IsPrimaryKey || property.IsReadOnly) { #>
-			<th data-options="field:'<#= property.PropertyName  #>',width:80">@Html.DisplayNameFor(model => model.<#=  property.PropertyName #>)</th>
+			<th data-options="field:'<#= property.PropertyName  #>',width:80 ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.<#=  property.PropertyName #>)</th>
         <# } else if (property.IsForeignKey) { 
 			   string foreignKeyPropertyName = property.PropertyName;
 			   RelatedModelMetadata relatedModel = GetRelatedModelMetadata(foreignKeyPropertyName,ModelMetadata);
 		#>
-			<th data-options="field:'<#= foreignKeyPropertyName  #>',width:100,
+			<th data-options="field:'<#= foreignKeyPropertyName  #>',width:100,sortable:true,resizable:true, 
                         formatter:function(value,row){
                             return row.<#= GetRelatedDisplayNameExpression(foreignKeyPropertyName,ModelMetadata)  #>;
                         },
@@ -140,13 +142,13 @@ foreach (PropertyMetadata property in properties) {
 		<#
 			if(fieldtypename=="string") {
 		#>
-		     <th data-options="field:'<#= property.PropertyName #>',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
+		     <th data-options="field:'<#= property.PropertyName #>',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
 		<# } else if(fieldtypename=="int" || fieldtypename=="float"|| fieldtypename=="decimal") {
 		#>
-		     <th data-options="field:'<#=  property.PropertyName  #>',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
+		     <th data-options="field:'<#=  property.PropertyName  #>',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
 		<# } else if(fieldtypename=="DateTime" ) {
 		#>
-		     <th data-options="field:'<#=  property.PropertyName  #>',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}} ,formatter:dateformatter">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
+		     <th data-options="field:'<#=  property.PropertyName  #>',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
 		<# } else if(fieldtypename=="bool" || fieldtypename=="Boolean" ){ #>
 			 <th data-options="field:'<#= property.PropertyName #>',width:120,editor: {type:'combobox'
                                                 ,options:{
@@ -154,7 +156,7 @@ foreach (PropertyMetadata property in properties) {
                                                 data: [ { value: 'true', text: 'true' },{ value: 'false', text: 'false' } ],
                                                 required:true}}">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
 		<# } else { #>
-			<th data-options="field:'<#= property.PropertyName #>',width:120,editor:'textbox' ">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
+			<th data-options="field:'<#= property.PropertyName #>',width:120,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
 		<# } #>
 
         <#            } #>
