@@ -37,7 +37,7 @@ using <#= ModelNamespace #>;
 using <#= DefaultNamespace #>.Repositories;
 
 using System.Data;
-
+using System.Reflection;
 namespace <#=DefaultNamespace #>.Services
 {
     public class <#= ModelName #>Service : Service< <#= ModelName #> >, I<#= ModelName #>Service
