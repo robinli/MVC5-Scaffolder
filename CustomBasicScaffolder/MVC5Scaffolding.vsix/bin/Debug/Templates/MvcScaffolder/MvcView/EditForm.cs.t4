@@ -272,9 +272,18 @@
 								if(fieldtypename=="string") {
 							#>
 								<th data-options="field:'<#= subproperty.PropertyName #>',width:140,editor:{type:'textbox',options:{required:false} } "> <#= GetDisplayName(subproperty.PropertyName) #></th>
-							<# } else if (fieldtypename=="int" || fieldtypename=="float"|| fieldtypename=="decimal") {  #>
-								<th data-options="field:'<#=  subproperty.PropertyName  #>',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}"> <#= GetDisplayName(subproperty.PropertyName) #> </th>
-							<# } else if(fieldtypename=="DateTime" ) {	#>
+							<# } else if(fieldtypename=="int" || fieldtypename=="float"|| fieldtypename=="decimal") {
+									if(property.PropertyName=="Status") {
+						    #>
+								<th data-options="field:'<#= property.PropertyName #>',width:100,align:'right',
+                                                 editor:{ type:'combobox',
+                                                 options:{
+                                                    panelHeight: 'auto',
+                                                    data: [ { value: '0', text: '启用' },{ value: '1', text: '禁用' } ],
+                                                    required:true } }  ,formatter:statusformatter">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
+							<#   } else {#>
+									<th data-options="field:'<#=  property.PropertyName  #>',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
+							<#   }   } else if(fieldtypename=="DateTime" ) { #>
 								<th data-options="field:'<#=  subproperty.PropertyName  #>',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}} ,formatter:dateformatter"> <#= GetDisplayName(subproperty.PropertyName) #></th>
 							<# } else if(fieldtypename=="bool" || fieldtypename=="Boolean" ){ #>
 								<th data-options="field:'<#= subproperty.PropertyName #>',width:120,editor: {type:'combobox'
