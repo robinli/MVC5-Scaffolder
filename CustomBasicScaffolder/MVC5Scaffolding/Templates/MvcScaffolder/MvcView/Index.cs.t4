@@ -152,7 +152,7 @@ foreach (PropertyMetadata property in properties) {
                                                     panelHeight: 'auto',
                                                     data: [ { value: '0', text: '启用' },{ value: '1', text: '禁用' } ],
                                                     required:true } }  ,formatter:statusformatter">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
-		<#   } else {#>
+		<#   } else {  #>
 		     <th data-options="field:'<#=  property.PropertyName  #>',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
 		<#   }   } else if(fieldtypename=="DateTime" ) {
 		#>
