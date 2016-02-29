@@ -132,7 +132,7 @@ foreach (PropertyMetadata property in properties) {
                                 textField:'<#= relatedModel.DisplayPropertyName   #>',
                                 method:'get',
                                 url:'/<#= ControllerRootName #>/Get<#=  relatedModel.EntitySetName  #>',
-                                required:false
+                                required:true
                             }
                         }">@Html.DisplayNameFor(model => model.<#= foreignKeyPropertyName #>)</th>
 
@@ -156,7 +156,7 @@ foreach (PropertyMetadata property in properties) {
 		     <th data-options="field:'<#=  property.PropertyName  #>',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
 		<#   }   } else if(fieldtypename=="DateTime" ) {
 		#>
-		     <th data-options="field:'<#=  property.PropertyName  #>',width:160,align:'right',editor:{type:'datetimebox',options:{required:false}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
+		     <th data-options="field:'<#=  property.PropertyName  #>',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
 		<# } else if(fieldtypename=="bool" || fieldtypename=="Boolean" ){ #>
 			 <th data-options="field:'<#= property.PropertyName #>',width:120,editor: {type:'combobox'
                                                 ,options:{
@@ -315,7 +315,7 @@ foreach (PropertyMetadata property in properties) {
         }
         function append() {
             if (endEditing()) {
-                $dg.datagrid('appendRow', { status: 'P' });
+                $dg.datagrid('appendRow', { Status: 0 });
                 editIndex = $dg.datagrid('getRows').length - 1;
                 $dg.datagrid('selectRow', editIndex)
                         .datagrid('beginEdit', editIndex);
