@@ -147,11 +147,19 @@ foreach (PropertyMetadata property in properties) {
 		     if(property.PropertyName=="Status") {
 		#>
 			 <th data-options="field:'<#= property.PropertyName #>',width:100,align:'right',
-                                                 editor:{ type:'combobox',
+                                                editor:{ type:'combobox',
                                                  options:{
                                                     panelHeight: 'auto',
                                                     data: [ { value: '0', text: '启用' },{ value: '1', text: '禁用' } ],
-                                                    required:true } }  ,formatter:statusformatter">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
+                                                    required:true } 
+                                                 },
+                                                 formatter: function(value,row,index){
+				                                        if (value == 0) {
+                                                            return '启用';
+                                                        } else {
+                                                            return '禁用';
+                                                        }
+			                                     }">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
 		<#   } else {  #>
 		     <th data-options="field:'<#=  property.PropertyName  #>',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
 		<#   }   } else if(fieldtypename=="DateTime" ) {
