@@ -307,6 +307,10 @@ foreach (PropertyMetadata property in properties) {
             }
         }
         function onClickCell(index, field) {
+			var _operates = ["_operate1", "_operate2", "_operate3", "ck"]
+            if ($.inArray(field, _operates) >= 0) {
+                return;
+            }
             if (editIndex != index) {
                 if (endEditing()) {
                     $dg.datagrid('selectRow', index)
