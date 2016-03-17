@@ -87,6 +87,8 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
        <table id="<#= modelVariable #>_datagrid" class="easyui-datagrid" title="<#= PageTitle #> DataGrid" style="width:auto;height:auto"
                    data-options="
                  rownumbers:true,
+				 checkOnSelect:true,
+                 selectOnCheck:true,
                  idField:'<#= primaryKeyName #>',
                  sortName:'<#= primaryKeyName #>',
                  sortorder:'asc',
@@ -96,6 +98,7 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
                 url: '/<#= ControllerRootName #>/GetData',
                 method: 'get',
                 onClickCell: onClickCell,
+				onSelect:onSelect,
                 pagination: 'true'
                    ">
                 <thead>
@@ -181,21 +184,147 @@ foreach (PropertyMetadata property in properties) {
 }
 #>
        
-    </tr>
-    </thead>
- 
-
-</table>
-	<div id="<#= modelVariable  #>_toolbar" style="height:auto">
-                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append()">Append</a>
-                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">Remove</a>
-                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">Accept</a>
-                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">Reject</a>
-                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="getChanges()">GetChanges</a>
-				<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-paperclip',plain:true" onclick="importexcel()">EXCEL 导入</a>
-            </div>
+						</tr>
+				</thead>
+ 				</table>
+				<div id="<#= modelVariable  #>_toolbar" style="height:auto">
+					<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append()">Append</a>
+					<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">Remove</a>
+					<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">Accept</a>
+					<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">Reject</a>
+					<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="getChanges()">GetChanges</a>
+					<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-paperclip',plain:true" onclick="importexcel()">EXCEL 导入</a>
 				</div>
+			</div>
+			
+		<#
+		if( GenerateMasterDetailRelationship && OneToManyModelMetadata.Count>0)
+		{
+		#>
+			<!--detail entity tabs -->
+			<div id="detailtabs" class="easyui-tabs" style="width:auto;height:400px;">
+			<# 
+				foreach (var prop in ModelMetadata.Properties.Where(x=>x.AssociationDirection == AssociationDirection.OneToMany)) 
+				{
+					var submetadata =  OneToManyModelMetadata[prop.PropertyName];
+					var entitySetName = submetadata.EntitySetName;
+					var entitySetNameToLower = submetadata.EntitySetName.ToLower();
+					var subModeType = prop.ShortTypeName;
+					
+			#>
+				<!--<#= entitySetName  #> tab   -->
+				<div title="<#= entitySetName #>" id="<#= entitySetNameToLower #>" style="padding:10px;">
+					<div class="table-responsive">
+						<table id="<#= entitySetNameToLower #>_datagrid" class="easyui-datagrid" title="@Html.DisplayNameFor(model => model.<#= prop.PropertyName #>) DataGrid" style="width:auto;height:auto"
+                           data-options="
+								rownumbers:true,
+								remoteFilter: true,
+								singleSelect: true,
+								toolbar: '#<#= entitySetNameToLower #>_toolbar',
+								url: '/<#= entitySetName #>/GetData',
+								method: 'get',
+								onClickCell: <#= entitySetNameToLower #>_onClickCell,
+								pagination: 'true'
+							">
+							<thead>
+								<tr>
+									@*<th data-options="field:'ck',checkbox:true"></th>*@
+									 <#
+											IEnumerable<PropertyMetadata> subproperties = submetadata.Properties.Where(x=>x.Scaffold==true && x.IsAssociation==false);
+											foreach (PropertyMetadata subproperty in subproperties) 
+											{
+												var fieldtypename = subproperty.ShortTypeName;
+									 #>
+											<# if ( subproperty.IsPrimaryKey || subproperty.IsReadOnly) { #>
+													@*<th data-options="field:'<#= subproperty.PropertyName  #>',width:80"> <#=  GetDisplayName(subproperty.PropertyName) #> </th>*@
+											<# } else if (subproperty.IsForeignKey) { 
+													string foreignKeyPropertyName = subproperty.PropertyName;
+													RelatedModelMetadata relatedModel = submetadata.RelatedEntities.Where(x=>x.ForeignKeyPropertyNames[0]==foreignKeyPropertyName).First();
+											#>
+													<th data-options="field:'<#= foreignKeyPropertyName  #>',width:100,
+														formatter:function(value,row){
+																return row.<#= GetRelatedDisplayNameExpression(foreignKeyPropertyName,submetadata)  #>;
+														},
+														editor:{
+																type:'combobox',
+														options:{
+																valueField:'<#= relatedModel.PrimaryKeyNames[0]  #>',
+																textField:'<#= relatedModel.DisplayPropertyName   #>',
+																method:'get',
+																url:'/<#= ControllerRootName #>/Get<#=  relatedModel.EntitySetName  #>',
+																required:true
+														}
+													}"> <#= GetDisplayName(foreignKeyPropertyName) #> </th>
 
+											<# } else { #>
+
+											<#
+												if(fieldtypename=="string") {
+											#>
+													<th data-options="field:'<#= subproperty.PropertyName #>',width:140,editor:{type:'textbox',options:{required:false} } "> <#= GetDisplayName(subproperty.PropertyName) #></th>
+											<# } else if(fieldtypename=="int" || fieldtypename=="float" || fieldtypename=="decimal" ) {
+													if(subproperty.PropertyName=="Status") {
+											#>
+													<th data-options="field:'<#= subproperty.PropertyName #>',width:100,align:'right',
+															editor:{ type:'combobox',
+															options:{
+																panelHeight: 'auto',
+																data: [ { value: '0', text: '启用' },{ value: '1', text: '禁用' } ],
+																required:true } } ,
+															formatter: function(value,row,index){
+																	if (value == 0) {
+																		return '启用';
+																	} else {
+																		return '禁用';
+																	}
+                                                        }"><#= GetDisplayName(subproperty.PropertyName) #></th>
+											<#   } else {  #>
+													<th data-options="field:'<#=  subproperty.PropertyName  #>',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true "><#= GetDisplayName(subproperty.PropertyName) #></th>
+											<#   }   } else if(fieldtypename=="DateTime" ) { #>
+													<th data-options="field:'<#=  subproperty.PropertyName  #>',width:160,align:'right',editor:{type:'datebox',options:{required:true}} ,formatter:dateformatter"> <#= GetDisplayName(subproperty.PropertyName) #></th>
+											<#   } else if(fieldtypename=="bool" || fieldtypename=="Boolean" ) { #>
+													<th data-options="field:'<#= subproperty.PropertyName #>',width:120,
+																editor: {type:'combobox',
+																options:{
+																	panelHeight: 'auto',
+																	data: [ { value: 'true', text: 'true' },
+																			{ value: 'false', text: 'false' }],
+																required:true}}"><#= GetDisplayName(subproperty.PropertyName) #></th>
+											<# } else { #>
+													<th data-options="field:'<#= subproperty.PropertyName #>',width:120,editor:'textbox' "> <#= GetDisplayName(subproperty.PropertyName) #></th>
+											<# }  } #>
+
+
+
+
+									 <# 
+                                            }
+									 #>
+								</tr>
+							</thead>
+						</table>
+						<!-- <#= entitySetNameToLower #>_toolbar -->
+						<div id="<#= entitySetNameToLower #>_toolbar" style="height:auto">
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="<#= entitySetNameToLower #>_append()">Append</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="<#= entitySetNameToLower #>_removeit()">Remove</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="<#= entitySetNameToLower #>_accept()">Accept</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="<#= entitySetNameToLower #>_reject()">Reject</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-paperclip',plain:true" onclick="importexcel()">EXCEL 导入</a>
+						</div>
+
+
+					</div>
+				</div>
+				<!--end <#= entitySetName  #> tab   -->
+			<# 
+                }
+			#>
+			</div>
+			<!--end detail entity tabs -->
+		<# 
+        }
+		 #>
+			<!-- end ibox-content -->
             </div>
         </div>
     </div>
@@ -472,10 +601,196 @@ foreach (PropertyMetadata property in properties) {
 		   },
 		   <# 
 			} 
-			#>
+		   #>
 		   
 		   ]);
         })
+		<# 
+			var primaryKey = ModelMetadata.PrimaryKeys[0].PropertyName;
+			var foreignKeyVar = ModelTypeName.ToLower() + primaryKey.ToLower();
+			var foreignKey = ModelTypeName+ primaryKey;
+		#>
+		//-----------------------------------------------------
+		//datagrid onSelect
+		//-----------------------------------------------------
+		function onSelect(index, row) {
+            //console.log(index, row);
+			filterBy<#= foreignKey  #>(row.<#= primaryKey  #>);
+        }
+		function filterBy<#= foreignKey  #>(<#= foreignKeyVar #>) {
+            var value = <#= foreignKeyVar #>;
+
+			   <# 
+				foreach (var prop in ModelMetadata.Properties.Where(x=>x.AssociationDirection == AssociationDirection.OneToMany)) 
+				{
+					var submetadata =  OneToManyModelMetadata[prop.PropertyName];
+					var entitySetName = submetadata.EntitySetName;
+					var entitySetNameToLower = submetadata.EntitySetName.ToLower();
+					var subModeType = prop.ShortTypeName;
+					var datagridelement = entitySetNameToLower + "_datagrid";
+					var datagridvar = "$"+ entitySetNameToLower +  "dg";
+					var editindex = entitySetNameToLower + "_editIndex";
+					var detailnamevar = entitySetNameToLower;
+				#>
+               <#= datagridvar #>.datagrid('removeFilterRule', '<#= foreignKey #>');
+               <#= datagridvar #>.datagrid('addFilterRule', {
+                    field: '<#= foreignKey #>',
+                    op: 'equal',
+                    value: value
+                });
+               <#= datagridvar #>.datagrid('doFilter');
+			   <# } #>
+
+        }
+        
+		 <#  if(GenerateMasterDetailRelationship  && OneToManyModelMetadata.Count >0) 
+			 { 
+				
+		 #>
+		 //-----------------------------------------------------------------------
+		 // details datagrid functions
+		 //-----------------------------------------------------------------------
+				<# 
+				foreach (var prop in ModelMetadata.Properties.Where(x=>x.AssociationDirection == AssociationDirection.OneToMany)) 
+				{
+					var submetadata =  OneToManyModelMetadata[prop.PropertyName];
+					var entitySetName = submetadata.EntitySetName;
+					var entitySetNameToLower = submetadata.EntitySetName.ToLower();
+					var subModeType = prop.ShortTypeName;
+					var datagridelement = entitySetNameToLower + "_datagrid";
+					var datagridvar = "$"+ entitySetNameToLower +  "dg";
+					var editindex = entitySetNameToLower + "_editIndex";
+					var detailnamevar = entitySetNameToLower;
+				#>
+				//--------------------------------------------------------------------
+				// #<#=  datagridelement #> functions
+				//--------------------------------------------------------------------
+				var <#= datagridvar #> = $('#<#= datagridelement  #>');
+
+				var <#= editindex #> = undefined;
+    function <#= detailnamevar #>_endEditing() {
+        if ( <#= editindex #> == undefined) { return true }
+        if (<#= datagridvar #>.datagrid('validateRow', <#= editindex #>)) {
+			<# 
+				RelatedModelMetadata[] relmodelms = submetadata.RelatedEntities;
+				foreach(RelatedModelMetadata relmodelm in relmodelms) 
+                {
+					var fkeyname=relmodelm.ShortTypeName +  relmodelm.PrimaryKeyNames[0];
+					var fdispname = relmodelm.ShortTypeName + relmodelm.DisplayPropertyName;
+
+			#>
+            var ed = <#= datagridvar #>.datagrid('getEditor', { index: <#= editindex #>, field: '<#= fkeyname #>' });
+            var <#= fdispname #> = $(ed.target).combobox('getText');
+            var <#= fkeyname #> = $(ed.target).combobox('getValue');
+          
+            <#= datagridvar #>.datagrid('getRows')[<#= editindex #>]['<#= fdispname #>'] = <#= fdispname #>;
+            <#= datagridvar #>.datagrid('getRows')[<#= editindex #>]['<#= fkeyname #>'] = <#= fkeyname #>;
+            
+            
+			<# 
+                }
+			#>
+			<#= datagridvar #>.datagrid('endEdit', <#= editindex #>);
+            <#= editindex #> = undefined;
+
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+    function <#= detailnamevar #>_onClickCell(index, field) {
+        if (<#= editindex #> != index) {
+            if (<#= detailnamevar #>_endEditing()) {
+                <#= datagridvar #>.datagrid('selectRow', index)
+                        .datagrid('beginEdit', index);
+                var ed = <#= datagridvar #>.datagrid('getEditor', { index: index, field: field });
+                if (ed) {
+                    ($(ed.target).data('textbox') ? $(ed.target).textbox('textbox') : $(ed.target)).focus();
+                }
+                <#= editindex #>  = index;
+            } else {
+                <#= datagridvar #>.datagrid('selectRow', <#= editindex #>);
+            }
+        }
+    }
+    function <#= detailnamevar #>_append() {
+        if (<#= detailnamevar #>_endEditing()) {
+            <#= datagridvar #>.datagrid('appendRow', { Status:0   });
+            <#= detailnamevar #>editIndex = <#= datagridvar #>.datagrid('getRows').length - 1;
+            <#= datagridvar #>.datagrid('selectRow', <#= editindex #> )
+                    .datagrid('beginEdit', <#= editindex #>);
+        }
+    }
+    function <#= detailnamevar #>_removeit() {
+        if (<#= editindex #>  == undefined) { return }
+        <#= datagridvar #>.datagrid('cancelEdit', <#= editindex #> )
+                .datagrid('deleteRow', <#= editindex #> );
+        <#= detailnamevar #>editIndex = undefined;
+    }
+   
+    function <#= detailnamevar #>_reject() {
+        <#= datagridvar #>.datagrid('rejectChanges');
+        <#= editindex #>  = undefined;
+    }
+    function <#= detailnamevar #>_getChanges() {
+        var rows = <#= datagridvar #>.datagrid('getChanges');
+        alert(rows.length + ' rows are changed!');
+    }
+	function <#= detailnamevar #>_accept() {
+            if (<#= detailnamevar #>_endEditing()) {
+                if (<#= datagridvar #>.datagrid('getChanges').length) {
+                    var inserted = <#= datagridvar #>.datagrid('getChanges', "inserted");
+                    var deleted = <#= datagridvar #>.datagrid('getChanges', "deleted");
+                    var updated = <#= datagridvar #>.datagrid('getChanges', "updated");
+                    var effectRow = new Object();
+                    if (inserted.length) {
+                        effectRow.inserted = inserted;
+                    }
+                    if (deleted.length) {
+                        effectRow.deleted = deleted;
+                    }
+                    if (updated.length) {
+                        effectRow.updated = updated;
+                    }
+                    //console.log(JSON.stringify(effectRow));
+                    $.post("/<#= entitySetName #>/SaveData", effectRow, function (rsp) {
+                        //console.log(rsp);
+                        if (rsp.Success) {
+                            $.messager.alert("提示", "提交成功！");
+                            <#= datagridvar #>.datagrid('acceptChanges');
+							<#= datagridvar #>.datagrid('reload');
+                        }
+                    }, "JSON").error(function () {
+                        $.messager.alert("错误", "提交错误了！",'error');
+                      
+                    });
+              
+                }
+
+                <#= datagridvar #>.datagrid('acceptChanges');
+            }
+        }
+
+		$(function () {
+
+            <#= datagridvar #>.datagrid('enableFilter', [
+									]);
+
+            filterBy<#= foreignKey  #>(-1);
+        })
+
+
+
+
+				<# 
+                }
+				#>
+
+		 <# 
+			}
+		 #>
+
      </script>
 }
 

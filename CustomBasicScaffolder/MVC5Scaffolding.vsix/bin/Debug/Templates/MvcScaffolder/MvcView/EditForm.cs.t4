@@ -280,9 +280,9 @@
                                                  options:{
                                                     panelHeight: 'auto',
                                                     data: [ { value: '0', text: '启用' },{ value: '1', text: '禁用' } ],
-                                                    required:true } }  ,formatter:statusformatter">@Html.DisplayNameFor(model => model.<#= subproperty.PropertyName #>)</th>
+                                                    required:true } }  ,formatter:statusformatter"><#= GetDisplayName(subproperty.PropertyName) #></th>
 							<#   } else {  #>
-									<th data-options="field:'<#=  subproperty.PropertyName  #>',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.<#= subproperty.PropertyName #>)</th>
+									<th data-options="field:'<#=  subproperty.PropertyName  #>',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true "><#= GetDisplayName(subproperty.PropertyName) #></th>
 							<#   }   } else if(fieldtypename=="DateTime" ) { #>
 								<th data-options="field:'<#=  subproperty.PropertyName  #>',width:160,align:'right',editor:{type:'datebox',options:{required:true}} ,formatter:dateformatter"> <#= GetDisplayName(subproperty.PropertyName) #></th>
 							<# } else if(fieldtypename=="bool" || fieldtypename=="Boolean" ){ #>
