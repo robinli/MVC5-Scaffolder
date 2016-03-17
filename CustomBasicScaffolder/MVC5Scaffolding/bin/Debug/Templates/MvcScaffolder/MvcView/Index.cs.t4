@@ -631,10 +631,11 @@ foreach (PropertyMetadata property in properties) {
 					var datagridvar = "$"+ entitySetNameToLower +  "dg";
 					var editindex = entitySetNameToLower + "_editIndex";
 					var detailnamevar = entitySetNameToLower;
+					var subforeignKey = submetadata.RelatedEntities.Where(x=>x.ShortTypeName == ModelTypeName).First().ForeignKeyPropertyNames[0];
 				#>
-               <#= datagridvar #>.datagrid('removeFilterRule', '<#= foreignKey #>');
+               <#= datagridvar #>.datagrid('removeFilterRule', '<#= subforeignKey #>');
                <#= datagridvar #>.datagrid('addFilterRule', {
-                    field: '<#= foreignKey #>',
+                    field: '<#= subforeignKey #>',
                     op: 'equal',
                     value: value
                 });
@@ -661,6 +662,7 @@ foreach (PropertyMetadata property in properties) {
 					var datagridvar = "$"+ entitySetNameToLower +  "dg";
 					var editindex = entitySetNameToLower + "_editIndex";
 					var detailnamevar = entitySetNameToLower;
+					var subforeignKey = submetadata.RelatedEntities.Where(x=>x.ShortTypeName == ModelTypeName).First().ForeignKeyPropertyNames[0];
 				#>
 				//--------------------------------------------------------------------
 				// #<#=  datagridelement #> functions
@@ -716,7 +718,9 @@ foreach (PropertyMetadata property in properties) {
     }
     function <#= detailnamevar #>_append() {
         if (<#= detailnamevar #>_endEditing()) {
-            <#= datagridvar #>.datagrid('appendRow', { Status:0   });
+			 var <#=  ModelTypeName.ToLower() #> = $dg.datagrid('getSelected');
+
+            <#= datagridvar #>.datagrid('appendRow', { <#= subforeignKey #>:<#=  ModelTypeName.ToLower() #>.<#= primaryKey #>   });
             <#= detailnamevar #>editIndex = <#= datagridvar #>.datagrid('getRows').length - 1;
             <#= datagridvar #>.datagrid('selectRow', <#= editindex #> )
                     .datagrid('beginEdit', <#= editindex #>);
