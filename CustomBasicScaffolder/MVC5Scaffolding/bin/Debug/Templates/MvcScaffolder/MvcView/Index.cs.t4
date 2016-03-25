@@ -153,15 +153,21 @@ foreach (PropertyMetadata property in properties) {
                                                 editor:{ type:'combobox',
                                                  options:{
                                                     panelHeight: 'auto',
-                                                    data: [ { value: '0', text: '启用' },{ value: '1', text: '禁用' } ],
+                                                    data: [ { value: '0', text: '启用' },
+															{ value: '1', text: '禁用' } ],
                                                     required:true } 
                                                  },
                                                  formatter: function(value,row,index){
-				                                        if (value == 0) {
-                                                            return '启用';
-                                                        } else {
-                                                            return '禁用';
-                                                        }
+				                                         switch (value) {
+                                                                case 0:
+                                                                   return '启用';
+                                                                   break;
+                                                                case 1:
+                                                                   return '禁用';
+                                                                   break;
+																default: 
+																	return value ;
+														}
 			                                     }">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
 		<#   } else {  #>
 		     <th data-options="field:'<#=  property.PropertyName  #>',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
