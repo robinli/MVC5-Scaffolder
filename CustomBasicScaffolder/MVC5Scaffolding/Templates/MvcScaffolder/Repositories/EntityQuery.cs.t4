@@ -32,6 +32,7 @@ using System.Linq.Expressions;
 using System.Data.Entity.SqlServer;
 using Repository.Pattern.Repositories;
 using Repository.Pattern.Ef6;
+using System.Web.WebPages;
 using <#= ModelNamespace #>;
 using <#= DefaultNamespace #>.Extensions;
 
@@ -80,7 +81,7 @@ namespace <#=DefaultNamespace #>.Repositories
 				    <# 
 						if(property.ShortTypeName=="int" || property.ShortTypeName=="float" || property.ShortTypeName=="decimal" || property.ShortTypeName=="double") {
 					#>
-						if (rule.field == "<#= property.PropertyName  #>" && !string.IsNullOrEmpty(rule.value))
+						if (rule.field == "<#= property.PropertyName  #>" && !string.IsNullOrEmpty(rule.value) && rule.value.IsNumeric())
 						{
 							int val = Convert.ToInt32(rule.value);
 							And(x => x.<#= property.PropertyName #> == val);
@@ -92,10 +93,10 @@ namespace <#=DefaultNamespace #>.Repositories
 					<# 
 						if(property.ShortTypeName=="DateTime" ) {
 					#>
-						if (rule.field == "<#= property.PropertyName  #>" && !string.IsNullOrEmpty(rule.value))
+						if (rule.field == "<#= property.PropertyName  #>" && !string.IsNullOrEmpty(rule.value) && rule.value.IsDateTime())
 						{	
 							var date = Convert.ToDateTime(rule.value) ;
-							And(x => SqlFunctions.DateDiff("d", date, x.<#= property.PropertyName #>)>0);
+							And(x => SqlFunctions.DateDiff("d", date, x.<#= property.PropertyName #>)>=0);
 						}
 				   <# 
 					   } // end if
@@ -104,7 +105,7 @@ namespace <#=DefaultNamespace #>.Repositories
 				    <# 
 						if(property.ShortTypeName=="bool" || property.ShortTypeName=="Boolean") {
 					#>
-						if (rule.field == "<#= property.PropertyName  #>" && !string.IsNullOrEmpty(rule.value))
+						if (rule.field == "<#= property.PropertyName  #>" && !string.IsNullOrEmpty(rule.value) && rule.value.IsBool())
 						{	
 							 var boolval=Convert.ToBoolean(rule.value);
 							 And(x => x.<#= property.PropertyName #> == boolval);

@@ -153,8 +153,8 @@ foreach (PropertyMetadata property in properties) {
                                                 editor:{ type:'combobox',
                                                  options:{
                                                     panelHeight: 'auto',
-                                                    data: [ { value: '0', text: '启用' },
-															{ value: '1', text: '禁用' } ],
+                                                    data: [ { value: 0, text: '启用' },
+															{ value: 1, text: '禁用' } ],
                                                     required:true } 
                                                  },
                                                  formatter: function(value,row,index){
@@ -275,7 +275,7 @@ foreach (PropertyMetadata property in properties) {
 															editor:{ type:'combobox',
 															options:{
 																panelHeight: 'auto',
-																data: [ { value: '0', text: '启用' },{ value: '1', text: '禁用' } ],
+																data: [ { value: 0, text: '启用' },{ value: 1, text: '禁用' } ],
 																required:true } } ,
 															formatter: function(value,row,index){
 																	if (value == 0) {
@@ -491,21 +491,22 @@ foreach (PropertyMetadata property in properties) {
                         effectRow.updated = updated;
                     }
                     //console.log(JSON.stringify(effectRow));
-                    $.post("/<#= ControllerRootName #>/SaveData", effectRow, function (rsp) {
-                        console.log(rsp);
-                        if (rsp.Success) {
+                    $.post("/<#= ControllerRootName #>/SaveData", effectRow, function (response) {
+                        //console.log(response);
+                        if (response.Success) {
                             $.messager.alert("提示", "提交成功！");
                             $dg.datagrid('acceptChanges');
 							$dg.datagrid('reload');
                         }
-                    }, "JSON").error(function () {
+                    }, "JSON").error(function (response) {
+						//console.log(response);
                         $.messager.alert("错误", "提交错误了！",'error');
-						$dg.datagrid('reload');
+						//$dg.datagrid('reload');
                     });
               
                 }
 
-                $dg.datagrid('acceptChanges');
+                //$dg.datagrid('acceptChanges');
             }
         }
         function reject() {
@@ -531,7 +532,7 @@ foreach (PropertyMetadata property in properties) {
                       type: 'combobox',
                       options: {
 						   panelHeight: 'auto',
-                           data: [{ value: '', text: 'All' }, { value: '0', text: '启用' }, { value: '1', text: '禁用' }],
+                           data: [{ value: '', text: 'All' }, { value: 0, text: '启用' }, { value: 1, text: '禁用' }],
                            onChange: function (value) {
                               if (value == '') {
                                   $dg.datagrid('removeFilterRule', '<#= property.PropertyName #>');
@@ -764,21 +765,22 @@ foreach (PropertyMetadata property in properties) {
                         effectRow.updated = updated;
                     }
                     //console.log(JSON.stringify(effectRow));
-                    $.post("/<#= entitySetName #>/SaveData", effectRow, function (rsp) {
-                        //console.log(rsp);
-                        if (rsp.Success) {
+                    $.post("/<#= entitySetName #>/SaveData", effectRow, function (response) {
+                        //console.log(response);
+                        if (response.Success) {
                             $.messager.alert("提示", "提交成功！");
                             <#= datagridvar #>.datagrid('acceptChanges');
 							<#= datagridvar #>.datagrid('reload');
                         }
-                    }, "JSON").error(function () {
+                    }, "JSON").error(function (response) {
+						//console.log(response);
                         $.messager.alert("错误", "提交错误了！",'error');
                       
                     });
               
                 }
 
-                <#= datagridvar #>.datagrid('acceptChanges');
+                //<#= datagridvar #>.datagrid('acceptChanges');
             }
         }
 
