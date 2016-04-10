@@ -143,7 +143,7 @@ namespace <#= Namespace #>
         // Get :<#= routePrefix #>/<#= ViewPrefix #>PageList
         // For Index View Boostrap-Table load  data 
         [HttpGet]
-        public ActionResult GetData(int page = 1, int rows = 10, string sort = "Id", string order = "asc", string filterRules = "")
+        public ActionResult GetData(int page = 1, int rows = 10, string sort = "<#= primaryKeyName #>", string order = "desc", string filterRules = "")
         {
 			var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
             int totalCount = 0;

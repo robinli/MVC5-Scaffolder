@@ -109,6 +109,9 @@ IEnumerable<PropertyMetadata> properties = ModelMetadata.Properties;
 foreach (PropertyMetadata property in properties) {
         var tdalign=property.ShortTypeName=="string"?"left":"right";
 		var fieldtypename = property.ShortTypeName;
+	    var isRequired = false;
+		
+		fieldRequired.TryGetValue(property.PropertyName, out isRequired);
     if (property.Scaffold && !property.IsAssociation) {
 #>
 <#
@@ -135,7 +138,7 @@ foreach (PropertyMetadata property in properties) {
                                 textField:'<#= relatedModel.DisplayPropertyName   #>',
                                 method:'get',
                                 url:'/<#= ControllerRootName #>/Get<#=  relatedModel.EntitySetName  #>',
-                                required:true
+                                required:<#= isRequired.ToString().ToLower() #>
                             }
                         }">@Html.DisplayNameFor(model => model.<#= foreignKeyPropertyName #>)</th>
 
@@ -145,7 +148,7 @@ foreach (PropertyMetadata property in properties) {
 		<#
 			if(fieldtypename=="string") {
 		#>
-		     <th data-options="field:'<#= property.PropertyName #>',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
+		     <th data-options="field:'<#= property.PropertyName #>',width:140,editor:{type:'textbox',options:{required:<#= isRequired.ToString().ToLower() #>} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
 		<# } else if(fieldtypename=="int" || fieldtypename=="float"|| fieldtypename=="decimal") {
 		     if(property.PropertyName=="Status") {
 		#>
@@ -155,7 +158,7 @@ foreach (PropertyMetadata property in properties) {
                                                     panelHeight: 'auto',
                                                     data: [ { value: 0, text: '启用' },
 															{ value: 1, text: '禁用' } ],
-                                                    required:true } 
+                                                    required:<#= isRequired.ToString().ToLower() #>} 
                                                  },
                                                  formatter: function(value,row,index){
 				                                         switch (value) {
@@ -170,18 +173,18 @@ foreach (PropertyMetadata property in properties) {
 														}
 			                                     }">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
 		<#   } else {  #>
-		     <th data-options="field:'<#=  property.PropertyName  #>',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
+		     <th data-options="field:'<#=  property.PropertyName  #>',width:100,align:'right',editor:{type:'numberbox',options:{precision:0,required:<#= isRequired.ToString().ToLower() #>}} ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
 		<#   }   } else if(fieldtypename=="DateTime" ) {
 		#>
-		     <th data-options="field:'<#=  property.PropertyName  #>',width:160,align:'right',editor:{type:'datebox',options:{required:true}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
+		     <th data-options="field:'<#=  property.PropertyName  #>',width:160,align:'right',editor:{type:'datebox',options:{required:<#= isRequired.ToString().ToLower() #>},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
 		<# } else if(fieldtypename=="bool" || fieldtypename=="Boolean" ){ #>
 			 <th data-options="field:'<#= property.PropertyName #>',width:120,editor: {type:'combobox'
                                                 ,options:{
                                                 panelHeight: 'auto',
                                                 data: [ { value: 'true', text: 'true' },{ value: 'false', text: 'false' } ],
-                                                required:true}}">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
+                                                required:<#= isRequired.ToString().ToLower() #>}}">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
 		<# } else { #>
-			<th data-options="field:'<#= property.PropertyName #>',width:120,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
+			<th data-options="field:'<#= property.PropertyName #>',width:120,editor:{type:'textbox',options:{required:<#= isRequired.ToString().ToLower() #>} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
 		<# } #>
 
         <#            } #>
@@ -240,6 +243,8 @@ foreach (PropertyMetadata property in properties) {
 											foreach (PropertyMetadata subproperty in subproperties) 
 											{
 												var fieldtypename = subproperty.ShortTypeName;
+												var isRequired = false;
+												fieldRequired.TryGetValue(subproperty.PropertyName, out isRequired);
 									 #>
 											<# if ( subproperty.IsPrimaryKey || subproperty.IsReadOnly) { #>
 													@*<th data-options="field:'<#= subproperty.PropertyName  #>',width:80"> <#=  GetDisplayName(subproperty.PropertyName) #> </th>*@
@@ -258,7 +263,7 @@ foreach (PropertyMetadata property in properties) {
 																textField:'<#= relatedModel.DisplayPropertyName   #>',
 																method:'get',
 																url:'/<#= ControllerRootName #>/Get<#=  relatedModel.EntitySetName  #>',
-																required:true
+																required:<#= isRequired.ToString().ToLower() #>
 														}
 													}"> <#= GetDisplayName(foreignKeyPropertyName) #> </th>
 
@@ -267,7 +272,7 @@ foreach (PropertyMetadata property in properties) {
 											<#
 												if(fieldtypename=="string") {
 											#>
-													<th data-options="field:'<#= subproperty.PropertyName #>',width:140,editor:{type:'textbox',options:{required:false} } "> <#= GetDisplayName(subproperty.PropertyName) #></th>
+													<th data-options="field:'<#= subproperty.PropertyName #>',width:140,editor:{type:'textbox',options:{required:<#= isRequired.ToString().ToLower() #>} } "> <#= GetDisplayName(subproperty.PropertyName) #></th>
 											<# } else if(fieldtypename=="int" || fieldtypename=="float" || fieldtypename=="decimal" ) {
 													if(subproperty.PropertyName=="Status") {
 											#>
@@ -276,7 +281,7 @@ foreach (PropertyMetadata property in properties) {
 															options:{
 																panelHeight: 'auto',
 																data: [ { value: 0, text: '启用' },{ value: 1, text: '禁用' } ],
-																required:true } } ,
+																required:<#= isRequired.ToString().ToLower() #> } } ,
 															formatter: function(value,row,index){
 																	if (value == 0) {
 																		return '启用';
@@ -285,9 +290,9 @@ foreach (PropertyMetadata property in properties) {
 																	}
                                                         }"><#= GetDisplayName(subproperty.PropertyName) #></th>
 											<#   } else {  #>
-													<th data-options="field:'<#=  subproperty.PropertyName  #>',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true "><#= GetDisplayName(subproperty.PropertyName) #></th>
+													<th data-options="field:'<#=  subproperty.PropertyName  #>',width:100,align:'right',editor:{type:'numberbox',options:{precision:0,required:<#= isRequired.ToString().ToLower() #>}} ,sortable:true,resizable:true "><#= GetDisplayName(subproperty.PropertyName) #></th>
 											<#   }   } else if(fieldtypename=="DateTime" ) { #>
-													<th data-options="field:'<#=  subproperty.PropertyName  #>',width:160,align:'right',editor:{type:'datebox',options:{required:true}} ,formatter:dateformatter"> <#= GetDisplayName(subproperty.PropertyName) #></th>
+													<th data-options="field:'<#=  subproperty.PropertyName  #>',width:160,align:'right',editor:{type:'datebox',options:{required:<#= isRequired.ToString().ToLower() #>}} ,formatter:dateformatter"> <#= GetDisplayName(subproperty.PropertyName) #></th>
 											<#   } else if(fieldtypename=="bool" || fieldtypename=="Boolean" ) { #>
 													<th data-options="field:'<#= subproperty.PropertyName #>',width:120,
 																editor: {type:'combobox',
@@ -295,9 +300,9 @@ foreach (PropertyMetadata property in properties) {
 																	panelHeight: 'auto',
 																	data: [ { value: 'true', text: 'true' },
 																			{ value: 'false', text: 'false' }],
-																required:true}}"><#= GetDisplayName(subproperty.PropertyName) #></th>
+																required:<#= isRequired.ToString().ToLower() #>}}"><#= GetDisplayName(subproperty.PropertyName) #></th>
 											<# } else { #>
-													<th data-options="field:'<#= subproperty.PropertyName #>',width:120,editor:'textbox' "> <#= GetDisplayName(subproperty.PropertyName) #></th>
+													<th data-options="field:'<#= subproperty.PropertyName #>',width:120,editor:{type:'textbox',options:{required:<#= isRequired.ToString().ToLower() #>}} "> <#= GetDisplayName(subproperty.PropertyName) #></th>
 											<# }  } #>
 
 

@@ -167,6 +167,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             ModelMetadata efMetadata = efService.AddRequiredEntity(Context, dbContextTypeName, modelType.FullName);
 
             var fieldDisplayNames = GetAllFieldDisplayNames(modelType, efMetadata);
+            var fieldRequired = GetAllFieldRequired(modelType, efMetadata);
             var oneToManyModels = GetOneToManyModelDictionary(efMetadata, efService, dbContextTypeName);
 
             var oneToManyAnonymousObjTextDic = GetOneToManyAnonymousObjTextDic(oneToManyModels);
@@ -265,6 +266,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                     , checkedFormCols: checkformcols
                     , formClos: formcols
                     , modelDisplayNames: modelDisplayNames
+                    , fieldRequired:fieldRequired as Dictionary<string,bool>
                     );
             }
 
@@ -338,6 +340,31 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             return dic;
 
         }
+
+        private IDictionary<string, bool> GetAllFieldRequired(CodeType modelType, ModelMetadata efMetadata)
+        {
+            IDictionary<string, bool> dic = new Dictionary<string, bool>();
+            dic = GetRequired(modelType.FullName);
+            foreach (var property in efMetadata.Properties)
+            {
+                if (property.AssociationDirection == AssociationDirection.OneToMany)
+                {
+                    string typename = property.RelatedModel.TypeName;
+                    var dis = GetRequired(typename);
+                    foreach (var item in dis)
+                    {
+                        if (!dic.ContainsKey(item.Key))
+                        {
+                            dic.Add(item.Key, item.Value);
+
+                        }
+                    }
+                }
+            }
+            return dic;
+
+        }
+
 
         private void AddDetailsView(Project project
             , string viewsFolderPath
@@ -606,6 +633,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             , int formClos = 2
             , Dictionary<string, ModelMetadata> oneToManyModels = null
             , Dictionary<string, string> modelDisplayNames = null
+            , Dictionary<string, bool> fieldRequired = null
             )
         {
 
@@ -636,6 +664,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 , {"IsBundleConfigPresent", isBundleConfigPresent}
                 , {"OneToManyModelMetadata", oneToManyModels}
                 ,{"ModelDisplayNames",modelDisplayNames}
+                ,{"fieldRequired",fieldRequired}
                 ,{"CheckedFromLayoutCols",checkedFormCols}
                 ,{"FromLayoutCols",formClos}
                 ,{"GenerateMasterDetailRelationship" ,generateMasterDetailRelationship}
@@ -676,10 +705,28 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             var lookup = new Dictionary<string, string>();
             foreach (PropertyInfo prop in type.GetProperties())
             {
-                var attr = (System.ComponentModel.DataAnnotations.DisplayAttribute)prop.GetCustomAttribute(typeof(System.ComponentModel.DataAnnotations.DisplayAttribute), true);
-                var value = attr != null && !String.IsNullOrWhiteSpace(attr.Name) ? attr.Name : prop.Name;
-                if (!lookup.ContainsKey(prop.Name))
-                    lookup.Add(prop.Name, value);
+                //var attr = (System.ComponentModel.DataAnnotations.DisplayAttribute)prop.GetCustomAttribute(typeof(System.ComponentModel.DataAnnotations.DisplayAttribute), true);
+                //var value = attr != null && !String.IsNullOrWhiteSpace(attr.Name) ? attr.Name : prop.Name;
+                //if (!lookup.ContainsKey(prop.Name))
+                var value = AttributeHelper.GetDisplayName(type,prop.Name);
+                lookup.Add(prop.Name, value);
+            }
+            return lookup;
+        }
+
+        protected Dictionary<string, bool> GetRequired(string fullclassName) {
+
+            var type = GetReflectionType(fullclassName);
+            var shortName = type.Name;
+            var lookup = new Dictionary<string, bool>();
+            foreach (PropertyInfo prop in type.GetProperties())
+            {
+                //var attr = (System.ComponentModel.DataAnnotations.DisplayAttribute)prop.GetCustomAttribute(typeof(System.ComponentModel.DataAnnotations.DisplayAttribute), true);
+                //var value = attr != null && !String.IsNullOrWhiteSpace(attr.Name) ? attr.Name : prop.Name;
+                //if (!lookup.ContainsKey(prop.Name))
+                var value = AttributeHelper.GetRequired(type, prop.Name);
+                //lookup.Add(shortName + "." +prop.Name, value);
+                lookup.Add( prop.Name, value);
             }
             return lookup;
         }
