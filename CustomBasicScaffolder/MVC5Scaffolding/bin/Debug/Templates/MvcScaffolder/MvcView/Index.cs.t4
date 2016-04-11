@@ -91,7 +91,7 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
                  selectOnCheck:true,
                  idField:'<#= primaryKeyName #>',
                  sortName:'<#= primaryKeyName #>',
-                 sortorder:'desc',
+                 sortOrder:'desc',
                 remoteFilter: true,
                 singleSelect: true,
                 toolbar: '#<#= modelVariable  #>_toolbar',

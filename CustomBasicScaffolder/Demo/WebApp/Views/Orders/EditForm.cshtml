@@ -1,151 +1,171 @@
-﻿@model WebApp.Models.Order
+﻿﻿
 
 
-@*@Html.HiddenFor(model => model.Id)*@
 
-<div class="form-group">
-    @Html.LabelFor(model => model.Customer, htmlAttributes: new { @class = "col-md-2 control-label " })
-    <div class="col-md-10">
-        @Html.EditorFor(model => model.Customer, new { htmlAttributes = new { @class = "form-control" } })
-        @Html.ValidationMessageFor(model => model.Customer, "", new { @class = "text-danger" })
-    </div>
-</div>
-
-<div class="form-group">
-    @Html.LabelFor(model => model.ShippingAddress, htmlAttributes: new { @class = "control-label col-md-2" })
-    <div class="col-md-10">
-        @Html.EditorFor(model => model.ShippingAddress, new { htmlAttributes = new { @class = "form-control" } })
-        @Html.ValidationMessageFor(model => model.ShippingAddress, "", new { @class = "text-danger" })
-    </div>
-</div>
-
-<div class="form-group">
-    @Html.LabelFor(model => model.OrderDate, htmlAttributes: new { @class = "control-label col-md-2" })
-    <div class="col-md-10">
-        @Html.EditorFor(model => model.OrderDate, "Date")
-        @Html.ValidationMessageFor(model => model.OrderDate, "", new { @class = "text-danger" })
-    </div>
-</div>
+@model WebApp.Models.Order
 
 
-<div class="tabs-container">
-    <!-- Nav tabs -->
-    <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#tab-OrderDetails"> OrderDetails</a></li>
-    </ul>
-    <!-- Tab panes -->
-    <div class="tab-content">
+ @*@Html.HiddenFor(model => model.Id)*@
 
 
-        <div id="tab-OrderDetails" class="tab-pane active">
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Customer,   htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Customer, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Customer,"" , new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ShippingAddress,   htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                                @Html.EditorFor(model => model.ShippingAddress, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ShippingAddress,"" , new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.OrderDate,   htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                                @Html.EditorFor(model => model.OrderDate, "Date" ,new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.OrderDate,"" , new { @class = "text-danger" })
+            </div>
+        </div>
+
+		   
+
+ 
+
+
+     <!-- details tabs -->
+    <div class="tabs-container">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs">
+								<li class="active"><a data-toggle="tab" href="#tab-orderdetails"> OrderDetails</a></li>
+								        
+			 
+   
+		 </ul>
+		 <!-- Tab panes -->
+         <div class="tab-content">
+		  		  <div id="tab-orderdetails" class="tab-pane active">
 
             <div class="panel-body">
 
-                <table id="orderdetail_datagrid" class="easyui-datagrid" title="OrderDetails DataGrid" style="width:auto;height:400px"
+                <div class="table-responsive">
+				<table id="orderdetails_datagrid" class="easyui-datagrid" title="OrderDetails DataGrid" style="width:auto;height:400px"
                        data-options="
                             rownumbers:true,
                             iconCls: 'fa fa-list',
                             remoteFilter: false,
                             singleSelect: true,
-                            toolbar: '#orderdetail_toolbar',
+                            toolbar: '#orderdetails_toolbar',
                             method: 'get',
-                            onClickCell: onClickCell,
+                            onClickCell: orderdetails_onClickCell,
                             pagination: 'true'
                     " >
                     <thead>
                         <tr>
-                            @*<th data-options="field:'ck',checkbox:true"></th>*@
-                            <th data-options="field:'Id',width:80">Order Detail Id</th>
-                            <th data-options="field:'ProductId',width:100,
-                                                formatter:function(value,row){
-                                                    return row.ProductName;
-                                                },
-                                                editor:{
-                                                    type:'combobox',
-                                                    options:{
-                                                        valueField:'Id',
-                                                        textField:'Name',
-                                                        method:'get',
-                                                        url:'/Orders/GetProducts',
-                                                        required:true
-                                                    }
-                                                }">ProductId</th>
+						@*<th data-options="field:'ck',checkbox:true"></th>*@
+				        
+														<th data-options="field:'Id',width:80"> Id </th>
+											
+														<th data-options="field:'ProductId',width:100,
+												formatter:function(value,row){
+													return row.ProductName;
+												},
+												editor:{
+													type:'combobox',
+													options:{
+														valueField:'Id',
+														textField:'Name',
+														method:'get',
+														url:'/Orders/GetProducts',
+														required:false
+														}
+												}"> 产品 </th>
 
+           
+											
+						
+																<th data-options="field:'Qty',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">数量</th>
+							
+											
+						
+																<th data-options="field:'Price',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">单价</th>
+							
+											
+						
+																<th data-options="field:'Amount',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">金额</th>
+							
+											
+														<th data-options="field:'OrderId',width:100,
+												formatter:function(value,row){
+													return row.OrderCustomer;
+												},
+												editor:{
+													type:'combobox',
+													options:{
+														valueField:'Id',
+														textField:'Customer',
+														method:'get',
+														url:'/Orders/GetOrders',
+														required:false
+														}
+												}"> 订单 </th>
 
-
-
-
-
-
-                            <th data-options="field:'Qty',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">Qty</th>
-
-
-                            <th data-options="field:'Price',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">Price</th>
-
-                            <th data-options="field:'Amount',width:100,align:'right',editor:{type:'numberbox',options:{precision:2}}">Amount</th>
-
-                            @*<th data-options="field:'OrderId',width:100,
-                                formatter:function(value,row){
-                                    return row.OrderId;
-                                },
-                                editor:{
-                                    type:'combobox',
-                                    options:{
-                                        valueField:'Id',
-                                        textField:'Customer',
-                                        method:'get',
-                                        url:'/Orders/GetOrders',
-                                        required:true
-                                    }
-                                }">OrderId</th>*@
-
-
-
-
-
+           
+											                           
                         </tr>
                     </thead>
-
-
                 </table>
-                <div id="orderdetail_toolbar" style="height:auto">
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append()">Append</a>
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">Remove</a>
-                    @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">Accept</a>*@
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">Reject</a>
-                    @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="getChanges()">GetChanges</a>*@
+
+				<div id="orderdetails_toolbar" style="height:auto">
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="orderdetails_append()">Append</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="orderdetails_removeit()">Remove</a>
+                    @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="orderdetails_accept()">Accept</a>*@
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="orderdetails_reject()">Reject</a>
+                    @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="orderdetails_getChanges()">GetChanges</a>*@
+                </div>
+
                 </div>
             </div>
-        </div>
 
+		  	</div>
+	</div>
+	</div>
+<!--end details tabs -->
+ 
 
-    </div>
-</div>
-
-
-
-
-
-
-<script type="text/javascript">
-
-
-    var editIndex = undefined;
-    function endEditing() {
-        if (editIndex == undefined) { return true }
-        if ($orderdetailstable.datagrid('validateRow', editIndex)) {
-
-            var ed = $orderdetailstable.datagrid('getEditor', { index: editIndex, field: 'ProductId' });
-            var productname = $(ed.target).combobox('getText');
-            var productid = $(ed.target).combobox('getValue');
-            //console.log(categoryname, categoryid);
-            //console.log(1,$orderdetailstable.datagrid('getRows')[editIndex]);
-            $orderdetailstable.datagrid('getRows')[editIndex]['ProductName'] = productname;
-            $orderdetailstable.datagrid('getRows')[editIndex]['ProductId'] = productid;
-            $orderdetailstable.datagrid('endEdit', editIndex);
-            //console.log(2,$orderdetailstable.datagrid('getRows')[editIndex]);
-
-            editIndex = undefined;
+ <script type="text/javascript">
+	
+	    
+	var orderdetailseditIndex = undefined;
+    function orderdetails_endEditing() {
+        if ( orderdetailseditIndex == undefined) { return true }
+        if ($orderdetailsdatagrid.datagrid('validateRow', orderdetailseditIndex)) {
+			            var ed = $orderdetailsdatagrid.datagrid('getEditor', { index: orderdetailseditIndex, field: 'OrderId' });
+            var OrderCustomer = $(ed.target).combobox('getText');
+            var OrderId = $(ed.target).combobox('getValue');
+          
+            $orderdetailsdatagrid.datagrid('getRows')[orderdetailseditIndex]['OrderCustomer'] = OrderCustomer;
+            $orderdetailsdatagrid.datagrid('getRows')[orderdetailseditIndex]['OrderId'] = OrderId;
+            
+            
+			            var ed = $orderdetailsdatagrid.datagrid('getEditor', { index: orderdetailseditIndex, field: 'ProductId' });
+            var ProductName = $(ed.target).combobox('getText');
+            var ProductId = $(ed.target).combobox('getValue');
+          
+            $orderdetailsdatagrid.datagrid('getRows')[orderdetailseditIndex]['ProductName'] = ProductName;
+            $orderdetailsdatagrid.datagrid('getRows')[orderdetailseditIndex]['ProductId'] = ProductId;
+            
+            
+						$orderdetailsdatagrid.datagrid('endEdit', orderdetailseditIndex);
+            orderdetailseditIndex = undefined;
 
 
             return true;
@@ -153,63 +173,58 @@
             return false;
         }
     }
-    function onClickCell(index, field) {
-        if (editIndex != index) {
-            if (endEditing()) {
-                $orderdetailstable.datagrid('selectRow', index)
+    function orderdetails_onClickCell(index, field) {
+        if (orderdetailseditIndex != index) {
+            if (orderdetails_endEditing()) {
+                $orderdetailsdatagrid.datagrid('selectRow', index)
                         .datagrid('beginEdit', index);
-                var ed = $orderdetailstable.datagrid('getEditor', { index: index, field: field });
+                var ed = $orderdetailsdatagrid.datagrid('getEditor', { index: index, field: field });
                 if (ed) {
                     ($(ed.target).data('textbox') ? $(ed.target).textbox('textbox') : $(ed.target)).focus();
                 }
-                editIndex = index;
+                orderdetailseditIndex  = index;
             } else {
-                $orderdetailstable.datagrid('selectRow', editIndex);
+                $orderdetailsdatagrid.datagrid('selectRow', orderdetailseditIndex);
             }
         }
     }
-    function append() {
-        if (endEditing()) {
-            $orderdetailstable.datagrid('appendRow', { status: 'P' });
-            editIndex = $orderdetailstable.datagrid('getRows').length - 1;
-            $orderdetailstable.datagrid('selectRow', editIndex)
-                    .datagrid('beginEdit', editIndex);
+    function orderdetails_append() {
+        if (orderdetails_endEditing()) {
+            $orderdetailsdatagrid.datagrid('appendRow', { Status:0   });
+            orderdetailseditIndex = $orderdetailsdatagrid.datagrid('getRows').length - 1;
+            $orderdetailsdatagrid.datagrid('selectRow', orderdetailseditIndex )
+                    .datagrid('beginEdit', orderdetailseditIndex);
         }
     }
-    function removeit() {
-        if (editIndex == undefined) { return }
-        $orderdetailstable.datagrid('cancelEdit', editIndex)
-                .datagrid('deleteRow', editIndex);
-        editIndex = undefined;
+    function orderdetails_removeit() {
+        if (orderdetailseditIndex  == undefined) { return }
+        $orderdetailsdatagrid.datagrid('cancelEdit', orderdetailseditIndex )
+                .datagrid('deleteRow', orderdetailseditIndex );
+        orderdetailseditIndex = undefined;
     }
    
-    function reject() {
-        $orderdetailstable.datagrid('rejectChanges');
-        editIndex = undefined;
+    function orderdetails_reject() {
+        $orderdetailsdatagrid.datagrid('rejectChanges');
+        orderdetailseditIndex  = undefined;
     }
-    function getChanges() {
-        var rows = $orderdetailstable.datagrid('getChanges');
+    function orderdetails_getChanges() {
+        var rows = $orderdetailsdatagrid.datagrid('getChanges');
         alert(rows.length + ' rows are changed!');
     }
 
 
-    $(function () {
-
-        $orderdetailstable.datagrid('loading');
-        $.get('/Orders/GetOrderDetailsByOrderId/' + @Model.Id, function (data) {
+	  
+	$(function () {
+	
+		$.get('/Orders/GetOrderDetailsByOrderId/' + @Model.Id,function(data){
             //console.log(data);
-            if ($.isArray(data)){    // is array
-                data = {
-                    total: data.length,
-                    rows: data
-                }
-
-                $orderdetailstable.datagrid('loadData', data);
-            }
-            $orderdetailstable.datagrid('loaded');
-
+            $orderdetailsdatagrid.datagrid('loadData',data);
+        
         })
-    });
+
+
+	
+	});
 </script>
 
 

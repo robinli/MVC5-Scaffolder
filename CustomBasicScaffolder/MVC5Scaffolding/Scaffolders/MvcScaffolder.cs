@@ -538,8 +538,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             string linqtxt = "";
 
 
-            foreach (PropertyMetadata m in efMetadata.Properties.Where(n => n.Scaffold && n.ShortTypeName.ToLower() != "int"
-                && n.ShortTypeName.ToLower() != "decimal" && n.ShortTypeName.ToLower() != "float"))
+            foreach (PropertyMetadata m in efMetadata.Properties.Where(n => n.Scaffold ))
             {
 
                 if (m.ShortTypeName.ToLower() == "string")
@@ -556,7 +555,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 }
             }
 
-            return " x => " + linqtxt.Substring(2);
+            return " x => " +  linqtxt.Substring(2);
         }
         public string GetSelectLambdaText(ModelMetadata efMetadata)
         {

@@ -1,84 +1,103 @@
-﻿@model WebApp.Models.Order
+﻿
+
+
+
+@model WebApp.Models.Order
 
 @{
-    ViewBag.Title = "Order | Edit";
+    ViewBag.Title = "订单管理 | Edit"  ;
 }
 
 
+
+
 <div class="row">
-    <div class="col-lg-12">
-        <div class="ibox float-e-margins">
-            <div class="ibox-title">
-                <h5>Order Form <small>create new order</small></h5>
-                <div class="ibox-tools">
-                    <a class="collapse-link">
-                        <i class="fa fa-chevron-up"></i>
-                    </a>
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="form_basic.html#">
-                        <i class="fa fa-wrench"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li>
-                            <a href="form_basic.html#">Config option 1</a>
-                        </li>
-                        <li>
-                            <a href="form_basic.html#">Config option 2</a>
-                        </li>
-                    </ul>
-                    <a class="close-link">
-                        <i class="fa fa-times"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="ibox-content">
-
-                @using (Html.BeginForm())
-                {
-                    @Html.AntiForgeryToken()
-
-                    <div class="form-horizontal">
-                        
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        @Html.Partial("EditForm")
-                        <div class="form-group">
-                            <div class="col-md-offset-2 col-md-10">
-                                <input type="submit" class="btn btn-primary" value="Save" />
-                                <input type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal" value="Delete" />
-                            </div>
+            <div class="col-md-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>订单管理 form<small> edit Orders</small></h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="#">Config option 1</a>
+                                </li>
+                                <li><a href="">Config option 2</a>
+                                </li>
+                            </ul>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
                         </div>
                     </div>
-                }
-            </div>
+                    <div class="ibox-content">
+                       
+
+@using (Html.BeginForm())
+{
+    @*@Html.AntiForgeryToken()*@
+    		<div class="form-horizontal">
+	 
+ 
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+ 
+    
+        @Html.Partial("EditForm")
+ 
+		<div class="row">
+        <div class="hr-line-dashed"></div>
+                                <div class="form-group">
+                                    <div class="col-sm-4 col-sm-offset-2">
+                                        <button class="btn btn-white" type="reset">Cancel</button>
+                                        <button class="btn btn-primary" type="submit">Save</button>
+                                    </div>
+                                </div>
+	    </div>
+
+		 		</div>
+		}
+ </div>
         </div>
     </div>
 </div>
-    
 
-    @section Scripts {
-      
-        <script type="text/javascript">
+ 
 
-            var orderid = 0;
-            var ObjectState = "Modified";
-
-            var $orderdetailstable = $('#orderdetail_datagrid');
-            $(document).ready(function () {
-                orderid =@Model.Id;
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+	
+    		var orderid = 0;
+		var ObjectState = "Modified";   
+                                 
+             var $orderdetailsdatagrid = $('#orderdetails_datagrid');
+                        $(document).ready(function () {
+				orderid = $('#Id', 'form').val();
                 $('form').submit(function () {
+					if (!$('form').valid())
+						return false;
                     //var token = $('[name=__RequestVerificationToken]').val();
                     //var serializedForm = $(this).serialize();
                     var actionurl = $(this).attr('action');
+                    						if (!orderdetails_endEditing())
+								return false;                                         
+                        var orderdetails = $orderdetailsdatagrid.datagrid('getChanges');
+                                         
+                     var newitem = {
+						
 
-                    var orderdetails = $orderdetailstable.datagrid('getChanges');
-                    console.log(orderdetails);
-                    var newitem = {
-                        OrderDetails: orderdetails,
-
-                        Id: orderid,
-                        Customer: $('#Customer', 'form').val(),
-                        ShippingAddress: $('#ShippingAddress', 'form').val(),
-                        OrderDate: $('#OrderDate', 'form').val(),
-                        ObjectState: ObjectState
+                                                        Customer: $('#Customer', 'form').val(),
+                        								//primaryKey   
+								Id: orderid,
+                                                        OrderDate: $('#OrderDate', 'form').val(),
+                        								//detailTables
+                                OrderDetails: orderdetails ,
+                                                        ShippingAddress: $('#ShippingAddress', 'form').val(),
+                                                ObjectState:ObjectState 
                     };
                     $.ajax({
                         url: actionurl,
@@ -92,7 +111,7 @@
                             } else {
                                 alert(result.err);
                             }
-
+                            
                         },
                         error: function (result) {
                             console.log(result.statusText + result.responseText);
@@ -100,11 +119,11 @@
                         }
                     });
                     return false;
-
+                    
 
                 });
             });
+      
+      </script>
 
-        </script>
-
-    }
+}

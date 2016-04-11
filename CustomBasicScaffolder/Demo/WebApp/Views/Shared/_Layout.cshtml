@@ -105,8 +105,38 @@
 
     <!-- Select2 -->
     <script src="~/Scripts/plugins/select2/select2.full.min.js"></script>
-  
+    <script src="~/Scripts/uploadify/jquery.uploadify.js"></script>
+    @*<script src="~/Scripts/nprogress.js"></script>*@
+    <script>
 
+        function dateformatter(value, row, index) {
+
+            if (value == typeof (undefined))
+                return null;
+            if (value == null)
+                return null;
+            else
+                return moment(value).format('YYYY-MM-DD');
+        }
+        function datetimeformatter(value, row, index) {
+
+
+            if (value == typeof (undefined))
+                return null;
+            if (value == null)
+                return null;
+            else
+                return moment(value).format('YYYY-MM-DD HH:mm:ss');
+        }
+
+
+        jQuery.extend({
+            dateNow: function () {
+                //console.log(new Date());
+                return moment(new Date()).format('YYYY-MM-DD');
+            }
+        });
+    </script>
 </head>
 
 <body class="">

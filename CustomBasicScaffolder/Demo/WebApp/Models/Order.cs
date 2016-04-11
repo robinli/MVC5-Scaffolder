@@ -16,7 +16,9 @@ namespace WebApp.Models
         }
         [Key]
         public int Id { get; set; }
+        [Required]
         public string Customer { get; set; }
+        [Required]
         public string ShippingAddress { get; set; }
         public DateTime OrderDate { get; set; }
         

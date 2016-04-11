@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace WebApp.Models
@@ -30,5 +31,13 @@ namespace WebApp.Models
         [Display(Name = "订单日期")]
         public DateTime OrderDate { get; set; }
 
+    }
+
+
+    public class OrderChangeViewModel
+    {
+        public IEnumerable<Order> inserted { get; set; }
+        public IEnumerable<Order> deleted { get; set; }
+        public IEnumerable<Order> updated { get; set; }
     }
 }

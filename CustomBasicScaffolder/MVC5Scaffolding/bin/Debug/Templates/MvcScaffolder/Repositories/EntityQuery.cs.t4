@@ -79,14 +79,26 @@ namespace <#=DefaultNamespace #>.Repositories
 					#>
 
 				    <# 
-						if(property.ShortTypeName=="int" || property.ShortTypeName=="float" || property.ShortTypeName=="decimal" || property.ShortTypeName=="double") {
+						if(property.ShortTypeName=="int"  ) {
 					#>
-						if (rule.field == "<#= property.PropertyName  #>" && !string.IsNullOrEmpty(rule.value) && rule.value.IsNumeric())
+						if (rule.field == "<#= property.PropertyName  #>" && !string.IsNullOrEmpty(rule.value) && rule.value.IsInt())
 						{
 							int val = Convert.ToInt32(rule.value);
 							And(x => x.<#= property.PropertyName #> == val);
 						}
-				   <# 
+				    <# 
+					   // end if
+						} #>
+
+					<# 
+						if(property.ShortTypeName=="float" || property.ShortTypeName=="decimal" || property.ShortTypeName=="double") {
+					#>
+						if (rule.field == "<#= property.PropertyName  #>" && !string.IsNullOrEmpty(rule.value) && rule.value.IsDecimal())
+						{
+							var val = Convert.ToDecimal(rule.value);
+							And(x => x.<#= property.PropertyName #> == val);
+						}
+				    <# 
 					   // end if
 						} #>
 

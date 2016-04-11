@@ -208,15 +208,15 @@
     <Compile Include="Controllers\Categories1Controller.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\CompaniesController.cs" />
+    <Compile Include="Controllers\DataTableImportMappingsController.cs" />
     <Compile Include="Controllers\DepartmentsController.cs" />
+    <Compile Include="Controllers\FileUploadController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ManagementController.cs" />
     <Compile Include="Controllers\MenuItemsController.cs" />
+    <Compile Include="Controllers\OrderDetailsController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
-    <Compile Include="Controllers\OrdersController__.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\RoleMenusController.cs" />
     <Compile Include="Controllers\WorksController.cs" />
@@ -235,6 +235,10 @@
     <Compile Include="Migrations\201601300856405_dx.Designer.cs">
       <DependentUpon>201601300856405_dx.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201604110311495_update.cs" />
+    <Compile Include="Migrations\201604110311495_update.Designer.cs">
+      <DependentUpon>201604110311495_update.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -248,6 +252,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\CompanyMetadata.cs" />
+    <Compile Include="Models\DataTableImport.cs" />
     <Compile Include="Models\Department.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -263,6 +268,7 @@
     <Compile Include="Models\OrderDetail.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\OrderDetailMetadata.cs" />
     <Compile Include="Models\OrderMetadata.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -285,10 +291,14 @@
     <Compile Include="Repositories\Categories\CategoryRepository.cs" />
     <Compile Include="Repositories\Companies\CompanyQuery.cs" />
     <Compile Include="Repositories\Companies\CompanyRepository.cs" />
+    <Compile Include="Repositories\DataTableImportMappings\MappingQuery.cs" />
+    <Compile Include="Repositories\DataTableImportMappings\MappingRepository.cs" />
     <Compile Include="Repositories\Departments\DepartmentQuery.cs" />
     <Compile Include="Repositories\Departments\DepartmentRepository.cs" />
     <Compile Include="Repositories\MenuItems\MenuItemQuery.cs" />
     <Compile Include="Repositories\MenuItems\MenuItemRepository.cs" />
+    <Compile Include="Repositories\OrderDetails\OrderDetailQuery.cs" />
+    <Compile Include="Repositories\OrderDetails\OrderDetailRepository.cs" />
     <Compile Include="Repositories\Orders\OrderQuery.cs" />
     <Compile Include="Repositories\Orders\OrderRepository.cs" />
     <Compile Include="Repositories\Products\ProductQuery.cs" />
@@ -303,12 +313,16 @@
     <Compile Include="Services\Categories\ICategoryService.cs" />
     <Compile Include="Services\Companies\CompanyService.cs" />
     <Compile Include="Services\Companies\ICompanyService.cs" />
+    <Compile Include="Services\DataTableImportMappings\IMappingService.cs" />
+    <Compile Include="Services\DataTableImportMappings\MappingService.cs" />
     <Compile Include="Services\Departments\DepartmentService.cs" />
     <Compile Include="Services\Departments\IDepartmentService.cs" />
-    <Compile Include="Services\IOrderService.cs" />
     <Compile Include="Services\MenuItems\IMenuItemService.cs" />
     <Compile Include="Services\MenuItems\MenuItemService.cs" />
-    <Compile Include="Services\OrderService.cs" />
+    <Compile Include="Services\OrderDetails\IOrderDetailService.cs" />
+    <Compile Include="Services\OrderDetails\OrderDetailService.cs" />
+    <Compile Include="Services\Orders\IOrderService.cs" />
+    <Compile Include="Services\Orders\OrderService.cs" />
     <Compile Include="Services\Products\IProductService.cs" />
     <Compile Include="Services\Products\ProductService.cs" />
     <Compile Include="Services\RoleMenus\IRoleMenuService.cs" />
@@ -1082,11 +1096,6 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Orders\Index.cshtml" />
-    <Content Include="Views\Orders\Create.cshtml" />
-    <Content Include="Views\Orders\Edit.cshtml" />
-    <Content Include="Views\Orders\EditForm.cshtml" />
-    <Content Include="Views\Orders\_OrderDetailEditForm.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\BaseCode.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Slider.cshtml" />
     <Content Include="Views\Companies\Create.cshtml" />
@@ -1153,6 +1162,21 @@
     <Content Include="Views\MenuItems\EditForm.cshtml" />
     <Content Include="Views\MenuItems\_PopupSearch.cshtml" />
     <Content Include="Views\MenuItems\_MenuItemEditForm.cshtml" />
+    <Content Include="Views\OrderDetails\Index.cshtml" />
+    <Content Include="Views\OrderDetails\Create.cshtml" />
+    <Content Include="Views\OrderDetails\Edit.cshtml" />
+    <Content Include="Views\OrderDetails\EditForm.cshtml" />
+    <Content Include="Views\OrderDetails\_PopupSearch.cshtml" />
+    <Content Include="Views\DataTableImportMappings\Create.cshtml" />
+    <Content Include="Views\DataTableImportMappings\Edit.cshtml" />
+    <Content Include="Views\DataTableImportMappings\EditForm.cshtml" />
+    <Content Include="Views\DataTableImportMappings\Index.cshtml" />
+    <Content Include="Views\Orders\Index.cshtml" />
+    <Content Include="Views\Orders\Create.cshtml" />
+    <Content Include="Views\Orders\Edit.cshtml" />
+    <Content Include="Views\Orders\EditForm.cshtml" />
+    <Content Include="Views\Orders\_PopupSearch.cshtml" />
+    <Content Include="Views\Orders\_OrderDetailEditForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Source\Repository.Pattern.Ef6\Repository.Pattern.Ef6.csproj">
@@ -1174,6 +1198,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201601300856405_dx.resx">
       <DependentUpon>201601300856405_dx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604110311495_update.resx">
+      <DependentUpon>201604110311495_update.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

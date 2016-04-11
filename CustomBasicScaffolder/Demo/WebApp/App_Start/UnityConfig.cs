@@ -66,12 +66,16 @@ namespace WebApp.App_Start
             container.RegisterType<IUnitOfWorkAsync, UnitOfWork>(new PerRequestLifetimeManager());
             container.RegisterType<IDataContextAsync, StoreContext>(new PerRequestLifetimeManager());
 
+
+            container.RegisterType<IRepositoryAsync<DataTableImportMapping>, Repository<DataTableImportMapping>>();
+            container.RegisterType<IDataTableImportMappingService, DataTableImportMappingService>();
+
             container.RegisterType<IRepositoryAsync<Product>, Repository<Product>>();
             container.RegisterType<IProductService, ProductService>();
             container.RegisterType<IRepositoryAsync<Category>, Repository<Category>>();
             container.RegisterType<ICategoryService, CategoryService>();
-            container.RegisterType<IRepositoryAsync<Order>, Repository<Order>>();
-            container.RegisterType<IOrderService, OrderService>();
+            //container.RegisterType<IRepositoryAsync<Order>, Repository<Order>>();
+            //container.RegisterType<IOrderService, OrderService>();
 
             container.RegisterType<IRepositoryAsync<Company>, Repository<Company>>();
             container.RegisterType<ICompanyService, CompanyService>();
@@ -97,8 +101,11 @@ namespace WebApp.App_Start
             container.RegisterType<IRepositoryAsync<RoleMenu>, Repository<RoleMenu>>();
 
             //container.RegisterType<ICodeItemService, CodeItemService>();
-            //container.RegisterType<IRepositoryAsync<Order>, Repository<Order>>();
-            //container.RegisterType<IOrderService, OrderService>();
+            container.RegisterType<IRepositoryAsync<Order>, Repository<Order>>();
+            container.RegisterType<IOrderService, OrderService>();
+
+            container.RegisterType<IRepositoryAsync<OrderDetail>, Repository<OrderDetail>>();
+            container.RegisterType<IOrderDetailService, OrderDetailService>();
         }
     }
 }
