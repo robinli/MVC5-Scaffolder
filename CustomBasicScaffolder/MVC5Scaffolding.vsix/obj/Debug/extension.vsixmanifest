@@ -1,8 +1,8 @@
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011">
   <Metadata>
     <Identity Id="CustomBasicScaffolderExtension..40e7bb7e-f72d-44cf-8439-2567be2590c6" Version="3.1" Language="en-US" Publisher="Robin Li" />
-    <DisplayName>Happy Scaffolding for MVC5 for EasyUI DataGrid</DisplayName>
-    <Description xml:space="preserve">Generates ASP.NET MVC 5 for C.R.U.D from an Entity Framework data context and model class.</Description>
+    <DisplayName>URF MVC5 With EasyUI DataGrid</DisplayName>
+    <Description xml:space="preserve">Generates ASP.NET MVC 5 with EasyUI from an Entity Framework data context and model class.</Description>
     <MoreInfo>https://github.com/robinli/MVC5-Scaffolder</MoreInfo>
     <License>LICENSE.txt</License>
     <Tags>Scaffolding</Tags>
