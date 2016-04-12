@@ -43,7 +43,7 @@ MVC5-Scaffolder开源项目
     
 + 运行起来大致的样式如下采用Boostrap sb-admin.css
 
-![alt tag](http://images.cnitblog.com/blog/5997/201502/151429415262061.png)
+![alt tag](http://images2015.cnblogs.com/blog/5997/201604/5997-20160412105628129-1137774382.png)
 
  
 
@@ -145,16 +145,16 @@ IProductService,IUnitOfWorkAsync则是通过Unity依赖注入创建
 
 运行调试
 ------------------------------
-![alt tag](http://images.cnitblog.com/blog/5997/201502/151429551209708.png)
+![alt tag](http://images2015.cnblogs.com/blog/5997/201604/5997-20160412105628129-1137774382.png)
 基本生成样式就是这样
 
 Index首页有分页和查询功能
 
-![alt tag](http://images.cnitblog.com/blog/5997/201502/151429556989364.png)
+![alt tag](http://images2015.cnblogs.com/blog/5997/201604/5997-20160412105628504-475147985.png)
 
 修改 可以删除
 
-![alt tag](http://images.cnitblog.com/blog/5997/201502/151429567459178.png)
+![alt tag](http://images2015.cnblogs.com/blog/5997/201604/5997-20160412105628926-265270641.png)
 
  
 
