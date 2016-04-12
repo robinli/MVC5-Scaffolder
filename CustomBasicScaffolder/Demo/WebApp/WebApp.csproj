@@ -239,6 +239,10 @@
     <Compile Include="Migrations\201604110311495_update.Designer.cs">
       <DependentUpon>201604110311495_update.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201604120119459_update_product.cs" />
+    <Compile Include="Migrations\201604120119459_update_product.Designer.cs">
+      <DependentUpon>201604120119459_update_product.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -1077,9 +1081,6 @@
     <Content Include="Views\Shared\DisplayTemplates\DateTime.cshtml" />
     <Content Include="Views\Shared\_Layout_sbadmin.cshtml" />
     <Content Include="Views\Shared\_SideNavBar.cshtml" />
-    <Content Include="Views\Products\Create.cshtml" />
-    <Content Include="Views\Products\Edit.cshtml" />
-    <Content Include="Views\Products\EditForm.cshtml" />
     <Content Include="Views\Shared\_LoginLayout.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\String1.cshtml" />
     <Content Include="Views\AccountManage\Index.cshtml" />
@@ -1103,16 +1104,9 @@
     <Content Include="Views\Companies\_DepartmentEditForm.cshtml" />
     <Content Include="Views\Companies\_EmployeeEditForm.cshtml" />
     <Content Include="Views\Companies\EditForm.cshtml" />
-    <Content Include="Views\Categories\Index.cshtml" />
-    <Content Include="Views\Categories\Create.cshtml" />
-    <Content Include="Views\Categories\Edit.cshtml" />
-    <Content Include="Views\Categories\EditForm.cshtml" />
-    <Content Include="Views\Categories\_PopupSearch.cshtml" />
-    <Content Include="Views\Categories\_ProductEditForm.cshtml" />
     <Content Include="Views\Departments\_PopupSearch.cshtml" />
     <Content Include="Views\RoleMenus\_navMenuBar.cshtml" />
     <Content Include="Views\RoleMenus\Index.cshtml" />
-    <Content Include="Views\Products\_PopupSearch.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -1138,7 +1132,6 @@
     <None Include="Project_Readme.html" />
     <Content Include="Views\Shared\skin-config.html" />
     <Content Include="skin-config.html" />
-    <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\Companies\_PopupSearch.cshtml" />
     <Content Include="Views\Companies\Index.cshtml" />
     <Content Include="Views\Departments\Index.cshtml" />
@@ -1177,6 +1170,17 @@
     <Content Include="Views\Orders\EditForm.cshtml" />
     <Content Include="Views\Orders\_PopupSearch.cshtml" />
     <Content Include="Views\Orders\_OrderDetailEditForm.cshtml" />
+    <Content Include="Views\Categories\Index.cshtml" />
+    <Content Include="Views\Categories\Create.cshtml" />
+    <Content Include="Views\Categories\Edit.cshtml" />
+    <Content Include="Views\Categories\EditForm.cshtml" />
+    <Content Include="Views\Categories\_PopupSearch.cshtml" />
+    <Content Include="Views\Categories\_ProductEditForm.cshtml" />
+    <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Views\Products\Create.cshtml" />
+    <Content Include="Views\Products\Edit.cshtml" />
+    <Content Include="Views\Products\EditForm.cshtml" />
+    <Content Include="Views\Products\_PopupSearch.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Source\Repository.Pattern.Ef6\Repository.Pattern.Ef6.csproj">
@@ -1201,6 +1205,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201604110311495_update.resx">
       <DependentUpon>201604110311495_update.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604120119459_update_product.resx">
+      <DependentUpon>201604120119459_update_product.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

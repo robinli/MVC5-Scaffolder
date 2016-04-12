@@ -58,11 +58,12 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
     <div class="col-lg-12">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5><#=  PageTitle #> Data</h5>
+                <h5><#=  PageTitle #></h5>
                 <div class="ibox-tools">
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
                     </a>
+					<!--
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-wrench"></i>
                     </a>
@@ -77,6 +78,7 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
                     <a class="close-link">
                         <i class="fa fa-times"></i>
                     </a>
+					-->
                 </div>
             </div>
             <div class="ibox-content">
@@ -84,7 +86,7 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
                 <div class="table-responsive">
            
  
-       <table id="<#= modelVariable #>_datagrid" class="easyui-datagrid" title="<#= PageTitle #> DataGrid" style="width:auto;height:auto"
+       <table id="<#= modelVariable #>_datagrid" class="easyui-datagrid" title="<#= PageTitle #>" style="width:auto;height:auto"
                    data-options="
                  rownumbers:true,
 				 checkOnSelect:true,
@@ -176,7 +178,7 @@ foreach (PropertyMetadata property in properties) {
 		     <th data-options="field:'<#=  property.PropertyName  #>',width:100,align:'right',editor:{type:'numberbox',options:{precision:0,required:<#= isRequired.ToString().ToLower() #>}} ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
 		<#   }   } else if(fieldtypename=="DateTime" ) {
 		#>
-		     <th data-options="field:'<#=  property.PropertyName  #>',width:160,align:'right',editor:{type:'datebox',options:{required:<#= isRequired.ToString().ToLower() #>},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
+		     <th data-options="field:'<#=  property.PropertyName  #>',width:160,align:'right',editor:{type:'datebox',options:{required:<#= isRequired.ToString().ToLower() #>}},sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
 		<# } else if(fieldtypename=="bool" || fieldtypename=="Boolean" ){ #>
 			 <th data-options="field:'<#= property.PropertyName #>',width:120,editor: {type:'combobox'
                                                 ,options:{

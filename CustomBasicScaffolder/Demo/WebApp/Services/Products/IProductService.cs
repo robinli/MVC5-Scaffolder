@@ -12,6 +12,7 @@ using Repository.Pattern.Repositories;
 using Service.Pattern;
 using WebApp.Models;
 using WebApp.Repositories;
+using System.Data;
 
 namespace WebApp.Services
 {
@@ -22,5 +23,6 @@ namespace WebApp.Services
         
          
  
+		void ImportDataTable(DataTable datatable);
 	}
 }

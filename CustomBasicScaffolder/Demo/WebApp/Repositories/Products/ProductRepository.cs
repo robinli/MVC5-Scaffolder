@@ -1,7 +1,8 @@
 ﻿
                     
       
-
+    
+ 
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -23,7 +24,6 @@ namespace WebApp.Repositories
                 .Queryable()
                 .Where(x => x.CategoryId==categoryid);
              return query;
-                     
 
          }
              

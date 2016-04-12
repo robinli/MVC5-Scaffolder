@@ -58,7 +58,7 @@ namespace WebApp.Controllers
             			 
             var products  = _productService.Query(new ProductQuery().Withfilter(filters)).Include(p => p.Category).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(page, rows, out totalCount);
             
-            var datarows = products .Select(  n => new { CategoryName = (n.Category==null?"": n.Category.Name) , Id = n.Id , Name = n.Name , Unit = n.Unit , UnitPrice = n.UnitPrice , StockQty = n.StockQty , ConfirmDateTime = n.ConfirmDateTime , CategoryId = n.CategoryId }).ToList();
+                        var datarows = products .Select(  n => new { CategoryName = (n.Category==null?"": n.Category.Name) , Id = n.Id , Name = n.Name , Unit = n.Unit , UnitPrice = n.UnitPrice , StockQty = n.StockQty , ConfirmDateTime = n.ConfirmDateTime , CategoryId = n.CategoryId }).ToList();
             var pagelist = new { total = totalCount, rows = datarows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
