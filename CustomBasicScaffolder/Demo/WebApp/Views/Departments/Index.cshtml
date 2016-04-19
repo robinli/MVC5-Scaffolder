@@ -9,42 +9,63 @@
 @{
     ViewBag.Title = "Departments";
 }
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Basic Form</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="@Url.Action("Index", "Home")">Home</a>
+            </li>
+            <li>
+                <a>组织架构</a>
+            </li>
+            <li class="active">
+                <strong>部门</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
 
 
-<div class="row">
-    <div class="col-lg-12">
-        <div class="ibox float-e-margins">
-            <div class="ibox-title">
-                <h5>Departments Data</h5>
-                <div class="ibox-tools">
-                    <a class="collapse-link">
-                        <i class="fa fa-chevron-up"></i>
-                    </a>
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-wrench"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li>
-                            <a href="table_data_tables.html#">Config option 1</a>
-                        </li>
-                        <li>
-                            <a href="table_data_tables.html#">Config option 2</a>
-                        </li>
-                    </ul>
-                    <a class="close-link">
-                        <i class="fa fa-times"></i>
-                    </a>
+<div class="wrapper wrapper-content animated fadeInRight">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Departments Data</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="fa fa-wrench"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li>
+                                <a href="table_data_tables.html#">Config option 1</a>
+                            </li>
+                            <li>
+                                <a href="table_data_tables.html#">Config option 2</a>
+                            </li>
+                        </ul>
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
                 </div>
-            </div>
-            <div class="ibox-content">
+                <div class="ibox-content">
 
-                <div class="table-responsive">
-           
- 
-       <table id="departments_datagrid" class="easyui-datagrid" title="Departments DataGrid" style="width:auto;height:auto"
-                   data-options="
+                    <div class="table-responsive">
+
+
+                        <table id="departments_datagrid" class="easyui-datagrid" title="Departments DataGrid" style="width:auto;height:auto"
+                               data-options="
                  rownumbers:true,
-                 
+
                 remoteFilter: true,
                 singleSelect: true,
                 toolbar: '#departments_toolbar',
@@ -53,17 +74,17 @@
                 onClickCell: onClickCell,
                 pagination: 'true'
                    ">
-                <thead>
-                    <tr>
-                        @*<th data-options="field:'ck',checkbox:true"></th>*@
-        			<th data-options="field:'Id',width:80">@Html.DisplayNameFor(model => model.Id)</th>
-                
-				     <th data-options="field:'Name',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Name)</th>
-		
-                
-				     <th data-options="field:'Manager',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Manager)</th>
-		
-                			<th data-options="field:'CompanyId',width:100,
+                            <thead>
+                                <tr>
+                                    @*<th data-options="field:'ck',checkbox:true"></th>*@
+                                    <th data-options="field:'Id',width:80">@Html.DisplayNameFor(model => model.Id)</th>
+
+                                    <th data-options="field:'Name',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Name)</th>
+
+
+                                    <th data-options="field:'Manager',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Manager)</th>
+
+                                    <th data-options="field:'CompanyId',width:100,
                         formatter:function(value,row){
                             return row.CompanyName;
                         },
@@ -78,48 +99,49 @@
                             }
                         }">@Html.DisplayNameFor(model => model.CompanyId)</th>
 
-           
-               
-    </tr>
-    </thead>
- 
 
-</table>
-	<div id="departments_toolbar" style="height:auto">
+
+                    </tr>
+                </thead>
+
+
+            </table>
+            <div id="departments_toolbar" style="height:auto">
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append()">Append</a>
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">Remove</a>
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">Accept</a>
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">Reject</a>
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="getChanges()">GetChanges</a>
             </div>
-				</div>
-
-            </div>
         </div>
+
     </div>
+</div>
+</div>
+</div>
 </div>
 @section Scripts {
     <script type="text/javascript">
-         var $dg = $('#departments_datagrid');
-		 var editIndex = undefined;
+        var $dg = $('#departments_datagrid');
+        var editIndex = undefined;
         function endEditing() {
             if (editIndex == undefined) { return true }
             if ($dg.datagrid('validateRow', editIndex)) {
 
-				                var ed = $dg.datagrid('getEditor', { index: editIndex, field: 'CompanyId' });
+                var ed = $dg.datagrid('getEditor', { index: editIndex, field: 'CompanyId' });
                 var companyname = $(ed.target).combobox('getText');
                 var companyid = $(ed.target).combobox('getValue');
                 //console.log(categoryname, categoryid);
                 //console.log(1,$dg.datagrid('getRows')[editIndex]);
-                $dg.datagrid('getRows')[editIndex]['CompanyName'] =  companyname;
+                $dg.datagrid('getRows')[editIndex]['CompanyName'] = companyname;
                 $dg.datagrid('getRows')[editIndex]['CompanyId'] = companyid;
-                
+
                 //console.log(2,$dg.datagrid('getRows')[editIndex]);
 
-								$dg.datagrid('endEdit', editIndex);
+                $dg.datagrid('endEdit', editIndex);
                 editIndex = undefined;
 
-                
+
                 return true;
             } else {
                 return false;
@@ -178,10 +200,10 @@
                             $dg.datagrid('acceptChanges');
                         }
                     }, "JSON").error(function () {
-                        $.messager.alert("错误", "提交错误了！",'error');
-                      
+                        $.messager.alert("错误", "提交错误了！", 'error');
+
                     });
-              
+
                 }
 
                 $dg.datagrid('acceptChanges');
@@ -197,10 +219,10 @@
         }
 
 
-		 $(function () {
-		  
-           $dg.datagrid('enableFilter');
+        $(function () {
+
+            $dg.datagrid('enableFilter');
         })
-     </script>
+    </script>
 }
 

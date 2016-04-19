@@ -7,61 +7,70 @@
     ViewBag.Title = "Log in";
 }
 
-<div class="container">
-    <div class="row vertical-offset-100">
-        <div class="col-md-4 col-md-offset-4">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Please sign in</h3>
-                </div>
-                <div class="panel-body">
-                    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "", role = "form" }))
+
+<div class="loginColumns animated fadeInDown">
+    <div class="row">
+
+        <div class="col-md-6">
+            <h2 class="font-bold">Welcome to IN+</h2>
+
+            <p>
+                Perfectly designed and precisely prepared admin theme with over 50 pages with extra new web app views.
+            </p>
+
+            <p>
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
+            </p>
+
+            <p>
+                When an unknown printer took a galley of type and scrambled it to make a type specimen book.
+            </p>
+
+            <p>
+                <small>It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</small>
+            </p>
+
+        </div>
+        <div class="col-md-6">
+            <div class="ibox-content">
+@using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "m-t", role = "form" }))
                     {
-                        @Html.AntiForgeryToken()
+    @Html.AntiForgeryToken()
 
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        <fieldset>
-                            <div class="form-group">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "User Name" })
+                        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Password" })
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    </div>
+                    <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
 
-                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "E-mail" })
-                                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                   
 
-                            </div>
-                            <div class="form-group">
-
-                                @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Password" })
-                                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-offset-2 col-md-10">
-                                    <div class="checkbox">
-                                        @Html.CheckBoxFor(m => m.RememberMe)
-                                        @Html.LabelFor(m => m.RememberMe)
-                                    </div>
-                                </div>
-                            </div>
-                           
-                                    <input type="submit" value="Log in" class="btn btn-lg btn-success btn-block" />
-                          
-                            <p>
-                                @Html.ActionLink("Register as a new user", "Register")
-                            </p>
-
-                            @* Enable this once you have account confirmation enabled for password reset functionality
-                    <p>
-                        @Html.ActionLink("Forgot your password?", "ForgotPassword")
-                    </p>*@
-                        </fieldset>
-
-                    }
-                </div>
-                </div>
+                  
+}
+                <p class="m-t">
+                    <small>Inspinia we app framework base on Bootstrap 3 &copy; 2014</small>
+                </p>
             </div>
         </div>
     </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+            Copyright Example Company
+        </div>
+        <div class="col-md-6 text-right">
+            <small>© 2014-2015</small>
+        </div>
+    </div>
+</div>
+
+ 
 
 
-    @section Scripts {
-        @Scripts.Render("~/bundles/jqueryval")
-    }
+   

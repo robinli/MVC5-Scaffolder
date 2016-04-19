@@ -60,7 +60,7 @@ namespace WebApp.Controllers
         // Get :AccountManager/PageList
         // For Index View Boostrap-Table load  data 
         [HttpGet]
-        public ActionResult PageList(int offset = 0, int limit = 10, string search = "", string sort = "", string order = "")
+        public ActionResult PageList(int offset = 0, int limit = 10, string search = "", string sort = "UserName", string order = "asc")
         {
             int totalCount = 0;
             int pagenum = offset / limit + 1;
@@ -113,6 +113,7 @@ namespace WebApp.Controllers
                 {
                     var user = new ApplicationUser { UserName = updated.UserName, Email = updated.Email };
                     var result = UserManager.Update(user);
+                  
                 }
             }
             if (users.deleted != null)
