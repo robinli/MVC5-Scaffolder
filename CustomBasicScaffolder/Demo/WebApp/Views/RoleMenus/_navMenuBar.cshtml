@@ -28,7 +28,7 @@
 }
 
 @* Helper metode til at rendere venstremenu som træstruktur *@
-@helper RenderSubMenuRecursive(TMSApp.Web.Models.MenuItem node)
+@helper RenderSubMenuRecursive(WebApp.Models.MenuItem node)
 {
     // Reference til alle childnodes af den givne node, som er sat til at blive vist på sitet
     var childNodes = Model.Where(x => x.ParentId == node.Id);
