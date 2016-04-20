@@ -28,7 +28,7 @@
                 </div>
             </li>
             <li class="@Html.IsSelected(controller: "Companies,Departments,Employees")">
-                <a href="index.html"><i class="fa fa-sitemap"></i> <span class="nav-label">组织架构</span> <span class="fa arrow"></span></a>
+                <a href="#"><i class="fa fa-sitemap"></i> <span class="nav-label">组织架构</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Companies", cssClass: "in")">
                   
                     <li class="@Html.IsSelected(action: "Index", controller: "Companies")"><a href="@Url.Action("Index", "Companies")">公司信息</a></li>
@@ -40,7 +40,7 @@
             </li>
 
             <li>
-                <a href="empty_page.html#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">业务系统</span><span class="fa arrow"></span><span class="label label-warning pull-right">16/24</span></a>
+                <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">业务系统</span><span class="fa arrow"></span><span class="label label-warning pull-right">16/24</span></a>
                 <ul class="nav nav-second-level collapse">
                     <li>
                         @Html.ActionLink("Category", "Index", "Categories")
@@ -54,7 +54,7 @@
                 </ul>
             </li>
             <li>
-                <a href="mailbox.html"><i class="fa fa-database"></i> <span class="nav-label">系统管理 </span></a>
+                <a href="#"><i class="fa fa-database"></i> <span class="nav-label">系统管理 </span></a>
                 <ul class="nav nav-second-level collapse">
                     <li>
                         <a href="/AccountManage"><i class="fa fa-fw fa-user"></i>用户管理</a>

@@ -1,10 +1,11 @@
 ﻿
 
 
+
 @model WebApp.Models.MenuItem
 
 @{
-    ViewBag.Title = "MenuItems | Edit"  ;
+    ViewBag.Title = "系统菜单维护 | Edit"  ;
 }
 
 
@@ -14,7 +15,7 @@
             <div class="col-md-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>MenuItems form<small> edit MenuItems</small></h5>
+                        <h5>系统菜单维护 form<small> edit MenuItems</small></h5>
                         <div class="ibox-tools">
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
@@ -70,62 +71,6 @@
     @Scripts.Render("~/bundles/jqueryval")
     <script type="text/javascript">
 	
-    		var menuitemid = 0;
-		var ObjectState = "Modified";   
-                                 
-             var $submenusdatagrid = $('#submenus_datagrid');
-                        $(document).ready(function () {
-				menuitemid = $('#Id', 'form').val();
-                $('form').submit(function () {
-					//if (!$('form').valid())
-					//	return false;
-                    //var token = $('[name=__RequestVerificationToken]').val();
-                    //var serializedForm = $(this).serialize();
-                    var actionurl = $(this).attr('action');
-                    						if (!submenus_endEditing())
-								return false;                                         
-                        var submenus = $submenusdatagrid.datagrid('getChanges');
-                                         
-                     var newitem = {
-						
-
-                                                        Code: $('#Code', 'form').val(),
-                                                        Description: $('#Description', 'form').val(),
-                        								//primaryKey   
-								Id: menuitemid,
-                                                        IsEnabled: $('#IsEnabled', 'form').val(),
-                        								//detailTables
-                                SubMenus: submenus ,
-                                                        Title: $('#Title', 'form').val(),
-                                                        Url: $('#Url', 'form').val(),
-                        								ParentId: $('#ParentId :selected','form').val(),
-						                        ObjectState:ObjectState 
-                    };
-                    $.ajax({
-                        url: actionurl,
-                        type: "POST",
-                        dataType: "json",
-                        contentType: "application/json; charset=utf-8",
-                        data: JSON.stringify(newitem),
-                        success: function (result) {
-                            if (result.success) {
-                                self.location = "/MenuItems/Index";
-                            } else {
-                                alert(result.err);
-                            }
-                            
-                        },
-                        error: function (result) {
-                            console.log(result.statusText + result.responseText);
-                            alert(result.statusText + result.responseText);
-                        }
-                    });
-                    return false;
-                    
-
-                });
-            });
-      
       </script>
 
 }

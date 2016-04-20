@@ -1,6 +1,7 @@
 ﻿﻿
 
 
+
 @model WebApp.Models.MenuItem
 
 
@@ -46,6 +47,15 @@
 
 
         <div class="form-group">
+            @Html.LabelFor(model => model.IconCls,   htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                                @Html.EditorFor(model => model.IconCls, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.IconCls,"" , new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
             @Html.LabelFor(model => model.IsEnabled,   htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                                 @Html.EditorFor(model => model.IsEnabled, new { htmlAttributes = new { @class = "form-control" } })
@@ -67,155 +77,7 @@
  
 
 
-     <!-- details tabs -->
-    <div class="tabs-container">
-        <!-- Nav tabs -->
-        <ul class="nav nav-tabs">
-								<li class="active"><a data-toggle="tab" href="#tab-submenus"> SubMenus</a></li>
-								        
-			 
-   
-		 </ul>
-		 <!-- Tab panes -->
-         <div class="tab-content">
-		  		  <div id="tab-submenus" class="tab-pane active">
+  
 
-            <div class="panel-body">
-
-                <div class="table-responsive">
-				<table id="submenus_datagrid" class="easyui-datagrid" title="SubMenus DataGrid" style="width:auto;height:400px"
-                       data-options="
-                            rownumbers:true,
-                            iconCls: 'fa fa-list',
-                            remoteFilter: false,
-                            singleSelect: true,
-                            toolbar: '#submenus_toolbar',
-                            method: 'get',
-                            onClickCell: submenus_onClickCell,
-                            pagination: 'true'
-                    " >
-                    <thead>
-                        <tr>
-						@*<th data-options="field:'ck',checkbox:true"></th>*@
-				        
-														<th data-options="field:'Id',width:80"> Id </th>
-											
-						
-															<th data-options="field:'Title',width:140,editor:{type:'textbox',options:{required:false} } "> Title</th>
-							
-											
-						
-															<th data-options="field:'Description',width:140,editor:{type:'textbox',options:{required:false} } "> Description</th>
-							
-											
-						
-															<th data-options="field:'Code',width:140,editor:{type:'textbox',options:{required:false} } "> Code</th>
-							
-											
-						
-															<th data-options="field:'Url',width:140,editor:{type:'textbox',options:{required:false} } "> Url</th>
-							
-											
-						
-															<th data-options="field:'IsEnabled',width:120,editor:'textbox' "> IsEnabled</th>
-							
-											 
-
-           
-											                           
-                        </tr>
-                    </thead>
-                </table>
-
-				<div id="submenus_toolbar" style="height:auto">
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="submenus_append()">Append</a>
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="submenus_removeit()">Remove</a>
-                    @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="submenus_accept()">Accept</a>*@
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="submenus_reject()">Reject</a>
-                    @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="submenus_getChanges()">GetChanges</a>*@
-                </div>
-
-                </div>
-            </div>
-
-		  	</div>
-	</div>
-	</div>
-<!--end details tabs -->
  
-
- <script type="text/javascript">
-
-
-	var submenuseditIndex = undefined;
-    function submenus_endEditing() {
-        if ( submenuseditIndex == undefined) { return true }
-        if ($submenusdatagrid.datagrid('validateRow', submenuseditIndex)) {
-
-
-
-						$submenusdatagrid.datagrid('endEdit', submenuseditIndex);
-            submenuseditIndex = undefined;
-
-
-            return true;
-        } else {
-            return false;
-        }
-    }
-    function submenus_onClickCell(index, field) {
-        if (submenuseditIndex != index) {
-            if (submenus_endEditing()) {
-                $submenusdatagrid.datagrid('selectRow', index)
-                        .datagrid('beginEdit', index);
-                var ed = $submenusdatagrid.datagrid('getEditor', { index: index, field: field });
-                if (ed) {
-                    ($(ed.target).data('textbox') ? $(ed.target).textbox('textbox') : $(ed.target)).focus();
-                }
-                submenuseditIndex  = index;
-            } else {
-                $submenusdatagrid.datagrid('selectRow', submenuseditIndex);
-            }
-        }
-    }
-    function submenus_append() {
-        if (submenus_endEditing()) {
-            $submenusdatagrid.datagrid('appendRow', { ParentId:@Model.Id  });
-            submenuseditIndex = $submenusdatagrid.datagrid('getRows').length - 1;
-            $submenusdatagrid.datagrid('selectRow', submenuseditIndex )
-                    .datagrid('beginEdit', submenuseditIndex);
-        }
-    }
-    function submenus_removeit() {
-        if (submenuseditIndex  == undefined) { return }
-        $submenusdatagrid.datagrid('cancelEdit', submenuseditIndex )
-                .datagrid('deleteRow', submenuseditIndex );
-        submenuseditIndex = undefined;
-    }
-
-    function submenus_reject() {
-        $submenusdatagrid.datagrid('rejectChanges');
-        submenuseditIndex  = undefined;
-    }
-    function submenus_getChanges() {
-        var rows = $submenusdatagrid.datagrid('getChanges');
-        alert(rows.length + ' rows are changed!');
-    }
-
-
-
-	$(function () {
-
-		$.get('/MenuItems/GetSubMenusByParentId/' + @Model.Id,function(data){
-	        //console.log(data);
-	        $submenusdatagrid.datagrid('loadData',data);
-
-	    })
-
-
-
-	});
-</script>
-
-
 

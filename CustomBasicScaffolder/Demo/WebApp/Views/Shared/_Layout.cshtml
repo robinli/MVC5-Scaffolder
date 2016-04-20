@@ -13,7 +13,7 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
     <link href="~/css/bootstrap.min.css" rel="stylesheet">
     <link href="~/font-awesome/css/font-awesome.css" rel="stylesheet">
-
+    <link href="~/css/font-awesome.css" rel="stylesheet" />
     <link href="~/css/animate.css" rel="stylesheet">
     <link href="~/css/style.css" rel="stylesheet">
     <link href="~/css/ionicons.css" rel="stylesheet" />
@@ -22,15 +22,21 @@
     <!-- Mainly scripts -->
     <script src="~/js/easyui/jquery.min.js"></script>
     <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/easyui/jquery.easyui.min.js"></script>
+    <script src="~/js/easyui/plugins/jquery.edatagrid.js"></script>
+    <script src="~/js/easyui/plugins/datagrid-filter.js"></script>
+    <script src="~/js/easyui/locale/easyui-lang-zh_CN.js"></script>
+    
     <script src="~/js/plugins/metisMenu/jquery.metisMenu.js"></script>
     <script src="~/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
     <!-- Custom and plugin javascript -->
     <script src="~/js/inspinia.js"></script>
-    <script src="~/js/plugins/pace/pace.min.js"></script>
+       <script src="~/js/plugins/pace/pace.min.js"></script>
 
-    <script src="~/js/easyui/jquery.easyui.min.js"></script>
-
+    
+     
+    <script src="~/Scripts/moment.js"></script>
 
 
     <script src="~/Scripts/uploadify/jquery.uploadify.js"></script>
@@ -69,7 +75,7 @@
 <body>
 
     <!-- Skin configuration box -->
-    <!-- @Html.Partial("_SkinConfig") -->
+    @Html.Partial("_SkinConfig")
 
     <!-- Wrapper-->
     <!-- PageClass give you ability to specify custom style for specific view based on action -->

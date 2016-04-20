@@ -243,6 +243,18 @@
     <Compile Include="Migrations\201604120119459_update_product.Designer.cs">
       <DependentUpon>201604120119459_update_product.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201604200627418_iconcls.cs" />
+    <Compile Include="Migrations\201604200627418_iconcls.Designer.cs">
+      <DependentUpon>201604200627418_iconcls.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604200705113_f.cs" />
+    <Compile Include="Migrations\201604200705113_f.Designer.cs">
+      <DependentUpon>201604200705113_f.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604200706238_dd.cs" />
+    <Compile Include="Migrations\201604200706238_dd.Designer.cs">
+      <DependentUpon>201604200706238_dd.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -350,6 +362,7 @@
     <Content Include="Content\sb-admin.css" />
     <Content Include="css\animate.css" />
     <Content Include="css\bootstrap.min.css" />
+    <Content Include="css\font-awesome.css" />
     <Content Include="css\ionicons.css" />
     <Content Include="css\ionicons.min.css" />
     <Content Include="css\patterns\3.png" />
@@ -440,7 +453,9 @@
     <Content Include="css\plugins\toastr\toastr.min.css" />
     <Content Include="css\plugins\touchspin\jquery.bootstrap-touchspin.min.css" />
     <Content Include="css\style.css" />
+    <Content Include="font-awesome\font\fontawesome-webfont.svg" />
     <Content Include="fonts\ionicons.svg" />
+    <Content Include="font\fontawesome-webfont.svg" />
     <Content Include="img\flags\16\Spain.png" />
     <Content Include="img\flags\16\United-States.png" />
     <Content Include="img\flags\32\Abkhazia.png" />
@@ -741,6 +756,7 @@
     <Content Include="js\easyui\locale\easyui-lang-tr.js" />
     <Content Include="js\easyui\locale\easyui-lang-zh_CN.js" />
     <Content Include="js\easyui\locale\easyui-lang-zh_TW.js" />
+    <Content Include="js\easyui\plugins\datagrid-filter.js" />
     <Content Include="js\easyui\plugins\jquery.accordion.js" />
     <Content Include="js\easyui\plugins\jquery.calendar.js" />
     <Content Include="js\easyui\plugins\jquery.combo.js" />
@@ -1219,6 +1235,7 @@
     <Content Include="js\plugins\validate\jquery.validate.min.js" />
     <Content Include="js\plugins\video\responsible-video.js" />
     <Content Include="js\plugins\wow\wow.min.js" />
+    <Content Include="js\skin.config.min.js" />
     <Content Include="Properties\Angular\css\animate.css" />
     <Content Include="Properties\Angular\css\bootstrap.min.css" />
     <Content Include="Properties\Angular\css\patterns\4.png" />
@@ -1840,6 +1857,10 @@
     <Content Include="Scripts\jquery-ui.custom.min.js" />
     <Content Include="Scripts\jsTree3\jstree.js" />
     <Content Include="Scripts\jsTree3\jstree.min.js" />
+    <Content Include="Scripts\moment-with-locales.js" />
+    <Content Include="Scripts\moment-with-locales.min.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\plugins\blueimp\jquery.blueimp-gallery.min.js" />
     <Content Include="Scripts\plugins\chartist\chartist.min.js" />
     <Content Include="Scripts\plugins\chartJs\Chart.min.js" />
@@ -2014,6 +2035,14 @@
     <Content Include="less\_ionicons-font.less" />
     <Content Include="less\_ionicons-icons.less" />
     <Content Include="less\_ionicons-variables.less" />
+    <Content Include="font-awesome\font\fontawesome-webfont.eot" />
+    <Content Include="font-awesome\font\fontawesome-webfont.ttf" />
+    <Content Include="font-awesome\font\fontawesome-webfont.woff" />
+    <Content Include="font-awesome\font\FontAwesome.otf" />
+    <Content Include="font\fontawesome-webfont.eot" />
+    <Content Include="font\fontawesome-webfont.ttf" />
+    <Content Include="font\fontawesome-webfont.woff" />
+    <Content Include="font\FontAwesome.otf" />
     <None Include="Project_Readme.html" />
     <Content Include="Views\Shared\skin-config.html" />
     <Content Include="skin-config.html" />
@@ -2034,12 +2063,6 @@
     <Content Include="Views\BaseCodes\EditForm.cshtml" />
     <Content Include="Views\BaseCodes\_PopupSearch.cshtml" />
     <Content Include="Views\BaseCodes\_CodeItemEditForm.cshtml" />
-    <Content Include="Views\MenuItems\Index.cshtml" />
-    <Content Include="Views\MenuItems\Create.cshtml" />
-    <Content Include="Views\MenuItems\Edit.cshtml" />
-    <Content Include="Views\MenuItems\EditForm.cshtml" />
-    <Content Include="Views\MenuItems\_PopupSearch.cshtml" />
-    <Content Include="Views\MenuItems\_MenuItemEditForm.cshtml" />
     <Content Include="Views\OrderDetails\Index.cshtml" />
     <Content Include="Views\OrderDetails\Create.cshtml" />
     <Content Include="Views\OrderDetails\Edit.cshtml" />
@@ -2076,6 +2099,12 @@
     <Content Include="Views\Shared\_RightSidebar.cshtml" />
     <Content Include="Views\Shared\_SkinConfig.cshtml" />
     <Content Include="Views\Shared\_TopNavbar2.cshtml" />
+    <Content Include="Views\MenuItems\Index.cshtml" />
+    <Content Include="Views\MenuItems\Create.cshtml" />
+    <Content Include="Views\MenuItems\Edit.cshtml" />
+    <Content Include="Views\MenuItems\EditForm.cshtml" />
+    <Content Include="Views\MenuItems\_PopupSearch.cshtml" />
+    <Content Include="Views\MenuItems\_MenuItemEditForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Source\Repository.Pattern.Ef6\Repository.Pattern.Ef6.csproj">
@@ -2103,6 +2132,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201604120119459_update_product.resx">
       <DependentUpon>201604120119459_update_product.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604200627418_iconcls.resx">
+      <DependentUpon>201604200627418_iconcls.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604200705113_f.resx">
+      <DependentUpon>201604200705113_f.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604200706238_dd.resx">
+      <DependentUpon>201604200706238_dd.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

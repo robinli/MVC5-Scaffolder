@@ -7,9 +7,10 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-
+using System.Data.Entity.SqlServer;
 using Repository.Pattern.Repositories;
 using Repository.Pattern.Ef6;
+using System.Web.WebPages;
 using WebApp.Models;
 using WebApp.Extensions;
 
@@ -20,14 +21,14 @@ namespace WebApp.Repositories
         public MenuItemQuery WithAnySearch(string search)
         {
             if (!string.IsNullOrEmpty(search))
-                And( x =>  x.Title.Contains(search) || x.Description.Contains(search) || x.Code.Contains(search) || x.Url.Contains(search) );
+                And( x =>  x.Id.ToString().Contains(search) || x.Title.Contains(search) || x.Description.Contains(search) || x.Code.Contains(search) || x.Url.Contains(search) || x.IconCls.Contains(search) || x.ParentId.ToString().Contains(search) );
             return this;
         }
 
 		public MenuItemQuery WithPopupSearch(string search,string para="")
         {
             if (!string.IsNullOrEmpty(search))
-                And( x =>  x.Title.Contains(search) || x.Description.Contains(search) || x.Code.Contains(search) || x.Url.Contains(search) );
+                And( x =>  x.Id.ToString().Contains(search) || x.Title.Contains(search) || x.Description.Contains(search) || x.Code.Contains(search) || x.Url.Contains(search) || x.IconCls.Contains(search) || x.ParentId.ToString().Contains(search) );
             return this;
         }
 
@@ -39,49 +40,80 @@ namespace WebApp.Repositories
                {
                   
 					
-				    
-					 				
-					
-				    
-					 				
-					
-				    						if (rule.field == "Id")
+				    						if (rule.field == "Id" && !string.IsNullOrEmpty(rule.value) && rule.value.IsInt())
 						{
-							And(x => x.Id == Convert.ToInt32(rule.value));
+							int val = Convert.ToInt32(rule.value);
+							And(x => x.Id == val);
 						}
-				   
-					 				
-											if (rule.field == "Title")
+				    
+					
+					
+				    				
+											if (rule.field == "Title"  && !string.IsNullOrEmpty(rule.value))
 						{
 							And(x => x.Title.Contains(rule.value));
 						}
 				    
 				    
-					 				
-											if (rule.field == "Description")
+					
+					
+				    				
+											if (rule.field == "Description"  && !string.IsNullOrEmpty(rule.value))
 						{
 							And(x => x.Description.Contains(rule.value));
 						}
 				    
 				    
-					 				
-											if (rule.field == "Code")
+					
+					
+				    				
+											if (rule.field == "Code"  && !string.IsNullOrEmpty(rule.value))
 						{
 							And(x => x.Code.Contains(rule.value));
 						}
 				    
 				    
-					 				
-											if (rule.field == "Url")
+					
+					
+				    				
+											if (rule.field == "Url"  && !string.IsNullOrEmpty(rule.value))
 						{
 							And(x => x.Url.Contains(rule.value));
 						}
 				    
 				    
-					 				
+					
+					
+				    				
+											if (rule.field == "IconCls"  && !string.IsNullOrEmpty(rule.value))
+						{
+							And(x => x.IconCls.Contains(rule.value));
+						}
+				    
+				    
+					
+					
+				    				
 					
 				    
-					 									
+					
+					
+				    						if (rule.field == "IsEnabled" && !string.IsNullOrEmpty(rule.value) && rule.value.IsBool())
+						{	
+							 var boolval=Convert.ToBoolean(rule.value);
+							 And(x => x.IsEnabled == boolval);
+						}
+				   				
+					
+				    						if (rule.field == "ParentId" && !string.IsNullOrEmpty(rule.value) && rule.value.IsInt())
+						{
+							int val = Convert.ToInt32(rule.value);
+							And(x => x.ParentId == val);
+						}
+				    
+					
+					
+				    									
                    
                }
            }

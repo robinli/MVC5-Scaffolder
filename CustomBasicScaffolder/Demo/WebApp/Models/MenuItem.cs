@@ -18,20 +18,20 @@ namespace WebApp.Models
             SubMenus = new HashSet<MenuItem>();
         }
         public int Id { get; set; }
-        [StringLength(20)]
+        [StringLength(50)]
         [Required]
-        [Index("IX_menuTitle", 1, IsUnique = true)]
         public string Title { get; set; }
         [StringLength(100)]
         public string Description { get; set; }
         [StringLength(20)]
         [Required]
-        [Index("IX_menuCode", 1, IsUnique = true)]
         public string Code { get; set; }
         [StringLength(100)]
         [Required]
-        [Index("IX_menuUrl", 1, IsUnique = true)]
         public string Url { get; set; }
+
+        [StringLength(50)]
+        public string IconCls { get; set; }
 
         public bool IsEnabled { get; set; }
 

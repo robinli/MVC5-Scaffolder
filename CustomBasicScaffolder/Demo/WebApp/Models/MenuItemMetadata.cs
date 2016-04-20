@@ -24,7 +24,7 @@ namespace WebApp.Models
 
         [Required(ErrorMessage = "Please enter : 菜单名称")]
         [Display(Name = "菜单名称")]
-        [MaxLength(20)]
+        [MaxLength(50)]
         public string Title { get; set; }
 
         [Display(Name = "描述")]
@@ -35,6 +35,9 @@ namespace WebApp.Models
         [Display(Name = "代码")]
         [MaxLength(20)]
         public string Code { get; set; }
+
+        [Display(Name = "图标")]
+        public string IconCls { get; set; }
 
         [Required(ErrorMessage = "Please enter : Url")]
         [Display(Name = "Url")]
