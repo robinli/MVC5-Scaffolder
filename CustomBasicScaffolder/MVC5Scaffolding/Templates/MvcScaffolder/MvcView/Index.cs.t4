@@ -631,9 +631,21 @@ foreach (PropertyMetadata property in properties) {
 		//-----------------------------------------------------
 		function onSelect(index, row) {
             //console.log(index, row);
+			 <#  if(GenerateMasterDetailRelationship  && OneToManyModelMetadata.Count >0) 
+			 { 
+			#>
 			filterBy<#= foreignKey  #>(row.<#= primaryKey  #>);
+			<# } #>
         }
-		function filterBy<#= foreignKey  #>(<#= foreignKeyVar #>) {
+ 
+		
+        
+		 <#  if(GenerateMasterDetailRelationship  && OneToManyModelMetadata.Count >0) 
+			 { 
+				
+		 #>
+
+			function filterBy<#= foreignKey  #>(<#= foreignKeyVar #>) {
             var value = <#= foreignKeyVar #>;
 
 			   <# 
@@ -659,11 +671,6 @@ foreach (PropertyMetadata property in properties) {
 			   <# } #>
 
         }
-        
-		 <#  if(GenerateMasterDetailRelationship  && OneToManyModelMetadata.Count >0) 
-			 { 
-				
-		 #>
 		 //-----------------------------------------------------------------------
 		 // details datagrid functions
 		 //-----------------------------------------------------------------------
