@@ -54,6 +54,30 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
 <#
     var modelName =  ModelMetadata.EntitySetName;
 #>
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>@ViewBag.Title</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="@Url.Action("Index", "Home")">Home</a>
+            </li>
+            <li>
+                <a href="#"><#= ControllerRootName #></a>
+            </li>
+            <li class="active">
+                <strong>@ViewBag.Title</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+
 <div class="row">
     <div class="col-lg-12">
         <div class="ibox float-e-margins">
@@ -341,6 +365,7 @@ foreach (PropertyMetadata property in properties) {
             </div>
         </div>
     </div>
+</div>
 </div>
 <div id="importwindow" class="easyui-window" title="Excel 导入"   data-options="modal:true,collapsible:false,minimizable:false,maximizable:false,closed:true,iconCls:'icon-paperclip'" style="width:500px;height:260px;padding:10px;">
      
