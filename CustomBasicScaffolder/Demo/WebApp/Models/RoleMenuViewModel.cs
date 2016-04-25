@@ -18,5 +18,11 @@ namespace WebApp.Models
     {
         public string RoleName { get; set; }
         public int MenuId { get; set; }
+
+        public bool Create { get; set; }
+        public bool Edit { get; set; }
+        public bool Delete { get; set; }
+        public bool Import { get; set; }
+        public bool Export { get; set; }
     }
 }

@@ -44,6 +44,14 @@ namespace WebApp.Models
         [MaxLength(100)]
         public string Url { get; set; }
 
+        [Display(Name = "Controller")]
+        [MaxLength(100)]
+        public string Controller { get; set; }
+        [MaxLength(100)]
+        [Display(Name = "Action")]
+        public string Action { get; set; }
+
+
         [Display(Name = "上级菜单")]
         public int ParentId { get; set; }
         [Display(Name = "是否启用")]

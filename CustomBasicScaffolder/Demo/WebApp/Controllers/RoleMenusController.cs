@@ -83,7 +83,7 @@ namespace WebApp.Controllers
         {
            var menus = _menuItemService.Queryable().Include(x => x.SubMenus).Where(x => x.IsEnabled);
            var totalCount = menus.Count();
-           var datarows = menus.Select(x => new { Id = x.Id, Title = x.Title, Code = x.Code, _parentId = x.ParentId, Url = x.Url, Create = false, Edit = false, Delete = false });
+           var datarows = menus.Select(x => new { Id = x.Id, Title = x.Title, Code = x.Code, _parentId = x.ParentId, Url = x.Url, Create = true, Edit = true, Delete = true,Import=true });
            var pagelist = new { total = totalCount, rows = datarows };
            return Json(pagelist, JsonRequestBehavior.AllowGet);
         }

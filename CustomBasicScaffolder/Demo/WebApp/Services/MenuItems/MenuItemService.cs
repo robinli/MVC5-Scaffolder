@@ -89,6 +89,8 @@ namespace WebApp.Services
                 menu.Description = "";
                 menu.Title = item.Controller.Replace("Controller", "");
                 menu.Url = "/" + item.Controller.Replace("Controller", "") + "/" + item.Action;
+                menu.Action = item.Action;
+                menu.Controller = item.Controller;
                 menu.IsEnabled = true;
                 if (!this.Queryable().Where(x => x.Url == menu.Url).Any())
                 {
@@ -100,6 +102,15 @@ namespace WebApp.Services
             }
 
             return list;
+        }
+
+
+        public IEnumerable<MenuItem> ReBuildMenus()
+        {
+            foreach (var item in this.Queryable().ToList()) {
+                this.Delete(item);
+            }
+            return this.CreateWithController();
         }
     }
 }

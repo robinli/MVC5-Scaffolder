@@ -91,8 +91,8 @@
 
 
                                     <th data-options="field:'Code',width:140,editor:{type:'textbox',options:{required:true} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Code)</th>
-
-
+                                    <th data-options="field:'Controller',width:140,editor:{type:'textbox',options:{required:true} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Controller)</th>
+                                    <th data-options="field:'Action',width:140,editor:{type:'textbox',options:{required:true} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Action)</th>
                                     <th data-options="field:'Url',width:140,editor:{type:'textbox',options:{required:true} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Url)</th>
 
 
@@ -276,7 +276,7 @@
             if (endEditing()) {
                 //$dg.datagrid('appendRow', { Status: 0 });
                 //editIndex = $dg.datagrid('getRows').length - 1;
-                $dg.datagrid('insertRow', { index: 0, row: { Status: 0 } });
+                $dg.datagrid('insertRow', { index: 0, row: { IsEnabled: true } });
                 editIndex = 0;
                 $dg.datagrid('selectRow', editIndex)
                         .datagrid('beginEdit', editIndex);

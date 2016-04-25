@@ -27,5 +27,6 @@ namespace WebApp.Services
  
 		void ImportDataTable(DataTable datatable);
         IEnumerable<MenuItem> CreateWithController();
+        IEnumerable<MenuItem> ReBuildMenus();
 	}
 }

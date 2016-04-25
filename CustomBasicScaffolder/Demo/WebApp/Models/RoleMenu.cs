@@ -30,5 +30,12 @@ namespace WebApp.Models
         public MenuItem MenuItem { get; set; }
 
         public bool IsEnabled { get; set; }
+
+        public bool Create { get; set; }
+        public bool Edit { get; set; }
+        public bool Delete { get; set; }
+
+        public bool Import { get; set; }
+        public bool Export { get; set; }
     }
 }

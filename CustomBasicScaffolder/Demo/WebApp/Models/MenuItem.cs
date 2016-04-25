@@ -18,17 +18,21 @@ namespace WebApp.Models
             SubMenus = new HashSet<MenuItem>();
         }
         public int Id { get; set; }
-        [StringLength(50)]
+        [MaxLength(50)]
         [Required]
         public string Title { get; set; }
-        [StringLength(100)]
+        [MaxLength(100)]
         public string Description { get; set; }
-        [StringLength(20)]
+        [MaxLength(20)]
         [Required]
         public string Code { get; set; }
-        [StringLength(100)]
+        [MaxLength(100)]
         [Required]
         public string Url { get; set; }
+        [MaxLength(100)]
+        public string Controller { get; set; }
+        [MaxLength(100)]
+        public string Action { get; set; }
 
         [StringLength(50)]
         public string IconCls { get; set; }

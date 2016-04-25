@@ -22,29 +22,29 @@ namespace WebApp.Controllers
 {
     public class MenuItemsController : Controller
     {
-        
+
         //Please RegisterType UnityConfig.cs
         //container.RegisterType<IRepositoryAsync<MenuItem>, Repository<MenuItem>>();
         //container.RegisterType<IMenuItemService, MenuItemService>();
-        
+
         //private StoreContext db = new StoreContext();
-        private readonly IMenuItemService  _menuItemService;
+        private readonly IMenuItemService _menuItemService;
         private readonly IUnitOfWorkAsync _unitOfWork;
 
-        public MenuItemsController (IMenuItemService  menuItemService, IUnitOfWorkAsync unitOfWork)
+        public MenuItemsController(IMenuItemService menuItemService, IUnitOfWorkAsync unitOfWork)
         {
-            _menuItemService  = menuItemService;
+            _menuItemService = menuItemService;
             _unitOfWork = unitOfWork;
         }
 
         // GET: MenuItems/Index
         public ActionResult Index()
         {
-            
+
             //var menuitems  = _menuItemService.Queryable().Include(m => m.Parent).AsQueryable();
-            
-             //return View(menuitems);
-			 return View();
+
+            //return View(menuitems);
+            return View();
         }
 
         // Get :MenuItems/PageList
@@ -52,19 +52,32 @@ namespace WebApp.Controllers
         [HttpGet]
         public ActionResult GetData(int page = 1, int rows = 10, string sort = "Id", string order = "asc", string filterRules = "")
         {
-			var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
+            var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
             int totalCount = 0;
             //int pagenum = offset / limit +1;
-            			 
-            var menuitems  = _menuItemService.Query(new MenuItemQuery().Withfilter(filters)).Include(m => m.Parent).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(page, rows, out totalCount);
-            
-                        var datarows = menuitems .Select(  n => new { ParentTitle = (n.Parent==null?"": n.Parent.Title) , Id = n.Id , Title = n.Title , Description = n.Description , Code = n.Code , Url = n.Url , IconCls = n.IconCls , IsEnabled = n.IsEnabled , ParentId = n.ParentId }).ToList();
+
+            var menuitems = _menuItemService.Query(new MenuItemQuery().Withfilter(filters)).Include(m => m.Parent).OrderBy(n => n.OrderBy(sort, order)).SelectPage(page, rows, out totalCount);
+
+            var datarows = menuitems.Select(n => new
+            {
+                ParentTitle = (n.Parent == null ? "" : n.Parent.Title),
+                Id = n.Id,
+                Title = n.Title,
+                Action = n.Action,
+                Controller = n.Controller,
+                Description = n.Description,
+                Code = n.Code,
+                Url = n.Url,
+                IconCls = n.IconCls,
+                IsEnabled = n.IsEnabled,
+                ParentId = n.ParentId
+            }).ToList();
             var pagelist = new { total = totalCount, rows = datarows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
 
-		[HttpPost]
-		public ActionResult SaveData(MenuItemChangeViewModel menuitems)
+        [HttpPost]
+        public ActionResult SaveData(MenuItemChangeViewModel menuitems)
         {
             if (menuitems.updated != null)
             {
@@ -89,25 +102,31 @@ namespace WebApp.Controllers
             }
             _unitOfWork.SaveChanges();
 
-            return Json(new {Success=true}, JsonRequestBehavior.AllowGet);
+            return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
         }
 
-				public ActionResult GetMenuItems()
+        public ActionResult GetMenuItems()
         {
             var menuitemRepository = _unitOfWork.Repository<MenuItem>();
             var data = menuitemRepository.Queryable().ToList();
             var rows = data.Select(n => new { Id = n.Id, Title = n.Title });
             return Json(rows, JsonRequestBehavior.AllowGet);
         }
-                [HttpPost]
-                public ActionResult CreateWithController()
-                {
-                    _menuItemService.CreateWithController();
-                    _unitOfWork.SaveChanges();
-                    return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
-                }
-		
-       
+        [HttpPost]
+        public ActionResult CreateWithController()
+        {
+            _menuItemService.CreateWithController();
+            _unitOfWork.SaveChanges();
+            return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult ReBuildMenus()
+        {
+            _menuItemService.CreateWithController();
+            _unitOfWork.SaveChanges();
+            return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
+        }
         // GET: MenuItems/Details/5
         public ActionResult Details(int? id)
         {
@@ -122,7 +141,7 @@ namespace WebApp.Controllers
             }
             return View(menuItem);
         }
-        
+
 
         // GET: MenuItems/Create
         public ActionResult Create()
@@ -138,12 +157,12 @@ namespace WebApp.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Parent,SubMenus,Id,Title,Description,Code,Url,IconCls,IsEnabled,ParentId")] MenuItem menuItem)
+        public ActionResult Create([Bind(Include = "Parent,SubMenus,Id,Title,Description,Code,Url,IconCls,IsEnabled,ParentId,Action,Controller")] MenuItem menuItem)
         {
             if (ModelState.IsValid)
             {
-             				_menuItemService.Insert(menuItem);
-                           _unitOfWork.SaveChanges();
+                _menuItemService.Insert(menuItem);
+                _unitOfWork.SaveChanges();
                 if (Request.IsAjaxRequest())
                 {
                     return Json(new { success = true }, JsonRequestBehavior.AllowGet);
@@ -156,7 +175,7 @@ namespace WebApp.Controllers
             ViewBag.ParentId = new SelectList(menuitemRepository.Queryable(), "Id", "Title", menuItem.ParentId);
             if (Request.IsAjaxRequest())
             {
-                var modelStateErrors =String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n=>n.ErrorMessage)));
+                var modelStateErrors = String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n => n.ErrorMessage)));
                 return Json(new { success = false, err = modelStateErrors }, JsonRequestBehavior.AllowGet);
             }
             DisplayErrorMessage();
@@ -184,13 +203,13 @@ namespace WebApp.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Parent,SubMenus,Id,Title,Description,Code,Url,IconCls,IsEnabled,ParentId")] MenuItem menuItem)
+        public ActionResult Edit([Bind(Include = "Parent,SubMenus,Id,Title,Description,Code,Url,IconCls,IsEnabled,ParentId,Action,Controller")] MenuItem menuItem)
         {
             if (ModelState.IsValid)
             {
                 menuItem.ObjectState = ObjectState.Modified;
-                				_menuItemService.Update(menuItem);
-                                
+                _menuItemService.Update(menuItem);
+
                 _unitOfWork.SaveChanges();
                 if (Request.IsAjaxRequest())
                 {
@@ -203,7 +222,7 @@ namespace WebApp.Controllers
             ViewBag.ParentId = new SelectList(menuitemRepository.Queryable(), "Id", "Title", menuItem.ParentId);
             if (Request.IsAjaxRequest())
             {
-                var modelStateErrors =String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n=>n.ErrorMessage)));
+                var modelStateErrors = String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n => n.ErrorMessage)));
                 return Json(new { success = false, err = modelStateErrors }, JsonRequestBehavior.AllowGet);
             }
             DisplayErrorMessage();
@@ -230,21 +249,21 @@ namespace WebApp.Controllers
         //[ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            MenuItem menuItem =  _menuItemService.Find(id);
-             _menuItemService.Delete(menuItem);
+            MenuItem menuItem = _menuItemService.Find(id);
+            _menuItemService.Delete(menuItem);
             _unitOfWork.SaveChanges();
-           if (Request.IsAjaxRequest())
-                {
-                    return Json(new { success = true }, JsonRequestBehavior.AllowGet);
-                }
+            if (Request.IsAjaxRequest())
+            {
+                return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+            }
             DisplaySuccessMessage("Has delete a MenuItem record");
             return RedirectToAction("Index");
         }
 
 
-       
 
- 
+
+
 
         private void DisplaySuccessMessage(string msgText)
         {
