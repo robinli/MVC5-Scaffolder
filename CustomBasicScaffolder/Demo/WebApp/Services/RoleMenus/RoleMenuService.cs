@@ -40,7 +40,7 @@ namespace WebApp.Services
         }
 
 
-        public void UpdateMenus(RoleMenusView[] list)
+        public void Authorize(RoleMenusView[] list)
         {
             var rolename = list.First().RoleName;
             var menuid = list.First().MenuId;
@@ -57,6 +57,10 @@ namespace WebApp.Services
                     RoleMenu rm = new RoleMenu();
                     rm.MenuId = item.MenuId;
                     rm.RoleName = item.RoleName;
+                    rm.Create = item.Create;
+                    rm.Delete = item.Delete;
+                    rm.Edit = item.Edit;
+                    rm.Import = item.Import;
                     Insert(rm);
                 }
             }

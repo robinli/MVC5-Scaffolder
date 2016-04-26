@@ -184,7 +184,7 @@
                         }
                     });
                 }
-                if (name == 'delete') {
+                if (name == 'import') {
                     $('#menu-tree').treegrid('update', {
                         id: row.Id,
                         row: {
@@ -210,7 +210,7 @@
                 //$('#menu-tree').treegrid('select', parent.Id);
             }
             $(function () {
-                $('#savebutton').attr('disabled', true);
+                //$('#savebutton').attr('disabled', true);
 
                 $('#menu-tree').treegrid();
 
@@ -230,6 +230,16 @@
 
                             $('#menu-tree').treegrid('checkRow', item.MenuId);
 
+                            $('#menu-tree').treegrid('update',{
+                                id:  item.MenuId,
+                                row: {
+                                    Import: item.Import,
+                                    Create: item.Create,
+                                    Edit: item.Edit,
+                                    Delete: item.Delete,
+
+                                }
+                            });
                         })
 
                     });
@@ -241,7 +251,14 @@
                     var list = [];
                     $.each(selectednodes, function (i, data) {
                         if (selectedrole.length > 0) {
-                            var item = { 'RoleName': selectedrole, 'MenuId': data.Id };
+                            var item = {
+                                'RoleName': selectedrole,
+                                'MenuId': data.Id,
+                                'Create': data.Create,
+                                'Edit': data.Edit,
+                                'Delete': data.Delete,
+                                'Import': data.Import,
+                            };
                             list.push(item);
                         }
                     });
@@ -249,8 +266,8 @@
                     //console.log(list);
                     if (selectedrole.length > 0 && list.length > 0) {
                         $.post('/RoleMenus/Submit', { selectmenus: list }, function (data, status, q) {
-                            $('#savebutton').attr('disabled', true);
-
+                            //$('#savebutton').attr('disabled', true);
+                            $.messager.alert('提示', '保存成功<br>', 'info');
 
                             //console.log(data);
                         });

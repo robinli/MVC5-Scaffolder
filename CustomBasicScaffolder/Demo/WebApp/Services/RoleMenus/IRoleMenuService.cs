@@ -20,7 +20,7 @@ namespace WebApp.Services
                   IEnumerable<RoleMenu> GetByMenuId(int  menuid);
 
                   IEnumerable<RoleMenu> GetByRoleName(string roleName);
-                  void UpdateMenus(RoleMenusView[] list);
+                  void Authorize(RoleMenusView[] list);
 
                   IEnumerable<MenuItem> RenderMenus(string[] roleNames);
       

@@ -2,20 +2,81 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Caching;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
-
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 namespace WebApp.Extensions
 {
+    public static class CacheExtensions
+    {
+        static object sync = new object();
 
+        public static T Data<T>(this Cache cache, string cacheKey, int expirationSeconds, Func<T> method)
+        {
+            var data = cache == null ? default(T) : (T)cache[cacheKey];
+            if (data == null)
+            {
+                data = method();
+
+                if (expirationSeconds > 0 && data != null)
+                {
+                    lock (sync)
+                    {
+                        cache.Insert(cacheKey, data, null, DateTime.Now.AddSeconds(expirationSeconds), Cache.NoSlidingExpiration);
+                    }
+                }
+            }
+            return data;
+        }
+    }
     public static class HMTLHelperExtensions
     {
+
+        public static bool IsAuthorize(this HtmlHelper html, string menu)
+        {
+            string userid= html.ViewContext.HttpContext.User.Identity.GetUserId();
+            string currentAction = (string)html.ViewContext.RouteData.Values["action"];
+            string currentController = (string)html.ViewContext.RouteData.Values["controller"];
+            string key = userid + currentAction + currentController;
+           // var data= html.ViewContext.HttpContext.Cache.Data<IList<WebApp.Models.RoleMenu>>(key,10000,()=>{
+                var rolemanager = html.ViewContext.HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
+                var usermanager = html.ViewContext.HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+
+                var roles = usermanager.GetRoles(userid);
+                WebApp.Models.StoreContext db = new Models.StoreContext();
+                var authorize = db.RoleMenus.Where(x => roles.Contains(x.RoleName) && x.MenuItem.Action==currentAction && x.MenuItem.Controller==currentController).ToList();
+                //return authorize;
+            //});
+                var data = authorize;
+            if (menu == "Create") {
+                return data.Where(x => x.Create == true).Any();
+            }
+            if (menu == "Edit")
+            {
+                return data.Where(x => x.Edit == true).Any();
+            }
+            if (menu == "Delete")
+            {
+                return data.Where(x => x.Delete == true).Any();
+            }
+            if (menu == "Import")
+            {
+                return data.Where(x => x.Import == true).Any();
+            }
+            
+           
+            
+
+            return false;
+        }
         public static string IsSelected(this HtmlHelper html, string controller = null, string action = null, string cssClass = null)
         {
 
             if (String.IsNullOrEmpty(cssClass))
                 cssClass = "active";
-
+           
             string currentAction = (string)html.ViewContext.RouteData.Values["action"];
             string currentController = (string)html.ViewContext.RouteData.Values["controller"];
 

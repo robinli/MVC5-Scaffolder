@@ -20,6 +20,7 @@ using WebApp.Extensions;
 
 namespace WebApp.Controllers
 {
+    [Authorize]
     public class CompaniesController : Controller
     {
         

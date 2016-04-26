@@ -100,7 +100,7 @@ namespace WebApp.Controllers
         public ActionResult Submit(RoleMenusView[] selectmenus)
         {
 
-            _roleMenuService.UpdateMenus(selectmenus);
+            _roleMenuService.Authorize(selectmenus);
             _unitOfWork.SaveChanges();
             return Json(new { success = true }, JsonRequestBehavior.AllowGet);
         }
