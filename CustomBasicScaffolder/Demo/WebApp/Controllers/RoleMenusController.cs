@@ -18,7 +18,7 @@ using WebApp.Extensions;
 
 namespace WebApp.Controllers
 {
-     // [Authorize]
+    [Authorize]
     public class RoleMenusController : Controller
     {
         //private ApplicationUserManager userManager;

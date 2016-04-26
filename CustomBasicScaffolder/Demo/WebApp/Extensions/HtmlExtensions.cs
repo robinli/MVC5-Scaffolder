@@ -7,6 +7,8 @@ using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+
+using WebApp.Models;
 namespace WebApp.Extensions
 {
     public static class CacheExtensions
@@ -36,21 +38,22 @@ namespace WebApp.Extensions
 
         public static bool IsAuthorize(this HtmlHelper html, string menu)
         {
-            string userid= html.ViewContext.HttpContext.User.Identity.GetUserId();
+            string userid = html.ViewContext.HttpContext.User.Identity.GetUserId();
             string currentAction = (string)html.ViewContext.RouteData.Values["action"];
             string currentController = (string)html.ViewContext.RouteData.Values["controller"];
             string key = userid + currentAction + currentController;
-           // var data= html.ViewContext.HttpContext.Cache.Data<IList<WebApp.Models.RoleMenu>>(key,10000,()=>{
-                var rolemanager = html.ViewContext.HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
-                var usermanager = html.ViewContext.HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            // var data= html.ViewContext.HttpContext.Cache.Data<IList<WebApp.Models.RoleMenu>>(key,10000,()=>{
+            var rolemanager = html.ViewContext.HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
+            var usermanager = html.ViewContext.HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
 
-                var roles = usermanager.GetRoles(userid);
-                WebApp.Models.StoreContext db = new Models.StoreContext();
-                var authorize = db.RoleMenus.Where(x => roles.Contains(x.RoleName) && x.MenuItem.Action==currentAction && x.MenuItem.Controller==currentController).ToList();
-                //return authorize;
+            var roles = usermanager.GetRoles(userid);
+            StoreContext db = new StoreContext();
+            var authorize = db.RoleMenus.Where(x => roles.Contains(x.RoleName) && x.MenuItem.Action == currentAction && x.MenuItem.Controller == currentController).ToList();
+            //return authorize;
             //});
-                var data = authorize;
-            if (menu == "Create") {
+            var data = authorize;
+            if (menu == "Create")
+            {
                 return data.Where(x => x.Create == true).Any();
             }
             if (menu == "Edit")
@@ -65,9 +68,9 @@ namespace WebApp.Extensions
             {
                 return data.Where(x => x.Import == true).Any();
             }
-            
-           
-            
+
+
+
 
             return false;
         }
@@ -76,7 +79,7 @@ namespace WebApp.Extensions
 
             if (String.IsNullOrEmpty(cssClass))
                 cssClass = "active";
-           
+
             string currentAction = (string)html.ViewContext.RouteData.Values["action"];
             string currentController = (string)html.ViewContext.RouteData.Values["controller"];
 
@@ -87,10 +90,10 @@ namespace WebApp.Extensions
 
             if (String.IsNullOrEmpty(action))
                 action = currentAction;
-            var ctrs = controller.Split(new char[] { ',' },  StringSplitOptions.RemoveEmptyEntries);
+            var ctrs = controller.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
             if (ctrs.Length > 1)
             {
-                return ctrs.Contains( currentController)  ? cssClass : String.Empty;
+                return ctrs.Contains(currentController) ? cssClass : String.Empty;
             }
             return controller == currentController && action == currentAction ? cssClass : String.Empty;
         }

@@ -12,177 +12,289 @@
 @{
     ViewBag.Title = "菜单授权";
 }
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>@ViewBag.Title</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="@Url.Action("Index", "Home")">Home</a>
+            </li>
+            <li>
+                <a>系统管理</a>
+            </li>
+            <li class="active">
+                <strong>菜单授权</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
 
 
-<div class="row">
-    <div class="col-lg-12">
-        <div class="ibox float-e-margins">
-            <div class="ibox-title">
-                <h5>BaseCodes Data</h5>
-                <div class="ibox-tools">
-                    <a class="collapse-link">
-                        <i class="fa fa-chevron-up"></i>
-                    </a>
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-wrench"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li>
-                            <a href="table_data_tables.html#">Config option 1</a>
-                        </li>
-                        <li>
-                            <a href="table_data_tables.html#">Config option 2</a>
-                        </li>
-                    </ul>
-                    <a class="close-link">
-                        <i class="fa fa-times"></i>
-                    </a>
+<div class="wrapper wrapper-content animated fadeInRight">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>菜单授权</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="fa fa-wrench"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li>
+                                <a href="table_data_tables.html#">Config option 1</a>
+                            </li>
+                            <li>
+                                <a href="table_data_tables.html#">Config option 2</a>
+                            </li>
+                        </ul>
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
                 </div>
-            </div>
-            <div class="ibox-content">
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h5>选择角色|用户</h5>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="panel-body">
-                                <ul class="list-group">
-                                    @foreach (var item in ViewBag.Roles)
-                                    {
-                                        <li class="list-group-item">
-                                            <span class="badge">@item.Count</span>
-                                            <span>@item.RoleName</span>
-                                        </li>
-                                    }
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <span class="panel-title">角色</span> <button id="refreshbtn" class="btn btn-rounded btn-success pull-right"><i class="fa fa-refresh"></i> 刷新</button>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="panel-body">
+                                    <ul class="list-group elements-list ">
+                                        @foreach (var item in ViewBag.Roles)
+                                        {
+                                            <li class="list-group-item">
+                                                <span class="badge">@item.Count</span>
+                                                <span>@item.RoleName</span>
+                                            </li>
+                                        }
 
-                                </ul>
+                                    </ul>
 
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-9">
+                        <div class="col-md-9">
 
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <span class="panel-title">授权菜单</span> <button id="savebutton" class="btn btn-rounded btn-success pull-right">保存</button>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="panel-body">
-                                
-                                <table id="menu-tree" title="Client Side Pagination" style="width:auto;height:auto"
-                                       data-options="
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <span class="panel-title">授权菜单</span> <button id="savebutton" class="btn btn-rounded btn-success pull-right"><i class="fa fa-save"></i> 保存</button>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="panel-body">
+
+                                    <table id="menu-tree" title="菜单项" style="width:auto;height:auto"
+                                           data-options="
                                             iconCls: 'icon-ok',
                                             rownumbers: true,
                                             animate: true,
-                                         singleSelect: false,
+                                            singleSelect: false,
                                             fitColumns: true,
                                             url: '/RoleMenus/GetMenuList',
                                             method: 'get',
                                             idField: 'Id',
                                             treeField: 'Title',
                                             pagination: false,
-                                           checkOnSelect: false
+                                            checkOnSelect: true,
+                                            onSelect:onSelect,
+                                            onUnselect:onUnselect
                                             ">
-                                    <thead>
-                                        <tr>
-                                            <th data-options="field:'ck',checkbox: true ">选择</th>
-                                            <th data-options="field:'Title',width:180">Title</th>
-                                            <th data-options="field:'Code',width:80">Code</th>
-                                            <th data-options="field:'Url',width:120">Url</th>
-                                            <th data-options="field:'Create',width:80" formatter="formatcheckbox">Create</th>
-                                            <th data-options="field:'Edit',width:80" formatter="formatcheckbox">Edit</th>
-                                            <th data-options="field:'Delete',width:80 " formatter="formatcheckbox">
-                                                Delete
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                </table>
+                                        <thead>
+                                            <tr>
+                                                <th data-options="field:'ck',checkbox: true ">选择</th>
+                                                <th data-options="field:'Title',width:180">Title</th>
+                                                <th data-options="field:'Code',width:80">Code</th>
+                                                <th data-options="field:'Url',width:120">Url</th>
+                                                <th data-options="field:'Create',width:80" formatter="formatcreatecheckbox">新增</th>
+                                                <th data-options="field:'Edit',width:80" formatter="formateditcheckbox">编辑</th>
+                                                <th data-options="field:'Delete',width:80 " formatter="formatdeletecheckbox">删除</th>
+                                                <th data-options="field:'Import',width:80 " formatter="formatimportcheckbox">导入</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+
+                                </div>
 
                             </div>
-
                         </div>
-                    </div>
 
+                    </div>
                 </div>
             </div>
-            </div>
+        </div>
     </div>
-</div>
 
+ </div>
+    @section Scripts {
+        <script type="text/javascript">
+            var selectedrole = {};
+            function formatcreatecheckbox(val, row) {
+                var disabled = row.Url == "#" ? 'disabled ' : '';
 
-            @section Scripts {
-                <script type="text/javascript">
-                    var selectedrole = {};
-                    function formatcheckbox(val, row) {
-                        return "<input type=\"checkbox\"  name=\"op\"   value=false >";
+                var checked = val == true && row.Url != "#" ? 'checked ' : '';
+                
+                return "<input type=\"checkbox\"  name=\"op\"   value=" + val + " " + checked + disabled + " onClick=ckClick(" + JSON.stringify(row) + ",'create',this)  >";
+            }
+            function formateditcheckbox(val, row) {
+                var disabled = row.Url == "#" ? 'disabled ' : '';
+                var checked = val == true && row.Url != "#" ? 'checked' : '';
+                
+                return "<input type=\"checkbox\"  name=\"op\"   value=" + val + " " + checked + disabled + " onClick=ckClick(" + JSON.stringify(row) + ",'edit',this)  >";
+            }
+            function formatimportcheckbox(val, row) {
+                var disabled = row.Url == "#" ? 'disabled ' : '';
+                var checked = val == true && row.Url != "#" ? 'checked' : '';
+
+                return "<input type=\"checkbox\"  name=\"op\"   value=" + val + " " + checked + disabled + " onClick=ckClick(" + JSON.stringify(row) + ",'import',this)  >";
+            }
+            function formatdeletecheckbox(val, row) {
+                var disabled = row.Url == "#" ? 'disabled ' : '';
+                var checked = val == true && row.Url != '#' ? 'checked' : '';
+                
+                return "<input type=\"checkbox\"  name=\"op\"   value=" + val + " " + checked + disabled + " onClick=ckClick(" + JSON.stringify(row) + ",'delete',this)  >";
+            }
+
+            function ckClick(row,name,element) {
+                if (name == 'create') {
+                    $('#menu-tree').treegrid('update', {
+                    id: row.Id,
+                    row: {
+                        Create: element.checked,
                     }
+                    });
+                }
+                if (name == 'edit') {
+                    $('#menu-tree').treegrid('update', {
+                        id: row.Id,
+                        row: {
+                            Edit: element.checked,
+                        }
+                    });
+                }
+                if (name == 'delete') {
+                    $('#menu-tree').treegrid('update', {
+                        id: row.Id,
+                        row: {
+                            Delete: element.checked,
+                        }
+                    });
+                }
+                if (name == 'import') {
+                    $('#menu-tree').treegrid('update', {
+                        id: row.Id,
+                        row: {
+                            Import: element.checked,
+                        }
+                    });
+                }
+                
+            }
+            function onUnselect(row) {
+                var data = $('#menu-tree').treegrid('getChildren', row.Id);
+                $.each(data, function (index, row) {
+                    $('#menu-tree').treegrid('unselect', row.Id);
+                })
+            }
+            function onSelect(row) {
+                var data = $('#menu-tree').treegrid('getChildren', row.Id);
+                $.each(data, function (index, row) {
+                    $('#menu-tree').treegrid('select', row.Id);
+                })
+                //var parent = $('#menu-tree').treegrid('getParent', row.Id);
+                //var selections = $('#menu-tree').treegrid('getSelections');
+                //$('#menu-tree').treegrid('select', parent.Id);
+            }
+            $(function () {
+                //$('#savebutton').attr('disabled', true);
 
-                    
-                    $(function () {
-                        $('#savebutton').attr('disabled', true);
-                       
-                            $('#menu-tree').treegrid();
-                     
+                $('#menu-tree').treegrid();
 
-                        $('.list-group-item').click(function () {
-                            $currenitem = $(this);
-                            selectedrole = $(this).children("span:eq(1)").text();
-                            //console.log($(this).children("span:eq(1)").text());
-                            $.get('/RoleMenus/GetMenus', { roleName: selectedrole }, function (data, status, q) {
-                                $('#menu-tree').treegrid('uncheckAll');
-                                 
-                               
-                                $.each(data, function (index, item) {
-                                    $('#savebutton').attr('disabled', false);
-                                     
-                                    $('#menu-tree').treegrid('checkRow', item.MenuId);
 
-                                })
+                $('.list-group-item').click(function () {
+                    $('.list-group-item').removeClass('active');
+                    $(this).addClass('active');
+                    $currenitem = $(this);
+                    selectedrole = $(this).children("span:eq(1)").text();
+                    //console.log($(this).children("span:eq(1)").text());
+                    $.get('/RoleMenus/GetMenus', { roleName: selectedrole }, function (data, status, q) {
+                        $('#menu-tree').treegrid('uncheckAll');
 
-                            });
-                          
-                        });
 
-                        function save() {
-                            var selectednodes = $('#menu-tree').treegrid('getSelections');
-                            var list = [];
-                            $.each(selectednodes, function (i, data) {
-                                if (selectedrole.length > 0) {
-                                    var item = { 'RoleName': selectedrole, 'MenuId': data.Id };
-                                    list.push(item);
+                        $.each(data, function (index, item) {
+                            $('#savebutton').attr('disabled', false);
+
+                            $('#menu-tree').treegrid('checkRow', item.MenuId);
+
+                            $('#menu-tree').treegrid('update',{
+                                id:  item.MenuId,
+                                row: {
+                                    Import: item.Import,
+                                    Create: item.Create,
+                                    Edit: item.Edit,
+                                    Delete: item.Delete,
+
                                 }
                             });
-                             
-                            //console.log(list);
-                            if (selectedrole.length > 0 && list.length > 0) {
-                                $.post('/RoleMenus/Submit', { selectmenus: list }, function (data, status, q) {
-                                    $('#savebutton').attr('disabled', true);
-                                  
-
-                                    //console.log(data);
-                                });
-                            }
-                        }
-
-                        $('#savebutton').click(function () {
-                            
-                             
-
-                            save();
                         })
-
-
-                        //$.get('/RoleMenus/RenderMenus', function (data, status, q) {
-
-                        //    console.log(data);
-                        //})
 
                     });
 
+                });
+
+                function save() {
+                    var selectednodes = $('#menu-tree').treegrid('getSelections');
+                    var list = [];
+                    $.each(selectednodes, function (i, data) {
+                        if (selectedrole.length > 0) {
+                            var item = {
+                                'RoleName': selectedrole,
+                                'MenuId': data.Id,
+                                'Create': data.Create,
+                                'Edit': data.Edit,
+                                'Delete': data.Delete,
+                                'Import': data.Import,
+                            };
+                            list.push(item);
+                        }
+                    });
+
+                    //console.log(list);
+                    if (selectedrole.length > 0 && list.length > 0) {
+                        $.post('/RoleMenus/Submit', { selectmenus: list }, function (data, status, q) {
+                            //$('#savebutton').attr('disabled', true);
+                            $.messager.alert('提示', '保存成功<br>', 'info');
+
+                            //console.log(data);
+                        });
+                    }
+                }
+
+                $('#savebutton').click(function () {
 
 
-                </script>
-            }
+
+                    save();
+                })
+
+
+                //$.get('/RoleMenus/RenderMenus', function (data, status, q) {
+
+                //    console.log(data);
+                //})
+
+            });
+
+
+
+        </script>
+    }
 
