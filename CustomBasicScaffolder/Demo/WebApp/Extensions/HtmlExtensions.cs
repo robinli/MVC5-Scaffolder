@@ -80,8 +80,8 @@ namespace WebApp.Extensions
             if (String.IsNullOrEmpty(cssClass))
                 cssClass = "active";
 
-            string currentAction = (string)html.ViewContext.RouteData.Values["action"];
-            string currentController = (string)html.ViewContext.RouteData.Values["controller"];
+            string currentAction = (string)html.ViewContext.HttpContext.Request.RequestContext.RouteData.Values["action"];
+            string currentController = (string)html.ViewContext.HttpContext.Request.RequestContext.RouteData.Values["controller"];
 
             if (String.IsNullOrEmpty(controller))
             {

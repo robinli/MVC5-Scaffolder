@@ -14,25 +14,26 @@ using WebApp.Models;
 using WebApp.Services;
 using WebApp.Repositories;
 using WebApp.Extensions;
-
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace WebApp.Controllers
 {
     [Authorize]
     public class RoleMenusController : Controller
     {
-        //private ApplicationUserManager userManager;
-        //public ApplicationUserManager UserManager
-        //{
-        //    get
-        //    {
-        //        return userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-        //    }
-        //    private set
-        //    {
-        //        userManager = value;
-        //    }
-        //}
+        private ApplicationUserManager userManager;
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                userManager = value;
+            }
+        }
         //Please RegisterType UnityConfig.cs
         //container.RegisterType<IRepositoryAsync<RoleMenu>, Repository<RoleMenu>>();
         //container.RegisterType<IRoleMenuService, RoleMenuService>();
@@ -72,10 +73,11 @@ namespace WebApp.Controllers
         }
 
         [HttpGet]
+        [ChildActionOnly]
         public ActionResult RenderMenus()
         {
-            //var roles = UserManager.GetRolesAsync(this.User.Identity.GetUserId()).Result.ToArray();
-            var roles = new string[] { "admin" };
+            var roles = UserManager.GetRoles(this.User.Identity.GetUserId()).ToArray();
+            //var roles = new string[] { "admin" };
             var menus = _roleMenuService.RenderMenus(roles);
             return PartialView("_navMenuBar", menus);
         }

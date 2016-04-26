@@ -1,64 +1,92 @@
-﻿
-@using WebApp.Models 
-
+﻿@using WebApp.Models
+@using WebApp.Extensions
 @model  IEnumerable<MenuItem>
 
- 
-@{
+
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav metismenu" id="side-menu">
+            <li class="nav-header">
+                <div class="dropdown profile-element">
+                    <span>
+                        <img alt="image" class="img-circle" src="~/img/profile_small.jpg" />
+                    </span>
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="empty_page.html#">
+                        <span class="clear">
+                            <span class="block m-t-xs">
+                                <strong class="font-bold">David Williams</strong>
+                            </span> <span class="text-muted text-xs block">Art Director <b class="caret"></b></span>
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                        <li><a href="profile.html">Profile</a></li>
+                        <li><a href="contacts.html">Contacts</a></li>
+                        <li><a href="mailbox.html">Mailbox</a></li>
+                        <li class="divider"></li>
+                        <li><a href="login.html">Logout</a></li>
+                    </ul>
+                </div>
+                <div class="logo-element">
+                    IN+
+                </div>
+            </li>
+
+            @{
 
 
-    // Hent nodes på 2. niveau
-    var nodes = Model;
+                // Hent nodes på 2. niveau
+                var nodes = Model;
 
-    // Check om nogle nodes på 2. niveau eksisterer
-    if (nodes.Any())
-    {
-        <ul class="nav navbar-nav side-nav" id="side-nav" style="overflow-x:hidden">
-            @* Loop igennem det øverste (2.) niveau af nodes *@
-            @foreach (var node in nodes.Where(x=>x.ParentId==null))
-            {
-                // Start den rekursive metode til rendering af træstruktur
-                @RenderSubMenuRecursive(node)
-            }
+                // Check om nogle nodes på 2. niveau eksisterer
+                if (nodes.Any())
+                {
+                   
+                 
+                        foreach (var node in nodes.Where(x => x.ParentId == null))
+                        {
+                            // Start den rekursive metode til rendering af træstruktur
+                                @RenderSubMenuRecursive(node)
+                        }
+
            
-        </ul>
-              
-        
-    }
-}
 
-@* Helper metode til at rendere venstremenu som træstruktur *@
-@helper RenderSubMenuRecursive(WebApp.Models.MenuItem node)
+
+                }
+            }
+
+            @* Helper metode til at rendere venstremenu som træstruktur *@
+            @helper RenderSubMenuRecursive(WebApp.Models.MenuItem node)
 {
     // Reference til alle childnodes af den givne node, som er sat til at blive vist på sitet
     var childNodes = Model.Where(x => x.ParentId == node.Id);
     if (childNodes.Any())
     {
-
-        <li>
-            <a href="javascript:;" data-toggle="collapse" data-target="#@node.Code"><i class="fa fa-fw fa-folder-o"></i> @node.Title <i class="fa fa-fw fa-caret-right"></i></a>
-            <ul id="@node.Code" class="collapse">
+        var childcontrollers = String.Join("", childNodes.Select(x => String.Format(",{0}", x.Controller))).Substring(1);
+        var icon = String.IsNullOrEmpty(node.IconCls)?"fa fa-folder-o":node.IconCls;
+        <li class="@Html.IsSelected(controller: childcontrollers)">
+            <a href="#"><i class="@icon"></i> <span class="nav-label">@node.Title</span> <span class="fa arrow"></span></a>
+            <ul class="nav nav-second-level collapse @Html.IsSelected(controller:node.Controller, cssClass: "in")">
                 @foreach (var childNode in childNodes)
                 {
-                     @RenderSubMenuRecursive(childNode)
+                    @RenderSubMenuRecursive(childNode)
                 }
             </ul>
         </li>
     }
     else
     {
-        <li>
-            <a href="@node.Url">@node.Title</a>
-        </li>
+        
+        <li class="@Html.IsSelected(action: node.Action, controller: node.Controller)"><a href="@Url.Action(node.Action, node.Controller)">@node.Title</a></li>
+        
     }
 
 
 
 
-    
+
 }
 
+        </ul>
 
-
-
-
+    </div>
+</nav>

@@ -82,7 +82,8 @@
     <div id="wrapper" class="@Html.PageClass()">
 
         <!-- Navigation -->
-        @Html.Partial("_Navigation")
+        @*@Html.Partial("_Navigation")*@
+        @Html.Action("RenderMenus", "RoleMenus", null)
 
         <!-- Page wraper -->
         <div id="page-wrapper" class="gray-bg @ViewBag.SpecialClass">
