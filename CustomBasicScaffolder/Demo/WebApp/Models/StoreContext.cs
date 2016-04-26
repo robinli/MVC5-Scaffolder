@@ -34,5 +34,7 @@ namespace WebApp.Models
         public System.Data.Entity.DbSet<WebApp.Models.MenuItem> MenuItems { get; set; }
 
         public DbSet<RoleMenu> RoleMenus { get; set; }
+
+        public DbSet<DataTableImportMapping> DataTableImportMappings { get; set; }
     }
 }

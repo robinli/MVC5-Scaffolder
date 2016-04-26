@@ -106,6 +106,9 @@ namespace WebApp.App_Start
 
             container.RegisterType<IRepositoryAsync<OrderDetail>, Repository<OrderDetail>>();
             container.RegisterType<IOrderDetailService, OrderDetailService>();
+
+            container.RegisterType<IRepositoryAsync<DataTableImportMapping>, Repository<DataTableImportMapping>>();
+            container.RegisterType<IDataTableImportMappingService, DataTableImportMappingService>();
         }
     }
 }
