@@ -21,8 +21,8 @@ using <#= DefaultNamespace #>.Extensions;
 
 namespace <#= DefaultNamespace #>.Controllers
 {
-      [Authorize]
-     public class RoleMenusController : Controller
+       [Authorize]
+    public class RoleMenusController : Controller
     {
         //private ApplicationUserManager userManager;
         //public ApplicationUserManager UserManager
@@ -86,7 +86,7 @@ namespace <#= DefaultNamespace #>.Controllers
         {
            var menus = _menuItemService.Queryable().Include(x => x.SubMenus).Where(x => x.IsEnabled);
            var totalCount = menus.Count();
-           var datarows = menus.Select(x => new { Id = x.Id, Title = x.Title, Code = x.Code, _parentId = x.ParentId, Url = x.Url, Create = false, Edit = false, Delete = false });
+           var datarows = menus.Select(x => new { Id = x.Id, Title = x.Title, Code = x.Code, _parentId = x.ParentId, Url = x.Url, Create = true, Edit = true, Delete = true,Import=true });
            var pagelist = new { total = totalCount, rows = datarows };
            return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
@@ -103,7 +103,7 @@ namespace <#= DefaultNamespace #>.Controllers
         public ActionResult Submit(RoleMenusView[] selectmenus)
         {
 
-            _roleMenuService.UpdateMenus(selectmenus);
+            _roleMenuService.Authorize(selectmenus);
             _unitOfWork.SaveChanges();
             return Json(new { success = true }, JsonRequestBehavior.AllowGet);
         }

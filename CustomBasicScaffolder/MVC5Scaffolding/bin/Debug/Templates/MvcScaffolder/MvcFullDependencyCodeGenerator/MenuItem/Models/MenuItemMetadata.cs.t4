@@ -13,7 +13,7 @@ namespace <#= DefaultNamespace #>.Models
     {
     }
 
-    public partial class MenuItemMetadata
+     public partial class MenuItemMetadata
     {
         [Display(Name = "上级菜单")]
         public MenuItem Parent { get; set; }
@@ -27,7 +27,7 @@ namespace <#= DefaultNamespace #>.Models
 
         [Required(ErrorMessage = "Please enter : 菜单名称")]
         [Display(Name = "菜单名称")]
-        [MaxLength(20)]
+        [MaxLength(50)]
         public string Title { get; set; }
 
         [Display(Name = "描述")]
@@ -39,10 +39,21 @@ namespace <#= DefaultNamespace #>.Models
         [MaxLength(20)]
         public string Code { get; set; }
 
+        [Display(Name = "图标")]
+        public string IconCls { get; set; }
+
         [Required(ErrorMessage = "Please enter : Url")]
         [Display(Name = "Url")]
         [MaxLength(100)]
         public string Url { get; set; }
+
+        [Display(Name = "Controller")]
+        [MaxLength(100)]
+        public string Controller { get; set; }
+        [MaxLength(100)]
+        [Display(Name = "Action")]
+        public string Action { get; set; }
+
 
         [Display(Name = "上级菜单")]
         public int ParentId { get; set; }
