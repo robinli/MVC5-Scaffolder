@@ -53,7 +53,7 @@ namespace WebApp.Controllers
                 //date = this.Request.Form["date"];
                 //filename = this.Request.Form["filename"];
                 //Lastfilename = this.Request.Form["Lastfilename"];
-                //DataTable datatable =  ExcelHelper.GetDataTableFromExcel(Filedata.InputStream);
+                //DataTable datatable = ExcelHelper.GetDataTableFromExcel(Filedata.InputStream);
                 //if (fileType == "SKU")
                 //{
                 //    _sKUService.ImportDataTable(datatable);
