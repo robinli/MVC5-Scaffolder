@@ -741,11 +741,11 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             Dictionary<string, object> templateParams = new Dictionary<string, object>(){
                 {"AreaName", areaName}
             };
-            AddFileFromTemplate(project: project
-                , outputPath: outputPath
-                , templateName: templatePath
-                , templateParameters: templateParams
-                , skipIfExists: true);
+            //AddFileFromTemplate(project: project
+            //    , outputPath: outputPath
+            //    , templateName: templatePath
+            //    , templateParameters: templateParams
+            //    , skipIfExists: true);
 
             //// add _ViewStart
             //viewName = "_Layout";
