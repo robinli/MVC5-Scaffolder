@@ -39,7 +39,7 @@ namespace <#= DefaultNamespace #>.Controllers
         [HttpPost]
         public ActionResult Upload(HttpPostedFileBase Filedata)
         {
-            string fileType = "";
+            string modelType = "";
             //string date = "";
             //string filename = "";
             //string Lastfilename = "";
@@ -52,7 +52,7 @@ namespace <#= DefaultNamespace #>.Controllers
                 {
                     return this.HttpNotFound();
                 }
-                fileType = this.Request.Form["fileType"];
+                modelType = this.Request.Form["modelType"];
                 //date = this.Request.Form["date"];
                 //filename = this.Request.Form["filename"];
                 //Lastfilename = this.Request.Form["Lastfilename"];

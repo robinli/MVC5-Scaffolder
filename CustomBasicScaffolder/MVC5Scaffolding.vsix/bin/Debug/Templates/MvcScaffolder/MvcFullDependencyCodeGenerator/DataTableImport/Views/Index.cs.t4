@@ -66,7 +66,7 @@
 
 
                                 <th data-options="field:'FieldName',width:140  ">@Html.DisplayNameFor(model => model.FieldName)</th>
-
+								<th data-options="field:'FieldDesc',width:140  ">@Html.DisplayNameFor(model => model.FieldDesc)</th>
 
                                 <th data-options="field:'TypeName',width:140 ">@Html.DisplayNameFor(model => model.TypeName)</th>
                                 <th data-options="field:'IsRequired',width:140 ">@Html.DisplayNameFor(model => model.IsRequired)</th>

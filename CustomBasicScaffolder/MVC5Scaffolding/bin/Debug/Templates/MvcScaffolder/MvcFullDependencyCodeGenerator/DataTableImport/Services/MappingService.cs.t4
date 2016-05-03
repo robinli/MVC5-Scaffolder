@@ -59,11 +59,11 @@ namespace <#= DefaultNamespace #>.Services
             var list = asm.GetTypes()
                    .Where(type => typeof(Entity).IsAssignableFrom(type))
                    .SelectMany(type => type.GetProperties(BindingFlags.Instance | BindingFlags.DeclaredOnly | BindingFlags.Public))
-                   .Where(m => !m.GetCustomAttributes(typeof(System.ComponentModel.DataAnnotations.RequiredAttribute), true).Any() || true)
                    .Select(x => new EntityInfo { EntitySetName = x.DeclaringType.Name,
                        FieldName = x.Name, 
-                       FieldTypeName = x.PropertyType.Name, 
-                       IsRequired = x.GetCustomAttributes().Where(f => f.TypeId.ToString().IndexOf("Required") >= 0).Any() 
+                       FieldTypeName = x.PropertyType.Name,
+                       IsRequired = AttributeHelper.GetRequired(x.DeclaringType,x.Name),
+                       FieldDesc = AttributeHelper.GetDisplayName(x.DeclaringType,x.Name)
                    })
                    .OrderBy(x => x.EntitySetName).ThenBy(x => x.FieldName)
                    .Where(x => x.EntitySetName == entityName && x.FieldTypeName!="ICollection`1").ToList();
@@ -76,7 +76,8 @@ namespace <#= DefaultNamespace #>.Services
                 row.FieldName = item.FieldName;
                 row.IsRequired = item.IsRequired;
                 row.TypeName = item.FieldTypeName;
-				row.IsEnabled = true;
+                row.FieldDesc = item.FieldDesc;
+                row.IsEnabled = true;
                 this.Insert(row);
                 }
             }

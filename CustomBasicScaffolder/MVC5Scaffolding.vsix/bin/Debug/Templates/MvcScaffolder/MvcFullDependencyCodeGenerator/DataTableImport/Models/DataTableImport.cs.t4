@@ -23,6 +23,7 @@ namespace <#= DefaultNamespace #>.Models
         [Index("IX_DataTableImportMapping", IsUnique = true, Order = 2)]
         [MaxLength(50)]
         public string FieldName { get; set; }
+		public string FieldDesc { get; set; }
         public string DefaultValue { get; set; }
         public string TypeName { get; set; }
         public bool IsRequired { get; set; }
@@ -36,6 +37,7 @@ namespace <#= DefaultNamespace #>.Models
     {
         public string EntitySetName { get; set; }
         public string FieldName { get; set; }
+		public string FieldDesc { get; set; }
         public string FieldTypeName { get; set; }
         public bool IsRequired { get; set; }
     }
@@ -71,6 +73,9 @@ namespace <#= DefaultNamespace #>.Models
         [Display(Name = "默认值")]
         [MaxLength(50)]
         public string DefaultValue { get; set; }
+		[Display(Name = "字段描述")]
+        [MaxLength(50)]
+        public string FieldDesc { get; set; }
 
         [Display(Name = "Excel列名")]
         [MaxLength(50)]
