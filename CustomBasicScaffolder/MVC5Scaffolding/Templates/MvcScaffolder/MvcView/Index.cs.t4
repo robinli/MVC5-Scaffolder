@@ -406,7 +406,7 @@ foreach (PropertyMetadata property in properties) {
                             'buttonText': '选择EXCEL',
                             'multi': true,
                             'displayData': 'speed',
-                            'formData': { 'modelType': 'Company' },
+                            'formData': { 'modelType': '<#= ModelTypeName #>' },
                             'width': 120,
                             'successTimeout': 100000,
                             'onFallback': function () {
