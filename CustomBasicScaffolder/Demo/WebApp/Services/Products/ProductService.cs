@@ -16,6 +16,9 @@ using WebApp.Repositories;
 
 using System.Data;
 using System.Reflection;
+using Newtonsoft.Json;
+using WebApp.Extensions;
+using System.IO;
 namespace WebApp.Services
 {
     public class ProductService : Service< Product >, IProductService
@@ -62,6 +65,15 @@ namespace WebApp.Services
                
 
             }
+        }
+
+
+        public FileInfo ExportExcel(string fileName,string sort = "Id", string order = "asc", string filterRules = "")
+        {
+            var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
+            var products = this.Query(new ProductQuery().Withfilter(filters)).Include(p => p.Category).OrderBy(n => n.OrderBy(sort, order)).Select().ToList();
+            return ExcelHelper.ExportExcel<Product>(products, fileName);
+
         }
     }
 }

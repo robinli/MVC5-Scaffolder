@@ -127,7 +127,8 @@
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">保存</a>
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">取消</a>
                 @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="getChanges()">GetChanges</a>*@
-                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-paperclip',plain:true" onclick="importexcel()">EXCEL 导入</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-paperclip',plain:true" onclick="importexcel()">Excel 导入</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-download-alt',plain:true" onclick="exportexcel()">导出 Excel</a>
             </div>
         </div>
 
@@ -210,6 +211,18 @@
 
         function importexcel() {
             $('#importwindow').window('open');
+        }
+        function exportexcel() {
+            var filterRules = JSON.stringify($dg.datagrid('options').filterRules);
+            //console.log(filterRules);
+
+        
+           $.post('/Products/ExportExcel', { filterRules: filterRules },
+               function (data, textStatus, jqXHR) {
+                   console.log("------------");
+                   console.log(data);
+
+           });
         }
 
         var $dg = $('#products_datagrid');

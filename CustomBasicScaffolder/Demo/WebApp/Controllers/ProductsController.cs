@@ -16,6 +16,7 @@ using WebApp.Models;
 using WebApp.Services;
 using WebApp.Repositories;
 using WebApp.Extensions;
+using System.IO;
 
 
 namespace WebApp.Controllers
@@ -234,8 +235,17 @@ namespace WebApp.Controllers
             DisplaySuccessMessage("Has delete a Product record");
             return RedirectToAction("Index");
         }
+        [HttpPost]
+        public ActionResult ExportExcel(string sort = "Id", string order = "asc", string filterRules = "")
+        {
+            var fileName = "~/export" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xlsx";
+            var stream= this._productService.ExportExcel(fileName,sort, order, filterRules);
 
 
+
+            return Json(new{fileName=fileName }, JsonRequestBehavior.AllowGet);
+      
+        }
        
 
  
