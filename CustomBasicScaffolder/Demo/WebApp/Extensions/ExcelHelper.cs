@@ -373,14 +373,14 @@ namespace WebApp.Extensions
         public static FileInfo ExportExcel<T>(List<T> list, string fileName, params string[] IgnoredColumns)
         {
             string Heading = "";
-            FileInfo fileinfo = new FileInfo(HttpContext.Current.Server.MapPath(fileName));
+            FileInfo fileinfo = new FileInfo(HttpContext.Current.Server.MapPath("~" + fileName));
             using (ExcelPackage pck = new ExcelPackage())
             {
                 ExcelWorksheet ws = pck.Workbook.Worksheets.Add(typeof(T).Name);
                 int StartFromRow = String.IsNullOrEmpty(Heading) ? 1 : 3;
 
                 // add the content into the Excel file
-                ws.Cells["A" + StartFromRow].LoadFromCollection<T>(list, true, OfficeOpenXml.Table.TableStyles.Dark1);
+                ws.Cells["A" + StartFromRow].LoadFromCollection<T>(list, true, OfficeOpenXml.Table.TableStyles.Light1);
 
                 // autofit width of cells with small content
                 int colindex = 1;

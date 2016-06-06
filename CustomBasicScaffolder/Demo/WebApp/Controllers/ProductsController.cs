@@ -238,7 +238,7 @@ namespace WebApp.Controllers
         [HttpPost]
         public ActionResult ExportExcel(string sort = "Id", string order = "asc", string filterRules = "")
         {
-            var fileName = "~/export" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xlsx";
+            var fileName = "/export/products" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xlsx";
             var stream= this._productService.ExportExcel(fileName,sort, order, filterRules);
 
 

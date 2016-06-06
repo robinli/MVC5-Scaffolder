@@ -219,8 +219,10 @@
         
            $.post('/Products/ExportExcel', { filterRules: filterRules },
                function (data, textStatus, jqXHR) {
-                   console.log("------------");
-                   console.log(data);
+                   var link = document.createElement('a');
+                   link.href = data.fileName;
+                   link.download = data.fileName;
+                   link.click();
 
            });
         }
