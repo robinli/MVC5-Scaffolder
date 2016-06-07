@@ -611,9 +611,9 @@ namespace <#= Namespace #>
 		[HttpPost]
         public ActionResult ExportExcel( string filterRules = "",string sort = "Id", string order = "asc")
         {
-            var fileName = "/export/<#=  modelVariablePlural   #>" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xlsx";
+            var fileName = "/export/<#=  modelVariablePlural   #>_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xlsx";
             var exportFile=  <#= modelServiceVar #>.ExportExcel(fileName,filterRules,sort, order );
-            return Json(new{fileName=fileName }, JsonRequestBehavior.AllowGet);
+            return Json(new{fileName=fileName,success=true }, JsonRequestBehavior.AllowGet);
       
         }
 		

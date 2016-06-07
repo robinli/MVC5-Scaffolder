@@ -144,7 +144,7 @@ namespace <#=DefaultNamespace #>.Services
 			 
 		#>
 
-		public FileInfo ExportExcel(string fileName string filterRules = "",string sort = "Id", string order = "asc",)
+		public FileInfo ExportExcel(string fileName, string filterRules = "",string sort = "<#= PrimaryKeyName #>", string order = "asc")
         {
             var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
                        <# if(!String.IsNullOrEmpty(includeExpressions)) { #>

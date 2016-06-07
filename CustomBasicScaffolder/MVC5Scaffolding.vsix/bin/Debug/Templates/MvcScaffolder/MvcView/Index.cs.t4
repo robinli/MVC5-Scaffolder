@@ -448,8 +448,13 @@ foreach (PropertyMetadata property in properties) {
 					function exportexcel() {
 						var filterRules = JSON.stringify($dg.datagrid('options').filterRules);
 						//console.log(filterRules);
+						$.messager.progress({
+                                    title: '执行导出',
+                                    msg: '请等待...'
+									});
 			           $.post('/<#= ControllerRootName #>/ExportExcel', {filterRules: filterRules },
 							   function (data, textStatus, jqXHR) {
+									$.messager.progress('close');
 									var link = document.createElement('a');
 									link.href = data.fileName;
 									link.download = data.fileName;
