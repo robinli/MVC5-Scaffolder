@@ -141,10 +141,10 @@ namespace WebApp.Extensions
             return table;
         }
 
-        public static byte[] ExportExcel(DataTable dt,  params string[] IgnoredColumns)
+        public static Stream  ExportExcel(DataTable dt,  params string[] IgnoredColumns)
         {
             string Heading="";
-            byte[] result = null;
+            var stream = new MemoryStream();
             using (ExcelPackage pck = new ExcelPackage())
             {
                 ExcelWorksheet ws = pck.Workbook.Worksheets.Add("Exported Data");
@@ -208,16 +208,16 @@ namespace WebApp.Extensions
                     ws.Column(1).Width = 5;
                 }
 
-                result = pck.GetAsByteArray();
+                pck.SaveAs(stream);
             }
-
-            return result;
+            stream.Seek(0, SeekOrigin.Begin);
+            return stream;
         }
 
-        public static byte[] ExportExcel(DataSet ds,  params string[] IgnoredColumns)
+        public static Stream ExportExcel(DataSet ds,  params string[] IgnoredColumns)
         {
             string Heading="";
-            byte[] result = null;
+            var stream = new MemoryStream();
             using (ExcelPackage pck = new ExcelPackage())
             {
                 foreach (DataTable dt in ds.Tables)
@@ -284,91 +284,91 @@ namespace WebApp.Extensions
                     }
                 }
 
-                result = pck.GetAsByteArray();
+                  pck.SaveAs(stream);
             }
 
-            return result;
+            stream.Seek(0, SeekOrigin.Begin);
+            return stream;
         }
-        public static byte[] ExportExcel<T>(List<T> data , params string[] IgnoredColumns)
+ 
+
+      
+
+        public static Stream   ExportExcel<T>(List<T> list,  params string[] IgnoredColumns)
         {
-            return ExportExcel(ToDataTable<T>(data), IgnoredColumns);
+            string Heading = "";
+            var stream = new MemoryStream();
+            using (ExcelPackage pck = new ExcelPackage())
+            {
+                ExcelWorksheet ws = pck.Workbook.Worksheets.Add(typeof(T).Name);
+                int StartFromRow = String.IsNullOrEmpty(Heading) ? 1 : 3;
+
+                // add the content into the Excel file
+                ws.Cells["A" + StartFromRow].LoadFromCollection<T>(list, true, OfficeOpenXml.Table.TableStyles.Light1);
+
+                // autofit width of cells with small content
+                int colindex = 1;
+                //
+                PropertyDescriptorCollection props = TypeDescriptor.GetProperties(typeof(T));
+                foreach (var col in props)
+                {
+                    ExcelRange columnCells = ws.Cells[ws.Dimension.Start.Row, colindex, ws.Dimension.End.Row, colindex];
+                    int maxLength = columnCells.Max(cell => (cell.Value == null ? "" : cell.Value.ToString()).Count());
+                    if (maxLength < 150)
+                        ws.Column(colindex).AutoFit();
+
+                    colindex++;
+                }
+
+                // format header - bold, yellow on black
+                using (ExcelRange r = ws.Cells[StartFromRow, 1, StartFromRow, props.Count])
+                {
+                    r.Style.Font.Color.SetColor(System.Drawing.Color.Yellow);
+                    r.Style.Font.Bold = true;
+                    r.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                    r.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Black);
+                }
+
+                // format cells - add borders
+                using (ExcelRange r = ws.Cells[StartFromRow + 1, 1, StartFromRow + list.Count, props.Count])
+                {
+                    r.Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                    r.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                    r.Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                    r.Style.Border.Right.Style = ExcelBorderStyle.Thin;
+
+                    r.Style.Border.Top.Color.SetColor(System.Drawing.Color.Black);
+                    r.Style.Border.Bottom.Color.SetColor(System.Drawing.Color.Black);
+                    r.Style.Border.Left.Color.SetColor(System.Drawing.Color.Black);
+                    r.Style.Border.Right.Color.SetColor(System.Drawing.Color.Black);
+                }
+
+                // removed ignored columns
+                for (int i = props.Count - 1; i >= 0; i--)
+                {
+                    if (IgnoredColumns.Contains(props[i].Name))
+                    {
+                        ws.DeleteColumn(i + 1);
+                    }
+                }
+
+                // add header and an additional column (left) and row (top)
+                if (!String.IsNullOrEmpty(Heading))
+                {
+                    ws.Cells["A1"].Value = Heading;
+                    ws.Cells["A1"].Style.Font.Size = 20;
+
+                    ws.InsertColumn(1, 1);
+                    ws.InsertRow(1, 1);
+                    ws.Column(1).Width = 5;
+                }
+
+                pck.SaveAs(stream);
+            }
+            stream.Seek(0, SeekOrigin.Begin);
+            return stream;
+
         }
-
-        //public static Stream ExportExcel<T>(List<T> list, params string[] IgnoredColumns)
-        //{
-        //    string Heading = "";
-        //    MemoryStream ms = new MemoryStream();
-        //    using (ExcelPackage pck = new ExcelPackage())
-        //    {
-        //        ExcelWorksheet ws = pck.Workbook.Worksheets.Add(typeof(T).Name);
-        //        int StartFromRow = String.IsNullOrEmpty(Heading) ? 1 : 3;
-
-        //        // add the content into the Excel file
-        //        ws.Cells["A" + StartFromRow].LoadFromCollection<T>(list, true, OfficeOpenXml.Table.TableStyles.Dark1);
-
-        //        // autofit width of cells with small content
-        //        int colindex = 1;
-        //        //
-        //        PropertyDescriptorCollection props = TypeDescriptor.GetProperties(typeof(T));
-        //        foreach (var col in props)
-        //        {
-        //            ExcelRange columnCells = ws.Cells[ws.Dimension.Start.Row, colindex, ws.Dimension.End.Row, colindex];
-        //            int maxLength = columnCells.Max(cell => (cell.Value==null?"":cell.Value.ToString()).Count());
-        //            if (maxLength < 150)
-        //                ws.Column(colindex).AutoFit();
-
-        //            colindex++;
-        //        }
-
-        //        // format header - bold, yellow on black
-        //        using (ExcelRange r = ws.Cells[StartFromRow, 1, StartFromRow, props.Count])
-        //        {
-        //            r.Style.Font.Color.SetColor(System.Drawing.Color.Yellow);
-        //            r.Style.Font.Bold = true;
-        //            r.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-        //            r.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Black);
-        //        }
-
-        //        // format cells - add borders
-        //        using (ExcelRange r = ws.Cells[StartFromRow + 1, 1, StartFromRow + props.Count, props.Count])
-        //        {
-        //            r.Style.Border.Top.Style = ExcelBorderStyle.Thin;
-        //            r.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
-        //            r.Style.Border.Left.Style = ExcelBorderStyle.Thin;
-        //            r.Style.Border.Right.Style = ExcelBorderStyle.Thin;
-
-        //            r.Style.Border.Top.Color.SetColor(System.Drawing.Color.Black);
-        //            r.Style.Border.Bottom.Color.SetColor(System.Drawing.Color.Black);
-        //            r.Style.Border.Left.Color.SetColor(System.Drawing.Color.Black);
-        //            r.Style.Border.Right.Color.SetColor(System.Drawing.Color.Black);
-        //        }
-
-        //        // removed ignored columns
-        //        for (int i = props.Count - 1; i >= 0; i--)
-        //        {
-        //            if (IgnoredColumns.Contains(props[i].Name))
-        //            {
-        //                ws.DeleteColumn(i + 1);
-        //            }
-        //        }
-
-        //        // add header and an additional column (left) and row (top)
-        //        if (!String.IsNullOrEmpty(Heading))
-        //        {
-        //            ws.Cells["A1"].Value = Heading;
-        //            ws.Cells["A1"].Style.Font.Size = 20;
-
-        //            ws.InsertColumn(1, 1);
-        //            ws.InsertRow(1, 1);
-        //            ws.Column(1).Width = 5;
-        //        }
-
-        //        pck.SaveAs(ms);
-        //    }
-        //    ms.Seek(0, SeekOrigin.Begin);
-        //    return ms;
-        
-        //}
 
         public static FileInfo ExportExcel<T>(List<T> list, string fileName, params string[] IgnoredColumns)
         {
@@ -444,8 +444,6 @@ namespace WebApp.Extensions
             return fileinfo;
 
         }
-
-
         
     }
 }

@@ -607,6 +607,18 @@ namespace <#= Namespace #>
     }
 #> 
 
+		//导出Excel
+		[HttpPost]
+        public ActionResult ExportExcel( string filterRules = "",string sort = "Id", string order = "asc")
+        {
+            var fileName = "/export/<#=  modelVariablePlural   #>_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xlsx";
+            var exportFile=  <#= modelServiceVar #>.ExportExcel(fileName,filterRules,sort, order );
+            return Json(new{fileName=fileName,success=true }, JsonRequestBehavior.AllowGet);
+      
+        }
+		
+
+
         private void DisplaySuccessMessage(string msgText)
         {
             TempData["SuccessMessage"] = msgText;

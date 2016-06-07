@@ -25,6 +25,10 @@
 <#@ parameter type="Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata" name="ModelMetadata" #>
 <#@ parameter type="System.Collections.Generic.Dictionary<string, Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata>" name="OneToManyModelMetadata" #> 
 
+<#@ parameter type="System.String" name ="SelectLambdaText" #>
+
+
+
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -38,6 +42,11 @@ using <#= DefaultNamespace #>.Repositories;
 
 using System.Data;
 using System.Reflection;
+
+using Newtonsoft.Json;
+using <#=DefaultNamespace #>.Extensions;
+using System.IO;
+
 namespace <#=DefaultNamespace #>.Services
 {
     public class <#= ModelName #>Service : Service< <#= ModelName #> >, I<#= ModelName #>Service
@@ -125,6 +134,30 @@ namespace <#=DefaultNamespace #>.Services
                
 
             }
+        }
+		<# 
+			 var modelVariablePlural=ModelMetadata.EntitySetName.ToLower();
+			 var lambdaVar = "p";
+		     var includeExpressions = "";
+			 var relatedProperties = ModelMetadata.RelatedEntities.ToDictionary(item => item.AssociationPropertyName);
+			 includeExpressions = String.Join("", relatedProperties.Values.Select(property => String.Format(".Include({0} => {0}.{1})", lambdaVar, property.AssociationPropertyName)));
+			 
+		#>
+
+		public FileInfo ExportExcel(string fileName string filterRules = "",string sort = "Id", string order = "asc",)
+        {
+            var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
+                       <# if(!String.IsNullOrEmpty(includeExpressions)) { #>
+			 
+            var <#= modelVariablePlural #>  = this.Query(new <#= ModelName #>Query().Withfilter(filters))<#= includeExpressions #>.OrderBy(n=>n.OrderBy(sort,order)).Select().ToList();
+            
+            <#    } else { #>
+            var <#= modelVariablePlural #>  = this.Query(new <#= ModelName #>Query().Withfilter(filters)).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(page, rows, out totalCount);
+            <#    } #>
+            var datarows = <#= modelVariablePlural #> .Select( <#= SelectLambdaText #>).ToList();
+           
+            return ExcelHelper.ExportExcel(datarows, fileName);
+
         }
     }
 }

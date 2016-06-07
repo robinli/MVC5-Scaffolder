@@ -236,10 +236,10 @@ namespace WebApp.Controllers
             return RedirectToAction("Index");
         }
         [HttpPost]
-        public ActionResult ExportExcel(string sort = "Id", string order = "asc", string filterRules = "")
+        public ActionResult ExportExcel( string filterRules = "",string sort = "Id", string order = "asc")
         {
             var fileName = "/export/products" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xlsx";
-            var stream= this._productService.ExportExcel(fileName,sort, order, filterRules);
+            var file = this._productService.ExportExcel(fileName, filterRules,sort, order);
 
 
 

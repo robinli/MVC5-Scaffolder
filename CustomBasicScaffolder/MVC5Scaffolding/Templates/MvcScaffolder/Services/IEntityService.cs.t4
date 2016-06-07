@@ -25,6 +25,8 @@
 <#@ parameter type="System.String" name="PrimaryKeyName" #>     
 <#@ parameter type="System.Collections.Generic.Dictionary<string, Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata>" name="OneToManyModelMetadata" #> 
  
+<#@ parameter type="System.String" name ="SelectLambdaText" #>
+
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -35,6 +37,7 @@ using Service.Pattern;
 using <#= ModelNamespace #>;
 using <#= DefaultNamespace #>.Repositories;
 using System.Data;
+using System.IO;
 
 namespace <#=DefaultNamespace #>.Services
 {
@@ -72,5 +75,6 @@ namespace <#=DefaultNamespace #>.Services
         #> 
  
 		void ImportDataTable(DataTable datatable);
+		FileInfo ExportExcel(string fileName,  string filterRules = "",string sort = "<#= PrimaryKeyName #>", string order = "asc");
 	}
 }

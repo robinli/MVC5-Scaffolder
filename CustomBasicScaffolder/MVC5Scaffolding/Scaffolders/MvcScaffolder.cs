@@ -194,7 +194,8 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 dbContextTypeName,
                 modelType, efMetadata,
                 oneToManyModels,
-                false);
+                false
+                );
 
             AddMvcController(project: project
                 , controllerName: controllerName
@@ -1468,7 +1469,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
            ModelMetadata efMetadata,
            Dictionary<string, ModelMetadata> oneToManyModels,
            bool overwriteViews = true
-
+           
 
        )
         {
@@ -1484,7 +1485,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             string modelNameSpace = modelType.Namespace != null ? modelType.Namespace.FullName : String.Empty;
             // Get pluralized name used for web forms folder name
             string pluralizedModelName = efMetadata.EntitySetName;
-
+            string selectLambdaText = GetSelectLambdaText(efMetadata);
             var serviceTemplates = new[] { "IEntityService", "EntityService" };
             var repositoryTemplatesPath = "Services";
 
@@ -1525,7 +1526,8 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                         {"FolderNamespace", folderNamespace.Replace("_","")}, // the namespace of the current folder (used by C#)
                         {"PluralizedModelName",pluralizedModelName},
                         {"OneToManyModelMetadata", oneToManyModels},
-                        {"ModelNamespace", modelNameSpace} // the namespace of the model (e.g., Samples.Models)               
+                        {"ModelNamespace", modelNameSpace}, // the namespace of the model (e.g., Samples.Models)               
+                        {"SelectLambdaText", selectLambdaText}
                     },
                     skipIfExists: true);
 
