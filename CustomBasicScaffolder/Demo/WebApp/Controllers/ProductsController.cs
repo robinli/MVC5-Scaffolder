@@ -236,15 +236,11 @@ namespace WebApp.Controllers
             return RedirectToAction("Index");
         }
         [HttpPost]
-        public ActionResult ExportExcel( string filterRules = "",string sort = "Id", string order = "asc")
+        public ActionResult ExportExcel(string filterRules = "", string sort = "Id", string order = "asc")
         {
-            var fileName = "/export/products" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xlsx";
-            var file = this._productService.ExportExcel(fileName, filterRules,sort, order);
-
-
-
-            return Json(new{fileName=fileName }, JsonRequestBehavior.AllowGet);
-      
+            var fileName = "products" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xlsx";
+            var stream = this._productService.ExportExcel(filterRules,sort, order);
+            return File(stream, "application/vnd.ms-excel", fileName);
         }
        
 

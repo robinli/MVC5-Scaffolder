@@ -85,15 +85,15 @@ namespace WebApp.Services
             }
         }
 		
-		public FileInfo ExportExcel(string fileName ,string filterRules = "",string sort = "Id", string order = "asc")
+		public Stream ExportExcel( string filterRules = "",string sort = "Id", string order = "asc")
         {
             var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
                        			 
             var products  = this.Query(new ProductQuery().Withfilter(filters)).Include(p => p.Category).OrderBy(n=>n.OrderBy(sort,order)).Select().ToList();
             
-                        var datarows = products .Select(  n => new { CategoryName = (n.Category==null?"": n.Category.Name) , Id = n.Id , Name = n.Name , Unit = n.Unit , UnitPrice = n.UnitPrice , StockQty = n.StockQty , ConfirmDateTime = n.ConfirmDateTime , CategoryId = n.CategoryId }).ToList();
+            var datarows = products .Select(  n => new { CategoryName = (n.Category==null?"": n.Category.Name) , Id = n.Id , Name = n.Name , Unit = n.Unit , UnitPrice = n.UnitPrice , StockQty = n.StockQty , ConfirmDateTime = n.ConfirmDateTime , CategoryId = n.CategoryId }).ToList();
            
-            return ExcelHelper.ExportExcel(datarows, fileName);
+            return ExcelHelper.ExportExcel(datarows);
 
         }
     }

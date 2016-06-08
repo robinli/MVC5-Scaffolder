@@ -1868,6 +1868,7 @@
     <Content Include="Scripts\easyui\themes\metro\validatebox.css" />
     <Content Include="Scripts\easyui\themes\metro\window.css" />
     <Content Include="Scripts\easyui\themes\mobile.css" />
+    <Content Include="Scripts\FileSaver.js" />
     <Content Include="Scripts\inspinia.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />

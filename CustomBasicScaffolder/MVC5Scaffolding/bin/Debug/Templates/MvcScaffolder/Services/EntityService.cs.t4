@@ -144,7 +144,7 @@ namespace <#=DefaultNamespace #>.Services
 			 
 		#>
 
-		public FileInfo ExportExcel(string fileName, string filterRules = "",string sort = "<#= PrimaryKeyName #>", string order = "asc")
+		public Stream ExportExcel(string fileName, string filterRules = "",string sort = "<#= PrimaryKeyName #>", string order = "asc")
         {
             var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
                        <# if(!String.IsNullOrEmpty(includeExpressions)) { #>
@@ -156,7 +156,7 @@ namespace <#=DefaultNamespace #>.Services
             <#    } #>
             var datarows = <#= modelVariablePlural #> .Select( <#= SelectLambdaText #>).ToList();
            
-            return ExcelHelper.ExportExcel(datarows, fileName);
+            return ExcelHelper.ExportExcel(datarows);
 
         }
     }
