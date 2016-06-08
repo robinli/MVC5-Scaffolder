@@ -300,7 +300,7 @@ namespace WebApp.Extensions
             var stream = new MemoryStream();
             using (ExcelPackage pck = new ExcelPackage())
             {
-                ExcelWorksheet ws = pck.Workbook.Worksheets.Add(typeof(T).Name);
+                ExcelWorksheet ws = pck.Workbook.Worksheets.Add("Sheet1");
                 int StartFromRow = String.IsNullOrEmpty(Heading) ? 1 : 3;
 
                 // add the content into the Excel file
@@ -376,7 +376,7 @@ namespace WebApp.Extensions
             FileInfo fileinfo = new FileInfo(HttpContext.Current.Server.MapPath("~" + fileName));
             using (ExcelPackage pck = new ExcelPackage())
             {
-                ExcelWorksheet ws = pck.Workbook.Worksheets.Add(typeof(T).Name);
+                ExcelWorksheet ws = pck.Workbook.Worksheets.Add("Sheet1");
                 int StartFromRow = String.IsNullOrEmpty(Heading) ? 1 : 3;
 
                 // add the content into the Excel file

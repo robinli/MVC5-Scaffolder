@@ -154,6 +154,9 @@
 @section Scripts {
     <script type="text/javascript">
 
+        
+
+
         $(function () {
             $('#alert1').hide('normal');
             $('#alert2').hide('normal');
@@ -216,33 +219,42 @@
             var filterRules = JSON.stringify($dg.datagrid('options').filterRules);
             //console.log(filterRules);
             $.messager.progress({ title: '正在执行导出！' });
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', '/Products/ExportExcel', true);
-            xhr.responseType = 'blob';
-            xhr.overrideMimeType("application/vnd.ms-excel");
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                    $.messager.progress('close');
-                    //console.log(xhr.getResponseHeader('Content-Disposition'));
-                    var header = xhr.getResponseHeader('Content-Disposition');
-                    var fileName = '';
-                    if (header) {
-                        var regx = /filename[^;=\n]*=((['\"]).*?\2|[^;\n]*)/g;
-                        fileName = regx.exec(header)[1];
-                        //console.log(regx.exec(header));
-                    }
-                    var blob = xhr.response;
-                    saveAs(blob, fileName);
-                }
-            };
-            xhr.onload = function (e) {
-                //console.log(e);
-            };
             var formData = new FormData();
             formData.append('filterRules', filterRules);
             formData.append('sort', 'Id');
             formData.append('order', 'asc');
-            xhr.send(formData);
+            $.postDownload('/Products/ExportExcel', formData, function (fileName) {
+                $.messager.progress('close');
+                console.log(fileName);
+
+            })
+            //var xhr = new XMLHttpRequest();
+            //xhr.open('POST', '/Products/ExportExcel', true);
+            //xhr.responseType = 'blob';
+            //xhr.overrideMimeType("application/vnd.ms-excel");
+            //xhr.onreadystatechange = function () {
+            //    if (xhr.readyState == 4 && xhr.status == 200) {
+            //        $.messager.progress('close');
+            //        //console.log(xhr.getResponseHeader('Content-Disposition'));
+            //        var header = xhr.getResponseHeader('Content-Disposition');
+            //        var fileName = '';
+            //        if (header) {
+            //            var regx = /filename[^;=\n]*=((['\"]).*?\2|[^;\n]*)/g;
+            //            fileName = regx.exec(header)[1];
+            //            //console.log(regx.exec(header));
+            //        }
+            //        var blob = xhr.response;
+            //        saveAs(blob, fileName);
+            //    }
+            //};
+            //xhr.onload = function (e) {
+            //    //console.log(e);
+            //};
+            //var formData = new FormData();
+            //formData.append('filterRules', filterRules);
+            //formData.append('sort', 'Id');
+            //formData.append('order', 'asc');
+            //xhr.send(formData);
         }
 
         var $dg = $('#products_datagrid');

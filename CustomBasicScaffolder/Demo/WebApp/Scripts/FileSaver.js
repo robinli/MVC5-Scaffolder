@@ -182,3 +182,39 @@ if (typeof module !== "undefined" && module.exports) {
         return saveAs;
     });
 }
+
+
+
+
+
+jQuery.extend({
+    postDownload: function (url, formData, onCompleted) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', url, true);
+        xhr.responseType = 'blob';
+        xhr.overrideMimeType("application/vnd.ms-excel");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                //console.log(xhr.getResponseHeader('Content-Disposition'));
+                var header = xhr.getResponseHeader('Content-Disposition');
+                var fileName = '';
+                if (header) {
+                    var regx = /filename[^;=\n]*=((['\"]).*?\2|[^;\n]*)/g;
+                    fileName = regx.exec(header)[1];
+                    //console.log(regx.exec(header));
+                }
+                var blob = xhr.response;
+                saveAs(blob, fileName);
+                onCompleted(fileName);
+            }
+        };
+        xhr.onload = function (e) {
+            //console.log(e);
+        };
+        //var formData = new FormData();
+        //formData.append('filterRules', filterRules);
+        //formData.append('sort', 'Id');
+        //formData.append('order', 'asc');
+        xhr.send(formData);
+    }
+})
