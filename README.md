@@ -16,7 +16,7 @@ Visual Studio.net 2013 asp.net MVC 5 Scaffolding代码生成向导开源项目
 
 感谢你的支持
 
- ![alt tag](http://images2015.cnblogs.com/blog/5997/201604/5997-20160412105630520-2048314860.png)
+ 
 
  
 
