@@ -75,6 +75,6 @@ namespace <#=DefaultNamespace #>.Services
         #> 
  
 		void ImportDataTable(DataTable datatable);
-		Stream ExportExcel( string filterRules = "",string sort = "<#= PrimaryKeyName #>", string order = "asc");
+		Stream ExportExcel( string sort = "<#= PrimaryKeyName #>", string order = "asc");
 	}
 }

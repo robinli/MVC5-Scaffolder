@@ -144,7 +144,7 @@ namespace <#=DefaultNamespace #>.Services
 			 
 		#>
 
-		public Stream ExportExcel(string fileName, string filterRules = "",string sort = "<#= PrimaryKeyName #>", string order = "asc")
+		public Stream ExportExcel(string filterRules = "",string sort = "<#= PrimaryKeyName #>", string order = "asc")
         {
             var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
                        <# if(!String.IsNullOrEmpty(includeExpressions)) { #>
@@ -152,7 +152,7 @@ namespace <#=DefaultNamespace #>.Services
             var <#= modelVariablePlural #>  = this.Query(new <#= ModelName #>Query().Withfilter(filters))<#= includeExpressions #>.OrderBy(n=>n.OrderBy(sort,order)).Select().ToList();
             
             <#    } else { #>
-            var <#= modelVariablePlural #>  = this.Query(new <#= ModelName #>Query().Withfilter(filters)).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(page, rows, out totalCount);
+            var <#= modelVariablePlural #>  = this.Query(new <#= ModelName #>Query().Withfilter(filters)).OrderBy(n=>n.OrderBy(sort,order)).Select().ToList();
             <#    } #>
             var datarows = <#= modelVariablePlural #> .Select( <#= SelectLambdaText #>).ToList();
            
