@@ -68,6 +68,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
 
     public static class AttributeHelper
     {
+
         public static string GetDisplayName(object obj, string propertyName)
         {
             if (obj == null) return null;
@@ -163,6 +164,51 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             if (metaProperty == null)
                 return false;
             return GetAttributeRequired(metaProperty);
+        }
+
+        internal static string GetMaxLenght(Type type, string p)
+        {
+            var property = type.GetProperty(p);
+            if (property == null) return "";
+
+            return GetMaxLenght(property);
+        }
+
+        private static string GetMaxLenght(PropertyInfo property)
+        {
+            var atts = property.DeclaringType.GetCustomAttributes(
+                    typeof(MetadataTypeAttribute), true);
+            if (atts.Length == 0)
+                return "";
+
+            var metaAttr = atts[0] as MetadataTypeAttribute;
+            var metaProperty =
+                metaAttr.MetadataClassType.GetProperty(property.Name);
+            if (metaProperty == null)
+                return "";
+            return GetAttributeMaxLength(metaProperty);
+        }
+
+        private static string GetAttributeMaxLength(PropertyInfo property)
+        {
+            string min = "";
+            string max = "";
+            var atts0 = property.GetCustomAttributes(
+                typeof(System.ComponentModel.DataAnnotations.MinLengthAttribute), true);
+            var atts1 = property.GetCustomAttributes(
+                typeof(System.ComponentModel.DataAnnotations.MaxLengthAttribute), true);
+            if (atts0.Length == 0)
+                min = "0";
+            else
+                min = (atts0[0] as System.ComponentModel.DataAnnotations.MinLengthAttribute).Length.ToString();
+
+            if (atts1.Length == 0)
+                max = "0";
+            else
+                max = (atts1[0] as System.ComponentModel.DataAnnotations.MinLengthAttribute).Length.ToString();
+
+
+            return string.Format(",validType:'length[{0},{1}]'", min, max);
         }
     }
 }

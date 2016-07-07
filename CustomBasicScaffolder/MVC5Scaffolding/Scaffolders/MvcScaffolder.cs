@@ -366,6 +366,29 @@ namespace Happy.Scaffolding.MVC.Scaffolders
 
         }
 
+        private Dictionary<string, string> GetAllFieldMaxLength(CodeType modelType, ModelMetadata efMetadata) {
+            Dictionary<string, string> dic = new Dictionary<string, string>();
+            dic = GetMaxLength(modelType.FullName);
+            foreach (var property in efMetadata.Properties)
+            {
+                if (property.AssociationDirection == AssociationDirection.OneToMany)
+                {
+                    string typename = property.RelatedModel.TypeName;
+                    var dis = GetMaxLength(typename);
+                    foreach (var item in dis)
+                    {
+                        if (!dic.ContainsKey(item.Key))
+                        {
+                            dic.Add(item.Key, item.Value);
+
+                        }
+                    }
+                }
+            }
+            return dic;
+        
+        }
+
 
         private void AddDetailsView(Project project
             , string viewsFolderPath
@@ -731,6 +754,23 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             return lookup;
         }
 
+        protected Dictionary<string, string> GetMaxLength(string fullclassName)
+        {
+
+            var type = GetReflectionType(fullclassName);
+            var shortName = type.Name;
+            var lookup = new Dictionary<string, string>();
+            foreach (PropertyInfo prop in type.GetProperties())
+            {
+                //var attr = (System.ComponentModel.DataAnnotations.DisplayAttribute)prop.GetCustomAttribute(typeof(System.ComponentModel.DataAnnotations.DisplayAttribute), true);
+                //var value = attr != null && !String.IsNullOrWhiteSpace(attr.Name) ? attr.Name : prop.Name;
+                //if (!lookup.ContainsKey(prop.Name))
+                var value = AttributeHelper.GetMaxLenght(type, prop.Name);
+                //lookup.Add(shortName + "." +prop.Name, value);
+                lookup.Add(prop.Name, value);
+            }
+            return lookup;
+        }
         //add _Layout & _ViewStart
         private void AddDependencyFile(Project project, string viewRootPath, string areaName
             )
