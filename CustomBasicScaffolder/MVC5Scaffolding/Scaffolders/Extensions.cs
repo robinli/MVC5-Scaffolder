@@ -146,10 +146,21 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             
         }
         private static bool GetAttributeRequired(PropertyInfo property) {
+
             var atts = property.GetCustomAttributes(
                 typeof(System.ComponentModel.DataAnnotations.RequiredAttribute), true);
             if (atts.Length == 0)
-                return false;
+            {
+                if (property.PropertyType==typeof(int) ||
+                    property.PropertyType==typeof(decimal) ||
+                    property.PropertyType==typeof(DateTime) ||
+                    property.PropertyType==typeof(float) ||
+                    property.PropertyType==typeof(double) 
+                   )
+                    return true;
+                else
+                    return false;
+            }
             return true;
         }
         private static bool GetMetaRequired(PropertyInfo property) {
@@ -176,6 +187,16 @@ namespace Happy.Scaffolding.MVC.Scaffolders
 
         private static string GetMaxLenght(PropertyInfo property)
         {
+            var str = GetAttributeMaxLength(property);
+            if (str!=string.Empty)
+                return str;
+
+            str = GetMetaMaxLenght(property);
+            return str;
+        }
+
+        private static string GetMetaMaxLenght(PropertyInfo property)
+        {
             var atts = property.DeclaringType.GetCustomAttributes(
                     typeof(MetadataTypeAttribute), true);
             if (atts.Length == 0)
@@ -193,22 +214,61 @@ namespace Happy.Scaffolding.MVC.Scaffolders
         {
             string min = "";
             string max = "";
-            var atts0 = property.GetCustomAttributes(
-                typeof(System.ComponentModel.DataAnnotations.MinLengthAttribute), true);
-            var atts1 = property.GetCustomAttributes(
-                typeof(System.ComponentModel.DataAnnotations.MaxLengthAttribute), true);
-            if (atts0.Length == 0)
-                min = "0";
-            else
-                min = (atts0[0] as System.ComponentModel.DataAnnotations.MinLengthAttribute).Length.ToString();
+            if (property.PropertyType == typeof(string))
+            {
+                var atts0 = property.GetCustomAttributes(
+                    typeof(System.ComponentModel.DataAnnotations.MinLengthAttribute), true);
+                var atts1 = property.GetCustomAttributes(
+                    typeof(System.ComponentModel.DataAnnotations.MaxLengthAttribute), true);
+                if (atts0.Length == 0)
+                    min = "0";
+                else
+                    min = (atts0[0] as System.ComponentModel.DataAnnotations.MinLengthAttribute).Length.ToString();
 
-            if (atts1.Length == 0)
-                max = "0";
-            else
-                max = (atts1[0] as System.ComponentModel.DataAnnotations.MinLengthAttribute).Length.ToString();
+                if (atts1.Length == 0)
+                    max = "50";
+                else
+                    max = (atts1[0] as System.ComponentModel.DataAnnotations.MaxLengthAttribute).Length.ToString();
+
+                return string.Format(",validType:'length[{0},{1}]'", min, max);
+            }
+            else if (property.PropertyType == typeof(int) ||
+                     property.PropertyType == typeof(float) ||
+                     property.PropertyType == typeof(decimal) ||
+                     property.PropertyType == typeof(double)
+                     )
+            {
+                var atts = property.GetCustomAttributes(
+                    typeof(System.ComponentModel.DataAnnotations.RangeAttribute), true);
+
+                if (atts.Length == 0)
+                {
+                    if (property.PropertyType == typeof(float) ||
+                     property.PropertyType == typeof(decimal) ||
+                     property.PropertyType == typeof(double))
+                    
+                        return string.Format(",precision:2");
+                    else
+                        return string.Format(",precision:0");
+                }
+                else
+                {
+                    min = (atts[0] as System.ComponentModel.DataAnnotations.RangeAttribute).Minimum.ToString();
+                    max = (atts[0] as System.ComponentModel.DataAnnotations.RangeAttribute).Maximum.ToString();
+                }
+                if (property.PropertyType == typeof(float) ||
+                    property.PropertyType == typeof(decimal) ||
+                    property.PropertyType == typeof(double))
+                    return string.Format(",min:{0},max:{1},precision:2", min, max);
+                else
+                    return string.Format(",min:{0},max:{1},precision:0", min, max);
 
 
-            return string.Format(",validType:'length[{0},{1}]'", min, max);
+            }
+            else {
+                return string.Empty;
+            }
+            
         }
     }
 }

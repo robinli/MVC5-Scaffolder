@@ -168,6 +168,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
 
             var fieldDisplayNames = GetAllFieldDisplayNames(modelType, efMetadata);
             var fieldRequired = GetAllFieldRequired(modelType, efMetadata);
+            var fieldMaxLength = GetAllFieldMaxLength(modelType, efMetadata);
             var oneToManyModels = GetOneToManyModelDictionary(efMetadata, efService, dbContextTypeName);
 
             var oneToManyAnonymousObjTextDic = GetOneToManyAnonymousObjTextDic(oneToManyModels);
@@ -268,6 +269,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                     , formClos: formcols
                     , modelDisplayNames: modelDisplayNames
                     , fieldRequired:fieldRequired as Dictionary<string,bool>
+                    , fieldMaxLength: fieldMaxLength as Dictionary<string, string>
                     );
             }
 
@@ -657,6 +659,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             , Dictionary<string, ModelMetadata> oneToManyModels = null
             , Dictionary<string, string> modelDisplayNames = null
             , Dictionary<string, bool> fieldRequired = null
+            , Dictionary<string, string> fieldMaxLength = null
             )
         {
 
@@ -688,6 +691,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 , {"OneToManyModelMetadata", oneToManyModels}
                 ,{"ModelDisplayNames",modelDisplayNames}
                 ,{"fieldRequired",fieldRequired}
+                ,{"fieldMaxLength",fieldMaxLength}
                 ,{"CheckedFromLayoutCols",checkedFormCols}
                 ,{"FromLayoutCols",formClos}
                 ,{"GenerateMasterDetailRelationship" ,generateMasterDetailRelationship}
