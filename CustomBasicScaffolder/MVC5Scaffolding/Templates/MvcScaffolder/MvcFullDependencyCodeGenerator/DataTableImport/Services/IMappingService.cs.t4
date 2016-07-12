@@ -24,7 +24,7 @@ namespace <#= DefaultNamespace #>.Services
         void GenerateByEnityName(string entityName);
 
         DataTableImportMapping FindMapping(string entitySetName, string sourceFieldName);
-         
+        string GetDisplayName(string entitySetName, string fieldName);
  
 	}
 }

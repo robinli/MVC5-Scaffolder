@@ -88,6 +88,13 @@ namespace <#= DefaultNamespace #>.Services
         {
             return this.Queryable().Where(x => x.EntitySetName == entitySetName && x.SourceFieldName == sourceFieldName).FirstOrDefault();
         }
+
+		public string GetDisplayName(string entitySetName, string fieldName)
+        {
+            var displayName = this.Queryable().Where(x => x.EntitySetName == entitySetName && x.FieldName == fieldName).Select(x => x.FieldDesc).FirstOrDefault();
+            return (string.IsNullOrEmpty(displayName) ? fieldName : displayName);
+
+        }
     }
 }
 

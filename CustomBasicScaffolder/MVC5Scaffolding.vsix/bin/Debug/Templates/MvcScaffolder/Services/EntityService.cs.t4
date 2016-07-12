@@ -156,7 +156,7 @@ namespace <#=DefaultNamespace #>.Services
             <#    } #>
             var datarows = <#= modelVariablePlural #> .Select( <#= SelectLambdaText #>).ToList();
            
-            return ExcelHelper.ExportExcel(datarows);
+            return ExcelHelper.ExportExcel(typeof(<#= ModelName #>), datarows);
 
         }
     }
