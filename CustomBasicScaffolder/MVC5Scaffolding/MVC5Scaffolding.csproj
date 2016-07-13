@@ -153,6 +153,9 @@
     <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\BaseCode\Views\Index.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\ExcelHelper.cs.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\MenuItem\FileUploadController.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

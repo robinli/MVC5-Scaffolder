@@ -115,6 +115,7 @@ namespace <#= DefaultNamespace #>
                 return false;
             return GetAttributeRequired(metaProperty);
         }
+		
     }
 
 	public class ButtonAttribute : ActionMethodSelectorAttribute

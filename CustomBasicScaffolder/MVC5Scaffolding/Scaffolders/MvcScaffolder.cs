@@ -874,18 +874,18 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 , skipIfExists: true);
 
 
-            // add PageListExtensions
-            //viewName = "PageListExtensions";
-            //outputPath = Path.Combine("Extensions", viewName);
-            //templatePath = Path.Combine("MvcFullDependencyCodeGenerator", viewName);
-            //templateParams = new Dictionary<string, object>(){
-            //   {"DefaultNamespace", project.GetDefaultNamespace()}
-            //};
-            //AddFileFromTemplate(project: project
-            //    , outputPath: outputPath
-            //    , templateName: templatePath
-            //    , templateParameters: templateParams
-            //    , skipIfExists: true);
+            //add ExcelHelper
+            viewName = "ExcelHelper";
+            outputPath = Path.Combine("Extensions", viewName);
+            templatePath = Path.Combine("MvcFullDependencyCodeGenerator", viewName);
+            templateParams = new Dictionary<string, object>(){
+               {"DefaultNamespace", project.GetDefaultNamespace()}
+            };
+            AddFileFromTemplate(project: project
+                , outputPath: outputPath
+                , templateName: templatePath
+                , templateParameters: templateParams
+                , skipIfExists: true);
 
             //LinqOrderByColumnsNameExtensions
             viewName = "LinqOrderByColumnsNameExtensions";

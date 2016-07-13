@@ -332,3 +332,4 @@ C:\Users\Administrator\AppData\Local\Microsoft\VisualStudio\12.0Exp\Extensions\R
 C:\Users\Administrator\AppData\Local\Microsoft\VisualStudio\12.0Exp\Extensions\Robin Li\URF MVC5 With EasyUI DataGrid\3.1\\Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\sb-admin.cs.t4
 C:\Users\Administrator\AppData\Local\Microsoft\VisualStudio\12.0Exp\Extensions\Robin Li\URF MVC5 With EasyUI DataGrid\3.1\\fr-FR\MVC5Scaffolding.resources.dll
 C:\Users\Administrator\AppData\Local\Microsoft\VisualStudio\12.0Exp\Extensions\Robin Li\URF MVC5 With EasyUI DataGrid\3.1\\MVC5Scaffolding.pdb
+C:\Users\Administrator\AppData\Local\Microsoft\VisualStudio\12.0Exp\Extensions\Robin Li\URF MVC5 With EasyUI DataGrid\3.1\\Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\ExcelHelper.cs.t4
