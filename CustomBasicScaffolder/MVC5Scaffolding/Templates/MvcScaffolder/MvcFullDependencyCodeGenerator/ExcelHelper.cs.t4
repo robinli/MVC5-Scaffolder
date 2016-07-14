@@ -464,13 +464,13 @@ namespace <#= DefaultNamespace #>
                 // add the content into the Excel file
                 ws.Cells["A" + StartFromRow].LoadFromCollection<T>(list, true, OfficeOpenXml.Table.TableStyles.Light1);
 
-                Type _ty = null;
-                if (list.Count > 0)
-                {
-                    _ty = list[0].GetType();
-                }
+                //Type _ty = null;
+                //if (list.Count > 0)
+                //{
+                //    _ty = list[0].GetType();
+                //}
 
-                Type t = _ty;
+                Type t = typeof(T);
                 System.Reflection.PropertyInfo[] PropertyInfos = t.GetProperties(System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic);
 
                 for (int i = 1; i <= PropertyInfos.Count(); i++)
@@ -502,7 +502,8 @@ namespace <#= DefaultNamespace #>
                     r.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
                     r.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Black);
                 }
-
+				if (list.Count > 0)
+                {
                 // format cells - add borders
                 using (ExcelRange r = ws.Cells[StartFromRow + 1, 1, StartFromRow + list.Count, props.Count])
                 {
@@ -516,6 +517,7 @@ namespace <#= DefaultNamespace #>
                     r.Style.Border.Left.Color.SetColor(System.Drawing.Color.Black);
                     r.Style.Border.Right.Color.SetColor(System.Drawing.Color.Black);
                 }
+				}
 
                 // removed ignored columns
                 for (int i = props.Count - 1; i >= 0; i--)
