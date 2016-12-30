@@ -1,9 +1,9 @@
 ﻿
 
 <div id="importwindow" class="easyui-window" title="Excel 导入" data-options="modal:true,collapsible:false,minimizable:false,maximizable:false,closed:true,iconCls:'icon-paperclip'" style="width:400px;height:460px;padding:10px;">
-
+   
     <input type="file" multiple="multiple" name="files[]" id="filer_input">
-    <div class="col-md-12 demo-fileInput-thumbs"></div>
+    <div class="col-md-12 fileInput-thumbs"></div>
 </div>
 
 
@@ -29,7 +29,7 @@
             dragDrop: {},
             uploadFile: {
                 url: "/FileUpload/Upload",
-                data: {},
+                data: { FileType: ' @ViewData["EntityName"]' },
                 type: 'POST',
                 enctype: 'multipart/form-data',
                 beforeSend: function () { },
@@ -61,8 +61,9 @@
             extensions: null,
             changeInput: filer_default_opts.changeInput2,
             showThumbs: true,
-            appendTo: '.demo-fileInput-thumbs',
+            appendTo: '.fileInput-thumbs',
             theme: "dragdropbox",
+           
             templates: {
                
                 item: '<li class="jFiler-item"><div class="jFiler-item-container"><div class="jFiler-item-inner"><div class="jFiler-item-icon pull-left">{{fi-icon}}</div><div class="jFiler-item-info pull-left"><div class="jFiler-item-title" title="{{fi-name}}">{{fi-name | limitTo:30}}</div><div class="jFiler-item-others"><span>size: {{fi-size2}}</span><span>type: {{fi-extension}}</span><span class="jFiler-item-status">{{fi-progressBar}}</span></div><div class="jFiler-item-assets"><ul class="list-inline"><li><a class="icon-jfi-trash jFiler-item-trash-action"></a></li></ul></div></div></div></div></li>',
