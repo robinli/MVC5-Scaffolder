@@ -40,6 +40,16 @@
                     });
 
                     console.log(data);
+
+                    if (data.success == false) {
+                        $.messager.alert('导入错误', '导入错误，请修改后再倒入！<br>' + data.message, 'error');
+                    
+                    } else {
+                        $.messager.alert('导入完成', '导入完成！<br>', 'info');
+                        $dg.datagrid('reload');
+                        $('#importwindow').window('close');
+                    }
+
                 },
                 error: function (el) {
                     var parent = el.find(".jFiler-jProgressBar").parent();
