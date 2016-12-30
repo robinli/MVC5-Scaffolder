@@ -34,18 +34,20 @@ namespace WebApp.Controllers
         }
         //回单文件上传 文件名格式 回单+_+日期+_原始文件
         [HttpPost]
-        public ActionResult Upload(HttpPostedFileBase Filedata)
+        public ActionResult Upload()
         {
             string fileType = "";
             //string date = "";
             //string filename = "";
             //string Lastfilename = "";
+            var request = this.Request;
+            var filedata = this.Request.Files[0];
             try
             {
                 // 如果没有上传文件
-                if (Filedata == null ||
-                    string.IsNullOrEmpty(Filedata.FileName) ||
-                    Filedata.ContentLength == 0)
+                if (filedata == null ||
+                    string.IsNullOrEmpty(filedata.FileName) ||
+                    filedata.ContentLength == 0)
                 {
                     return this.HttpNotFound();
                 }
@@ -53,7 +55,7 @@ namespace WebApp.Controllers
                 //date = this.Request.Form["date"];
                 //filename = this.Request.Form["filename"];
                 //Lastfilename = this.Request.Form["Lastfilename"];
-                //DataTable datatable = ExcelHelper.GetDataTableFromExcel(Filedata.InputStream);
+                //DataTable datatable = ExcelHelper.GetDataTableFromExcel(filedata.InputStream);
                 //if (fileType == "SKU")
                 //{
                 //    _sKUService.ImportDataTable(datatable);
@@ -65,7 +67,7 @@ namespace WebApp.Controllers
                 //    _unitOfWork.SaveChanges();
                 //}
                
-                string uploadfilename = System.IO.Path.GetFileName(Filedata.FileName);
+                string uploadfilename = System.IO.Path.GetFileName(filedata.FileName);
                 string folder = Server.MapPath("~/UploadFiles");
                 string time = DateTime.Now.ToString().Replace("\\", "").Replace("/", "").Replace(".", "").Replace(":", "").Replace("-", "").Replace(" ", "");//获取时间
                 string newFileName = string.Format("{0}_{1}",  time, uploadfilename);//重组成新的文件名
@@ -86,7 +88,7 @@ namespace WebApp.Controllers
                 // 文件系统不能使用虚拟路径
                 //string path = this.Server.MapPath(virtualPath);
 
-                Filedata.SaveAs(virtualPath);
+                filedata.SaveAs(virtualPath);
 
 
                 return Json(new { success = true, filename = "/UploadFiles/" + newFileName }, JsonRequestBehavior.AllowGet);

@@ -366,6 +366,9 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\fonts\jquery.filer-icons\jquery-filer-preview.html" />
+    <Content Include="assets\fonts\jquery.filer-icons\jquery-filer.css" />
+    <Content Include="assets\fonts\jquery.filer-icons\jquery-filer.svg" />
     <Content Include="Content\jsTree\docs.css" />
     <Content Include="Content\jsTree\themes\default-dark\32px.png" />
     <Content Include="Content\jsTree\themes\default-dark\40px.png" />
@@ -383,6 +386,7 @@
     <Content Include="css\font-awesome.css" />
     <Content Include="css\ionicons.css" />
     <Content Include="css\ionicons.min.css" />
+    <Content Include="css\jquery.filer.css" />
     <Content Include="css\patterns\3.png" />
     <Content Include="css\patterns\4.png" />
     <Content Include="css\patterns\header-profile-skin-1.png" />
@@ -471,6 +475,7 @@
     <Content Include="css\plugins\toastr\toastr.min.css" />
     <Content Include="css\plugins\touchspin\jquery.bootstrap-touchspin.min.css" />
     <Content Include="css\style.css" />
+    <Content Include="css\themes\jquery.filer-dragdropbox-theme.css" />
     <Content Include="font-awesome\font\fontawesome-webfont.svg" />
     <Content Include="fonts\ionicons.svg" />
     <Content Include="font\fontawesome-webfont.svg" />
@@ -1174,6 +1179,7 @@
     <Content Include="js\jquery-2.1.1.js" />
     <Content Include="js\jquery-ui-1.10.4.min.js" />
     <Content Include="js\jquery-ui.custom.min.js" />
+    <Content Include="js\jquery.filer.js" />
     <Content Include="js\plugins\blueimp\jquery.blueimp-gallery.min.js" />
     <Content Include="js\plugins\bootstrap-markdown\bootstrap-markdown.js" />
     <Content Include="js\plugins\bootstrap-markdown\markdown.js" />
@@ -2063,6 +2069,9 @@
     <Content Include="font\fontawesome-webfont.ttf" />
     <Content Include="font\fontawesome-webfont.woff" />
     <Content Include="font\FontAwesome.otf" />
+    <Content Include="assets\fonts\jquery.filer-icons\jquery-filer.eot" />
+    <Content Include="assets\fonts\jquery.filer-icons\jquery-filer.ttf" />
+    <Content Include="assets\fonts\jquery.filer-icons\jquery-filer.woff" />
     <None Include="Project_Readme.html" />
     <Content Include="Views\Shared\skin-config.html" />
     <Content Include="skin-config.html" />
@@ -2126,6 +2135,7 @@
     <Content Include="Views\MenuItems\_PopupSearch.cshtml" />
     <Content Include="Views\MenuItems\_MenuItemEditForm.cshtml" />
     <Content Include="Views\Shared\_QuickNavbar.cshtml" />
+    <Content Include="Views\Shared\_ImportWindow.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Source\Repository.Pattern.Ef6\Repository.Pattern.Ef6.csproj">

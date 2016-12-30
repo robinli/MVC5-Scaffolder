@@ -9,8 +9,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <title>| @ViewBag.Title</title>
-
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+    <!-- Fonts -->
+    @*<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href='https://fonts*@.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
     <link href="~/css/bootstrap.min.css" rel="stylesheet">
     <link href="~/font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="~/css/font-awesome.css" rel="stylesheet" />
@@ -18,9 +19,11 @@
     <link href="~/css/style.css" rel="stylesheet">
     <link href="~/css/ionicons.css" rel="stylesheet" />
     <link href="~/js/easyui/themes/metro/easyui.css" rel="stylesheet" />
-
+    <link href="~/css/jquery.filer.css" rel="stylesheet" />
+    <link href="~/css/themes/jquery.filer-dragdropbox-theme.css" rel="stylesheet" />
     <!-- Mainly scripts -->
     <script src="~/js/easyui/jquery.min.js"></script>
+    
     <script src="~/js/bootstrap.min.js"></script>
     <script src="~/js/easyui/jquery.easyui.min.js"></script>
     <script src="~/js/easyui/plugins/jquery.edatagrid.js"></script>
@@ -40,7 +43,11 @@
 
 
     <script src="~/Scripts/uploadify/jquery.uploadify.js"></script>
+   
+
     <script src="~/Scripts/FileSaver.js"></script>
+
+    <script src="~/js/jquery.filer.js"></script>
     <script>
 
         function dateformatter(value, row, index) {
