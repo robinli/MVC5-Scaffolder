@@ -2125,6 +2125,7 @@
     <Content Include="Views\MenuItems\EditForm.cshtml" />
     <Content Include="Views\MenuItems\_PopupSearch.cshtml" />
     <Content Include="Views\MenuItems\_MenuItemEditForm.cshtml" />
+    <Content Include="Views\Shared\_QuickNavbar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Source\Repository.Pattern.Ef6\Repository.Pattern.Ef6.csproj">
