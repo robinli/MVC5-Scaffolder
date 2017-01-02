@@ -2111,7 +2111,6 @@
     <Content Include="Views\Orders\EditForm.cshtml" />
     <Content Include="Views\Orders\_PopupSearch.cshtml" />
     <Content Include="Views\Orders\_OrderDetailEditForm.cshtml" />
-    <Content Include="Views\Categories\Index11.cshtml" />
     <Content Include="Views\Categories\Create.cshtml" />
     <Content Include="Views\Categories\Edit.cshtml" />
     <Content Include="Views\Categories\EditForm.cshtml" />

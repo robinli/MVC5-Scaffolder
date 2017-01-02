@@ -15,7 +15,7 @@
 #>
 
 @{
-    ViewBag.Title = <#= PageTitle #>;
+    ViewBag.Title = "<#= PageTitle #>";
 }
 
 
