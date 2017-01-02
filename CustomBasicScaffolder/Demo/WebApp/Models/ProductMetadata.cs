@@ -15,24 +15,25 @@ namespace WebApp.Models
         public Category Category { get; set; }
 
         [Required(ErrorMessage = "Please enter : Id")]
-        [Display(Name = "Id")]
+        [Display(Name = "Id",ShortName="Id",AutoGenerateField=false,AutoGenerateFilter=false,Order=1,Prompt="ID")]
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Please enter : 名称")]
-        [Display(Name = "名称")]
+        [Display(Name = "名称", ShortName = "名称", AutoGenerateField = true, AutoGenerateFilter = true, Order = 2, Prompt = "名称")]
         [MaxLength(50)]
         public string Name { get; set; }
 
-        [Display(Name = "单位")]
+        [Display(Name = "单位", ShortName = "单位", AutoGenerateField = true, AutoGenerateFilter = true, Order = 3, Prompt = "单位")]
+        [MaxLength(20)]
         public string Unit { get; set; }
 
-        [Display(Name = "单价")]
+        [Display(Name = "单价", ShortName = "单价", AutoGenerateField = true, AutoGenerateFilter = true, Order = 4, Prompt = "单价")]
         public decimal UnitPrice { get; set; }
 
-        [Display(Name = "库存")]
+        [Display(Name = "库存", ShortName = "库存", AutoGenerateField = true, AutoGenerateFilter = true, Order = 5, Prompt = "库存")]
         public int StockQty { get; set; }
 
-        [Display(Name = "确认日期")]
+        [Display(Name = "确认日期", ShortName = "确认日期", AutoGenerateField = true, AutoGenerateFilter = true, Order = 6, Prompt = "确认日期")]
         public DateTime ConfirmDateTime { get; set; }
 
         [Required(ErrorMessage = "Please enter : 产品类别")]
