@@ -11,51 +11,12 @@
 
 
 <#
-// The following chained if-statement outputs the file header code and markup for a partial view, a view using a layout page, or a regular view.
-if(IsPartialView) {
-#>
-
-<#
-} else if(IsLayoutPageSelected) {
-#>
-
-@{
-    ViewBag.Title = "<#= PageTitle #>";
-<#
-if (!String.IsNullOrEmpty(LayoutPageFile)) {
-#>
-    Layout = "<#= LayoutPageFile#>";
-<#
-}
-#>
-}
-
-
-<#
-} else {
-#>
-
-@{
-    Layout = null;
-}
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title><#= PageTitle #></title>
-</head>
-<body>
-<#
-    PushIndent("    ");
-}
-#>
-<#
     var modelName =  ModelMetadata.EntitySetName;
 #>
 
- 
+@{
+    ViewBag.Title = <#= PageTitle #>;
+}
 
 
  
@@ -778,16 +739,5 @@ foreach (PropertyMetadata property in properties) {
      </script>
 }
 
-<#
-// The following code closes the tag used in the case of a view using a layout page and the body and html tags in the case of a regular view page
-#>
-<#
-if(!IsPartialView && !IsLayoutPageSelected) {
-    ClearIndent();
-#>
-</body>
-</html>
-<#
-}
-#>
+ 
 <#@ include file="ModelMetadataFunctions.cs.include.t4" #>

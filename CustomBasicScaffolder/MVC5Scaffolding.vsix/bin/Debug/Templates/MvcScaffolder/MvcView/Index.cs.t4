@@ -11,106 +11,17 @@
 
 
 <#
-// The following chained if-statement outputs the file header code and markup for a partial view, a view using a layout page, or a regular view.
-if(IsPartialView) {
-#>
-
-<#
-} else if(IsLayoutPageSelected) {
-#>
-
-@{
-    ViewBag.Title = "<#= PageTitle #>";
-<#
-if (!String.IsNullOrEmpty(LayoutPageFile)) {
-#>
-    Layout = "<#= LayoutPageFile#>";
-<#
-}
-#>
-}
-
-
-<#
-} else {
-#>
-
-@{
-    Layout = null;
-}
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title><#= PageTitle #></title>
-</head>
-<body>
-<#
-    PushIndent("    ");
-}
-#>
-<#
     var modelName =  ModelMetadata.EntitySetName;
 #>
 
-<div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-lg-10">
-        <h2>@ViewBag.Title</h2>
-        <ol class="breadcrumb">
-            <li>
-                <a href="@Url.Action("Index", "Home")">Home</a>
-            </li>
-            <li>
-                <a href="#"><#= ControllerRootName #></a>
-            </li>
-            <li class="active">
-                <strong>@ViewBag.Title</strong>
-            </li>
-        </ol>
-    </div>
-    <div class="col-lg-2">
-
-    </div>
-</div>
-
-
-<div class="wrapper wrapper-content animated fadeInRight">
-
-<div class="row">
-    <div class="col-lg-12">
-        <div class="ibox float-e-margins">
-            <div class="ibox-title">
-                <h5><#=  PageTitle #></h5>
-                <div class="ibox-tools">
-                    <a class="collapse-link">
-                        <i class="fa fa-chevron-up"></i>
-                    </a>
-					<!--
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-wrench"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li>
-                            <a href="table_data_tables.html#">Config option 1</a>
-                        </li>
-                        <li>
-                            <a href="table_data_tables.html#">Config option 2</a>
-                        </li>
-                    </ul>
-                    <a class="close-link">
-                        <i class="fa fa-times"></i>
-                    </a>
-					-->
-                </div>
-            </div>
-            <div class="ibox-content">
-
-                <div class="table-responsive">
-           
  
-       <table id="<#= modelVariable #>_datagrid" class="easyui-datagrid" title="<#= PageTitle #>" style="width:auto;height:auto"
+
+
+ 
+
+     <!--begin datagrid-content -->
+     <div class="datagrid-content animated fadeInRight">
+        <table id="<#= modelVariable #>_datagrid" class="easyui-datagrid" title="<#= PageTitle #>" style="width:auto;height:auto"
                    data-options="
                  rownumbers:true,
 				 checkOnSelect:true,
@@ -255,7 +166,7 @@ foreach (PropertyMetadata property in properties) {
 							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="reload()">刷新</a>*@
 				</div>
 			</div>
-			
+		   <!--end datagrid-content -->
 		<#
 		if( GenerateMasterDetailRelationship && OneToManyModelMetadata.Count>0)
 		{
@@ -388,68 +299,18 @@ foreach (PropertyMetadata property in properties) {
 		<# 
         }
 		 #>
-			<!-- end ibox-content -->
-            </div>
-        </div>
-    </div>
-</div>
-</div>
-<div id="importwindow" class="easyui-window" title="Excel 导入"   data-options="modal:true,collapsible:false,minimizable:false,maximizable:false,closed:true,iconCls:'icon-paperclip'" style="width:500px;height:260px;padding:10px;">
-     
-    <p><input type="file" name="file_upload" id="file_upload" /></p>
-    
-</div>
-
+    <!-- file upload partial view -->
+	@Html.Partial("_ImportWindow",new  ViewDataDictionary { { "EntityName","<#= ModelTypeName #>" }})		 
+	<!-- end file upload partial view -->
 @section Scripts {
     <script type="text/javascript">
 
-			 $(function () {
-                        
-                        $("#file_upload").uploadifive({
-                            'height': 30,
-                            'fileTypeDesc': 'Excel 2010 Files',
-                            'fileTypeExts': '*.xlsx',
-                            'uploadScript': '/FileUpload/Upload',
-                            'buttonText': '选择EXCEL',
-                            'multi': true,
-                            'displayData': 'speed',
-                            'formData': { 'modelType': '<#= ModelTypeName #>' },
-                            'width': 120,
-                            'successTimeout': 100000,
-                            'onFallback': function () {
-                                $.messager.alert('导入错误', '导入错误，请重试！<br>', 'error');
-                                $('#file_upload').uploadifive('clearQueue')
-                            },
-                            'onSelect': function (queue) {
-                                $.messager.progress({
-                                    title: '执行导入',
-                                    msg: '请等待...'
-                                });
-                            },
-                            'onUploadComplete': function (file, data) {
-                                $.messager.progress('close');
-                                var data = $.parseJSON(data);
-                                console.log(data);
-                                if (data.success == false) {
-                                    $.messager.alert('导入错误', '导入错误，请修改后再倒入！<br>' + data.message, 'error');
-                                    $("#file_upload").uploadifive('clearQueue')
-                                } else {
-                                    $.messager.alert('导入完成', '导入完成！<br>', 'info');
-                                    $dg.datagrid('reload');
-                                    $('#importwindow').window('close');
-                                }
-                                return true;
-                                //alert('The file ' + file.name + ' was successfully uploaded with a response of ' + response + ':' + data);
-                                
-                            }
-                        });
-
-                    })
-
+			 
+			        //打开Excel上传导入
                     function importexcel() {
                         $('#importwindow').window('open');
                     }
-
+					 //执行Excel到处下载
 					function exportexcel() {
 						var filterRules = JSON.stringify($dg.datagrid('options').filterRules);
 						//console.log(filterRules);
@@ -464,7 +325,7 @@ foreach (PropertyMetadata property in properties) {
 
 						})
 					}
-
+		 //datagrid 增删改查操作
          var $dg = $('#<#= modelVariable #>_datagrid');
 		 var editIndex = undefined;
 		function reload() {
@@ -578,7 +439,7 @@ foreach (PropertyMetadata property in properties) {
             alert(rows.length + ' rows are changed!');
         }
 
-
+		//datagrid 开启行赛选功能
 		 $(function () {
 		  
            $dg.datagrid('enableFilter',[
@@ -876,16 +737,5 @@ foreach (PropertyMetadata property in properties) {
      </script>
 }
 
-<#
-// The following code closes the tag used in the case of a view using a layout page and the body and html tags in the case of a regular view page
-#>
-<#
-if(!IsPartialView && !IsLayoutPageSelected) {
-    ClearIndent();
-#>
-</body>
-</html>
-<#
-}
-#>
+ 
 <#@ include file="ModelMetadataFunctions.cs.include.t4" #>
