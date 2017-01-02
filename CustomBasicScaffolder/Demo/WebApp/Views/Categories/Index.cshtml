@@ -17,11 +17,11 @@
      
            
 
-                    <div class="datagrid-content">
+                    <div class="datagrid-content animated fadeInRight">
 
 
-                        <table id="categories_datagrid" class="easyui-datagrid" title="产品类别" style="width:auto;height:auto"
-                               data-options="
+    <table id="categories_datagrid" class="easyui-datagrid" title="产品类别" style="width:auto;height:auto"
+           data-options="
                  rownumbers:true,
 				 checkOnSelect:true,
                  selectOnCheck:true,
@@ -37,26 +37,26 @@
 				onSelect:onSelect,
                 pagination: 'true'
                    ">
-                            <thead>
-                                <tr>
-                                    @*<th data-options="field:'ck',checkbox:true"></th>*@
-                                    <th data-options="field:'Id',width:80 ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Id)</th>
+        <thead>
+            <tr>
+                @*<th data-options="field:'ck',checkbox:true"></th>*@
+                <th data-options="field:'Id',width:80 ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Id)</th>
 
-                                    <th data-options="field:'Name',width:140,editor:{type:'textbox',options:{required:true} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Name)</th>
+                <th data-options="field:'Name',width:140,editor:{type:'textbox',options:{required:true} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Name)</th>
 
 
-                                </tr>
-                            </thead>
-                        </table>
-                        <div id="categories_toolbar" style="height:auto">
-                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="append()">新增</a>
-                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
-                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">保存</a>
-                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">取消</a>
-                            @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="getChanges()">GetChanges</a>*@
-                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-paperclip',plain:true" onclick="importexcel()">EXCEL 导入</a>
-                        </div>
-                    </div>
+            </tr>
+        </thead>
+    </table>
+    <div id="categories_toolbar" style="height:auto">
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="append()">新增</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">保存</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">取消</a>
+        @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="getChanges()">GetChanges</a>*@
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-paperclip',plain:true" onclick="importexcel()">EXCEL 导入</a>
+    </div>
+</div>
 
                     <!-- end ibox-content -->
         
