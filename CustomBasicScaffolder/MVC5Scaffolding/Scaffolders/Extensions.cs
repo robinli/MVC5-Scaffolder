@@ -316,4 +316,11 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             
         }
     }
+
+
+    public class DisplayAttributeViewModel {
+       public string EntityTypeName { get; set; }
+       public string FieldName { get; set; }
+       public DisplayAttribute DisplayAttribute { get; set; }
+    }
 }

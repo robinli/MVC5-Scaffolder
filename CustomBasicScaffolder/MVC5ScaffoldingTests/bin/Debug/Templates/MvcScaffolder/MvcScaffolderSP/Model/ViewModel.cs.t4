@@ -1,0 +1,93 @@
+﻿<#@ template language="C#" HostSpecific="True" Debug="True" #>
+<#@ output extension="cs" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Data.Linq" #>
+<#@ ScaffoldingAssembly Processor="ScaffoldingAssemblyLoader" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="Microsoft.AspNet.Scaffolding.Core.Metadata" #>
+<#@ import namespace="Happy.Scaffolding.MVC.Models" #>
+<#@ parameter type="System.String" name="Namespace" #>
+<#@ parameter type="System.String" name="ModelTypeName" #>
+<#@ parameter type="System.String" name="MethodName" #>
+<#@ parameter type="Happy.Scaffolding.MVC.Models.MetaTableInfo" name="QueryMetaTable" #>
+<#@ parameter type="Happy.Scaffolding.MVC.Models.MetaTableInfo" name="ResultMetaTable" #>
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+
+namespace <#= Namespace #>
+{
+    public class <#= MethodName #>_QueryFormViewModel
+    {
+<#
+    foreach (MetaColumnInfo column in QueryMetaTable.Columns) {
+#>
+        [Display(Name="<#= column.DisplayName #>")]
+<#
+        if(column.HasMetaAttribute){
+#>
+        <#= column.MetaAttribute #>
+<#    }
+#>
+        public string <#= column.Name #> { get; set; }
+<#
+}
+#>
+
+        public bool DoExport { get; set; }
+
+        public List<<#= ModelTypeName #>> Result { get; set; }
+    }
+
+    [MetadataType(typeof(<#= ModelTypeName #>Metadata))]
+    public partial class <#= ModelTypeName #>
+    {
+    }
+
+    public partial class <#= ModelTypeName #>Metadata
+    {
+<#
+foreach (MetaColumnInfo column in ResultMetaTable.Columns) {
+#>
+        [Display(Name = "<#= column.DisplayName #>")]
+<#
+        if(column.HasMetaAttribute){
+#>
+        <#= column.MetaAttribute #>
+<#    }
+#>
+        public <#= column.ShortTypeName #> <#= column.Name #> { get; set; }
+
+<#
+}
+#>
+    }
+}
+<#+
+// This function converts the primary key short type name to its nullable equivalent when possible. This is required to make
+// sure that an HTTP 400 error is thrown when the user tries to access the edit, delete, or details action with null values.
+    string GetNullableTypeName(string typeName, string shortTypeName)
+    {
+        // The exceptions are caught because if for any reason the type is user defined, then the short type name will be used.
+        // In that case the user will receive a server error if null is passed to the edit, delete, or details actions.
+        Type primaryKeyType = null;
+        try
+        {
+            primaryKeyType = Type.GetType(typeName);
+        }
+        catch
+        {
+        }
+        if (primaryKeyType != null && (primaryKeyType.IsPrimitive || IsGuid(typeName)))
+        {
+            return shortTypeName + "?";
+        }
+        return shortTypeName;
+    }
+
+    bool IsGuid(string typeName) {
+        return String.Equals("System.Guid", typeName, StringComparison.OrdinalIgnoreCase);
+    }
+#>

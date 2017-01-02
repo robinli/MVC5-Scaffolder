@@ -209,7 +209,6 @@
     <Compile Include="Controllers\AccountManageController.cs" />
     <Compile Include="Controllers\BaseCodesController.cs" />
     <Compile Include="Controllers\ButtonAttribute.cs" />
-    <Compile Include="Controllers\Categories1Controller.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\CompaniesController.cs" />
     <Compile Include="Controllers\DataTableImportMappingsController.cs" />

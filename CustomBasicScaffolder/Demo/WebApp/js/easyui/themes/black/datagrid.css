@@ -1,6 +1,7 @@
 .datagrid .panel-body {
   overflow: hidden;
   position: relative;
+  padding: 0;
 }
 .datagrid-view {
   position: relative;

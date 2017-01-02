@@ -1,0 +1,30 @@
+﻿<#@ template language="C#" HostSpecific="True" #>
+<#@ output extension=".cs" #>
+<#@ parameter type="System.String" name="DefaultNamespace" #>
+
+     
+ 
+ 
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Linq.Expressions;
+using Repository.Pattern.Repositories;
+using Service.Pattern;
+using <#= DefaultNamespace #>.Models;
+using <#= DefaultNamespace #>.Repositories;
+
+namespace <#= DefaultNamespace #>.Services
+{
+    public interface IBaseCodeService:IService<BaseCode>
+    {
+
+         
+                 IEnumerable<CodeItem>   GetCodeItemsByBaseCodeId (int basecodeid);
+                 IEnumerable<CodeItem> GetCodeItemsByCodeType(string codeType);
+         
+         
+ 
+	}
+}

@@ -90,6 +90,13 @@ namespace WebApp.Controllers
         }
 
 		
+				public ActionResult GetCategories()
+        {
+            var categoryRepository = _unitOfWork.Repository<Category>();
+            var data = categoryRepository.Queryable().ToList();
+            var rows = data.Select(n => new { Id = n.Id, Name = n.Name });
+            return Json(rows, JsonRequestBehavior.AllowGet);
+        }
 		
        
         // GET: Categories/Details/5
@@ -124,8 +131,14 @@ namespace WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-             				_categoryService.Insert(category);
-                           _unitOfWork.SaveChanges();
+                             category.ObjectState = ObjectState.Added;   
+                                foreach (var item in category.Products)
+                {
+					item.CategoryId = category.Id ;
+                    item.ObjectState = ObjectState.Added;
+                }
+                                _categoryService.InsertOrUpdateGraph(category);
+                            _unitOfWork.SaveChanges();
                 if (Request.IsAjaxRequest())
                 {
                     return Json(new { success = true }, JsonRequestBehavior.AllowGet);
@@ -167,7 +180,17 @@ namespace WebApp.Controllers
             if (ModelState.IsValid)
             {
                 category.ObjectState = ObjectState.Modified;
-                				_categoryService.Update(category);
+                                                foreach (var item in category.Products)
+                {
+					item.CategoryId = category.Id ;
+                    //set ObjectState with conditions
+                    if(item.Id <= 0)
+                        item.ObjectState = ObjectState.Added;
+                    else
+                        item.ObjectState = ObjectState.Modified;
+                }
+                      
+                _categoryService.InsertOrUpdateGraph(category);
                                 
                 _unitOfWork.SaveChanges();
                 if (Request.IsAjaxRequest())
@@ -218,9 +241,90 @@ namespace WebApp.Controllers
         }
 
 
+        // Get Detail Row By Id For Edit
+        // Get : Categories/EditProduct/:id
+        [HttpGet]
+        public ActionResult EditProduct(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var productRepository = _unitOfWork.Repository<Product>();
+            var product = productRepository.Find(id);
+
+                        var categoryRepository = _unitOfWork.Repository<Category>();             
+            
+            if (product == null)
+            {
+                            ViewBag.CategoryId = new SelectList(categoryRepository.Queryable(), "Id", "Name" );
+                            
+                //return HttpNotFound();
+                return PartialView("_ProductEditForm", new Product());
+            }
+            else
+            {
+                            ViewBag.CategoryId = new SelectList(categoryRepository.Queryable(), "Id", "Name" , product.CategoryId );  
+                             
+            }
+            return PartialView("_ProductEditForm",  product);
+
+        }
+        
+        // Get Create Row By Id For Edit
+        // Get : Categories/CreateProduct
+        [HttpGet]
+        public ActionResult CreateProduct()
+        {
+            var categoryRepository = _unitOfWork.Repository<Category>();
+            ViewBag.CategoryId = new SelectList(categoryRepository.Queryable(), "Id", "Name");
+            return PartialView("_ProductEditForm");
+
+        }
+
+        // Post Delete Detail Row By Id
+        // Get : Categories/DeleteProduct/:id
+        [HttpPost,ActionName("DeleteProduct")]
+        public ActionResult DeleteProductConfirmed(int  id)
+        {
+            var productRepository = _unitOfWork.Repository<Product>();
+            productRepository.Delete(id);
+            _unitOfWork.SaveChanges();
+            if (Request.IsAjaxRequest())
+            {
+                return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+            }
+            DisplaySuccessMessage("Has delete a Order record");
+            return RedirectToAction("Index");
+        }
+
        
 
+        // Get : Categories/GetProductsByCategoryId/:id
+        [HttpGet]
+        public ActionResult GetProductsByCategoryId(int id)
+        {
+            var products = _categoryService.GetProductsByCategoryId(id);
+            if (Request.IsAjaxRequest())
+            {
+                return Json(products.Select( n => new { CategoryName = (n.Category==null?"": n.Category.Name) , Id = n.Id , Name = n.Name , Unit = n.Unit , UnitPrice = n.UnitPrice , StockQty = n.StockQty , ConfirmDateTime = n.ConfirmDateTime , CategoryId = n.CategoryId }),JsonRequestBehavior.AllowGet);
+            }  
+            return View(products); 
+
+        }
  
+
+		//导出Excel
+		[HttpPost]
+        public ActionResult ExportExcel( string filterRules = "",string sort = "Id", string order = "asc")
+        {
+            var fileName = "categories_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xlsx";
+            var stream=  _categoryService.ExportExcel(filterRules,sort, order );
+            return File(stream, "application/vnd.ms-excel", fileName);
+      
+        }
+		
+
 
         private void DisplaySuccessMessage(string msgText)
         {
@@ -232,13 +336,13 @@ namespace WebApp.Controllers
             TempData["ErrorMessage"] = "Save changes was unsuccessful.";
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _unitOfWork.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+        //        _unitOfWork.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
     }
 }

@@ -6,242 +6,739 @@
 <#
     var modelVariable = ModelMetadata.EntitySetName.ToLower();
     var primaryKeyName = GetPrimaryKeyName(); 
+	var PageTitle =(string.IsNullOrEmpty(ProgramTitle)==true?ControllerRootName:ProgramTitle);
 #>
 
 
-<#
-// The following chained if-statement outputs the file header code and markup for a partial view, a view using a layout page, or a regular view.
-if(IsPartialView) {
-#>
-
-<#
-} else if(IsLayoutPageSelected) {
-#>
-
-@{
-    ViewBag.Title = "<#= ViewName#>";
-<#
-if (!String.IsNullOrEmpty(LayoutPageFile)) {
-#>
-    Layout = "<#= LayoutPageFile#>";
-<#
-}
-#>
-}
-<style type='text/css'>
-    /*設定 數字靠右*/
-<#
-        for (int x=0; x<MetaTable.Columns.Count; x++) {
-            MetaColumnInfo column=MetaTable.Columns[x];
-            if(column.IsNumeric){
-#>
-    td:nth-child(<#= x+1 #>n){text-align: right;}
-<#      
-            }
-}
-#>
-</style>
-
-<#
-} else {
-#>
-
-@{
-    Layout = null;
-}
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title><#= ViewName #></title>
-</head>
-<body>
-<#
-    PushIndent("    ");
-}
-#>
 <#
     var modelName =  ModelMetadata.EntitySetName;
- #>
-<div class="container-fluid">
-    <!-- Page Heading -->
-    <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header">
-                <#= ProgramTitle #>
-                <small><#= ViewName #></small>
-            </h1>
-            <ol class="breadcrumb">
-                <li>
-                    <i class="fa fa-home"></i>  @Html.ActionLink("Home", "Index", "Home")
-                </li>
-                 
-                <li class="active">
-                    <i class="fa fa-file"></i> <#= modelName #>
-                </li>
-            </ol>
-        </div>
-    </div>
-    <!-- /.row -->
-     <div class="row">
-        <div class="col-lg-12">
-            <div id="toolbar" class="btn-group">
-                <button type="button" id="new<#= modelVariable #>button" class="btn btn-default">
-                    <i class="glyphicon glyphicon-plus"></i>
-                </button>
+#>
 
-                <button type="button" id="delete<#= modelVariable #>button" class="btn btn-default">
-                    <i class="glyphicon glyphicon-trash"></i>
-                </button>
-            </div>
+@{
+    ViewBag.Title = "<#= PageTitle #>";
+}
+
+
  
 
-        <table id="<#= modelVariable #>-table" data-search="true"
-                   data-url="/<#= ControllerRootName #>/PageList"
-                   data-flat="false"
-                   data-toolbar="#toolbar"
-                   data-pagination="true"
-                   data-show-refresh="true"
-                   data-show-toggle="true"
-                   data-show-columns="true"
-                   data-single-select="true"
-                   data-page-list="[5, 10, 20, 50, 100, 200]"
-                   data-sort-name="Id"
-                   data-side-pagination="server"
-                   data-click-to-select="true">
+     <!--begin datagrid-content -->
+     <div class="datagrid-content animated fadeInRight">
+        <table id="<#= modelVariable #>_datagrid" class="easyui-datagrid" title="<#= PageTitle #>" style="width:auto;height:auto"
+                   data-options="
+                 rownumbers:true,
+				 checkOnSelect:true,
+                 selectOnCheck:true,
+                 idField:'<#= primaryKeyName #>',
+                 sortName:'<#= primaryKeyName #>',
+                 sortOrder:'desc',
+                 remoteFilter: true,
+                 singleSelect: true,
+                 toolbar: '#<#= modelVariable  #>_toolbar',
+                 url: '/<#= ControllerRootName #>/GetData',
+                 method: 'get',
+                 onClickCell: onClickCell,
+				 onSelect:onSelect,
+                 pagination: 'true'
+                   ">
                 <thead>
                     <tr>
-                         <th data-field="state" data-checkbox="true"></th>
+                        @*<th data-options="field:'ck',checkbox:true"></th>*@
 <#
 IEnumerable<PropertyMetadata> properties = ModelMetadata.Properties;
 foreach (PropertyMetadata property in properties) {
-    if (property.Scaffold && !property.IsForeignKey) {
+        var tdalign=property.ShortTypeName=="string"?"left":"right";
+		var fieldtypename = property.ShortTypeName;
+		
+	    var isRequired = false;
+	
+		fieldRequired.TryGetValue(property.PropertyName, out isRequired);
+		var maxLength =string.Empty;
+		fieldMaxLength.TryGetValue(property.PropertyName,out maxLength);
+    if (property.Scaffold && !property.IsAssociation) {
 #>
 <#
         // We do not want to show any association properties for which there is
         // no associated foreign key.
-        if (property.IsAssociation && GetRelatedModelMetadata(property) == null) {
-            continue;
-        }
+        //if (property.IsAssociation && GetRelatedModelMetadata(property) == null) {
+        //    continue;
+        //}
 #>
-        <# if ( property.IsPrimaryKey) { #>
-            <th data-field="<#= property.PropertyName  #>" data-sortable="true"  data-visible="false" >
-             @Html.DisplayNameFor(model => model.<#= GetValueExpression(property) #>)
-            </th>
-        <# } else if (property.AssociationDirection ==  AssociationDirection.ManyToOne ) { #>
-            <th data-field="<#= GetRelatedDisplayNameExpression(property)  #>" data-sortable="false"  >
-             @Html.DisplayNameFor(model => model.<#= GetValueExpression(property) #>)
-            </th>
+        <# if ( property.IsPrimaryKey || property.IsReadOnly) { #>
+			@*<th data-options="field:'<#= property.PropertyName  #>',width:80 ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.<#=  property.PropertyName #>)</th>*@
+        <# } else if (property.IsForeignKey) { 
+			   string foreignKeyPropertyName = property.PropertyName;
+			   RelatedModelMetadata relatedModel = GetRelatedModelMetadata(foreignKeyPropertyName,ModelMetadata);
+		#>
+			<th data-options="field:'<#= foreignKeyPropertyName  #>',width:100,sortable:true,resizable:true, 
+                        formatter:function(value,row){
+                            return row.<#= GetRelatedDisplayNameExpression(foreignKeyPropertyName,ModelMetadata)  #>;
+                        },
+                        editor:{
+                            type:'combobox',
+                            options:{
+                                valueField:'<#= relatedModel.PrimaryKeyNames[0]  #>',
+                                textField:'<#= relatedModel.DisplayPropertyName   #>',
+                                method:'get',
+                                url:'/<#= ControllerRootName #>/Get<#=  relatedModel.EntitySetName  #>',
+                                required:<#= isRequired.ToString().ToLower() #>
+                            }
+                        }">@Html.DisplayNameFor(model => model.<#= foreignKeyPropertyName #>)</th>
+
+           
         <# } else { #>
-        <th data-field="<#= property.PropertyName  #>" data-sortable="true" >
-             @Html.DisplayNameFor(model => model.<#= GetValueExpression(property) #>)
-        </th>
+
+		<#
+			if(fieldtypename=="string") {
+		#>
+		     <th data-options="field:'<#= property.PropertyName #>',width:140,editor:{type:'textbox',options:{required:<#= isRequired.ToString().ToLower() #> <#= maxLength #>  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
+		<# } else if(fieldtypename=="int" || fieldtypename=="float"|| fieldtypename=="decimal") {
+		     if(property.PropertyName=="Status") {
+		#>
+			 <th data-options="field:'<#= property.PropertyName #>',width:100,align:'right',
+                                                editor:{ type:'combobox',
+                                                 options:{
+                                                    panelHeight: 'auto',
+                                                    data: [ { value: 0, text: '启用' },
+															{ value: 1, text: '禁用' } ],
+                                                    required:<#= isRequired.ToString().ToLower() #>} 
+                                                 },
+                                                 formatter: function(value,row,index){
+				                                         switch (value) {
+                                                                case 0:
+                                                                   return '启用';
+                                                                   break;
+                                                                case 1:
+                                                                   return '禁用';
+                                                                   break;
+																default: 
+																	return value ;
+														}
+			                                     }">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
+		<#   } else {  #>
+		     <th data-options="field:'<#=  property.PropertyName  #>',width:100,align:'right',editor:{type:'numberbox',options:{required:<#= isRequired.ToString().ToLower() #>  <#= maxLength #> } } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
+		<#   }   } else if(fieldtypename=="DateTime" ) {
+		#>
+		     <th data-options="field:'<#=  property.PropertyName  #>',width:160,align:'right',editor:{type:'datebox',options:{required:<#= isRequired.ToString().ToLower() #>    }  },sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
+		<# } else if(fieldtypename=="bool" || fieldtypename=="Boolean" ){ #>
+			 <th data-options="field:'<#= property.PropertyName #>',width:120,editor: {type:'combobox'
+                                                ,options:{
+                                                panelHeight: 'auto',
+                                                data: [ { value: 'true', text: 'true' },{ value: 'false', text: 'false' } ],
+                                                required:<#= isRequired.ToString().ToLower() #>}}">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
+		<# } else { #>
+			<th data-options="field:'<#= property.PropertyName #>',width:120,editor:{type:'textbox',options:{required:<#= isRequired.ToString().ToLower() #>   <#= maxLength #>} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
+		<# } #>
+
         <#            } #>
 <#
     }
 }
 #>
-        <th data-field="action" data-formatter="actionFormatter" data-events="actionEvents">Action</th>
-    </tr>
-    </thead>
- 
+       
+						</tr>
+				</thead>
+ 				</table>
+				<div id="<#= modelVariable  #>_toolbar" style="height:auto">
+							@if (Html.IsAuthorize("Create"))
+                            {
+                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="append()">新增</a>
+                            }
+                            @if (Html.IsAuthorize("Delete"))
+                            {
+                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
+                            }
+                            @if (Html.IsAuthorize("Edit"))
+                            {
+                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">保存</a>
+                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">取消</a>
+                            }
+                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="reload()">刷新</a>
+                            @if (Html.IsAuthorize("Import"))
+                            {
+								<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-paperclip',plain:true" onclick="importexcel()">EXCEL 导入</a>
+								<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-download-alt',plain:true" onclick="exportexcel()">导出 Excel</a>
+							}
+							@*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="append()">新增</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">保存</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">取消</a>
+					
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-paperclip',plain:true" onclick="importexcel()">EXCEL 导入</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-download-alt',plain:true" onclick="exportexcel()">导出 Excel</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="reload()">刷新</a>*@
+				</div>
+		
+		<#
+		if( GenerateMasterDetailRelationship && OneToManyModelMetadata.Count>0)
+		{
+		#>
+			<!--detail entity tabs -->
+			<div id="detailtabs" class="easyui-tabs" style="width:auto;height:400px;">
+			<# 
+				foreach (var prop in ModelMetadata.Properties.Where(x=>x.AssociationDirection == AssociationDirection.OneToMany)) 
+				{
+					var submetadata =  OneToManyModelMetadata[prop.PropertyName];
+					var entitySetName = submetadata.EntitySetName;
+					var entitySetNameToLower = submetadata.EntitySetName.ToLower();
+					var subModeType = prop.ShortTypeName;
+					
+			#>
+				<!--<#= entitySetName  #> tab   -->
+				<div title="<#= entitySetName #>" id="<#= entitySetNameToLower #>" style="padding:10px;">
+			 
+						<table id="<#= entitySetNameToLower #>_datagrid" class="easyui-datagrid" title="@Html.DisplayNameFor(model => model.<#= prop.PropertyName #>) DataGrid" style="width:auto;height:auto"
+                           data-options="
+								rownumbers:true,
+								remoteFilter: true,
+								singleSelect: true,
+								toolbar: '#<#= entitySetNameToLower #>_toolbar',
+								url: '/<#= entitySetName #>/GetData',
+								method: 'get',
+								onClickCell: <#= entitySetNameToLower #>_onClickCell,
+								pagination: 'true'
+							">
+							<thead>
+								<tr>
+									@*<th data-options="field:'ck',checkbox:true"></th>*@
+									 <#
+											IEnumerable<PropertyMetadata> subproperties = submetadata.Properties.Where(x=>x.Scaffold==true && x.IsAssociation==false);
+											foreach (PropertyMetadata subproperty in subproperties) 
+											{
+												var fieldtypename = subproperty.ShortTypeName;
+												var isRequired = false;
+												fieldRequired.TryGetValue(subproperty.PropertyName, out isRequired);
+												var maxLength =string.Empty;
+												fieldMaxLength.TryGetValue(subproperty.PropertyName,out maxLength);
+									 #>
+											<# if ( subproperty.IsPrimaryKey || subproperty.IsReadOnly) { #>
+													@*<th data-options="field:'<#= subproperty.PropertyName  #>',width:80"> <#=  GetDisplayName(subproperty.PropertyName) #> </th>*@
+											<# } else if (subproperty.IsForeignKey) { 
+													string foreignKeyPropertyName = subproperty.PropertyName;
+													RelatedModelMetadata relatedModel = submetadata.RelatedEntities.Where(x=>x.ForeignKeyPropertyNames[0]==foreignKeyPropertyName).First();
+											#>
+													<th data-options="field:'<#= foreignKeyPropertyName  #>',width:100,
+														formatter:function(value,row){
+																return row.<#= GetRelatedDisplayNameExpression(foreignKeyPropertyName,submetadata)  #>;
+														},
+														editor:{
+																type:'combobox',
+														options:{
+																valueField:'<#= relatedModel.PrimaryKeyNames[0]  #>',
+																textField:'<#= relatedModel.DisplayPropertyName   #>',
+																method:'get',
+																url:'/<#= ControllerRootName #>/Get<#=  relatedModel.EntitySetName  #>',
+																required:<#= isRequired.ToString().ToLower() #>
+														}
+													}"> <#= GetDisplayName(foreignKeyPropertyName) #> </th>
 
-</table>
+											<# } else { #>
 
-<br />
- 
-     </div>
-    </div>
-</div>
+											<#
+												if(fieldtypename=="string") {
+											#>
+													<th data-options="field:'<#= subproperty.PropertyName #>',width:140,editor:{type:'textbox',options:{required:<#= isRequired.ToString().ToLower() #>  <#= maxLength #>} } "> <#= GetDisplayName(subproperty.PropertyName) #></th>
+											<# } else if(fieldtypename=="int" || fieldtypename=="float" || fieldtypename=="decimal" ) {
+													if(subproperty.PropertyName=="Status") {
+											#>
+													<th data-options="field:'<#= subproperty.PropertyName #>',width:100,align:'right',
+															editor:{ type:'combobox',
+															options:{
+																panelHeight: 'auto',
+																data: [ { value: 0, text: '启用' },{ value: 1, text: '禁用' } ],
+																required:<#= isRequired.ToString().ToLower() #> } } ,
+															formatter: function(value,row,index){
+																	if (value == 0) {
+																		return '启用';
+																	} else {
+																		return '禁用';
+																	}
+                                                        }"><#= GetDisplayName(subproperty.PropertyName) #></th>
+											<#   } else {  #>
+													<th data-options="field:'<#=  subproperty.PropertyName  #>',width:100,align:'right',editor:{type:'numberbox',options:{required:<#= isRequired.ToString().ToLower() #>  <#= maxLength #> }} ,sortable:true,resizable:true "><#= GetDisplayName(subproperty.PropertyName) #></th>
+											<#   }   } else if(fieldtypename=="DateTime" ) { #>
+													<th data-options="field:'<#=  subproperty.PropertyName  #>',width:160,align:'right',editor:{type:'datebox',options:{required:<#= isRequired.ToString().ToLower() #>   }} ,formatter:dateformatter"> <#= GetDisplayName(subproperty.PropertyName) #></th>
+											<#   } else if(fieldtypename=="bool" || fieldtypename=="Boolean" ) { #>
+													<th data-options="field:'<#= subproperty.PropertyName #>',width:120,
+																editor: {type:'combobox',
+																options:{
+																	panelHeight: 'auto',
+																	data: [ { value: 'true', text: 'true' },
+																			{ value: 'false', text: 'false' }],
+																required:<#= isRequired.ToString().ToLower() #>}}"><#= GetDisplayName(subproperty.PropertyName) #></th>
+											<# } else { #>
+													<th data-options="field:'<#= subproperty.PropertyName #>',width:120,editor:{type:'textbox',options:{required:<#= isRequired.ToString().ToLower() #>  <#= maxLength #>}} "> <#= GetDisplayName(subproperty.PropertyName) #></th>
+											<# }  } #>
+
+
+
+
+									 <# 
+                                            }
+									 #>
+								</tr>
+							</thead>
+						</table>
+						<!-- <#= entitySetNameToLower #>_toolbar -->
+						<div id="<#= entitySetNameToLower #>_toolbar" style="height:auto">
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="<#= entitySetNameToLower #>_append()">新增</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="<#= entitySetNameToLower #>_removeit()">删除</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="<#= entitySetNameToLower #>_accept()">保存</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="<#= entitySetNameToLower #>_reject()">取消</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-paperclip',plain:true" onclick="importexcel()">EXCEL 导入</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="<#= entitySetNameToLower #>_reload()">刷新</a>
+						</div>
+
+
+					 
+				</div>
+				<!--end <#= entitySetName  #> tab   -->
+			<# 
+                }
+			#>
+			</div>
+			<!--end detail entity tabs -->
+		<# 
+        }
+		 #>
+		</div>
+		<!--end datagrid-content -->
+    <!-- file upload partial view -->
+	@Html.Partial("_ImportWindow",new  ViewDataDictionary { { "EntityName","<#= ModelTypeName #>" }})		 
+	<!-- end file upload partial view -->
 @section Scripts {
     <script type="text/javascript">
-        var $<#= modelVariable #>table = $('#<#= modelVariable #>-table');
-        var $delete<#= modelVariable #>button = $('#delete<#= modelVariable #>button');
-        function actionFormatter(value, row, index) {
-            return [
-                '<a class="edit" href="javascript:void(0)" title="Add">',
-                '<i class="glyphicon glyphicon-edit"></i>',
-                '</a>  ',
-                ' <a class="remove" href="javascript:void(0)" title="Remove">',
-                '<i class="glyphicon glyphicon-remove"></i>',
-                '</a>'
-            ].join('');
-        }
-        window.actionEvents = {
 
-            'click .edit': function (e, value, row, index) {
-                 var url="/<#= ControllerRootName #>/Edit/" + row.<#= primaryKeyName #>
-                 $(location).attr('href', url);
-            },            
-            'click .remove': function (e, value, row, index) {
-                 delete<#= modelName #>(row.<#= primaryKeyName #>);
-                //console.log(value, row, index);
-            }
-    
-        }
-        //jquery post /<#= ControllerRootName #>/Delete/:id
-        function delete<#= modelName #>(id) {
-            var url = '@Url.Action("Delete")';   
-            bootbox.dialog({
-                message: "Are you sure delete " + id,
-                title: "Delete <#= modelName #> ",
-                buttons: {
-                    Cancel: {
-                        label: "Cancel",
-                        className: "btn-default",
-                        callback: function () {
-                           
-                        }
-                    },
-                    OK: {
-                        label: "OK",
-                        className: "btn-success",
-                        callback: function () {
-                            $.post(url, { id: id }, function (data) {
-                                $<#= modelVariable #>table.bootstrapTable('remove', { field: 'Id', values: [id] });
-                                //console.log('remove' + row.Id);
-                            });
-                        }
+			 
+			        //打开Excel上传导入
+                    function importexcel() {
+                        $('#importwindow').window('open');
                     }
-                }
-            });
-        }
-        $(document).ready(function (e) {
-            $<#= modelVariable #>table = $('#<#= modelVariable #>-table').bootstrapTable(
-                {
-                }
-                );
-             $<#= modelVariable #>table.on('check.bs.table uncheck.bs.table check-all.bs.table uncheck-all.bs.table', function () {
-                $delete<#= modelVariable #>button.prop('disabled', !$<#= modelVariable #>table.bootstrapTable('getSelections').length);
-            });
-             $('#new<#= modelVariable #>button').on('click', function () {
+					 //执行Excel到处下载
+					function exportexcel() {
+						var filterRules = JSON.stringify($dg.datagrid('options').filterRules);
+						//console.log(filterRules);
+						$.messager.progress({ title: '正在执行导出！' });
+						var formData = new FormData();
+						formData.append('filterRules', filterRules);
+						formData.append('sort', '<#= primaryKeyName #>');
+						formData.append('order', 'asc');
+						$.postDownload('/<#= ControllerRootName  #>/ExportExcel', formData, function (fileName) {
+							$.messager.progress('close');
+							console.log(fileName);
 
-                $(location).attr('href', "/<#= ControllerRootName #>/Create");
-            });
-            $('#delete<#= modelVariable #>button').on('click', function () {
-                var selected = $<#= modelVariable #>table.bootstrapTable('getSelections');
-                if (selected.length>0) {
-                    delete<#= modelName #>(selected[0].<#= primaryKeyName #>);
+						})
+					}
+		 //datagrid 增删改查操作
+         var $dg = $('#<#= modelVariable #>_datagrid');
+		 var editIndex = undefined;
+		function reload() {
+                $dg.datagrid('reload');
+            }
+        function endEditing() {
+            if (editIndex == undefined) { return true }
+            if ($dg.datagrid('validateRow', editIndex)) {
+
+				<# 
+				  foreach(RelatedModelMetadata relatedModel in 	ModelMetadata.RelatedEntities)
+				  {
+					  string relForeignKey = relatedModel.ForeignKeyPropertyNames[0];
+					  string reldisplayname = GetRelatedDisplayNameExpression(relForeignKey,ModelMetadata);
+					  
+				#>
+                var ed = $dg.datagrid('getEditor', { index: editIndex, field: '<#= relForeignKey #>' });
+                var <#= reldisplayname.ToLower() #> = $(ed.target).combobox('getText');
+                var <#= relForeignKey.ToLower() #> = $(ed.target).combobox('getValue');
+               
+                $dg.datagrid('getRows')[editIndex]['<#= reldisplayname #>'] =  <#= reldisplayname.ToLower() #>;
+                $dg.datagrid('getRows')[editIndex]['<#=  relForeignKey #>'] = <#= relForeignKey.ToLower() #>;
+ 
+
+				<# } #>
+				$dg.datagrid('endEdit', editIndex);
+                editIndex = undefined;
+
+                
+                return true;
+            } else {
+                return false;
+            }
+        }
+        function onClickCell(index, field) {
+			var _operates = ["_operate1", "_operate2", "_operate3", "ck"]
+            if ($.inArray(field, _operates) >= 0) {
+                return;
+            }
+            if (editIndex != index) {
+                if (endEditing()) {
+                    $dg.datagrid('selectRow', index)
+                            .datagrid('beginEdit', index);
+                    var ed = $dg.datagrid('getEditor', { index: index, field: field });
+                    if (ed) {
+                        ($(ed.target).data('textbox') ? $(ed.target).textbox('textbox') : $(ed.target)).focus();
+                    }
+                    editIndex = index;
+                } else {
+                    $dg.datagrid('selectRow', editIndex);
                 }
-                 
-            });
-        });
-    
+            }
+        }
+        function append() {
+            if (endEditing()) {
+                //$dg.datagrid('appendRow', { Status: 0 });
+                //editIndex = $dg.datagrid('getRows').length - 1;
+				$dg.datagrid('insertRow', { index: 0, row: { Status: 0 } });
+				editIndex = 0 ;
+                $dg.datagrid('selectRow', editIndex)
+                        .datagrid('beginEdit', editIndex);
+            }
+        }
+        function removeit() {
+            if (editIndex == undefined) { return }
+            $dg.datagrid('cancelEdit', editIndex)
+                    .datagrid('deleteRow', editIndex);
+            editIndex = undefined;
+        }
+        function accept() {
+            if (endEditing()) {
+                if ($dg.datagrid('getChanges').length) {
+                    var inserted = $dg.datagrid('getChanges', "inserted");
+                    var deleted = $dg.datagrid('getChanges', "deleted");
+                    var updated = $dg.datagrid('getChanges', "updated");
+                    var effectRow = new Object();
+                    if (inserted.length) {
+                        effectRow.inserted = inserted;
+                    }
+                    if (deleted.length) {
+                        effectRow.deleted = deleted;
+                    }
+                    if (updated.length) {
+                        effectRow.updated = updated;
+                    }
+                    //console.log(JSON.stringify(effectRow));
+                    $.post("/<#= ControllerRootName #>/SaveData", effectRow, function (response) {
+                        //console.log(response);
+                        if (response.Success) {
+                            $.messager.alert("提示", "提交成功！");
+                            $dg.datagrid('acceptChanges');
+							$dg.datagrid('reload');
+                        }
+                    }, "JSON").error(function (response) {
+						//console.log(response);
+                        $.messager.alert("错误", "提交错误了！",'error');
+						//$dg.datagrid('reload');
+                    });
+              
+                }
+
+                //$dg.datagrid('acceptChanges');
+            }
+        }
+        function reject() {
+            $dg.datagrid('rejectChanges');
+            editIndex = undefined;
+        }
+        function getChanges() {
+            var rows = $dg.datagrid('getChanges');
+            alert(rows.length + ' rows are changed!');
+        }
+
+		//datagrid 开启行赛选功能
+		 $(function () {
+		  
+           $dg.datagrid('enableFilter',[
+		   <# 
+				foreach(var property in  ModelMetadata.Properties.Where(x=>x.PropertyName=="Status" && x.Scaffold==true))
+				{
+
+		   #>
+				{
+                      field: '<#= property.PropertyName #>',
+                      type: 'combobox',
+                      options: {
+						   panelHeight: 'auto',
+                           data: [{ value: '', text: 'All' }, { value: 0, text: '启用' }, { value: 1, text: '禁用' }],
+                           onChange: function (value) {
+                              if (value == '') {
+                                  $dg.datagrid('removeFilterRule', '<#= property.PropertyName #>');
+                              } else {
+                                  $dg.datagrid('addFilterRule', {
+                                      field: '<#= property.PropertyName #>',
+                                      op: 'equal',
+                                      value: value
+                                  });
+                              }
+                              $dg.datagrid('doFilter');
+                          }
+                      }
+                  },
+		   <# 
+                }
+		   #>
+
+		   <# 
+				foreach(var property in  ModelMetadata.Properties.Where(x=>x.ShortTypeName=="DateTime" && x.Scaffold==true))
+				{
+
+		   #>
+				{
+                      field: '<#= property.PropertyName #>',
+                      type: 'datebox',
+                      options: {
+                          onChange: function (value) {
+                              if (value == '') {
+                                  $dg.datagrid('removeFilterRule', '<#= property.PropertyName #>');
+                              } else {
+                                  $dg.datagrid('addFilterRule', {
+                                      field: '<#= property.PropertyName #>',
+                                      op: 'equal',
+                                      value: value
+                                  });
+                              }
+                              $dg.datagrid('doFilter');
+                          }
+                      }
+                  },
+		   <# 
+                }
+		   #>
+		   
+		   <# 
+			foreach(var property in  ModelMetadata.Properties.Where(x=>x.IsForeignKey==true && x.Scaffold==true))
+			{
+			   string foreignKeyPropertyName = property.PropertyName;
+			   RelatedModelMetadata relatedModel = GetRelatedModelMetadata(foreignKeyPropertyName,ModelMetadata);
+		   #>
+		   {
+				 field: '<#= foreignKeyPropertyName #>',
+				 type:'combobox',
+                 options:{
+                                valueField:'<#= relatedModel.PrimaryKeyNames[0]  #>',
+                                textField:'<#= relatedModel.DisplayPropertyName   #>',
+                                method:'get',
+                                url:'/<#= ControllerRootName #>/Get<#=  relatedModel.EntitySetName  #>',
+								onChange: function (value) {
+								if (value == '') {
+									$dg.datagrid('removeFilterRule', '<#=  foreignKeyPropertyName #>');
+								} else {
+									$dg.datagrid('addFilterRule', {
+										field: '<#=  foreignKeyPropertyName #>',
+									    op: 'equal',
+										value: value
+                                });
+                            }
+                            $dg.datagrid('doFilter');
+                        }
+					}
+		   },
+		   <# 
+			} 
+		   #>
+		   
+		   ]);
+        })
+		<# 
+			var primaryKey = ModelMetadata.PrimaryKeys[0].PropertyName;
+			var foreignKeyVar = ModelTypeName.ToLower() + primaryKey.ToLower();
+			var foreignKey = ModelTypeName+ primaryKey;
+		#>
+		//-----------------------------------------------------
+		//datagrid onSelect
+		//-----------------------------------------------------
+		function onSelect(index, row) {
+            //console.log(index, row);
+			 <#  if(GenerateMasterDetailRelationship  && OneToManyModelMetadata.Count >0) 
+			 { 
+			#>
+			filterBy<#= foreignKey  #>(row.<#= primaryKey  #>);
+			<# } #>
+        }
+ 
+		
+        
+		 <#  if(GenerateMasterDetailRelationship  && OneToManyModelMetadata.Count >0) 
+			 { 
+				
+		 #>
+
+			function filterBy<#= foreignKey  #>(<#= foreignKeyVar #>) {
+            var value = <#= foreignKeyVar #>;
+
+			   <# 
+				foreach (var prop in ModelMetadata.Properties.Where(x=>x.AssociationDirection == AssociationDirection.OneToMany)) 
+				{
+					var submetadata =  OneToManyModelMetadata[prop.PropertyName];
+					var entitySetName = submetadata.EntitySetName;
+					var entitySetNameToLower = submetadata.EntitySetName.ToLower();
+					var subModeType = prop.ShortTypeName;
+					var datagridelement = entitySetNameToLower + "_datagrid";
+					var datagridvar = "$"+ entitySetNameToLower +  "dg";
+					var editindex = entitySetNameToLower + "_editIndex";
+					var detailnamevar = entitySetNameToLower;
+					var subforeignKey = submetadata.RelatedEntities.Where(x=>x.ShortTypeName == ModelTypeName).First().ForeignKeyPropertyNames[0];
+				#>
+               <#= datagridvar #>.datagrid('removeFilterRule', '<#= subforeignKey #>');
+               <#= datagridvar #>.datagrid('addFilterRule', {
+                    field: '<#= subforeignKey #>',
+                    op: 'equal',
+                    value: value
+                });
+               <#= datagridvar #>.datagrid('doFilter');
+			   <# } #>
+
+        }
+		 //-----------------------------------------------------------------------
+		 // details datagrid functions
+		 //-----------------------------------------------------------------------
+				<# 
+				foreach (var prop in ModelMetadata.Properties.Where(x=>x.AssociationDirection == AssociationDirection.OneToMany)) 
+				{
+					var submetadata =  OneToManyModelMetadata[prop.PropertyName];
+					var entitySetName = submetadata.EntitySetName;
+					var entitySetNameToLower = submetadata.EntitySetName.ToLower();
+					var subModeType = prop.ShortTypeName;
+					var datagridelement = entitySetNameToLower + "_datagrid";
+					var datagridvar = "$"+ entitySetNameToLower +  "dg";
+					var editindex = entitySetNameToLower + "_editIndex";
+					var detailnamevar = entitySetNameToLower;
+					var subforeignKey = submetadata.RelatedEntities.Where(x=>x.ShortTypeName == ModelTypeName).First().ForeignKeyPropertyNames[0];
+				#>
+				//--------------------------------------------------------------------
+				// #<#=  datagridelement #> functions
+				//--------------------------------------------------------------------
+				var <#= datagridvar #> = $('#<#= datagridelement  #>');
+
+				var <#= editindex #> = undefined;
+		function <#= detailnamevar #>_reload() {
+                <#= datagridvar #>.datagrid('reload');
+            }
+    function <#= detailnamevar #>_endEditing() {
+        if ( <#= editindex #> == undefined) { return true }
+        if (<#= datagridvar #>.datagrid('validateRow', <#= editindex #>)) {
+			<# 
+				RelatedModelMetadata[] relmodelms = submetadata.RelatedEntities;
+				foreach(RelatedModelMetadata relmodelm in relmodelms) 
+                {
+					var fkeyname=relmodelm.ShortTypeName +  relmodelm.PrimaryKeyNames[0];
+					var fdispname = relmodelm.ShortTypeName + relmodelm.DisplayPropertyName;
+
+			#>
+            var ed = <#= datagridvar #>.datagrid('getEditor', { index: <#= editindex #>, field: '<#= fkeyname #>' });
+            var <#= fdispname #> = $(ed.target).combobox('getText');
+            var <#= fkeyname #> = $(ed.target).combobox('getValue');
+          
+            <#= datagridvar #>.datagrid('getRows')[<#= editindex #>]['<#= fdispname #>'] = <#= fdispname #>;
+            <#= datagridvar #>.datagrid('getRows')[<#= editindex #>]['<#= fkeyname #>'] = <#= fkeyname #>;
+            
+            
+			<# 
+                }
+			#>
+			<#= datagridvar #>.datagrid('endEdit', <#= editindex #>);
+            <#= editindex #> = undefined;
+
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+    function <#= detailnamevar #>_onClickCell(index, field) {
+        if (<#= editindex #> != index) {
+            if (<#= detailnamevar #>_endEditing()) {
+                <#= datagridvar #>.datagrid('selectRow', index)
+                        .datagrid('beginEdit', index);
+                var ed = <#= datagridvar #>.datagrid('getEditor', { index: index, field: field });
+                if (ed) {
+                    ($(ed.target).data('textbox') ? $(ed.target).textbox('textbox') : $(ed.target)).focus();
+                }
+                <#= editindex #>  = index;
+            } else {
+                <#= datagridvar #>.datagrid('selectRow', <#= editindex #>);
+            }
+        }
+    }
+    function <#= detailnamevar #>_append() {
+        if (<#= detailnamevar #>_endEditing()) {
+			 var <#=  ModelTypeName.ToLower() #> = $dg.datagrid('getSelected');
+
+            <#= datagridvar #>.datagrid('appendRow', { <#= subforeignKey #>:<#=  ModelTypeName.ToLower() #>.<#= primaryKey #>   });
+            <#= detailnamevar #>editIndex = <#= datagridvar #>.datagrid('getRows').length - 1;
+            <#= datagridvar #>.datagrid('selectRow', <#= editindex #> )
+                    .datagrid('beginEdit', <#= editindex #>);
+        }
+    }
+    function <#= detailnamevar #>_removeit() {
+        if (<#= editindex #>  == undefined) { return }
+        <#= datagridvar #>.datagrid('cancelEdit', <#= editindex #> )
+                .datagrid('deleteRow', <#= editindex #> );
+        <#= detailnamevar #>editIndex = undefined;
+    }
+   
+    function <#= detailnamevar #>_reject() {
+        <#= datagridvar #>.datagrid('rejectChanges');
+        <#= editindex #>  = undefined;
+    }
+    function <#= detailnamevar #>_getChanges() {
+        var rows = <#= datagridvar #>.datagrid('getChanges');
+        alert(rows.length + ' rows are changed!');
+    }
+	function <#= detailnamevar #>_accept() {
+            if (<#= detailnamevar #>_endEditing()) {
+                if (<#= datagridvar #>.datagrid('getChanges').length) {
+                    var inserted = <#= datagridvar #>.datagrid('getChanges', "inserted");
+                    var deleted = <#= datagridvar #>.datagrid('getChanges', "deleted");
+                    var updated = <#= datagridvar #>.datagrid('getChanges', "updated");
+                    var effectRow = new Object();
+                    if (inserted.length) {
+                        effectRow.inserted = inserted;
+                    }
+                    if (deleted.length) {
+                        effectRow.deleted = deleted;
+                    }
+                    if (updated.length) {
+                        effectRow.updated = updated;
+                    }
+                    //console.log(JSON.stringify(effectRow));
+                    $.post("/<#= entitySetName #>/SaveData", effectRow, function (response) {
+                        //console.log(response);
+                        if (response.Success) {
+                            $.messager.alert("提示", "提交成功！");
+                            <#= datagridvar #>.datagrid('acceptChanges');
+							<#= datagridvar #>.datagrid('reload');
+                        }
+                    }, "JSON").error(function (response) {
+						//console.log(response);
+                        $.messager.alert("错误", "提交错误了！",'error');
+                      
+                    });
+              
+                }
+
+                //<#= datagridvar #>.datagrid('acceptChanges');
+            }
+        }
+
+		$(function () {
+
+            <#= datagridvar #>.datagrid('enableFilter', [
+									]);
+
+            filterBy<#= foreignKey  #>(-1);
+        })
+
+
+
+
+				<# 
+                }
+				#>
+
+		 <# 
+			}
+		 #>
+
      </script>
 }
 
-<#
-// The following code closes the tag used in the case of a view using a layout page and the body and html tags in the case of a regular view page
-#>
-<#
-if(!IsPartialView && !IsLayoutPageSelected) {
-    ClearIndent();
-#>
-</body>
-</html>
-<#
-}
-#>
+ 
 <#@ include file="ModelMetadataFunctions.cs.include.t4" #>

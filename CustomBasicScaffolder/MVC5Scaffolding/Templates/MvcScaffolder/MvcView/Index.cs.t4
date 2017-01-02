@@ -31,14 +31,14 @@
                  idField:'<#= primaryKeyName #>',
                  sortName:'<#= primaryKeyName #>',
                  sortOrder:'desc',
-                remoteFilter: true,
-                singleSelect: true,
-                toolbar: '#<#= modelVariable  #>_toolbar',
-                url: '/<#= ControllerRootName #>/GetData',
-                method: 'get',
-                onClickCell: onClickCell,
-				onSelect:onSelect,
-                pagination: 'true'
+                 remoteFilter: true,
+                 singleSelect: true,
+                 toolbar: '#<#= modelVariable  #>_toolbar',
+                 url: '/<#= ControllerRootName #>/GetData',
+                 method: 'get',
+                 onClickCell: onClickCell,
+				 onSelect:onSelect,
+                 pagination: 'true'
                    ">
                 <thead>
                     <tr>
@@ -167,8 +167,7 @@ foreach (PropertyMetadata property in properties) {
 							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-download-alt',plain:true" onclick="exportexcel()">导出 Excel</a>
 							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="reload()">刷新</a>*@
 				</div>
-			</div>
-		   <!--end datagrid-content -->
+		
 		<#
 		if( GenerateMasterDetailRelationship && OneToManyModelMetadata.Count>0)
 		{
@@ -186,7 +185,7 @@ foreach (PropertyMetadata property in properties) {
 			#>
 				<!--<#= entitySetName  #> tab   -->
 				<div title="<#= entitySetName #>" id="<#= entitySetNameToLower #>" style="padding:10px;">
-					<div class="table-responsive">
+			 
 						<table id="<#= entitySetNameToLower #>_datagrid" class="easyui-datagrid" title="@Html.DisplayNameFor(model => model.<#= prop.PropertyName #>) DataGrid" style="width:auto;height:auto"
                            data-options="
 								rownumbers:true,
@@ -290,7 +289,7 @@ foreach (PropertyMetadata property in properties) {
 						</div>
 
 
-					</div>
+					 
 				</div>
 				<!--end <#= entitySetName  #> tab   -->
 			<# 
@@ -301,6 +300,8 @@ foreach (PropertyMetadata property in properties) {
 		<# 
         }
 		 #>
+		</div>
+		<!--end datagrid-content -->
     <!-- file upload partial view -->
 	@Html.Partial("_ImportWindow",new  ViewDataDictionary { { "EntityName","<#= ModelTypeName #>" }})		 
 	<!-- end file upload partial view -->

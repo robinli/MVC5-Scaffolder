@@ -169,6 +169,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             var fieldDisplayNames = GetAllFieldDisplayNames(modelType, efMetadata);
             var fieldRequired = GetAllFieldRequired(modelType, efMetadata);
             var fieldMaxLength = GetAllFieldMaxLength(modelType, efMetadata);
+            var fieldDisplayAttribute = GetAllFieldDisplayAttribute(modelType, efMetadata);
             var oneToManyModels = GetOneToManyModelDictionary(efMetadata, efService, dbContextTypeName);
 
             var oneToManyAnonymousObjTextDic = GetOneToManyAnonymousObjTextDic(oneToManyModels);
@@ -365,6 +366,38 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 }
             }
             return dic;
+
+        }
+
+        private List<DisplayAttributeViewModel> GetAllFieldDisplayAttribute(CodeType modelType, ModelMetadata efMetadata)
+        {
+            var list = new List<DisplayAttributeViewModel>();
+            var dic = GetDisplayAttribute(modelType.FullName);
+            foreach (var item in dic.OrderBy(x => x.Value.Order)) {
+                DisplayAttributeViewModel row = new DisplayAttributeViewModel();
+                row.EntityTypeName = modelType.Name;
+                row.FieldName = item.Key;
+                row.DisplayAttribute = item.Value;
+                list.Add(row);
+            }
+
+            foreach (var property in efMetadata.Properties)
+            {
+                if (property.AssociationDirection == AssociationDirection.OneToMany)
+                {
+                    string typename = property.RelatedModel.TypeName;
+                    var subdic = GetDisplayAttribute(typename);
+                    foreach (var item in subdic.OrderBy(x => x.Value.Order))
+                    {
+                        DisplayAttributeViewModel row = new DisplayAttributeViewModel();
+                        row.EntityTypeName = property.RelatedModel.ShortTypeName;
+                        row.FieldName = item.Key;
+                        row.DisplayAttribute = item.Value;
+                        list.Add(row);
+                    }
+                }
+            }
+            return list;
 
         }
 
@@ -762,13 +795,31 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             var lookup = new Dictionary<string, System.ComponentModel.DataAnnotations.DisplayAttribute>();
             var type = GetReflectionType(fullclassName);
             var shortName = type.Name;
-
+            int index=0;
             foreach (PropertyInfo prop in type.GetProperties())
             {
+                index++;
                 //var attr = (System.ComponentModel.DataAnnotations.DisplayAttribute)prop.GetCustomAttribute(typeof(System.ComponentModel.DataAnnotations.DisplayAttribute), true);
                 //var value = attr != null && !String.IsNullOrWhiteSpace(attr.Name) ? attr.Name : prop.Name;
                 //if (!lookup.ContainsKey(prop.Name))
                 var value = AttributeHelper.GetDisplayAttribute(type, prop.Name);
+                if (value == null)
+                {
+                    value = new System.ComponentModel.DataAnnotations.DisplayAttribute();
+                    value.AutoGenerateField = true;
+                    value.AutoGenerateFilter = false;
+                    value.Description = prop.Name;
+                    value.Name = prop.Name; ;
+                    value.ShortName = prop.Name;
+                    value.Order = index;
+                    value.Prompt = prop.Name;
+
+                }
+                else {
+                    value.Order = value.GetOrder() == null ? index : value.Order;
+                    value.AutoGenerateField = value.GetAutoGenerateField() == null ? true : value.AutoGenerateField;
+                    value.AutoGenerateFilter = value.GetAutoGenerateFilter() == null ? false : value.AutoGenerateFilter;
+                }
                 //lookup.Add(shortName + "." +prop.Name, value);
                 lookup.Add(prop.Name, value);
             }

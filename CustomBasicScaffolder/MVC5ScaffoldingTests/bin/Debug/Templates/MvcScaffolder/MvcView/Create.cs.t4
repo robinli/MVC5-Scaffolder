@@ -3,6 +3,7 @@
 <#@ include file="Imports.include.t4" #>
 @model <#= ViewDataTypeName #>
 <#
+	var PageTitle =(string.IsNullOrEmpty(ProgramTitle)==true?ControllerRootName:ProgramTitle);
 // "form-control" attribute is only supported for all EditorFor() in System.Web.Mvc 5.1.0.0 or later versions, except for checkbox, which uses a div in Bootstrap
 string boolType = "System.Boolean";
 Version requiredMvcVersion = new Version("5.1.0.0");
@@ -16,7 +17,7 @@ if(IsPartialView) {
 #>
 
 @{
-    ViewBag.Title = "<#= ViewName#>";
+    ViewBag.Title = "<#= PageTitle #> | <#=  ViewName #>";
 <#
 if (!String.IsNullOrEmpty(LayoutPageFile)) {
 #>
@@ -41,7 +42,7 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title><#= ViewName #></title>
+    <title><#= PageTitle #> | <#=  ViewName #></title>
 </head>
 <body>
 <#
@@ -78,66 +79,74 @@ if (ReferenceScriptLibraries) {
     var modelName =  ModelMetadata.EntitySetName;
 	var primaryKey = ModelMetadata.PrimaryKeys[0].PropertyName;
 #>
-<div class="container-fluid">
-    <!-- Page Heading -->
-    <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header">
-                <#= ProgramTitle #>
-                <small><#= ViewName #></small>
-            </h1>
-            <ol class="breadcrumb">
-                <li>
-                    <i class="fa fa-home"></i>  @Html.ActionLink("Home", "Index", "Home")
-                </li>
-                 <li>
-                    <i class="fa fa-folder-open"></i>  @Html.ActionLink("<#= modelName #>", "Index", "<#= modelName #>")
-                </li>
-                <li class="active">
-                    <i class="fa fa-file"></i> <#= ViewName #>
-                </li>
-            </ol>
-        </div>
-    </div>
-    <!-- /.row -->
-     <div class="row">
-        <div class="col-lg-12">
+<div class="row">
+            <div class="col-md-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5><#=  PageTitle #> form<small> create new <#=  modelName #></small></h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="#">Config option 1</a>
+                                </li>
+                                <li><a href="#">Config option 2</a>
+                                </li>
+                            </ul>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                 
 
 @using (Html.BeginForm()) 
 {
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4><#= ProgramTitle #></h4>
-        <hr />
-<# 
-    if (isControlHtmlAttributesSupported) {
-#>
+   
+    @*@Html.AntiForgeryToken()*@
+    <#
+		if(FromLayoutCols<3){
+	#>
+		<div class="form-horizontal">
+	<# } #>
+		
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-<#        
-    } else {
-#>
-        @Html.ValidationSummary(true)
-<#      
-    }
-#>
+ 
+		 
         @Html.Partial("<#= ViewPrefix #>EditForm")
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </div>
-    </div>
+	 
+		<div class="row">
+        <div class="hr-line-dashed"></div>
+                                <div class="form-group">
+                                    <div class="col-sm-4 col-sm-offset-2">
+                                        <button class="btn btn-white" type="reset">Cancel</button>
+                                        <button class="btn btn-primary" type="submit">Save</button>
+                                    </div>
+                                </div>
+	    </div>
+
+
+		 <#
+		if(FromLayoutCols<3){
+		#>
+		</div>
+		<# } #>
 }
     </div>
- </div>
+        </div>
+    </div>
 </div>
 <#
 if(IsLayoutPageSelected && ReferenceScriptLibraries && IsBundleConfigPresent) {
 #>
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+ 
      <script type="text/javascript">
      
     <#  if(GenerateMasterDetailRelationship  && OneToManyModelMetadata.Count >0) { 
@@ -146,34 +155,39 @@ if(IsLayoutPageSelected && ReferenceScriptLibraries && IsBundleConfigPresent) {
 		var <#= primaryKeyVar #> = 0;
 		var ObjectState = "Added";  
             <# foreach(var item in OneToManyModelMetadata) {
-                var boostraptablevar = "$" + item.Key.ToLower()  + "table";
+                var boostraptablevar = "$" + item.Key.ToLower()  + "datagrid";
                 var detailnamevar=item.Key.ToLower();
             #>                     
-             var <#= boostraptablevar #> = {};
+             var <#= boostraptablevar #> = $('#<#=  detailnamevar #>_datagrid');
             <# } #>
             $(document).ready(function () {
 
                 $('form').submit(function () {
-                    var token = $('[name=__RequestVerificationToken]').val();
-                    var serializedForm = $(this).serialize();
+					if (!$('form').valid())
+						return false;
+                    //var token = $('[name=__RequestVerificationToken]').val();
+                    //var serializedForm = $(this).serialize();
                     var actionurl = $(this).attr('action');
                     <# foreach(var item in OneToManyModelMetadata) {
-                        var boostraptablevar = "$" + item.Key.ToLower()  + "table";
+                        var boostraptablevar = "$" + item.Key.ToLower()  + "datagrid";
                         var detailnamevar=item.Key.ToLower();
-                     #>                     
-                        var <#= detailnamevar #> = <#= boostraptablevar #>.bootstrapTable('getData');
-                     <# } #>
+                     #> 
+						if (!<#= detailnamevar #>_endEditing())
+								return false;                    
+                        var <#= detailnamevar #> = <#= boostraptablevar #>.datagrid('getChanges');
+                    <# } #>
                     
                      var newitem = {
-                        <# foreach(var property  in  ModelMetadata.Properties) {
-                            if(property.IsPrimaryKey) {
-                        #>                  
-                                <#= property.PropertyName #>: <#= primaryKeyVar #>,
+                        <# foreach(var property  in  ModelMetadata.Properties.Where(n=>true ).OrderByDescending(n=>n.Scaffold).ThenBy(n=>n.IsForeignKey).ThenBy(n=>n.PropertyName)) {
+                            if(property.IsPrimaryKey) { #>
+								//primaryKey
+								<#= property.PropertyName #>: <#= primaryKeyVar #>,
                         <# } else if (property.AssociationDirection == AssociationDirection.OneToMany) { #>
+								//detailTables
                                 <#= property.PropertyName #>: <#= property.PropertyName.ToLower() #> ,
                         <# } else if(property.IsForeignKey)  { #>
-								<#= property.PropertyName #>: $('#<#= property.PropertyName.ToLower() #> :selected').val();
-						<# } else { #>
+								<#= property.PropertyName #>: $('#<#= property.PropertyName #> :selected','form').val(),
+						<# } else if (property.AssociationDirection != AssociationDirection.ManyToOne) { #>
                                 <#= property.PropertyName #>: $('#<#= property.PropertyName #>', 'form').val(),
                         <#
                              }

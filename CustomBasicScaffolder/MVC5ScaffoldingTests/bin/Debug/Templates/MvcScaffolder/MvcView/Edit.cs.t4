@@ -1,0 +1,255 @@
+﻿<#@ template language="C#" HostSpecific="True" #>
+<#@ output extension=".cshtml" #>
+<#@ include file="Imports.include.t4" #>
+@model <#= ViewDataTypeName #>
+<#
+	var PageTitle =(string.IsNullOrEmpty(ProgramTitle)==true?ControllerRootName:ProgramTitle);
+// "form-control" attribute is only supported for all EditorFor() in System.Web.Mvc 5.1.0.0 or later versions, except for checkbox, which uses a div in Bootstrap
+string boolType = "System.Boolean";
+Version requiredMvcVersion = new Version("5.1.0.0");
+bool isControlHtmlAttributesSupported = MvcVersion >= requiredMvcVersion;
+// The following chained if-statement outputs the file header code and markup for a partial view, a view using a layout page, or a regular view.
+if(IsPartialView) {
+#>
+
+<#
+} else if(IsLayoutPageSelected) {
+#>
+
+@{
+    ViewBag.Title = "<#= PageTitle #> | <#=  ViewName #>"  ;
+<#
+if (!String.IsNullOrEmpty(LayoutPageFile)) {
+#>
+    Layout = "<#= LayoutPageFile #>";
+<#
+}
+#>
+}
+
+
+
+<#
+} else {
+#>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title><#= PageTitle #> | <#=  ViewName #></title>
+</head>
+<body>
+<#
+    PushIndent("    ");
+}
+#>
+<#
+if (ReferenceScriptLibraries) {
+#>
+<#
+    if (!IsLayoutPageSelected && IsBundleConfigPresent) {
+#>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+
+<#
+    }
+#>
+<#
+    else if (!IsLayoutPageSelected) {
+#>
+<script src="~/Scripts/jquery-<#= JQueryVersion #>.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<#
+    }
+#>
+
+<#
+}
+#>
+<#
+    var modelName =  ModelMetadata.EntitySetName;
+	var primaryKey = ModelMetadata.PrimaryKeys[0].PropertyName;
+ #>
+<div class="row">
+            <div class="col-md-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5><#=  PageTitle #> form<small> edit <#=  modelName #></small></h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="#">Config option 1</a>
+                                </li>
+                                <li><a href="">Config option 2</a>
+                                </li>
+                            </ul>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                       
+
+@using (Html.BeginForm())
+{
+    @*@Html.AntiForgeryToken()*@
+    <#
+		if(FromLayoutCols<3){
+	#>
+		<div class="form-horizontal">
+	<# } #>
+ 
+ 
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+ 
+    
+        @Html.Partial("<#= ViewPrefix #>EditForm")
+ 
+		<div class="row">
+        <div class="hr-line-dashed"></div>
+                                <div class="form-group">
+                                    <div class="col-sm-4 col-sm-offset-2">
+                                        <button class="btn btn-white" type="reset">Cancel</button>
+                                        <button class="btn btn-primary" type="submit">Save</button>
+                                    </div>
+                                </div>
+	    </div>
+
+		 <#
+		if(FromLayoutCols<3){
+		#>
+		</div>
+		<# } #>
+}
+ </div>
+        </div>
+    </div>
+</div>
+
+ 
+<#
+if(IsLayoutPageSelected && ReferenceScriptLibraries && IsBundleConfigPresent) {
+#>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+	
+    <#  if(GenerateMasterDetailRelationship  && OneToManyModelMetadata.Count >0) { 
+		var primaryKeyVar = ModelTypeName.ToLower() + primaryKey.ToLower();
+	#>
+		var <#= primaryKeyVar #> = 0;
+		var ObjectState = "Modified";   
+            <# foreach(var item in OneToManyModelMetadata) {
+                var boostraptablevar = "$" + item.Key.ToLower()  + "datagrid";
+                var detailnamevar=item.Key.ToLower();
+            #>                     
+             var <#= boostraptablevar #> = $('#<#=  detailnamevar #>_datagrid');
+            <# } #>
+            $(document).ready(function () {
+				<#= primaryKeyVar #> = $('#<#= primaryKey  #>', 'form').val();
+                $('form').submit(function () {
+					if (!$('form').valid())
+						return false;
+                    //var token = $('[name=__RequestVerificationToken]').val();
+                    //var serializedForm = $(this).serialize();
+                    var actionurl = $(this).attr('action');
+                    <# foreach(var item in OneToManyModelMetadata) {
+                        var boostraptablevar = "$" + item.Key.ToLower()  + "datagrid";
+                        var detailnamevar=item.Key.ToLower();
+                     #>
+						if (!<#= detailnamevar #>_endEditing())
+								return false;                                         
+                        var <#= detailnamevar #> = <#= boostraptablevar #>.datagrid('getChanges');
+                     <# } #>
+                    
+                     var newitem = {
+						
+
+                        <# foreach(var property  in  ModelMetadata.Properties.Where(n=>true ).OrderByDescending(n=>n.Scaffold).ThenBy(n=>n.IsForeignKey).ThenBy(n=>n.PropertyName)) {
+                            if(property.IsPrimaryKey) {  #>
+								//primaryKey   
+								<#= property.PropertyName #>: <#= primaryKeyVar #>,
+                        <# } else if (property.AssociationDirection == AssociationDirection.OneToMany) { #>
+								//detailTables
+                                <#= property.PropertyName #>: <#= property.PropertyName.ToLower() #> ,
+                        <# } else if(property.IsForeignKey)  { #>
+								<#= property.PropertyName #>: $('#<#= property.PropertyName #> :selected','form').val(),
+						<# } else  if (property.AssociationDirection != AssociationDirection.ManyToOne) { #>
+                                <#= property.PropertyName #>: $('#<#= property.PropertyName #>', 'form').val(),
+                        <#
+                             }
+                          }
+                        #>
+                        ObjectState:ObjectState 
+                    };
+                    $.ajax({
+                        url: actionurl,
+                        type: "POST",
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify(newitem),
+                        success: function (result) {
+                            if (result.success) {
+                                self.location = "/<#= ControllerRootName #>/Index";
+                            } else {
+                                alert(result.err);
+                            }
+                            
+                        },
+                        error: function (result) {
+                            console.log(result.statusText + result.responseText);
+                            alert(result.statusText + result.responseText);
+                        }
+                    });
+                    return false;
+                    
+
+                });
+            });
+      
+    <#   } #>
+  </script>
+
+}
+<#
+}
+#>
+<#
+else if(IsLayoutPageSelected && ReferenceScriptLibraries) {
+#>
+
+<script src="~/Scripts/jquery-<#= JQueryVersion #>.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<#
+}
+#>
+<#
+// The following code closes the tag used in the case of a view using a layout page and the body and html tags in the case of a regular view page
+#>
+<#
+if(!IsPartialView && !IsLayoutPageSelected) {
+    ClearIndent();
+#>
+</body>
+</html>
+<#
+}
+#>
+<#@ include file="ModelMetadataFunctions.cs.include.t4" #>
