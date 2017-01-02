@@ -758,6 +758,23 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             return lookup;
         }
 
+        protected Dictionary<string, System.ComponentModel.DataAnnotations.DisplayAttribute> GetDisplayAttribute(string fullclassName) {
+            var lookup = new Dictionary<string, System.ComponentModel.DataAnnotations.DisplayAttribute>();
+            var type = GetReflectionType(fullclassName);
+            var shortName = type.Name;
+
+            foreach (PropertyInfo prop in type.GetProperties())
+            {
+                //var attr = (System.ComponentModel.DataAnnotations.DisplayAttribute)prop.GetCustomAttribute(typeof(System.ComponentModel.DataAnnotations.DisplayAttribute), true);
+                //var value = attr != null && !String.IsNullOrWhiteSpace(attr.Name) ? attr.Name : prop.Name;
+                //if (!lookup.ContainsKey(prop.Name))
+                var value = AttributeHelper.GetDisplayAttribute(type, prop.Name);
+                //lookup.Add(shortName + "." +prop.Name, value);
+                lookup.Add(prop.Name, value);
+            }
+
+            return lookup;
+        }
         protected Dictionary<string, string> GetMaxLength(string fullclassName)
         {
 

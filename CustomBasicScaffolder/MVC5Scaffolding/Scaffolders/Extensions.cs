@@ -68,6 +68,51 @@ namespace Happy.Scaffolding.MVC.Scaffolders
 
     public static class AttributeHelper
     {
+        public static DisplayAttribute GetDisplayAttribute(object obj, string propertyName) {
+            if (obj == null) return null;
+            return GetDisplayAttribute(obj.GetType(), propertyName);
+        }
+
+        public static DisplayAttribute GetDisplayAttribute(Type type, string propertyName)
+        {
+          
+            var property = type.GetProperty(propertyName);
+            if (property == null) return null;
+
+            return GetDisplayAttribute(property);
+        }
+
+        public static DisplayAttribute GetDisplayAttribute(PropertyInfo property)
+        {
+           var atts= property.GetCustomAttributes(
+                typeof(System.ComponentModel.DataAnnotations.DisplayAttribute), true);
+
+           if (atts.Length == 0)
+           {
+
+               var metaattr = GetMetaDisplayAttribute(property);
+               return metaattr;
+           }
+           else {
+               return atts[0] as System.ComponentModel.DataAnnotations.DisplayAttribute;
+           }
+        }
+
+        private static DisplayAttribute GetMetaDisplayAttribute(PropertyInfo property)
+        {
+            var atts = property.DeclaringType.GetCustomAttributes(
+                typeof(MetadataTypeAttribute), true);
+            if (atts.Length == 0)
+                return null;
+
+            var metaAttr = atts[0] as MetadataTypeAttribute;
+            var metaProperty =
+                metaAttr.MetadataClassType.GetProperty(property.Name);
+            if (metaProperty == null)
+                return null;
+            return GetDisplayAttribute(metaProperty);
+        }
+
 
         public static string GetDisplayName(object obj, string propertyName)
         {
