@@ -88,6 +88,7 @@ namespace Happy.Scaffolding.MVC.UI
             _context = context;
             //_useMasterPage = true;
             _GenerateViews = true;
+            _checkformViewCols = true;
             _ReferenceScriptLibraries = true;
             _LayoutPageSelected = true;
         }
@@ -181,7 +182,7 @@ namespace Happy.Scaffolding.MVC.UI
                 _ProgramTitle = _modelType.ShortName;
                 OnPropertyChanged(m => m.ProgramTitle);
 
-                _ViewPrefix = _modelType.ShortName;
+                _ViewPrefix = "" ;
                 OnPropertyChanged(m => m.ViewPrefix);
             }
         }

@@ -232,12 +232,19 @@ namespace Happy.Scaffolding.MVC.Scaffolders
 
         private static string GetMaxLenght(PropertyInfo property)
         {
-            var str = GetAttributeMaxLength(property);
-            if (str!=string.Empty)
-                return str;
+            var atts1 = property.GetCustomAttributes(
+                    typeof(System.ComponentModel.DataAnnotations.MaxLengthAttribute), true);
 
-            str = GetMetaMaxLenght(property);
-            return str;
+            if (atts1.Length > 0)
+            {
+                var str = GetAttributeMaxLength(property);
+                return str;
+            }
+            else
+            {
+                var str = GetMetaMaxLenght(property);
+                return str;
+            }
         }
 
         private static string GetMetaMaxLenght(PropertyInfo property)

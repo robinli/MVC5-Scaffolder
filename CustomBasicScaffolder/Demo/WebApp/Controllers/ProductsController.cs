@@ -16,36 +16,35 @@ using WebApp.Models;
 using WebApp.Services;
 using WebApp.Repositories;
 using WebApp.Extensions;
-using System.IO;
 
 
 namespace WebApp.Controllers
 {
     public class ProductsController : Controller
     {
-        
+
         //Please RegisterType UnityConfig.cs
         //container.RegisterType<IRepositoryAsync<Product>, Repository<Product>>();
         //container.RegisterType<IProductService, ProductService>();
-        
+
         //private StoreContext db = new StoreContext();
-        private readonly IProductService  _productService;
+        private readonly IProductService _productService;
         private readonly IUnitOfWorkAsync _unitOfWork;
 
-        public ProductsController (IProductService  productService, IUnitOfWorkAsync unitOfWork)
+        public ProductsController(IProductService productService, IUnitOfWorkAsync unitOfWork)
         {
-            _productService  = productService;
+            _productService = productService;
             _unitOfWork = unitOfWork;
         }
 
         // GET: Products/Index
         public ActionResult Index()
         {
-            
+
             //var products  = _productService.Queryable().Include(p => p.Category).AsQueryable();
-            
-             //return View(products);
-			 return View();
+
+            //return View(products);
+            return View();
         }
 
         // Get :Products/PageList
@@ -53,19 +52,19 @@ namespace WebApp.Controllers
         [HttpGet]
         public ActionResult GetData(int page = 1, int rows = 10, string sort = "Id", string order = "asc", string filterRules = "")
         {
-			var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
+            var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
             int totalCount = 0;
             //int pagenum = offset / limit +1;
-            			 
-            var products  = _productService.Query(new ProductQuery().Withfilter(filters)).Include(p => p.Category).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(page, rows, out totalCount);
-            
-                        var datarows = products .Select(  n => new { CategoryName = (n.Category==null?"": n.Category.Name) , Id = n.Id , Name = n.Name , Unit = n.Unit , UnitPrice = n.UnitPrice , StockQty = n.StockQty , ConfirmDateTime = n.ConfirmDateTime , CategoryId = n.CategoryId }).ToList();
+
+            var products = _productService.Query(new ProductQuery().Withfilter(filters)).Include(p => p.Category).OrderBy(n => n.OrderBy(sort, order)).SelectPage(page, rows, out totalCount);
+
+            var datarows = products.Select(n => new { CategoryName = (n.Category == null ? "" : n.Category.Name), Id = n.Id, Name = n.Name, Unit = n.Unit, UnitPrice = n.UnitPrice, StockQty = n.StockQty, ConfirmDateTime = n.ConfirmDateTime, CategoryId = n.CategoryId }).ToList();
             var pagelist = new { total = totalCount, rows = datarows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
 
-		[HttpPost]
-		public ActionResult SaveData(ProductChangeViewModel products)
+        [HttpPost]
+        public ActionResult SaveData(ProductChangeViewModel products)
         {
             if (products.updated != null)
             {
@@ -90,19 +89,19 @@ namespace WebApp.Controllers
             }
             _unitOfWork.SaveChanges();
 
-            return Json(new {Success=true}, JsonRequestBehavior.AllowGet);
+            return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
         }
 
-				public ActionResult GetCategories()
+        public ActionResult GetCategories()
         {
             var categoryRepository = _unitOfWork.Repository<Category>();
             var data = categoryRepository.Queryable().ToList();
             var rows = data.Select(n => new { Id = n.Id, Name = n.Name });
             return Json(rows, JsonRequestBehavior.AllowGet);
         }
-		
-		
-       
+
+
+
         // GET: Products/Details/5
         public ActionResult Details(int? id)
         {
@@ -117,7 +116,7 @@ namespace WebApp.Controllers
             }
             return View(product);
         }
-        
+
 
         // GET: Products/Create
         public ActionResult Create()
@@ -137,8 +136,8 @@ namespace WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-             				_productService.Insert(product);
-                           _unitOfWork.SaveChanges();
+                _productService.Insert(product);
+                _unitOfWork.SaveChanges();
                 if (Request.IsAjaxRequest())
                 {
                     return Json(new { success = true }, JsonRequestBehavior.AllowGet);
@@ -151,7 +150,7 @@ namespace WebApp.Controllers
             ViewBag.CategoryId = new SelectList(categoryRepository.Queryable(), "Id", "Name", product.CategoryId);
             if (Request.IsAjaxRequest())
             {
-                var modelStateErrors =String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n=>n.ErrorMessage)));
+                var modelStateErrors = String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n => n.ErrorMessage)));
                 return Json(new { success = false, err = modelStateErrors }, JsonRequestBehavior.AllowGet);
             }
             DisplayErrorMessage();
@@ -184,8 +183,8 @@ namespace WebApp.Controllers
             if (ModelState.IsValid)
             {
                 product.ObjectState = ObjectState.Modified;
-                				_productService.Update(product);
-                                
+                _productService.Update(product);
+
                 _unitOfWork.SaveChanges();
                 if (Request.IsAjaxRequest())
                 {
@@ -198,7 +197,7 @@ namespace WebApp.Controllers
             ViewBag.CategoryId = new SelectList(categoryRepository.Queryable(), "Id", "Name", product.CategoryId);
             if (Request.IsAjaxRequest())
             {
-                var modelStateErrors =String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n=>n.ErrorMessage)));
+                var modelStateErrors = String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n => n.ErrorMessage)));
                 return Json(new { success = false, err = modelStateErrors }, JsonRequestBehavior.AllowGet);
             }
             DisplayErrorMessage();
@@ -225,26 +224,33 @@ namespace WebApp.Controllers
         //[ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Product product =  _productService.Find(id);
-             _productService.Delete(product);
+            Product product = _productService.Find(id);
+            _productService.Delete(product);
             _unitOfWork.SaveChanges();
-           if (Request.IsAjaxRequest())
-                {
-                    return Json(new { success = true }, JsonRequestBehavior.AllowGet);
-                }
+            if (Request.IsAjaxRequest())
+            {
+                return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+            }
             DisplaySuccessMessage("Has delete a Product record");
             return RedirectToAction("Index");
         }
+
+
+
+
+
+
+        //导出Excel
         [HttpPost]
         public ActionResult ExportExcel(string filterRules = "", string sort = "Id", string order = "asc")
         {
-            var fileName = "products" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xlsx";
-            var stream = this._productService.ExportExcel(filterRules,sort, order);
+            var fileName = "products_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xlsx";
+            var stream = _productService.ExportExcel(filterRules, sort, order);
             return File(stream, "application/vnd.ms-excel", fileName);
-        }
-       
 
- 
+        }
+
+
 
         private void DisplaySuccessMessage(string msgText)
         {

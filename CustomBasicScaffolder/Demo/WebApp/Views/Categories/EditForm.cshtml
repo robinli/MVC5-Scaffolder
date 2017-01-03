@@ -18,18 +18,17 @@
 	    <tr>
       	   <td class="control-label">   @Html.DisplayNameFor(model => model.Id)  </td>
 	   <td> 
-			  			<input id="@Html.IdFor(model => model.Id)" name="@Html.NameFor(model => model.Id)" tabindex="0" style="width:100%" class="easyui-numberbox" type="text" data-options="prompt:'Id',label:'Id:',required:true ,precision:0" />
+						   			<input disabled id="@Html.IdFor(model => model.Id)" name="@Html.NameFor(model => model.Id)" tabindex="0" style="width:100%" class="easyui-numberbox" type="text" data-options="prompt:'Id',label:'Id:',required:true ,precision:0" />
 			  
-	   </td>
+				   </td>
 	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.Name)  </td>
 	   <td> 
+			
 			  			<input id="@Html.IdFor(model => model.Name)" name="@Html.NameFor(model => model.Name)" tabindex="1" style="width:100%" class="easyui-textbox" type="text" data-options="prompt:'产品目录',label:'产品目录:',required:true ,validType:'length[0,50]'" />
-			  
-	   </td>
-	   	    		<td></td> <td></td>
-			<td></td> <td></td>
-		     </tr>
-	    @*<tfoot>
+			              
+				   </td>
+	   	   </tr>
+	   	        @*<tfoot>
         <tr>
            
         <tr>
@@ -113,11 +112,11 @@
                 </table>
 
 				<div id="products_toolbar" style="height:auto">
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="products_append()">Append</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="products_append()">Append</a>
                     <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="products_removeit()">Remove</a>
-                    @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="products_accept()">Accept</a>*@
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="products_accept()">Accept</a>
                     <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="products_reject()">Reject</a>
-                    @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="products_getChanges()">GetChanges</a>*@
+                   
                 </div>
 
                 </div>

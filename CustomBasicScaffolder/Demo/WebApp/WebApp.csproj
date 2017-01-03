@@ -276,6 +276,10 @@
     <Compile Include="Migrations\201701020620272_up.Designer.cs">
       <DependentUpon>201701020620272_up.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701030944240_update1.cs" />
+    <Compile Include="Migrations\201701030944240_update1.Designer.cs">
+      <DependentUpon>201701030944240_update1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -2111,12 +2115,6 @@
     <Content Include="Views\Orders\_PopupSearch.cshtml" />
     <Content Include="Views\Orders\_OrderDetailEditForm.cshtml" />
     <Content Include="Views\Categories\Edit.cshtml" />
-    <Content Include="Views\Categories\EditForm1.cshtml" />
-    <Content Include="Views\Products\Index.cshtml" />
-    <Content Include="Views\Products\Create.cshtml" />
-    <Content Include="Views\Products\Edit.cshtml" />
-    <Content Include="Views\Products\EditForm.cshtml" />
-    <Content Include="Views\Products\_PopupSearch.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_Layout_2.cshtml" />
@@ -2139,6 +2137,10 @@
     <Content Include="Views\Categories\_ProductEditForm.cshtml" />
     <Content Include="Views\Categories\Create.cshtml" />
     <Content Include="Views\Categories\EditForm.cshtml" />
+    <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Views\Products\Create.cshtml" />
+    <Content Include="Views\Products\Edit.cshtml" />
+    <Content Include="Views\Products\EditForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Source\Repository.Pattern.Ef6\Repository.Pattern.Ef6.csproj">
@@ -2187,6 +2189,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701020620272_up.resx">
       <DependentUpon>201701020620272_up.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701030944240_update1.resx">
+      <DependentUpon>201701030944240_update1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

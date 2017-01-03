@@ -13,6 +13,7 @@ namespace WebApp.Models
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
+      
         public string Unit { get; set; }
         public decimal UnitPrice { get; set; }
         public int StockQty { get; set; }
