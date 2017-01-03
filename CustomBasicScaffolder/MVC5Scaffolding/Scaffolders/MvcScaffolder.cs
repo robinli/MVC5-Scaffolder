@@ -244,7 +244,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             string viewFolderPath = Path.Combine(viewRootPath, controllerRootName);
             // Shared Layout Views
             //AddSharedLayoutTemplates(project, viewRootPath, selectionRelativePath, dbContextNamespace, dbContextTypeName, modelType, efMetadata);
-            foreach (string viewName in new string[5] { "Index", "Create", "Edit", "EditForm", "_PopupSearch" })
+            foreach (string viewName in new string[4] { "Index", "Create", "Edit", "EditForm"})
             {
                 //string viewName = string.Format(view, viewPrefix);
                 //未完成
@@ -271,6 +271,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                     , modelDisplayNames: modelDisplayNames
                     , fieldRequired:fieldRequired as Dictionary<string,bool>
                     , fieldMaxLength: fieldMaxLength as Dictionary<string, string>
+                    , fieldDisplayAttribute: fieldDisplayAttribute
                     );
             }
 
@@ -377,7 +378,15 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 DisplayAttributeViewModel row = new DisplayAttributeViewModel();
                 row.EntityTypeName = modelType.Name;
                 row.FieldName = item.Key;
-                row.DisplayAttribute = item.Value;
+                //row.DisplayAttribute = item.Value;
+                row.AutoGenerateField = item.Value.AutoGenerateField;
+                row.AutoGenerateFilter = item.Value.AutoGenerateFilter;
+                row.Description = item.Value.Description;
+                row.GroupName = item.Value.GroupName;
+                row.Name = item.Value.Name;
+                row.Order = item.Value.Order;
+                row.Prompt = item.Value.Prompt;
+                row.ShortName = item.Value.ShortName;
                 list.Add(row);
             }
 
@@ -392,7 +401,15 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                         DisplayAttributeViewModel row = new DisplayAttributeViewModel();
                         row.EntityTypeName = property.RelatedModel.ShortTypeName;
                         row.FieldName = item.Key;
-                        row.DisplayAttribute = item.Value;
+                        //row.DisplayAttribute = item.Value;
+                        row.AutoGenerateField = item.Value.AutoGenerateField;
+                        row.AutoGenerateFilter = item.Value.AutoGenerateFilter;
+                        row.Description = item.Value.Description;
+                        row.GroupName = item.Value.GroupName;
+                        row.Name = item.Value.Name;
+                        row.Order = item.Value.Order;
+                        row.Prompt = item.Value.Prompt;
+                        row.ShortName = item.Value.ShortName;
                         list.Add(row);
                     }
                 }
@@ -693,6 +710,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             , Dictionary<string, string> modelDisplayNames = null
             , Dictionary<string, bool> fieldRequired = null
             , Dictionary<string, string> fieldMaxLength = null
+            , IList<DisplayAttributeViewModel> fieldDisplayAttribute =null
             )
         {
 
@@ -728,6 +746,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 ,{"CheckedFromLayoutCols",checkedFormCols}
                 ,{"FromLayoutCols",formClos}
                 ,{"GenerateMasterDetailRelationship" ,generateMasterDetailRelationship}
+                ,{"FieldDisplayAttribute" ,fieldDisplayAttribute}
                 //, {"ViewDataTypeShortName", modelType.Name} // 可刪除
                 , {"MetaTable", _ModelMetadataVM.DataModel}
                 , {"JQueryVersion","2.1.0"} // 如何讀取專案的 jQuery 版本

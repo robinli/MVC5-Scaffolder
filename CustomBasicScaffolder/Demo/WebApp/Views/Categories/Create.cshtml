@@ -5,7 +5,7 @@
 @model WebApp.Models.Category
 
 @{
-    ViewBag.Title = "产品类别 | Create";
+    ViewBag.Title = "产品类别 | 新增";
 }
 
 
@@ -15,48 +15,42 @@
             <div class="col-md-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>产品类别 form<small> create new Categories</small></h5>
+                        <h5>产品类别<small> create new Categories</small></h5>
                         <div class="ibox-tools">
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
                             </a>
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                <i class="fa fa-wrench"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-user">
-                                <li><a href="#">Config option 1</a>
-                                </li>
-                                <li><a href="#">Config option 2</a>
-                                </li>
-                            </ul>
-                            <a class="close-link">
-                                <i class="fa fa-times"></i>
-                            </a>
+                            
+                           
                         </div>
                     </div>
                     <div class="ibox-content">
                  
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
-   
+    <!--form toolbar-->
+    <div id="form_toolbar" style="height:auto" class="datagrid-toolbar">
+
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="append()">新增</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">保存</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">取消</a>
+
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-paperclip',plain:true" onclick="importexcel()">EXCEL 导入</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-download-alt',plain:true" onclick="exportexcel()">导出 Excel</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="reload()">刷新</a>
+    </div>
+    <!--form toolbar-->
     @*@Html.AntiForgeryToken()*@
-    		<div class="form-horizontal">
+    		<div class="form-content">
 			
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+       
  
 		 
-        @Html.Partial("EditForm")
+                @Html.Partial("EditForm")
 	 
-		<div class="row">
-        <div class="hr-line-dashed"></div>
-                                <div class="form-group">
-                                    <div class="col-sm-4 col-sm-offset-2">
-                                        <button class="btn btn-white" type="reset">Cancel</button>
-                                        <button class="btn btn-primary" type="submit">Save</button>
-                                    </div>
-                                </div>
-	    </div>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 
 		 		</div>

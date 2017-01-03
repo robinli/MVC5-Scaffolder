@@ -2112,8 +2112,7 @@
     <Content Include="Views\Orders\_OrderDetailEditForm.cshtml" />
     <Content Include="Views\Categories\Create.cshtml" />
     <Content Include="Views\Categories\Edit.cshtml" />
-    <Content Include="Views\Categories\EditForm.cshtml" />
-    <Content Include="Views\Categories\_PopupSearch.cshtml" />
+    <Content Include="Views\Categories\EditForm1.cshtml" />
     <Content Include="Views\Categories\_ProductEditForm.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\Products\Create.cshtml" />
@@ -2139,6 +2138,7 @@
     <Content Include="Views\Shared\_QuickNavbar.cshtml" />
     <Content Include="Views\Shared\_ImportWindow.cshtml" />
     <Content Include="Views\Categories\Index.cshtml" />
+    <Content Include="Views\Categories\EditForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Source\Repository.Pattern.Ef6\Repository.Pattern.Ef6.csproj">

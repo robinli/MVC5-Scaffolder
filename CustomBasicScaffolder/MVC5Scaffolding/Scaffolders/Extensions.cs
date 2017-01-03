@@ -317,10 +317,20 @@ namespace Happy.Scaffolding.MVC.Scaffolders
         }
     }
 
-
+    [Serializable]
     public class DisplayAttributeViewModel {
+
        public string EntityTypeName { get; set; }
        public string FieldName { get; set; }
-       public DisplayAttribute DisplayAttribute { get; set; }
+       //public DisplayAttribute DisplayAttribute { get; set; }
+       public bool AutoGenerateField { get; set; }
+       public bool AutoGenerateFilter { get; set; }
+       public string Description { get; set; }
+       public string GroupName { get; set; }
+       public string Name { get; set; }
+       public int Order { get; set; }
+       public string Prompt { get; set; }
+       public string ShortName { get; set; }
+       
     }
 }
