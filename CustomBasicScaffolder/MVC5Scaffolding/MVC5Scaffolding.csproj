@@ -325,6 +325,9 @@
     <None Include="Templates\MvcScaffolder\MvcView\ChildrenEditForm.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Templates\MvcScaffolder\MvcView\EditForm.cs_bk.t4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Templates\MvcScaffolder\MvcView\EditForm.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

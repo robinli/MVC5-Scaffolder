@@ -114,3 +114,4 @@ D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\MVC
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\MVC5ScaffoldingTests\obj\Debug\MVC5ScaffoldingTests.csprojResolveAssemblyReference.cache
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\MVC5ScaffoldingTests\obj\Debug\MVC5ScaffoldingTests.dll
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\MVC5ScaffoldingTests\obj\Debug\MVC5ScaffoldingTests.pdb
+D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\MVC5ScaffoldingTests\bin\Debug\Templates\MvcScaffolder\MvcView\EditForm.cs_bk.t4

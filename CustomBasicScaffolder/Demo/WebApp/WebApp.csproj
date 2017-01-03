@@ -2110,10 +2110,8 @@
     <Content Include="Views\Orders\EditForm.cshtml" />
     <Content Include="Views\Orders\_PopupSearch.cshtml" />
     <Content Include="Views\Orders\_OrderDetailEditForm.cshtml" />
-    <Content Include="Views\Categories\Create.cshtml" />
     <Content Include="Views\Categories\Edit.cshtml" />
     <Content Include="Views\Categories\EditForm1.cshtml" />
-    <Content Include="Views\Categories\_ProductEditForm.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\Products\Create.cshtml" />
     <Content Include="Views\Products\Edit.cshtml" />
@@ -2138,6 +2136,8 @@
     <Content Include="Views\Shared\_QuickNavbar.cshtml" />
     <Content Include="Views\Shared\_ImportWindow.cshtml" />
     <Content Include="Views\Categories\Index.cshtml" />
+    <Content Include="Views\Categories\_ProductEditForm.cshtml" />
+    <Content Include="Views\Categories\Create.cshtml" />
     <Content Include="Views\Categories\EditForm.cshtml" />
   </ItemGroup>
   <ItemGroup>

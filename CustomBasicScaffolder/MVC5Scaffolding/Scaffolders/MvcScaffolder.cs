@@ -381,12 +381,12 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 //row.DisplayAttribute = item.Value;
                 row.AutoGenerateField = item.Value.AutoGenerateField;
                 row.AutoGenerateFilter = item.Value.AutoGenerateFilter;
-                row.Description = item.Value.Description;
-                row.GroupName = item.Value.GroupName;
+                row.Description = item.Value.Description == null ? item.Value.Name : item.Value.Description;
+                row.GroupName = item.Value.GroupName == null ? "" : item.Value.GroupName;
                 row.Name = item.Value.Name;
                 row.Order = item.Value.Order;
-                row.Prompt = item.Value.Prompt;
-                row.ShortName = item.Value.ShortName;
+                row.Prompt = item.Value.Prompt == null ? item.Value.Name : item.Value.Prompt;
+                row.ShortName = item.Value.ShortName == null ? "" : item.Value.ShortName;
                 list.Add(row);
             }
 
@@ -404,12 +404,12 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                         //row.DisplayAttribute = item.Value;
                         row.AutoGenerateField = item.Value.AutoGenerateField;
                         row.AutoGenerateFilter = item.Value.AutoGenerateFilter;
-                        row.Description = item.Value.Description;
-                        row.GroupName = item.Value.GroupName;
+                        row.Description = item.Value.Description == null ? item.Value.Name : item.Value.Description;
+                        row.GroupName = item.Value.GroupName == null ? "" : item.Value.GroupName;
                         row.Name = item.Value.Name;
                         row.Order = item.Value.Order;
-                        row.Prompt = item.Value.Prompt;
-                        row.ShortName = item.Value.ShortName;
+                        row.Prompt = item.Value.Prompt == null ? item.Value.Name : item.Value.Prompt;
+                        row.ShortName = item.Value.ShortName == null ? "" : item.Value.ShortName;
                         list.Add(row);
                     }
                 }

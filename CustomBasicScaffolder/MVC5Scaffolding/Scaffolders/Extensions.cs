@@ -89,7 +89,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
 
            if (atts.Length == 0)
            {
-
+               
                var metaattr = GetMetaDisplayAttribute(property);
                return metaattr;
            }
@@ -319,7 +319,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
 
     [Serializable]
     public class DisplayAttributeViewModel {
-
+        
        public string EntityTypeName { get; set; }
        public string FieldName { get; set; }
        //public DisplayAttribute DisplayAttribute { get; set; }

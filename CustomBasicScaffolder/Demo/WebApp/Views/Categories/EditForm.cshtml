@@ -1,0 +1,211 @@
+﻿﻿
+
+
+
+
+
+
+
+@model WebApp.Models.Category
+
+
+ @*@Html.HiddenFor(model => model.Id)*@
+
+ <!--输出form表单界面-->
+ <table class="table table-bordered">
+     <caption>
+     </caption>
+	    <tr>
+      	   <td class="control-label">   @Html.DisplayNameFor(model => model.Id)  </td>
+	   <td> 
+			  			<input id="@Html.IdFor(model => model.Id)" name="@Html.NameFor(model => model.Id)" tabindex="0" style="width:100%" class="easyui-numberbox" type="text" data-options="prompt:'Id',label:'Id:',required:true ,precision:0" />
+			  
+	   </td>
+	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.Name)  </td>
+	   <td> 
+			  			<input id="@Html.IdFor(model => model.Name)" name="@Html.NameFor(model => model.Name)" tabindex="1" style="width:100%" class="easyui-textbox" type="text" data-options="prompt:'产品目录',label:'产品目录:',required:true ,validType:'length[0,50]'" />
+			  
+	   </td>
+	   	    		<td></td> <td></td>
+			<td></td> <td></td>
+		     </tr>
+	    @*<tfoot>
+        <tr>
+           
+        <tr>
+    </tfoot>*@
+</table>
+  <!--输出form表单界面-->
+
+<!--========================================================================================-->
+     <!-- details tabs -->
+    <div class="tabs-container">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs">
+								<li class="active"><a data-toggle="tab" href="#tab-products"> Products</a></li>
+								        
+			 
+   
+		 </ul>
+		 <!-- Tab panes -->
+         <div class="tab-content">
+		  		  <div id="tab-products" class="tab-pane active">
+
+            <div class="panel-body">
+
+                <div class="table-responsive">
+				<table id="products_datagrid" class="easyui-datagrid" title="Products DataGrid" style="width:auto;height:400px"
+                       data-options="
+                            rownumbers:true,
+                            iconCls: 'fa fa-list',
+                            remoteFilter: false,
+                            singleSelect: true,
+                            toolbar: '#products_toolbar',
+                            method: 'get',
+                            onClickCell: products_onClickCell,
+                            pagination: 'true'
+                    " >
+                    <thead>
+                        <tr>
+						@*<th data-options="field:'ck',checkbox:true"></th>*@
+				        
+														<th data-options="field:'Id',width:80"> Id </th>
+											
+						
+															<th data-options="field:'Name',width:140,editor:{type:'textbox',options:{required:false} } "> 名称</th>
+							
+											
+						
+															<th data-options="field:'Unit',width:140,editor:{type:'textbox',options:{required:false} } "> 单位</th>
+							
+											
+						
+																<th data-options="field:'UnitPrice',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">单价</th>
+							
+											
+						
+																<th data-options="field:'StockQty',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">库存</th>
+							
+											
+						
+															<th data-options="field:'ConfirmDateTime',width:160,align:'right',editor:{type:'datebox',options:{required:true}} ,formatter:dateformatter"> 确认日期</th>
+							
+											
+														<th data-options="field:'CategoryId',width:100,
+												formatter:function(value,row){
+													return row.CategoryName;
+												},
+												editor:{
+													type:'combobox',
+													options:{
+														valueField:'Id',
+														textField:'Name',
+														method:'get',
+														url:'/Categories/GetCategories',
+														required:false
+														}
+												}"> 产品类别 </th>
+
+           
+											                           
+                        </tr>
+                    </thead>
+                </table>
+
+				<div id="products_toolbar" style="height:auto">
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="products_append()">Append</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="products_removeit()">Remove</a>
+                    @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="products_accept()">Accept</a>*@
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="products_reject()">Reject</a>
+                    @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="products_getChanges()">GetChanges</a>*@
+                </div>
+
+                </div>
+            </div>
+
+		  	</div>
+	</div>
+	</div>
+<!--end details tabs -->
+ 
+
+ <script type="text/javascript">
+	
+	    
+	var productseditIndex = undefined;
+    function products_endEditing() {
+        if ( productseditIndex == undefined) { return true }
+        if ($productsdatagrid.datagrid('validateRow', productseditIndex)) {
+			            var ed = $productsdatagrid.datagrid('getEditor', { index: productseditIndex, field: 'CategoryId' });
+            var CategoryName = $(ed.target).combobox('getText');
+            var CategoryId = $(ed.target).combobox('getValue');
+          
+            $productsdatagrid.datagrid('getRows')[productseditIndex]['CategoryName'] = CategoryName;
+            $productsdatagrid.datagrid('getRows')[productseditIndex]['CategoryId'] = CategoryId;
+            
+            
+						$productsdatagrid.datagrid('endEdit', productseditIndex);
+            productseditIndex = undefined;
+
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+    function products_onClickCell(index, field) {
+        if (productseditIndex != index) {
+            if (products_endEditing()) {
+                $productsdatagrid.datagrid('selectRow', index)
+                        .datagrid('beginEdit', index);
+                var ed = $productsdatagrid.datagrid('getEditor', { index: index, field: field });
+                if (ed) {
+                    ($(ed.target).data('textbox') ? $(ed.target).textbox('textbox') : $(ed.target)).focus();
+                }
+                productseditIndex  = index;
+            } else {
+                $productsdatagrid.datagrid('selectRow', productseditIndex);
+            }
+        }
+    }
+    function products_append() {
+        if (products_endEditing()) {
+            $productsdatagrid.datagrid('appendRow', { Status:0   });
+            productseditIndex = $productsdatagrid.datagrid('getRows').length - 1;
+            $productsdatagrid.datagrid('selectRow', productseditIndex )
+                    .datagrid('beginEdit', productseditIndex);
+        }
+    }
+    function products_removeit() {
+        if (productseditIndex  == undefined) { return }
+        $productsdatagrid.datagrid('cancelEdit', productseditIndex )
+                .datagrid('deleteRow', productseditIndex );
+        productseditIndex = undefined;
+    }
+   
+    function products_reject() {
+        $productsdatagrid.datagrid('rejectChanges');
+        productseditIndex  = undefined;
+    }
+    function products_getChanges() {
+        var rows = $productsdatagrid.datagrid('getChanges');
+        alert(rows.length + ' rows are changed!');
+    }
+
+
+	  
+	$(function () {
+	
+		$.get('/Categories/GetProductsByCategoryId/' + @Model.Id,function(data){
+            //console.log(data);
+            $productsdatagrid.datagrid('loadData',data);
+        
+        })
+
+
+	
+	});
+</script>
+
+
+
