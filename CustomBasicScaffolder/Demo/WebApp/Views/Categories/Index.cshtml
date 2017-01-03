@@ -20,14 +20,14 @@
                  idField:'Id',
                  sortName:'Id',
                  sortOrder:'desc',
-                remoteFilter: true,
-                singleSelect: true,
-                toolbar: '#categories_toolbar',
-                url: '/Categories/GetData',
-                method: 'get',
-                onClickCell: onClickCell,
-				onSelect:onSelect,
-                pagination: 'true'
+                 remoteFilter: true,
+                 singleSelect: true,
+                 toolbar: '#categories_toolbar',
+                 url: '/Categories/GetData',
+                 method: 'get',
+                 onClickCell: onClickCell,
+				 onSelect:onSelect,
+                 pagination: 'true'
                    ">
         <thead>
             <tr>
@@ -52,14 +52,13 @@
         <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="reload()">刷新</a>
     </div>
 
-    <!--end datagrid-content -->
     <!--detail entity tabs -->
     <div id="detailtabs" class="easyui-tabs" style="width:auto;height:400px;">
         <!--Products tab   -->
         <div title="Products" id="products" style="padding:10px;">
-            <div class="table-responsive">
-                <table id="products_datagrid" class="easyui-datagrid" title="@Html.DisplayNameFor(model => model.Products) DataGrid" style="width:auto;height:auto"
-                       data-options="
+
+            <table id="products_datagrid" class="easyui-datagrid" title="@Html.DisplayNameFor(model => model.Products) DataGrid" style="width:auto;height:auto"
+                   data-options="
 								rownumbers:true,
 								remoteFilter: true,
 								singleSelect: true,
@@ -69,45 +68,45 @@
 								onClickCell: products_onClickCell,
 								pagination: 'true'
 							">
-                    <thead>
-                        <tr>
-                            @*<th data-options="field:'ck',checkbox:true"></th>*@
-                            @*<th data-options="field:'Id',width:80"> Id </th>*@
+                <thead>
+                    <tr>
+                        @*<th data-options="field:'ck',checkbox:true"></th>*@
+                        @*<th data-options="field:'Id',width:80"> Id </th>*@
 
 
 
 
 
-                            <th data-options="field:'Name',width:140,editor:{type:'textbox',options:{required:true  ,validType:'length[0,50]'} } "> 名称</th>
+                        <th data-options="field:'Name',width:140,editor:{type:'textbox',options:{required:true  ,validType:'length[0,50]'} } "> 名称</th>
 
 
 
 
 
-                            <th data-options="field:'Unit',width:140,editor:{type:'textbox',options:{required:false  ,validType:'length[0,50]'} } "> 单位</th>
+                        <th data-options="field:'Unit',width:140,editor:{type:'textbox',options:{required:false  ,validType:'length[0,50]'} } "> 单位</th>
 
 
 
 
 
-                            <th data-options="field:'UnitPrice',width:100,align:'right',editor:{type:'numberbox',options:{required:true  ,precision:2 }} ,sortable:true,resizable:true ">单价</th>
+                        <th data-options="field:'UnitPrice',width:100,align:'right',editor:{type:'numberbox',options:{required:true  ,precision:2 }} ,sortable:true,resizable:true ">单价</th>
 
 
 
 
 
-                            <th data-options="field:'StockQty',width:100,align:'right',editor:{type:'numberbox',options:{required:true  ,precision:0 }} ,sortable:true,resizable:true ">库存</th>
+                        <th data-options="field:'StockQty',width:100,align:'right',editor:{type:'numberbox',options:{required:true  ,precision:0 }} ,sortable:true,resizable:true ">库存</th>
 
 
 
 
 
-                            <th data-options="field:'ConfirmDateTime',width:160,align:'right',editor:{type:'datebox',options:{required:true   }} ,formatter:dateformatter"> 确认日期</th>
+                        <th data-options="field:'ConfirmDateTime',width:160,align:'right',editor:{type:'datebox',options:{required:true   }} ,formatter:dateformatter"> 确认日期</th>
 
 
 
 
-                            <th data-options="field:'CategoryId',width:100,
+                        <th data-options="field:'CategoryId',width:100,
 														formatter:function(value,row){
 																return row.CategoryName;
 														},
@@ -126,28 +125,27 @@
 
 
 
-                        </tr>
-                    </thead>
-                </table>
-                <!-- products_toolbar -->
-                <div id="products_toolbar" style="height:auto">
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="products_append()">新增</a>
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="products_removeit()">删除</a>
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="products_accept()">保存</a>
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="products_reject()">取消</a>
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-paperclip',plain:true" onclick="importexcel()">EXCEL 导入</a>
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="products_reload()">刷新</a>
-                </div>
-
-
+                    </tr>
+                </thead>
+            </table>
+            <!-- products_toolbar -->
+            <div id="products_toolbar" style="height:auto">
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="products_append()">新增</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="products_removeit()">删除</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="products_accept()">保存</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="products_reject()">取消</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-paperclip',plain:true" onclick="importexcel()">EXCEL 导入</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="products_reload()">刷新</a>
             </div>
+
+
+
         </div>
         <!--end Products tab   -->
     </div>
-
-
     <!--end detail entity tabs -->
 </div>
+<!--end datagrid-content -->
 <!-- file upload partial view -->
 @Html.Partial("_ImportWindow", new ViewDataDictionary { { "EntityName", "Category" } })
 <!-- end file upload partial view -->

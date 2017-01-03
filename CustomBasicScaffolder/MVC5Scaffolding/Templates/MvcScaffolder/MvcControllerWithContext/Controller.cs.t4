@@ -629,14 +629,14 @@ namespace <#= Namespace #>
             TempData["ErrorMessage"] = "Save changes was unsuccessful.";
         }
 
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposing)
-        //    {
-        //        _unitOfWork.Dispose();
-        //    }
-        //    base.Dispose(disposing);
-        //}
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _unitOfWork.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }
 <#+
