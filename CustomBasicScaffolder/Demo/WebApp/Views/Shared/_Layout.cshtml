@@ -51,8 +51,33 @@
     <script src="~/js/jquery.filer.js"></script>
     <script>
 
-        function dateformatter(value, row, index) {
 
+        $.extend($.fn.datagrid.defaults.editors, {
+            datebox: {
+                init: function (container, options) {
+                    var input = $('<input type="text">').appendTo(container);
+                    input.datebox(options);
+                    return input;
+                },
+                destroy: function (target) {
+                    $(target).datebox('destroy');
+                },
+                getValue: function (target) {
+                    return $(target).datebox('getValue');//获得旧值  
+                },
+                setValue: function (target, value) {
+                    //console.info(dateformatter(value));
+                    $(target).datebox('setValue', dateformatter(value));//设置新值的日期格式  
+                },
+                resize: function (target, width) {
+                    $(target).datebox('resize', width);
+                }
+            }
+        });
+
+
+        function dateformatter(value, row, index) {
+       
             if (value == typeof (undefined))
                 return null;
             if (value == null)

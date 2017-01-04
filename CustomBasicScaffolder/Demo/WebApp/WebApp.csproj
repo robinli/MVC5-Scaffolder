@@ -793,6 +793,7 @@
     <Content Include="js\easyui\plugins\jquery.combobox.js" />
     <Content Include="js\easyui\plugins\jquery.combogrid.js" />
     <Content Include="js\easyui\plugins\jquery.combotree.js" />
+    <Content Include="js\easyui\plugins\jquery.combotreegrid.js" />
     <Content Include="js\easyui\plugins\jquery.datagrid.js" />
     <Content Include="js\easyui\plugins\jquery.datalist.js" />
     <Content Include="js\easyui\plugins\jquery.datebox.js" />
@@ -814,6 +815,7 @@
     <Content Include="js\easyui\plugins\jquery.pagination.js" />
     <Content Include="js\easyui\plugins\jquery.panel.js" />
     <Content Include="js\easyui\plugins\jquery.parser.js" />
+    <Content Include="js\easyui\plugins\jquery.passwordbox.js" />
     <Content Include="js\easyui\plugins\jquery.progressbar.js" />
     <Content Include="js\easyui\plugins\jquery.propertygrid.js" />
     <Content Include="js\easyui\plugins\jquery.resizable.js" />
@@ -823,6 +825,7 @@
     <Content Include="js\easyui\plugins\jquery.splitbutton.js" />
     <Content Include="js\easyui\plugins\jquery.switchbutton.js" />
     <Content Include="js\easyui\plugins\jquery.tabs.js" />
+    <Content Include="js\easyui\plugins\jquery.tagbox.js" />
     <Content Include="js\easyui\plugins\jquery.textbox.js" />
     <Content Include="js\easyui\plugins\jquery.timespinner.js" />
     <Content Include="js\easyui\plugins\jquery.tooltip.js" />
@@ -871,10 +874,13 @@
     <Content Include="js\easyui\themes\black\images\messager_icons.png" />
     <Content Include="js\easyui\themes\black\images\pagination_icons.png" />
     <Content Include="js\easyui\themes\black\images\panel_tools.png" />
+    <Content Include="js\easyui\themes\black\images\passwordbox_close.png" />
+    <Content Include="js\easyui\themes\black\images\passwordbox_open.png" />
     <Content Include="js\easyui\themes\black\images\searchbox_button.png" />
     <Content Include="js\easyui\themes\black\images\slider_handle.png" />
     <Content Include="js\easyui\themes\black\images\spinner_arrows.png" />
     <Content Include="js\easyui\themes\black\images\tabs_icons.png" />
+    <Content Include="js\easyui\themes\black\images\tagbox_icons.png" />
     <Content Include="js\easyui\themes\black\images\tree_icons.png" />
     <Content Include="js\easyui\themes\black\images\validatebox_warning.png" />
     <Content Include="js\easyui\themes\black\layout.css" />
@@ -885,6 +891,7 @@
     <Content Include="js\easyui\themes\black\numberbox.css" />
     <Content Include="js\easyui\themes\black\pagination.css" />
     <Content Include="js\easyui\themes\black\panel.css" />
+    <Content Include="js\easyui\themes\black\passwordbox.css" />
     <Content Include="js\easyui\themes\black\progressbar.css" />
     <Content Include="js\easyui\themes\black\propertygrid.css" />
     <Content Include="js\easyui\themes\black\searchbox.css" />
@@ -893,6 +900,7 @@
     <Content Include="js\easyui\themes\black\splitbutton.css" />
     <Content Include="js\easyui\themes\black\switchbutton.css" />
     <Content Include="js\easyui\themes\black\tabs.css" />
+    <Content Include="js\easyui\themes\black\tagbox.css" />
     <Content Include="js\easyui\themes\black\textbox.css" />
     <Content Include="js\easyui\themes\black\tooltip.css" />
     <Content Include="js\easyui\themes\black\tree.css" />
@@ -921,10 +929,13 @@
     <Content Include="js\easyui\themes\bootstrap\images\messager_icons.png" />
     <Content Include="js\easyui\themes\bootstrap\images\pagination_icons.png" />
     <Content Include="js\easyui\themes\bootstrap\images\panel_tools.png" />
+    <Content Include="js\easyui\themes\bootstrap\images\passwordbox_close.png" />
+    <Content Include="js\easyui\themes\bootstrap\images\passwordbox_open.png" />
     <Content Include="js\easyui\themes\bootstrap\images\searchbox_button.png" />
     <Content Include="js\easyui\themes\bootstrap\images\slider_handle.png" />
     <Content Include="js\easyui\themes\bootstrap\images\spinner_arrows.png" />
     <Content Include="js\easyui\themes\bootstrap\images\tabs_icons.png" />
+    <Content Include="js\easyui\themes\bootstrap\images\tagbox_icons.png" />
     <Content Include="js\easyui\themes\bootstrap\images\tree_icons.png" />
     <Content Include="js\easyui\themes\bootstrap\images\validatebox_warning.png" />
     <Content Include="js\easyui\themes\bootstrap\layout.css" />
@@ -935,6 +946,7 @@
     <Content Include="js\easyui\themes\bootstrap\numberbox.css" />
     <Content Include="js\easyui\themes\bootstrap\pagination.css" />
     <Content Include="js\easyui\themes\bootstrap\panel.css" />
+    <Content Include="js\easyui\themes\bootstrap\passwordbox.css" />
     <Content Include="js\easyui\themes\bootstrap\progressbar.css" />
     <Content Include="js\easyui\themes\bootstrap\propertygrid.css" />
     <Content Include="js\easyui\themes\bootstrap\searchbox.css" />
@@ -943,6 +955,7 @@
     <Content Include="js\easyui\themes\bootstrap\splitbutton.css" />
     <Content Include="js\easyui\themes\bootstrap\switchbutton.css" />
     <Content Include="js\easyui\themes\bootstrap\tabs.css" />
+    <Content Include="js\easyui\themes\bootstrap\tagbox.css" />
     <Content Include="js\easyui\themes\bootstrap\textbox.css" />
     <Content Include="js\easyui\themes\bootstrap\tooltip.css" />
     <Content Include="js\easyui\themes\bootstrap\tree.css" />
@@ -972,10 +985,13 @@
     <Content Include="js\easyui\themes\default\images\messager_icons.png" />
     <Content Include="js\easyui\themes\default\images\pagination_icons.png" />
     <Content Include="js\easyui\themes\default\images\panel_tools.png" />
+    <Content Include="js\easyui\themes\default\images\passwordbox_close.png" />
+    <Content Include="js\easyui\themes\default\images\passwordbox_open.png" />
     <Content Include="js\easyui\themes\default\images\searchbox_button.png" />
     <Content Include="js\easyui\themes\default\images\slider_handle.png" />
     <Content Include="js\easyui\themes\default\images\spinner_arrows.png" />
     <Content Include="js\easyui\themes\default\images\tabs_icons.png" />
+    <Content Include="js\easyui\themes\default\images\tagbox_icons.png" />
     <Content Include="js\easyui\themes\default\images\tree_icons.png" />
     <Content Include="js\easyui\themes\default\images\validatebox_warning.png" />
     <Content Include="js\easyui\themes\default\layout.css" />
@@ -986,6 +1002,7 @@
     <Content Include="js\easyui\themes\default\numberbox.css" />
     <Content Include="js\easyui\themes\default\pagination.css" />
     <Content Include="js\easyui\themes\default\panel.css" />
+    <Content Include="js\easyui\themes\default\passwordbox.css" />
     <Content Include="js\easyui\themes\default\progressbar.css" />
     <Content Include="js\easyui\themes\default\propertygrid.css" />
     <Content Include="js\easyui\themes\default\searchbox.css" />
@@ -994,6 +1011,7 @@
     <Content Include="js\easyui\themes\default\splitbutton.css" />
     <Content Include="js\easyui\themes\default\switchbutton.css" />
     <Content Include="js\easyui\themes\default\tabs.css" />
+    <Content Include="js\easyui\themes\default\tagbox.css" />
     <Content Include="js\easyui\themes\default\textbox.css" />
     <Content Include="js\easyui\themes\default\tooltip.css" />
     <Content Include="js\easyui\themes\default\tree.css" />
@@ -1022,10 +1040,13 @@
     <Content Include="js\easyui\themes\gray\images\messager_icons.png" />
     <Content Include="js\easyui\themes\gray\images\pagination_icons.png" />
     <Content Include="js\easyui\themes\gray\images\panel_tools.png" />
+    <Content Include="js\easyui\themes\gray\images\passwordbox_close.png" />
+    <Content Include="js\easyui\themes\gray\images\passwordbox_open.png" />
     <Content Include="js\easyui\themes\gray\images\searchbox_button.png" />
     <Content Include="js\easyui\themes\gray\images\slider_handle.png" />
     <Content Include="js\easyui\themes\gray\images\spinner_arrows.png" />
     <Content Include="js\easyui\themes\gray\images\tabs_icons.png" />
+    <Content Include="js\easyui\themes\gray\images\tagbox_icons.png" />
     <Content Include="js\easyui\themes\gray\images\tree_icons.png" />
     <Content Include="js\easyui\themes\gray\images\validatebox_warning.png" />
     <Content Include="js\easyui\themes\gray\layout.css" />
@@ -1036,6 +1057,7 @@
     <Content Include="js\easyui\themes\gray\numberbox.css" />
     <Content Include="js\easyui\themes\gray\pagination.css" />
     <Content Include="js\easyui\themes\gray\panel.css" />
+    <Content Include="js\easyui\themes\gray\passwordbox.css" />
     <Content Include="js\easyui\themes\gray\progressbar.css" />
     <Content Include="js\easyui\themes\gray\propertygrid.css" />
     <Content Include="js\easyui\themes\gray\searchbox.css" />
@@ -1044,6 +1066,7 @@
     <Content Include="js\easyui\themes\gray\splitbutton.css" />
     <Content Include="js\easyui\themes\gray\switchbutton.css" />
     <Content Include="js\easyui\themes\gray\tabs.css" />
+    <Content Include="js\easyui\themes\gray\tagbox.css" />
     <Content Include="js\easyui\themes\gray\textbox.css" />
     <Content Include="js\easyui\themes\gray\tooltip.css" />
     <Content Include="js\easyui\themes\gray\tree.css" />
@@ -1104,10 +1127,13 @@
     <Content Include="js\easyui\themes\material\images\messager_icons.png" />
     <Content Include="js\easyui\themes\material\images\pagination_icons.png" />
     <Content Include="js\easyui\themes\material\images\panel_tools.png" />
+    <Content Include="js\easyui\themes\material\images\passwordbox_close.png" />
+    <Content Include="js\easyui\themes\material\images\passwordbox_open.png" />
     <Content Include="js\easyui\themes\material\images\searchbox_button.png" />
     <Content Include="js\easyui\themes\material\images\slider_handle.png" />
     <Content Include="js\easyui\themes\material\images\spinner_arrows.png" />
     <Content Include="js\easyui\themes\material\images\tabs_icons.png" />
+    <Content Include="js\easyui\themes\material\images\tagbox_icons.png" />
     <Content Include="js\easyui\themes\material\images\tree_icons.png" />
     <Content Include="js\easyui\themes\material\images\validatebox_warning.png" />
     <Content Include="js\easyui\themes\material\layout.css" />
@@ -1118,6 +1144,7 @@
     <Content Include="js\easyui\themes\material\numberbox.css" />
     <Content Include="js\easyui\themes\material\pagination.css" />
     <Content Include="js\easyui\themes\material\panel.css" />
+    <Content Include="js\easyui\themes\material\passwordbox.css" />
     <Content Include="js\easyui\themes\material\progressbar.css" />
     <Content Include="js\easyui\themes\material\propertygrid.css" />
     <Content Include="js\easyui\themes\material\searchbox.css" />
@@ -1126,6 +1153,7 @@
     <Content Include="js\easyui\themes\material\splitbutton.css" />
     <Content Include="js\easyui\themes\material\switchbutton.css" />
     <Content Include="js\easyui\themes\material\tabs.css" />
+    <Content Include="js\easyui\themes\material\tagbox.css" />
     <Content Include="js\easyui\themes\material\textbox.css" />
     <Content Include="js\easyui\themes\material\tooltip.css" />
     <Content Include="js\easyui\themes\material\tree.css" />
@@ -1154,10 +1182,13 @@
     <Content Include="js\easyui\themes\metro\images\messager_icons.png" />
     <Content Include="js\easyui\themes\metro\images\pagination_icons.png" />
     <Content Include="js\easyui\themes\metro\images\panel_tools.png" />
+    <Content Include="js\easyui\themes\metro\images\passwordbox_close.png" />
+    <Content Include="js\easyui\themes\metro\images\passwordbox_open.png" />
     <Content Include="js\easyui\themes\metro\images\searchbox_button.png" />
     <Content Include="js\easyui\themes\metro\images\slider_handle.png" />
     <Content Include="js\easyui\themes\metro\images\spinner_arrows.png" />
     <Content Include="js\easyui\themes\metro\images\tabs_icons.png" />
+    <Content Include="js\easyui\themes\metro\images\tagbox_icons.png" />
     <Content Include="js\easyui\themes\metro\images\tree_icons.png" />
     <Content Include="js\easyui\themes\metro\images\validatebox_warning.png" />
     <Content Include="js\easyui\themes\metro\layout.css" />
@@ -1168,6 +1199,7 @@
     <Content Include="js\easyui\themes\metro\numberbox.css" />
     <Content Include="js\easyui\themes\metro\pagination.css" />
     <Content Include="js\easyui\themes\metro\panel.css" />
+    <Content Include="js\easyui\themes\metro\passwordbox.css" />
     <Content Include="js\easyui\themes\metro\progressbar.css" />
     <Content Include="js\easyui\themes\metro\propertygrid.css" />
     <Content Include="js\easyui\themes\metro\searchbox.css" />
@@ -1176,6 +1208,7 @@
     <Content Include="js\easyui\themes\metro\splitbutton.css" />
     <Content Include="js\easyui\themes\metro\switchbutton.css" />
     <Content Include="js\easyui\themes\metro\tabs.css" />
+    <Content Include="js\easyui\themes\metro\tagbox.css" />
     <Content Include="js\easyui\themes\metro\textbox.css" />
     <Content Include="js\easyui\themes\metro\tooltip.css" />
     <Content Include="js\easyui\themes\metro\tree.css" />

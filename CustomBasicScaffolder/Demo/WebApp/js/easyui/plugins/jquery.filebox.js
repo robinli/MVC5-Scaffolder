@@ -1,5 +1,5 @@
-﻿/**
- * jQuery EasyUI 1.4.5
+/**
+ * jQuery EasyUI 1.5.1
  * 
  * Copyright (c) 2009-2016 www.jeasyui.com. All rights reserved.
  *
@@ -83,6 +83,10 @@ _7(this);
 return jq.each(function(){
 $(this).filebox("clear");
 });
+},setValue:function(jq){
+return jq;
+},setValues:function(jq){
+return jq;
 }};
 $.fn.filebox.parseOptions=function(_14){
 var t=$(_14);
