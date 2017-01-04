@@ -82,6 +82,20 @@
              console.log($('#product_form').form('getData'));
              console.log($('#product_form').form('getJson'));
              console.log($('#product_form').form('enableValidation').form('validate'));
+             var data = $('#product_form').form('getJson');
+             $.post("/Products/Create", data, function (response) {
+                 //console.log(response);
+                 if (response.success) {
+                     $.messager.alert("提示", "保存成功！");
+
+                 } else {
+                     $.messager.alert("错误", "保存失败！" + response.err,'error');
+                 }
+             }, "JSON").error(function (response) {
+                 //console.log(response);
+                 $.messager.alert("错误", "保存失败！", 'error');
+                 //$dg.datagrid('reload');
+             });
            
 
          }
