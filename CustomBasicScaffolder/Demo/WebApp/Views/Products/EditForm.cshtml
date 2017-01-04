@@ -9,17 +9,17 @@
 @model WebApp.Models.Product
 
 
- @*@Html.HiddenFor(model => model.Id)*@
 
- <!--输出form表单界面-->
- <table class="table table-bordered">
-     <caption>
-     </caption>
-	    <tr>
-      	   <td class="control-label">   @Html.DisplayNameFor(model => model.CategoryId)  </td>
-	   <td> 
-			
-			<input id="@Html.IdFor(model => model.CategoryId)" name="@Html.NameFor(model => model.CategoryId)" class="easyui-combobox" data-options="
+
+<!--输出form表单界面-->
+<table class="table table-bordered">
+    <caption>
+    </caption>
+    <tr>
+        <td class="control-label">   @Html.DisplayNameFor(model => model.CategoryId)  </td>
+        <td>
+
+            <input id="@Html.IdFor(model => model.CategoryId)" name="@Html.NameFor(model => model.CategoryId)" value="@Model.CategoryId" class="easyui-combobox" data-options="
 						valueField: 'Id',
 						textField: 'Name',
 						url: '/Products/GetCategories',
@@ -27,50 +27,49 @@
 						//console.log(item);
 				}">
 
-				   </td>
-	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.Name)  </td>
-	   <td> 
-			
-			  			<input id="@Html.IdFor(model => model.Name)" name="@Html.NameFor(model => model.Name)" tabindex="1" style="width:100%" class="easyui-textbox" type="text" data-options="prompt:'名称',label:'名称:',required:true ,validType:'length[0,50]'" />
-			              
-				   </td>
-	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.Unit)  </td>
-	   <td> 
-			
-			  			<input id="@Html.IdFor(model => model.Unit)" name="@Html.NameFor(model => model.Unit)" tabindex="2" style="width:100%" class="easyui-textbox" type="text" data-options="prompt:'单位',label:'单位:',required:false ,validType:'length[0,10]'" />
-			              
-				   </td>
-	   	   </tr>
-	   	    <tr>
-      	   <td class="control-label">   @Html.DisplayNameFor(model => model.UnitPrice)  </td>
-	   <td> 
-			
-			  			<input id="@Html.IdFor(model => model.UnitPrice)" name="@Html.NameFor(model => model.UnitPrice)" tabindex="3" style="width:100%" class="easyui-numberbox" type="text" data-options="prompt:'单价',label:'单价:',required:true ,precision:2" />
-			              
-				   </td>
-	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.StockQty)  </td>
-	   <td> 
-			
-			  			<input id="@Html.IdFor(model => model.StockQty)" name="@Html.NameFor(model => model.StockQty)" tabindex="4" style="width:100%" class="easyui-numberbox" type="text" data-options="prompt:'库存',label:'库存:',required:true ,precision:0" />
-			              
-				   </td>
-	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.ConfirmDateTime)  </td>
-	   <td> 
-			
-			  			<input id="@Html.IdFor(model => model.ConfirmDateTime)" name="@Html.NameFor(model => model.ConfirmDateTime)" tabindex="5" style="width:100%" class="easyui-datebox" type="text" data-options="prompt:'确认日期',label:'确认日期:',required:true,formatter:dateformatter" />
-			              
-				   </td>
-	   	   </tr>
-	   	        @*<tfoot>
-        <tr>
-           
-        <tr>
-    </tfoot>*@
+        </td>
+        <td class="control-label">   @Html.DisplayNameFor(model => model.Name)  </td>
+        <td>
+
+            <input value="@Model.Name" id="@Html.IdFor(model => model.Name)" name="@Html.NameFor(model => model.Name)" tabindex="1" style="width:100%" class="easyui-textbox" type="text" data-options="prompt:'名称',label:'名称:',required:true ,validType:'length[0,50]'" />
+
+        </td>
+        <td class="control-label">   @Html.DisplayNameFor(model => model.Unit)  </td>
+        <td>
+
+            <input value="@Model.Unit" id="@Html.IdFor(model => model.Unit)" name="@Html.NameFor(model => model.Unit)" tabindex="2" style="width:100%" class="easyui-textbox" type="text" data-options="prompt:'单位',label:'单位:',required:false ,validType:'length[0,10]'" />
+
+        </td>
+    </tr>
+    <tr>
+        <td class="control-label">   @Html.DisplayNameFor(model => model.UnitPrice)  </td>
+        <td>
+
+            <input value="@Model.UnitPrice" id="@Html.IdFor(model => model.UnitPrice)" name="@Html.NameFor(model => model.UnitPrice)" tabindex="3" style="width:100%" class="easyui-numberbox" type="text" data-options="prompt:'单价',label:'单价:',required:true ,precision:2" />
+
+        </td>
+        <td class="control-label">   @Html.DisplayNameFor(model => model.StockQty)  </td>
+        <td>
+
+            <input value="@Model.StockQty"  id="@Html.IdFor(model => model.StockQty)" name="@Html.NameFor(model => model.StockQty)" tabindex="4" style="width:100%" class="easyui-numberbox" type="text" data-options="prompt:'库存',label:'库存:',required:true ,precision:0" />
+
+        </td>
+        <td class="control-label">   @Html.DisplayNameFor(model => model.ConfirmDateTime)  </td>
+        <td>
+         
+            <input value="@Model.ConfirmDateTime"  id="@Html.IdFor(model => model.ConfirmDateTime)" name="@Html.NameFor(model => model.ConfirmDateTime)" tabindex="5" style="width:100%" class="easyui-datebox" type="text" 
+                   data-options="prompt:'确认日期',
+                   label:'确认日期:',
+                   required:true,
+                   formatter:dateformatter" />
+
+        </td>
+    </tr>
+    @*<tfoot>
+            <tr>
+
+            <tr>
+        </tfoot>*@
 </table>
-  <!--输出form表单界面-->
-
+<!--输出form表单界面-->
 <!--========================================================================================-->
-  
-
- 
-

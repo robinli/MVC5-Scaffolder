@@ -122,6 +122,10 @@ namespace WebApp.Controllers
         public ActionResult Create()
         {
             Product product = new Product();
+            product.Unit = "KG";
+            product.UnitPrice = 0;
+            product.ConfirmDateTime = DateTime.Now;
+            product.CategoryId = 1;
             //set default value
             var categoryRepository = _unitOfWork.Repository<Category>();
             ViewBag.CategoryId = new SelectList(categoryRepository.Queryable(), "Id", "Name");

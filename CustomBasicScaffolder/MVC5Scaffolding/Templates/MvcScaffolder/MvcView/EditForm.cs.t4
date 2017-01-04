@@ -65,10 +65,16 @@
 			   string  url = "/" +  ControllerRootName + "/Get" +  relatedModel.EntitySetName ;
 			#>
 
-			<input id="@Html.IdFor(model => model.<#= property.PropertyName #>)" name="@Html.NameFor(model => model.<#= property.PropertyName #>)" class="easyui-combobox" data-options="
+			<input id="@Html.IdFor(model => model.<#= property.PropertyName #>)"
+			       name="@Html.NameFor(model => model.<#= property.PropertyName #>)"
+				   value="@Html.ValueFor(model => model.<#= property.PropertyName #>)"
+				   class="easyui-combobox" data-options="
+						prompt:'<#= prompt  #>' ,
+						label:'<#= displayName #>:' ,
+						required:<#= required #> ,
 						valueField: '<#= relatedPKname #>',
-						textField: '<#= relatedDisplayFieldName #>',
-						url: '<#= url  #>',
+						textField: '<#= relatedDisplayFieldName #>' ,
+						url: '<#= url  #>' ,
 						onSelect: function(item){
 						//console.log(item);
 				}">
@@ -76,13 +82,49 @@
 			<# } else {  #>
 
 			  <# if (property.ShortTypeName=="DateTime") { #>
-			<input id="@Html.IdFor(model => model.<#= property.PropertyName #>)" name="@Html.NameFor(model => model.<#= property.PropertyName #>)" tabindex="<#= colindex.ToString() #>" style="width:100%" class="easyui-datebox" type="text" data-options="prompt:'<#= prompt  #>',label:'<#= displayName #>:',required:<#= required #>,formatter:dateformatter" />
+			<input id="@Html.IdFor(model => model.<#= property.PropertyName #>)" 
+			       name="@Html.NameFor(model => model.<#= property.PropertyName #>)" 
+				   tabindex="<#= colindex.ToString() #>" 
+				   style="width:100%" class="easyui-datebox" 
+				   type="text" 
+				   value="@Html.ValueFor(model => model.<#= property.PropertyName #>)"
+				   data-options="prompt:'<#= prompt  #>',
+								 label:'<#= displayName #>:',
+								 required:<#= required #>,
+								 formatter:dateformatter" />
 			  <# } else if (property.ShortTypeName=="string") { #>
-			<input id="@Html.IdFor(model => model.<#= property.PropertyName #>)" name="@Html.NameFor(model => model.<#= property.PropertyName #>)" tabindex="<#= colindex.ToString() #>" style="width:100%" class="easyui-textbox" type="text" data-options="prompt:'<#= prompt  #>',label:'<#= displayName #>:',required:<#= required #> <#= maxLength #>" />
+			<input id="@Html.IdFor(model => model.<#= property.PropertyName #>)" 
+				   name="@Html.NameFor(model => model.<#= property.PropertyName #>)" 
+				   value="@Html.ValueFor(model => model.<#= property.PropertyName #>)"
+				   tabindex="<#= colindex.ToString() #>" 
+				   style="width:100%" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'<#= prompt  #>',
+								 label:'<#= displayName #>:',
+								 required:<#= required #> <#= maxLength #>" />
 			  <# } else if (property.ShortTypeName=="int" || property.ShortTypeName=="float" || property.ShortTypeName=="decimal")  { #>
-			<input id="@Html.IdFor(model => model.<#= property.PropertyName #>)" name="@Html.NameFor(model => model.<#= property.PropertyName #>)" tabindex="<#= colindex.ToString() #>" style="width:100%" class="easyui-numberbox" type="text" data-options="prompt:'<#= prompt  #>',label:'<#= displayName #>:',required:<#= required #> <#= maxLength #>" />
+			<input id="@Html.IdFor(model => model.<#= property.PropertyName #>)"
+				   name="@Html.NameFor(model => model.<#= property.PropertyName #>)" 
+				   value="@Html.ValueFor(model => model.<#= property.PropertyName #>)"
+				   tabindex="<#= colindex.ToString() #>" 
+				   style="width:100%" 
+				   class="easyui-numberbox" 
+				   type="text" 
+				   data-options="prompt:'<#= prompt  #>',
+								 label:'<#= displayName #>:',
+								 required:<#= required #> <#= maxLength #>" />
 			  <# } else { #>
-            <input id="@Html.IdFor(model => model.<#= property.PropertyName #>)" name="@Html.NameFor(model => model.<#= property.PropertyName #>)" tabindex="<#= colindex.ToString() #>" style="width:100%" class="easyui-textbox" type="text" data-options="prompt:'<#= prompt  #>',label:'<#= displayName #>:',required:<#= required #> <#= maxLength #>" />
+            <input id="@Html.IdFor(model => model.<#= property.PropertyName #>)" 
+					name="@Html.NameFor(model => model.<#= property.PropertyName #>)" 
+					value="@Html.ValueFor(model => model.<#= property.PropertyName #>)"
+					tabindex="<#= colindex.ToString() #>" 
+					style="width:100%" 
+					class="easyui-textbox" 
+					type="text" 
+					data-options="prompt:'<#= prompt  #>',
+					             label:'<#= displayName #>:',
+								 required:<#= required #> <#= maxLength #>" />
 			  <# } #>
             
 			<# } #>

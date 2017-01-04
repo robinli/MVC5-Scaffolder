@@ -1217,6 +1217,7 @@
     <Content Include="js\easyui\themes\mobile.css" />
     <Content Include="js\inspinia.js" />
     <Content Include="js\jquery-2.1.1.js" />
+    <Content Include="js\jquery-form2json.js" />
     <Content Include="js\jquery-ui-1.10.4.min.js" />
     <Content Include="js\jquery-ui.custom.min.js" />
     <Content Include="js\jquery.filer.js" />
