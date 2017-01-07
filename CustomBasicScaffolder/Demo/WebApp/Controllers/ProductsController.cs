@@ -41,8 +41,10 @@ namespace WebApp.Controllers
         public ActionResult Index()
         {
 
-            //var products  = _productService.Queryable().Include(p => p.Category).AsQueryable();
-
+            var products  = _productService.Queryable().Include(p => p.Category).AsQueryable();
+            var rows = products.Select(n => new { CategoryName = (n.Category == null ? "" : n.Category.Name), Id = n.Id, Name = n.Name, Unit = n.Unit, UnitPrice = n.UnitPrice, StockQty = n.StockQty, ConfirmDateTime = n.ConfirmDateTime, CategoryId = n.CategoryId }).ToList();
+            string output = JsonConvert.SerializeObject(rows);
+            ViewData["products"] = output;
             //return View(products);
             return View();
         }

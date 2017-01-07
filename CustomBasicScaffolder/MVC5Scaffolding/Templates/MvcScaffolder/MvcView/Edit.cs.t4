@@ -9,72 +9,9 @@ string boolType = "System.Boolean";
 Version requiredMvcVersion = new Version("5.1.0.0");
 bool isControlHtmlAttributesSupported = MvcVersion >= requiredMvcVersion;
 // The following chained if-statement outputs the file header code and markup for a partial view, a view using a layout page, or a regular view.
-if(IsPartialView) {
 #>
-
-<#
-} else if(IsLayoutPageSelected) {
-#>
-
-@{
-    ViewBag.Title = "<#= PageTitle #> | <#=  ViewName #>"  ;
-<#
-if (!String.IsNullOrEmpty(LayoutPageFile)) {
-#>
-    Layout = "<#= LayoutPageFile #>";
-<#
-}
-#>
-}
-
-
-
-<#
-} else {
-#>
-
-@{
-    Layout = null;
-}
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title><#= PageTitle #> | <#=  ViewName #></title>
-</head>
-<body>
-<#
-    PushIndent("    ");
-}
-#>
-<#
-if (ReferenceScriptLibraries) {
-#>
-<#
-    if (!IsLayoutPageSelected && IsBundleConfigPresent) {
-#>
-@Scripts.Render("~/bundles/jquery")
-@Scripts.Render("~/bundles/jqueryval")
-
-<#
-    }
-#>
-<#
-    else if (!IsLayoutPageSelected) {
-#>
-<script src="~/Scripts/jquery-<#= JQueryVersion #>.min.js"></script>
-<script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-
-<#
-    }
-#>
-
-<#
-}
-#>
+@{  ViewBag.Title = "<#= PageTitle #> | <#=  ViewName #>";}
+ 
 <#
     var modelName =  ModelMetadata.EntitySetName;
 	var primaryKey = ModelMetadata.PrimaryKeys[0].PropertyName;
@@ -94,8 +31,8 @@ if (ReferenceScriptLibraries) {
                     <div class="ibox-content">
                        
 
-@using (Html.BeginForm())
-{
+ <form id="<#= ModelTypeName.ToLower() #>_form" class="easyui-form" method="post" data-options="novalidate:true">
+
     <!--form toolbar-->
     <div id="form_toolbar" style="height:auto" class="datagrid-toolbar">
 
@@ -120,19 +57,17 @@ if (ReferenceScriptLibraries) {
 
 		@Html.ValidationSummary(true, "", new { @class = "text-danger" })
 		</div>
-}
+  </form>
  </div>
         </div>
     </div>
 </div>
 
  
-<#
-if(IsLayoutPageSelected && ReferenceScriptLibraries && IsBundleConfigPresent) {
-#>
+
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+   
     <script type="text/javascript">
 	
     <#  if(GenerateMasterDetailRelationship  && OneToManyModelMetadata.Count >0) { 
@@ -212,29 +147,5 @@ if(IsLayoutPageSelected && ReferenceScriptLibraries && IsBundleConfigPresent) {
   </script>
 
 }
-<#
-}
-#>
-<#
-else if(IsLayoutPageSelected && ReferenceScriptLibraries) {
-#>
-
-<script src="~/Scripts/jquery-<#= JQueryVersion #>.min.js"></script>
-<script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-<#
-}
-#>
-<#
-// The following code closes the tag used in the case of a view using a layout page and the body and html tags in the case of a regular view page
-#>
-<#
-if(!IsPartialView && !IsLayoutPageSelected) {
-    ClearIndent();
-#>
-</body>
-</html>
-<#
-}
-#>
+ 
 <#@ include file="ModelMetadataFunctions.cs.include.t4" #>

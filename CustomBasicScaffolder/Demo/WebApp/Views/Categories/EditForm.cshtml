@@ -18,13 +18,22 @@
 	    <tr>
       	   <td class="control-label">   @Html.DisplayNameFor(model => model.Id)  </td>
 	   <td> 
-						   			<input disabled id="@Html.IdFor(model => model.Id)" name="@Html.NameFor(model => model.Id)" tabindex="0" style="width:100%" class="easyui-numberbox" type="text" data-options="prompt:'Id',label:'Id:',required:true ,precision:0" />
+						   			<input  disabled  id="@Html.IdFor(model => model.Id)" name="@Html.NameFor(model => model.Id)" tabindex="0" style="width:100%" class="easyui-numberbox" type="text" data-options="prompt:'Id',label:'Id:',required:true ,precision:0" />
 			  
 				   </td>
 	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.Name)  </td>
 	   <td> 
 			
-			  			<input id="@Html.IdFor(model => model.Name)" name="@Html.NameFor(model => model.Name)" tabindex="1" style="width:100%" class="easyui-textbox" type="text" data-options="prompt:'产品目录',label:'产品目录:',required:true ,validType:'length[0,50]'" />
+			  			<input id="@Html.IdFor(model => model.Name)" 
+				   name="@Html.NameFor(model => model.Name)" 
+				   value="@Html.ValueFor(model => model.Name)"
+				   tabindex="1" 
+				   style="width:100%" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'产品目录',
+								 label:'产品目录:',
+								 required:true ,validType:'length[0,30]'" />
 			              
 				   </td>
 	   	   </tr>
@@ -68,54 +77,38 @@
                         <tr>
 						@*<th data-options="field:'ck',checkbox:true"></th>*@
 				        
-														<th data-options="field:'Id',width:80"> Id </th>
+														@*<th data-options="field:'Id',width:80"> Id </th>*@
 											
 						
-															<th data-options="field:'Name',width:140,editor:{type:'textbox',options:{required:false} } "> 名称</th>
+															<th data-options="field:'Name',width:140,editor:{type:'textbox',options:{required:true ,validType:'length[0,30]'} } "> 名称</th>
 							
 											
 						
-															<th data-options="field:'Unit',width:140,editor:{type:'textbox',options:{required:false} } "> 单位</th>
+															<th data-options="field:'Unit',width:140,editor:{type:'textbox',options:{required:false ,validType:'length[0,10]'} } "> 单位</th>
 							
 											
 						
-																<th data-options="field:'UnitPrice',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">单价</th>
+																<th data-options="field:'UnitPrice',width:100,align:'right',editor:{type:'numberbox',options:{required:true ,precision:2} } ,sortable:true,resizable:true ">单价</th>
 							
 											
 						
-																<th data-options="field:'StockQty',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">库存</th>
+																<th data-options="field:'StockQty',width:100,align:'right',editor:{type:'numberbox',options:{required:true ,precision:0} } ,sortable:true,resizable:true ">库存</th>
 							
 											
 						
 															<th data-options="field:'ConfirmDateTime',width:160,align:'right',editor:{type:'datebox',options:{required:true}} ,formatter:dateformatter"> 确认日期</th>
 							
 											
-														<th data-options="field:'CategoryId',width:100,
-												formatter:function(value,row){
-													return row.CategoryName;
-												},
-												editor:{
-													type:'combobox',
-													options:{
-														valueField:'Id',
-														textField:'Name',
-														method:'get',
-														url:'/Categories/GetCategories',
-														required:false
-														}
-												}"> 产品类别 </th>
-
-           
 											                           
                         </tr>
                     </thead>
                 </table>
 
 				<div id="products_toolbar" style="height:auto">
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="products_append()">Append</a>
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="products_removeit()">Remove</a>
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="products_accept()">Accept</a>
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="products_reject()">Reject</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="products_append()">新增</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="products_removeit()">删除</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="products_accept()">保持</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="products_reject()">取消</a>
                    
                 </div>
 
@@ -131,6 +124,8 @@
  <script type="text/javascript">
 	
 	    
+	//==============$('#products_datagrid')=================// 
+    var $productsdatagrid = $('#products_datagrid')
 	var productseditIndex = undefined;
     function products_endEditing() {
         if ( productseditIndex == undefined) { return true }

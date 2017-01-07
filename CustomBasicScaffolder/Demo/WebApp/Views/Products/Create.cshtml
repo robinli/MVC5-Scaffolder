@@ -7,12 +7,7 @@
 
 
 @model WebApp.Models.Product
-
-@{
-    ViewBag.Title = "Product | Create";
-}
-
-
+@{  ViewBag.Title = "Product | Create";}
 
 
 <div class="row">
@@ -30,19 +25,18 @@
                     <div class="ibox-content">
                  
 
-                        <form id="product_form" class="easyui-form" method="post" data-options="novalidate:true">
-                    
+                        <form id="product_form" class="easyui-form" method="post" data-options="novalidate:true,ajax:true">
                             <!--form toolbar-->
                             <div id="form_toolbar" style="height:auto" class="datagrid-toolbar">
 
                                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="append()">新增</a>
                                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
-                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="save()">保存</a>
+                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="savedata()">保存</a>
                                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="cancel()">取消</a>
 
                                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-paperclip',plain:true" onclick="importexcel()">EXCEL 导入</a>
                                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-download-alt',plain:true" onclick="exportexcel()">导出 Excel</a>
-                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="reload()">刷新</a>
+                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="refresh()">刷新</a>
                             </div>
                             <!--form toolbar-->
                             @*@Html.AntiForgeryToken()*@
@@ -57,60 +51,60 @@
                                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                             </div>
 
+                        </form>		 
 
-                 </form>
-</div>
+    </div>
         </div>
     </div>
 </div>
+
 
 @section Scripts {
  
      <script type="text/javascript">
 
+	 function append() {
 
-         //保存
-         function save() {
+        }
+        function removeit() {
+        }
+        function savedata() {
+            //console.log($('#product_form').form('enableValidation').form('validate'));
+            if ($('#product_form').form('enableValidation').form('validate')) {
+                 var data = $('#product_form').form('getJson');						
+                 $.post("/Products/Create", data, function (response) {						
+                     //console.log(response);						
+                     if (response.success) {						
+                         $.messager.alert("提示", "保存成功！");						
+						
+                     } else {						
+                         $.messager.alert("错误", "保存失败！" + response.err, 'error');						
+                     }						
+                 }, "JSON").error(function (response) {						
+                     //console.log(response);						
+                     $.messager.alert("错误", "保存失败！", 'error');						
+                     //$dg.datagrid('reload');						
+                 });						
+             }						
 
-             //$('form').form('submit', {
-             //    onSubmit: function () {
-             //        return $(this).form('enableValidation').form('validate');
-             //    }
-             //});
 
-             console.log($('#product_form').form2json());
-             console.log($('#product_form').form('getData'));
-             console.log($('#product_form').form('getJson'));
-             console.log($('#product_form').form('enableValidation').form('validate'));
-             var data = $('#product_form').form('getJson');
-             $.post("/Products/Create", data, function (response) {
-                 //console.log(response);
-                 if (response.success) {
-                     $.messager.alert("提示", "保存成功！");
+        }
+        function cancel() {
 
-                 } else {
-                     $.messager.alert("错误", "保存失败！" + response.err,'error');
-                 }
-             }, "JSON").error(function (response) {
-                 //console.log(response);
-                 $.messager.alert("错误", "保存失败！", 'error');
-                 //$dg.datagrid('reload');
-             });
-           
+        }
+        function importexcel() {
 
-         }
+        }
+        function exportexcel() {
+        }
+        function refresh() {
 
-         //取消
-         function cancel() {
+        }
 
-         }
+
      
-     
-     
-     
-     
-     
-     </script>
+            </script>
 
 
 }
+ 

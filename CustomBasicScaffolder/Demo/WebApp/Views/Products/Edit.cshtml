@@ -7,14 +7,8 @@
 
 
 @model WebApp.Models.Product
-
-@{
-    ViewBag.Title = "Product | Edit"  ;
-}
-
-
-
-
+@{  ViewBag.Title = "Product | Edit";}
+ 
 <div class="row">
             <div class="col-md-12">
                 <div class="ibox float-e-margins">
@@ -30,8 +24,8 @@
                     <div class="ibox-content">
                        
 
-@using (Html.BeginForm())
-{
+ <form id="product_form" class="easyui-form" method="post" data-options="novalidate:true">
+
     <!--form toolbar-->
     <div id="form_toolbar" style="height:auto" class="datagrid-toolbar">
 
@@ -56,7 +50,7 @@
 
 		@Html.ValidationSummary(true, "", new { @class = "text-danger" })
 		</div>
-}
+  </form>
  </div>
         </div>
     </div>
@@ -64,10 +58,12 @@
 
  
 
+
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+   
     <script type="text/javascript">
 	
       </script>
 
 }
+ 

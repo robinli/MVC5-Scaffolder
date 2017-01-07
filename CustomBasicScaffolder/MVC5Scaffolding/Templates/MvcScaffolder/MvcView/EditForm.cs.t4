@@ -22,7 +22,7 @@
 		string prompt = item.Prompt;
 		string displayName = item.Name;
 		string description = item.Description;
-		var property = ModelMetadata.Properties.Where(n=>n.PropertyName==item.FieldName && !n.IsAssociation).FirstOrDefault();
+		var property = ModelMetadata.Properties.Where(n=>n.PropertyName==item.FieldName && !n.IsAssociation ).FirstOrDefault();
 		if(property==null) continue;
 
 		var isRequired = false;
@@ -218,15 +218,25 @@
 							foreach (PropertyMetadata subproperty in subproperties) {
 									var tdalign=subproperty.ShortTypeName=="string"?"left":"right";
 									var fieldtypename = subproperty.ShortTypeName;
+
+									var isRequired = false;
+									fieldRequired.TryGetValue(subproperty.PropertyName, out isRequired);
+									string required = isRequired.ToString().ToLower();
+									string maxLength = string.Empty;
+									fieldMaxLength.TryGetValue(subproperty.PropertyName,out maxLength);
+
+
 									if (subproperty.Scaffold && !subproperty.IsAssociation) {
 						#>
 
 						<# if ( subproperty.IsPrimaryKey || subproperty.IsReadOnly) { #>
-								<th data-options="field:'<#= subproperty.PropertyName  #>',width:80"> <#=  GetDisplayName(subproperty.PropertyName) #> </th>
+								@*<th data-options="field:'<#= subproperty.PropertyName  #>',width:80"> <#=  GetDisplayName(subproperty.PropertyName) #> </th>*@
 						<# } else if (subproperty.IsForeignKey) { 
+
 								string foreignKeyPropertyName = subproperty.PropertyName;
 								RelatedModelMetadata relatedModel = childrenmodelmeta.RelatedEntities.Where(x=>x.ForeignKeyPropertyNames[0]==foreignKeyPropertyName).First();
-								
+								string relatedtypeName = relatedModel.ShortTypeName;
+								if(relatedtypeName != ModelTypeName ) {
 						#>
 								<th data-options="field:'<#= foreignKeyPropertyName  #>',width:100,
 												formatter:function(value,row){
@@ -239,17 +249,17 @@
 														textField:'<#= relatedModel.DisplayPropertyName   #>',
 														method:'get',
 														url:'/<#= ControllerRootName #>/Get<#=  relatedModel.EntitySetName  #>',
-														required:false
+														required:<#= required  #> <#= maxLength #>
 														}
 												}"> <#= GetDisplayName(foreignKeyPropertyName) #> </th>
 
            
-						<# } else { #>
+						<# } } else { #>
 
 							<#
 								if(fieldtypename=="string") {
 							#>
-								<th data-options="field:'<#= subproperty.PropertyName #>',width:140,editor:{type:'textbox',options:{required:false} } "> <#= GetDisplayName(subproperty.PropertyName) #></th>
+								<th data-options="field:'<#= subproperty.PropertyName #>',width:140,editor:{type:'textbox',options:{required:<#= required  #> <#= maxLength #>} } "> <#= GetDisplayName(subproperty.PropertyName) #></th>
 							<# } else if(fieldtypename=="int" || fieldtypename=="float"|| fieldtypename=="decimal") {
 									if(subproperty.PropertyName=="Status") {
 						    #>
@@ -260,9 +270,9 @@
                                                     data: [ { value: '0', text: '启用' },{ value: '1', text: '禁用' } ],
                                                     required:true } }  ,formatter:statusformatter"><#= GetDisplayName(subproperty.PropertyName) #></th>
 							<#   } else {  #>
-									<th data-options="field:'<#=  subproperty.PropertyName  #>',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true "><#= GetDisplayName(subproperty.PropertyName) #></th>
+									<th data-options="field:'<#=  subproperty.PropertyName  #>',width:100,align:'right',editor:{type:'numberbox',options:{required:<#= required  #> <#= maxLength #>} } ,sortable:true,resizable:true "><#= GetDisplayName(subproperty.PropertyName) #></th>
 							<#   }   } else if(fieldtypename=="DateTime" ) { #>
-								<th data-options="field:'<#=  subproperty.PropertyName  #>',width:160,align:'right',editor:{type:'datebox',options:{required:true}} ,formatter:dateformatter"> <#= GetDisplayName(subproperty.PropertyName) #></th>
+								<th data-options="field:'<#=  subproperty.PropertyName  #>',width:160,align:'right',editor:{type:'datebox',options:{required:<#= required  #>}} ,formatter:dateformatter"> <#= GetDisplayName(subproperty.PropertyName) #></th>
 							<# } else if(fieldtypename=="bool" || fieldtypename=="Boolean" ){ #>
 								<th data-options="field:'<#= subproperty.PropertyName #>',width:120,editor: {type:'combobox'
                                                 ,options:{
@@ -318,6 +328,8 @@
 				var submodelmetadata =  item.Value;
 				var editindex = detailnamevar + "editIndex";
       #>  
+	//==============$('#<#= detailnamevar  #>_datagrid')=================// 
+    var <#= boostraptablevar #> = $('#<#= detailnamevar  #>_datagrid')
 	var <#= editindex #> = undefined;
     function <#= detailnamevar #>_endEditing() {
         if ( <#= editindex #> == undefined) { return true }

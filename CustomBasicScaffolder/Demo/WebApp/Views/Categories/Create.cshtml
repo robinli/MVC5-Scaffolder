@@ -7,12 +7,7 @@
 
 
 @model WebApp.Models.Category
-
-@{
-    ViewBag.Title = "Category | Create";
-}
-
-
+@{  ViewBag.Title = "Category | Create";}
 
 
 <div class="row">
@@ -30,19 +25,18 @@
                     <div class="ibox-content">
                  
 
-@using (Html.BeginForm()) 
-{
+    <form id="category_form" class="easyui-form" method="post" data-options="novalidate:true">
     <!--form toolbar-->
     <div id="form_toolbar" style="height:auto" class="datagrid-toolbar">
 
         <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="append()">新增</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">保存</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">取消</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="savedata()">保存</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="cancel()">取消</a>
 
         <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-paperclip',plain:true" onclick="importexcel()">EXCEL 导入</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-download-alt',plain:true" onclick="exportexcel()">导出 Excel</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="reload()">刷新</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="refresh()">刷新</a>
     </div>
     <!--form toolbar-->
        @*@Html.AntiForgeryToken()*@
@@ -57,67 +51,72 @@
 		@Html.ValidationSummary(true, "", new { @class = "text-danger" })
 		</div>
 	 
-		 
-}
+     </form>		 
+
     </div>
         </div>
     </div>
 </div>
 
+
 @section Scripts {
  
      <script type="text/javascript">
-     
-    		var categoryid = 0;
-		var ObjectState = "Added";  
-                                 
-             var $productsdatagrid = $('#products_datagrid');
-                        $(document).ready(function () {
 
-                $('form').submit(function () {
-					if (!$('form').valid())
-						return false;
-                    //var token = $('[name=__RequestVerificationToken]').val();
-                    //var serializedForm = $(this).serialize();
-                    var actionurl = $(this).attr('action');
-                     
+	 function append() {
+
+        }
+        function removeit() {
+        }
+        function savedata() {
+
+			   if ($('#category_form').form('enableValidation').form('validate')) {						
+                 var data = $('#category_form').form('getJson');
+				  				  //获取明细表数据
+				   
 						if (!products_endEditing())
 								return false;                    
                         var products = $productsdatagrid.datagrid('getChanges');
-                                        
-                     var newitem = {
-                        								//primaryKey
-								Id: categoryid,
-                                                        Name: $('#Name', 'form').val(),
-                        								//detailTables
-                                Products: products ,
-                                                ObjectState:ObjectState 
-                    };
-                    $.ajax({
-                        url: actionurl,
-                        type: "POST",
-                        dataType: "json",
-                        contentType: "application/json; charset=utf-8",
-                        data: JSON.stringify(newitem),
-                        success: function (result) {
-                            if (result.success) {
-                                self.location = "/Categories/Index";
-                            } else {
-                                alert(result.err);
-                            }
-                            
-                        },
-                        error: function (result) {
-                            console.log(result.statusText + result.responseText);
-                            alert(result.statusText + result.responseText);
-                        }
-                    });
-                    return false;
-                    
+						
+						data.Products = products ;
+				  
+				  
 
-                });
-            });
-          </script>
+				  				  						
+                 $.post("/Categories/Create", data, function (response) {						
+                     //console.log(response);						
+                     if (response.success) {						
+                         $.messager.alert("提示", "保存成功！");						
+						
+                     } else {						
+                         $.messager.alert("错误", "保存失败！" + response.err, 'error');						
+                     }						
+                 }, "JSON").error(function (response) {						
+                     //console.log(response);						
+                     $.messager.alert("错误", "保存失败！", 'error');						
+                     //$dg.datagrid('reload');						
+                 });						
+             }						
+
+
+        }
+        function cancel() {
+
+        }
+        function importexcel() {
+
+        }
+        function exportexcel() {
+        }
+        function refresh() {
+
+        }
+
+
+     
+     
+        </script>
 
 
 }
+ 
