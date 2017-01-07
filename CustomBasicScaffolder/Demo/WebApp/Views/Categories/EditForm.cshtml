@@ -5,7 +5,6 @@
 
 
 
-
 @model WebApp.Models.Category
 
 
@@ -130,14 +129,6 @@
     function products_endEditing() {
         if ( productseditIndex == undefined) { return true }
         if ($productsdatagrid.datagrid('validateRow', productseditIndex)) {
-			            var ed = $productsdatagrid.datagrid('getEditor', { index: productseditIndex, field: 'CategoryId' });
-            var CategoryName = $(ed.target).combobox('getText');
-            var CategoryId = $(ed.target).combobox('getValue');
-          
-            $productsdatagrid.datagrid('getRows')[productseditIndex]['CategoryName'] = CategoryName;
-            $productsdatagrid.datagrid('getRows')[productseditIndex]['CategoryId'] = CategoryId;
-            
-            
 						$productsdatagrid.datagrid('endEdit', productseditIndex);
             productseditIndex = undefined;
 

@@ -121,4 +121,9 @@ bool HasRelatedMasterModelWithForeignKey(Microsoft.AspNet.Scaffolding.Core.Metad
 	return modelMdetadata.RelatedEntities.Where(n => n.ForeignKeyPropertyNames[0] == propertyName && n.TypeName == masterModelTypeName).Any();
 }
 
+
+bool HasRelatedMasterModelByForeignKey(Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata modelMdetadata,string propertyName,string masterModelTypeName){
+ 
+	return modelMdetadata.RelatedEntities.Where(n => n.ForeignKeyPropertyNames[0] == propertyName && n.TypeName == masterModelTypeName).Any();
+}
 #>

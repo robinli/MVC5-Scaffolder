@@ -293,8 +293,12 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                         , modelType
                         , detailModelMeta
                         , modelDisplayNames
-
-                        , codeGeneratorViewModel.OverwriteViews);
+                        , codeGeneratorViewModel.OverwriteViews
+                        , fieldRequired: fieldRequired as Dictionary<string, bool>
+                        , fieldMaxLength: fieldMaxLength as Dictionary<string, string>
+                        , FromLayoutCols: formcols
+                        , FieldDisplayAttribute: fieldDisplayAttribute
+                    );
                 }
             }
 
@@ -452,8 +456,11 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             , CodeType modelType
             , ModelMetadata efMetadata
             , IDictionary<string, string> modelDisplayNames
-
             , bool overwrite = false
+            , Dictionary<string, bool> fieldRequired = null
+            , Dictionary<string, string> fieldMaxLength=null
+            , int FromLayoutCols = 2
+            , IList<DisplayAttributeViewModel> FieldDisplayAttribute = null
            )
         {
 
@@ -473,13 +480,18 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 , {"ViewDataTypeName", viewDataTypeName}
                 , {"ModelDisplayNames",modelDisplayNames}
                 ,{"MasterModelTypeName" , masterModelTypeName}
+                ,{"ModelTypeName" , modelTypeName}
                 , {"IsPartialView" , true}
+                , {"fieldRequired" , fieldRequired}
+                , {"fieldMaxLength" , fieldMaxLength}
+                , {"FromLayoutCols" , FromLayoutCols}
+                , {"FieldDisplayAttribute" , FieldDisplayAttribute}
             };
-            AddFileFromTemplate(project: project
-                , outputPath: outputPath
-                , templateName: templatePath
-                , templateParameters: templateParams
-                , skipIfExists: true);
+            //AddFileFromTemplate(project: project
+            //    , outputPath: outputPath
+            //    , templateName: templatePath
+            //    , templateParameters: templateParams
+            //    , skipIfExists: true);
         }
         private Dictionary<string, string> GetOneToManyAnonymousObjTextDic(Dictionary<string, ModelMetadata> oneToManyModels)
         {

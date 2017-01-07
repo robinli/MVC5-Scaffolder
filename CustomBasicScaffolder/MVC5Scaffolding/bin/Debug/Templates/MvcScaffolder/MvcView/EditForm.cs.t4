@@ -340,7 +340,8 @@
                 {
 					var fkeyname=relmodelm.ShortTypeName +  relmodelm.PrimaryKeyNames[0];
 					var fdispname = relmodelm.ShortTypeName + relmodelm.DisplayPropertyName;
-
+					string relatedtypeName = relmodelm.ShortTypeName;
+				    if(relatedtypeName != ModelTypeName ) {
 			#>
             var ed = <#= boostraptablevar #>.datagrid('getEditor', { index: <#= editindex #>, field: '<#= fkeyname #>' });
             var <#= fdispname #> = $(ed.target).combobox('getText');
@@ -351,7 +352,7 @@
             
             
 			<# 
-                }
+               } }
 			#>
 			<#= boostraptablevar #>.datagrid('endEdit', <#= editindex #>);
             <#= editindex #> = undefined;
