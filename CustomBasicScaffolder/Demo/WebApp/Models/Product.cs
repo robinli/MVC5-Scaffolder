@@ -19,6 +19,8 @@ namespace WebApp.Models
         public int StockQty { get; set; }
         public DateTime? ConfirmDateTime { get; set; }
 
+        public bool IsRequiredQc { get; set; }
+
         public int CategoryId { get; set; }
 
 

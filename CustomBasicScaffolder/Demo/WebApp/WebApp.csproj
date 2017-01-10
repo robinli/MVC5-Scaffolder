@@ -280,6 +280,10 @@
     <Compile Include="Migrations\201701030944240_update1.Designer.cs">
       <DependentUpon>201701030944240_update1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701101105510_qc.cs" />
+    <Compile Include="Migrations\201701101105510_qc.Designer.cs">
+      <DependentUpon>201701101105510_qc.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -2166,7 +2170,6 @@
     <Content Include="Views\MenuItems\_MenuItemEditForm.cshtml" />
     <Content Include="Views\Shared\_QuickNavbar.cshtml" />
     <Content Include="Views\Shared\_ImportWindow.cshtml" />
-    <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\Products\Create.cshtml" />
     <Content Include="Views\Products\Edit.cshtml" />
     <Content Include="Views\Products\EditForm.cshtml" />
@@ -2174,6 +2177,7 @@
     <Content Include="Views\Categories\Create.cshtml" />
     <Content Include="Views\Categories\Edit.cshtml" />
     <Content Include="Views\Categories\EditForm.cshtml" />
+    <Content Include="Views\Products\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Source\Repository.Pattern.Ef6\Repository.Pattern.Ef6.csproj">
@@ -2225,6 +2229,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701030944240_update1.resx">
       <DependentUpon>201701030944240_update1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701101105510_qc.resx">
+      <DependentUpon>201701101105510_qc.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

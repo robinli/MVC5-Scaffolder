@@ -32,8 +32,10 @@ namespace WebApp.Models
 
         [Display(Name = "库存", ShortName = "库存", AutoGenerateField = true, AutoGenerateFilter = true, Order = 6, Prompt = "库存")]
         public int StockQty { get; set; }
+        [Display(Name = "是否需要QC", ShortName = "QC", AutoGenerateField = true, AutoGenerateFilter = true, Order = 7, Prompt = "是否需要QC")]
+        public bool IsRequiredQc { get; set; }
 
-        [Display(Name = "确认日期", ShortName = "确认日期", AutoGenerateField = true, AutoGenerateFilter = true, Order = 7, Prompt = "确认日期")]
+        [Display(Name = "确认日期", ShortName = "确认日期", AutoGenerateField = true, AutoGenerateFilter = true, Order = 8, Prompt = "确认日期")]
         public DateTime ConfirmDateTime { get; set; }
 
         [Required(ErrorMessage = "Please enter : 产品类别")]

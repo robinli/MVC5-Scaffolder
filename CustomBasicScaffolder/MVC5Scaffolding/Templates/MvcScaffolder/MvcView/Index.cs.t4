@@ -48,8 +48,12 @@ IEnumerable<PropertyMetadata> properties = ModelMetadata.Properties;
 foreach (PropertyMetadata property in properties) {
         var tdalign=property.ShortTypeName=="string"?"left":"right";
 		var fieldtypename = property.ShortTypeName;
-		
-	    var isRequired = false;
+		var fieldDisplayAttribute = FieldDisplayAttribute.Where(x=>x.EntityTypeName == ModelTypeName && x.FieldName==property.PropertyName).FirstOrDefault();
+	    string prompt="";
+		if(fieldDisplayAttribute!=null){
+		     prompt = fieldDisplayAttribute.Prompt;
+		}
+		var isRequired = false;
 	
 		fieldRequired.TryGetValue(property.PropertyName, out isRequired);
 		var maxLength =string.Empty;
@@ -69,13 +73,14 @@ foreach (PropertyMetadata property in properties) {
 			   string foreignKeyPropertyName = property.PropertyName;
 			   RelatedModelMetadata relatedModel = GetRelatedModelMetadata(foreignKeyPropertyName,ModelMetadata);
 		#>
-			<th data-options="field:'<#= foreignKeyPropertyName  #>',width:100,sortable:true,resizable:true, 
+			<th data-options="field:'<#= foreignKeyPropertyName  #>' ,width:100,sortable:true,resizable:true, 
                         formatter:function(value,row){
                             return row.<#= GetRelatedDisplayNameExpression(foreignKeyPropertyName,ModelMetadata)  #>;
                         },
                         editor:{
                             type:'combobox',
                             options:{
+							    prompt:'<#= prompt #>' ,
                                 valueField:'<#= relatedModel.PrimaryKeyNames[0]  #>',
                                 textField:'<#= relatedModel.DisplayPropertyName   #>',
                                 method:'get',
@@ -90,13 +95,14 @@ foreach (PropertyMetadata property in properties) {
 		<#
 			if(fieldtypename=="string") {
 		#>
-		     <th data-options="field:'<#= property.PropertyName #>',width:140,editor:{type:'textbox',options:{required:<#= isRequired.ToString().ToLower() #> <#= maxLength #>  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
+		     <th data-options="field:'<#= property.PropertyName #>' ,width:140,editor:{type:'textbox',options:{prompt:'<#= prompt #>' ,required:<#= isRequired.ToString().ToLower() #> <#= maxLength #>  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
 		<# } else if(fieldtypename=="int" || fieldtypename=="float"|| fieldtypename=="decimal") {
 		     if(property.PropertyName=="Status") {
 		#>
-			 <th data-options="field:'<#= property.PropertyName #>',width:100,align:'right',
+			 <th data-options="field:'<#= property.PropertyName #>' ,width:100,align:'right',
                                                 editor:{ type:'combobox',
                                                  options:{
+												    prompt:'<#= prompt #>' ,
                                                     panelHeight: 'auto',
                                                     data: [ { value: 0, text: '启用' },
 															{ value: 1, text: '禁用' } ],
@@ -115,18 +121,22 @@ foreach (PropertyMetadata property in properties) {
 														}
 			                                     }">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
 		<#   } else {  #>
-		     <th data-options="field:'<#=  property.PropertyName  #>',width:100,align:'right',editor:{type:'numberbox',options:{required:<#= isRequired.ToString().ToLower() #>  <#= maxLength #> } } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
+		     <th data-options="field:'<#=  property.PropertyName  #>' ,width:100,align:'right',editor:{type:'numberbox',options:{prompt:'<#= prompt #>' ,required:<#= isRequired.ToString().ToLower() #>  <#= maxLength #> } } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
 		<#   }   } else if(fieldtypename=="DateTime" ) {
 		#>
-		     <th data-options="field:'<#=  property.PropertyName  #>',width:160,align:'right',editor:{type:'datebox',options:{required:<#= isRequired.ToString().ToLower() #>    }  },sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
+		     <th data-options="field:'<#=  property.PropertyName  #>',width:160,align:'right',editor:{type:'datebox',options:{prompt:'<#= prompt #>' ,required:<#= isRequired.ToString().ToLower() #>    }  },sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
 		<# } else if(fieldtypename=="bool" || fieldtypename=="Boolean" ){ #>
+			 <th data-options="field:'<#= property.PropertyName #>' ,width:120,align:'center',editor:{type:'checkbox',options:{prompt:'<#= prompt #>',on:'true',off:'false',required:<#= isRequired.ToString().ToLower() #>} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
+		
+		<# }  else  if ( fieldtypename=="bool" ) { #>
 			 <th data-options="field:'<#= property.PropertyName #>',width:120,editor: {type:'combobox'
                                                 ,options:{
+												prompt:'<#= prompt #>' ,
                                                 panelHeight: 'auto',
                                                 data: [ { value: 'true', text: 'true' },{ value: 'false', text: 'false' } ],
                                                 required:<#= isRequired.ToString().ToLower() #>}}">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
 		<# } else { #>
-			<th data-options="field:'<#= property.PropertyName #>',width:120,editor:{type:'textbox',options:{required:<#= isRequired.ToString().ToLower() #>   <#= maxLength #>} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
+			<th data-options="field:'<#= property.PropertyName #>' ,width:120,editor:{type:'textbox',options:{prompt:'<#= prompt #>' , required:<#= isRequired.ToString().ToLower() #>   <#= maxLength #>} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
 		<# } #>
 
         <#            } #>
