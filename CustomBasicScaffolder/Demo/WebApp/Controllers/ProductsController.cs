@@ -16,7 +16,7 @@ using WebApp.Models;
 using WebApp.Services;
 using WebApp.Repositories;
 using WebApp.Extensions;
-
+using Z.EntityFramework.Plus;
 
 namespace WebApp.Controllers
 {
@@ -40,6 +40,12 @@ namespace WebApp.Controllers
         // GET: Products/Index
         public ActionResult Index()
         {
+            string commandText = string.Empty;
+            var query = _productService.Queryable()
+                .Where(x => x.Id > 12)
+                .Update(x => new Product() { Name = "UpdateWithBatch" }
+                            , x => { x.Executing = command => commandText = command.CommandText; });
+            var q=_productService.Queryable().IncludeFilter(x=>x.Category.Name="")
 
             var products  = _productService.Queryable().Include(p => p.Category).AsQueryable();
             var rows = products.Select(n => new { CategoryName = (n.Category == null ? "" : n.Category.Name), Id = n.Id, Name = n.Name, Unit = n.Unit, UnitPrice = n.UnitPrice, StockQty = n.StockQty, ConfirmDateTime = n.ConfirmDateTime, CategoryId = n.CategoryId }).ToList();
