@@ -30,12 +30,12 @@
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="panel-body">
-                                    <ul class="list-group elements-list ">
+                                    <ul class="list-group elements-list">
                                         @foreach (var item in ViewBag.Roles)
                                         {
                                             <li class="list-group-item">
                                                 <span class="badge">@item.Count</span>
-                                                <span>@item.RoleName</span>
+                                                <strong>@item.RoleName</strong>
                                             </li>
                                         }
 
@@ -251,7 +251,8 @@
                     $('.list-group-item').removeClass('active');
                     $(this).addClass('active');
                     $currenitem = $(this);
-                    selectedrole = $(this).children("span:eq(1)").text();
+                    console.log($currenitem.children("strong:eq(0)"));
+                    selectedrole = $(this).children("strong:eq(0)").text();
                     //console.log($(this).children("span:eq(1)").text());
                     $.get('/RoleMenus/GetMenus', { roleName: selectedrole }, function (data, status, q) {
                         $('#menu-tree').treegrid('uncheckAll');
