@@ -37,5 +37,8 @@ namespace WebApp.Models
 
         public bool Import { get; set; }
         public bool Export { get; set; }
+        public bool FunctionPoint1 { get; set; }
+        public bool FunctionPoint2 { get; set; }
+        public bool FunctionPoint3 { get; set; }
     }
 }

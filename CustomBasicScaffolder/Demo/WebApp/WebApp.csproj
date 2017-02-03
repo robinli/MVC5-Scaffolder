@@ -288,6 +288,10 @@
     <Compile Include="Migrations\201701101105510_qc.Designer.cs">
       <DependentUpon>201701101105510_qc.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702030543209_addfunctionpoint.cs" />
+    <Compile Include="Migrations\201702030543209_addfunctionpoint.Designer.cs">
+      <DependentUpon>201702030543209_addfunctionpoint.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -2236,6 +2240,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701101105510_qc.resx">
       <DependentUpon>201701101105510_qc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702030543209_addfunctionpoint.resx">
+      <DependentUpon>201702030543209_addfunctionpoint.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

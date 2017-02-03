@@ -61,6 +61,10 @@ namespace WebApp.Services
                     rm.Delete = item.Delete;
                     rm.Edit = item.Edit;
                     rm.Import = item.Import;
+                    rm.Export = item.Export;
+                    rm.FunctionPoint1 = item.FunctionPoint1;
+                    rm.FunctionPoint2 = item.FunctionPoint2;
+                    rm.FunctionPoint3 = item.FunctionPoint3;
                     Insert(rm);
                 }
             }
