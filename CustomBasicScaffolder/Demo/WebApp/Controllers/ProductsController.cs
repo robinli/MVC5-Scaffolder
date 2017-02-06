@@ -56,7 +56,7 @@ namespace WebApp.Controllers
         }
 
         // Get :Products/PageList
-        // For Index View Boostrap-Table load  data 
+        // For Index View Boostrap-Table load  data  
         [HttpGet]
         public ActionResult GetData(int page = 1, int rows = 10, string sort = "Id", string order = "asc", string filterRules = "")
         {
