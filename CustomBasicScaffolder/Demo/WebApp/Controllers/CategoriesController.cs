@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
@@ -38,30 +39,37 @@ namespace WebApp.Controllers
         }
 
         // GET: Categories/Index
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
 
-            //var categories  = _categoryService.Queryable().AsQueryable();
-            //return View(categories  );
-            return View();
+            var categories = _categoryService.Queryable();
+            return View(await categories.ToListAsync());
+
         }
 
         // Get :Categories/PageList
         // For Index View Boostrap-Table load  data 
         [HttpGet]
-        public ActionResult GetData(int page = 1, int rows = 10, string sort = "Id", string order = "asc", string filterRules = "")
+        public async Task<ActionResult> GetData(int page = 1, int rows = 10, string sort = "Id", string order = "asc", string filterRules = "")
         {
             var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
             int totalCount = 0;
             //int pagenum = offset / limit +1;
-            var categories = _categoryService.Query(new CategoryQuery().Withfilter(filters)).OrderBy(n => n.OrderBy(sort, order)).SelectPage(page, rows, out totalCount);
+            var categories = await _categoryService
+.Query(new CategoryQuery()
+.Withfilter(filters))
+.OrderBy(n => n.OrderBy(sort, order))
+.SelectPage(page, rows, out totalCount)
+.AsQueryable()
+.ToListAsync();
+
             var datarows = categories.Select(n => new { Id = n.Id, Name = n.Name }).ToList();
             var pagelist = new { total = totalCount, rows = datarows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public ActionResult SaveData(CategoryChangeViewModel categories)
+        public async Task<ActionResult> SaveData(CategoryChangeViewModel categories)
         {
             if (categories.updated != null)
             {
@@ -84,29 +92,31 @@ namespace WebApp.Controllers
                     _categoryService.Insert(inserted);
                 }
             }
-            _unitOfWork.SaveChanges();
+            await _unitOfWork.SaveChangesAsync();
 
             return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
         }
 
 
-        public ActionResult GetCategories()
+        public async Task<ActionResult> GetCategories()
         {
-            var categoryRepository = _unitOfWork.Repository<Category>();
-            var data = categoryRepository.Queryable().ToList();
+            var categoryRepository = _unitOfWork.RepositoryAsync<Category>();
+            var data = await categoryRepository.Queryable().ToListAsync();
             var rows = data.Select(n => new { Id = n.Id, Name = n.Name });
             return Json(rows, JsonRequestBehavior.AllowGet);
         }
 
 
         // GET: Categories/Details/5
-        public ActionResult Details(int? id)
+        public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = _categoryService.Find(id);
+
+            Category category = await _categoryService.FindAsync(id);
+
             if (category == null)
             {
                 return HttpNotFound();
@@ -116,7 +126,7 @@ namespace WebApp.Controllers
 
 
         // GET: Categories/Create
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
             Category category = new Category();
             //set default value
@@ -127,7 +137,7 @@ namespace WebApp.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Products,Id,Name")] Category category)
+        public async Task<ActionResult> Create([Bind(Include = "Products,Id,Name")] Category category)
         {
             if (ModelState.IsValid)
             {
@@ -138,7 +148,7 @@ namespace WebApp.Controllers
                     item.ObjectState = ObjectState.Added;
                 }
                 _categoryService.InsertOrUpdateGraph(category);
-                _unitOfWork.SaveChanges();
+                await _unitOfWork.SaveChangesAsync();
                 if (Request.IsAjaxRequest())
                 {
                     return Json(new { success = true }, JsonRequestBehavior.AllowGet);
@@ -146,24 +156,27 @@ namespace WebApp.Controllers
                 DisplaySuccessMessage("Has append a Category record");
                 return RedirectToAction("Index");
             }
-
-            if (Request.IsAjaxRequest())
+            else
             {
                 var modelStateErrors = String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n => n.ErrorMessage)));
-                return Json(new { success = false, err = modelStateErrors }, JsonRequestBehavior.AllowGet);
+                if (Request.IsAjaxRequest())
+                {
+                    return Json(new { success = false, err = modelStateErrors }, JsonRequestBehavior.AllowGet);
+                }
+                DisplayErrorMessage(modelStateErrors);
             }
-            DisplayErrorMessage();
+
             return View(category);
         }
 
         // GET: Categories/Edit/5
-        public ActionResult Edit(int? id)
+        public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = _categoryService.Find(id);
+            Category category = await _categoryService.FindAsync(id);
             if (category == null)
             {
                 return HttpNotFound();
@@ -175,7 +188,7 @@ namespace WebApp.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Products,Id,Name")] Category category)
+        public async Task<ActionResult> Edit([Bind(Include = "Products,Id,Name")] Category category)
         {
             if (ModelState.IsValid)
             {
@@ -192,7 +205,7 @@ namespace WebApp.Controllers
 
                 _categoryService.InsertOrUpdateGraph(category);
 
-                _unitOfWork.SaveChanges();
+                await _unitOfWork.SaveChangesAsync();
                 if (Request.IsAjaxRequest())
                 {
                     return Json(new { success = true }, JsonRequestBehavior.AllowGet);
@@ -200,23 +213,27 @@ namespace WebApp.Controllers
                 DisplaySuccessMessage("Has update a Category record");
                 return RedirectToAction("Index");
             }
-            if (Request.IsAjaxRequest())
+            else
             {
                 var modelStateErrors = String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n => n.ErrorMessage)));
-                return Json(new { success = false, err = modelStateErrors }, JsonRequestBehavior.AllowGet);
+                if (Request.IsAjaxRequest())
+                {
+                    return Json(new { success = false, err = modelStateErrors }, JsonRequestBehavior.AllowGet);
+                }
+                DisplayErrorMessage(modelStateErrors);
             }
-            DisplayErrorMessage();
+
             return View(category);
         }
 
         // GET: Categories/Delete/5
-        public ActionResult Delete(int? id)
+        public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = _categoryService.Find(id);
+            Category category = await _categoryService.FindAsync(id);
             if (category == null)
             {
                 return HttpNotFound();
@@ -227,11 +244,11 @@ namespace WebApp.Controllers
         // POST: Categories/Delete/5
         [HttpPost, ActionName("Delete")]
         //[ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Category category = _categoryService.Find(id);
+            Category category = await _categoryService.FindAsync(id);
             _categoryService.Delete(category);
-            _unitOfWork.SaveChanges();
+            await _unitOfWork.SaveChangesAsync();
             if (Request.IsAjaxRequest())
             {
                 return Json(new { success = true }, JsonRequestBehavior.AllowGet);
@@ -244,27 +261,26 @@ namespace WebApp.Controllers
         // Get Detail Row By Id For Edit
         // Get : Categories/EditProduct/:id
         [HttpGet]
-        public ActionResult EditProduct(int? id)
+        public async Task<ActionResult> EditProduct(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var productRepository = _unitOfWork.Repository<Product>();
-            var product = productRepository.Find(id);
-
-            var categoryRepository = _unitOfWork.Repository<Category>();
+            var productRepository = _unitOfWork.RepositoryAsync<Product>();
+            var product = await productRepository.FindAsync(id);
+            var categoryRepository = _unitOfWork.RepositoryAsync<Category>();
 
             if (product == null)
             {
-                ViewBag.CategoryId = new SelectList(categoryRepository.Queryable(), "Id", "Name");
+                ViewBag.CategoryId = new SelectList(await categoryRepository.Queryable().ToListAsync(), "Id", "Name");
 
                 //return HttpNotFound();
                 return PartialView("_ProductEditForm", new Product());
             }
             else
             {
-                ViewBag.CategoryId = new SelectList(categoryRepository.Queryable(), "Id", "Name", product.CategoryId);
+                ViewBag.CategoryId = new SelectList(await categoryRepository.Queryable().ToListAsync(), "Id", "Name", product.CategoryId);
 
             }
             return PartialView("_ProductEditForm", product);
@@ -274,10 +290,10 @@ namespace WebApp.Controllers
         // Get Create Row By Id For Edit
         // Get : Categories/CreateProduct
         [HttpGet]
-        public ActionResult CreateProduct()
+        public async Task<ActionResult> CreateProduct()
         {
-            var categoryRepository = _unitOfWork.Repository<Category>();
-            ViewBag.CategoryId = new SelectList(categoryRepository.Queryable(), "Id", "Name");
+            var categoryRepository = _unitOfWork.RepositoryAsync<Category>();
+            ViewBag.CategoryId = new SelectList(await categoryRepository.Queryable().ToListAsync(), "Id", "Name");
             return PartialView("_ProductEditForm");
 
         }
@@ -285,11 +301,11 @@ namespace WebApp.Controllers
         // Post Delete Detail Row By Id
         // Get : Categories/DeleteProduct/:id
         [HttpPost, ActionName("DeleteProduct")]
-        public ActionResult DeleteProductConfirmed(int id)
+        public async Task<ActionResult> DeleteProductConfirmed(int id)
         {
-            var productRepository = _unitOfWork.Repository<Product>();
+            var productRepository = _unitOfWork.RepositoryAsync<Product>();
             productRepository.Delete(id);
-            _unitOfWork.SaveChanges();
+            await _unitOfWork.SaveChangesAsync();
             if (Request.IsAjaxRequest())
             {
                 return Json(new { success = true }, JsonRequestBehavior.AllowGet);
@@ -302,12 +318,15 @@ namespace WebApp.Controllers
 
         // Get : Categories/GetProductsByCategoryId/:id
         [HttpGet]
-        public ActionResult GetProductsByCategoryId(int id)
+        public async Task<ActionResult> GetProductsByCategoryId(int id)
         {
             var products = _categoryService.GetProductsByCategoryId(id);
             if (Request.IsAjaxRequest())
             {
-                return Json(products.Select(n => new { CategoryName = (n.Category == null ? "" : n.Category.Name), Id = n.Id, Name = n.Name, Unit = n.Unit, UnitPrice = n.UnitPrice, StockQty = n.StockQty, ConfirmDateTime = n.ConfirmDateTime, CategoryId = n.CategoryId }), JsonRequestBehavior.AllowGet);
+
+                var data = await products.AsQueryable().ToListAsync();
+                var rows = data.Select(n => new { CategoryName = (n.Category == null ? "" : n.Category.Name), Id = n.Id, Name = n.Name, Unit = n.Unit, UnitPrice = n.UnitPrice, StockQty = n.StockQty, ConfirmDateTime = n.ConfirmDateTime, IsRequiredQc = n.IsRequiredQc, CategoryId = n.CategoryId });
+                return Json(rows, JsonRequestBehavior.AllowGet);
             }
             return View(products);
 
@@ -331,9 +350,9 @@ namespace WebApp.Controllers
             TempData["SuccessMessage"] = msgText;
         }
 
-        private void DisplayErrorMessage()
+        private void DisplayErrorMessage(string msgText)
         {
-            TempData["ErrorMessage"] = "Save changes was unsuccessful.";
+            TempData["ErrorMessage"] = msgText;
         }
 
         protected override void Dispose(bool disposing)

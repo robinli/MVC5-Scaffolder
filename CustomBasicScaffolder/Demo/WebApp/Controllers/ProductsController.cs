@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
@@ -16,8 +17,7 @@ using WebApp.Models;
 using WebApp.Services;
 using WebApp.Repositories;
 using WebApp.Extensions;
-using Z.EntityFramework.Plus;
-using System.Threading.Tasks;
+
 
 namespace WebApp.Controllers
 {
@@ -41,36 +41,31 @@ namespace WebApp.Controllers
         // GET: Products/Index
         public async Task<ActionResult> Index()
         {
-            var products = await _productService.Queryable().ToListAsync();
-            return View(products);
-            
+
+            var products = _productService.Queryable().Include(p => p.Category);
+
+
+            return View(await products.ToListAsync());
+
         }
 
         // Get :Products/PageList
-        // For Index View Boostrap-Table load  data  
+        // For Index View Boostrap-Table load  data 
         [HttpGet]
         public async Task<ActionResult> GetData(int page = 1, int rows = 10, string sort = "Id", string order = "asc", string filterRules = "")
         {
             var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
             int totalCount = 0;
             //int pagenum = offset / limit +1;
+            var products = await _productService.Query(new ProductQuery()
+.Withfilter(filters)).Include(p => p.Category)
+.OrderBy(n => n.OrderBy(sort, order))
+.SelectPage(page, rows, out totalCount)
+.AsQueryable()
+.ToListAsync();
 
-            var products  =  await _productService.Query(
-                new ProductQuery().Withfilter(filters)).Include(p => p.Category).OrderBy(n => n.OrderBy(sort, order))
-                .SelectPage(page, rows, out totalCount).AsQueryable().ToListAsync();
 
-            var datarows = products.Select(n => new
-            {
-                IsRequiredQc = n.IsRequiredQc,
-                CategoryName = (n.Category == null ? "" : n.Category.Name),
-                Id = n.Id,
-                Name = n.Name,
-                Unit = n.Unit,
-                UnitPrice = n.UnitPrice,
-                StockQty = n.StockQty,
-                ConfirmDateTime = n.ConfirmDateTime,
-                CategoryId = n.CategoryId
-            });
+            var datarows = products.Select(n => new { CategoryName = (n.Category == null ? "" : n.Category.Name), Id = n.Id, Name = n.Name, Unit = n.Unit, UnitPrice = n.UnitPrice, StockQty = n.StockQty, ConfirmDateTime = n.ConfirmDateTime, IsRequiredQc = n.IsRequiredQc, CategoryId = n.CategoryId }).ToList();
             var pagelist = new { total = totalCount, rows = datarows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
@@ -121,7 +116,9 @@ namespace WebApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Product product = await _productService.FindAsync(id);
+
             if (product == null)
             {
                 return HttpNotFound();
@@ -134,10 +131,6 @@ namespace WebApp.Controllers
         public async Task<ActionResult> Create()
         {
             Product product = new Product();
-            product.Unit = "KG";
-            product.UnitPrice = 0;
-            product.ConfirmDateTime = DateTime.Now;
-            product.CategoryId = 1;
             //set default value
             var categoryRepository = _unitOfWork.Repository<Category>();
             ViewBag.CategoryId = new SelectList(await categoryRepository.Queryable().ToListAsync(), "Id", "Name");
@@ -148,7 +141,7 @@ namespace WebApp.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Category,Id,Name,Unit,UnitPrice,StockQty,ConfirmDateTime,CategoryId")] Product product)
+        public async Task<ActionResult> Create([Bind(Include = "Category,Id,Name,Unit,UnitPrice,StockQty,ConfirmDateTime,IsRequiredQc,CategoryId")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -161,15 +154,18 @@ namespace WebApp.Controllers
                 DisplaySuccessMessage("Has append a Product record");
                 return RedirectToAction("Index");
             }
-
-            var categoryRepository = _unitOfWork.Repository<Category>();
-            ViewBag.CategoryId = new SelectList(await categoryRepository.Queryable().ToListAsync(), "Id", "Name", product.CategoryId);
-            if (Request.IsAjaxRequest())
+            else
             {
                 var modelStateErrors = String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n => n.ErrorMessage)));
-                return Json(new { success = false, err = modelStateErrors }, JsonRequestBehavior.AllowGet);
+                if (Request.IsAjaxRequest())
+                {
+                    return Json(new { success = false, err = modelStateErrors }, JsonRequestBehavior.AllowGet);
+                }
+                DisplayErrorMessage(modelStateErrors);
             }
-            DisplayErrorMessage();
+            var categoryRepository = _unitOfWork.Repository<Category>();
+            ViewBag.CategoryId = new SelectList(await categoryRepository.Queryable().ToListAsync(), "Id", "Name", product.CategoryId);
+
             return View(product);
         }
 
@@ -186,7 +182,7 @@ namespace WebApp.Controllers
                 return HttpNotFound();
             }
             var categoryRepository = _unitOfWork.Repository<Category>();
-            ViewBag.CategoryId = new SelectList(await categoryRepository.Queryable().ToListAsync(), "Id", "Name", product.CategoryId);
+            ViewBag.CategoryId = new SelectList(categoryRepository.Queryable(), "Id", "Name", product.CategoryId);
             return View(product);
         }
 
@@ -194,7 +190,7 @@ namespace WebApp.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Category,Id,Name,Unit,UnitPrice,StockQty,ConfirmDateTime,CategoryId")] Product product)
+        public async Task<ActionResult> Edit([Bind(Include = "Category,Id,Name,Unit,UnitPrice,StockQty,ConfirmDateTime,IsRequiredQc,CategoryId")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -209,14 +205,18 @@ namespace WebApp.Controllers
                 DisplaySuccessMessage("Has update a Product record");
                 return RedirectToAction("Index");
             }
-            var categoryRepository = _unitOfWork.Repository<Category>();
-            ViewBag.CategoryId = new SelectList(await categoryRepository.Queryable().ToListAsync(), "Id", "Name", product.CategoryId);
-            if (Request.IsAjaxRequest())
+            else
             {
                 var modelStateErrors = String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n => n.ErrorMessage)));
-                return Json(new { success = false, err = modelStateErrors }, JsonRequestBehavior.AllowGet);
+                if (Request.IsAjaxRequest())
+                {
+                    return Json(new { success = false, err = modelStateErrors }, JsonRequestBehavior.AllowGet);
+                }
+                DisplayErrorMessage(modelStateErrors);
             }
-            DisplayErrorMessage();
+            var categoryRepository = _unitOfWork.Repository<Category>();
+            ViewBag.CategoryId = new SelectList(await categoryRepository.Queryable().ToListAsync(), "Id", "Name", product.CategoryId);
+
             return View(product);
         }
 
@@ -273,9 +273,9 @@ namespace WebApp.Controllers
             TempData["SuccessMessage"] = msgText;
         }
 
-        private void DisplayErrorMessage()
+        private void DisplayErrorMessage(string msgText)
         {
-            TempData["ErrorMessage"] = "Save changes was unsuccessful.";
+            TempData["ErrorMessage"] = msgText;
         }
 
         protected override void Dispose(bool disposing)
