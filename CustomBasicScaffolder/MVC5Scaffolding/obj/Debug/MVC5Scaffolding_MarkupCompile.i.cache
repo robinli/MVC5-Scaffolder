@@ -16,5 +16,5 @@ DEBUG;TRACE
 32-1398631472
 UI\ModelMetadataDialog.xaml;UI\QueryFormSetting.xaml;UI\ResultListSetting.xaml;UI\SPScaffolderDialog.xaml;UI\MvcScaffolderDialog.xaml;
 
-False
+True
 

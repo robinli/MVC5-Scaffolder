@@ -91,7 +91,10 @@ namespace Happy.Scaffolding.MVC.UI
             _checkformViewCols = true;
             _ReferenceScriptLibraries = true;
             _LayoutPageSelected = true;
+            _useAsync = true;
         }
+
+        private bool _useAsync;
          
         private DelegateCommand _okCommand;
 
@@ -491,6 +494,25 @@ namespace Happy.Scaffolding.MVC.UI
                 OnPropertyChanged();
             }
         }
+
+
+        public bool UseAsync
+        {
+            get { return _useAsync; }
+            set
+            {
+                Validate();
+
+                if (value == _useAsync)
+                {
+                    return;
+                }
+
+                _useAsync = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         private int _formViewCols = 2;
 

@@ -342,7 +342,9 @@ foreach (PropertyMetadata property in properties) {
          var $dg = $('#<#= modelVariable #>_datagrid');
 		 var editIndex = undefined;
 		function reload() {
-                $dg.datagrid('reload');
+                 if (endEditing()) {
+                        $dg.datagrid('reload');
+                 }
             }
         function endEditing() {
             if (editIndex == undefined) { return true }

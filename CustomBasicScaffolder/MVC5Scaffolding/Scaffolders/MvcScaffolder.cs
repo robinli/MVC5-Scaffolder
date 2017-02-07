@@ -159,6 +159,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
 
             // Get the dbContext
             string dbContextTypeName = codeGeneratorViewModel.DbContextModelType.TypeName;
+            
             ICodeTypeService codeTypeService = GetService<ICodeTypeService>();
             CodeType dbContext = codeTypeService.GetCodeType(project, dbContextTypeName);
             string dbContextNamespace = dbContext.Namespace != null ? dbContext.Namespace.FullName : String.Empty;
@@ -182,6 +183,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             bool generateMasterDetailRelationship = codeGeneratorViewModel.GenerateMasterDetailRelationship;
             bool checkformcols = codeGeneratorViewModel.CheckFormViewCols;
             int formcols = codeGeneratorViewModel.FormViewCols;
+            bool useAsync = codeGeneratorViewModel.UseAsync;
 
             AddEntityRepositoryExtensionTemplates(project, selectionRelativePath,
                 dbContextNamespace,
@@ -210,7 +212,8 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 , oneToManyAnonymousObjText: oneToManyAnonymousObjTextDic
                 , oneToManyModels: oneToManyModels
                 , generateMasterDetailRelationship: generateMasterDetailRelationship
-                , overwrite: codeGeneratorViewModel.OverwriteViews);
+                , overwrite: codeGeneratorViewModel.OverwriteViews
+                , useAsync: codeGeneratorViewModel.UseAsync);
 
             if (!codeGeneratorViewModel.GenerateViews)
                 return;
@@ -542,6 +545,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             , Dictionary<string, ModelMetadata> oneToManyModels
             , bool generateMasterDetailRelationship
             , bool overwrite = false
+            , bool useAsync = false
             )
         {
 
@@ -569,7 +573,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             string bindAttributeIncludeText = GetBindAttributeIncludeText(efMetadata);
 
             Dictionary<string, object> templateParams = new Dictionary<string, object>(){
-                {"ControllerName", controllerName}
+                  {"ControllerName", controllerName}
                 , {"ModelName",modelName}
                 , {"ControllerRootName" , controllerRootName}
                 , {"Namespace", defaultNamespace}
@@ -583,7 +587,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 , {"GenerateMasterDetailRelationship", generateMasterDetailRelationship}
                 , {"SelectLambdaText",selectLambdaText}
                 , {"EntitySetVariable", modelTypeVariable}
-                , {"UseAsync", false}
+                , {"UseAsync", useAsync}
                 , {"IsOverpostingProtectionRequired", true}
                 , {"BindAttributeIncludeText", bindAttributeIncludeText}
                 , {"OverpostingWarningMessage", "To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598."}

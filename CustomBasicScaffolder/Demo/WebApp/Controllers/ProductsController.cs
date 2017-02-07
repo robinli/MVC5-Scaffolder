@@ -17,6 +17,7 @@ using WebApp.Services;
 using WebApp.Repositories;
 using WebApp.Extensions;
 using Z.EntityFramework.Plus;
+using System.Threading.Tasks;
 
 namespace WebApp.Controllers
 {
@@ -38,41 +39,44 @@ namespace WebApp.Controllers
         }
 
         // GET: Products/Index
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            string commandText = string.Empty;
-            var query = _productService.Queryable()
-                .Where(x => x.Id > 12)
-                .Update(x => new Product() { Name = "UpdateWithBatch" }
-                            , x => { x.Executing = command => commandText = command.CommandText; });
-           
-
-            var products  = _productService.Queryable().Include(p => p.Category).AsQueryable();
-            var rows = products.Select(n => new { CategoryName = (n.Category == null ? "" : n.Category.Name), Id = n.Id, Name = n.Name, Unit = n.Unit, UnitPrice = n.UnitPrice, StockQty = n.StockQty, ConfirmDateTime = n.ConfirmDateTime, CategoryId = n.CategoryId }).ToList();
-            string output = JsonConvert.SerializeObject(rows);
-            ViewData["products"] = output;
-            //return View(products);
-            return View();
+            var products = await _productService.Queryable().ToListAsync();
+            return View(products);
+            
         }
 
         // Get :Products/PageList
         // For Index View Boostrap-Table load  data  
         [HttpGet]
-        public ActionResult GetData(int page = 1, int rows = 10, string sort = "Id", string order = "asc", string filterRules = "")
+        public async Task<ActionResult> GetData(int page = 1, int rows = 10, string sort = "Id", string order = "asc", string filterRules = "")
         {
             var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
             int totalCount = 0;
             //int pagenum = offset / limit +1;
 
-            var products = _productService.Query(new ProductQuery().Withfilter(filters)).Include(p => p.Category).OrderBy(n => n.OrderBy(sort, order)).SelectPage(page, rows, out totalCount);
-            
-            var datarows = products.Select(n => new { IsRequiredQc=n.IsRequiredQc, CategoryName = (n.Category == null ? "" : n.Category.Name), Id = n.Id, Name = n.Name, Unit = n.Unit, UnitPrice = n.UnitPrice, StockQty = n.StockQty, ConfirmDateTime = n.ConfirmDateTime, CategoryId = n.CategoryId }).ToList();
+            var products  =  await _productService.Query(
+                new ProductQuery().Withfilter(filters)).Include(p => p.Category).OrderBy(n => n.OrderBy(sort, order))
+                .SelectPage(page, rows, out totalCount).AsQueryable().ToListAsync();
+
+            var datarows = products.Select(n => new
+            {
+                IsRequiredQc = n.IsRequiredQc,
+                CategoryName = (n.Category == null ? "" : n.Category.Name),
+                Id = n.Id,
+                Name = n.Name,
+                Unit = n.Unit,
+                UnitPrice = n.UnitPrice,
+                StockQty = n.StockQty,
+                ConfirmDateTime = n.ConfirmDateTime,
+                CategoryId = n.CategoryId
+            });
             var pagelist = new { total = totalCount, rows = datarows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public ActionResult SaveData(ProductChangeViewModel products)
+        public async Task<ActionResult> SaveData(ProductChangeViewModel products)
         {
             if (products.updated != null)
             {
@@ -95,15 +99,15 @@ namespace WebApp.Controllers
                     _productService.Insert(inserted);
                 }
             }
-            _unitOfWork.SaveChanges();
+            await _unitOfWork.SaveChangesAsync();
 
             return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult GetCategories()
+        public async Task<ActionResult> GetCategories()
         {
             var categoryRepository = _unitOfWork.Repository<Category>();
-            var data = categoryRepository.Queryable().ToList();
+            var data = await categoryRepository.Queryable().ToListAsync();
             var rows = data.Select(n => new { Id = n.Id, Name = n.Name });
             return Json(rows, JsonRequestBehavior.AllowGet);
         }
@@ -111,13 +115,13 @@ namespace WebApp.Controllers
 
 
         // GET: Products/Details/5
-        public ActionResult Details(int? id)
+        public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = _productService.Find(id);
+            Product product = await _productService.FindAsync(id);
             if (product == null)
             {
                 return HttpNotFound();
@@ -127,7 +131,7 @@ namespace WebApp.Controllers
 
 
         // GET: Products/Create
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
             Product product = new Product();
             product.Unit = "KG";
@@ -136,7 +140,7 @@ namespace WebApp.Controllers
             product.CategoryId = 1;
             //set default value
             var categoryRepository = _unitOfWork.Repository<Category>();
-            ViewBag.CategoryId = new SelectList(categoryRepository.Queryable(), "Id", "Name");
+            ViewBag.CategoryId = new SelectList(await categoryRepository.Queryable().ToListAsync(), "Id", "Name");
             return View(product);
         }
 
@@ -144,12 +148,12 @@ namespace WebApp.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Category,Id,Name,Unit,UnitPrice,StockQty,ConfirmDateTime,CategoryId")] Product product)
+        public async Task<ActionResult> Create([Bind(Include = "Category,Id,Name,Unit,UnitPrice,StockQty,ConfirmDateTime,CategoryId")] Product product)
         {
             if (ModelState.IsValid)
             {
                 _productService.Insert(product);
-                _unitOfWork.SaveChanges();
+                await _unitOfWork.SaveChangesAsync();
                 if (Request.IsAjaxRequest())
                 {
                     return Json(new { success = true }, JsonRequestBehavior.AllowGet);
@@ -159,7 +163,7 @@ namespace WebApp.Controllers
             }
 
             var categoryRepository = _unitOfWork.Repository<Category>();
-            ViewBag.CategoryId = new SelectList(categoryRepository.Queryable(), "Id", "Name", product.CategoryId);
+            ViewBag.CategoryId = new SelectList(await categoryRepository.Queryable().ToListAsync(), "Id", "Name", product.CategoryId);
             if (Request.IsAjaxRequest())
             {
                 var modelStateErrors = String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n => n.ErrorMessage)));
@@ -170,19 +174,19 @@ namespace WebApp.Controllers
         }
 
         // GET: Products/Edit/5
-        public ActionResult Edit(int? id)
+        public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = _productService.Find(id);
+            Product product = await _productService.FindAsync(id);
             if (product == null)
             {
                 return HttpNotFound();
             }
             var categoryRepository = _unitOfWork.Repository<Category>();
-            ViewBag.CategoryId = new SelectList(categoryRepository.Queryable(), "Id", "Name", product.CategoryId);
+            ViewBag.CategoryId = new SelectList(await categoryRepository.Queryable().ToListAsync(), "Id", "Name", product.CategoryId);
             return View(product);
         }
 
@@ -190,14 +194,14 @@ namespace WebApp.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Category,Id,Name,Unit,UnitPrice,StockQty,ConfirmDateTime,CategoryId")] Product product)
+        public async Task<ActionResult> Edit([Bind(Include = "Category,Id,Name,Unit,UnitPrice,StockQty,ConfirmDateTime,CategoryId")] Product product)
         {
             if (ModelState.IsValid)
             {
                 product.ObjectState = ObjectState.Modified;
                 _productService.Update(product);
 
-                _unitOfWork.SaveChanges();
+                await _unitOfWork.SaveChangesAsync();
                 if (Request.IsAjaxRequest())
                 {
                     return Json(new { success = true }, JsonRequestBehavior.AllowGet);
@@ -206,7 +210,7 @@ namespace WebApp.Controllers
                 return RedirectToAction("Index");
             }
             var categoryRepository = _unitOfWork.Repository<Category>();
-            ViewBag.CategoryId = new SelectList(categoryRepository.Queryable(), "Id", "Name", product.CategoryId);
+            ViewBag.CategoryId = new SelectList(await categoryRepository.Queryable().ToListAsync(), "Id", "Name", product.CategoryId);
             if (Request.IsAjaxRequest())
             {
                 var modelStateErrors = String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n => n.ErrorMessage)));
@@ -217,13 +221,13 @@ namespace WebApp.Controllers
         }
 
         // GET: Products/Delete/5
-        public ActionResult Delete(int? id)
+        public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = _productService.Find(id);
+            Product product = await _productService.FindAsync(id);
             if (product == null)
             {
                 return HttpNotFound();
@@ -234,11 +238,11 @@ namespace WebApp.Controllers
         // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]
         //[ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Product product = _productService.Find(id);
+            Product product = await _productService.FindAsync(id);
             _productService.Delete(product);
-            _unitOfWork.SaveChanges();
+            await _unitOfWork.SaveChangesAsync();
             if (Request.IsAjaxRequest())
             {
                 return Json(new { success = true }, JsonRequestBehavior.AllowGet);
