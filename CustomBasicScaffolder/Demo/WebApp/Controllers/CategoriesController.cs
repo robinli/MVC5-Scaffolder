@@ -50,20 +50,18 @@ namespace WebApp.Controllers
         // Get :Categories/PageList
         // For Index View Boostrap-Table load  data 
         [HttpGet]
-				 public async Task<ActionResult> GetData(int page = 1, int rows = 10, string sort = "Id", string order = "asc", string filterRules = "")
-				{
-			var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
+        public async Task<ActionResult> GetData(int page = 1, int rows = 10, string sort = "Id", string order = "asc", string filterRules = "")
+        {
+            var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
             int totalCount = 0;
             //int pagenum = offset / limit +1;
-											var categories  = await  _categoryService
-						.Query(new CategoryQuery()
-							.Withfilter(filters))
-							.OrderBy(n=>n.OrderBy(sort,order))
-							.SelectPage(page, rows, out totalCount)
-							.AsQueryable()
-							.ToListAsync();
-				
-			            var datarows = categories .Select(  n => new {  Id = n.Id , Name = n.Name }).ToList();
+            var categories = await _categoryService.Query(new CategoryQuery().Withfilter(filters))
+.OrderBy(n => n.OrderBy(sort, order))
+.SelectPage(page, rows, out totalCount)
+.AsQueryable()
+.ToListAsync();
+
+            var datarows = categories.Select(n => new { Id = n.Id, Name = n.Name }).ToList();
             var pagelist = new { total = totalCount, rows = datarows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
@@ -192,19 +190,19 @@ namespace WebApp.Controllers
             if (ModelState.IsValid)
             {
                 category.ObjectState = ObjectState.Modified;
-                                                foreach (var item in category.Products)
+                foreach (var item in category.Products)
                 {
-					item.CategoryId = category.Id ;
+                    item.CategoryId = category.Id;
                     //set ObjectState with conditions
-                    if(item.Id <= 0)
+                    if (item.Id <= 0)
                         item.ObjectState = ObjectState.Added;
                     else
                         item.ObjectState = ObjectState.Modified;
                 }
-                      
+
                 _categoryService.InsertOrUpdateGraph(category);
-                                
-                await   _unitOfWork.SaveChangesAsync();
+
+                await _unitOfWork.SaveChangesAsync();
                 if (Request.IsAjaxRequest())
                 {
                     return Json(new { success = true }, JsonRequestBehavior.AllowGet);
@@ -212,15 +210,16 @@ namespace WebApp.Controllers
                 DisplaySuccessMessage("Has update a Category record");
                 return RedirectToAction("Index");
             }
-			else {
-			var modelStateErrors =String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n=>n.ErrorMessage)));
-            if (Request.IsAjaxRequest())
+            else
             {
-                return Json(new { success = false, err = modelStateErrors }, JsonRequestBehavior.AllowGet);
+                var modelStateErrors = String.Join("", this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors.Select(n => n.ErrorMessage)));
+                if (Request.IsAjaxRequest())
+                {
+                    return Json(new { success = false, err = modelStateErrors }, JsonRequestBehavior.AllowGet);
+                }
+                DisplayErrorMessage(modelStateErrors);
             }
-            DisplayErrorMessage(modelStateErrors);
-			}
-			
+
             return View(category);
         }
 
@@ -259,29 +258,29 @@ namespace WebApp.Controllers
         // Get Detail Row By Id For Edit
         // Get : Categories/EditProduct/:id
         [HttpGet]
-				public async Task<ActionResult> EditProduct(int? id)
-		        {
+        public async Task<ActionResult> EditProduct(int? id)
+        {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             var productRepository = _unitOfWork.RepositoryAsync<Product>();
-						var product = await productRepository.FindAsync(id);
-			                        var categoryRepository = _unitOfWork.RepositoryAsync<Category>();             
-            
+            var product = await productRepository.FindAsync(id);
+            var categoryRepository = _unitOfWork.RepositoryAsync<Category>();
+
             if (product == null)
             {
-            								ViewBag.CategoryId = new SelectList(await categoryRepository.Queryable().ToListAsync(), "Id", "Name" );
-						                    
+                ViewBag.CategoryId = new SelectList(await categoryRepository.Queryable().ToListAsync(), "Id", "Name");
+
                 //return HttpNotFound();
                 return PartialView("_ProductEditForm", new Product());
             }
             else
             {
-            								 ViewBag.CategoryId = new SelectList(await categoryRepository.Queryable().ToListAsync(), "Id", "Name" , product.CategoryId );  
-							                 
+                ViewBag.CategoryId = new SelectList(await categoryRepository.Queryable().ToListAsync(), "Id", "Name", product.CategoryId);
+
             }
-            return PartialView("_ProductEditForm",  product);
+            return PartialView("_ProductEditForm", product);
 
         }
         
@@ -298,13 +297,13 @@ namespace WebApp.Controllers
 
         // Post Delete Detail Row By Id
         // Get : Categories/DeleteProduct/:id
-        [HttpPost,ActionName("DeleteProduct")]
-				public async Task<ActionResult> DeleteProductConfirmed(int  id)
-		        {
+        [HttpPost, ActionName("DeleteProduct")]
+        public async Task<ActionResult> DeleteProductConfirmed(int id)
+        {
             var productRepository = _unitOfWork.RepositoryAsync<Product>();
             productRepository.Delete(id);
-						await _unitOfWork.SaveChangesAsync();
-			            if (Request.IsAjaxRequest())
+            await _unitOfWork.SaveChangesAsync();
+            if (Request.IsAjaxRequest())
             {
                 return Json(new { success = true }, JsonRequestBehavior.AllowGet);
             }
@@ -316,17 +315,17 @@ namespace WebApp.Controllers
 
         // Get : Categories/GetProductsByCategoryId/:id
         [HttpGet]
-				public async Task<ActionResult> GetProductsByCategoryId(int id)
-				{
+        public async Task<ActionResult> GetProductsByCategoryId(int id)
+        {
             var products = _categoryService.GetProductsByCategoryId(id);
             if (Request.IsAjaxRequest())
             {
 
-			    				var data = await products.AsQueryable().ToListAsync();
-								var rows = data.Select( n => new { CategoryName = (n.Category==null?"": n.Category.Name) , Id = n.Id , Name = n.Name , Unit = n.Unit , UnitPrice = n.UnitPrice , StockQty = n.StockQty , ConfirmDateTime = n.ConfirmDateTime , IsRequiredQc = n.IsRequiredQc , CategoryId = n.CategoryId });
+                var data = await products.AsQueryable().ToListAsync();
+                var rows = data.Select(n => new { CategoryName = (n.Category == null ? "" : n.Category.Name), Id = n.Id, Name = n.Name, Unit = n.Unit, UnitPrice = n.UnitPrice, StockQty = n.StockQty, ConfirmDateTime = n.ConfirmDateTime, IsRequiredQc = n.IsRequiredQc, CategoryId = n.CategoryId });
                 return Json(rows, JsonRequestBehavior.AllowGet);
-			}  
-            return View(products); 
+            }
+            return View(products);
 
         }
  

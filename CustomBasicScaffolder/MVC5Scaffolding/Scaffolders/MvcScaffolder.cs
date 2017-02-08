@@ -463,7 +463,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             , Dictionary<string, bool> fieldRequired = null
             , Dictionary<string, string> fieldMaxLength=null
             , int FromLayoutCols = 2
-            , IList<DisplayAttributeViewModel> FieldDisplayAttribute = null
+            , IEnumerable<DisplayAttributeViewModel> FieldDisplayAttribute = null
            )
         {
 
@@ -474,7 +474,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
 
             string masterModelTypeName = modelNameSpace + "." + modelType.Name;
             Dictionary<string, object> templateParams = new Dictionary<string, object>(){
-               {"ControllerRootName" , controllerRootName}
+                  {"ControllerRootName" , controllerRootName}
                 , {"ModelMetadata", efMetadata}
                 , {"ViewPrefix", viewPrefix}
                 , {"ViewName", viewName}
@@ -482,19 +482,17 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 , {"ModelNameSpace", modelNameSpace}
                 , {"ViewDataTypeName", viewDataTypeName}
                 , {"ModelDisplayNames",modelDisplayNames}
-                ,{"MasterModelTypeName" , masterModelTypeName}
-                ,{"ModelTypeName" , modelTypeName}
-                , {"IsPartialView" , true}
+                , {"MasterModelTypeName" , masterModelTypeName}
+                , {"ModelTypeName" , modelTypeName}
                 , {"fieldRequired" , fieldRequired}
                 , {"fieldMaxLength" , fieldMaxLength}
-                , {"FromLayoutCols" , FromLayoutCols}
-                , {"FieldDisplayAttribute" , FieldDisplayAttribute}
+               
             };
-            //AddFileFromTemplate(project: project
-            //    , outputPath: outputPath
-            //    , templateName: templatePath
-            //    , templateParameters: templateParams
-            //    , skipIfExists: true);
+            AddFileFromTemplate(project: project
+                , outputPath: outputPath
+                , templateName: templatePath
+                , templateParameters: templateParams
+                , skipIfExists: true);
         }
         private Dictionary<string, string> GetOneToManyAnonymousObjTextDic(Dictionary<string, ModelMetadata> oneToManyModels)
         {

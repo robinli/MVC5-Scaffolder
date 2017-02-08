@@ -41,22 +41,40 @@
                         @*<th data-options="field:'ck',checkbox:true"></th>*@
         			@*<th data-options="field:'Id',width:80 ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Id)</th>*@
                 
-				     <th data-options="field:'Name',width:140,editor:{type:'textbox',options:{required:true ,validType:'length[0,30]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Name)</th>
+				     <th data-options="field:'Name' ,width:140,editor:{type:'textbox',options:{prompt:'产品目录' ,required:true ,validType:'length[0,30]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Name)</th>
 		
                
 						</tr>
 				</thead>
  				</table>
 				<div id="categories_toolbar" style="height:auto">
-							 
-							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="append()">新增</a>
+							@if (Html.IsAuthorize("Create"))
+                            {
+                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="append()">新增</a>
+                            }
+                            @if (Html.IsAuthorize("Delete"))
+                            {
+                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
+                            }
+                            @if (Html.IsAuthorize("Edit"))
+                            {
+                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">保存</a>
+                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">取消</a>
+                            }
+                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="reload()">刷新</a>
+                            @if (Html.IsAuthorize("Import"))
+                            {
+								<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-paperclip',plain:true" onclick="importexcel()">EXCEL 导入</a>
+								<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-download-alt',plain:true" onclick="exportexcel()">导出 Excel</a>
+							}
+							@*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="append()">新增</a>
 							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
 							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">保存</a>
 							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">取消</a>
 					
 							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-paperclip',plain:true" onclick="importexcel()">EXCEL 导入</a>
 							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-download-alt',plain:true" onclick="exportexcel()">导出 Excel</a>
-							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="reload()">刷新</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="reload()">刷新</a>*@
 				</div>
 		
 					<!--detail entity tabs -->
@@ -109,6 +127,18 @@
 
 									 											
 																								<th data-options="field:'ConfirmDateTime',width:160,align:'right',editor:{type:'datebox',options:{required:true   }} ,formatter:dateformatter"> 确认日期</th>
+											
+
+
+
+									 											
+																								<th data-options="field:'IsRequiredQc',width:120,
+																editor: {type:'combobox',
+																options:{
+																	panelHeight: 'auto',
+																	data: [ { value: 'true', text: 'true' },
+																			{ value: 'false', text: 'false' }],
+																required:false}}">是否需要QC</th>
 											
 
 
@@ -183,7 +213,9 @@
          var $dg = $('#categories_datagrid');
 		 var editIndex = undefined;
 		function reload() {
-                $dg.datagrid('reload');
+                 if (endEditing()) {
+                        $dg.datagrid('reload');
+                 }
             }
         function endEditing() {
             if (editIndex == undefined) { return true }

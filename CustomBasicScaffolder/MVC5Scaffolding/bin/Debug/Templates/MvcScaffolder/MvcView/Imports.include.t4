@@ -8,6 +8,7 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="Microsoft.AspNet.Scaffolding.Core.Metadata" #>
 <#@ import namespace="Happy.Scaffolding.MVC.Models" #>
+<#@ import namespace="Happy.Scaffolding.MVC.Scaffolders" #>
 <#@ parameter type="System.String" name="ControllerRootName" #>
 <#@ parameter type="System.String" name="ViewDataTypeName" #>
 <#@ parameter type="System.Boolean" name="IsPartialView" #>
@@ -37,5 +38,5 @@
 <#@ parameter type="System.Boolean" name ="CheckedFromLayoutCols" #>
 <#@ parameter type="System.Int32" name ="FromLayoutCols" #>
 
-<#@ parameter type="System.Collections.Generic.IList<Happy.Scaffolding.MVC.Scaffolders.DisplayAttributeViewModel>" name ="FieldDisplayAttribute" #>
+<#@ parameter type="System.Collections.Generic.IEnumerable<Happy.Scaffolding.MVC.Scaffolders.DisplayAttributeViewModel>" name ="FieldDisplayAttribute" #>
 
