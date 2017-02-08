@@ -329,10 +329,10 @@ namespace <#= Namespace #>
             }
 <# if (UseAsync) { #>
 
-            <#= ModelTypeName #>  <#= ModelVariable #> = await <#= modelServiceVar #>.FindAsync(id);
+            var  <#= ModelVariable #> = await <#= modelServiceVar #>.FindAsync(id);
 
 <# } else { #>
-            <#= ModelTypeName #> <#= ModelVariable #> = <#= modelServiceVar #>.Find(id);
+            var <#= ModelVariable #> = <#= modelServiceVar #>.Find(id);
 <# } #>
             if (<#= ModelVariable #> == null)
             {
@@ -349,7 +349,7 @@ namespace <#= Namespace #>
         public ActionResult <#= ViewPrefix #>Create()
 		<# } #>
         {
-            <#= ModelTypeName #> <#= ModelVariable #> = new <#= ModelTypeName #>();
+            var <#= ModelVariable #> = new <#= ModelTypeName #>();
             //set default value
 <# foreach (var property in relatedProperties.Values) { #>
             var <#= property.ShortTypeName.ToLower() #>Repository = _unitOfWork.RepositoryAsync<<#= property.ShortTypeName #>>();
@@ -445,9 +445,9 @@ namespace <#= Namespace #>
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 <# if (UseAsync) { #>
-            <#= ModelTypeName #> <#= ModelVariable #> = await <#= modelServiceVar #>.FindAsync(id);
+            var <#= ModelVariable #> = await <#= modelServiceVar #>.FindAsync(id);
 <# } else { #>
-            <#= ModelTypeName #> <#= ModelVariable #> = <#= modelServiceVar #>.Find(id);
+            var <#= ModelVariable #> = <#= modelServiceVar #>.Find(id);
 <# } #>
             if (<#= ModelVariable #> == null)
             {
@@ -545,9 +545,9 @@ namespace <#= Namespace #>
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 <# if (UseAsync) { #>
-            <#= ModelTypeName #> <#= ModelVariable #> = await <#= modelServiceVar #>.FindAsync(id);
+            var <#= ModelVariable #> = await <#= modelServiceVar #>.FindAsync(id);
 <# } else { #>
-            <#= ModelTypeName #> <#= ModelVariable #> = <#= modelServiceVar #>.Find(id);
+            var <#= ModelVariable #> = <#= modelServiceVar #>.Find(id);
 <# } #>
             if (<#= ModelVariable #> == null)
             {
@@ -566,9 +566,9 @@ namespace <#= Namespace #>
 <# } #>
         {
 <# if (UseAsync) { #>
-            <#= ModelTypeName #> <#= ModelVariable #> = await  <#= modelServiceVar #>.FindAsync(id);
+            var <#= ModelVariable #> = await  <#= modelServiceVar #>.FindAsync(id);
 <# } else { #>
-            <#= ModelTypeName #> <#= ModelVariable #> =  <#= modelServiceVar #>.Find(id);
+            var <#= ModelVariable #> =  <#= modelServiceVar #>.Find(id);
 <# } #>
              <#= modelServiceVar #>.Delete(<#= ModelVariable #>);
 <# if (UseAsync) { #>
