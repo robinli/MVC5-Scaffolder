@@ -10,7 +10,7 @@ Visual Studio.net 2013 asp.net MVC 5 Scaffolding代码生成向导开源项目
 
 我的项目地址 https://github.com/neozhu/MVC5-Scaffolder
 
- 
++新增async controller action 方法
 
 项目阶段
 =========
