@@ -464,7 +464,9 @@ namespace WebApp
 
             //EasyUI style
             bundles.Add(new StyleBundle("~/plugins/easyuiStyles").Include(
-                      "~/Scripts/easyui/themes/metro/easyui.css"));
+                        "~/fonts/font-awesome3.2/css/font-awesome.css",
+                      "~/Scripts/easyui/themes/metro/easyui.css"
+                      ));
             //EasyUI Script
             bundles.Add(new ScriptBundle("~/plugins/easyuijs").Include(
                       "~/Scripts/easyui/jquery.easyui.min.js"));
