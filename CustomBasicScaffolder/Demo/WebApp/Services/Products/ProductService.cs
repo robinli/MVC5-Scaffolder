@@ -93,7 +93,7 @@ namespace WebApp.Services
             
             var datarows = products .Select(  n => new { CategoryName = (n.Category==null?"": n.Category.Name) , Id = n.Id , Name = n.Name , Unit = n.Unit , UnitPrice = n.UnitPrice , StockQty = n.StockQty , ConfirmDateTime = n.ConfirmDateTime , CategoryId = n.CategoryId }).ToList();
            
-            return ExcelHelper.ExportExcel(datarows);
+            return ExcelHelper.ExportExcel(typeof(Product),datarows);
 
         }
     }

@@ -1,7 +1,7 @@
 /**
- * jQuery EasyUI 1.4.4
+ * jQuery EasyUI 1.5.1
  * 
- * Copyright (c) 2009-2015 www.jeasyui.com. All rights reserved.
+ * Copyright (c) 2009-2016 www.jeasyui.com. All rights reserved.
  *
  * Licensed under the freeware license: http://www.jeasyui.com/license_freeware.php
  * To use it on other terms please contact us: info@jeasyui.com
@@ -29,7 +29,7 @@ if(_6=="-"){
 $("<td><div class=\"dialog-tool-separator\"></div></td>").appendTo(tr);
 }else{
 var td=$("<td></td>").appendTo(tr);
-var _7=$("<a href=\"javascript:void(0)\"></a>").appendTo(td);
+var _7=$("<a href=\"javascript:;\"></a>").appendTo(td);
 _7[0].onclick=eval(_6.handler||function(){
 });
 _7.linkbutton($.extend({},_6,{plain:true}));
@@ -48,7 +48,7 @@ $(_2).siblings("div.dialog-button").remove();
 var _8=$("<div class=\"dialog-button\"></div>").appendTo(_4);
 for(var i=0;i<_3.buttons.length;i++){
 var p=_3.buttons[i];
-var _9=$("<a href=\"javascript:void(0)\"></a>").appendTo(_8);
+var _9=$("<a href=\"javascript:;\"></a>").appendTo(_8);
 if(p.handler){
 _9[0].onclick=p.handler;
 }
@@ -75,8 +75,8 @@ var _e=t.dialog("options");
 var _f=_e.noheader;
 var tb=t.siblings(".dialog-toolbar");
 var bb=t.siblings(".dialog-button");
-tb.insertBefore(_c).css({position:"relative",borderTopWidth:(_f?1:0),top:(_f?tb.length:0)});
-bb.insertAfter(_c).css({position:"relative",top:-1});
+tb.insertBefore(_c).css({borderTopWidth:(_f?1:0),top:(_f?tb.length:0)});
+bb.insertAfter(_c);
 tb.add(bb)._outerWidth(t._outerWidth()).find(".easyui-fluid:visible").each(function(){
 $(this).triggerHandler("_resize");
 });

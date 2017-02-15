@@ -12,8 +12,8 @@
     font-weight: normal;
     font-style: normal;
 
-    src: url('http://webapplayers.com/inspinia_admin-v2.3/css/plugins/slick/fonts/slick.eot');
-    src: url('fonts/slick.eot') format('embedded-opentype'), url('fonts/slick.woff') format('woff'), url('fonts/slick.ttf') format('truetype'), url('fonts/slick.svg') format('svg');
+    src: url('fonts/slick.eot');
+    src: url('fonts/slick.eot?#iefix') format('embedded-opentype'), url('fonts/slick.woff') format('woff'), url('fonts/slick.ttf') format('truetype'), url('fonts/slick.svg#slick') format('svg');
 }
 /* Arrows */
 .slick-prev,

@@ -75,8 +75,19 @@
 				}
 			},
 			onClickCell:function(index,field,value){
-				if (opts.editing && opts.editIndex >= 0){
-					$(this).edatagrid('editRow', index);
+				// if (opts.editing && opts.editIndex >= 0){
+				// 	$(this).edatagrid('editRow', index);
+				// 	focusEditor(target, field);
+				// }
+				if (opts.editIndex >= 0){
+					var dg = $(this);
+					if (opts.editing){
+						dg.edatagrid('editRow', index);
+					} else {
+						setTimeout(function(){
+							dg.edatagrid('selectRow', opts.editIndex);
+						}, 0);
+					}
 					focusEditor(target, field);
 				}
 				if (opts.onClickCell){
@@ -110,11 +121,13 @@
 						}
 					}
 					if (changed){
-						$.post(url, row, function(data){
+						opts.poster.call(target, url, row, function(data){
 							if (data.isError){
+								var originalRow = opts.originalRow;
 								$(target).edatagrid('cancelRow',index);
 								$(target).edatagrid('selectRow',index);
 								$(target).edatagrid('editRow',index);
+								opts.originalRow = originalRow;
 								opts.onError.call(target, index, data);
 								return;
 							}
@@ -140,11 +153,14 @@
 							}
 							opts.onSuccess.call(target, index, row);
 							opts.onSave.call(target, index, row);
-						},'json');						
+						}, function(data){
+							opts.onError.call(target, index, data);
+						});
 					} else {
 						opts.onSave.call(target, index, row);
 					}
 				} else {
+					row.isNewRecord = false;
 					opts.onSave.call(target, index, row);
 				}
 				if (opts.onAfterEdit) opts.onAfterEdit.call(target, index, row);
@@ -177,18 +193,13 @@
 				},
 				onDrop: function(dest,source,point){
 					var targetId = $(this).tree('getNode', dest).id;
-					$.ajax({
-						url: opts.treeDndUrl,
-						type:'post',
-						data:{
-							id:source.id,
-							targetId:targetId,
-							point:point
-						},
-						dataType:'json',
-						success:function(){
-							$(target).datagrid('load');
-						}
+					var data = {
+						id:source.id,
+						targetId:targetId,
+						point:point
+					};
+					opts.poster.call(target, opts.treeDndUrl, data, function(result){
+						$(target).datagrid('load');
 					});
 				}
 			});
@@ -323,12 +334,11 @@
 					}
 					dg.datagrid('endEdit', opts.editIndex);
 				}
-				var rows = dg.datagrid('getRows');
 				
 				function _add(index, row){
 					if (index == undefined){
 						dg.datagrid('appendRow', row);
-						opts.editIndex = rows.length - 1;
+						opts.editIndex = dg.datagrid('getRows').length - 1;
 					} else {
 						dg.datagrid('insertRow', {index:index,row:row});
 						opts.editIndex = index;
@@ -339,21 +349,11 @@
 				} else {
 					_add(index, {isNewRecord:true});
 				}
-				
-//				if (index == undefined){
-//					dg.datagrid('appendRow', {isNewRecord:true});
-//					opts.editIndex = rows.length - 1;
-//				} else {
-//					dg.datagrid('insertRow', {
-//						index: index,
-//						row: {isNewRecord:true}
-//					});
-//					opts.editIndex = index;
-//				}
-				
+								
 				dg.datagrid('beginEdit', opts.editIndex);
 				dg.datagrid('selectRow', opts.editIndex);
 				
+				var rows = dg.datagrid('getRows');
 				if (opts.tree){
 					var node = $(opts.tree).tree('getSelected');
 					rows[opts.editIndex][opts.treeParentField] = (node ? node.id : 0);
@@ -402,7 +402,7 @@
 						}
 					}
 				}
-				
+
 				if (!rows.length){
 					$.messager.show({
 						title: opts.destroyMsg.norecord.title,
@@ -428,7 +428,7 @@
 					} else {
 						if (opts.destroyUrl){
 							var idValue = row[opts.idField||'id'];
-							$.post(opts.destroyUrl, {id:idValue}, function(data){
+							opts.poster.call(dg[0], opts.destroyUrl, {id:idValue}, function(data){
 								var index = dg.datagrid('getRowIndex', idValue);
 								if (data.isError){
 									dg.datagrid('selectRow', index);
@@ -452,7 +452,9 @@
 									dg.datagrid('options').pageNumber = pager.pagination('options').pageNumber;
 									dg.datagrid('reload');
 								}
-							}, 'json');
+							}, function(data){
+								opts.onError.call(dg[0], index, data);
+							});
 						} else {
 							dg.datagrid('cancelEdit', index);
 							dg.datagrid('deleteRow', index);
@@ -478,8 +480,24 @@
 				msg:'Are you sure you want to delete?'
 			}
 		},
-//		destroyConfirmTitle: 'Confirm',
-//		destroyConfirmMsg: 'Are you sure you want to delete?',
+		poster: function(url, data, success, error){
+			$.ajax({
+				type: 'post',
+				url: url,
+				data: data,
+				dataType: 'json',
+				success: function(data){
+					success(data);
+				},
+				error: function(jqXHR, textStatus, errorThrown){
+					error({
+						jqXHR: jqXHR,
+						textStatus: textStatus,
+						errorThrown: errorThrown
+					});
+				}
+			});
+		},
 		
 		autoSave: false,	// auto save the editing row when click out of datagrid
 		url: null,	// return the datagrid data

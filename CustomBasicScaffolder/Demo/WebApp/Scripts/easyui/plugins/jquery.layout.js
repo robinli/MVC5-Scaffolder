@@ -1,7 +1,7 @@
 /**
- * jQuery EasyUI 1.4.4
+ * jQuery EasyUI 1.5.1
  * 
- * Copyright (c) 2009-2015 www.jeasyui.com. All rights reserved.
+ * Copyright (c) 2009-2016 www.jeasyui.com. All rights reserved.
  *
  * Licensed under the freeware license: http://www.jeasyui.com/license_freeware.php
  * To use it on other terms please contact us: info@jeasyui.com
@@ -70,20 +70,20 @@ _8.width++;
 function _12(_13){
 var cc=$(_13);
 cc.addClass("layout");
-function _14(cc){
-var _15=cc.layout("options");
-var _16=_15.onAdd;
-_15.onAdd=function(){
-};
-cc.children("div").each(function(){
-var _17=$.fn.layout.parsePanelOptions(this);
-if("north,south,east,west,center".indexOf(_17.region)>=0){
-_19(_13,_17,this);
+function _14(el){
+var _15=$.fn.layout.parsePanelOptions(el);
+if("north,south,east,west,center".indexOf(_15.region)>=0){
+_19(_13,_15,el);
 }
-});
-_15.onAdd=_16;
 };
-cc.children("form").length?_14(cc.children("form")):_14(cc);
+var _16=cc.layout("options");
+var _17=_16.onAdd;
+_16.onAdd=function(){
+};
+cc.find(">div,>form>div").each(function(){
+_14(this);
+});
+_16.onAdd=_17;
 cc.append("<div class=\"layout-split-proxy-h\"></div><div class=\"layout-split-proxy-v\"></div>");
 cc.bind("_resize",function(e,_18){
 if($(this).hasClass("easyui-fluid")||_18){
@@ -114,7 +114,7 @@ return;
 var _20="layout-button-"+_1f[dir];
 var t=_1e.children("a."+_20);
 if(!t.length){
-t=$("<a href=\"javascript:void(0)\"></a>").addClass(_20).appendTo(_1e);
+t=$("<a href=\"javascript:;\"></a>").addClass(_20).appendTo(_1e);
 t.bind("click",{dir:dir},function(e){
 _2d(_1a,e.data.dir);
 return false;

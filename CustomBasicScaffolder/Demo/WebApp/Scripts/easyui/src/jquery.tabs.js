@@ -1,7 +1,7 @@
 /**
- * jQuery EasyUI 1.4.4
+ * jQuery EasyUI 1.5.1
  * 
- * Copyright (c) 2009-2015 www.jeasyui.com. All rights reserved.
+ * Copyright (c) 2009-2016 www.jeasyui.com. All rights reserved.
  *
  * Licensed under the freeware license: http://www.jeasyui.com/license_freeware.php
  * To use it on other terms please contact us: info@jeasyui.com
@@ -109,7 +109,7 @@
 				var tr = tools.find('tr');
 				for(var i=0; i<opts.tools.length; i++){
 					var td = $('<td></td>').appendTo(tr);
-					var tool = $('<a href="javascript:void(0);"></a>').appendTo(td);
+					var tool = $('<a href="javascript:;"></a>').appendTo(td);
 					tool[0].onclick = eval(opts.tools[i].handler || function(){});
 					tool.linkbutton($.extend({}, opts.tools[i], {
 						plain: true
@@ -354,7 +354,7 @@
 		var panels = $(container).children('div.tabs-panels');
 		var tab = $(
 				'<li>' +
-				'<a href="javascript:void(0)" class="tabs-inner">' +
+				'<a href="javascript:;" class="tabs-inner">' +
 				'<span class="tabs-title"></span>' +
 				'<span class="tabs-icon"></span>' +
 				'</a>' +
@@ -496,7 +496,7 @@
 				tab.find('a.tabs-close').remove();
 				if (opts.closable){
 					s_title.addClass('tabs-closable');
-					$('<a href="javascript:void(0)" class="tabs-close"></a>').appendTo(tab);
+					$('<a href="javascript:;" class="tabs-close"></a>').appendTo(tab);
 				} else{
 					s_title.removeClass('tabs-closable');
 				}
@@ -514,7 +514,7 @@
 					if ($.isArray(opts.tools)){
 						p_tool.empty();
 						for(var i=0; i<opts.tools.length; i++){
-							var t = $('<a href="javascript:void(0)"></a>').appendTo(p_tool);
+							var t = $('<a href="javascript:;"></a>').appendTo(p_tool);
 							t.addClass(opts.tools[i].iconCls);
 							if (opts.tools[i].handler){
 								t.bind('click', {handler:opts.tools[i].handler}, function(e){
@@ -529,6 +529,7 @@
 					var pr = p_tool.children().length * 12;
 					if (opts.closable) {
 						pr += 8;
+						p_tool.css('right', '');
 					} else {
 						pr -= 3;
 						p_tool.css('right','5px');
@@ -605,27 +606,30 @@
 	 */
 	function getTab(container, which, removeit){
 		var tabs = $.data(container, 'tabs').tabs;
+		var tab = null;
 		if (typeof which == 'number'){
-			if (which < 0 || which >= tabs.length){
-				return null;
-			} else {
-				var tab = tabs[which];
-				if (removeit) {
+			if (which >=0 && which < tabs.length){
+				tab = tabs[which];
+				if (removeit){
 					tabs.splice(which, 1);
 				}
-				return tab;
 			}
-		}
-		for(var i=0; i<tabs.length; i++){
-			var tab = tabs[i];
-			if (tab.panel('options').title == which){
-				if (removeit){
-					tabs.splice(i, 1);
+		} else {
+			var tmp = $('<span></span>');
+			for(var i=0; i<tabs.length; i++){
+				var p = tabs[i];
+				tmp.html(p.panel('options').title);
+				if (tmp.text() == which){
+					tab = p;
+					if (removeit){
+						tabs.splice(i, 1);
+					}
+					break;
 				}
-				return tab;
 			}
+			tmp.remove();
 		}
-		return null;
+		return tab;
 	}
 	
 	function getTabIndex(container, tab){
@@ -669,8 +673,9 @@
 		var p = getTab(container, which);
 		if (p && !p.is(':visible')){
 			stopAnimate(container);
-			if (!p.panel('options').disabled)
-			p.panel('open');
+			if (!p.panel('options').disabled){
+				p.panel('open');				
+			}
 		}
 	}
 	

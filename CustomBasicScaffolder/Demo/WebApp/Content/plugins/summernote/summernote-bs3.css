@@ -2221,8 +2221,8 @@ fieldset[disabled] .note-editor .btn-link:focus {
 }
 @font-face {
   font-family: 'Glyphicons Halflings';
-  src: url('http://webapplayers.com/inspinia_admin-v2.3/css/plugins/fonts/glyphicons-halflings-regular.eot');
-  src: url('http://webapplayers.com/inspinia_admin-v2.3/css/plugins/fonts/glyphicons-halflings-regular.eot?') format('embedded-opentype'), url('http://webapplayers.com/inspinia_admin-v2.3/css/plugins/fonts/glyphicons-halflings-regular.woff') format('woff'), url('http://webapplayers.com/inspinia_admin-v2.3/css/plugins/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('http://webapplayers.com/inspinia_admin-v2.3/css/plugins/fonts/glyphicons-halflings-regular.svg') format('svg');
+  src: url('../fonts/glyphicons-halflings-regular.eot');
+  src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
 .note-editor .glyphicon {
   position: relative;
