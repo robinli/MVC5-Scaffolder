@@ -2,13 +2,14 @@
   <Metadata>
     <Identity Id="CustomBasicScaffolderExtension..40e7bb7e-f72d-44cf-8439-2567be2590c6" Version="3.1" Language="en-US" Publisher="Robin Li" />
     <DisplayName>URF MVC5 With EasyUI DataGrid</DisplayName>
-    <Description xml:space="preserve">Generates ASP.NET MVC 5 with EasyUI from an Entity Framework data context and model class.</Description>
+    <Description xml:space="preserve">Generates ASP.NET MVC 5 with EasyUI and Entity Framework 6.x web application.</Description>
     <MoreInfo>https://github.com/robinli/MVC5-Scaffolder</MoreInfo>
     <License>LICENSE.txt</License>
     <Tags>Scaffolding</Tags>
   </Metadata>
   <Installation>
     <InstallationTarget Id="Microsoft.VisualStudio.Pro" Version="[12.0]" />
+    <InstallationTarget Version="[14.0,15.0)" Id="Microsoft.VisualStudio.Pro" />
   </Installation>
   <Dependencies>
     <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" Version="[4.5,)" />
