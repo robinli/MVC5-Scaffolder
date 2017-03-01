@@ -155,8 +155,7 @@ namespace <#= Namespace #>
 			<# if (UseAsync) { #>
 				<# if(!String.IsNullOrEmpty(includeExpressions)) { #>
 				var <#= modelVariablePlural #>  = await <#= modelServiceVar #>
-						.Query(new <#= ModelTypeName #>Query()
-							.Withfilter(filters))<#= includeExpressions #>
+						.Query(new <#= ModelTypeName #>Query().Withfilter(filters))<#= includeExpressions #>
 							.OrderBy(n=>n.OrderBy(sort,order))
 							.SelectPage(page, rows, out totalCount)
 							.AsQueryable()
@@ -164,8 +163,7 @@ namespace <#= Namespace #>
             
 				<#  } else { #>
 				var <#= modelVariablePlural #>  = await  <#= modelServiceVar #>
-						.Query(new <#= ModelTypeName #>Query()
-							.Withfilter(filters))
+						.Query(new <#= ModelTypeName #>Query().Withfilter(filters))
 							.OrderBy(n=>n.OrderBy(sort,order))
 							.SelectPage(page, rows, out totalCount)
 							.AsQueryable()
@@ -343,7 +341,7 @@ namespace <#= Namespace #>
         
 
         // GET: <#= routePrefix #>/<#= ViewPrefix #>Create
-		<# if (UseAsync) { #>
+		<# if (false) { #>
 		public async Task<ActionResult> <#= ViewPrefix #>Create()
 		<# } else { #>
         public ActionResult <#= ViewPrefix #>Create()
@@ -353,7 +351,7 @@ namespace <#= Namespace #>
             //set default value
 <# foreach (var property in relatedProperties.Values) { #>
             var <#= property.ShortTypeName.ToLower() #>Repository = _unitOfWork.RepositoryAsync<<#= property.ShortTypeName #>>();
-           <# if (UseAsync) { #>
+           <# if (false) { #>
 		    ViewBag.<#= property.ForeignKeyPropertyNames[0] #> =   new SelectList( await <#= property.ShortTypeName.ToLower() #>Repository.Queryable().ToListAsync(), "<#= property.PrimaryKeyNames[0] #>", "<#= property.DisplayPropertyName #>");
 		   <# } else { #>
 		    ViewBag.<#= property.ForeignKeyPropertyNames[0] #> = new SelectList(<#= property.ShortTypeName.ToLower() #>Repository.Queryable(), "<#= property.PrimaryKeyNames[0] #>", "<#= property.DisplayPropertyName #>");
