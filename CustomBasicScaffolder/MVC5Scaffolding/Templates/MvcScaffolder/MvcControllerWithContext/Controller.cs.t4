@@ -155,8 +155,7 @@ namespace <#= Namespace #>
 			<# if (UseAsync) { #>
 				<# if(!String.IsNullOrEmpty(includeExpressions)) { #>
 				var <#= modelVariablePlural #>  = await <#= modelServiceVar #>
-						.Query(new <#= ModelTypeName #>Query()
-							.Withfilter(filters))<#= includeExpressions #>
+						.Query(new <#= ModelTypeName #>Query().Withfilter(filters))<#= includeExpressions #>
 							.OrderBy(n=>n.OrderBy(sort,order))
 							.SelectPage(page, rows, out totalCount)
 							.AsQueryable()
@@ -164,8 +163,7 @@ namespace <#= Namespace #>
             
 				<#  } else { #>
 				var <#= modelVariablePlural #>  = await  <#= modelServiceVar #>
-						.Query(new <#= ModelTypeName #>Query()
-							.Withfilter(filters))
+						.Query(new <#= ModelTypeName #>Query().Withfilter(filters))
 							.OrderBy(n=>n.OrderBy(sort,order))
 							.SelectPage(page, rows, out totalCount)
 							.AsQueryable()
