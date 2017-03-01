@@ -23,12 +23,10 @@
 
     @Styles.Render("~/plugins/easyuiStyles")
     @Styles.Render("~/plugins/jqueryfilerStyles")
-    @Scripts.Render("~/bundles/jquery")
-
-   
+    
 </head>
 <body>
-
+    @Scripts.Render("~/bundles/jquery")
     <!-- Skin configuration box -->
     <!-- @Html.Partial("_SkinConfig") -->
     <!-- Wrapper-->
@@ -81,6 +79,7 @@
     </div>
     <!-- End wrapper-->
     <!-- Section for main scripts render -->
+    
     @Scripts.Render("~/plugins/easyuijs")
     @Scripts.Render("~/plugins/easyuipluginsjs")
     @Scripts.Render("~/plugins/momentjs")
@@ -88,7 +87,9 @@
     @Scripts.Render("~/plugins/filesaverjs")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/plugins/slimScroll")
-    @Scripts.Render("~/bundles/inspinia")
+ 
+
+@Scripts.Render("~/bundles/inspinia")
 
     <!-- Skin config script - only for demo purpose-->
     @Scripts.Render("~/bundles/skinConfig")
