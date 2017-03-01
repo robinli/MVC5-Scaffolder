@@ -56,7 +56,7 @@ namespace WebApp.Controllers
         {
             Stopwatch watch = new Stopwatch();
             watch.Start();
-            this._unitOfWork.SetAutoDetectChangesEnabled(true);
+            this._unitOfWork.SetAutoDetectChangesEnabled(false);
             var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
             int totalCount = 0;
             //int pagenum = offset / limit +1;

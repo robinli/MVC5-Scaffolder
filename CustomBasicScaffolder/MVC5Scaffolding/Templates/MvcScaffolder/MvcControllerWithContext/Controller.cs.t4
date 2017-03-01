@@ -343,7 +343,7 @@ namespace <#= Namespace #>
         
 
         // GET: <#= routePrefix #>/<#= ViewPrefix #>Create
-		<# if (UseAsync) { #>
+		<# if (false) { #>
 		public async Task<ActionResult> <#= ViewPrefix #>Create()
 		<# } else { #>
         public ActionResult <#= ViewPrefix #>Create()
@@ -353,7 +353,7 @@ namespace <#= Namespace #>
             //set default value
 <# foreach (var property in relatedProperties.Values) { #>
             var <#= property.ShortTypeName.ToLower() #>Repository = _unitOfWork.RepositoryAsync<<#= property.ShortTypeName #>>();
-           <# if (UseAsync) { #>
+           <# if (false) { #>
 		    ViewBag.<#= property.ForeignKeyPropertyNames[0] #> =   new SelectList( await <#= property.ShortTypeName.ToLower() #>Repository.Queryable().ToListAsync(), "<#= property.PrimaryKeyNames[0] #>", "<#= property.DisplayPropertyName #>");
 		   <# } else { #>
 		    ViewBag.<#= property.ForeignKeyPropertyNames[0] #> = new SelectList(<#= property.ShortTypeName.ToLower() #>Repository.Queryable(), "<#= property.PrimaryKeyNames[0] #>", "<#= property.DisplayPropertyName #>");
