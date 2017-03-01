@@ -118,10 +118,8 @@ namespace Repository.Pattern.Ef6
 
         private void SyncObjectsStatePreCommit()
         {
-           
             foreach (var dbEntityEntry in ChangeTracker.Entries())
             {
-      
                 dbEntityEntry.State = StateHelper.ConvertState(((IObjectState)dbEntityEntry.Entity).ObjectState);
             }
         }

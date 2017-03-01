@@ -18,8 +18,7 @@ namespace Repository.Pattern.Ef6
 
                 case ObjectState.Deleted:
                     return EntityState.Deleted;
-                case ObjectState.Detached:
-                    return EntityState.Detached;
+
                 default:
                     return EntityState.Unchanged;
             }
