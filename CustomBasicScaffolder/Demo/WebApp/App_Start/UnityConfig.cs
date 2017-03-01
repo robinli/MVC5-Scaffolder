@@ -1,15 +1,19 @@
 using System;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.Configuration;
+using System.Data.Entity;
+using WebApp.Models;
+using Microsoft.AspNet.Identity;
+
 using Repository.Pattern.UnitOfWork;
 using Repository.Pattern.Ef6;
 using Repository.Pattern.DataContext;
-using WebApp.Models;
+
 using Repository.Pattern.Repositories;
 using WebApp.Services;
-using Microsoft.AspNet.Identity;
+
 using Microsoft.AspNet.Identity.EntityFramework;
-using System.Data.Entity;
+
 using Microsoft.Owin.Security;
 using System.Web;
 
