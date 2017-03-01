@@ -36,8 +36,15 @@ namespace Repository.Pattern.Ef6
         public UnitOfWork(IDataContextAsync dataContext)
         {
             _dataContext = dataContext;
+            
             _repositories = new Dictionary<string, dynamic>();
         }
+
+        public void SetAutoDetectChangesEnabled(bool enabled)
+        {
+            this._dataContext.SetAutoDetectChangesEnabled(enabled);
+        }
+
 
         #endregion Constuctor/Dispose
 

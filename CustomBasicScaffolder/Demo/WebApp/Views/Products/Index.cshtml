@@ -8,10 +8,12 @@
 }
 
 
+ 
 
 
 <!--begin datagrid-content -->
 <div class="datagrid-content">
+    <h2>  @ViewBag.time </h2>
     <table id="products_datagrid" class="easyui-datagrid"   style="width:auto;height:auto"
            data-options="
                  rownumbers:true,
@@ -27,7 +29,7 @@
                  method: 'get',
                  onClickCell: onClickCell,
 				 onSelect:onSelect,
-                 pagination: 'true'
+                 pagination: true
                    ">
         <thead>
             <tr>

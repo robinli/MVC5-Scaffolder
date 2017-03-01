@@ -17,7 +17,7 @@ using WebApp.Models;
 using WebApp.Services;
 using WebApp.Repositories;
 using WebApp.Extensions;
-
+using System.Diagnostics;
 
 namespace WebApp.Controllers
 {
@@ -54,6 +54,9 @@ namespace WebApp.Controllers
         [HttpGet]
         public async Task<ActionResult> GetData(int page = 1, int rows = 10, string sort = "Id", string order = "asc", string filterRules = "")
         {
+            Stopwatch watch = new Stopwatch();
+            watch.Start();
+            this._unitOfWork.SetAutoDetectChangesEnabled(true);
             var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
             int totalCount = 0;
             //int pagenum = offset / limit +1;
@@ -67,6 +70,13 @@ namespace WebApp.Controllers
 
             var datarows = products.Select(n => new { CategoryName = (n.Category == null ? "" : n.Category.Name), Id = n.Id, Name = n.Name, Unit = n.Unit, UnitPrice = n.UnitPrice, StockQty = n.StockQty, ConfirmDateTime = n.ConfirmDateTime, IsRequiredQc = n.IsRequiredQc, CategoryId = n.CategoryId }).ToList();
             var pagelist = new { total = totalCount, rows = datarows };
+
+            this._unitOfWork.SetAutoDetectChangesEnabled(true);
+
+            watch.Stop();
+            //获取当前实例测量得出的总运行时间（以毫秒为单位）
+            ViewBag.time = watch.ElapsedMilliseconds.ToString();
+
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
 

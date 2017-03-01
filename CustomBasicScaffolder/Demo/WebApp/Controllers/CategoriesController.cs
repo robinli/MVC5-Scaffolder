@@ -124,7 +124,7 @@ namespace WebApp.Controllers
         
 
         // GET: Categories/Create
-				public async Task<ActionResult> Create()
+				public    ActionResult  Create()
 		        {
             var category = new Category();
             //set default value

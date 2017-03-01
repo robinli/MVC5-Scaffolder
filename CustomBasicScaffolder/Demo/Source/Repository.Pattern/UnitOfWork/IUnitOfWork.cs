@@ -12,5 +12,7 @@ namespace Repository.Pattern.UnitOfWork
         void BeginTransaction(IsolationLevel isolationLevel = IsolationLevel.Unspecified);
         bool Commit();
         void Rollback();
+
+        void SetAutoDetectChangesEnabled(bool enabled);
     }
 }

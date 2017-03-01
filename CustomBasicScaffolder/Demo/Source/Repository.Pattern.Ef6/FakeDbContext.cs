@@ -53,5 +53,10 @@ namespace Repository.Pattern.Ef6
         }
 
         public void SyncObjectsStatePostCommit() { }
+
+        public void SetAutoDetectChangesEnabled(bool enabled)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

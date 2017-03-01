@@ -69,6 +69,7 @@ namespace WebApp.Controllers
             catch(InvalidOperationException ex)
             {
                 ViewBag.MaxRolesCount = 0;
+                Console.WriteLine(ex);
             }
             return View("Index", new ManagementViewModel
             {
