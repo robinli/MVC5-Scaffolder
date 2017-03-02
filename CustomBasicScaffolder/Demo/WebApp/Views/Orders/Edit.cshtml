@@ -2,64 +2,54 @@
 
 
 
+
+
+
 @model WebApp.Models.Order
-
-@{
-    ViewBag.Title = "订单管理 | Edit"  ;
-}
-
-
-
-
+@{  ViewBag.Title = "Order | Edit";}
+ 
 <div class="row">
             <div class="col-md-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>订单管理 form<small> edit Orders</small></h5>
+                        <h5>Order form<small> edit Orders</small></h5>
                         <div class="ibox-tools">
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
                             </a>
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                <i class="fa fa-wrench"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-user">
-                                <li><a href="#">Config option 1</a>
-                                </li>
-                                <li><a href="">Config option 2</a>
-                                </li>
-                            </ul>
-                            <a class="close-link">
-                                <i class="fa fa-times"></i>
-                            </a>
+                           
                         </div>
                     </div>
                     <div class="ibox-content">
                        
 
-@using (Html.BeginForm())
-{
-    @*@Html.AntiForgeryToken()*@
-    		<div class="form-horizontal">
-	 
- 
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
- 
-    
-        @Html.Partial("EditForm")
- 
-		<div class="row">
-        <div class="hr-line-dashed"></div>
-                                <div class="form-group">
-                                    <div class="col-sm-4 col-sm-offset-2">
-                                        <button class="btn btn-white" type="reset">Cancel</button>
-                                        <button class="btn btn-primary" type="submit">Save</button>
-                                    </div>
-                                </div>
-	    </div>
+ <form id="order_form" class="easyui-form" method="post" data-options="novalidate:true">
 
-		 		</div>
-		}
+    <!--form toolbar-->
+    <div id="form_toolbar" style="height:auto" class="datagrid-toolbar">
+
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="append()">新增</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">保存</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">取消</a>
+
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-paperclip',plain:true" onclick="importexcel()">EXCEL 导入</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-download-alt',plain:true" onclick="exportexcel()">导出 Excel</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="reload()">刷新</a>
+    </div>
+    <!--form toolbar-->
+       @*@Html.AntiForgeryToken()*@
+  
+  
+		
+      
+		<div class="form-content">
+		 
+        @Html.Partial("EditForm")
+
+		@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+		</div>
+  </form>
  </div>
         </div>
     </div>
@@ -67,8 +57,9 @@
 
  
 
+
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+   
     <script type="text/javascript">
 	
     		var orderid = 0;
@@ -127,3 +118,4 @@
       </script>
 
 }
+ 

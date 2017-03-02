@@ -3335,12 +3335,6 @@
     <Content Include="Views\DataTableImportMappings\Edit.cshtml" />
     <Content Include="Views\DataTableImportMappings\EditForm.cshtml" />
     <Content Include="Views\DataTableImportMappings\Index.cshtml" />
-    <Content Include="Views\Orders\Index.cshtml" />
-    <Content Include="Views\Orders\Create.cshtml" />
-    <Content Include="Views\Orders\Edit.cshtml" />
-    <Content Include="Views\Orders\EditForm.cshtml" />
-    <Content Include="Views\Orders\_PopupSearch.cshtml" />
-    <Content Include="Views\Orders\_OrderDetailEditForm.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_Layout_2.cshtml" />
@@ -3402,6 +3396,11 @@
     <Content Include="Scripts\plugins\jquery-filer\examples\default\php\form_upload.php" />
     <Content Include="Scripts\plugins\jquery-filer\examples\dragdrop\php\ajax_remove_file.php" />
     <Content Include="Scripts\plugins\jquery-filer\examples\dragdrop\php\ajax_upload_file.php" />
+    <Content Include="Views\Orders\Index.cshtml" />
+    <Content Include="Views\Orders\Create.cshtml" />
+    <Content Include="Views\Orders\Edit.cshtml" />
+    <Content Include="Views\Orders\EditForm.cshtml" />
+    <Content Include="Views\Orders\_OrderDetailEditForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Source\Repository.Pattern.Ef6\Repository.Pattern.Ef6.csproj">

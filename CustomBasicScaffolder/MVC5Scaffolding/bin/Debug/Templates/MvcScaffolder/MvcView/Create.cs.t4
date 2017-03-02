@@ -109,7 +109,7 @@ bool isControlHtmlAttributesSupported = MvcVersion >= requiredMvcVersion;
                      } else {						
                          $.messager.alert("错误", "保存失败！" + response.err, 'error');						
                      }						
-                 }, "JSON").error(function (response) {						
+                 }, "json").fail(function (response) {						
                      //console.log(response);						
                      $.messager.alert("错误", "保存失败！", 'error');						
                      //$dg.datagrid('reload');						

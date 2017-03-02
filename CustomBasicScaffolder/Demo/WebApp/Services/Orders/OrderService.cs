@@ -3,6 +3,9 @@
            
  
 
+
+
+
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -16,6 +19,11 @@ using WebApp.Repositories;
 
 using System.Data;
 using System.Reflection;
+
+using Newtonsoft.Json;
+using WebApp.Extensions;
+using System.IO;
+
 namespace WebApp.Services
 {
     public class OrderService : Service< Order >, IOrderService
@@ -43,25 +51,48 @@ namespace WebApp.Services
             {
                  
                 Order item = new Order();
-                foreach (DataColumn col in datatable.Columns)
-                {
-                    var sourcefieldname = col.ColumnName;
-                    var mapping = _mappingservice.FindMapping("Order", sourcefieldname);
-                    if (mapping != null && row[sourcefieldname] != DBNull.Value)
-                    {
-                        
-                        Type ordertype = item.GetType();
-						PropertyInfo propertyInfo = ordertype.GetProperty(mapping.FieldName);
-						propertyInfo.SetValue(item, Convert.ChangeType(row[sourcefieldname], propertyInfo.PropertyType), null);
-                        //ordertype.GetProperty(mapping.FieldName).SetValue(item, row[sourcefieldname]);
-                    }
+				var mapping = _mappingservice.Queryable().Where(x => x.EntitySetName == "Order").ToList();
 
+                foreach (var field in mapping)
+                {
+                 
+						var defval = field.DefaultValue;
+						var contation = datatable.Columns.Contains((field.SourceFieldName == null ? "" : field.SourceFieldName));
+						if (contation && row[field.SourceFieldName] != DBNull.Value)
+						{
+							Type ordertype = item.GetType();
+							PropertyInfo propertyInfo = ordertype.GetProperty(field.FieldName);
+							propertyInfo.SetValue(item, Convert.ChangeType(row[field.SourceFieldName], propertyInfo.PropertyType), null);
+						}
+						else if (!string.IsNullOrEmpty(defval))
+						{
+							Type ordertype = item.GetType();
+							PropertyInfo propertyInfo = ordertype.GetProperty(field.FieldName);
+							if (defval.ToLower() == "now" && propertyInfo.PropertyType ==typeof(DateTime))
+                            {
+                                propertyInfo.SetValue(item, Convert.ChangeType(DateTime.Now, propertyInfo.PropertyType), null);
+                            }
+                            else
+                            {
+                                propertyInfo.SetValue(item, Convert.ChangeType(defval, propertyInfo.PropertyType), null);
+                            }
+						}
                 }
                 
                 this.Insert(item);
                
 
             }
+        }
+		
+		public Stream ExportExcel(string filterRules = "",string sort = "Id", string order = "asc")
+        {
+            var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
+                                   var orders  = this.Query(new OrderQuery().Withfilter(filters)).OrderBy(n=>n.OrderBy(sort,order)).Select().ToList();
+                        var datarows = orders .Select(  n => new {  Id = n.Id , Customer = n.Customer , ShippingAddress = n.ShippingAddress , OrderDate = n.OrderDate }).ToList();
+           
+            return ExcelHelper.ExportExcel(typeof(Order), datarows);
+
         }
     }
 }

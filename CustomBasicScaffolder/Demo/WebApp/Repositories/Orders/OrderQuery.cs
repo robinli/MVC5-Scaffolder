@@ -40,12 +40,13 @@ namespace WebApp.Repositories
                {
                   
 					
-				    						if (rule.field == "Id" && !string.IsNullOrEmpty(rule.value) && rule.value.IsNumeric())
+				    						if (rule.field == "Id" && !string.IsNullOrEmpty(rule.value) && rule.value.IsInt())
 						{
 							int val = Convert.ToInt32(rule.value);
 							And(x => x.Id == val);
 						}
-				   
+				    
+					
 					
 				    				
 											if (rule.field == "Customer"  && !string.IsNullOrEmpty(rule.value))
@@ -55,6 +56,7 @@ namespace WebApp.Repositories
 				    
 				    
 					
+					
 				    				
 											if (rule.field == "ShippingAddress"  && !string.IsNullOrEmpty(rule.value))
 						{
@@ -63,9 +65,11 @@ namespace WebApp.Repositories
 				    
 				    
 					
+					
 				    				
 					
 				    
+					
 											if (rule.field == "OrderDate" && !string.IsNullOrEmpty(rule.value) && rule.value.IsDateTime())
 						{	
 							var date = Convert.ToDateTime(rule.value) ;

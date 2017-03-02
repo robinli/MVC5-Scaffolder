@@ -2,45 +2,81 @@
 
 
 
+
+
+
 @model WebApp.Models.Order
 
 
  @*@Html.HiddenFor(model => model.Id)*@
 
+ <!--输出form表单界面-->
+ <table class="table table-bordered">
+     <caption>
+     </caption>
+	    <tr>
+      	   <td class="control-label">   @Html.DisplayNameFor(model => model.Id)  </td>
+	   <td> 
+						   			<input  disabled  id="@Html.IdFor(model => model.Id)" name="@Html.NameFor(model => model.Id)" tabindex="0" style="width:100%" class="easyui-numberbox" type="text" data-options="prompt:'Id',label:'Id:',required:true ,precision:0" />
+			  
+				   </td>
+	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.Customer)  </td>
+	   <td> 
+			
+			  			<input id="@Html.IdFor(model => model.Customer)" 
+				   name="@Html.NameFor(model => model.Customer)" 
+				   value="@Html.ValueFor(model => model.Customer)"
+				   tabindex="1" 
+				   style="width:100%" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'客户',
+								 label:'客户:',
+								 required:true ,validType:'length[0,20]'" />
+			              
+				   </td>
+	   	   </tr>
+	   	    <tr>
+      	   <td class="control-label">   @Html.DisplayNameFor(model => model.ShippingAddress)  </td>
+	   <td> 
+			
+			  			<input id="@Html.IdFor(model => model.ShippingAddress)" 
+				   name="@Html.NameFor(model => model.ShippingAddress)" 
+				   value="@Html.ValueFor(model => model.ShippingAddress)"
+				   tabindex="2" 
+				   style="width:100%" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'发货地址',
+								 label:'发货地址:',
+								 required:true ,validType:'length[0,50]'" />
+			              
+				   </td>
+	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.OrderDate)  </td>
+	   <td> 
+			
+			  			<input id="@Html.IdFor(model => model.OrderDate)" 
+			       name="@Html.NameFor(model => model.OrderDate)" 
+				   tabindex="3" 
+				   style="width:100%" class="easyui-datebox" 
+				   type="text" 
+				   value="@Html.ValueFor(model => model.OrderDate)"
+				   data-options="prompt:'订单日期',
+								 label:'订单日期:',
+								 required:true,
+								 formatter:dateformatter" />
+			              
+				   </td>
+	   	   </tr>
+	   	        @*<tfoot>
+        <tr>
+           
+        <tr>
+    </tfoot>*@
+</table>
+  <!--输出form表单界面-->
 
-
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Customer,   htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                                @Html.EditorFor(model => model.Customer, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Customer,"" , new { @class = "text-danger" })
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ShippingAddress,   htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                                @Html.EditorFor(model => model.ShippingAddress, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.ShippingAddress,"" , new { @class = "text-danger" })
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.OrderDate,   htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                                @Html.EditorFor(model => model.OrderDate, "Date" ,new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.OrderDate,"" , new { @class = "text-danger" })
-            </div>
-        </div>
-
-		   
-
- 
-
-
+<!--========================================================================================-->
      <!-- details tabs -->
     <div class="tabs-container">
         <!-- Nav tabs -->
@@ -72,7 +108,7 @@
                         <tr>
 						@*<th data-options="field:'ck',checkbox:true"></th>*@
 				        
-														<th data-options="field:'Id',width:80"> Id </th>
+														@*<th data-options="field:'Id',width:80"> Id </th>*@
 											
 														<th data-options="field:'ProductId',width:100,
 												formatter:function(value,row){
@@ -85,51 +121,35 @@
 														textField:'Name',
 														method:'get',
 														url:'/Orders/GetProducts',
-														required:false
+														required:true ,precision:0
 														}
 												}"> 产品 </th>
 
            
 											
 						
-																<th data-options="field:'Qty',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">数量</th>
+																<th data-options="field:'Qty',width:100,align:'right',editor:{type:'numberbox',options:{required:true ,precision:0} } ,sortable:true,resizable:true ">数量</th>
 							
 											
 						
-																<th data-options="field:'Price',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">单价</th>
+																<th data-options="field:'Price',width:100,align:'right',editor:{type:'numberbox',options:{required:true ,precision:2} } ,sortable:true,resizable:true ">单价</th>
 							
 											
 						
-																<th data-options="field:'Amount',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}} ,sortable:true,resizable:true ">金额</th>
+																<th data-options="field:'Amount',width:100,align:'right',editor:{type:'numberbox',options:{required:true ,precision:2} } ,sortable:true,resizable:true ">金额</th>
 							
 											
-														<th data-options="field:'OrderId',width:100,
-												formatter:function(value,row){
-													return row.OrderCustomer;
-												},
-												editor:{
-													type:'combobox',
-													options:{
-														valueField:'Id',
-														textField:'Customer',
-														method:'get',
-														url:'/Orders/GetOrders',
-														required:false
-														}
-												}"> 订单 </th>
-
-           
 											                           
                         </tr>
                     </thead>
                 </table>
 
 				<div id="orderdetails_toolbar" style="height:auto">
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="orderdetails_append()">Append</a>
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="orderdetails_removeit()">Remove</a>
-                    @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="orderdetails_accept()">Accept</a>*@
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="orderdetails_reject()">Reject</a>
-                    @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="orderdetails_getChanges()">GetChanges</a>*@
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="orderdetails_append()">新增</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="orderdetails_removeit()">删除</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="orderdetails_accept()">保持</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="orderdetails_reject()">取消</a>
+                   
                 </div>
 
                 </div>
@@ -144,18 +164,12 @@
  <script type="text/javascript">
 	
 	    
+	//==============$('#orderdetails_datagrid')=================// 
+    var $orderdetailsdatagrid = $('#orderdetails_datagrid')
 	var orderdetailseditIndex = undefined;
     function orderdetails_endEditing() {
         if ( orderdetailseditIndex == undefined) { return true }
         if ($orderdetailsdatagrid.datagrid('validateRow', orderdetailseditIndex)) {
-			            var ed = $orderdetailsdatagrid.datagrid('getEditor', { index: orderdetailseditIndex, field: 'OrderId' });
-            var OrderCustomer = $(ed.target).combobox('getText');
-            var OrderId = $(ed.target).combobox('getValue');
-          
-            $orderdetailsdatagrid.datagrid('getRows')[orderdetailseditIndex]['OrderCustomer'] = OrderCustomer;
-            $orderdetailsdatagrid.datagrid('getRows')[orderdetailseditIndex]['OrderId'] = OrderId;
-            
-            
 			            var ed = $orderdetailsdatagrid.datagrid('getEditor', { index: orderdetailseditIndex, field: 'ProductId' });
             var ProductName = $(ed.target).combobox('getText');
             var ProductId = $(ed.target).combobox('getValue');
