@@ -96,9 +96,14 @@
    
    
 
-    <script>
+    <script type="text/javascript">
 
-
+ 
+        $.fn.datebox.defaults.formatter = function (date) {
+            //console.log('xxxx' + date);
+            return moment(date).format('MM/DD/YYYY');
+        }
+  
     $.extend($.fn.datagrid.defaults.editors, {
         datebox: {
             init: function (container, options) {
@@ -124,13 +129,19 @@
 
 
     function dateformatter(value, row, index) {
-
+        //console.log(value);
         if (value == typeof (undefined))
             return null;
         if (value == null)
             return null;
-        else
-            return moment(value).format('YYYY-MM-DD');
+        else {
+            
+            if (moment(value).isValid()) {
+             
+                    return moment(value).format('MM/DD/YYYY');
+               
+            }
+        }
     }
     function datetimeformatter(value, row, index) {
 
@@ -140,14 +151,14 @@
         if (value == null)
             return null;
         else
-            return moment(value).format('YYYY-MM-DD HH:mm:ss');
+            return moment(value).format('MM/DD/YYYY HH:mm:ss');
     }
 
 
     jQuery.extend({
         dateNow: function () {
             //console.log(new Date());
-            return moment(new Date()).format('YYYY-MM-DD');
+            return moment(new Date()).format('MM/DD/YYYY');
         }
     });
     </script>

@@ -14,5 +14,7 @@ namespace Repository.Pattern.UnitOfWork
         void Rollback();
 
         void SetAutoDetectChangesEnabled(bool enabled);
+
+        void BulkSaveChanges();
     }
 }

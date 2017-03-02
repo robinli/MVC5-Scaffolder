@@ -104,8 +104,8 @@ namespace WebApp.Controllers
                     _productService.Insert(inserted);
                 }
             }
-            await _unitOfWork.SaveChangesAsync();
-
+            //await _unitOfWork.SaveChangesAsync();
+            await _unitOfWork.BulkSaveChangesAsync();
             return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
         }
 

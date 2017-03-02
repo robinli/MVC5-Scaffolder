@@ -33,14 +33,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\EntityFramework.6.1.3-beta1\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer">
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\EntityFramework.6.1.3-beta1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="LinqKit">
-      <HintPath>..\..\..\packages\LINQKit.1.1.1\lib\net45\LinqKit.dll</HintPath>
+    <Reference Include="LinqKit, Version=1.1.7.3, Culture=neutral, PublicKeyToken=bc217f8844052a91, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\LinqKit.1.1.7.3\lib\net45\LinqKit.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Practices.ServiceLocation">
@@ -55,6 +58,10 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Net.Http">
       <HintPath>..\..\Sample\packages\Microsoft.AspNet.WebApi.Client.5.1.2\lib\net45\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Z.EntityFramework.Extensions, Version=3.10.58.0, Culture=neutral, PublicKeyToken=59b66d028979105b, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Z.EntityFramework.Extensions.3.10.58\lib\net45\Z.EntityFramework.Extensions.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>

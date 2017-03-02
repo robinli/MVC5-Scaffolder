@@ -58,5 +58,15 @@ namespace Repository.Pattern.Ef6
         {
             throw new NotImplementedException();
         }
+
+        public Task BulkSaveChangesAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void BulkSaveChanges()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

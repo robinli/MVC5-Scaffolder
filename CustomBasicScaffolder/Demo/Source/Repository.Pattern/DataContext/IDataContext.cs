@@ -12,5 +12,7 @@ namespace Repository.Pattern.DataContext
 
 
         void SetAutoDetectChangesEnabled(bool enabled);
+
+        void BulkSaveChanges();
     }
 }

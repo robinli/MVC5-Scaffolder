@@ -111,6 +111,8 @@ namespace Repository.Pattern.Ef6
             return _dataContext.SaveChanges();
         }
 
+
+      
         public IRepository<TEntity> Repository<TEntity>() where TEntity : class, IObjectState
         {
             if (ServiceLocator.IsLocationProviderSet)
@@ -180,6 +182,15 @@ namespace Repository.Pattern.Ef6
         {
             _transaction.Rollback();
             _dataContext.SyncObjectsStatePostCommit();
+        }
+ 
+        public void BulkSaveChanges()
+        {
+            this._dataContext.BulkSaveChanges();
+        }
+        public Task BulkSaveChangesAsync()
+        {
+            return this._dataContext.BulkSaveChangesAsync();
         }
 
         #endregion

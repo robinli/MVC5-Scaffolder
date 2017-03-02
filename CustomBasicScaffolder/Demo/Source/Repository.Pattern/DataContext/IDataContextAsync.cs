@@ -7,5 +7,7 @@ namespace Repository.Pattern.DataContext
     {
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
         Task<int> SaveChangesAsync();
+
+        Task  BulkSaveChangesAsync();
     }
 }
