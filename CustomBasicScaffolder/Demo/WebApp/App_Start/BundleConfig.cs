@@ -39,6 +39,7 @@ namespace WebApp
                       "~/Scripts/app/inspinia.js",
                       "~/Scripts/plugins/metisMenu/metisMenu.min.js",
                       "~/Scripts/plugins/pace/pace.min.js"
+
                       ));
 
             // Inspinia skin config script

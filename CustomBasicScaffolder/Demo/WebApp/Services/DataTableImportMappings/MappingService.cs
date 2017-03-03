@@ -1,6 +1,6 @@
-﻿             
-           
- 
+﻿
+
+
 
 using System;
 using System.Collections.Generic;
@@ -14,6 +14,7 @@ using WebApp.Models;
 using WebApp.Repositories;
 using System.Reflection;
 using Repository.Pattern.Ef6;
+using WebApp.Extensions;
 
 namespace WebApp.Services
 {
@@ -60,16 +61,22 @@ namespace WebApp.Services
                    .Select(x => new EntityInfo { EntitySetName = x.DeclaringType.Name, FieldName = x.Name, FieldTypeName = x.PropertyType.Name, IsRequired = x.GetCustomAttributes().Where(f => f.TypeId.ToString().IndexOf("Required") >= 0).Any() })
                    .OrderBy(x => x.EntitySetName).ThenBy(x => x.FieldName)
                    .Where(x => x.EntitySetName == entityName && x.FieldTypeName!="ICollection`1").ToList();
+
+            var entityType = asm.GetTypes()
+                   .Where(type => typeof(Entity).IsAssignableFrom(type)).Where(x => x.Name == entityName).First();
             foreach (var item in list)
             {
                 var exist = this.Queryable().Where(x => x.EntitySetName == item.EntitySetName && x.FieldName == item.FieldName).Any();
-                if (!exist) { 
-                DataTableImportMapping row = new DataTableImportMapping();
-                row.EntitySetName = item.EntitySetName;
-                row.FieldName = item.FieldName;
-                row.IsRequired = item.IsRequired;
-                row.TypeName = item.FieldTypeName;
-                this.Insert(row);
+                if (!exist)
+                {
+                    DataTableImportMapping row = new DataTableImportMapping();
+                    row.EntitySetName = item.EntitySetName;
+                    row.FieldName = item.FieldName;
+                    row.IsRequired = item.IsRequired;
+                    row.TypeName = item.FieldTypeName;
+                    row.IsEnabled = item.IsRequired;
+                    row.SourceFieldName = AttributeHelper.GetDisplayName(entityType, item.FieldName);
+                    this.Insert(row);
                 }
             }
         }

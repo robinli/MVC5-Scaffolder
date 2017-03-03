@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <title>INSPINIA | @ViewBag.Title</title>
-
+  
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
     <!-- Add local styles, mostly for plugins css file -->
     @if (IsSectionDefined("Styles"))
@@ -98,7 +98,11 @@
 
     <script type="text/javascript">
 
- 
+        paceOptions = {
+            ajax: {
+                trackMethods: ['GET', 'POST', 'DELETE', 'PUT', 'PATCH']
+            }
+        }
         $.fn.datebox.defaults.formatter = function (date) {
             //console.log('xxxx' + date);
             return moment(date).format('MM/DD/YYYY');

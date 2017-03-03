@@ -156,15 +156,15 @@ namespace Repository.Pattern.Ef6
             this.Configuration.AutoDetectChangesEnabled = enabled;
         }
 
-        public void BulkSaveChanges()
+        public   void BulkSaveChanges()
         {
-            this.BulkSaveChanges();
+            this.BulkSaveChanges(false);
         }
 
         public   Task BulkSaveChangesAsync()
         {
 
-            return this.BulkSaveChangesAsync( CancellationToken.None);
+            return this.BulkSaveChangesAsync(false, CancellationToken.None);
         }
     }
 }

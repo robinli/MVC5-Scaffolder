@@ -47,11 +47,12 @@ namespace WebApp.Services
 
 		public void ImportDataTable(System.Data.DataTable datatable)
         {
+            var mapping = _mappingservice.Queryable().Where(x => x.EntitySetName == "Product").ToList();
             foreach (DataRow row in datatable.Rows)
             {
                  
                 Product item = new Product();
-				var mapping = _mappingservice.Queryable().Where(x => x.EntitySetName == "Product").ToList();
+				
 
                 foreach (var field in mapping)
                 {

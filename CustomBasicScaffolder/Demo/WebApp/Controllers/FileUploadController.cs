@@ -16,21 +16,22 @@ using WebApp.Services;
 using WebApp.Repositories;
 using WebApp.Extensions;
 using System.IO;
-
+using System.Diagnostics;
 
 namespace WebApp.Controllers
 {
      public class FileUploadController : Controller
     {
-        //private readonly ISKUService  _sKUService;
-        //private readonly IBOMComponentService _iBOMComponentService;
-        //private readonly IUnitOfWorkAsync _unitOfWork;
+        private readonly IProductService _productService;
+ 
+        private readonly IUnitOfWorkAsync _unitOfWork;
 
-        public FileUploadController(/*ISKUService sKUService, IBOMComponentService iBOMComponentService,IUnitOfWorkAsync unitOfWork*/)
+        public FileUploadController(IProductService productService, IUnitOfWorkAsync unitOfWork)
         {
             //_iBOMComponentService = iBOMComponentService;
             //_sKUService  = sKUService;
-            //_unitOfWork = unitOfWork;
+            _unitOfWork = unitOfWork;
+            _productService = productService;
         }
         //回单文件上传 文件名格式 回单+_+日期+_原始文件
         [HttpPost]
@@ -42,8 +43,11 @@ namespace WebApp.Controllers
             //string Lastfilename = "";
             var request = this.Request;
             var filedata = this.Request.Files[0];
+            Stopwatch watch = new Stopwatch();
             try
             {
+               
+                watch.Start();
                 // 如果没有上传文件
                 if (filedata == null ||
                     string.IsNullOrEmpty(filedata.FileName) ||
@@ -55,18 +59,20 @@ namespace WebApp.Controllers
                 //date = this.Request.Form["date"];
                 //filename = this.Request.Form["filename"];
                 //Lastfilename = this.Request.Form["Lastfilename"];
-                //DataTable datatable = ExcelHelper.GetDataTableFromExcel(filedata.InputStream);
-                //if (fileType == "SKU")
-                //{
-                //    _sKUService.ImportDataTable(datatable);
-                //    _unitOfWork.SaveChanges();
-                //}
-                //if (fileType == "BOM")
+                DataTable datatable = ExcelHelper.GetDataTableFromExcel(filedata.InputStream);
+                if (fileType == "Product")
+                {
+
+                    _productService.ImportDataTable(datatable);
+                    _unitOfWork.BulkSaveChanges();
+                    //_unitOfWork.SaveChanges();
+                }
+                //if (fileType == "Product")
                 //{
                 //    _iBOMComponentService.ImportDataTable(datatable);
                 //    _unitOfWork.SaveChanges();
                 //}
-               
+
                 string uploadfilename = System.IO.Path.GetFileName(filedata.FileName);
                 string folder = Server.MapPath("~/UploadFiles");
                 string time = DateTime.Now.ToString().Replace("\\", "").Replace("/", "").Replace(".", "").Replace(":", "").Replace("-", "").Replace(" ", "");//获取时间
@@ -90,8 +96,10 @@ namespace WebApp.Controllers
 
                 filedata.SaveAs(virtualPath);
 
-
-                return Json(new { success = true, filename = "/UploadFiles/" + newFileName }, JsonRequestBehavior.AllowGet);
+                watch.Stop();
+                //获取当前实例测量得出的总运行时间（以毫秒为单位）
+                var elapsedTime = watch.ElapsedMilliseconds.ToString();
+                return Json(new { success = true, filename = "/UploadFiles/" + newFileName, elapsedTime = elapsedTime }, JsonRequestBehavior.AllowGet);
             }
             catch (System.Data.SqlClient.SqlException e)
             {

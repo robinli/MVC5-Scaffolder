@@ -29,7 +29,7 @@
             dragDrop: {},
             uploadFile: {
                 url: "/FileUpload/Upload",
-                data: { FileType: ' @ViewData["EntityName"]' },
+                data: { FileType: '@ViewData["EntityName"]' },
                 type: 'POST',
                 enctype: 'multipart/form-data',
                 beforeSend: function () { },
@@ -39,13 +39,13 @@
                         $("<div class=\"jFiler-item-others text-success\"><i class=\"icon-jfi-check-circle\"></i> Success</div>").hide().appendTo(parent).fadeIn("slow");
                     });
 
-                    console.log(data);
+                    //console.log(data);
 
                     if (data.success == false) {
                         $.messager.alert('导入错误', '导入错误，请修改后再倒入！<br>' + data.message, 'error');
                     
                     } else {
-                        $.messager.alert('导入完成', '导入完成！<br>', 'info');
+                        $.messager.alert('导入完成', '导入完成！<br> 耗时：' + data.elapsedTime, 'info');
                         $dg.datagrid('reload');
                         $('#importwindow').window('close');
                     }
