@@ -62,9 +62,10 @@ namespace WebApp.Controllers
                 DataTable datatable = ExcelHelper.GetDataTableFromExcel(filedata.InputStream);
                 if (fileType == "Product")
                 {
-
+                    this._unitOfWork.SetAutoDetectChangesEnabled(false);
                     _productService.ImportDataTable(datatable);
                     _unitOfWork.BulkSaveChanges();
+                    this._unitOfWork.SetAutoDetectChangesEnabled(true);
                     //_unitOfWork.SaveChanges();
                 }
                 //if (fileType == "Product")
