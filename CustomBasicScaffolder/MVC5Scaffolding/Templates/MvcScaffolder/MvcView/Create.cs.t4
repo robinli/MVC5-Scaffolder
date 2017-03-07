@@ -77,8 +77,8 @@ bool isControlHtmlAttributesSupported = MvcVersion >= requiredMvcVersion;
         }
         function savedata() {
 
-			   if ($('#<#= ModelTypeName.ToLower() #>_form').form('enableValidation').form('validate')) {						
-                 var data = $('#<#= ModelTypeName.ToLower() #>_form').form('getJson');
+			   if ($("#<#= ModelTypeName.ToLower() #>_form").form("enableValidation").form("validate")) {						
+                 var data = $("#<#= ModelTypeName.ToLower() #>_form").form("getJson");
 				  <#  if(GenerateMasterDetailRelationship  && OneToManyModelMetadata.Count >0) { 
 						var primaryKeyVar = ModelTypeName.ToLower() + primaryKey.ToLower();
 				  #>
@@ -90,7 +90,7 @@ bool isControlHtmlAttributesSupported = MvcVersion >= requiredMvcVersion;
                   #> 
 						if (!<#= detailnamevar #>_endEditing())
 								return false;                    
-                        var <#= detailnamevar #> = <#= boostraptablevar #>.datagrid('getChanges');
+                        var <#= detailnamevar #> = <#= boostraptablevar #>.datagrid("getChanges");
 						
 						data.<#=  fieldpropertyname #> = <#= detailnamevar #> ;
 				  <# } #>
@@ -107,12 +107,12 @@ bool isControlHtmlAttributesSupported = MvcVersion >= requiredMvcVersion;
                          $.messager.alert("提示", "保存成功！");						
 						
                      } else {						
-                         $.messager.alert("错误", "保存失败！" + response.err, 'error');						
+                         $.messager.alert("错误", "保存失败！" + response.err, "error");						
                      }						
                  }, "json").fail(function (response) {						
                      //console.log(response);						
-                     $.messager.alert("错误", "保存失败！", 'error');						
-                     //$dg.datagrid('reload');						
+                     $.messager.alert("错误", "保存失败！", "error");						
+                     //$dg.datagrid("reload");						
                  });						
              }						
 

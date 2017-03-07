@@ -328,12 +328,12 @@
 				var submodelmetadata =  item.Value;
 				var editindex = detailnamevar + "editIndex";
       #>  
-	//==============$('#<#= detailnamevar  #>_datagrid')=================// 
-    var <#= boostraptablevar #> = $('#<#= detailnamevar  #>_datagrid')
+	//==============$("#<#= detailnamevar  #>_datagrid")=================// 
+    var <#= boostraptablevar #> = $("#<#= detailnamevar  #>_datagrid")
 	var <#= editindex #> = undefined;
     function <#= detailnamevar #>_endEditing() {
         if ( <#= editindex #> == undefined) { return true }
-        if (<#= boostraptablevar #>.datagrid('validateRow', <#= editindex #>)) {
+        if (<#= boostraptablevar #>.datagrid("validateRow", <#= editindex #>)) {
 			<# 
 				RelatedModelMetadata[] relmodelms = submodelmetadata.RelatedEntities;
 				foreach(RelatedModelMetadata relmodelm in relmodelms) 
@@ -343,18 +343,18 @@
 					string relatedtypeName = relmodelm.ShortTypeName;
 				    if(relatedtypeName != ModelTypeName ) {
 			#>
-            var ed = <#= boostraptablevar #>.datagrid('getEditor', { index: <#= editindex #>, field: '<#= fkeyname #>' });
-            var <#= fdispname #> = $(ed.target).combobox('getText');
-            var <#= fkeyname #> = $(ed.target).combobox('getValue');
+            var ed = <#= boostraptablevar #>.datagrid("getEditor", { index: <#= editindex #>, field: "<#= fkeyname #>" });
+            var <#= fdispname #> = $(ed.target).combobox("getText");
+            var <#= fkeyname #> = $(ed.target).combobox("getValue");
           
-            <#= boostraptablevar #>.datagrid('getRows')[<#= editindex #>]['<#= fdispname #>'] = <#= fdispname #>;
-            <#= boostraptablevar #>.datagrid('getRows')[<#= editindex #>]['<#= fkeyname #>'] = <#= fkeyname #>;
+            <#= boostraptablevar #>.datagrid("getRows")[<#= editindex #>]["<#= fdispname #>"] = <#= fdispname #>;
+            <#= boostraptablevar #>.datagrid("getRows")[<#= editindex #>]["<#= fkeyname #>"] = <#= fkeyname #>;
             
             
 			<# 
                } }
 			#>
-			<#= boostraptablevar #>.datagrid('endEdit', <#= editindex #>);
+			<#= boostraptablevar #>.datagrid("endEdit", <#= editindex #>);
             <#= editindex #> = undefined;
 
 
@@ -366,40 +366,40 @@
     function <#= detailnamevar #>_onClickCell(index, field) {
         if (<#= editindex #> != index) {
             if (<#= detailnamevar #>_endEditing()) {
-                <#= boostraptablevar #>.datagrid('selectRow', index)
-                        .datagrid('beginEdit', index);
-                var ed = <#= boostraptablevar #>.datagrid('getEditor', { index: index, field: field });
+                <#= boostraptablevar #>.datagrid("selectRow", index)
+                        .datagrid("beginEdit", index);
+                var ed = <#= boostraptablevar #>.datagrid("getEditor", { index: index, field: field });
                 if (ed) {
-                    ($(ed.target).data('textbox') ? $(ed.target).textbox('textbox') : $(ed.target)).focus();
+                    ($(ed.target).data("textbox") ? $(ed.target).textbox("textbox") : $(ed.target)).focus();
                 }
                 <#= editindex #>  = index;
             } else {
-                <#= boostraptablevar #>.datagrid('selectRow', <#= editindex #>);
+                <#= boostraptablevar #>.datagrid("selectRow", <#= editindex #>);
             }
         }
     }
     function <#= detailnamevar #>_append() {
         if (<#= detailnamevar #>_endEditing()) {
-            <#= boostraptablevar #>.datagrid('appendRow', { Status:0   });
-            <#= detailnamevar #>editIndex = <#= boostraptablevar #>.datagrid('getRows').length - 1;
-            <#= boostraptablevar #>.datagrid('selectRow', <#= editindex #> )
-                    .datagrid('beginEdit', <#= editindex #>);
+            <#= boostraptablevar #>.datagrid("appendRow", { Status:0   });
+            <#= detailnamevar #>editIndex = <#= boostraptablevar #>.datagrid("getRows").length - 1;
+            <#= boostraptablevar #>.datagrid("selectRow", <#= editindex #> )
+                    .datagrid("beginEdit", <#= editindex #>);
         }
     }
     function <#= detailnamevar #>_removeit() {
         if (<#= editindex #>  == undefined) { return }
-        <#= boostraptablevar #>.datagrid('cancelEdit', <#= editindex #> )
-                .datagrid('deleteRow', <#= editindex #> );
+        <#= boostraptablevar #>.datagrid("cancelEdit", <#= editindex #> )
+                .datagrid("deleteRow", <#= editindex #> );
         <#= detailnamevar #>editIndex = undefined;
     }
    
     function <#= detailnamevar #>_reject() {
-        <#= boostraptablevar #>.datagrid('rejectChanges');
+        <#= boostraptablevar #>.datagrid("rejectChanges");
         <#= editindex #>  = undefined;
     }
     function <#= detailnamevar #>_getChanges() {
-        var rows = <#= boostraptablevar #>.datagrid('getChanges');
-        alert(rows.length + ' rows are changed!');
+        var rows = <#= boostraptablevar #>.datagrid("getChanges");
+        alert(rows.length + " rows are changed!");
     }
 
 
@@ -421,9 +421,9 @@
 				var boostraptablevar = "$" + property.PropertyName.ToLower()  + "datagrid";
     #>
 
-		$.get('/<#= ControllerRootName  #>/Get<#= property.PropertyName #>By<#= foreignKeyName #>/' + @Model.Id,function(data){
+		$.get("/<#= ControllerRootName  #>/Get<#= property.PropertyName #>By<#= foreignKeyName #>/" + @Model.Id,function(data){
             //console.log(data);
-            <#= boostraptablevar #>.datagrid('loadData',data);
+            <#= boostraptablevar #>.datagrid("loadData",data);
         
         })
 

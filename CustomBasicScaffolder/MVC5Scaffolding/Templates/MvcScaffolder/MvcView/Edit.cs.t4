@@ -79,23 +79,23 @@ bool isControlHtmlAttributesSupported = MvcVersion >= requiredMvcVersion;
                 var boostraptablevar = "$" + item.Key.ToLower()  + "datagrid";
                 var detailnamevar=item.Key.ToLower();
             #>                     
-             var <#= boostraptablevar #> = $('#<#=  detailnamevar #>_datagrid');
+             var <#= boostraptablevar #> = $("#<#=  detailnamevar #>_datagrid");
             <# } #>
             $(document).ready(function () {
-				<#= primaryKeyVar #> = $('#<#= primaryKey  #>', 'form').val();
-                $('form').submit(function () {
-					if (!$('form').valid())
+				<#= primaryKeyVar #> = $("#<#= primaryKey  #>", "form").val();
+                $("form").submit(function () {
+					if (!$("form").valid())
 						return false;
-                    //var token = $('[name=__RequestVerificationToken]').val();
+                    //var token = $("[name=__RequestVerificationToken]").val();
                     //var serializedForm = $(this).serialize();
-                    var actionurl = $(this).attr('action');
+                    var actionurl = $(this).attr("action");
                     <# foreach(var item in OneToManyModelMetadata) {
                         var boostraptablevar = "$" + item.Key.ToLower()  + "datagrid";
                         var detailnamevar=item.Key.ToLower();
                      #>
 						if (!<#= detailnamevar #>_endEditing())
 								return false;                                         
-                        var <#= detailnamevar #> = <#= boostraptablevar #>.datagrid('getChanges');
+                        var <#= detailnamevar #> = <#= boostraptablevar #>.datagrid("getChanges");
                      <# } #>
                     
                      var newitem = {
@@ -109,9 +109,9 @@ bool isControlHtmlAttributesSupported = MvcVersion >= requiredMvcVersion;
 								//detailTables
                                 <#= property.PropertyName #>: <#= property.PropertyName.ToLower() #> ,
                         <# } else if(property.IsForeignKey)  { #>
-								<#= property.PropertyName #>: $('#<#= property.PropertyName #> :selected','form').val(),
+								<#= property.PropertyName #>: $("#<#= property.PropertyName #> :selected","form").val(),
 						<# } else  if (property.AssociationDirection != AssociationDirection.ManyToOne) { #>
-                                <#= property.PropertyName #>: $('#<#= property.PropertyName #>', 'form').val(),
+                                <#= property.PropertyName #>: $("#<#= property.PropertyName #>", "form").val(),
                         <#
                              }
                           }
