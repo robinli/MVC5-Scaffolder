@@ -321,34 +321,34 @@ foreach (PropertyMetadata property in properties) {
 			 
 			        //打开Excel上传导入
                     function importexcel() {
-                        $('#importwindow').window('open');
+                        $("#importwindow").window("open");
                     }
 					 //执行Excel到处下载
 					function exportexcel() {
-						var filterRules = JSON.stringify($dg.datagrid('options').filterRules);
+						var filterRules = JSON.stringify($dg.datagrid("options").filterRules);
 						//console.log(filterRules);
-						$.messager.progress({ title: '正在执行导出！' });
+						$.messager.progress({ title: "正在执行导出！" });
 						var formData = new FormData();
-						formData.append('filterRules', filterRules);
-						formData.append('sort', '<#= primaryKeyName #>');
-						formData.append('order', 'asc');
-						$.postDownload('/<#= ControllerRootName  #>/ExportExcel', formData, function (fileName) {
-							$.messager.progress('close');
+						formData.append("filterRules", filterRules);
+						formData.append("sort", "<#= primaryKeyName #>");
+						formData.append("order", "asc");
+						$.postDownload("/<#= ControllerRootName  #>/ExportExcel", formData, function (fileName) {
+							$.messager.progress("close");
 							console.log(fileName);
 
 						})
 					}
 		 //datagrid 增删改查操作
-         var $dg = $('#<#= modelVariable #>_datagrid');
+         var $dg = $("#<#= modelVariable #>_datagrid");
 		 var editIndex = undefined;
 		function reload() {
                  if (endEditing()) {
-                        $dg.datagrid('reload');
+                        $dg.datagrid("reload");
                  }
             }
         function endEditing() {
             if (editIndex == undefined) { return true }
-            if ($dg.datagrid('validateRow', editIndex)) {
+            if ($dg.datagrid("validateRow", editIndex)) {
 
 				<# 
 				  foreach(RelatedModelMetadata relatedModel in 	ModelMetadata.RelatedEntities)
@@ -357,16 +357,16 @@ foreach (PropertyMetadata property in properties) {
 					  string reldisplayname = GetRelatedDisplayNameExpression(relForeignKey,ModelMetadata);
 					  
 				#>
-                var ed = $dg.datagrid('getEditor', { index: editIndex, field: '<#= relForeignKey #>' });
-                var <#= reldisplayname.ToLower() #> = $(ed.target).combobox('getText');
-                var <#= relForeignKey.ToLower() #> = $(ed.target).combobox('getValue');
+                var ed = $dg.datagrid("getEditor", { index: editIndex, field: "<#= relForeignKey #>" });
+                var <#= reldisplayname.ToLower() #> = $(ed.target).combobox("getText");
+                var <#= relForeignKey.ToLower() #> = $(ed.target).combobox("getValue");
                
-                $dg.datagrid('getRows')[editIndex]['<#= reldisplayname #>'] =  <#= reldisplayname.ToLower() #>;
-                $dg.datagrid('getRows')[editIndex]['<#=  relForeignKey #>'] = <#= relForeignKey.ToLower() #>;
+                $dg.datagrid("getRows")[editIndex]["<#= reldisplayname #>"] =  <#= reldisplayname.ToLower() #>;
+                $dg.datagrid("getRows")[editIndex]["<#=  relForeignKey #>"] = <#= relForeignKey.ToLower() #>;
  
 
 				<# } #>
-				$dg.datagrid('endEdit', editIndex);
+				$dg.datagrid("endEdit", editIndex);
                 editIndex = undefined;
 
                 
@@ -382,40 +382,40 @@ foreach (PropertyMetadata property in properties) {
             }
             if (editIndex != index) {
                 if (endEditing()) {
-                    $dg.datagrid('selectRow', index)
-                            .datagrid('beginEdit', index);
-                    var ed = $dg.datagrid('getEditor', { index: index, field: field });
+                    $dg.datagrid("selectRow", index)
+                            .datagrid("beginEdit", index);
+                    var ed = $dg.datagrid("getEditor", { index: index, field: field });
                     if (ed) {
-                        ($(ed.target).data('textbox') ? $(ed.target).textbox('textbox') : $(ed.target)).focus();
+                        ($(ed.target).data("textbox") ? $(ed.target).textbox("textbox") : $(ed.target)).focus();
                     }
                     editIndex = index;
                 } else {
-                    $dg.datagrid('selectRow', editIndex);
+                    $dg.datagrid("selectRow", editIndex);
                 }
             }
         }
         function append() {
             if (endEditing()) {
-                //$dg.datagrid('appendRow', { Status: 0 });
-                //editIndex = $dg.datagrid('getRows').length - 1;
-				$dg.datagrid('insertRow', { index: 0, row: { Status: 0 } });
+                //$dg.datagrid("appendRow", { Status: 0 });
+                //editIndex = $dg.datagrid("getRows").length - 1;
+				$dg.datagrid("insertRow", { index: 0, row: { Status: 0 } });
 				editIndex = 0 ;
-                $dg.datagrid('selectRow', editIndex)
-                        .datagrid('beginEdit', editIndex);
+                $dg.datagrid("selectRow", editIndex)
+                        .datagrid("beginEdit", editIndex);
             }
         }
         function removeit() {
             if (editIndex == undefined) { return }
-            $dg.datagrid('cancelEdit', editIndex)
-                    .datagrid('deleteRow', editIndex);
+            $dg.datagrid("cancelEdit", editIndex)
+                    .datagrid("deleteRow", editIndex);
             editIndex = undefined;
         }
         function accept() {
             if (endEditing()) {
-                if ($dg.datagrid('getChanges').length) {
-                    var inserted = $dg.datagrid('getChanges', "inserted");
-                    var deleted = $dg.datagrid('getChanges', "deleted");
-                    var updated = $dg.datagrid('getChanges', "updated");
+                if ($dg.datagrid("getChanges").length) {
+                    var inserted = $dg.datagrid("getChanges", "inserted");
+                    var deleted = $dg.datagrid("getChanges", "deleted");
+                    var updated = $dg.datagrid("getChanges", "updated");
                     var effectRow = new Object();
                     if (inserted.length) {
                         effectRow.inserted = inserted;
@@ -431,55 +431,55 @@ foreach (PropertyMetadata property in properties) {
                         //console.log(response);
                         if (response.Success) {
                             $.messager.alert("提示", "提交成功！");
-                            $dg.datagrid('acceptChanges');
-							$dg.datagrid('reload');
+                            $dg.datagrid("acceptChanges");
+							$dg.datagrid("reload");
                         }
                     }, "json").fail(function (response) {
 						//console.log(response);
-                        $.messager.alert("错误", "提交错误了！",'error');
-						//$dg.datagrid('reload');
+                        $.messager.alert("错误", "提交错误了！","error");
+						//$dg.datagrid("reload");
                     });
               
                 }
 
-                //$dg.datagrid('acceptChanges');
+                //$dg.datagrid("acceptChanges");
             }
         }
         function reject() {
-            $dg.datagrid('rejectChanges');
+            $dg.datagrid("rejectChanges");
             editIndex = undefined;
         }
         function getChanges() {
-            var rows = $dg.datagrid('getChanges');
-            alert(rows.length + ' rows are changed!');
+            var rows = $dg.datagrid("getChanges");
+            alert(rows.length + " rows are changed!");
         }
 
 		//datagrid 开启行赛选功能
 		 $(function () {
 		  
-           $dg.datagrid('enableFilter',[
+           $dg.datagrid("enableFilter",[
 		   <# 
 				foreach(var property in  ModelMetadata.Properties.Where(x=>x.PropertyName=="Status" && x.Scaffold==true))
 				{
 
 		   #>
 				{
-                      field: '<#= property.PropertyName #>',
-                      type: 'combobox',
+                      field: "<#= property.PropertyName #>",
+                      type: "combobox",
                       options: {
-						   panelHeight: 'auto',
-                           data: [{ value: '', text: 'All' }, { value: 0, text: '启用' }, { value: 1, text: '禁用' }],
+						   panelHeight: "auto",
+                           data: [{ value: "", text: "All" }, { value: 0, text: "启用" }, { value: 1, text: "禁用" }],
                            onChange: function (value) {
-                              if (value == '') {
-                                  $dg.datagrid('removeFilterRule', '<#= property.PropertyName #>');
+                              if (value == "") {
+                                  $dg.datagrid("removeFilterRule", "<#= property.PropertyName #>");
                               } else {
-                                  $dg.datagrid('addFilterRule', {
-                                      field: '<#= property.PropertyName #>',
-                                      op: 'equal',
+                                  $dg.datagrid("addFilterRule", {
+                                      field: "<#= property.PropertyName #>",
+                                      op: "equal",
                                       value: value
                                   });
                               }
-                              $dg.datagrid('doFilter');
+                              $dg.datagrid("doFilter");
                           }
                       }
                   },
@@ -493,20 +493,20 @@ foreach (PropertyMetadata property in properties) {
 
 		   #>
 				{
-                      field: '<#= property.PropertyName #>',
-                      type: 'datebox',
+                      field: "<#= property.PropertyName #>",
+                      type: "datebox",
                       options: {
                           onChange: function (value) {
-                              if (value == '') {
-                                  $dg.datagrid('removeFilterRule', '<#= property.PropertyName #>');
+                              if (value == "") {
+                                  $dg.datagrid("removeFilterRule", "<#= property.PropertyName #>");
                               } else {
-                                  $dg.datagrid('addFilterRule', {
-                                      field: '<#= property.PropertyName #>',
-                                      op: 'equal',
+                                  $dg.datagrid("addFilterRule", {
+                                      field: "<#= property.PropertyName #>",
+                                      op: "equal",
                                       value: value
                                   });
                               }
-                              $dg.datagrid('doFilter');
+                              $dg.datagrid("doFilter");
                           }
                       }
                   },
@@ -521,24 +521,24 @@ foreach (PropertyMetadata property in properties) {
 			   RelatedModelMetadata relatedModel = GetRelatedModelMetadata(foreignKeyPropertyName,ModelMetadata);
 		   #>
 		   {
-				 field: '<#= foreignKeyPropertyName #>',
-				 type:'combobox',
+				 field: "<#= foreignKeyPropertyName #>",
+				 type:"combobox",
                  options:{
-                                valueField:'<#= relatedModel.PrimaryKeyNames[0]  #>',
-                                textField:'<#= relatedModel.DisplayPropertyName   #>',
-                                method:'get',
-                                url:'/<#= ControllerRootName #>/Get<#=  relatedModel.EntitySetName  #>',
+                                valueField:"<#= relatedModel.PrimaryKeyNames[0]  #>",
+                                textField:"<#= relatedModel.DisplayPropertyName   #>",
+                                method:"get",
+                                url:"/<#= ControllerRootName #>/Get<#=  relatedModel.EntitySetName  #>",
 								onChange: function (value) {
-								if (value == '') {
-									$dg.datagrid('removeFilterRule', '<#=  foreignKeyPropertyName #>');
+								if (value == "") {
+									$dg.datagrid("removeFilterRule", "<#=  foreignKeyPropertyName #>");
 								} else {
-									$dg.datagrid('addFilterRule', {
-										field: '<#=  foreignKeyPropertyName #>',
-									    op: 'equal',
+									$dg.datagrid("addFilterRule", {
+										field: "<#=  foreignKeyPropertyName #>",
+									    op: "equal",
 										value: value
                                 });
                             }
-                            $dg.datagrid('doFilter');
+                            $dg.datagrid("doFilter");
                         }
 					}
 		   },
@@ -588,13 +588,13 @@ foreach (PropertyMetadata property in properties) {
 					var detailnamevar = entitySetNameToLower;
 					var subforeignKey = submetadata.RelatedEntities.Where(x=>x.ShortTypeName == ModelTypeName).First().ForeignKeyPropertyNames[0];
 				#>
-               <#= datagridvar #>.datagrid('removeFilterRule', '<#= subforeignKey #>');
-               <#= datagridvar #>.datagrid('addFilterRule', {
-                    field: '<#= subforeignKey #>',
-                    op: 'equal',
+               <#= datagridvar #>.datagrid("removeFilterRule", "<#= subforeignKey #>");
+               <#= datagridvar #>.datagrid("addFilterRule", {
+                    field: "<#= subforeignKey #>",
+                    op: "equal",
                     value: value
                 });
-               <#= datagridvar #>.datagrid('doFilter');
+               <#= datagridvar #>.datagrid("doFilter");
 			   <# } #>
 
         }
@@ -617,15 +617,15 @@ foreach (PropertyMetadata property in properties) {
 				//--------------------------------------------------------------------
 				// #<#=  datagridelement #> functions
 				//--------------------------------------------------------------------
-				var <#= datagridvar #> = $('#<#= datagridelement  #>');
+				var <#= datagridvar #> = $("#<#= datagridelement  #>");
 
 				var <#= editindex #> = undefined;
 		function <#= detailnamevar #>_reload() {
-                <#= datagridvar #>.datagrid('reload');
+                <#= datagridvar #>.datagrid("reload");
             }
     function <#= detailnamevar #>_endEditing() {
         if ( <#= editindex #> == undefined) { return true }
-        if (<#= datagridvar #>.datagrid('validateRow', <#= editindex #>)) {
+        if (<#= datagridvar #>.datagrid("validateRow", <#= editindex #>)) {
 			<# 
 				RelatedModelMetadata[] relmodelms = submetadata.RelatedEntities;
 				foreach(RelatedModelMetadata relmodelm in relmodelms) 
@@ -634,18 +634,18 @@ foreach (PropertyMetadata property in properties) {
 					var fdispname = relmodelm.ShortTypeName + relmodelm.DisplayPropertyName;
 
 			#>
-            var ed = <#= datagridvar #>.datagrid('getEditor', { index: <#= editindex #>, field: '<#= fkeyname #>' });
-            var <#= fdispname #> = $(ed.target).combobox('getText');
-            var <#= fkeyname #> = $(ed.target).combobox('getValue');
+            var ed = <#= datagridvar #>.datagrid("getEditor", { index: <#= editindex #>, field: "<#= fkeyname #>" });
+            var <#= fdispname #> = $(ed.target).combobox("getText");
+            var <#= fkeyname #> = $(ed.target).combobox("getValue");
           
-            <#= datagridvar #>.datagrid('getRows')[<#= editindex #>]['<#= fdispname #>'] = <#= fdispname #>;
-            <#= datagridvar #>.datagrid('getRows')[<#= editindex #>]['<#= fkeyname #>'] = <#= fkeyname #>;
+            <#= datagridvar #>.datagrid("getRows")[<#= editindex #>]["<#= fdispname #>"] = <#= fdispname #>;
+            <#= datagridvar #>.datagrid("getRows")[<#= editindex #>]["<#= fkeyname #>"] = <#= fkeyname #>;
             
             
 			<# 
                 }
 			#>
-			<#= datagridvar #>.datagrid('endEdit', <#= editindex #>);
+			<#= datagridvar #>.datagrid("endEdit", <#= editindex #>);
             <#= editindex #> = undefined;
 
 
@@ -657,49 +657,49 @@ foreach (PropertyMetadata property in properties) {
     function <#= detailnamevar #>_onClickCell(index, field) {
         if (<#= editindex #> != index) {
             if (<#= detailnamevar #>_endEditing()) {
-                <#= datagridvar #>.datagrid('selectRow', index)
-                        .datagrid('beginEdit', index);
-                var ed = <#= datagridvar #>.datagrid('getEditor', { index: index, field: field });
+                <#= datagridvar #>.datagrid("selectRow", index)
+                        .datagrid("beginEdit", index);
+                var ed = <#= datagridvar #>.datagrid("getEditor", { index: index, field: field });
                 if (ed) {
-                    ($(ed.target).data('textbox') ? $(ed.target).textbox('textbox') : $(ed.target)).focus();
+                    ($(ed.target).data("textbox") ? $(ed.target).textbox("textbox") : $(ed.target)).focus();
                 }
                 <#= editindex #>  = index;
             } else {
-                <#= datagridvar #>.datagrid('selectRow', <#= editindex #>);
+                <#= datagridvar #>.datagrid("selectRow", <#= editindex #>);
             }
         }
     }
     function <#= detailnamevar #>_append() {
         if (<#= detailnamevar #>_endEditing()) {
-			 var <#=  ModelTypeName.ToLower() #> = $dg.datagrid('getSelected');
+			 var <#=  ModelTypeName.ToLower() #> = $dg.datagrid("getSelected");
 
-            <#= datagridvar #>.datagrid('appendRow', { <#= subforeignKey #>:<#=  ModelTypeName.ToLower() #>.<#= primaryKey #>   });
-            <#= detailnamevar #>editIndex = <#= datagridvar #>.datagrid('getRows').length - 1;
-            <#= datagridvar #>.datagrid('selectRow', <#= editindex #> )
-                    .datagrid('beginEdit', <#= editindex #>);
+            <#= datagridvar #>.datagrid("appendRow", { <#= subforeignKey #>:<#=  ModelTypeName.ToLower() #>.<#= primaryKey #>   });
+            <#= detailnamevar #>editIndex = <#= datagridvar #>.datagrid("getRows").length - 1;
+            <#= datagridvar #>.datagrid("selectRow", <#= editindex #> )
+                    .datagrid("beginEdit", <#= editindex #>);
         }
     }
     function <#= detailnamevar #>_removeit() {
         if (<#= editindex #>  == undefined) { return }
-        <#= datagridvar #>.datagrid('cancelEdit', <#= editindex #> )
-                .datagrid('deleteRow', <#= editindex #> );
+        <#= datagridvar #>.datagrid("cancelEdit", <#= editindex #> )
+                .datagrid("deleteRow", <#= editindex #> );
         <#= detailnamevar #>editIndex = undefined;
     }
    
     function <#= detailnamevar #>_reject() {
-        <#= datagridvar #>.datagrid('rejectChanges');
+        <#= datagridvar #>.datagrid("rejectChanges");
         <#= editindex #>  = undefined;
     }
     function <#= detailnamevar #>_getChanges() {
-        var rows = <#= datagridvar #>.datagrid('getChanges');
-        alert(rows.length + ' rows are changed!');
+        var rows = <#= datagridvar #>.datagrid("getChanges");
+        alert(rows.length + " rows are changed!");
     }
 	function <#= detailnamevar #>_accept() {
             if (<#= detailnamevar #>_endEditing()) {
-                if (<#= datagridvar #>.datagrid('getChanges').length) {
-                    var inserted = <#= datagridvar #>.datagrid('getChanges', "inserted");
-                    var deleted = <#= datagridvar #>.datagrid('getChanges', "deleted");
-                    var updated = <#= datagridvar #>.datagrid('getChanges', "updated");
+                if (<#= datagridvar #>.datagrid("getChanges").length) {
+                    var inserted = <#= datagridvar #>.datagrid("getChanges", "inserted");
+                    var deleted = <#= datagridvar #>.datagrid("getChanges", "deleted");
+                    var updated = <#= datagridvar #>.datagrid("getChanges", "updated");
                     var effectRow = new Object();
                     if (inserted.length) {
                         effectRow.inserted = inserted;
@@ -715,24 +715,24 @@ foreach (PropertyMetadata property in properties) {
                         //console.log(response);
                         if (response.Success) {
                             $.messager.alert("提示", "提交成功！");
-                            <#= datagridvar #>.datagrid('acceptChanges');
-							<#= datagridvar #>.datagrid('reload');
+                            <#= datagridvar #>.datagrid("acceptChanges");
+							<#= datagridvar #>.datagrid("reload");
                         }
                     }, "json").fail(function (response) {
 						//console.log(response);
-                        $.messager.alert("错误", "提交错误了！",'error');
+                        $.messager.alert("错误", "提交错误了！","error");
                       
                     });
               
                 }
 
-                //<#= datagridvar #>.datagrid('acceptChanges');
+                //<#= datagridvar #>.datagrid("acceptChanges");
             }
         }
 
 		$(function () {
 
-            <#= datagridvar #>.datagrid('enableFilter', [
+            <#= datagridvar #>.datagrid("enableFilter", [
 									]);
 
             filterBy<#= foreignKey  #>(-1);
