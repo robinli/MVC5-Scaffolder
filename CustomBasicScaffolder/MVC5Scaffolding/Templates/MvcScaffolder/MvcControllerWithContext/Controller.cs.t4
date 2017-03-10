@@ -157,17 +157,15 @@ namespace <#= Namespace #>
 				var <#= modelVariablePlural #>  = await <#= modelServiceVar #>
 						.Query(new <#= ModelTypeName #>Query().Withfilter(filters))<#= includeExpressions #>
 							.OrderBy(n=>n.OrderBy(sort,order))
-							.SelectPage(page, rows, out totalCount)
-							.AsQueryable()
-							.ToListAsync();
+							.SelectPageAsync(page, rows, out totalCount);
+							 
             
 				<#  } else { #>
 				var <#= modelVariablePlural #>  = await  <#= modelServiceVar #>
 						.Query(new <#= ModelTypeName #>Query().Withfilter(filters))
 							.OrderBy(n=>n.OrderBy(sort,order))
-							.SelectPage(page, rows, out totalCount)
-							.AsQueryable()
-							.ToListAsync();
+							.SelectPageAsync(page, rows, out totalCount);
+							 
 				<#  } #>
 
 			<# } else { #>
