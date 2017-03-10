@@ -15,6 +15,7 @@ namespace Repository.Pattern.Repositories
         IEnumerable<TResult> Select<TResult>(Expression<Func<TEntity, TResult>> selector = null);
         IEnumerable<TEntity> Select();
         Task<IEnumerable<TEntity>> SelectAsync();
+        Task<IEnumerable<TEntity>> SelectPageAsync(int page, int pageSize, out int totalCount);
         IQueryable<TEntity> SqlQuery(string query, params object[] parameters);
     }
 }

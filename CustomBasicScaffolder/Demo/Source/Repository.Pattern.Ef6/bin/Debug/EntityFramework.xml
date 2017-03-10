@@ -21864,6 +21864,15 @@
             <c>false</c>
             </returns>
         </member>
+        <member name="M:System.Data.Entity.Core.Common.DbProviderManifest.SupportsIntersectAndUnionAllFlattening">
+            <summary>
+            Returns a boolean that specifies whether the provider can process expression trees not having DbProjectExpression 
+            nodes directly under both Left and Right sides of DbUnionAllExpression and DbIntersectExpression
+            </summary>
+            <returns> 
+            <c>false</c>
+            </returns>
+        </member>
         <member name="P:System.Data.Entity.Core.Common.DbProviderManifest.NamespaceName">
             <summary>Gets the namespace used by this provider manifest.</summary>
             <returns>The namespace used by this provider manifest.</returns>

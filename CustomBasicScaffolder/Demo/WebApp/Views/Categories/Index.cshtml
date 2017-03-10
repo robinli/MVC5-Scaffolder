@@ -22,8 +22,8 @@
     <table id="categories_datagrid" class="easyui-datagrid" title="Category" style="width:auto;height:auto"
            data-options="
                  rownumbers:true,
-				 checkOnSelect:true,
-                 selectOnCheck:true,
+				 checkOnSelect:false,
+                 selectOnCheck:false,
                  idField:'Id',
                  sortName:'Id',
                  sortOrder:'desc',
@@ -33,7 +33,7 @@
                  url: '/Categories/GetData',
                  method: 'get',
                  onClickCell: onClickCell,
-				 onSelect:onSelect,
+				 onClickRow:onSelect,
                  pagination: 'true'
                    ">
         <thead>
@@ -70,7 +70,7 @@
 								remoteFilter: true,
 								singleSelect: true,
 								toolbar: '#products_toolbar',
-								url: '/Products/GetData',
+								url: '/Categories/GetProductsData',
 								method: 'get',
 								onClickCell: products_onClickCell,
 								pagination: 'true'
@@ -271,7 +271,7 @@
                             $dg.datagrid('acceptChanges');
                             $dg.datagrid('reload');
                         }
-                    }, "JSON").error(function (response) {
+                    }, "json").fail(function (response) {
                         //console.log(response);
                         $.messager.alert("错误", "提交错误了！", 'error');
                         //$dg.datagrid('reload');
@@ -304,8 +304,9 @@
         //datagrid onSelect
         //-----------------------------------------------------
         function onSelect(index, row) {
-            //console.log(index, row);
+            console.log(index, row);
             filterByCategoryId(row.Id);
+
         }
 
 
@@ -419,7 +420,7 @@
                             $productsdg.datagrid('acceptChanges');
                             $productsdg.datagrid('reload');
                         }
-                    }, "JSON").error(function (response) {
+                    }, "json").fail(function (response) {
                         //console.log(response);
                         $.messager.alert("错误", "提交错误了！", 'error');
 

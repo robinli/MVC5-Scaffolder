@@ -177,7 +177,7 @@ namespace Repository.Pattern.Ef6
             }
             if (filter != null)
             {
-                query = query.AsExpandable().Where(filter);
+                query = query.Where(filter) ;
             }
             if (page != null && pageSize != null)
             {
@@ -193,7 +193,9 @@ namespace Repository.Pattern.Ef6
             int? page = null,
             int? pageSize = null)
         {
-            return await Select(filter, orderBy, includes, page, pageSize).ToListAsync();
+            
+                return await Select(filter, orderBy, includes, page, pageSize).ToListAsync();
+            
         }
 
         // Insert or Updating an object graph

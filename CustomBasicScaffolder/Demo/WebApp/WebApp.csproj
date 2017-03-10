@@ -86,6 +86,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Linq.Dynamic, Version=1.0.6132.35681, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Linq.Dynamic.1.0.7\lib\net40\System.Linq.Dynamic.dll</HintPath>
@@ -2182,12 +2183,6 @@
     <Content Include="Scripts\app\skin.config.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\demo\chartjs-demo.js" />
-    <Content Include="Scripts\demo\flot-demo.js" />
-    <Content Include="Scripts\demo\morris-demo.js" />
-    <Content Include="Scripts\demo\peity-demo.js" />
-    <Content Include="Scripts\demo\rickshaw-demo.js" />
-    <Content Include="Scripts\demo\sparkline-demo.js" />
     <Content Include="Scripts\easyloader.js" />
     <Content Include="Scripts\easyui\changelog.txt" />
     <Content Include="Scripts\easyui\demo-mobile\accordion\basic.html" />
@@ -3010,10 +3005,7 @@
     <Content Include="Scripts\plugins\d3\d3.min.js" />
     <Content Include="Scripts\plugins\datamaps\datamaps.all.min.js" />
     <Content Include="Scripts\plugins\datapicker\bootstrap-datepicker.js" />
-    <Content Include="Scripts\plugins\dataTables\dataTables.bootstrap.js" />
-    <Content Include="Scripts\plugins\dataTables\dataTables.responsive.js" />
-    <Content Include="Scripts\plugins\dataTables\dataTables.tableTools.min.js" />
-    <Content Include="Scripts\plugins\dataTables\jquery.dataTables.js" />
+    <Content Include="Scripts\plugins\dataTables\datatables.min.js" />
     <Content Include="Scripts\plugins\daterangepicker\daterangepicker.js" />
     <Content Include="Scripts\plugins\diff_match_patch\javascript\diff_match_patch.js" />
     <Content Include="Scripts\plugins\diff_match_patch\README.txt" />
@@ -3082,7 +3074,6 @@
     <Content Include="Scripts\plugins\ladda\ladda.min.js" />
     <Content Include="Scripts\plugins\ladda\spin.min.js" />
     <Content Include="Scripts\plugins\masonary\masonry.pkgd.min.js" />
-    <Content Include="Scripts\plugins\metisMenu\jquery.metisMenu.js" />
     <Content Include="Scripts\plugins\metisMenu\metisMenu.min.js" />
     <Content Include="Scripts\plugins\morris\morris.js" />
     <Content Include="Scripts\plugins\morris\raphael-2.1.0.min.js" />
@@ -3101,7 +3092,6 @@
     <Content Include="Scripts\plugins\slick\slick.min.js" />
     <Content Include="Scripts\plugins\slimscroll\jquery.slimscroll.min.js" />
     <Content Include="Scripts\plugins\sparkline\jquery.sparkline.min.js" />
-    <Content Include="Scripts\plugins\staps\jquery.steps.min.js" />
     <Content Include="Scripts\plugins\steps\jquery.steps.min.js" />
     <Content Include="Scripts\plugins\summernote\summernote.min.js" />
     <Content Include="Scripts\plugins\sweetalert\sweetalert.min.js" />

@@ -60,13 +60,20 @@ namespace WebApp.Controllers
             var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
             int totalCount = 0;
             //int pagenum = offset / limit +1;
-            var products = await Task<List<Product>>.Factory.StartNew(() => {
-                return _productService.Query(new ProductQuery().Withfilter(filters))
+            //var products = await Task<List<Product>>.Factory.StartNew(() => {
+            //    return _productService.Query(new ProductQuery().Withfilter(filters))
+            //    .Include(p => p.Category)
+            //    .OrderBy(n => n.OrderBy(sort, order))
+            //    .SelectPage(page, rows, out totalCount)
+            //    .ToList();
+            //    });
+
+            var products = await _productService.Query(new ProductQuery().Withfilter(filters))
                 .Include(p => p.Category)
                 .OrderBy(n => n.OrderBy(sort, order))
-                .SelectPage(page, rows, out totalCount)
-                .ToList();
-                });
+                .SelectPageAsync(page, rows, out totalCount);
+                 
+            
 
 
             var datarows = products.Select(n => new { CategoryName = (n.Category == null ? "" : n.Category.Name), Id = n.Id, Name = n.Name, Unit = n.Unit, UnitPrice = n.UnitPrice, StockQty = n.StockQty, ConfirmDateTime = n.ConfirmDateTime, IsRequiredQc = n.IsRequiredQc, CategoryId = n.CategoryId }).ToList();
