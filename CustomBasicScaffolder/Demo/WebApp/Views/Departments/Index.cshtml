@@ -199,7 +199,7 @@
                             $.messager.alert("提示", "提交成功！");
                             $dg.datagrid('acceptChanges');
                         }
-                    }, "JSON").error(function () {
+                    }, "json").fail(function () {
                         $.messager.alert("错误", "提交错误了！", 'error');
 
                     });

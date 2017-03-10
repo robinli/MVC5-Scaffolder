@@ -288,7 +288,7 @@
                             $dg.datagrid('acceptChanges');
 							$dg.datagrid('reload');
                         }
-                    }, "JSON").error(function (response) {
+                    }, "json").fail(function (response) {
 						//console.log(response);
                         $.messager.alert("错误", "提交错误了！",'error');
 						//$dg.datagrid('reload');

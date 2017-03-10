@@ -15,12 +15,12 @@
 }
 
 
- 
 
-     <!--begin datagrid-content -->
-     <div class="datagrid-content animated fadeInRight">
-        <table id="categories_datagrid" class="easyui-datagrid" title="Category" style="width:auto;height:auto"
-                   data-options="
+
+<!--begin datagrid-content -->
+<div class="datagrid-content animated fadeInRight">
+    <table id="categories_datagrid" class="easyui-datagrid" title="Category" style="width:auto;height:auto"
+           data-options="
                  rownumbers:true,
 				 checkOnSelect:true,
                  selectOnCheck:true,
@@ -36,36 +36,36 @@
 				 onSelect:onSelect,
                  pagination: 'true'
                    ">
-                <thead>
-                    <tr>
-                        @*<th data-options="field:'ck',checkbox:true"></th>*@
-        			@*<th data-options="field:'Id',width:80 ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Id)</th>*@
-                
-				     <th data-options="field:'Name' ,width:140,editor:{type:'textbox',options:{prompt:'产品目录' ,required:true ,validType:'length[0,30]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Name)</th>
-		
-               
-						</tr>
-				</thead>
- 				</table>
-				<div id="categories_toolbar" style="height:auto">
-							 
-							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="append()">新增</a>
-							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
-							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">保存</a>
-							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">取消</a>
-					
-							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-paperclip',plain:true" onclick="importexcel()">EXCEL 导入</a>
-							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-download-alt',plain:true" onclick="exportexcel()">导出 Excel</a>
-							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="reload()">刷新</a>
-				</div>
-		
-					<!--detail entity tabs -->
-			<div id="detailtabs" class="easyui-tabs" style="width:auto;height:400px;">
-							<!--Products tab   -->
-				<div title="Products" id="products" style="padding:10px;">
-			 
-						<table id="products_datagrid" class="easyui-datagrid" title="@Html.DisplayNameFor(model => model.Products) DataGrid" style="width:auto;height:auto"
-                           data-options="
+        <thead>
+            <tr>
+                @*<th data-options="field:'ck',checkbox:true"></th>*@
+                @*<th data-options="field:'Id',width:80 ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Id)</th>*@
+
+                <th data-options="field:'Name' ,width:140,editor:{type:'textbox',options:{prompt:'产品目录' ,required:true ,validType:'length[0,30]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Name)</th>
+
+
+            </tr>
+        </thead>
+    </table>
+    <div id="categories_toolbar" style="height:auto">
+
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="append()">新增</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">保存</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">取消</a>
+
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-paperclip',plain:true" onclick="importexcel()">EXCEL 导入</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-download-alt',plain:true" onclick="exportexcel()">导出 Excel</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="reload()">刷新</a>
+    </div>
+
+    <!--detail entity tabs -->
+    <div id="detailtabs" class="easyui-tabs" style="width:auto;height:400px;">
+        <!--Products tab   -->
+        <div title="Products" id="products" style="padding:10px;">
+
+            <table id="products_datagrid" class="easyui-datagrid" title="@Html.DisplayNameFor(model => model.Products) DataGrid" style="width:auto;height:auto"
+                   data-options="
 								rownumbers:true,
 								remoteFilter: true,
 								singleSelect: true,
@@ -75,57 +75,57 @@
 								onClickCell: products_onClickCell,
 								pagination: 'true'
 							">
-							<thead>
-								<tr>
-									@*<th data-options="field:'ck',checkbox:true"></th>*@
-									 																								@*<th data-options="field:'Id',width:80"> Id </th>*@
-											
+                <thead>
+                    <tr>
+                        @*<th data-options="field:'ck',checkbox:true"></th>*@
+                        @*<th data-options="field:'Id',width:80"> Id </th>*@
 
 
 
-									 											
-																								<th data-options="field:'Name',width:140,editor:{type:'textbox',options:{required:true  ,validType:'length[0,30]'} } "> 名称</th>
-											
+
+
+                        <th data-options="field:'Name',width:140,editor:{type:'textbox',options:{required:true  ,validType:'length[0,30]'} } "> 名称</th>
 
 
 
-									 											
-																								<th data-options="field:'Unit',width:140,editor:{type:'textbox',options:{required:false  ,validType:'length[0,10]'} } "> 单位</th>
-											
+
+
+                        <th data-options="field:'Unit',width:140,editor:{type:'textbox',options:{required:false  ,validType:'length[0,10]'} } "> 单位</th>
 
 
 
-									 											
-																								<th data-options="field:'UnitPrice',width:100,align:'right',editor:{type:'numberbox',options:{required:true  ,precision:2 }} ,sortable:true,resizable:true ">单价</th>
-											
+
+
+                        <th data-options="field:'UnitPrice',width:100,align:'right',editor:{type:'numberbox',options:{required:true  ,precision:2 }} ,sortable:true,resizable:true ">单价</th>
 
 
 
-									 											
-																								<th data-options="field:'StockQty',width:100,align:'right',editor:{type:'numberbox',options:{required:true  ,precision:0 }} ,sortable:true,resizable:true ">库存</th>
-											
+
+
+                        <th data-options="field:'StockQty',width:100,align:'right',editor:{type:'numberbox',options:{required:true  ,precision:0 }} ,sortable:true,resizable:true ">库存</th>
 
 
 
-									 											
-																								<th data-options="field:'ConfirmDateTime',width:160,align:'right',editor:{type:'datebox',options:{required:true   }} ,formatter:dateformatter"> 确认日期</th>
-											
+
+
+                        <th data-options="field:'ConfirmDateTime',width:160,align:'right',editor:{type:'datebox',options:{required:true   }} ,formatter:dateformatter"> 确认日期</th>
 
 
 
-									 											
-																								<th data-options="field:'IsRequiredQc',width:120,
+
+
+                        <th data-options="field:'IsRequiredQc',width:120,
 																editor: {type:'combobox',
 																options:{
 																	panelHeight: 'auto',
 																	data: [ { value: 'true', text: 'true' },
 																			{ value: 'false', text: 'false' }],
 																required:false}}">是否需要QC</th>
-											
 
 
 
-									 																								<th data-options="field:'CategoryId',width:100,
+
+                        <th data-options="field:'CategoryId',width:100,
 														formatter:function(value,row){
 																return row.CategoryName;
 														},
@@ -138,89 +138,89 @@
 																url:'/Categories/GetCategories',
 																required:true
 														}
-													}"> 产品类别 </th>
-
-											
+													}">产品类别</th>
 
 
 
-									 								</tr>
-							</thead>
-						</table>
-						<!-- products_toolbar -->
-						<div id="products_toolbar" style="height:auto">
-							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="products_append()">新增</a>
-							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="products_removeit()">删除</a>
-							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="products_accept()">保存</a>
-							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="products_reject()">取消</a>
-							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-paperclip',plain:true" onclick="importexcel()">EXCEL 导入</a>
-							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="products_reload()">刷新</a>
-						</div>
 
 
-					 
-				</div>
-				<!--end Products tab   -->
-						</div>
-			<!--end detail entity tabs -->
-				</div>
-		<!--end datagrid-content -->
-    <!-- file upload partial view -->
-	@Html.Partial("_ImportWindow",new  ViewDataDictionary { { "EntityName","Category" }})		 
-	<!-- end file upload partial view -->
+                    </tr>
+                </thead>
+            </table>
+            <!-- products_toolbar -->
+            <div id="products_toolbar" style="height:auto">
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="products_append()">新增</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="products_removeit()">删除</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="products_accept()">保存</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="products_reject()">取消</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-paperclip',plain:true" onclick="importexcel()">EXCEL 导入</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="products_reload()">刷新</a>
+            </div>
+
+
+
+        </div>
+        <!--end Products tab   -->
+    </div>
+    <!--end detail entity tabs -->
+</div>
+<!--end datagrid-content -->
+<!-- file upload partial view -->
+@Html.Partial("_ImportWindow", new ViewDataDictionary { { "EntityName", "Category" } })
+<!-- end file upload partial view -->
 @section Scripts {
     <script type="text/javascript">
 
-			 
-			        //打开Excel上传导入
-                    function importexcel() {
-                        $('#importwindow').window('open');
-                    }
-					 //执行Excel到处下载
-					function exportexcel() {
-						var filterRules = JSON.stringify($dg.datagrid('options').filterRules);
-						//console.log(filterRules);
-						$.messager.progress({ title: '正在执行导出！' });
-						var formData = new FormData();
-						formData.append('filterRules', filterRules);
-						formData.append('sort', 'Id');
-						formData.append('order', 'asc');
-						$.postDownload('/Categories/ExportExcel', formData, function (fileName) {
-							$.messager.progress('close');
-							console.log(fileName);
 
-						})
-					}
-		 //datagrid 增删改查操作
-         var $dg = $('#categories_datagrid');
-		 var editIndex = undefined;
-		function reload() {
-                 if (endEditing()) {
-                        $dg.datagrid('reload');
-                 }
+        //打开Excel上传导入
+        function importexcel() {
+            $('#importwindow').window('open');
+        }
+        //执行Excel到处下载
+        function exportexcel() {
+            var filterRules = JSON.stringify($dg.datagrid('options').filterRules);
+            //console.log(filterRules);
+            $.messager.progress({ title: '正在执行导出！' });
+            var formData = new FormData();
+            formData.append('filterRules', filterRules);
+            formData.append('sort', 'Id');
+            formData.append('order', 'asc');
+            $.postDownload('/Categories/ExportExcel', formData, function (fileName) {
+                $.messager.progress('close');
+                console.log(fileName);
+
+            })
+        }
+        //datagrid 增删改查操作
+        var $dg = $('#categories_datagrid');
+        var editIndex = undefined;
+        function reload() {
+            if (endEditing()) {
+                $dg.datagrid('reload');
             }
+        }
         function endEditing() {
             if (editIndex == undefined) { return true }
             if ($dg.datagrid('validateRow', editIndex)) {
 
-								$dg.datagrid('endEdit', editIndex);
+                $dg.datagrid('endEdit', editIndex);
                 editIndex = undefined;
 
-                
+
                 return true;
             } else {
                 return false;
             }
         }
         function onClickCell(index, field) {
-			var _operates = ["_operate1", "_operate2", "_operate3", "ck"]
+            var _operates = ["_operate1", "_operate2", "_operate3", "ck"]
             if ($.inArray(field, _operates) >= 0) {
                 return;
             }
             if (editIndex != index) {
                 if (endEditing()) {
                     $dg.datagrid('selectRow', index)
-                            .datagrid('beginEdit', index);
+                        .datagrid('beginEdit', index);
                     var ed = $dg.datagrid('getEditor', { index: index, field: field });
                     if (ed) {
                         ($(ed.target).data('textbox') ? $(ed.target).textbox('textbox') : $(ed.target)).focus();
@@ -235,16 +235,16 @@
             if (endEditing()) {
                 //$dg.datagrid('appendRow', { Status: 0 });
                 //editIndex = $dg.datagrid('getRows').length - 1;
-				$dg.datagrid('insertRow', { index: 0, row: { Status: 0 } });
-				editIndex = 0 ;
+                $dg.datagrid('insertRow', { index: 0, row: { Status: 0 } });
+                editIndex = 0;
                 $dg.datagrid('selectRow', editIndex)
-                        .datagrid('beginEdit', editIndex);
+                    .datagrid('beginEdit', editIndex);
             }
         }
         function removeit() {
             if (editIndex == undefined) { return }
             $dg.datagrid('cancelEdit', editIndex)
-                    .datagrid('deleteRow', editIndex);
+                .datagrid('deleteRow', editIndex);
             editIndex = undefined;
         }
         function accept() {
@@ -269,14 +269,14 @@
                         if (response.Success) {
                             $.messager.alert("提示", "提交成功！");
                             $dg.datagrid('acceptChanges');
-							$dg.datagrid('reload');
+                            $dg.datagrid('reload');
                         }
                     }, "JSON").error(function (response) {
-						//console.log(response);
-                        $.messager.alert("错误", "提交错误了！",'error');
-						//$dg.datagrid('reload');
+                        //console.log(response);
+                        $.messager.alert("错误", "提交错误了！", 'error');
+                        //$dg.datagrid('reload');
                     });
-              
+
                 }
 
                 //$dg.datagrid('acceptChanges');
@@ -291,111 +291,111 @@
             alert(rows.length + ' rows are changed!');
         }
 
-		//datagrid 开启行赛选功能
-		 $(function () {
-		  
-           $dg.datagrid('enableFilter',[
-		   
-		   		   
-		   		   
-		   ]);
+        //datagrid 开启行赛选功能
+        $(function () {
+
+            $dg.datagrid('enableFilter', [
+
+
+
+            ]);
         })
-				//-----------------------------------------------------
-		//datagrid onSelect
-		//-----------------------------------------------------
-		function onSelect(index, row) {
+        //-----------------------------------------------------
+        //datagrid onSelect
+        //-----------------------------------------------------
+        function onSelect(index, row) {
             //console.log(index, row);
-			 			filterByCategoryId(row.Id);
-			        }
- 
-		
-        
-		 
-			function filterByCategoryId(categoryid) {
+            filterByCategoryId(row.Id);
+        }
+
+
+
+
+        function filterByCategoryId(categoryid) {
             var value = categoryid;
 
-			                  $productsdg.datagrid('removeFilterRule', 'CategoryId');
-               $productsdg.datagrid('addFilterRule', {
-                    field: 'CategoryId',
-                    op: 'equal',
-                    value: value
-                });
-               $productsdg.datagrid('doFilter');
-			   
+            $productsdg.datagrid('removeFilterRule', 'CategoryId');
+            $productsdg.datagrid('addFilterRule', {
+                field: 'CategoryId',
+                op: 'equal',
+                value: value
+            });
+            $productsdg.datagrid('doFilter');
+
         }
-		 //-----------------------------------------------------------------------
-		 // details datagrid functions
-		 //-----------------------------------------------------------------------
-								//--------------------------------------------------------------------
-				// #products_datagrid functions
-				//--------------------------------------------------------------------
-				var $productsdg = $('#products_datagrid');
+        //-----------------------------------------------------------------------
+        // details datagrid functions
+        //-----------------------------------------------------------------------
+        //--------------------------------------------------------------------
+        // #products_datagrid functions
+        //--------------------------------------------------------------------
+        var $productsdg = $('#products_datagrid');
 
-				var products_editIndex = undefined;
-		function products_reload() {
-                $productsdg.datagrid('reload');
-            }
-    function products_endEditing() {
-        if ( products_editIndex == undefined) { return true }
-        if ($productsdg.datagrid('validateRow', products_editIndex)) {
-			            var ed = $productsdg.datagrid('getEditor', { index: products_editIndex, field: 'CategoryId' });
-            var CategoryName = $(ed.target).combobox('getText');
-            var CategoryId = $(ed.target).combobox('getValue');
-          
-            $productsdg.datagrid('getRows')[products_editIndex]['CategoryName'] = CategoryName;
-            $productsdg.datagrid('getRows')[products_editIndex]['CategoryId'] = CategoryId;
-            
-            
-						$productsdg.datagrid('endEdit', products_editIndex);
-            products_editIndex = undefined;
-
-
-            return true;
-        } else {
-            return false;
+        var products_editIndex = undefined;
+        function products_reload() {
+            $productsdg.datagrid('reload');
         }
-    }
-    function products_onClickCell(index, field) {
-        if (products_editIndex != index) {
-            if (products_endEditing()) {
-                $productsdg.datagrid('selectRow', index)
-                        .datagrid('beginEdit', index);
-                var ed = $productsdg.datagrid('getEditor', { index: index, field: field });
-                if (ed) {
-                    ($(ed.target).data('textbox') ? $(ed.target).textbox('textbox') : $(ed.target)).focus();
-                }
-                products_editIndex  = index;
+        function products_endEditing() {
+            if (products_editIndex == undefined) { return true }
+            if ($productsdg.datagrid('validateRow', products_editIndex)) {
+                var ed = $productsdg.datagrid('getEditor', { index: products_editIndex, field: 'CategoryId' });
+                var CategoryName = $(ed.target).combobox('getText');
+                var CategoryId = $(ed.target).combobox('getValue');
+
+                $productsdg.datagrid('getRows')[products_editIndex]['CategoryName'] = CategoryName;
+                $productsdg.datagrid('getRows')[products_editIndex]['CategoryId'] = CategoryId;
+
+
+                $productsdg.datagrid('endEdit', products_editIndex);
+                products_editIndex = undefined;
+
+
+                return true;
             } else {
-                $productsdg.datagrid('selectRow', products_editIndex);
+                return false;
             }
         }
-    }
-    function products_append() {
-        if (products_endEditing()) {
-			 var category = $dg.datagrid('getSelected');
-
-            $productsdg.datagrid('appendRow', { CategoryId:category.Id   });
-            productseditIndex = $productsdg.datagrid('getRows').length - 1;
-            $productsdg.datagrid('selectRow', products_editIndex )
-                    .datagrid('beginEdit', products_editIndex);
+        function products_onClickCell(index, field) {
+            if (products_editIndex != index) {
+                if (products_endEditing()) {
+                    $productsdg.datagrid('selectRow', index)
+                        .datagrid('beginEdit', index);
+                    var ed = $productsdg.datagrid('getEditor', { index: index, field: field });
+                    if (ed) {
+                        ($(ed.target).data('textbox') ? $(ed.target).textbox('textbox') : $(ed.target)).focus();
+                    }
+                    products_editIndex = index;
+                } else {
+                    $productsdg.datagrid('selectRow', products_editIndex);
+                }
+            }
         }
-    }
-    function products_removeit() {
-        if (products_editIndex  == undefined) { return }
-        $productsdg.datagrid('cancelEdit', products_editIndex )
-                .datagrid('deleteRow', products_editIndex );
-        productseditIndex = undefined;
-    }
-   
-    function products_reject() {
-        $productsdg.datagrid('rejectChanges');
-        products_editIndex  = undefined;
-    }
-    function products_getChanges() {
-        var rows = $productsdg.datagrid('getChanges');
-        alert(rows.length + ' rows are changed!');
-    }
-	function products_accept() {
+        function products_append() {
+            if (products_endEditing()) {
+                var category = $dg.datagrid('getSelected');
+
+                $productsdg.datagrid('appendRow', { CategoryId: category.Id });
+                productseditIndex = $productsdg.datagrid('getRows').length - 1;
+                $productsdg.datagrid('selectRow', products_editIndex)
+                    .datagrid('beginEdit', products_editIndex);
+            }
+        }
+        function products_removeit() {
+            if (products_editIndex == undefined) { return }
+            $productsdg.datagrid('cancelEdit', products_editIndex)
+                .datagrid('deleteRow', products_editIndex);
+            productseditIndex = undefined;
+        }
+
+        function products_reject() {
+            $productsdg.datagrid('rejectChanges');
+            products_editIndex = undefined;
+        }
+        function products_getChanges() {
+            var rows = $productsdg.datagrid('getChanges');
+            alert(rows.length + ' rows are changed!');
+        }
+        function products_accept() {
             if (products_endEditing()) {
                 if ($productsdg.datagrid('getChanges').length) {
                     var inserted = $productsdg.datagrid('getChanges', "inserted");
@@ -417,24 +417,24 @@
                         if (response.Success) {
                             $.messager.alert("提示", "提交成功！");
                             $productsdg.datagrid('acceptChanges');
-							$productsdg.datagrid('reload');
+                            $productsdg.datagrid('reload');
                         }
                     }, "JSON").error(function (response) {
-						//console.log(response);
-                        $.messager.alert("错误", "提交错误了！",'error');
-                      
+                        //console.log(response);
+                        $.messager.alert("错误", "提交错误了！", 'error');
+
                     });
-              
+
                 }
 
                 //$productsdg.datagrid('acceptChanges');
             }
         }
 
-		$(function () {
+        $(function () {
 
             $productsdg.datagrid('enableFilter', [
-									]);
+            ]);
 
             filterByCategoryId(-1);
         })
@@ -442,9 +442,9 @@
 
 
 
-				
-		 
-     </script>
+
+
+    </script>
 }
 
- 
+

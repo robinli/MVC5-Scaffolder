@@ -25,7 +25,7 @@
     <member name="M:Microsoft.VisualStudio.Designer.Interfaces.IVSMDDesignerLoader.GetEditorCaption(System.Int32)">
       <summary>Gets the editor caption for the design surface. </summary>
       <param name="status">
-        <see cref="T:Microsoft.VisualStudio.TextManager.Interop.READONLYSTATUS" />.</param>
+            <see cref="T:Microsoft.VisualStudio.TextManager.Interop.READONLYSTATUS" />.</param>
       <returns>The caption.</returns>
     </member>
     <member name="M:Microsoft.VisualStudio.Designer.Interfaces.IVSMDDesignerLoader.Initialize(System.Object,System.Object,System.Int32,System.Object)">
@@ -121,7 +121,6 @@
     </member>
     <member name="P:Microsoft.VisualStudio.Designer.Interfaces.IVSMDDesignerService.DesignViewAttribute">
       <summary>Gets the name of the metadata attribute we will use to determine if a class supports a design view.</summary>
-      <returns />
     </member>
     <member name="P:Microsoft.VisualStudio.Designer.Interfaces.IVSMDPropertyBrowser.WindowGlyphResourceID">
       <summary>Gets the resource ID of the glyph that the properties window should use as its tool window icon.</summary>
@@ -129,7 +128,8 @@
     </member>
     <member name="P:Microsoft.VisualStudio.Designer.Interfaces.IVSMDPropertyGrid.CommandsVisible">
       <summary>Gets the current visible state of the commands window.</summary>
-      <returns>true if the command window is visible, otherwise false.</returns>
+      <returns>
+          <see langword="true" /> if the command window is visible, otherwise <see langword="false" />.</returns>
     </member>
     <member name="P:Microsoft.VisualStudio.Designer.Interfaces.IVSMDPropertyGrid.GridSort">
       <summary>Gets or sets the sort order of the properties window</summary>

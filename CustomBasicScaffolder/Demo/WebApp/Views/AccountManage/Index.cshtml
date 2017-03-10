@@ -177,7 +177,7 @@
                                 $dg.datagrid('acceptChanges');
                                 //$dg.datagrid('reload');
                             }
-                        }, "JSON").error(function () {
+                        }, "json").fail(function () {
                             $.messager.alert("错误", "提交错误了！", 'error');
 
                         });
