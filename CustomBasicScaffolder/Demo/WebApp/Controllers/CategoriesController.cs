@@ -55,11 +55,10 @@ namespace WebApp.Controllers
         public async Task<ActionResult> GetData(int page = 1, int rows = 10, string sort = "Id", string order = "asc", string filterRules = "")
         {
             var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
-            int totalCount = 0;
             //int pagenum = offset / limit +1;
             var categories = await _categoryService.Query(new CategoryQuery().Withfilter(filters))
 .OrderBy(n => n.OrderBy(sort, order))
-.SelectPage(page, rows, out totalCount)
+.SelectPage(page, rows, out int totalCount)
 .AsQueryable()
 .ToListAsync();
 
@@ -338,7 +337,6 @@ namespace WebApp.Controllers
          
             this._unitOfWork.SetAutoDetectChangesEnabled(false);
             var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
-            int totalCount = 100;
             //int pagenum = offset / limit +1;
             //var products = await Task<List<Product>>.Factory.StartNew(() => {
             //    return _productService.Query(new ProductQuery().Withfilter(filters))
@@ -351,7 +349,7 @@ namespace WebApp.Controllers
             var products = await _productRepository.Query(new ProductQuery().Withfilter(filters))
                 .Include(p => p.Category)
                 .OrderBy(n => n.OrderBy(sort, order))
-                .SelectPageAsync(page, rows, out totalCount);
+                .SelectPageAsync(page, rows, out int totalCount);
             //StoreContext db = new StoreContext();
             //var products = await db.Products.OrderBy(x=>x.Id).Skip((page - 1) * rows).Take(rows).ToListAsync();
 
@@ -359,13 +357,12 @@ namespace WebApp.Controllers
 
 
             var datarows = products.Select(n => new { CategoryName = (n.Category == null ? "" : n.Category.Name), Id = n.Id, Name = n.Name, Unit = n.Unit, UnitPrice = n.UnitPrice, StockQty = n.StockQty, ConfirmDateTime = n.ConfirmDateTime, IsRequiredQc = n.IsRequiredQc, CategoryId = n.CategoryId }).ToList();
-            var pagelist = new { total = totalCount, rows = datarows };
 
             this._unitOfWork.SetAutoDetectChangesEnabled(true);
 
        
 
-            return Json(pagelist, JsonRequestBehavior.AllowGet);
+            return Json(new { total = totalCount, rows = datarows }, JsonRequestBehavior.AllowGet);
         }
 
 
@@ -373,8 +370,8 @@ namespace WebApp.Controllers
         [HttpPost]
         public ActionResult ExportExcel(string filterRules = "", string sort = "Id", string order = "asc")
         {
-            var fileName = "categories_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xlsx";
-            var stream = _categoryService.ExportExcel(filterRules, sort, order);
+            var fileName              = "categories_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xlsx";
+            var stream                = _categoryService.ExportExcel(filterRules, sort, order);
             return File(stream, "application/vnd.ms-excel", fileName);
 
         }

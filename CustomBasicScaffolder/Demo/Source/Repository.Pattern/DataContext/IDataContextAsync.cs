@@ -9,5 +9,7 @@ namespace Repository.Pattern.DataContext
         Task<int> SaveChangesAsync();
 
         Task  BulkSaveChangesAsync();
+
+ 
     }
 }

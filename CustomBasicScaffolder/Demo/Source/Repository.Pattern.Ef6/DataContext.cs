@@ -164,7 +164,9 @@ namespace Repository.Pattern.Ef6
         public   Task BulkSaveChangesAsync()
         {
 
-            return this.BulkSaveChangesAsync(false, CancellationToken.None);
+           return  this.BulkSaveChangesAsync(false, CancellationToken.None);
         }
+
+       
     }
 }

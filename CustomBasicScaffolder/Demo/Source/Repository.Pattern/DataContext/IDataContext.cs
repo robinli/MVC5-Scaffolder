@@ -1,5 +1,6 @@
 ﻿using System;
 using Repository.Pattern.Infrastructure;
+ 
 
 namespace Repository.Pattern.DataContext
 {
@@ -14,5 +15,7 @@ namespace Repository.Pattern.DataContext
         void SetAutoDetectChangesEnabled(bool enabled);
 
         void BulkSaveChanges();
+
+       
     }
 }
