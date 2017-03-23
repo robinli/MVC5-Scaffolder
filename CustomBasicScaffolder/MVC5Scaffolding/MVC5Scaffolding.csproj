@@ -92,6 +92,7 @@
     <Compile Include="Scaffolders\MvcScaffolderSP.cs" />
     <Compile Include="Scaffolders\MvcScaffolder.cs" />
     <Compile Include="Scaffolders\MvcScaffolderFactory.cs" />
+    <None Include=".editorconfig" />
     <None Include="packages.config" />
     <None Include="Templates\MvcScaffolder\DataFieldTemplates\EditorTemplates\Date.cs.t4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

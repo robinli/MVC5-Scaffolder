@@ -3292,6 +3292,7 @@
     <Content Include="fonts\font-awesome3.2\scss\_bootstrap.scss" />
     <Content Include="fonts\font-awesome3.2\scss\_extras.scss" />
     <Content Include="Content\themes\material\images\Thumbs.db" />
+    <Content Include=".editorconfig" />
     <None Include="Project_Readme.html" />
     <Content Include="Views\Shared\skin-config.html" />
     <Content Include="skin-config.html" />
