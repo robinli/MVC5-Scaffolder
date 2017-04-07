@@ -1,5 +1,4 @@
-﻿
-<#@ Template Language="C#" HostSpecific="True"  #>
+﻿<#@ Template Language="C#" HostSpecific="True"  #>
 <#@ Output Extension="cs" #>
 <#@ ScaffoldingAssembly Processor="ScaffoldingAssemblyLoader" #>
 <#@ assembly name="System.ComponentModel.DataAnnotations" #>

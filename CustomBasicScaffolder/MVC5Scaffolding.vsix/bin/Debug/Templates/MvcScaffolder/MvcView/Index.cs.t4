@@ -18,9 +18,6 @@
 	ViewBag.Title = "<#= PageTitle #>";
 }
 
-
- 
-
 	 <!--begin datagrid-content -->
 	 <div class="datagrid-content">
 		<table id="<#= modelVariable #>_datagrid" class="easyui-datagrid"   style="width:auto;height:auto"

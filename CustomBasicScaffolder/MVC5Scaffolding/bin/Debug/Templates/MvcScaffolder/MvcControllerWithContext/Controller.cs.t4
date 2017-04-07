@@ -34,13 +34,10 @@ else
 <#@ parameter type="System.String" name ="ViewPrefix" #>
 <#@ parameter type="System.String" name ="ModelName" #>
 <#@ parameter type="System.Collections.Generic.HashSet<System.String>" name="RequiredNamespaces" #>
-
-
 <#@ parameter type="System.Collections.Generic.Dictionary<string, Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata>" name="OneToManyModelMetadata" #>
 <#@ parameter type="System.Collections.Generic.Dictionary<string, string>" name="OneToManyAnonymousObjText" #>
 <#@ parameter type="System.String" name ="SelectLambdaText" #>
 <#@ parameter type="System.Boolean" name ="GenerateMasterDetailRelationship" #>
-
 using System;
 using Newtonsoft.Json;
 using System.Collections.Generic;

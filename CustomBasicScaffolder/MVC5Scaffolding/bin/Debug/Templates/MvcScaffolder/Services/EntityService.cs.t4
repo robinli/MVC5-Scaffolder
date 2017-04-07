@@ -1,5 +1,4 @@
-﻿
-<#@ Template Language="C#" HostSpecific="True"  #>
+﻿<#@ Template Language="C#" HostSpecific="True"  #>
 <#@ Output Extension="cs" #>
 <#@ ScaffoldingAssembly Processor="ScaffoldingAssemblyLoader" #>
 <#@ assembly name="System.ComponentModel.DataAnnotations" #>
@@ -24,11 +23,7 @@
 <#@ parameter type="System.String" name="PrimaryKeyName" #>           
 <#@ parameter type="Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata" name="ModelMetadata" #>
 <#@ parameter type="System.Collections.Generic.Dictionary<string, Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata>" name="OneToManyModelMetadata" #> 
-
 <#@ parameter type="System.String" name ="SelectLambdaText" #>
-
-
-
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -36,13 +31,10 @@ using System.Linq;
 using System.Linq.Expressions;
 using Repository.Pattern.Repositories;
 using Service.Pattern;
-
 using <#= ModelNamespace #>;
 using <#= DefaultNamespace #>.Repositories;
-
 using System.Data;
 using System.Reflection;
-
 using Newtonsoft.Json;
 using <#=DefaultNamespace #>.Extensions;
 using System.IO;
