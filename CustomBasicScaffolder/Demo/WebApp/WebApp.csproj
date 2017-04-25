@@ -245,61 +245,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201503230120520_init.cs" />
-    <Compile Include="Migrations\201503230120520_init.Designer.cs">
-      <DependentUpon>201503230120520_init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201601300856405_dx.cs" />
-    <Compile Include="Migrations\201601300856405_dx.Designer.cs">
-      <DependentUpon>201601300856405_dx.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201604110311495_update.cs" />
-    <Compile Include="Migrations\201604110311495_update.Designer.cs">
-      <DependentUpon>201604110311495_update.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201604120119459_update_product.cs" />
-    <Compile Include="Migrations\201604120119459_update_product.Designer.cs">
-      <DependentUpon>201604120119459_update_product.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201604200627418_iconcls.cs" />
-    <Compile Include="Migrations\201604200627418_iconcls.Designer.cs">
-      <DependentUpon>201604200627418_iconcls.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201604200705113_f.cs" />
-    <Compile Include="Migrations\201604200705113_f.Designer.cs">
-      <DependentUpon>201604200705113_f.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201604200706238_dd.cs" />
-    <Compile Include="Migrations\201604200706238_dd.Designer.cs">
-      <DependentUpon>201604200706238_dd.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201604250224368_t.cs" />
-    <Compile Include="Migrations\201604250224368_t.Designer.cs">
-      <DependentUpon>201604250224368_t.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201604250729548_d.cs" />
-    <Compile Include="Migrations\201604250729548_d.Designer.cs">
-      <DependentUpon>201604250729548_d.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201604260723240_dd1.cs" />
-    <Compile Include="Migrations\201604260723240_dd1.Designer.cs">
-      <DependentUpon>201604260723240_dd1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201701020620272_up.cs" />
-    <Compile Include="Migrations\201701020620272_up.Designer.cs">
-      <DependentUpon>201701020620272_up.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201701030944240_update1.cs" />
-    <Compile Include="Migrations\201701030944240_update1.Designer.cs">
-      <DependentUpon>201701030944240_update1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201701101105510_qc.cs" />
-    <Compile Include="Migrations\201701101105510_qc.Designer.cs">
-      <DependentUpon>201701101105510_qc.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201702030543209_addfunctionpoint.cs" />
-    <Compile Include="Migrations\201702030543209_addfunctionpoint.Designer.cs">
-      <DependentUpon>201702030543209_addfunctionpoint.cs</DependentUpon>
+    <Compile Include="Migrations\201704250252468_test.cs" />
+    <Compile Include="Migrations\201704250252468_test.Designer.cs">
+      <DependentUpon>201704250252468_test.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs">
       <SubType>Code</SubType>
@@ -2840,6 +2788,253 @@
     <Content Include="Scripts\easyui\themes\icons\sum.png" />
     <Content Include="Scripts\easyui\themes\icons\tip.png" />
     <Content Include="Scripts\easyui\themes\icons\undo.png" />
+    <Content Include="Scripts\easyui\themes\insdep\easyui.css" />
+    <Content Include="Scripts\easyui\themes\insdep\easyui_animation.css" />
+    <Content Include="Scripts\easyui\themes\insdep\easyui_plus.css" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\columns-ext\columns-ext.html" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\columns-ext\columns-ext.js" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\columns-ext\group.html" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\columns-ext\__MACOSX\._columns-ext.js" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\datagrid-cellediting\datagrid-cellediting.html" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\datagrid-cellediting\datagrid-cellediting.js" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\datagrid-dnd\datagrid-dnd.html" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\datagrid-dnd\datagrid-dnd.js" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\datagrid-filter\datagrid-filter.html" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\datagrid-filter\datagrid-filter.js" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\datagrid-filter\filter.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-datagridview\datagrid-bufferview.html" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-datagridview\datagrid-bufferview.js" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-datagridview\datagrid-defaultview.js" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-datagridview\datagrid-detailview.html" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-datagridview\datagrid-detailview.js" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-datagridview\datagrid-detailview2.html" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-datagridview\datagrid-groupview.html" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-datagridview\datagrid-groupview.js" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-datagridview\datagrid-scrollview.html" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-datagridview\datagrid-scrollview.js" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-datagridview\datagrid-scrollview2.html" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-datagridview\images\EST-1.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-datagridview\images\EST-10.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-datagridview\images\EST-2.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-datagridview\images\EST-3.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-datagridview\images\EST-4.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-datagridview\images\EST-5.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-datagridview\images\EST-6.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-datagridview\images\EST-7.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-datagridview\images\EST-8.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-datagridview\images\EST-9.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-dwrloader\dwrloader.html" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-dwrloader\dwrloader.js" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-edatagrid\editable-datagrid.html" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-edatagrid\jquery.edatagrid.js" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-etree\editable-tree.html" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-etree\jquery.etree.js" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-etree\jquery.etree.lang.js" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-pivotgrid\jquery.pivotgrid.js" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-pivotgrid\layout.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-pivotgrid\load.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-pivotgrid\pivotgrid.html" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-pivotgrid\__MACOSX\._layout.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-pivotgrid\__MACOSX\._load.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-portal\jquery.portal.js" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-portal\portal.html" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-ribbon\images\16\align-center.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-ribbon\images\16\align-justify.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-ribbon\images\16\align-left.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-ribbon\images\16\align-right.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-ribbon\images\16\bold.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-ribbon\images\16\bullets.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-ribbon\images\16\case-font.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-ribbon\images\16\copy.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-ribbon\images\16\decrease-font.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-ribbon\images\16\find.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-ribbon\images\16\format.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-ribbon\images\16\go.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-ribbon\images\16\grow-font.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-ribbon\images\16\increase-font.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-ribbon\images\16\italic.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-ribbon\images\16\numbers.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-ribbon\images\16\paste.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-ribbon\images\16\replace.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-ribbon\images\16\select.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-ribbon\images\16\selectall.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-ribbon\images\16\shrink-font.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-ribbon\images\16\strikethrough.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-ribbon\images\16\subscript.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-ribbon\images\16\superscript.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-ribbon\images\16\underline.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-ribbon\images\32\chart.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-ribbon\images\32\clipart.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-ribbon\images\32\paste.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-ribbon\images\32\picture.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-ribbon\images\32\shapes.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-ribbon\images\32\smartart.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-ribbon\images\32\table.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-ribbon\jquery.ribbon.js" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-ribbon\ribbon-icon.css" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-ribbon\ribbon.css" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-ribbon\ribbon.html" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-rtl\content.html" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-rtl\easyui-rtl.css" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-rtl\easyui-rtl.js" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-rtl\rtl.html" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-texteditor\images\backcolor.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-texteditor\images\bold.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-texteditor\images\forecolor.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-texteditor\images\indent.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-texteditor\images\insertorderedlist.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-texteditor\images\insertunorderedlist.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-texteditor\images\italic.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-texteditor\images\justifycenter.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-texteditor\images\justifyfull.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-texteditor\images\justifyleft.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-texteditor\images\justifyright.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-texteditor\images\outdent.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-texteditor\images\strikethrough.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-texteditor\images\underline.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-texteditor\jquery.texteditor.js" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-texteditor\texteditor.css" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-texteditor\texteditor.html" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-texteditor\__MACOSX\images\._backcolor.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-texteditor\__MACOSX\images\._forecolor.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-texteditor\__MACOSX\images\._indent.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-texteditor\__MACOSX\images\._outdent.png" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\treegrid-dnd\treegrid-dnd.html" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\treegrid-dnd\treegrid-dnd.js" />
+    <Content Include="Scripts\easyui\themes\insdep\icon.css" />
+    <Content Include="Scripts\easyui\themes\insdep\iconfont\demo.css" />
+    <Content Include="Scripts\easyui\themes\insdep\iconfont\demo_fontclass.html" />
+    <Content Include="Scripts\easyui\themes\insdep\iconfont\demo_symbol.html" />
+    <Content Include="Scripts\easyui\themes\insdep\iconfont\demo_unicode.html" />
+    <Content Include="Scripts\easyui\themes\insdep\iconfont\iconfont.css" />
+    <Content Include="Scripts\easyui\themes\insdep\iconfont\iconfont.js" />
+    <Content Include="Scripts\easyui\themes\insdep\iconfont\iconfont.svg" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\arrow_refresh.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\arrow_rotate_anticlockwise.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\arrow_rotate_clockwise.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\arrow_switch.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\back.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\blank.gif" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\cancel.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\clear.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\cog.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\cut.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\edit_add.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\edit_remove.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\filesave.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\filter.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\folder_search.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\help.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\information.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\large_chart.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\large_clipart.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\large_picture.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\large_shapes.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\large_smartart.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\lock.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\lock_go.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\lock_password.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\man.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\mini-append.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\mini-cancel.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\mini-delete.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\mini-ok.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\mini-pencil.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\mini-reload.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\mini_add.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\mini_cross.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\mini_delete.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\mini_edit.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\mini_minus.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\mini_refresh.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\mini_set.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\mini_tick.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\more.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\no.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\ok.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\pencil.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\print.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\recover_deleted_items.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\redo.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\reload.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\search.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\set.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\sort_number.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\sum.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\tip.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\undo.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\update.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\user_config.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\wrench.png" />
+    <Content Include="Scripts\easyui\themes\insdep\icons\wrench_orange.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\about.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\accordion_arrows.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\alert_icons.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\append-images.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\arrow-right.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\blank.gif" />
+    <Content Include="Scripts\easyui\themes\insdep\images\calendar_arrows.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\combo_arrow.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\datagrid-filter.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\datagrid_icons.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\datebox_arrow.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\disable.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\footer_projection.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\icons_error.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\icons_help.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\icons_info.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\icons_prompt.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\icons_success.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\icons_warning.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\info-icons-at.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\info-icons-tel.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\layout_arrows.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\linkbutton_bg.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\list-loding.gif" />
+    <Content Include="Scripts\easyui\themes\insdep\images\loading.gif" />
+    <Content Include="Scripts\easyui\themes\insdep\images\logo.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\logo_110.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\menu_arrows.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\menu_arrows_blue.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\menu_arrows_white.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\messager_icons.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\navigate_more.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\pagination_icons.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\panel_tools - __.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\panel_tools.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\panel_tools_white.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\passwordbox_close.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\passwordbox_open.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\portrait129x129.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\portrait172x172-select.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\portrait172x172.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\portrait20x20.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\portrait250x250.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\portrait28x28.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\portrait32x32.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\portrait38x38.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\portrait43x43.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\portrait86x86.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\progressbar-background.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\QRcode-close.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\QRcode-demo.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\QRcode.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\searchbox_button.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\searchbox_navigate_button.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\set.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\slider_handle.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\spinner_arrows.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\tabs_icons.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\tabs_icons_hover.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\tabs_icons_white.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\tagbox_icons.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\tagbox_icons_white.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\tree_icons.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\tree_icons_2.png" />
+    <Content Include="Scripts\easyui\themes\insdep\images\validatebox_warning.png" />
+    <Content Include="Scripts\easyui\themes\insdep\insdep_tables.css" />
+    <Content Include="Scripts\easyui\themes\insdep\insdep_theme_default.css" />
+    <Content Include="Scripts\easyui\themes\insdep\jquery.insdep-extend.min.js" />
     <Content Include="Scripts\easyui\themes\material\accordion.css" />
     <Content Include="Scripts\easyui\themes\material\calendar.css" />
     <Content Include="Scripts\easyui\themes\material\combo.css" />
@@ -3388,6 +3583,19 @@
     <Content Include="Views\Orders\EditForm.cshtml" />
     <Content Include="Views\Orders\_OrderDetailEditForm.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-datagridview\datagrid_data.json" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-edatagrid\datagrid_data.json" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-etree\tree_data.json" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-pivotgrid\pivotgrid_data1.json" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-pivotgrid\pivotgrid_data2.json" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-portal\datagrid_data.json" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-rtl\datagrid_data1.json" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-rtl\tree_data1.json" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-texteditor\images\.DS_Store" />
+    <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-texteditor\__MACOSX\images\._.DS_Store" />
+    <Content Include="Scripts\easyui\themes\insdep\iconfont\iconfont.eot" />
+    <Content Include="Scripts\easyui\themes\insdep\iconfont\iconfont.ttf" />
+    <Content Include="Scripts\easyui\themes\insdep\iconfont\iconfont.woff" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Source\Repository.Pattern.Ef6\Repository.Pattern.Ef6.csproj">
@@ -3404,47 +3612,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201503230120520_init.resx">
-      <DependentUpon>201503230120520_init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201601300856405_dx.resx">
-      <DependentUpon>201601300856405_dx.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604110311495_update.resx">
-      <DependentUpon>201604110311495_update.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604120119459_update_product.resx">
-      <DependentUpon>201604120119459_update_product.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604200627418_iconcls.resx">
-      <DependentUpon>201604200627418_iconcls.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604200705113_f.resx">
-      <DependentUpon>201604200705113_f.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604200706238_dd.resx">
-      <DependentUpon>201604200706238_dd.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604250224368_t.resx">
-      <DependentUpon>201604250224368_t.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604250729548_d.resx">
-      <DependentUpon>201604250729548_d.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604260723240_dd1.resx">
-      <DependentUpon>201604260723240_dd1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201701020620272_up.resx">
-      <DependentUpon>201701020620272_up.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201701030944240_update1.resx">
-      <DependentUpon>201701030944240_update1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201701101105510_qc.resx">
-      <DependentUpon>201701101105510_qc.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201702030543209_addfunctionpoint.resx">
-      <DependentUpon>201702030543209_addfunctionpoint.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201704250252468_test.resx">
+      <DependentUpon>201704250252468_test.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

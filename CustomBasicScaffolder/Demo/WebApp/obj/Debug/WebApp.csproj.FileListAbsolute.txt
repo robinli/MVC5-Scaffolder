@@ -1,19 +1,4 @@
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\WebApp\obj\Debug\WebApp.csprojResolveAssemblyReference.cache
-D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\WebApp\obj\Debug\WebApp.Migrations.init.resources
-D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\WebApp\obj\Debug\WebApp.Migrations.dx.resources
-D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\WebApp\obj\Debug\WebApp.Migrations.update.resources
-D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\WebApp\obj\Debug\WebApp.Migrations.update_product.resources
-D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\WebApp\obj\Debug\WebApp.Migrations.iconcls.resources
-D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\WebApp\obj\Debug\WebApp.Migrations.f.resources
-D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\WebApp\obj\Debug\WebApp.Migrations.dd.resources
-D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\WebApp\obj\Debug\WebApp.Migrations.t.resources
-D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\WebApp\obj\Debug\WebApp.Migrations.d.resources
-D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\WebApp\obj\Debug\WebApp.Migrations.dd1.resources
-D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\WebApp\obj\Debug\WebApp.Migrations.up.resources
-D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\WebApp\obj\Debug\WebApp.Migrations.update1.resources
-D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\WebApp\obj\Debug\WebApp.Migrations.qc.resources
-D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\WebApp\obj\Debug\WebApp.Migrations.addfunctionpoint.resources
-D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\WebApp\obj\Debug\WebApp.csproj.GenerateResource.Cache
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\WebApp\bin\WebApp.dll.config
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\WebApp\bin\WebApp.dll
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\WebApp\bin\WebApp.pdb
@@ -106,3 +91,5 @@ D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Dem
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\WebApp\bin\LinqKit.xml
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\WebApp\obj\Debug\WebApp.dll
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\WebApp\obj\Debug\WebApp.pdb
+D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\WebApp\obj\Debug\WebApp.Migrations.test.resources
+D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\WebApp\obj\Debug\WebApp.csproj.GenerateResource.Cache

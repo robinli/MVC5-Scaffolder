@@ -43,6 +43,21 @@
             var result = lambdas.AggregateBalanced(AndAlso); // Ok still when lambdas.Length is 1 000 000
             </summary>
         </member>
+        <member name="T:LinqKit.ExpandableDbAsyncEnumerator`1">
+            <summary> Class for async-await style list enumeration support (e.g. .ToListAsync())</summary>
+        </member>
+        <member name="M:LinqKit.ExpandableDbAsyncEnumerator`1.#ctor(System.Collections.Generic.IEnumerator{`0})">
+            <summary> Class for async-await style list enumeration support (e.g. .ToListAsync())</summary>
+        </member>
+        <member name="M:LinqKit.ExpandableDbAsyncEnumerator`1.Dispose">
+            <summary> Dispose, .NET using-pattern </summary>
+        </member>
+        <member name="M:LinqKit.ExpandableDbAsyncEnumerator`1.MoveNextAsync(System.Threading.CancellationToken)">
+            <summary> Enumerator-pattern: MoveNext </summary>
+        </member>
+        <member name="P:LinqKit.ExpandableDbAsyncEnumerator`1.Current">
+            <summary> Enumerator-pattern: Current item </summary>
+        </member>
         <member name="T:LinqKit.ExpandableQuery`1">
             <summary>
             An IQueryable wrapper that allows us to visit the query's expression tree just before LINQ to SQL gets to it.
@@ -54,6 +69,9 @@
         </member>
         <member name="M:LinqKit.ExpandableQuery`1.ToString">
             <summary> IQueryable string presentation.  </summary>
+        </member>
+        <member name="M:LinqKit.ExpandableQuery`1.GetAsyncEnumerator">
+            <summary> Enumerator for async-await </summary>
         </member>
         <member name="T:LinqKit.ExpressionExpander">
             <summary>
