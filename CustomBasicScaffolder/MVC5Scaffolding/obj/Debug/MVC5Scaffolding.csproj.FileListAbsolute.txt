@@ -629,10 +629,7 @@ D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\MVC
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\obj\Debug\MVC5Scaffolding.csprojResolveAssemblyReference.cache
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\Microsoft.AspNet.Scaffolding.12.0.dll
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\Microsoft.AspNet.Scaffolding.EntityFramework.12.0.dll
-D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\Microsoft.VisualStudio.Editor.dll
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\Microsoft.VisualStudio.OLE.Interop.dll
-D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\Microsoft.VisualStudio.Shell.12.0.dll
-D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\Microsoft.VisualStudio.Shell.Design.dll
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\Microsoft.VisualStudio.Shell.Immutable.10.0.dll
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\Microsoft.VisualStudio.Shell.Interop.8.0.dll
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding\bin\Debug\Microsoft.VisualStudio.Shell.Interop.9.0.dll

@@ -297,11 +297,6 @@
         </member>
         <member name="M:Microsoft.AspNet.Scaffolding.CodeGeneratorInformation.#ctor(System.String,System.String,System.String,System.Version,System.String,System.Windows.Media.ImageSource,System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{System.String})">
             <summary>
-            Constructor
-            </summary>
-        </member>
-        <member name="M:Microsoft.AspNet.Scaffolding.CodeGeneratorInformation.#ctor(System.String,System.String,System.String,System.Version,System.String,System.Windows.Media.ImageSource,System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{System.String},System.Int32)">
-            <summary>
             Constructor.
             </summary>
         </member>
@@ -351,11 +346,6 @@
             A list of strings used for organizing the CodeGenerators within the UI.
             Refer to <see cref="T:Microsoft.AspNet.Scaffolding.Categories"/> for some
             example values.
-            </summary>
-        </member>
-        <member name="P:Microsoft.AspNet.Scaffolding.CodeGeneratorInformation.DisplaySlot">
-            <summary>
-            A relative ordering for the items to be displayed.
             </summary>
         </member>
         <member name="M:Microsoft.AspNet.Scaffolding.CodeTypeService.GetAllCodeTypes(EnvDTE.Project)">
@@ -1581,11 +1571,6 @@
         <member name="F:Microsoft.AspNet.Scaffolding.Categories.MvcArea">
             <summary>
             Represents "Common/Mvc/Area" category.
-            </summary>
-        </member>
-        <member name="F:Microsoft.AspNet.Scaffolding.Categories.Api">
-            <summary>
-            Represents "Common/Api" category
             </summary>
         </member>
         <member name="T:Microsoft.AspNet.Scaffolding.IServiceRegistrar">

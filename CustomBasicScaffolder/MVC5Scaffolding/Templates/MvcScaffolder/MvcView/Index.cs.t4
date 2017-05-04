@@ -162,16 +162,24 @@ foreach (PropertyMetadata property in properties) {
 							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="reload()">刷新</a>
 							@if (Html.IsAuthorize("Import"))
 							{
-								<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-paperclip',plain:true" onclick="importexcel()">EXCEL 导入</a>
-								<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-download-alt',plain:true" onclick="exportexcel()">导出 Excel</a>
+								 <a href="javascript:void(0)" class="easyui-menubutton" data-options="menu:'#importmenu',iconCls:'icon-paperclip' " onclick="importexcel()">导入数据</a>
+                                       <div id="importmenu" style="width:150px;">
+                                                <div data-options="iconCls:'icon-cloud-upload'" onclick="importexcel()">导入数据</div>
+                                                <div data-options="iconCls:'icon-download-alt'" onclick="downloadtemplate()" >下载用于导入的模板</div>
+                                        </div>
+                                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-download-alt',plain:true" onclick="exportexcel()">导出至Excel</a>
 							}
-							@*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="append()">新增</a>
+						  @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="append()">新增</a>
 							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
 							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">保存</a>
 							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">取消</a>
 					
-							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-paperclip',plain:true" onclick="importexcel()">EXCEL 导入</a>
-							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-download-alt',plain:true" onclick="exportexcel()">导出 Excel</a>
+							<a href="javascript:void(0)" class="easyui-menubutton" data-options="menu:'#importmenu',iconCls:'icon-paperclip' " onclick="importexcel()">导入数据</a>
+                                       <div id="importmenu" style="width:150px;">
+                                                <div data-options="iconCls:'icon-cloud-upload'" onclick="importexcel()">导入数据</div>
+                                                <div data-options="iconCls:'icon-download-alt'" onclick="downloadtemplate()" >下载用于导入的模板</div>
+                                        </div>
+                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-download-alt',plain:true" onclick="exportexcel()">导出至Excel</a>
 							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="reload()">刷新</a>*@
 				</div>
 		
@@ -315,7 +323,14 @@ foreach (PropertyMetadata property in properties) {
 @section Scripts {
 	<script type="text/javascript">
 
-			 
+			        //下载Excel导入模板
+                    function downloadtemplate() {
+                            //TODO: 修改下载模板的路径
+                            var url = "/ExcelTemplate/<#= ModelTypeName #>.xlsx";
+                            $.fileDownload(url)
+                             .fail(function () { $.messager.alert("错误","没有找到模板文件! {" + url + "}"); });
+                                                
+                    }
 					//打开Excel上传导入
 					function importexcel() {
 						$("#importwindow").window("open");
