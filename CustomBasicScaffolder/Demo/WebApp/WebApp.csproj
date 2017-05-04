@@ -3577,11 +3577,6 @@
     <Content Include="Scripts\plugins\jquery-filer\examples\default\php\form_upload.php" />
     <Content Include="Scripts\plugins\jquery-filer\examples\dragdrop\php\ajax_remove_file.php" />
     <Content Include="Scripts\plugins\jquery-filer\examples\dragdrop\php\ajax_upload_file.php" />
-    <Content Include="Views\Orders\Index.cshtml" />
-    <Content Include="Views\Orders\Create.cshtml" />
-    <Content Include="Views\Orders\Edit.cshtml" />
-    <Content Include="Views\Orders\EditForm.cshtml" />
-    <Content Include="Views\Orders\_OrderDetailEditForm.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-datagridview\datagrid_data.json" />
     <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-edatagrid\datagrid_data.json" />
@@ -3596,6 +3591,11 @@
     <Content Include="Scripts\easyui\themes\insdep\iconfont\iconfont.eot" />
     <Content Include="Scripts\easyui\themes\insdep\iconfont\iconfont.ttf" />
     <Content Include="Scripts\easyui\themes\insdep\iconfont\iconfont.woff" />
+    <Content Include="Views\Orders\Index.cshtml" />
+    <Content Include="Views\Orders\Create.cshtml" />
+    <Content Include="Views\Orders\Edit.cshtml" />
+    <Content Include="Views\Orders\EditForm.cshtml" />
+    <Content Include="Views\Orders\_OrderDetailEditForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Source\Repository.Pattern.Ef6\Repository.Pattern.Ef6.csproj">

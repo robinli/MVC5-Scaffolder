@@ -35,9 +35,7 @@
 								 required:true ,validType:'length[0,20]'" />
 			              
 				   </td>
-	   	   </tr>
-	   	    <tr>
-      	   <td class="control-label">   @Html.DisplayNameFor(model => model.ShippingAddress)  </td>
+	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.ShippingAddress)  </td>
 	   <td> 
 			
 			  			<input id="@Html.IdFor(model => model.ShippingAddress)" 
@@ -52,7 +50,9 @@
 								 required:true ,validType:'length[0,50]'" />
 			              
 				   </td>
-	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.OrderDate)  </td>
+	   	   </tr>
+	   	    <tr>
+      	   <td class="control-label">   @Html.DisplayNameFor(model => model.OrderDate)  </td>
 	   <td> 
 			
 			  			<input id="@Html.IdFor(model => model.OrderDate)" 
@@ -67,8 +67,10 @@
 								 formatter:dateformatter" />
 			              
 				   </td>
-	   	   </tr>
-	   	        @*<tfoot>
+	   	    		<td></td> <td></td>
+			<td></td> <td></td>
+		     </tr>
+	    @*<tfoot>
         <tr>
            
         <tr>
@@ -164,21 +166,21 @@
  <script type="text/javascript">
 	
 	    
-	//==============$('#orderdetails_datagrid')=================// 
-    var $orderdetailsdatagrid = $('#orderdetails_datagrid')
+	//==============$("#orderdetails_datagrid")=================// 
+    var $orderdetailsdatagrid = $("#orderdetails_datagrid")
 	var orderdetailseditIndex = undefined;
     function orderdetails_endEditing() {
         if ( orderdetailseditIndex == undefined) { return true }
-        if ($orderdetailsdatagrid.datagrid('validateRow', orderdetailseditIndex)) {
-			            var ed = $orderdetailsdatagrid.datagrid('getEditor', { index: orderdetailseditIndex, field: 'ProductId' });
-            var ProductName = $(ed.target).combobox('getText');
-            var ProductId = $(ed.target).combobox('getValue');
+        if ($orderdetailsdatagrid.datagrid("validateRow", orderdetailseditIndex)) {
+			            var ed = $orderdetailsdatagrid.datagrid("getEditor", { index: orderdetailseditIndex, field: "ProductId" });
+            var ProductName = $(ed.target).combobox("getText");
+            var ProductId = $(ed.target).combobox("getValue");
           
-            $orderdetailsdatagrid.datagrid('getRows')[orderdetailseditIndex]['ProductName'] = ProductName;
-            $orderdetailsdatagrid.datagrid('getRows')[orderdetailseditIndex]['ProductId'] = ProductId;
+            $orderdetailsdatagrid.datagrid("getRows")[orderdetailseditIndex]["ProductName"] = ProductName;
+            $orderdetailsdatagrid.datagrid("getRows")[orderdetailseditIndex]["ProductId"] = ProductId;
             
             
-						$orderdetailsdatagrid.datagrid('endEdit', orderdetailseditIndex);
+						$orderdetailsdatagrid.datagrid("endEdit", orderdetailseditIndex);
             orderdetailseditIndex = undefined;
 
 
@@ -190,49 +192,49 @@
     function orderdetails_onClickCell(index, field) {
         if (orderdetailseditIndex != index) {
             if (orderdetails_endEditing()) {
-                $orderdetailsdatagrid.datagrid('selectRow', index)
-                        .datagrid('beginEdit', index);
-                var ed = $orderdetailsdatagrid.datagrid('getEditor', { index: index, field: field });
+                $orderdetailsdatagrid.datagrid("selectRow", index)
+                        .datagrid("beginEdit", index);
+                var ed = $orderdetailsdatagrid.datagrid("getEditor", { index: index, field: field });
                 if (ed) {
-                    ($(ed.target).data('textbox') ? $(ed.target).textbox('textbox') : $(ed.target)).focus();
+                    ($(ed.target).data("textbox") ? $(ed.target).textbox("textbox") : $(ed.target)).focus();
                 }
                 orderdetailseditIndex  = index;
             } else {
-                $orderdetailsdatagrid.datagrid('selectRow', orderdetailseditIndex);
+                $orderdetailsdatagrid.datagrid("selectRow", orderdetailseditIndex);
             }
         }
     }
     function orderdetails_append() {
         if (orderdetails_endEditing()) {
-            $orderdetailsdatagrid.datagrid('appendRow', { Status:0   });
-            orderdetailseditIndex = $orderdetailsdatagrid.datagrid('getRows').length - 1;
-            $orderdetailsdatagrid.datagrid('selectRow', orderdetailseditIndex )
-                    .datagrid('beginEdit', orderdetailseditIndex);
+            $orderdetailsdatagrid.datagrid("appendRow", { Status:0   });
+            orderdetailseditIndex = $orderdetailsdatagrid.datagrid("getRows").length - 1;
+            $orderdetailsdatagrid.datagrid("selectRow", orderdetailseditIndex )
+                    .datagrid("beginEdit", orderdetailseditIndex);
         }
     }
     function orderdetails_removeit() {
         if (orderdetailseditIndex  == undefined) { return }
-        $orderdetailsdatagrid.datagrid('cancelEdit', orderdetailseditIndex )
-                .datagrid('deleteRow', orderdetailseditIndex );
+        $orderdetailsdatagrid.datagrid("cancelEdit", orderdetailseditIndex )
+                .datagrid("deleteRow", orderdetailseditIndex );
         orderdetailseditIndex = undefined;
     }
    
     function orderdetails_reject() {
-        $orderdetailsdatagrid.datagrid('rejectChanges');
+        $orderdetailsdatagrid.datagrid("rejectChanges");
         orderdetailseditIndex  = undefined;
     }
     function orderdetails_getChanges() {
-        var rows = $orderdetailsdatagrid.datagrid('getChanges');
-        alert(rows.length + ' rows are changed!');
+        var rows = $orderdetailsdatagrid.datagrid("getChanges");
+        alert(rows.length + " rows are changed!");
     }
 
 
 	  
 	$(function () {
 	
-		$.get('/Orders/GetOrderDetailsByOrderId/' + @Model.Id,function(data){
+		$.get("/Orders/GetOrderDetailsByOrderId/" + @Model.Id,function(data){
             //console.log(data);
-            $orderdetailsdatagrid.datagrid('loadData',data);
+            $orderdetailsdatagrid.datagrid("loadData",data);
         
         })
 

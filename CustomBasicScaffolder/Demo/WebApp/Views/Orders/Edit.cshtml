@@ -6,13 +6,13 @@
 
 
 @model WebApp.Models.Order
-@{  ViewBag.Title = "Order | Edit";}
+@{  ViewBag.Title = "订单数据 | Edit";}
  
 <div class="row">
             <div class="col-md-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>Order form<small> edit Orders</small></h5>
+                        <h5>订单数据 form<small> edit Orders</small></h5>
                         <div class="ibox-tools">
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
@@ -65,29 +65,29 @@
     		var orderid = 0;
 		var ObjectState = "Modified";   
                                  
-             var $orderdetailsdatagrid = $('#orderdetails_datagrid');
+             var $orderdetailsdatagrid = $("#orderdetails_datagrid");
                         $(document).ready(function () {
-				orderid = $('#Id', 'form').val();
-                $('form').submit(function () {
-					if (!$('form').valid())
+				orderid = $("#Id", "form").val();
+                $("form").submit(function () {
+					if (!$("form").valid())
 						return false;
-                    //var token = $('[name=__RequestVerificationToken]').val();
+                    //var token = $("[name=__RequestVerificationToken]").val();
                     //var serializedForm = $(this).serialize();
-                    var actionurl = $(this).attr('action');
+                    var actionurl = $(this).attr("action");
                     						if (!orderdetails_endEditing())
 								return false;                                         
-                        var orderdetails = $orderdetailsdatagrid.datagrid('getChanges');
+                        var orderdetails = $orderdetailsdatagrid.datagrid("getChanges");
                                          
                      var newitem = {
 						
 
-                                                        Customer: $('#Customer', 'form').val(),
+                                                        Customer: $("#Customer", "form").val(),
                         								//primaryKey   
 								Id: orderid,
-                                                        OrderDate: $('#OrderDate', 'form').val(),
+                                                        OrderDate: $("#OrderDate", "form").val(),
                         								//detailTables
                                 OrderDetails: orderdetails ,
-                                                        ShippingAddress: $('#ShippingAddress', 'form').val(),
+                                                        ShippingAddress: $("#ShippingAddress", "form").val(),
                                                 ObjectState:ObjectState 
                     };
                     $.ajax({
