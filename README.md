@@ -41,9 +41,11 @@ MVC5-Scaffolder开源项目
     - Domain Events
     - *more to come
     
-+ 运行起来大致的样式如下采用Boostrap sb-admin.css
++ 运行起来大致的样式如下采用 INSPINIA+ Admin Theme
 
-![alt tag](http://images2015.cnblogs.com/blog/5997/201604/5997-20160412105628129-1137774382.png)
+![alt tag](http://image18-c.poco.cn/mypoco/myphoto/20170504/10/18612190220170504105512021.png?1918x645_130)
+![alt tag](http://image18-c.poco.cn/mypoco/myphoto/20170504/10/18612190220170504105514090.png?1917x720_130)
+![alt tag](http://image18-c.poco.cn/mypoco/myphoto/20170504/10/18612190220170504105516024.png?1918x750_130)
 
  
 
