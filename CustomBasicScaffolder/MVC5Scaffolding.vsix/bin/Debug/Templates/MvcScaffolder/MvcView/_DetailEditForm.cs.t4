@@ -38,9 +38,9 @@
 	 int mod = 0;
      var entityName = ModelTypeName;
 	 foreach (PropertyMetadata property in ModelMetadata.Properties.Where(x=>x.IsAssociation==false)) {
-	    string prompt =  ModelDisplayNames[property.PropertyName];
-		string displayName = ModelDisplayNames[property.PropertyName];
-		string description =  ModelDisplayNames[property.PropertyName];
+	    string prompt = ModelDisplayNames.ContainsKey(property.PropertyName)==true? ModelDisplayNames[property.PropertyName]:property.PropertyName;
+		string displayName = prompt;
+		string description = prompt;
 		var isRequired = false;
 		fieldRequired.TryGetValue(property.PropertyName, out isRequired);
 		string required = isRequired.ToString().ToLower();

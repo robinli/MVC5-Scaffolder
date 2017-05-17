@@ -185,23 +185,23 @@ namespace <#= Namespace #>
 		{
 			if (<#= modelVariablePlural #>.updated != null)
 			{
-				foreach (var updated in <#= modelVariablePlural #>.updated)
+				foreach (var item in <#= modelVariablePlural #>.updated)
 				{
-					<#= modelServiceVar #>.Update(updated);
+					<#= modelServiceVar #>.Update(item);
 				}
 			}
 			if (<#= modelVariablePlural #>.deleted != null)
 			{
-				foreach (var deleted in <#= modelVariablePlural #>.deleted)
+				foreach (var item in <#= modelVariablePlural #>.deleted)
 				{
-					<#= modelServiceVar #>.Delete(deleted);
+					<#= modelServiceVar #>.Delete(item);
 				}
 			}
 			if (<#= modelVariablePlural #>.inserted != null)
 			{
-				foreach (var inserted in <#= modelVariablePlural #>.inserted)
+				foreach (var item in <#= modelVariablePlural #>.inserted)
 				{
-					<#= modelServiceVar #>.Insert(inserted);
+					<#= modelServiceVar #>.Insert(item);
 				}
 			}
 			await _unitOfWork.SaveChangesAsync();
