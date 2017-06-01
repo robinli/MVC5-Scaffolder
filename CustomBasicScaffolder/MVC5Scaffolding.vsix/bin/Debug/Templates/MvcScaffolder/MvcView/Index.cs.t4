@@ -30,7 +30,8 @@
 				 url: '/<#= ControllerRootName #>/GetData',
 				 method: 'get',
 				 onClickCell: onClickCell,
-				 pagination: 'true'
+				 pagination: true,
+                 striped:true
 				   ">
 				<thead>
 					<tr>
@@ -207,7 +208,8 @@ foreach (PropertyMetadata property in properties) {
 								url: '/<#= entitySetName #>/GetData',
 								method: 'get',
 								onClickCell: <#= entitySetNameToLower #>_onClickCell,
-								pagination: 'true'
+								pagination: true,
+                                striped:true
 							">
 							<thead>
 								<tr>
