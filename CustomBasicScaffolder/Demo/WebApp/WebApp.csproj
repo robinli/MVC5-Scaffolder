@@ -270,6 +270,7 @@
     <Compile Include="Models\BaseCodeMetadata.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\CategoryMetadata.cs" />
+    <Compile Include="Models\CodeItemMetadata.cs" />
     <Compile Include="Models\Company.cs">
       <SubType>Code</SubType>
     </Compile>
