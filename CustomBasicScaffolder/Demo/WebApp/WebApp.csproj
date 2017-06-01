@@ -209,6 +209,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\ApplicationRoleManager.cs" />
+    <Compile Include="App_Start\Auth.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\CustomModelBinders.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -231,6 +232,8 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ManagementController.cs" />
     <Compile Include="Controllers\MenuItemsController.cs" />
+    <Compile Include="Controllers\MessagesController.cs" />
+    <Compile Include="Controllers\NotificationsController.cs" />
     <Compile Include="Controllers\OrderDetailsController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
@@ -248,6 +251,14 @@
     <Compile Include="Migrations\201704250252468_test.cs" />
     <Compile Include="Migrations\201704250252468_test.Designer.cs">
       <DependentUpon>201704250252468_test.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706010849569_hh.cs" />
+    <Compile Include="Migrations\201706010849569_hh.Designer.cs">
+      <DependentUpon>201706010849569_hh.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706010904337_messages.cs" />
+    <Compile Include="Migrations\201706010904337_messages.Designer.cs">
+      <DependentUpon>201706010904337_messages.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs">
       <SubType>Code</SubType>
@@ -272,6 +283,11 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MenuItem.cs" />
     <Compile Include="Models\MenuItemMetadata.cs" />
+    <Compile Include="Models\Message.cs" />
+    <Compile Include="Models\MessageMetadata.cs" />
+    <Compile Include="Models\Notification.cs" />
+    <Compile Include="Models\NotificationMetadata.cs" />
+    <Compile Include="Models\NotificationViewModel.cs" />
     <Compile Include="Models\Order.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -307,6 +323,10 @@
     <Compile Include="Repositories\Departments\DepartmentRepository.cs" />
     <Compile Include="Repositories\MenuItems\MenuItemQuery.cs" />
     <Compile Include="Repositories\MenuItems\MenuItemRepository.cs" />
+    <Compile Include="Repositories\Messages\MessageQuery.cs" />
+    <Compile Include="Repositories\Messages\MessageRepository.cs" />
+    <Compile Include="Repositories\Notifications\NotificationQuery.cs" />
+    <Compile Include="Repositories\Notifications\NotificationRepository.cs" />
     <Compile Include="Repositories\OrderDetails\OrderDetailQuery.cs" />
     <Compile Include="Repositories\OrderDetails\OrderDetailRepository.cs" />
     <Compile Include="Repositories\Orders\OrderQuery.cs" />
@@ -329,6 +349,10 @@
     <Compile Include="Services\Departments\IDepartmentService.cs" />
     <Compile Include="Services\MenuItems\IMenuItemService.cs" />
     <Compile Include="Services\MenuItems\MenuItemService.cs" />
+    <Compile Include="Services\Messages\IMessageService.cs" />
+    <Compile Include="Services\Messages\MessageService.cs" />
+    <Compile Include="Services\Notifications\INotificationService.cs" />
+    <Compile Include="Services\Notifications\NotificationService.cs" />
     <Compile Include="Services\OrderDetails\IOrderDetailService.cs" />
     <Compile Include="Services\OrderDetails\OrderDetailService.cs" />
     <Compile Include="Services\Orders\IOrderService.cs" />
@@ -3155,6 +3179,7 @@
     <Content Include="Scripts\jquery.easyui-1.4.5.min.js" />
     <Content Include="Scripts\jquery.easyui.mobile-1.4.5.js" />
     <Content Include="Scripts\jquery.easyui.mobile-1.4.5.min.js" />
+    <Content Include="Scripts\jquery.extend.js" />
     <Content Include="Scripts\jquery.fileDownload.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
@@ -3600,6 +3625,15 @@
     <Content Include="Views\Orders\Edit.cshtml" />
     <Content Include="Views\Orders\EditForm.cshtml" />
     <Content Include="Views\Orders\_OrderDetailEditForm.cshtml" />
+    <Content Include="Views\Notifications\Create.cshtml" />
+    <Content Include="Views\Notifications\Edit.cshtml" />
+    <Content Include="Views\Notifications\EditForm.cshtml" />
+    <Content Include="Views\Notifications\Index.cshtml" />
+    <Content Include="Views\Messages\Create.cshtml" />
+    <Content Include="Views\Messages\Details.cshtml" />
+    <Content Include="Views\Messages\Edit.cshtml" />
+    <Content Include="Views\Messages\EditForm.cshtml" />
+    <Content Include="Views\Messages\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Source\Repository.Pattern.Ef6\Repository.Pattern.Ef6.csproj">
@@ -3618,6 +3652,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201704250252468_test.resx">
       <DependentUpon>201704250252468_test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706010849569_hh.resx">
+      <DependentUpon>201706010849569_hh.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706010904337_messages.resx">
+      <DependentUpon>201706010904337_messages.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

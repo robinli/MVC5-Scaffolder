@@ -1,0 +1,89 @@
+﻿@model WebApp.Models.Message
+@using WebApp.Extensions
+<table class="table table-bordered">
+    <caption>
+    </caption>
+    <tr>
+       
+        <td class="control-label">@Html.DisplayNameFor(model => model.Group)  </td>
+        <td>
+            @MyDictionary.MessageGroup[Model.Group]
+
+        </td>
+
+        <td class="control-label">   @Html.DisplayNameFor(model => model.ExtensionKey1)  </td>
+        <td>
+
+           @Html.ValueFor(model => model.ExtensionKey1)
+
+        </td>
+
+        <td class="control-label">   @Html.DisplayNameFor(model => model.ExtensionKey2)  </td>
+        <td>
+                @Html.ValueFor(model => model.ExtensionKey2)
+
+        </td>
+    </tr>
+    
+    <tr>
+        <td class="control-label">   @Html.DisplayNameFor(model => model.Type)  </td>
+        <td>
+
+            @MyDictionary.MessageType[Model.Type]
+
+        </td>
+        <td class="control-label">   @Html.DisplayNameFor(model => model.Code)  </td>
+        <td>
+
+            @Html.ValueFor(model => model.Code)
+
+        </td>
+        
+        <td class="control-label">   @Html.DisplayNameFor(model => model.Method)  </td>
+        <td>
+
+            @Html.ValueFor(model => model.Method)
+
+        </td>
+        
+    </tr>
+   
+    <tr>
+        <td class="control-label">   @Html.DisplayNameFor(model => model.Tags)  </td>
+        <td>
+
+           @Html.ValueFor(model => model.Tags)
+
+        </td>
+        <td class="control-label">   @Html.DisplayNameFor(model => model.User)  </td>
+        <td>@Html.ValueFor(model => model.User)</td>
+        <td class="control-label">   @Html.DisplayNameFor(model => model.Created)  </td>
+        <td>
+
+           @Html.ValueFor(model => model.Created)
+
+        </td>
+    </tr>
+    
+    
+</table>
+<div class="tabs-container">
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#tab-1">日志内容</a></li>
+        <li class=""><a data-toggle="tab" href="#tab-2">StackTrace</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="tab-1" class="tab-pane active">
+            <div class="panel-body">
+               <p>@Html.ValueFor(model => model.Content)</p>
+            </div>
+        </div>
+        <div id="tab-2" class="tab-pane">
+            <div class="panel-body">
+                <p>@Html.ValueFor(model => model.StackTrace)</p>
+            </div>
+        </div>
+    </div>
+
+
+</div>

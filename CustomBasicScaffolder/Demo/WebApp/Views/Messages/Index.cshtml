@@ -1,0 +1,292 @@
+﻿@model IEnumerable<WebApp.Models.Message>
+@{
+    ViewBag.Title = "日志信息";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
+@Html.Partial("_QuickNavbar")
+<div class="wrapper wrapper-content animated fadeInRight">
+ 
+
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title  " style="border-color: #fd0000;">
+                    <span class="label label-danger pull-right">new</span>
+                    <h5>新增异常</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">@ViewBag.TotalNewError.ToString("N0")</h1>
+                    <small>新增异常</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-danger pull-right">All</span>
+                    <h5>系统异常</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">@ViewBag.TotalSysError.ToString("N0")</h1>
+                    <small>系统异常</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-danger pull-right">All</span>
+                    <h5>操作异常</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">@ViewBag.TotalOpError.ToString("N0")</h1>
+                    <small>操作异常</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-danger pull-right">All</span>
+                    <h5>接口异常</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">@ViewBag.TotalInterfaceError.ToString("N0")</h1>
+                    <small>接口异常</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ibox float-e-margins">
+        <div class="ibox-title" style="border-color:#1ab394">
+            
+            <h5>日志信息</h5>
+        </div>
+        <div class="ibox-content">
+            <div class="row">
+                <!--begin datagrid-content -->
+                <div class="datagrid-content">
+                    <table id="messages_datagrid" class="easyui-datagrid" style="width:auto;height:auto"
+                           data-options="
+				 rownumbers:true,
+				 checkOnSelect:true,
+				 selectOnCheck:true,
+				 idField:'Id',
+				 sortName:'Id',
+				 sortOrder:'desc',
+				 remoteFilter: true,
+				 singleSelect: true,
+		     	 url: '/Messages/GetData',
+				 method: 'get',
+				 onClickRow: onClickCell,
+				 onSelect:onSelect,
+				 pagination: 'true'
+				   ">
+                        <thead>
+                            <tr>
+                                @*<th data-options="field:'ck',checkbox:true"></th>*@
+                                @*<th data-options="field:'Id',width:80 ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Id)</th>*@
+                                <th data-options="field:'Group' ,width:100,align:'right',editor:{type:'numberbox',options:{prompt:'分组' ,required:true   } } ,sortable:true,resizable:true,formatter:groupformatter ">@Html.DisplayNameFor(model => model.Group)</th>
+                                <th data-options="field:'ExtensionKey1' ,width:140,editor:{type:'textbox',options:{prompt:'关键字' ,required:false ,validType:'length[0,50]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.ExtensionKey1)</th>
+                                <th data-options="field:'Type' ,width:100,align:'right',editor:{type:'numberbox',options:{prompt:'类型' ,required:true   } } ,sortable:true,resizable:true ,formatter:typeformatter ">@Html.DisplayNameFor(model => model.Type)</th>
+                                <th data-options="field:'Code' ,width:140,editor:{type:'textbox',options:{prompt:'异常代码' ,required:false ,validType:'length[0,50]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Code)</th>
+                                <th data-options="field:'Content' ,width:360,editor:{type:'textbox',options:{prompt:'内容' ,required:false   }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Content)</th>
+                                <th data-options="field:'User' ,width:140,editor:{type:'textbox',options:{prompt:'操作人' ,required:false ,validType:'length[0,255]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.User)</th>
+                                <th data-options="field:'Tags' ,width:140,editor:{type:'textbox',options:{prompt:'标签' ,required:false ,validType:'length[0,255]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Tags)</th>
+                                <th data-options="field:'Method' ,width:120,editor:{type:'textbox',options:{prompt:'调用方法' ,required:false ,validType:'length[0,255]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Method)</th>
+                                <th data-options="field:'Created',width:160,align:'right',editor:{type:'datebox',options:{prompt:'记录时间' ,required:true    }  },sortable:true,resizable:true  ,formatter:datetimeformatter">@Html.DisplayNameFor(model => model.Created)</th>
+                                <th data-options="field:'ExtensionKey2' ,width:140,editor:{type:'textbox',options:{prompt:'关键字2' ,required:false ,validType:'length[0,50]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.ExtensionKey2)</th>
+                                <th data-options="field:'IsNew' ,width:100,align:'right',editor:{type:'numberbox',options:{prompt:'新消息' ,required:true   } } ,sortable:true,resizable:true,formatter:newformatter ">@Html.DisplayNameFor(model => model.IsNew)</th>
+                                <th data-options="field:'IsNotification' ,width:100,align:'right',editor:{type:'numberbox',options:{prompt:'是否已通知' ,required:true   } } ,sortable:true,resizable:true ,formatter:noticeformatter">@Html.DisplayNameFor(model => model.IsNotification)</th>
+                            </tr>
+                        </thead>
+                    </table>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog  modal-lg">
+        <div class="modal-content animated bounceInRight">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h5 class="modal-title">日志</h5>
+        
+            </div>
+            <div class="modal-body">
+                 
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+            
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- end file upload partial view -->
+@section Scripts {
+    <script type="text/javascript">
+
+        
+
+
+        //打开Excel上传导入
+        function importexcel() {
+            $("#importwindow").window("open");
+        }
+        //执行Excel到处下载
+        function exportexcel() {
+            var filterRules = JSON.stringify($dg.datagrid("options").filterRules);
+            //console.log(filterRules);
+            $.messager.progress({ title: "正在执行导出！" });
+            var formData = new FormData();
+            formData.append("filterRules", filterRules);
+            formData.append("sort", "Id");
+            formData.append("order", "asc");
+            $.postDownload("/Messages/ExportExcel", formData, function (fileName) {
+                $.messager.progress("close");
+                console.log(fileName);
+            })
+        }
+        //datagrid 增删改查操作
+        var $dg = $("#messages_datagrid");
+        var editIndex = undefined;
+        function reload() {
+            $dg.datagrid("reload");
+        }
+        function onClickCell(index, row) {
+            //console.log(row);
+            
+            $.get('Messages/Details/' + row.Id, function (data, status, xhr) {
+                //console.log(data);
+                $('.modal-body').html(data);
+                $('#myModal').modal();
+            });
+           
+
+        }
+        //datagrid 开启行赛选功能
+        $(function () {
+            $dg.datagrid("enableFilter", [
+                {
+                    field: 'Group',
+                    type: 'combobox',
+                    options: {
+                        panelHeight: 'auto',
+                        data: MessageGroup,
+                        onChange: function (value) {
+                            if (value == '') {
+                                $dg.datagrid('removeFilterRule', 'Group');
+                            } else {
+                                $dg.datagrid('addFilterRule', {
+                                    field: 'Group',
+                                    op: 'equal',
+                                    value: value
+                                });
+                            }
+                            $dg.datagrid('doFilter');
+                        }
+                    }
+                },
+                {
+                    field: 'Type',
+                    type: 'combobox',
+                    options: {
+                        panelHeight: 'auto',
+                        data: MessageType,
+                        onChange: function (value) {
+                            if (value == '') {
+                                $dg.datagrid('removeFilterRule', 'Type');
+                            } else {
+                                $dg.datagrid('addFilterRule', {
+                                    field: 'Type',
+                                    op: 'equal',
+                                    value: value
+                                });
+                            }
+                            $dg.datagrid('doFilter');
+                        }
+                    }
+                },
+                {
+                    field: 'IsNew',
+                    type: 'combobox',
+                    options: {
+                        panelHeight: 'auto',
+                        data: MessageNew,
+                        onChange: function (value) {
+                            if (value == '') {
+                                $dg.datagrid('removeFilterRule', 'IsNew');
+                            } else {
+                                $dg.datagrid('addFilterRule', {
+                                    field: 'IsNew',
+                                    op: 'equal',
+                                    value: value
+                                });
+                            }
+                            $dg.datagrid('doFilter');
+                        },
+                        onLoadSuccess: function () {
+                           
+                        }
+                    }
+                },
+                {
+                    field: 'IsNotification',
+                    type: 'combobox',
+                    options: {
+                        panelHeight: 'auto',
+                        data: MessageNotice,
+                        onChange: function (value) {
+                            if (value == '') {
+                                $dg.datagrid('removeFilterRule', 'IsNotification');
+                            } else {
+                                $dg.datagrid('addFilterRule', {
+                                    field: 'IsNotification',
+                                    op: 'equal',
+                                    value: value
+                                });
+                            }
+                            $dg.datagrid('doFilter');
+                        }
+                    }
+                },
+                {
+                    field: "Created",
+                    type: "datebox",
+                    options: {
+                        onChange: function (value) {
+                            if (value == "") {
+                                $dg.datagrid("removeFilterRule", "Created");
+                            } else {
+                                $dg.datagrid("addFilterRule", {
+                                    field: "Created",
+                                    op: "equal",
+                                    value: value
+                                });
+                            }
+                            $dg.datagrid("doFilter");
+                        }
+                    }
+                }
+            ]);
+
+            $dg.datagrid('removeFilterRule', 'IsNew');
+            $dg.datagrid('addFilterRule', {
+                field: 'IsNew',
+		        op: 'equal',
+		        value: '0'
+		    });
+        })
+        //-----------------------------------------------------
+        //datagrid onSelect
+        //-----------------------------------------------------
+        function onSelect(index, row) {
+            //console.log(index, row);
+        }
+    </script>
+}

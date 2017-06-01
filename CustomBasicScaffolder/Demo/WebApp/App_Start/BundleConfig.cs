@@ -496,6 +496,13 @@ namespace WebApp
                       "~/Scripts/FileSaver.js"));
 
 
+
+            //format enum json
+            bundles.Add(new ScriptBundle("~/plugins/enumformatterjs").Include(
+                      "~/Scripts/jquery.extend.js",
+                      "~/Scripts/enum.json.js",
+                       "~/Scripts/datagrid.formatter.js"));
+
         }
     }
 }

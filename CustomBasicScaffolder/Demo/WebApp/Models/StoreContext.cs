@@ -36,5 +36,9 @@ namespace WebApp.Models
         public DbSet<RoleMenu> RoleMenus { get; set; }
 
         public DbSet<DataTableImportMapping> DataTableImportMappings { get; set; }
+
+        public DbSet<Notification> Notifications { get; set; }
+
+        public DbSet<Message> Messages { get; set; }
     }
 }
