@@ -224,6 +224,7 @@
     <Compile Include="Controllers\BaseCodesController.cs" />
     <Compile Include="Controllers\ButtonAttribute.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
+    <Compile Include="Controllers\CodeItemsController.cs" />
     <Compile Include="Controllers\CompaniesController.cs" />
     <Compile Include="Controllers\DataTableImportMappingsController.cs" />
     <Compile Include="Controllers\DepartmentsController.cs" />
@@ -315,6 +316,8 @@
     <Compile Include="Repositories\BaseCodes\BaseCodeRepository.cs" />
     <Compile Include="Repositories\Categories\CategoryQuery.cs" />
     <Compile Include="Repositories\Categories\CategoryRepository.cs" />
+    <Compile Include="Repositories\CodeItems\CodeItemQuery.cs" />
+    <Compile Include="Repositories\CodeItems\CodeItemRepository.cs" />
     <Compile Include="Repositories\Companies\CompanyQuery.cs" />
     <Compile Include="Repositories\Companies\CompanyRepository.cs" />
     <Compile Include="Repositories\DataTableImportMappings\MappingQuery.cs" />
@@ -341,6 +344,8 @@
     <Compile Include="Services\BaseCodes\IBaseCodeService.cs" />
     <Compile Include="Services\Categories\CategoryService.cs" />
     <Compile Include="Services\Categories\ICategoryService.cs" />
+    <Compile Include="Services\CodeItems\CodeItemService.cs" />
+    <Compile Include="Services\CodeItems\ICodeItemService.cs" />
     <Compile Include="Services\Companies\CompanyService.cs" />
     <Compile Include="Services\Companies\ICompanyService.cs" />
     <Compile Include="Services\DataTableImportMappings\IMappingService.cs" />
@@ -3634,6 +3639,10 @@
     <Content Include="Views\Messages\Edit.cshtml" />
     <Content Include="Views\Messages\EditForm.cshtml" />
     <Content Include="Views\Messages\Index.cshtml" />
+    <Content Include="Views\CodeItems\Create.cshtml" />
+    <Content Include="Views\CodeItems\Edit.cshtml" />
+    <Content Include="Views\CodeItems\EditForm.cshtml" />
+    <Content Include="Views\CodeItems\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Source\Repository.Pattern.Ef6\Repository.Pattern.Ef6.csproj">

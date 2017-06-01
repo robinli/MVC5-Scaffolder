@@ -118,6 +118,10 @@ namespace WebApp.App_Start
             container.RegisterType<INotificationService, NotificationService>();
             container.RegisterType<IRepositoryAsync<Message>, Repository<Message>>();
             container.RegisterType<IMessageService, MessageService>();
+
+
+            container.RegisterType<IRepositoryAsync<CodeItem>, Repository<CodeItem>>();
+            container.RegisterType<ICodeItemService, CodeItemService>();
         }
     }
 }

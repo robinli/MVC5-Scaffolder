@@ -1,0 +1,86 @@
+﻿﻿
+
+
+
+
+
+
+@model WebApp.Models.CodeItem
+
+
+ @*@Html.HiddenFor(model => model.Id)*@
+
+ <!--输出form表单界面-->
+ <table class="table table-bordered">
+     <caption>
+     </caption>
+	    <tr>
+      	   <td class="control-label">   @Html.DisplayNameFor(model => model.Id)  </td>
+	   <td> 
+						   			<input  disabled  id="@Html.IdFor(model => model.Id)" name="@Html.NameFor(model => model.Id)" tabindex="0" style="width:100%" class="easyui-numberbox" type="text" data-options="prompt:'Id',label:'Id:',required:true " />
+			  
+				   </td>
+	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.Code)  </td>
+	   <td> 
+			
+			  			<input id="@Html.IdFor(model => model.Code)" 
+				   name="@Html.NameFor(model => model.Code)" 
+				   value="@Html.ValueFor(model => model.Code)"
+				   tabindex="1" 
+				   style="width:100%" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'值',
+								 label:'值:',
+								 required:true ,validType:'length[0,20]'" />
+			              
+				   </td>
+	   	   </tr>
+	   	    <tr>
+      	   <td class="control-label">   @Html.DisplayNameFor(model => model.Text)  </td>
+	   <td> 
+			
+			  			<input id="@Html.IdFor(model => model.Text)" 
+				   name="@Html.NameFor(model => model.Text)" 
+				   value="@Html.ValueFor(model => model.Text)"
+				   tabindex="2" 
+				   style="width:100%" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'显示',
+								 label:'显示:',
+								 required:true ,validType:'length[0,20]'" />
+			              
+				   </td>
+	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.BaseCodeId)  </td>
+	   <td> 
+			
+			<input id="@Html.IdFor(model => model.BaseCodeId)"
+			       name="@Html.NameFor(model => model.BaseCodeId)"
+				   value="@Html.ValueFor(model => model.BaseCodeId)"
+				   class="easyui-combobox" data-options="
+						prompt:'BaseCodeId' ,
+						label:'BaseCodeId:' ,
+						required:true ,
+						valueField: 'Id',
+						textField: 'CodeType' ,
+						url: '/CodeItems/GetBaseCodes' ,
+						onSelect: function(item){
+						//console.log(item);
+				}">
+
+				   </td>
+	   	   </tr>
+	   	        @*<tfoot>
+        <tr>
+           
+        <tr>
+    </tfoot>*@
+</table>
+  <!--输出form表单界面-->
+
+<!--========================================================================================-->
+  
+
+ 
+
