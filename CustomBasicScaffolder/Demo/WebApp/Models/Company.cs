@@ -26,4 +26,12 @@ namespace WebApp.Models
         public virtual ICollection<Department> Departments { get; set; }
         public virtual ICollection<Employee> Employee { get; set; }
     }
+
+
+    public class CompanyViewModel
+    {
+        public string CompanyCode { get; set; }
+        public string CompanyName { get; set; }
+        public int Type { get; set; }
+    }
 }

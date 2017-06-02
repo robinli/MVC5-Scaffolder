@@ -1,5 +1,5 @@
 ﻿
- 
+
 
 using System;
 using System.Globalization;
@@ -15,22 +15,31 @@ using WebApp.Models;
 using WebApp.Extensions;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using WebApp.Services;
 
 namespace WebApp.Controllers
 {
-   // [Authorize]
+    // [Authorize]
     public class AccountManageController : Controller
     {
         private ApplicationUserManager _userManager;
+        private readonly ICompanyService _companyService;
+        
 
         public AccountManageController()
         {
         }
 
-        public AccountManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        public AccountManageController(ApplicationUserManager userManager,
+                                   ApplicationSignInManager signInManager,
+                                   ICompanyService companyService
+                               
+                                   )
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            _companyService = companyService;
+            
         }
         public ApplicationUserManager UserManager
         {
@@ -73,7 +82,7 @@ namespace WebApp.Controllers
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
         [HttpGet]
-        public ActionResult GetData(int page = 1, int rows = 10, string sort = "Id", string order = "asc", string filterRules = "")
+        public ActionResult GetData(int page = 1, int rows = 10, string sort = "Id", string order = "desc", string filterRules = "")
         {
             var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
             int totalCount = 0;
@@ -98,41 +107,65 @@ namespace WebApp.Controllers
                 }
             }
             totalCount = users.Count();
-            var datalist = users.Skip(page).Take(rows);
-            var datarows = datalist.Select(n => new { Id = n.Id, UserName = n.UserName, Email = n.Email, PhoneNumber = n.PhoneNumber, AccessFailedCount = n.AccessFailedCount, LockoutEnabled = n.LockoutEnabled, LockoutEndDateUtc = n.LockoutEndDateUtc }).ToList();
+            var datalist = users.Skip((page - 1) * rows).Take(rows);
+            var datarows = datalist.Select(n => new { Id = n.Id, UserName = n.UserName, FullName = n.FullName, CompanyCode = n.CompanyCode, CompanyName = n.CompanyName, AccountType = n.AccountType, Email = n.Email, PhoneNumber = n.PhoneNumber, AccessFailedCount = n.AccessFailedCount, LockoutEnabled = n.LockoutEnabled, LockoutEndDateUtc = n.LockoutEndDateUtc }).ToList();
             var pagelist = new { total = totalCount, rows = datarows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
-
+        public ActionResult GetCompanyData()
+        {
+            var data = new List<CompanyViewModel>();
+            var query1 = _companyService.Queryable().Select(x => new CompanyViewModel() { CompanyCode = x.Id.ToString(), CompanyName = x.Name, Type = 0 });
+             
+            data.AddRange(query1);
+           
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
         [HttpPost]
         public ActionResult SaveData(UserChangeViewModel users)
         {
             if (users.updated != null)
             {
-                foreach (var updated in users.updated)
+                foreach (var item in users.updated)
                 {
-                    var user = new ApplicationUser { UserName = updated.UserName, Email = updated.Email };
+                    var user = UserManager.FindById(item.Id);
+                    user.UserName = item.UserName;
+                    user.Email = item.Email;
+                    user.FullName = item.FullName;
+                    user.CompanyCode = item.CompanyCode;
+                    user.CompanyName = item.CompanyName;
+                    user.AccountType = item.AccountType;
+                    user.PhoneNumber = item.PhoneNumber;
                     var result = UserManager.Update(user);
-                  
+
                 }
             }
             if (users.deleted != null)
             {
-                foreach (var deleted in users.deleted)
+                foreach (var item in users.deleted)
                 {
-                    var user = new ApplicationUser { UserName = deleted.UserName, Email = deleted.Email };
+                    var user = new ApplicationUser { UserName = item.UserName, Email = item.Email, FullName = item.FullName, CompanyCode = item.CompanyCode, CompanyName = item.CompanyName };
                     var result = UserManager.Delete(user);
                 }
             }
             if (users.inserted != null)
             {
-                foreach (var inserted in users.inserted)
+                foreach (var item in users.inserted)
                 {
-                    var user = new ApplicationUser { UserName = inserted.UserName, Email = inserted.Email };
-                    var result =   UserManager.Create(user, "123456");
+                    var user = new ApplicationUser
+                    {
+                        UserName = item.UserName,
+                        Email = item.Email,
+                        FullName = item.FullName,
+                        CompanyCode = item.CompanyCode,
+                        CompanyName = item.CompanyName,
+                        PhoneNumber = item.PhoneNumber,
+                        AccountType = item.AccountType
+                    };
+                    var result = UserManager.Create(user, "123456");
                 }
             }
-           
+
 
             return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
         }

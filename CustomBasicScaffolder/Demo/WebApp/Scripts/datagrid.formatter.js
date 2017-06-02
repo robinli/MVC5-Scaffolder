@@ -209,9 +209,18 @@ function datetimeformatter(value, row, index) {
 }
 
 
-jQuery.extend({
-    dateNow: function () {
-        //console.log(new Date());
-        return moment(new Date()).format('MM/DD/YYYY');
+function accounttypeformatter(value, row, index) {
+    switch (value) {
+        case 0:
+            return '企业';
+        case 1:
+            return '供应商';
+        case 2:
+            return '客户';
+
+        default:
+            return value;
     }
-});
+}
+
+

@@ -261,6 +261,10 @@
     <Compile Include="Migrations\201706010904337_messages.Designer.cs">
       <DependentUpon>201706010904337_messages.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706020033047_te.cs" />
+    <Compile Include="Migrations\201706020033047_te.Designer.cs">
+      <DependentUpon>201706020033047_te.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -3668,6 +3672,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706010904337_messages.resx">
       <DependentUpon>201706010904337_messages.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706020033047_te.resx">
+      <DependentUpon>201706020033047_te.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -121,9 +121,14 @@ namespace WebApp.Models
 
     public class UserViewModel
     {
+        public string Id { get; set; }
         public string UserName { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
+        public string FullName { get; set; }
+        public string CompanyCode { get; set; }
+        public string CompanyName { get; set; }
+        public int AccountType { get; set; }
     }
 
     public class UserChangeViewModel

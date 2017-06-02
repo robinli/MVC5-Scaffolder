@@ -41,5 +41,5 @@ var GCArea = [{ value: '一库', text: '一库' }, { value: '二库', text: '二
 var GCShipMethod = [{ value: '0', text: '陆运' }, { value: '1', text: '海运' }, { value: '2', text: '空运' }];
 var GCStatus = [{ value: '0', text: '未发布' }, { value: '1', text: '已发布' }, { value: '2', text: '承诺中' }, { value: '3', text: '审核不通过' }, { value: '4', text: '审核通过' }, { value: '5', text: '发货中' }, { value: '6', text: '已收货' }, { value: '7', text: '部分已承诺交期' }, { value: '8', text: '全部已承诺交期' }, { value: '9', text: '部分已收货' }, { value: '10', text: '全部已收货' }];
 var GCSplitStatus = [{ value: '', text: 'ALL' }, { value: '暂存', text: '暂存' }, { value: '待审批', text: '待审批' }, { value: '审批不通过', text: '审批不通过' }, { value: '审批通过', text: '审批通过' }];
-
+var GCAccountType = [{ value: 0, text: '企业' }, { value: 1, text: '供应商' }, { value: 2, text: '客户' }];
  
