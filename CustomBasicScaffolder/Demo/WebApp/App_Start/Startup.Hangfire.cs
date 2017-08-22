@@ -28,6 +28,25 @@ namespace WebApp
             app.UseHangfireServer();
             //每10分钟执行一个方法
             RecurringJob.AddOrUpdate(() => ExecuteProcess(), Cron.MinuteInterval(10));
+
+
+            //Fire - and - forget jobs are executed only once and almost immediately after creation.
+            var jobId1 = BackgroundJob.Enqueue(
+                    () => Console.WriteLine("Fire-and-forget!"));
+
+
+            //Delayed jobs are executed only once too, but not immediately, after a certain time interval.
+            var jobId2 = BackgroundJob.Schedule(
+                    () => Console.WriteLine("Delayed!"),
+                TimeSpan.FromDays(7));
+            //Recurring jobs fire many times on the specified CRON schedule.
+            RecurringJob.AddOrUpdate(
+                    () => Console.WriteLine("Recurring!"),
+                Cron.Daily);
+            //Continuations are executed when its parent job has been finished.
+            BackgroundJob.ContinueWith(
+                jobId2,
+                () => Console.WriteLine("Continuation!"));
         }
 
         public void ExecuteProcess() {
