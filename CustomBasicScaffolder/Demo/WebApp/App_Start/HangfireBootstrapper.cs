@@ -49,6 +49,7 @@ namespace WebApp
         {
             lock (_lockObject)
             {
+                _started = false;
                 if (_backgroundJobServer != null)
                 {
                     _backgroundJobServer.Dispose();
