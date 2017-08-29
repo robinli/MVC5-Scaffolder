@@ -7,6 +7,9 @@ namespace WebApp.App_Start
 {
     public static class Auth
     {
+        /// <summary>
+        /// 获取当前登录用户名
+        /// </summary>
         public static string CurrentUserName {
 
             get {
