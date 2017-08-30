@@ -22,7 +22,7 @@ namespace WebApp
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            BundleTable.EnableOptimizations = false; 
+            //BundleTable.EnableOptimizations = false; 
             //ModelBinders.Binders.DefaultBinder = new EnumModelBinder();
 
 

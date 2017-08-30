@@ -2,9 +2,12 @@
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Principal;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
+using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -70,22 +73,29 @@ namespace WebApp.Controllers
             {
                 return View(model);
             }
-
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
-            switch (result)
+            var user = await UserManager.FindByEmailAsync(model.Email);
+            if (user != null)
             {
-                case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
-                    return View(model);
+                // This doesn't count login failures towards account lockout
+                // To enable password failures to trigger account lockout, change to shouldLockout: true
+                var result = await SignInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, shouldLockout: false);
+                switch (result)
+                {
+                    case SignInStatus.Success:
+                        return RedirectToLocal(returnUrl);
+                    case SignInStatus.LockedOut:
+                        return View("Lockout");
+                    case SignInStatus.RequiresVerification:
+                        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                    case SignInStatus.Failure:
+                    default:
+                        ModelState.AddModelError("", "Invalid login attempt.");
+                        return View(model);
+                }
+            }
+            else {
+                ModelState.AddModelError("", "not found user.");
+                return View(model);
             }
         }
 
@@ -142,9 +152,33 @@ namespace WebApp.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            return View();
+            EnsureLoggedOut();
+
+            return View(new RegisterViewModel() { });
+        }
+        private void EnsureLoggedOut()
+        {
+            // If the request is (still) marked as authenticated we send the user to the logout action
+            if (Request.IsAuthenticated)
+                Logout();
         }
 
+        // POST: /account/Logout
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Logout()
+        {
+            // First we clean the authentication ticket like always
+            FormsAuthentication.SignOut();
+
+            // Second we clear the principal to ensure the user does not retain any authentication
+            HttpContext.User = new GenericPrincipal(new GenericIdentity(string.Empty), null);
+
+            // Last we redirect to a controller/action that requires authentication to ensure a redirect takes place
+            // this clears the Request.IsAuthenticated flag since this triggers a new request
+            return RedirectToLocal("");
+        }
+        
         //
         // POST: /Account/Register
         [HttpPost]
@@ -154,11 +188,11 @@ namespace WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, AccountType=0 };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    await SignInManager.SignInAsync(user, isPersistent:true, rememberBrowser:true);
                     
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
@@ -428,11 +462,13 @@ namespace WebApp.Controllers
 
         private ActionResult RedirectToLocal(string returnUrl)
         {
-            if (Url.IsLocalUrl(returnUrl))
-            {
+            // If the return url starts with a slash "/" we assume it belongs to our site
+            // so we will redirect to this "action"
+            if (!returnUrl.IsNullOrWhiteSpace() && Url.IsLocalUrl(returnUrl))
                 return Redirect(returnUrl);
-            }
-            return RedirectToAction("Index", "Home");
+
+            // If we cannot verify if the url is local to our host we redirect to a default location
+            return RedirectToAction("index", "home");
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult

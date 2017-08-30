@@ -1,176 +1,53 @@
-﻿@using WebApp.Extensions
-<!DOCTYPE html>
-<html>
+﻿<!DOCTYPE html>
+<html lang="en-us" id="@ViewBag.PageId" class="@Settings.CurrentTheme">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset=" utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-    <title>INSPINIA | @ViewBag.Title</title>
-  
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
-    <!-- Add local styles, mostly for plugins css file -->
-    @if (IsSectionDefined("Styles"))
-    {@RenderSection("Styles", required: false)}
+    <title> SmartAdmin - MVC5 </title>
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-    <!-- Add jQuery Style direct - used for jQGrid plugin -->
-    <link href="@Url.Content("~/Scripts/plugins/jquery-ui/jquery-ui.min.css")" rel="stylesheet" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <!-- Primary Inspinia style -->
-    @Styles.Render("~/Content/css")
-    @Styles.Render("~/font-awesome/css")
+    <!-- Basic Styles -->
+    @Styles.Render("~/content/smartadmin")
+    <!-- FAVICONS -->
+    <link rel="shortcut icon" href="~/content/img/favicon/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="~/content/img/favicon/favicon.ico" type="image/x-icon">
 
-    @Styles.Render("~/plugins/easyuiStyles")
-    @Styles.Render("~/plugins/jqueryfilerStyles")
-    
+    <!-- GOOGLE FONT -->
+    <link rel="stylesheet" href="//fonts.cat.net/css?family=Open+Sans:400italic,700italic,300,400,700">
+
+    <!-- Specifying a Webpage Icon for Web Clip
+         Ref: https://developer.apple.com/library/ios/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html -->
+    <link rel="apple-touch-icon" href="~/content/img/splash/sptouch-icon-iphone.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="~/content/img/splash/touch-icon-ipad.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="~/content/img/splash/touch-icon-iphone-retina.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="~/content/img/splash/touch-icon-ipad-retina.png">
+
+    <!-- iOS web-app metas : hides Safari UI Components and Changes Status Bar Appearance -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <!-- Startup image for web apps -->
+    <link rel="apple-touch-startup-image" href="~/content/img/splash/ipad-landscape.png" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape)">
+    <link rel="apple-touch-startup-image" href="~/content/img/splash/ipad-portrait.png" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait)">
+    <link rel="apple-touch-startup-image" href="~/content/img/splash/iphone.png" media="screen and (max-device-width: 320px)">
 </head>
-<body>
-    @Scripts.Render("~/bundles/jquery")
-    <!-- Skin configuration box -->
-    <!-- @Html.Partial("_SkinConfig") -->
-    <!-- Wrapper-->
-    <!-- PageClass give you ability to specify custom style for specific view based on action -->
-    <div id="wrapper" class="@Html.PageClass()">
-
-        <!-- Navigation -->
-        @Html.Partial("_Navigation")
-
-        <!-- Page wraper -->
-        <div id="page-wrapper" class="gray-bg @ViewBag.SpecialClass">
-
-            <!-- Top Navbar -->
-            @Html.Partial("_TopNavbar")
-
-            @Html.Partial("_QuickNavbar")
-
-            <!-- Main view  -->
-            <div class="wrapper wrapper-content animated fadeInRight">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="ibox float-e-margins">
-                            <div class="ibox-title">
-                                <h5>@ViewContext.RouteData.Values["controller"].ToString()<small> </small></h5>
-                                <div class="ibox-tools">
-                                    <a class="collapse-link">
-                                        <i class="fa fa-chevron-up"></i>
-                                    </a>
-                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                        <i class="fa fa-wrench"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="ibox-content">
-                                <div class="row">
-                                    @RenderBody()
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-            </div>
-
-            <!-- Footer -->
-            @Html.Partial("_Footer")
-
-        </div>
-        <!-- End page wrapper-->
-        <!-- Right Sidebar -->
-        @Html.Partial("_RightSidebar")
-
+<body class="@ViewBag.PageClass @Settings.CurrentTheme">
+    @{ Html.RenderPartial("_Header", RenderSection("topright", false)); }
+    @{ Html.RenderPartialIf("_Aside", Request.IsAuthenticated); }
+    <div id="main" role="main">
+        @{ Html.RenderPartialIf("_Ribbon", Request.IsAuthenticated); }
+        @RenderBody()
     </div>
-    <!-- End wrapper-->
-    <!-- Section for main scripts render -->
-    @Scripts.Render("~/plugins/enumformatterjs")
-    @Scripts.Render("~/plugins/easyuijs")
-    @Scripts.Render("~/plugins/easyuipluginsjs")
-    @Scripts.Render("~/plugins/momentjs")
-    @Scripts.Render("~/plugins/jqueryfilerjs")
-    @Scripts.Render("~/plugins/filesaverjs")
-    @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/plugins/slimScroll")
- 
-
-@Scripts.Render("~/bundles/inspinia")
-
-    <!-- Skin config script - only for demo purpose-->
-    @Scripts.Render("~/bundles/skinConfig")
-   
-   
-
-    <script type="text/javascript">
-
-        paceOptions = {
-            ajax: {
-                trackMethods: ['GET', 'POST', 'DELETE', 'PUT', 'PATCH']
-            }
-        }
-        $.fn.datebox.defaults.formatter = function (date) {
-            //console.log('xxxx' + date);
-            return moment(date).format('MM/DD/YYYY');
-        }
-  
-    $.extend($.fn.datagrid.defaults.editors, {
-        datebox: {
-            init: function (container, options) {
-                var input = $('<input type="text">').appendTo(container);
-                input.datebox(options);
-                return input;
-            },
-            destroy: function (target) {
-                $(target).datebox('destroy');
-            },
-            getValue: function (target) {
-                return $(target).datebox('getValue');//获得旧值
-            },
-            setValue: function (target, value) {
-                //console.info(dateformatter(value));
-                $(target).datebox('setValue', dateformatter(value));//设置新值的日期格式
-            },
-            resize: function (target, width) {
-                $(target).datebox('resize', width);
-            }
-        }
-    });
-
-
-    function dateformatter(value, row, index) {
-        //console.log(value);
-        if (value == typeof (undefined))
-            return null;
-        if (value == null)
-            return null;
-        else {
-            
-            if (moment(value).isValid()) {
-             
-                    return moment(value).format('MM/DD/YYYY');
-               
-            }
-        }
+    @if (Request.IsAuthenticated)
+    {
+        Html.RenderPartial("_Footer");
+        Html.RenderPartialIf("_Tiles", Settings.EnableTiles);
     }
-    function datetimeformatter(value, row, index) {
-
-
-        if (value == typeof (undefined))
-            return null;
-        if (value == null)
-            return null;
-        else
-            return moment(value).format('MM/DD/YYYY HH:mm:ss');
-    }
-
-
-    jQuery.extend({
-        dateNow: function () {
-            //console.log(new Date());
-            return moment(new Date()).format('MM/DD/YYYY');
-        }
-    });
-    </script>
-
-
-    <!-- Handler for local scripts -->
-    @RenderSection("scripts", required: false)
+    @{ Html.RenderPartial("_Scripts", RenderSection("pagespecific", false)); }
 </body>
+
 </html>
