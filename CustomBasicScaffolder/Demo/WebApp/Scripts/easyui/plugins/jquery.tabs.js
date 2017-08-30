@@ -1,7 +1,7 @@
 /**
- * jQuery EasyUI 1.5.1
+ * EasyUI for jQuery 1.5.3
  * 
- * Copyright (c) 2009-2016 www.jeasyui.com. All rights reserved.
+ * Copyright (c) 2009-2017 www.jeasyui.com. All rights reserved.
  *
  * Licensed under the freeware license: http://www.jeasyui.com/license_freeware.php
  * To use it on other terms please contact us: info@jeasyui.com
@@ -302,7 +302,7 @@ _40.splice(_3e.index,0,pp);
 }
 pp.panel($.extend({},_3e,{tab:tab,border:false,noheader:true,closed:true,doSize:false,iconCls:(_3e.icon?_3e.icon:undefined),onLoad:function(){
 if(_3e.onLoad){
-_3e.onLoad.call(this,arguments);
+_3e.onLoad.apply(this,arguments);
 }
 _3f.options.onLoad.call(_3d,$(this));
 },onBeforeOpen:function(){

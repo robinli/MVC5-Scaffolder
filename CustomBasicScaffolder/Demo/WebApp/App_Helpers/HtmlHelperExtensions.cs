@@ -53,6 +53,9 @@ namespace WebApp
             var currentAction =
                 (helper.ViewContext.RequestContext.RouteData.Values["action"] ?? string.Empty).ToString().UnDash();
 
+            var ctrs = value.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+
             var hasController = value.Equals(currentController, StringComparison.InvariantCultureIgnoreCase);
             var hasAction = value.Equals(currentAction, StringComparison.InvariantCultureIgnoreCase);
 
@@ -149,5 +152,11 @@ namespace WebApp
 
             return new HtmlString(sb.ToString());
         }
+
+
+
+
+
+
     }
 }

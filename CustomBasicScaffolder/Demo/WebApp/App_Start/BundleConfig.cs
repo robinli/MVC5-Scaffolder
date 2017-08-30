@@ -7,7 +7,20 @@ namespace WebApp
     {
         public static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.Add(new StyleBundle("~/content/smartadmin").IncludeDirectory("~/content/css", "*.min.css"));
+            //bundles.Add(new StyleBundle("~/content/smartadmin").IncludeDirectory("~/Content/css", "*.min.css"));
+
+            bundles.Add(new StyleBundle("~/content/smartadmin").Include(
+                "~/Content/css/bootstrap.min.css",
+                "~/Content/css/demo.min.css",
+                "~/Content/css/font-awesome.min.css",
+                "~/Content/css/invoice.min.css",
+                "~/Content/css/lockscreen.min.css",
+                "~/Content/css/smartadmin-production-plugins.min.css",
+                "~/Content/css/smartadmin-production.min.css",
+                "~/Content/css/smartadmin-rtl.min.css",
+                "~/Content/css/smartadmin-skins.min.css",
+                "~/Content/css/your_style.min.css"));
+
 
             bundles.Add(new ScriptBundle("~/scripts/smartadmin").Include(
                 "~/scripts/app.config.js",
@@ -122,7 +135,7 @@ namespace WebApp
 
 
 
-            BundleTable.EnableOptimizations = true;
+            BundleTable.EnableOptimizations = false;
 
         }
     }

@@ -1,3 +1,36 @@
+Version 1.5.3
+-------------
+* Bug
+ * combobox: The 'iconCls' property can not be parsed from the <option> markup. fixed.
+ * combobox: Clicking scrollbar will cause the drop-down panel to be hidden in IE. fixed.
+ * pagination: The pagination height will shrink when the 'displayMsg' property is set to false. fixed.
+ * tabs: The tab panel takes a wrong 'data' parameter in the 'onLoad' event. fixed.
+* Improvement
+ * draggable: Add 'onEndDrag' event.
+ * resizable: Retrieve more than one resizing directions with different edges.
+ * datagrid: Add 'resizeEdge' property.
+ * datagrid: Avoid the memory leaks.
+ * combo: The 'originalValue' property value is corrected in multiple mode.
+ * form: Add the tagbox to the form fields.
+ * tagbox: Add the 'reset' method.
+ * progress: Increase the response time to open and close the progress message window.
+ 
+Version 1.5.2
+-------------
+* Bug
+ * form: The initialized value of the inputing box will disappear after calling the 'reset' method. fixed.
+ * textbox: Calling the 'destroy' method does not clean the field label. fixed.
+ * datagrid: Calling the 'selectRow' method on an unexisting row causes undesired record set. fixed.
+* Improvement
+ * datagrid: The ctrl selection is supported on Mac keyboards.
+ * datagrid: The 'scrollOnSelect' property is available for the user to determine whether to scroll to the specified row when selecting it.
+ * combotree: Add the 'textField' property.
+ * combotreegrid: Add the 'textField' property.
+ * pagination: Add 'showPageInfo' property.
+ * panel: Add 'halign' and 'titleDirection' properties to allow the user to align the panel header to left or right side.
+ * accordion: Add 'halign' property to build the horizontal accordion.
+ * tagbox: The 'required' propery can be applied to validate whether the value is empty.
+
 Version 1.5.1
 -------------
 * Bug

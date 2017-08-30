@@ -9,7 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 
 using WebApp.Models;
-namespace WebApp.Extensions
+namespace WebApp
 {
     public static class CacheExtensions
     {
@@ -33,7 +33,7 @@ namespace WebApp.Extensions
             return data;
         }
     }
-    public static class HMTLHelperExtensions
+    public static class HtmlHelperAuthExtensions
     {
 
         public static bool IsAuthorize(this HtmlHelper html, string menu)

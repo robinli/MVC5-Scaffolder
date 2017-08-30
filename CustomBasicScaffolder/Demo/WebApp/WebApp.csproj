@@ -244,6 +244,7 @@
     <Compile Include="Controllers\ManagementController.cs" />
     <Compile Include="Controllers\MenuItemsController.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
+    <Compile Include="Controllers\MiscController.cs" />
     <Compile Include="Controllers\NotificationsController.cs" />
     <Compile Include="Controllers\OrderDetailsController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
@@ -2561,6 +2562,7 @@
     <Content Include="Scripts\easyui\demo\accordion\basic.html" />
     <Content Include="Scripts\easyui\demo\accordion\expandable.html" />
     <Content Include="Scripts\easyui\demo\accordion\fluid.html" />
+    <Content Include="Scripts\easyui\demo\accordion\horizontal.html" />
     <Content Include="Scripts\easyui\demo\accordion\multiple.html" />
     <Content Include="Scripts\easyui\demo\accordion\tools.html" />
     <Content Include="Scripts\easyui\demo\accordion\_content.html" />
@@ -2714,6 +2716,7 @@
     <Content Include="Scripts\easyui\demo\panel\customtools.html" />
     <Content Include="Scripts\easyui\demo\panel\fluid.html" />
     <Content Include="Scripts\easyui\demo\panel\footer.html" />
+    <Content Include="Scripts\easyui\demo\panel\halign.html" />
     <Content Include="Scripts\easyui\demo\panel\loadcontent.html" />
     <Content Include="Scripts\easyui\demo\panel\nestedpanel.html" />
     <Content Include="Scripts\easyui\demo\panel\paneltools.html" />
@@ -4158,7 +4161,6 @@
     <Content Include="Views\Shared\DisplayTemplates\Date.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\DateTime.cshtml" />
     <Content Include="Views\Shared\_SideNavBar.cshtml" />
-    <Content Include="Views\Shared\_LoginLayout.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\String1.cshtml" />
     <Content Include="Views\AccountManage\Index.cshtml" />
     <Content Include="Views\AccountManage\Edit.cshtml" />
@@ -4170,7 +4172,6 @@
     <Content Include="Views\Management\_AddRolePartial.cshtml" />
     <Content Include="Views\Management\_AddAccountPartial.cshtml" />
     <Content Include="Views\Management\_AccountRecordPartial.cshtml" />
-    <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\BaseCode.cshtml" />
@@ -4187,6 +4188,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\img\realestate\thumbs\" />
+    <Folder Include="ExcelTemplate\" />
     <Folder Include="export\" />
   </ItemGroup>
   <ItemGroup>
@@ -4394,7 +4396,6 @@
     <Content Include="Views\Shared\_Footer.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_Navigation.cshtml" />
-    <Content Include="Views\Shared\_RightSidebar.cshtml" />
     <Content Include="Views\Shared\_SkinConfig.cshtml" />
     <Content Include="Views\MenuItems\Index.cshtml" />
     <Content Include="Views\MenuItems\Create.cshtml" />
@@ -4402,7 +4403,6 @@
     <Content Include="Views\MenuItems\EditForm.cshtml" />
     <Content Include="Views\MenuItems\_PopupSearch.cshtml" />
     <Content Include="Views\MenuItems\_MenuItemEditForm.cshtml" />
-    <Content Include="Views\Shared\_QuickNavbar.cshtml" />
     <Content Include="Views\Shared\_ImportWindow.cshtml" />
     <Content Include="Views\Products\Create.cshtml" />
     <Content Include="Views\Products\Edit.cshtml" />

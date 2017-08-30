@@ -18,57 +18,21 @@
         -->
 
         <ul>
-            <li class="@Html.RouteIf("index", "active")">
-                <a href="#" title="Dashboard"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Dashboard</span></a>
+            <li class="@Html.IsSelected(controller: "Companies,Departments,Employees")">
+                <a href="#" title="组织架构"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">组织架构</span></a>
                 <ul>
-                    <li class="@Html.RouteIf("index", "active")">
-                        <a href="@Url.Action("index", "home")" title="Dashboard"><span class="menu-item-parent">Analytics Dashboard</span></a>
+                    <li class="@Html.IsSelected(action: "Index", controller: "Companies")">
+                        <a href="@Url.Action("index", "Companies")" title="组织架构"><span class="menu-item-parent">公司信息</span></a>
                     </li>
-                    <li class="@Html.RouteIf("social", "active")">
-                        <a href="@Url.Action("social", "home")" title="Dashboard"><span class="menu-item-parent">Social Wall</span></a>
+                    <li class="@Html.IsSelected(action: "Index", controller: "Departments")">
+                        <a href="@Url.Action("index", "Departments")" title="组织架构"><span class="menu-item-parent">部门信息</span></a>
+                    </li>
+                    <li class="@Html.IsSelected(action: "Index", controller: "Employees")">
+                        <a href="@Url.Action("index", "Employees")" title="组织架构"><span class="menu-item-parent">员工信息</span></a>
                     </li>
                 </ul>
             </li>
-            <li class="top-menu-invisible @Html.RouteIf(" intel", "active" )">
-                <a href="#"><i class="fa fa-lg fa-fw fa-cube txt-color-blue"></i> <span class="menu-item-parent">SmartAdmin Intel</span></a>
-                <ul>
-                    <li class="@Html.RouteIf("applayout", "active")">
-                        <a href="@Url.Action("applayout", "intel")" title="Dashboard"><i class="fa fa-lg fa-fw fa-gear"></i> <span class="menu-item-parent">App Layouts</span></a>
-                    </li>
-                    <li class="@Html.RouteIf("skins", "active")">
-                        <a href="@Url.Action("skins", "intel")" title="Dashboard"><i class="fa fa-lg fa-fw fa-picture-o"></i> <span class="menu-item-parent">Prebuilt Skins</span></a>
-                    </li>
-                    <li class="@Html.RouteIf("settings", "active")">
-                        <a href="@Url.Action("settings", "intel")" title="Dashboard"><i class="fa fa-cube"></i> <span class="menu-item-parent">App Settings</span></a>
-                    </li>
-                </ul>
-            </li>
-            <li class="@Html.RouteIf("inbox", "active")">
-                <a href="@Url.Action("inbox", "home")"><i class="fa fa-lg fa-fw fa-inbox"></i> <span class="menu-item-parent">Outlook</span><span class="badge pull-right inbox-badge margin-right-13">14</span></a>
-            </li>
-            <li class="@Html.RouteIf("graphs", "active")">
-                <a href="#"><i class="fa fa-lg fa-fw fa-bar-chart-o"></i> <span class="menu-item-parent">Graphs</span></a>
-                <ul>
-                    <li class="@Html.RouteIf("flot", "active")">
-                        <a href="@Url.Action("flot", "graphs")">Flot Charts</a>
-                    </li>
-                    <li class="@Html.RouteIf("morris", "active")">
-                        <a href="@Url.Action("morris", "graphs")">Morris Charts</a>
-                    </li>
-                    <li class="@Html.RouteIf("inline", "active")">
-                        <a href="@Url.Action("inline", "graphs")">Inline Charts</a>
-                    </li>
-                    <li class="@Html.RouteIf("dygraphs", "active")">
-                        <a href="@Url.Action("dygraphs", "graphs")">Dygraphs</a>
-                    </li>
-                    <li class="@Html.RouteIf("chartjs", "active")">
-                        <a href="@Url.Action("chartjs", "graphs")">Chart.js</a>
-                    </li>
-                    <li class="@Html.RouteIf("highcharts", "active")">
-                        <a href="@Url.Action("highcharts", "graphs")">HighchartTable <span class="badge pull-right inbox-badge bg-color-yellow">new</span></a>
-                    </li>
-                </ul>
-            </li>
+           
             <li class="@Html.RouteIf("tables", "active")">
                 <a href="#"><i class="fa fa-lg fa-fw fa-table"></i> <span class="menu-item-parent">Tables</span></a>
                 <ul>

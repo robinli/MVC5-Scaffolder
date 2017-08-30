@@ -1,14 +1,14 @@
 /**
- * jQuery EasyUI 1.5.1
+ * EasyUI for jQuery 1.5.3
  * 
- * Copyright (c) 2009-2016 www.jeasyui.com. All rights reserved.
+ * Copyright (c) 2009-2017 www.jeasyui.com. All rights reserved.
  *
  * Licensed under the freeware license: http://www.jeasyui.com/license_freeware.php
  * To use it on other terms please contact us: info@jeasyui.com
  *
  */
 /**
- * calendar - jQuery EasyUI
+ * calendar - EasyUI for jQuery
  * 
  */
 (function($){

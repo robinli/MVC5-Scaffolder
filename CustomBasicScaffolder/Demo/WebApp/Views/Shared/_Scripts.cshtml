@@ -1,9 +1,15 @@
 ﻿<!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
-<script src="//ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.1.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script> if (!window.jQuery) { document.write('<script src="/scripts/libs/jquery-2.1.1.min.js"><\/script>'); } </script>
-<script src="//ajax.aspnetcdn.com/ajax/jquery.ui/1.11.0/jquery-ui.min.js"></script>
-<script> if (!window.jQuery.ui) { document.write('<script src="/scripts/libs/jquery-ui-1.10.3.min.js"><\/script>'); } </script>
+@*<script src="~/Scripts/easyui/jquery.min.js"></script>*@
+<!-- easyui -->
+@Scripts.Render("~/plugins/easyuijs")
+@Scripts.Render("~/plugins/easyuipluginsjs")
 
+ 
+@*<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+<script> if (!window.jQuery.ui) { document.write('<script src="/scripts/libs/jquery-ui-1.10.3.min.js"><\/script>'); } </script>*@
+ 
 <!-- IMPORTANT: SmartAdmin Core -->
 @Scripts.Render("~/scripts/smartadmin")
 
@@ -19,7 +25,7 @@
 <script src="~/scripts/speech/voicecommand.min.js"></script>
 
 <!-- SmartChat UI : plugin -->
-@Scripts.Render("~/scripts/smart-chat")
+@*@Scripts.Render("~/scripts/smart-chat")*@
 
 <!-- DataTables : plugin -->
 @Scripts.Render("~/scripts/datatables")
@@ -38,6 +44,16 @@
 
 <!-- Full Calendar -->
 @Scripts.Render("~/scripts/full-calendar")
+
+
+ 
+
+<!-- jquery.filer -->
+@Scripts.Render("~/plugins/jqueryfilerjs")
+@Scripts.Render("~/plugins/filesaverjs")
+<!--format enum json-->
+@Scripts.Render("~/plugins/enumformatterjs")
+
 
 <!-- DO NOT REMOVE : GLOBAL FUNCTIONS! -->
 <script>
