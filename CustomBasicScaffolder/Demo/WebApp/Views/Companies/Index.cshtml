@@ -10,6 +10,9 @@
         <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
             <h1 class="page-title txt-color-blueDark">
                 <i class="fa fa-table fa-fw "></i>
+               @{ 
+                //TODO:fix qucik
+               }
                 组织架构
                 <span>
                     >
@@ -45,17 +48,13 @@
 
     <section id="widget-grid" class="">
         <!-- row -->
-
         <div class="row">
-
             <!-- NEW WIDGET START -->
             <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-
                 <!-- Widget ID (each widget will need unique ID)-->
                 <div class="jarviswidget" id="wid-id-4" data-widget-editbutton="false">
                     <!-- widget options:
                     usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
-
                     data-widget-colorbutton="false"
                     data-widget-editbutton="false"
                     data-widget-togglebutton="false"
@@ -64,7 +63,6 @@
                     data-widget-custombutton="false"
                     data-widget-collapsed="true"
                     data-widget-sortable="false"
-
                     -->
                     <header>
                         <span class="widget-icon"> <i class="fa fa-table"></i> </span>
@@ -74,11 +72,9 @@
 
                     <!-- widget div-->
                     <div>
-
                         <!-- widget edit box -->
                         <div class="jarviswidget-editbox">
                             <!-- This area used as dropdown edit box -->
-
                         </div>
                         <!-- end widget edit box -->
                         <!-- widget content -->
@@ -91,10 +87,8 @@
                                 A combined table effect with all classes mentioned above added to  
                             </div>
 
-
+                            <!--begin datagrid-content -->
                             <div class="table-responsive">
-
-
                                 <table id="companies_datagrid" class="easyui-datagrid" title="" style="width:auto;height:auto"
                                        data-options="
                  rownumbers:true,
@@ -149,10 +143,9 @@
                                     <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="reload()">刷新</a>
                                 </div>
                             </div>
-
-                            <!-- end widget content -->
-
+                            <!-- end datagrid-content -->
                         </div>
+                        <!-- end widget content -->
                     </div>
                     <!-- end widget div -->
 
@@ -172,7 +165,7 @@
     @Html.Partial("_ImportWindow", new ViewDataDictionary { { "EntityName", "Company" } })
     <!-- end file upload partial view -->
 </div>
-
+<!-- END MAIN CONTENT -->
 @section Scripts {
     <script type="text/javascript">
         var $dg = $('#companies_datagrid');
