@@ -309,10 +309,10 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             if (codeGeneratorViewModel.LayoutPageSelected)
             {
                 string areaName = GetAreaName(selectionRelativePath);
-                AddDependencyFile(project, viewRootPath, areaName);
+                //AddDependencyFile(project, viewRootPath, areaName);
             }
             // EditorTemplates, DisplayTemplates
-            AddDataFieldTemplates(project, viewRootPath);
+            //AddDataFieldTemplates(project, viewRootPath);
         }
 
         private bool HasRelatedMasterModel(Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata modelMdetadata, string propertyName)
