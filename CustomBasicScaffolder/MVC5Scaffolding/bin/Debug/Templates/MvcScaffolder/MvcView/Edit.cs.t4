@@ -10,46 +10,104 @@ Version requiredMvcVersion = new Version("5.1.0.0");
 bool isControlHtmlAttributesSupported = MvcVersion >= requiredMvcVersion;
 // The following chained if-statement outputs the file header code and markup for a partial view, a view using a layout page, or a regular view.
 #>
-@{  ViewBag.Title = "<#= PageTitle #> | <#=  ViewName #>";}
- 
+@{  ViewBag.Title = "<#= PageTitle #> | <#=  ViewName #>";} 
 <#
     var modelName =  ModelMetadata.EntitySetName;
 	var primaryKey = ModelMetadata.PrimaryKeys[0].PropertyName;
  #>
- 
-  <div class="form-content">
-     <form id="<#= ModelTypeName.ToLower() #>_form" class="easyui-form" method="post" data-options="novalidate:true">
+<!-- MAIN CONTENT -->
+<div id="content">
+     <!-- quick navigation bar -->
+     <div class="row">
+        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+            <h1 class="page-title txt-color-blueDark">
+                <i class="fa fa-table fa-fw "></i>
+                @{ 
+                  //TODO:fix quick navigation path
+                 }
+                路径
+                <span>
+                    >
+                    <#= PageTitle #>
+                </span>
+            </h1>
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
 
-    <!--form toolbar-->
-    <div id="form_toolbar" style="height:auto" class="datagrid-toolbar">
+        </div>
+     </div>
+     <!-- end quick navigation bar -->
 
-        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="append()">新增</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">保存</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">取消</a>
+     <!-- NEW WIDGET START -->
+    <article class="col-sm-12 col-md-12 col-lg-12">
 
-        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-paperclip',plain:true" onclick="importexcel()">EXCEL 导入</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-download-alt',plain:true" onclick="exportexcel()">导出 Excel</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="reload()">刷新</a>
-    </div>
-    <!--form toolbar-->
-       @*@Html.AntiForgeryToken()*@
+        <!-- Widget ID (each widget will need unique ID)-->
+        <div class="jarviswidget" id="wid-id-1" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false">
+            <!-- widget options:
+            usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+            data-widget-colorbutton="false"
+            data-widget-editbutton="false"
+            data-widget-togglebutton="false"
+            data-widget-deletebutton="false"
+            data-widget-fullscreenbutton="false"
+            data-widget-custombutton="false"
+            data-widget-collapsed="true"
+            data-widget-sortable="false"
+            -->
+            <header>
+                <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                <h2> <#= PageTitle #> </h2>
+
+            </header>
+
+            <!-- widget div-->
+            <div>
+
+                <!-- widget edit box -->
+                <div class="jarviswidget-editbox">
+                    <!-- This area used as dropdown edit box -->
+
+                </div>
+                <!-- end widget edit box -->
+
+                <!-- widget content -->
+                <div class="widget-body no-padding ">
+
+                        <form id="<#= ModelTypeName.ToLower() #>_form" class="easyui-form form-horizontal" method="post" data-options="novalidate:true">
+                            <!--form toolbar-->
+                            <div id="form_toolbar" style="height:auto" class="datagrid-toolbar">
+                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="append()">新增</a>
+                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
+                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">保存</a>
+                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">取消</a>
+                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-paperclip',plain:true" onclick="importexcel()">EXCEL 导入</a>
+                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-download-alt',plain:true" onclick="exportexcel()">导出 Excel</a>
+                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="reload()">刷新</a>
+                            </div>
+                             <!--form toolbar-->
+                             <header>
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            </header>
+                           
+                            @*@Html.AntiForgeryToken()*@
+                            @Html.Partial("<#= ViewPrefix #>EditForm")
+                         </form>		 
+
+                 </div>
+                 <!-- end widget content -->
+                 </div>
+            <!-- end widget div -->
+
+        </div>
+        <!-- end widget -->
+
+
+    </article>
+    <!-- WIDGET END -->
   
-  
-		
-      
-		<div class="form-content">
-		 
-        @Html.Partial("<#= ViewPrefix #>EditForm")
-
-		@Html.ValidationSummary(true, "", new { @class = "text-danger" })
-		</div>
-  </form>
- </div>
  
-
- 
-
+</div>
+<!-- END MAIN CONTENT -->
 
 @section Scripts {
    

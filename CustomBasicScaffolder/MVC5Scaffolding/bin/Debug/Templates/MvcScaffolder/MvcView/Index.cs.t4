@@ -10,7 +10,6 @@
 <#
 	var modelName =  ModelMetadata.EntitySetName;
 #>
-
 @{
 	ViewBag.Title = "<#= PageTitle #>";
 }

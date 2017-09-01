@@ -34,4 +34,3 @@
 <#@ parameter type="System.Boolean" name ="CheckedFromLayoutCols" #>
 <#@ parameter type="System.Int32" name ="FromLayoutCols" #>
 <#@ parameter type="System.Collections.Generic.IEnumerable<Happy.Scaffolding.MVC.Scaffolders.DisplayAttributeViewModel>" name ="FieldDisplayAttribute" #>
-

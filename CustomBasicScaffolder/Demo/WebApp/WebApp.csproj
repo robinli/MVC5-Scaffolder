@@ -4181,7 +4181,6 @@
     <Content Include="Views\Companies\_DepartmentEditForm.cshtml" />
     <Content Include="Views\Companies\_EmployeeEditForm.cshtml" />
     <Content Include="Views\Companies\EditForm.cshtml" />
-    <Content Include="Views\Departments\_PopupSearch.cshtml" />
     <Content Include="Views\RoleMenus\_navMenuBar.cshtml" />
     <Content Include="Views\RoleMenus\Index.cshtml" />
   </ItemGroup>
@@ -4369,10 +4368,6 @@
     <Content Include="skin-config.html" />
     <Content Include="Views\Companies\_PopupSearch.cshtml" />
     <Content Include="Views\Companies\Index.cshtml" />
-    <Content Include="Views\Departments\Index1.cshtml" />
-    <Content Include="Views\Departments\Create.cshtml" />
-    <Content Include="Views\Departments\EditForm.cshtml" />
-    <Content Include="Views\Departments\Edit.cshtml" />
     <Content Include="Views\Works\Index.cshtml" />
     <Content Include="Views\Works\_PopupSearch.cshtml" />
     <Content Include="Views\Works\Create.cshtml" />
@@ -4510,6 +4505,9 @@
     <Content Include="Views\Account\_LoginText.cshtml" />
     <Content Include="Views\Account\_SocialMedia.cshtml" />
     <Content Include="Views\Departments\Index.cshtml" />
+    <Content Include="Views\Departments\Create.cshtml" />
+    <Content Include="Views\Departments\Edit.cshtml" />
+    <Content Include="Views\Departments\EditForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Source\Repository.Pattern.Ef6\Repository.Pattern.Ef6.csproj">

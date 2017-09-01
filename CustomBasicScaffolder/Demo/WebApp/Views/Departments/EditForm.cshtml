@@ -1,46 +1,79 @@
-﻿﻿
-
-
-@model WebApp.Models.Department
+﻿﻿@model WebApp.Models.Department
 
 
  @*@Html.HiddenFor(model => model.Id)*@
 
+ <!--输出form表单界面-->
+ <table class="table table-bordered">
+     <caption>
+     </caption>
+	    <tr>
+      	   <td class="control-label">   @Html.DisplayNameFor(model => model.Id)  </td>
+	   <td> 
+						   			<input  disabled  id="@Html.IdFor(model => model.Id)" name="@Html.NameFor(model => model.Id)" tabindex="0" style="width:100%" class="easyui-numberbox" type="text" data-options="prompt:'Id',label:'Id:',required:true ,precision:0" />
+			  
+				   </td>
+	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.Name)  </td>
+	   <td> 
+			
+			  			<input id="@Html.IdFor(model => model.Name)" 
+				   name="@Html.NameFor(model => model.Name)" 
+				   value="@Html.ValueFor(model => model.Name)"
+				   tabindex="1" 
+				   style="width:100%" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'部门名称',
+								 label:'部门名称:',
+								 required:true ,validType:'length[0,50]'" />
+			              
+				   </td>
+	   	   </tr>
+	   	    <tr>
+      	   <td class="control-label">   @Html.DisplayNameFor(model => model.Manager)  </td>
+	   <td> 
+			
+			  			<input id="@Html.IdFor(model => model.Manager)" 
+				   name="@Html.NameFor(model => model.Manager)" 
+				   value="@Html.ValueFor(model => model.Manager)"
+				   tabindex="2" 
+				   style="width:100%" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'部门经理',
+								 label:'部门经理:',
+								 required:false ,validType:'length[0,20]'" />
+			              
+				   </td>
+	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.CompanyId)  </td>
+	   <td> 
+			
+			<input id="@Html.IdFor(model => model.CompanyId)"
+			       name="@Html.NameFor(model => model.CompanyId)"
+				   value="@Html.ValueFor(model => model.CompanyId)"
+				   class="easyui-combobox" data-options="
+						prompt:'所在公司' ,
+						label:'所在公司:' ,
+						required:true ,
+						valueField: 'Id',
+						textField: 'Name' ,
+						url: '/Departments/GetCompanies' ,
+						onSelect: function(item){
+						//console.log(item);
+				}">
 
+				   </td>
+	   	   </tr>
+	   	        @*<tfoot>
+        <tr>
+           
+        <tr>
+    </tfoot>*@
+</table>
+  <!--输出form表单界面-->
 
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name,   htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Name,"" , new { @class = "text-danger" })
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Manager,   htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                                @Html.EditorFor(model => model.Manager, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Manager,"" , new { @class = "text-danger" })
-            </div>
-        </div>
-
-
-		<div class="form-group">
-            @Html.LabelFor(model => model.CompanyId,   htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-			    @Html.DropDownListFor(model => model.CompanyId, ViewBag.CompanyId as List<SelectListItem>,"---Select---", htmlAttributes: new { @class = "form-control" }) 
-                @Html.ValidationMessageFor(model => model.CompanyId,"" , new { @class = "text-danger" })
-            </div>
-        </div>
-
-		   
-
- 
-
-
-   
+<!--========================================================================================-->
+  
 
  
 

@@ -1,7 +1,6 @@
 ﻿@model IEnumerable<WebApp.Models.Department>
-
 @{
-    ViewBag.Title = "部门信息";
+	ViewBag.Title = "部门维护";
 }
 <!-- MAIN CONTENT -->
 <div id="content">
@@ -10,23 +9,25 @@
         <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
             <h1 class="page-title txt-color-blueDark">
                 <i class="fa fa-table fa-fw "></i>
-                @{
-//TODO:fix quick navigation path
-                }
-                组织架构
+                @{ 
+                  //TODO:fix quick navigation path
+                 }
+                路径
                 <span>
                     >
-                    部门信息
+                  部门维护
                 </span>
             </h1>
         </div>
         <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
-
+            
         </div>
     </div>
     <!-- end quick navigation bar -->
-    <!-- widget grid -->
-    <section id="widget-grid" class="">
+
+
+     <!-- widget grid -->
+     <section id="widget-grid" class="">
         <!-- row -->
         <div class="row">
             <!-- NEW WIDGET START -->
@@ -46,10 +47,10 @@
                     -->
                     <header>
                         <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-                        <h2>部门信息</h2>
+                        <h2>部门维护</h2>
                     </header>
 
-                    <!-- widget div-->
+                     <!-- widget div-->
                     <div>
                         <!-- widget edit box -->
                         <div class="jarviswidget-editbox">
@@ -58,20 +59,20 @@
                         <!-- end widget edit box -->
                         <!-- widget content -->
                         <div class="widget-body no-padding">
-                            @{
-//TODO:fix datagrid view alert-warning messages
-                            }
+                             @{ 
+                                //TODO:fix datagrid view alert-warning messages
+                              }
                             <div class="alert alert-warning no-margin fade in">
                                 <button class="close" data-dismiss="alert">
                                     ×
                                 </button>
                                 <i class="fa-fw fa fa-info"></i>
-                                A combined table effect with all classes mentioned above added to
+                                A combined table effect with all classes mentioned above added to  
                             </div>
-                            <!--begin datagrid-content -->
-                            <div class="table-responsive">
-                                <table id="departments_datagrid" class="easyui-datagrid" style="width:auto;height:auto"
-                                       data-options="
+	 <!--begin datagrid-content -->
+	 <div class="table-responsive">
+		<table id="departments_datagrid" class="easyui-datagrid"   style="width:auto;height:auto"
+				   data-options="
                         rownumbers:true,
 				        checkOnSelect:true,
 				        selectOnCheck:true,
@@ -87,18 +88,18 @@
 				        pagination: true,
                         striped:true
 				   ">
-                                    <thead>
-                                        <tr>
-                                            @*<th data-options="field:'ck',checkbox:true"></th>*@
-                                            <th data-options="field:'_operate1',width:100 ,sortable:false,resizable:true,formatter:showdetailsformatter ">操作</th>
-                                            @*<th data-options="field:'Id',width:80 ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Id)</th>*@
-
-                                            <th data-options="field:'Name' ,width:140,editor:{type:'textbox',options:{prompt:'部门名称' ,required:true ,validType:'length[0,50]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Name)</th>
-
-
-                                            <th data-options="field:'Manager' ,width:140,editor:{type:'textbox',options:{prompt:'部门经理' ,required:false ,validType:'length[0,20]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Manager)</th>
-
-                                            <th data-options="field:'CompanyId' ,width:100,sortable:true,resizable:true,
+				<thead>
+					<tr>
+						@*<th data-options="field:'ck',checkbox:true"></th>*@
+                        <th data-options="field:'_operate1',width:100 ,sortable:false,resizable:true,formatter:showdetailsformatter ">操作</th>
+					@*<th data-options="field:'Id',width:80 ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Id)</th>*@
+				
+					 <th data-options="field:'Name' ,width:140,editor:{type:'textbox',options:{prompt:'部门名称' ,required:true ,validType:'length[0,50]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Name)</th>
+		
+				
+					 <th data-options="field:'Manager' ,width:140,editor:{type:'textbox',options:{prompt:'部门经理' ,required:false ,validType:'length[0,20]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Manager)</th>
+		
+							<th data-options="field:'CompanyId' ,width:100,sortable:true,resizable:true, 
 						formatter:function(value,row){
 							return row.CompanyName;
 						},
@@ -114,55 +115,78 @@
 							}
 						}">@Html.DisplayNameFor(model => model.CompanyId)</th>
 
+		   
+			   
+						</tr>
+				</thead>
+				</table>
+				<div id="departments_toolbar" style="height:auto">
+							@if (Html.IsAuthorize("Create"))
+							{
+								<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="append()">新增</a>
+							}
+							@if (Html.IsAuthorize("Delete"))
+							{
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
+							}
+							@if (Html.IsAuthorize("Edit"))
+							{
+								<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">保存</a>
+								<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">取消</a>
+							}
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="reload()">刷新</a>
+							@if (Html.IsAuthorize("Import"))
+							{
+								 <a href="javascript:void(0)" class="easyui-menubutton" data-options="menu:'#importmenu',iconCls:'icon-paperclip' " onclick="importexcel()">导入数据</a>
+                                       <div id="importmenu" style="width:150px;">
+                                                <div data-options="iconCls:'icon-cloud-upload'" onclick="importexcel()">导入数据</div>
+                                                <div data-options="iconCls:'icon-download-alt'" onclick="downloadtemplate()" >下载用于导入的模板</div>
+                                        </div>
+                                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-download-alt',plain:true" onclick="exportexcel()">导出至Excel</a>
+							}
+						  @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="append()">新增</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">保存</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">取消</a>
+					
+							<a href="javascript:void(0)" class="easyui-menubutton" data-options="menu:'#importmenu',iconCls:'icon-paperclip' " onclick="importexcel()">导入数据</a>
+                                       <div id="importmenu" style="width:150px;">
+                                                <div data-options="iconCls:'icon-cloud-upload'" onclick="importexcel()">导入数据</div>
+                                                <div data-options="iconCls:'icon-download-alt'" onclick="downloadtemplate()" >下载用于导入的模板</div>
+                                        </div>
+                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-download-alt',plain:true" onclick="exportexcel()">导出至Excel</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="reload()">刷新</a>*@
+				</div>
+		
+				</div>
+		<!--end datagrid-content -->
+                        
+                         </div>
+                        <!-- end widget content -->
+                    </div>
+                    <!-- end widget div -->
 
-
-                    </tr>
-                </thead>
-            </table>
-            <div id="departments_toolbar" style="height:auto">
-
-                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="append()">新增</a>
-                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
-                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">保存</a>
-                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">取消</a>
-
-                <a href="javascript:void(0)" class="easyui-menubutton" data-options="menu:'#importmenu',iconCls:'icon-paperclip' " onclick="importexcel()">导入数据</a>
-                <div id="importmenu" style="width:150px;">
-                    <div data-options="iconCls:'icon-cloud-upload'" onclick="importexcel()">导入数据</div>
-                    <div data-options="iconCls:'icon-download-alt'" onclick="downloadtemplate()">下载用于导入的模板</div>
                 </div>
-                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-download-alt',plain:true" onclick="exportexcel()">导出至Excel</a>
-                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="reload()">刷新</a>
-            </div>
+                <!-- end widget -->
+
+            </article>
+            <!-- WIDGET END -->
 
         </div>
-        <!--end datagrid-content -->
 
-    </div>
-    <!-- end widget content -->
-</div>
-<!-- end widget div -->
+        <!-- end row -->
+    </section>
+    <!-- end widget grid -->
 
-</div>
-<!-- end widget -->
-
-</article>
-<!-- WIDGET END -->
-
-</div>
-
-<!-- end row -->
-</section>
-<!-- end widget grid -->
-<!-- file upload partial view -->
-@Html.Partial("_ImportWindow", new ViewDataDictionary { { "EntityName", "Department" } })
-<!-- end file upload partial view -->
+	<!-- file upload partial view -->
+	@Html.Partial("_ImportWindow",new  ViewDataDictionary { { "EntityName","Department" }})		 
+	<!-- end file upload partial view -->
 
 </div>
 <!-- END MAIN CONTENT -->
 
 @section Scripts {
-    <script type="text/javascript">
+	<script type="text/javascript">
 
 			        //下载Excel导入模板
                     function downloadtemplate() {
@@ -170,7 +194,7 @@
                             var url = "/ExcelTemplate/Department.xlsx";
                             $.fileDownload(url)
                              .fail(function () { $.messager.alert("错误","没有找到模板文件! {" + url + "}"); });
-
+                                                
                     }
 					//打开Excel上传导入
 					function importexcel() {
@@ -206,15 +230,15 @@
 								var ed = $dg.datagrid("getEditor", { index: editIndex, field: "CompanyId" });
 				var companyname = $(ed.target).combobox("getText");
 				var companyid = $(ed.target).combobox("getValue");
-
+			   
 				$dg.datagrid("getRows")[editIndex]["CompanyName"] =  companyname;
 				$dg.datagrid("getRows")[editIndex]["CompanyId"] = companyid;
-
+ 
 
 								$dg.datagrid("endEdit", editIndex);
 				editIndex = undefined;
 
-
+				
 				return true;
 			} else {
 				return false;
@@ -284,7 +308,7 @@
 						$.messager.alert("错误", "提交错误了！","error");
 						//$dg.datagrid("reload");
 					});
-
+			  
 				}
 
 				//$dg.datagrid("acceptChanges");
@@ -301,10 +325,10 @@
 
 		//datagrid 开启行赛选功能
 		 $(function () {
-
+		  
 		   $dg.datagrid("enableFilter",[
-
-
+		   
+		   		   
 		   		   {
 				 field: "CompanyId",
 				 type:"combobox",
@@ -327,7 +351,7 @@
 						}
 					}
 		   },
-
+		   		   
 		   ]);
 		})
 				//-----------------------------------------------------
@@ -342,11 +366,11 @@
 		function showDetailsWindow(id) {
 			//console.log(index, row);
 			 		}
-
-
-
-
-    </script>
+ 
+		
+		
+		 
+	 </script>
 }
 
-
+ 
