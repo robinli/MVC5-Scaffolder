@@ -71,77 +71,14 @@
                                 <i class="fa-fw fa fa-info"></i>
                                 A combined table effect with all classes mentioned above added to
                             </div>
-                            <!--begin datagrid-content --><!-- MAIN CONTENT -->
-                            <div id="content">
-                                <!-- quick navigation bar -->
-                                <div class="row">
-                                    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
-                                        <h1 class="page-title txt-color-blueDark">
-                                            <i class="fa fa-table fa-fw "></i>
-                                            @{
-//TODO:fix quick navigation path
-                                            }
-                                            路径
-                                            <span>
-                                                >
-                                                系统用户维护
-                                            </span>
-                                        </h1>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
-
-                                    </div>
-                                </div>
-                                <!-- end quick navigation bar -->
-                                <!-- widget grid -->
-                                <section id="widget-grid" class="">
-                                    <!-- row -->
-                                    <div class="row">
-                                        <!-- NEW WIDGET START -->
-                                        <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                            <!-- Widget ID (each widget will need unique ID)-->
-                                            <div class="jarviswidget" id="wid-id-4" data-widget-editbutton="false">
-                                                <!-- widget options:
-                                                usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
-                                                data-widget-colorbutton="false"
-                                                data-widget-editbutton="false"
-                                                data-widget-togglebutton="false"
-                                                data-widget-deletebutton="false"
-                                                data-widget-fullscreenbutton="false"
-                                                data-widget-custombutton="false"
-                                                data-widget-collapsed="true"
-                                                data-widget-sortable="false"
-                                                -->
-                                                <header>
-                                                    <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-                                                    <h2>系统用户维护</h2>
-                                                </header>
-
-                                                <!-- widget div-->
-                                                <div>
-                                                    <!-- widget edit box -->
-                                                    <div class="jarviswidget-editbox">
-                                                        <!-- This area used as dropdown edit box -->
-                                                    </div>
-                                                    <!-- end widget edit box -->
-                                                    <!-- widget content -->
-                                                    <div class="widget-body no-padding">
-                                                        @{
-//TODO:fix datagrid view alert-warning messages
-                                                        }
-                                                        <div class="alert alert-warning no-margin fade in">
-                                                            <button class="close" data-dismiss="alert">
-                                                                ×
-                                                            </button>
-                                                            <i class="fa-fw fa fa-info"></i>
-                                                            A combined table effect with all classes mentioned above added to
-                                                        </div>
-                                                        <!--begin datagrid-content -->
-                                                        <div class="table-responsive">
 
 
-                                                            <table id="users_datagrid" class="easyui-datagrid" style="width:auto;height:auto"
-                                                                   data-options="
+                            <!--begin datagrid-content -->
+                            <div class="table-responsive">
+
+
+                                <table id="users_datagrid" class="easyui-datagrid" style="width:auto;height:auto"
+                                       data-options="
                  rownumbers:true,
 
                 remoteFilter: true,
@@ -153,14 +90,14 @@
                 pagination: 'true',
                 striped:true
                    ">
-                                                                <thead>
-                                                                    <tr>
-                                                                        @*<th data-options="field:'ck',checkbox:true"></th>*@
-                                                                        @*<th data-options="field:'Id',width:80">@Html.DisplayNameFor(model => model.Id)</th>*@
+                                    <thead>
+                                        <tr>
+                                            @*<th data-options="field:'ck',checkbox:true"></th>*@
+                                            @*<th data-options="field:'Id',width:80">@Html.DisplayNameFor(model => model.Id)</th>*@
 
-                                                                        <th data-options="field:'UserName',width:140 ,editor:{type:'textbox',options:{required:true} } ">用户名</th>
-                                                                        <th data-options="field:'FullName',width:140,editor:{type:'textbox',options:{required:true} } ">@Html.DisplayNameFor(model => model.FullName)</th>
-                                                                        <th data-options="field:'CompanyCode',width:140,
+                                            <th data-options="field:'UserName',width:140 ,editor:{type:'textbox',options:{required:true} } ">用户名</th>
+                                            <th data-options="field:'FullName',width:140,editor:{type:'textbox',options:{required:true} } ">@Html.DisplayNameFor(model => model.FullName)</th>
+                                            <th data-options="field:'CompanyCode',width:140,
                     editor:{
                     type:'combogrid',options:{prompt:'公司' ,required:false ,validType:'length[0,50]',
                          idField:'CompanyCode',
