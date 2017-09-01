@@ -1,63 +1,98 @@
-﻿
+﻿@model WebApp.Models.Category
+@{  ViewBag.Title = "产品目录维护 | Create";}
+<!-- MAIN CONTENT -->
+<div id="content">
+    <!-- quick navigation bar -->
+    <div class="row">
+        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+            <h1 class="page-title txt-color-blueDark">
+                <i class="fa fa-table fa-fw "></i>
+                @{ 
+                  //TODO:fix quick navigation path
+                 }
+                路径
+                <span>
+                    >
+                    产品目录维护
+                </span>
+            </h1>
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
 
-
-
-
-
-
-@model WebApp.Models.Category
-@{  ViewBag.Title = "Category | Create";}
-
-
-<div class="row">
-            <div class="col-md-12">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>Category form<small> create new Categories</small></h5>
-                        <div class="ibox-tools">
-                            <a class="collapse-link">
-                                <i class="fa fa-chevron-up"></i>
-                            </a>
-                             
-                        </div>
-                    </div>
-                    <div class="ibox-content">
-                 
-
-    <form id="category_form" class="easyui-form" method="post" data-options="novalidate:true">
-    <!--form toolbar-->
-    <div id="form_toolbar" style="height:auto" class="datagrid-toolbar">
-
-        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="append()">新增</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="savedata()">保存</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="cancel()">取消</a>
-
-        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-paperclip',plain:true" onclick="importexcel()">EXCEL 导入</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-download-alt',plain:true" onclick="exportexcel()">导出 Excel</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="refresh()">刷新</a>
-    </div>
-    <!--form toolbar-->
-       @*@Html.AntiForgeryToken()*@
-  
-  
-		
-      
-		<div class="form-content">
-		 
-        @Html.Partial("EditForm")
-
-		@Html.ValidationSummary(true, "", new { @class = "text-danger" })
-		</div>
-	 
-     </form>		 
-
-    </div>
         </div>
     </div>
+    <!-- end quick navigation bar -->
+    <!-- NEW WIDGET START -->
+    <article class="col-sm-12 col-md-12 col-lg-12">
+
+        <!-- Widget ID (each widget will need unique ID)-->
+        <div class="jarviswidget" id="wid-id-1" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false">
+            <!-- widget options:
+            usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+            data-widget-colorbutton="false"
+            data-widget-editbutton="false"
+            data-widget-togglebutton="false"
+            data-widget-deletebutton="false"
+            data-widget-fullscreenbutton="false"
+            data-widget-custombutton="false"
+            data-widget-collapsed="true"
+            data-widget-sortable="false"
+            -->
+            <header>
+                <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                <h2> 产品目录维护 </h2>
+
+            </header>
+
+            <!-- widget div-->
+            <div>
+
+                <!-- widget edit box -->
+                <div class="jarviswidget-editbox">
+                    <!-- This area used as dropdown edit box -->
+
+                </div>
+                <!-- end widget edit box -->
+
+                <!-- widget content -->
+                <div class="widget-body no-padding">
+                    <form id="category_form" class="easyui-form form-horizontal" method="post" data-options="novalidate:true">
+                       
+                        <!-- form toolbar -->
+                        <div id="form_toolbar" style="height:auto" class="datagrid-toolbar">
+                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="append()">新增</a>
+                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
+                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="savedata()">保存</a>
+                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="cancel()">取消</a>
+                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-paperclip',plain:true" onclick="importexcel()">EXCEL 导入</a>
+                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-download-alt',plain:true" onclick="exportexcel()">导出 Excel</a>
+                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="refresh()">刷新</a>
+                        </div>
+                        <header>
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        </header>
+                        <!-- end form toolbar -->
+                        @*@Html.AntiForgeryToken()*@
+		 
+                        @Html.Partial("EditForm")
+		
+	 
+                        </form>		 
+
+                 </div>
+                 <!-- end widget content -->
+                 </div>
+            <!-- end widget div -->
+
+        </div>
+        <!-- end widget -->
+
+
+    </article>
+    <!-- WIDGET END -->
+
 </div>
-
-
+<!-- END MAIN CONTENT -->
 @section Scripts {
  
      <script type="text/javascript">
@@ -69,13 +104,13 @@
         }
         function savedata() {
 
-			   if ($('#category_form').form('enableValidation').form('validate')) {						
-                 var data = $('#category_form').form('getJson');
+			   if ($("#category_form").form("enableValidation").form("validate")) {						
+                 var data = $("#category_form").form("getJson");
 				  				  //获取明细表数据
 				   
 						if (!products_endEditing())
 								return false;                    
-                        var products = $productsdatagrid.datagrid('getChanges');
+                        var products = $productsdatagrid.datagrid("getChanges");
 						
 						data.Products = products ;
 				  
@@ -88,12 +123,12 @@
                          $.messager.alert("提示", "保存成功！");						
 						
                      } else {						
-                         $.messager.alert("错误", "保存失败！" + response.err, 'error');						
+                         $.messager.alert("错误", "保存失败！" + response.err, "error");						
                      }						
                  }, "json").fail(function (response) {						
                      //console.log(response);						
-                     $.messager.alert("错误", "保存失败！", 'error');						
-                     //$dg.datagrid('reload');						
+                     $.messager.alert("错误", "保存失败！", "error");						
+                     //$dg.datagrid("reload");						
                  });						
              }						
 
@@ -115,6 +150,85 @@
      
      
         </script>
+
+
+
+
+<script type="text/javascript">
+	
+	    
+	//==============$("#products_datagrid")=================// 
+    var $productsdatagrid = $("#products_datagrid")
+	var productseditIndex = undefined;
+    function products_endEditing() {
+        if ( productseditIndex == undefined) { return true }
+        if ($productsdatagrid.datagrid("validateRow", productseditIndex)) {
+						$productsdatagrid.datagrid("endEdit", productseditIndex);
+            productseditIndex = undefined;
+
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+    function products_onClickCell(index, field) {
+        if (productseditIndex != index) {
+            if (products_endEditing()) {
+                $productsdatagrid.datagrid("selectRow", index)
+                        .datagrid("beginEdit", index);
+                var ed = $productsdatagrid.datagrid("getEditor", { index: index, field: field });
+                if (ed) {
+                    ($(ed.target).data("textbox") ? $(ed.target).textbox("textbox") : $(ed.target)).focus();
+                }
+                productseditIndex  = index;
+            } else {
+                $productsdatagrid.datagrid("selectRow", productseditIndex);
+            }
+        }
+    }
+    function products_append() {
+        if (products_endEditing()) {
+            $productsdatagrid.datagrid("appendRow", { Status:0   });
+            productseditIndex = $productsdatagrid.datagrid("getRows").length - 1;
+            $productsdatagrid.datagrid("selectRow", productseditIndex )
+                    .datagrid("beginEdit", productseditIndex);
+        }
+    }
+    function products_removeit() {
+        if (productseditIndex  == undefined) { return }
+        $productsdatagrid.datagrid("cancelEdit", productseditIndex )
+                .datagrid("deleteRow", productseditIndex );
+        productseditIndex = undefined;
+    }
+   
+    function products_reject() {
+        $productsdatagrid.datagrid("rejectChanges");
+        productseditIndex  = undefined;
+    }
+    function products_getChanges() {
+        var rows = $productsdatagrid.datagrid("getChanges");
+        alert(rows.length + " rows are changed!");
+    }
+
+
+	  
+	$(function () {
+	
+		$.get("/Categories/GetProductsByCategoryId/" + @Model.Id,function(data){
+            //console.log(data);
+            $productsdatagrid.datagrid("loadData",data);
+        
+        })
+
+
+	
+	});
+</script>
+
+
+
+
 
 
 }

@@ -1,7 +1,4 @@
-﻿
-
-
-using System;
+﻿using System;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Data;
@@ -29,14 +26,12 @@ namespace WebApp.Controllers
         //container.RegisterType<ICategoryService, CategoryService>();
 
         //private StoreContext db = new StoreContext();
-        private readonly IProductService _productService;
         private readonly ICategoryService _categoryService;
         private readonly IUnitOfWorkAsync _unitOfWork;
 
-        public CategoriesController(ICategoryService categoryService, IUnitOfWorkAsync unitOfWork, IProductService productService)
+        public CategoriesController(ICategoryService categoryService, IUnitOfWorkAsync unitOfWork)
         {
             _categoryService = categoryService;
-            _productService = productService;
             _unitOfWork = unitOfWork;
         }
 
@@ -55,12 +50,13 @@ namespace WebApp.Controllers
         public async Task<ActionResult> GetData(int page = 1, int rows = 10, string sort = "Id", string order = "asc", string filterRules = "")
         {
             var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
+            var totalCount = 0;
             //int pagenum = offset / limit +1;
-            var categories = await _categoryService.Query(new CategoryQuery().Withfilter(filters))
-.OrderBy(n => n.OrderBy(sort, order))
-.SelectPage(page, rows, out int totalCount)
-.AsQueryable()
-.ToListAsync();
+            var categories = await _categoryService
+                    .Query(new CategoryQuery().Withfilter(filters))
+                    .OrderBy(n => n.OrderBy(sort, order))
+                    .SelectPageAsync(page, rows, out totalCount);
+
 
             var datarows = categories.Select(n => new { Id = n.Id, Name = n.Name }).ToList();
             var pagelist = new { total = totalCount, rows = datarows };
@@ -72,23 +68,23 @@ namespace WebApp.Controllers
         {
             if (categories.updated != null)
             {
-                foreach (var updated in categories.updated)
+                foreach (var item in categories.updated)
                 {
-                    _categoryService.Update(updated);
+                    _categoryService.Update(item);
                 }
             }
             if (categories.deleted != null)
             {
-                foreach (var deleted in categories.deleted)
+                foreach (var item in categories.deleted)
                 {
-                    _categoryService.Delete(deleted);
+                    _categoryService.Delete(item);
                 }
             }
             if (categories.inserted != null)
             {
-                foreach (var inserted in categories.inserted)
+                foreach (var item in categories.inserted)
                 {
-                    _categoryService.Insert(inserted);
+                    _categoryService.Insert(item);
                 }
             }
             await _unitOfWork.SaveChangesAsync();
@@ -331,47 +327,13 @@ namespace WebApp.Controllers
 
         }
 
-        [HttpGet]
-        public  async Task<ActionResult> GetProductsData(int page = 1, int rows = 10, string sort = "Id", string order = "asc", string filterRules = "")
-        {
-         
-            this._unitOfWork.SetAutoDetectChangesEnabled(false);
-            var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
-            //int pagenum = offset / limit +1;
-            //var products = await Task<List<Product>>.Factory.StartNew(() => {
-            //    return _productService.Query(new ProductQuery().Withfilter(filters))
-            //    .Include(p => p.Category)
-            //    .OrderBy(n => n.OrderBy(sort, order))
-            //    .SelectPage(page, rows, out totalCount)
-            //    .ToList();
-            //    });
-            var _productRepository = _unitOfWork.RepositoryAsync<Product>();
-            var products = await _productRepository.Query(new ProductQuery().Withfilter(filters))
-                .Include(p => p.Category)
-                .OrderBy(n => n.OrderBy(sort, order))
-                .SelectPageAsync(page, rows, out int totalCount);
-            //StoreContext db = new StoreContext();
-            //var products = await db.Products.OrderBy(x=>x.Id).Skip((page - 1) * rows).Take(rows).ToListAsync();
-
-
-
-
-            var datarows = products.Select(n => new { CategoryName = (n.Category == null ? "" : n.Category.Name), Id = n.Id, Name = n.Name, Unit = n.Unit, UnitPrice = n.UnitPrice, StockQty = n.StockQty, ConfirmDateTime = n.ConfirmDateTime, IsRequiredQc = n.IsRequiredQc, CategoryId = n.CategoryId }).ToList();
-
-            this._unitOfWork.SetAutoDetectChangesEnabled(true);
-
-       
-
-            return Json(new { total = totalCount, rows = datarows }, JsonRequestBehavior.AllowGet);
-        }
-
 
         //导出Excel
         [HttpPost]
         public ActionResult ExportExcel(string filterRules = "", string sort = "Id", string order = "asc")
         {
-            var fileName              = "categories_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xlsx";
-            var stream                = _categoryService.ExportExcel(filterRules, sort, order);
+            var fileName = "categories_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xlsx";
+            var stream = _categoryService.ExportExcel(filterRules, sort, order);
             return File(stream, "application/vnd.ms-excel", fileName);
 
         }
