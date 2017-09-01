@@ -238,6 +238,7 @@
     <Compile Include="Controllers\CompaniesController.cs" />
     <Compile Include="Controllers\DataTableImportMappingsController.cs" />
     <Compile Include="Controllers\DepartmentsController.cs" />
+    <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\FileUploadController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -295,6 +296,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\DepartmentMetadata.cs" />
+    <Compile Include="Models\EmployeeMetadata.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManagementViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -340,6 +342,8 @@
     <Compile Include="Repositories\DataTableImportMappings\MappingRepository.cs" />
     <Compile Include="Repositories\Departments\DepartmentQuery.cs" />
     <Compile Include="Repositories\Departments\DepartmentRepository.cs" />
+    <Compile Include="Repositories\Employees\EmployeeQuery.cs" />
+    <Compile Include="Repositories\Employees\EmployeeRepository.cs" />
     <Compile Include="Repositories\MenuItems\MenuItemQuery.cs" />
     <Compile Include="Repositories\MenuItems\MenuItemRepository.cs" />
     <Compile Include="Repositories\Messages\MessageQuery.cs" />
@@ -368,6 +372,8 @@
     <Compile Include="Services\DataTableImportMappings\MappingService.cs" />
     <Compile Include="Services\Departments\DepartmentService.cs" />
     <Compile Include="Services\Departments\IDepartmentService.cs" />
+    <Compile Include="Services\Employees\EmployeeService.cs" />
+    <Compile Include="Services\Employees\IEmployeeService.cs" />
     <Compile Include="Services\MenuItems\IMenuItemService.cs" />
     <Compile Include="Services\MenuItems\MenuItemService.cs" />
     <Compile Include="Services\Messages\IMessageService.cs" />
@@ -4508,6 +4514,10 @@
     <Content Include="Views\Departments\Create.cshtml" />
     <Content Include="Views\Departments\Edit.cshtml" />
     <Content Include="Views\Departments\EditForm.cshtml" />
+    <Content Include="Views\Employees\Index.cshtml" />
+    <Content Include="Views\Employees\Create.cshtml" />
+    <Content Include="Views\Employees\Edit.cshtml" />
+    <Content Include="Views\Employees\EditForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Source\Repository.Pattern.Ef6\Repository.Pattern.Ef6.csproj">

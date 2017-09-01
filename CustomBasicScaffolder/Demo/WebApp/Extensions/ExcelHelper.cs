@@ -214,9 +214,9 @@ namespace WebApp.Extensions
             return stream;
         }
 
-        public static Stream ExportExcel(DataSet ds,  params string[] IgnoredColumns)
+        public static Stream ExportExcel(DataSet ds, params string[] IgnoredColumns)
         {
-            string Heading="";
+            string Heading = "";
             var stream = new MemoryStream();
             using (ExcelPackage pck = new ExcelPackage())
             {
@@ -284,27 +284,27 @@ namespace WebApp.Extensions
                     }
                 }
 
-                  pck.SaveAs(stream);
+                pck.SaveAs(stream);
             }
 
             stream.Seek(0, SeekOrigin.Begin);
             return stream;
         }
- 
 
-      
 
-        public static Stream   ExportExcel<T>(List<T> list,  params string[] IgnoredColumns)
+
+
+        public static Stream ExportExcel<T>(List<T> list, params string[] IgnoredColumns)
         {
             string Heading = "";
             var stream = new MemoryStream();
-            using (ExcelPackage pck = new ExcelPackage())
+            using (var pck = new ExcelPackage())
             {
                 ExcelWorksheet ws = pck.Workbook.Worksheets.Add("Sheet1");
                 int StartFromRow = String.IsNullOrEmpty(Heading) ? 1 : 3;
 
                 // add the content into the Excel file
-                ws.Cells["A" + StartFromRow].LoadFromCollection<T>(list, true, OfficeOpenXml.Table.TableStyles.Light1);
+                ws.Cells["A" + StartFromRow].LoadFromCollection<T>(list, true, OfficeOpenXml.Table.TableStyles.None);
 
                 // autofit width of cells with small content
                 int colindex = 1;
@@ -321,16 +321,16 @@ namespace WebApp.Extensions
                 }
 
                 // format header - bold, yellow on black
-                using (ExcelRange r = ws.Cells[StartFromRow, 1, StartFromRow, props.Count])
+                using (var r = ws.Cells[StartFromRow, 1, StartFromRow, props.Count])
                 {
-                    r.Style.Font.Color.SetColor(System.Drawing.Color.Yellow);
+                    //r.Style.Font.Color.SetColor(System.Drawing.Color.Yellow);
                     r.Style.Font.Bold = true;
                     r.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                    r.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Black);
+                    r.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
                 }
 
                 // format cells - add borders
-                using (ExcelRange r = ws.Cells[StartFromRow + 1, 1, StartFromRow + list.Count, props.Count])
+                using (var r = ws.Cells[StartFromRow + 1, 1, StartFromRow + list.Count, props.Count])
                 {
                     r.Style.Border.Top.Style = ExcelBorderStyle.Thin;
                     r.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
@@ -380,7 +380,7 @@ namespace WebApp.Extensions
                 int StartFromRow = String.IsNullOrEmpty(Heading) ? 1 : 3;
 
                 // add the content into the Excel file
-                ws.Cells["A" + StartFromRow].LoadFromCollection<T>(list, true, OfficeOpenXml.Table.TableStyles.Light1);
+                ws.Cells["A" + StartFromRow].LoadFromCollection<T>(list, true, OfficeOpenXml.Table.TableStyles.None);
 
                 // autofit width of cells with small content
                 int colindex = 1;
@@ -388,7 +388,7 @@ namespace WebApp.Extensions
                 PropertyDescriptorCollection props = TypeDescriptor.GetProperties(typeof(T));
                 foreach (var col in props)
                 {
-                    ExcelRange columnCells = ws.Cells[ws.Dimension.Start.Row, colindex, ws.Dimension.End.Row, colindex];
+                    var columnCells = ws.Cells[ws.Dimension.Start.Row, colindex, ws.Dimension.End.Row, colindex];
                     int maxLength = columnCells.Max(cell => (cell.Value == null ? "" : cell.Value.ToString()).Count());
                     if (maxLength < 150)
                         ws.Column(colindex).AutoFit();
@@ -397,16 +397,16 @@ namespace WebApp.Extensions
                 }
 
                 // format header - bold, yellow on black
-                using (ExcelRange r = ws.Cells[StartFromRow, 1, StartFromRow, props.Count])
+                using (var r = ws.Cells[StartFromRow, 1, StartFromRow, props.Count])
                 {
-                    r.Style.Font.Color.SetColor(System.Drawing.Color.Yellow);
+                    //r.Style.Font.Color.SetColor(System.Drawing.Color.Yellow);
                     r.Style.Font.Bold = true;
                     r.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                    r.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Black);
+                    r.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
                 }
 
                 // format cells - add borders
-                using (ExcelRange r = ws.Cells[StartFromRow + 1, 1, StartFromRow + list.Count, props.Count])
+                using (var r = ws.Cells[StartFromRow + 1, 1, StartFromRow + list.Count, props.Count])
                 {
                     r.Style.Border.Top.Style = ExcelBorderStyle.Thin;
                     r.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
@@ -450,13 +450,13 @@ namespace WebApp.Extensions
         {
             string Heading = "";
             var stream = new MemoryStream();
-            using (ExcelPackage pck = new ExcelPackage())
+            using (var pck = new ExcelPackage())
             {
                 ExcelWorksheet ws = pck.Workbook.Worksheets.Add(modelType.Name);
                 int StartFromRow = String.IsNullOrEmpty(Heading) ? 1 : 3;
 
                 // add the content into the Excel file
-                ws.Cells["A" + StartFromRow].LoadFromCollection<T>(list, true, OfficeOpenXml.Table.TableStyles.Light1);
+                ws.Cells["A" + StartFromRow].LoadFromCollection<T>(list, true, OfficeOpenXml.Table.TableStyles.None);
 
                 Type _ty = typeof(T);
                 //if (list.Count > 0)
@@ -491,15 +491,16 @@ namespace WebApp.Extensions
                 // format header - bold, yellow on black
                 using (ExcelRange r = ws.Cells[StartFromRow, 1, StartFromRow, props.Count])
                 {
-                    r.Style.Font.Color.SetColor(System.Drawing.Color.Yellow);
+                    //r.Style.Font.Color.SetColor(System.Drawing.Color.Yellow);
+                    r.AutoFilter = true;
                     r.Style.Font.Bold = true;
                     r.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                    r.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Black);
+                    r.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
                 }
                 if (list.Count > 0)
                 {
                     // format cells - add borders
-                    using (ExcelRange r = ws.Cells[StartFromRow + 1, 1, StartFromRow + list.Count, props.Count])
+                    using (var r = ws.Cells[StartFromRow + 0, 1, StartFromRow + list.Count, props.Count])
                     {
                         r.Style.Border.Top.Style = ExcelBorderStyle.Thin;
                         r.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
