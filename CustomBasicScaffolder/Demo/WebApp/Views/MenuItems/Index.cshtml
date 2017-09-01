@@ -6,18 +6,75 @@
 @{
     ViewBag.Title = "系统菜单维护";
 }
+<!-- MAIN CONTENT -->
+<div id="content">
+    <!-- quick navigation bar -->
+    <div class="row">
+        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+            <h1 class="page-title txt-color-blueDark">
+                <i class="fa fa-table fa-fw "></i>
+                @{
+//TODO:fix quick navigation path
+                }
+                路径
+                <span>
+                    >
+                    系统菜单维护
+                </span>
+            </h1>
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
 
+        </div>
+    </div>
+    <!-- end quick navigation bar -->
+    <!-- widget grid -->
+    <section id="widget-grid" class="">
+        <!-- row -->
+        <div class="row">
+            <!-- NEW WIDGET START -->
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <!-- Widget ID (each widget will need unique ID)-->
+                <div class="jarviswidget" id="wid-id-4" data-widget-editbutton="false">
+                    <!-- widget options:
+                    usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+                    data-widget-colorbutton="false"
+                    data-widget-editbutton="false"
+                    data-widget-togglebutton="false"
+                    data-widget-deletebutton="false"
+                    data-widget-fullscreenbutton="false"
+                    data-widget-custombutton="false"
+                    data-widget-collapsed="true"
+                    data-widget-sortable="false"
+                    -->
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+                        <h2>系统菜单维护</h2>
+                    </header>
 
-
-
-
-     
-
-                    <div class="table-responsive">
-
-
-                        <table id="menuitems_datagrid" class="easyui-datagrid" title="系统菜单维护" style="width:auto;height:auto"
-                               data-options="
+                    <!-- widget div-->
+                    <div>
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body no-padding">
+                            @{
+//TODO:fix datagrid view alert-warning messages
+                            }
+                            <div class="alert alert-warning no-margin fade in">
+                                <button class="close" data-dismiss="alert">
+                                    ×
+                                </button>
+                                <i class="fa-fw fa fa-info"></i>
+                                A combined table effect with all classes mentioned above added to
+                            </div>
+                            <!--begin datagrid-content -->
+                            <div class="table-responsive">
+                                <table id="menuitems_datagrid" class="easyui-datagrid" title="系统菜单维护" style="width:auto;height:auto"
+                                       data-options="
                  rownumbers:true,
 				 checkOnSelect:true,
                  selectOnCheck:true,
@@ -33,27 +90,27 @@
 				onSelect:onSelect,
                 pagination: 'true'
                    ">
-                            <thead>
-                                <tr>
-                                    @*<th data-options="field:'ck',checkbox:true"></th>*@
-                                    <th data-options="field:'Id',width:80 ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Id)</th>
+                                    <thead>
+                                        <tr>
+                                            @*<th data-options="field:'ck',checkbox:true"></th>*@
+                                            <th data-options="field:'Id',width:80 ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Id)</th>
 
-                                    <th data-options="field:'Title',width:140,editor:{type:'textbox',options:{required:true} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Title)</th>
-
-
-                                    <th data-options="field:'Description',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Description)</th>
+                                            <th data-options="field:'Title',width:140,editor:{type:'textbox',options:{required:true} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Title)</th>
 
 
-                                    <th data-options="field:'Code',width:140,editor:{type:'textbox',options:{required:true} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Code)</th>
-                                    <th data-options="field:'Controller',width:140,editor:{type:'textbox',options:{required:true} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Controller)</th>
-                                    <th data-options="field:'Action',width:140,editor:{type:'textbox',options:{required:true} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Action)</th>
-                                    <th data-options="field:'Url',width:140,editor:{type:'textbox',options:{required:true} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Url)</th>
+                                            <th data-options="field:'Description',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Description)</th>
 
 
-                                    <th data-options="field:'IconCls',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.IconCls)</th>
+                                            <th data-options="field:'Code',width:140,editor:{type:'textbox',options:{required:true} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Code)</th>
+                                            <th data-options="field:'Controller',width:140,editor:{type:'textbox',options:{required:true} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Controller)</th>
+                                            <th data-options="field:'Action',width:140,editor:{type:'textbox',options:{required:true} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Action)</th>
+                                            <th data-options="field:'Url',width:140,editor:{type:'textbox',options:{required:true} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Url)</th>
 
 
-                                    <th data-options="field:'IsEnabled',width:120,editor: {type:'combobox'
+                                            <th data-options="field:'IconCls',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.IconCls)</th>
+
+
+                                            <th data-options="field:'IsEnabled',width:120,editor: {type:'combobox'
                                                 ,options:{
                                                 panelHeight: 'auto',
                                                 data: [ { value: 'true', text: 'true' },{ value: 'false', text: 'false' } ],
@@ -89,21 +146,31 @@
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-sitemap',plain:true" onclick="createWithController()">生成菜单</a>
             </div>
         </div>
-
-      
-
-<div id="importwindow" class="easyui-window" title="Excel 导入" data-options="modal:true,collapsible:false,minimizable:false,maximizable:false,closed:true,iconCls:'icon-paperclip'" style="width:500px;height:260px;padding:10px;">
-
-    <p><input type="file" name="file_upload" id="file_upload" /></p>
-    <div id="alert1" class="alert alert-success">
-        <button class="close" data-dismiss="alert" type="button">&times;</button>上传成功，开始执行导入。
+        <!--end datagrid-content -->
 
     </div>
-    <div id="alert2" class="alert alert-info">
-        <button class="close" data-dismiss="alert" type="button">&times;</button>正在执行导入程序，请耐心等待。
-
-    </div>
+    <!-- end widget content -->
 </div>
+<!-- end widget div -->
+
+</div>
+<!-- end widget -->
+
+</article>
+<!-- WIDGET END -->
+
+</div>
+
+<!-- end row -->
+</section>
+<!-- end widget grid -->
+ 
+
+</div>
+<!-- END MAIN CONTENT -->
+
+
+
 
 @section Scripts {
     <script type="text/javascript">
@@ -211,7 +278,7 @@
             if (editIndex != index) {
                 if (endEditing()) {
                     $dg.datagrid('selectRow', index)
-                            .datagrid('beginEdit', index);
+                        .datagrid('beginEdit', index);
                     var ed = $dg.datagrid('getEditor', { index: index, field: field });
                     if (ed) {
                         ($(ed.target).data('textbox') ? $(ed.target).textbox('textbox') : $(ed.target)).focus();
@@ -229,13 +296,13 @@
                 $dg.datagrid('insertRow', { index: 0, row: { IsEnabled: true } });
                 editIndex = 0;
                 $dg.datagrid('selectRow', editIndex)
-                        .datagrid('beginEdit', editIndex);
+                    .datagrid('beginEdit', editIndex);
             }
         }
         function removeit() {
             if (editIndex == undefined) { return }
             $dg.datagrid('cancelEdit', editIndex)
-                    .datagrid('deleteRow', editIndex);
+                .datagrid('deleteRow', editIndex);
             editIndex = undefined;
         }
         function accept() {
@@ -288,28 +355,28 @@
             $dg.datagrid('enableFilter', [
 
 
-                    {
-                        field: 'ParentId',
-                        type: 'combobox',
-                        options: {
-                            valueField: 'Id',
-                            textField: 'Title',
-                            method: 'get',
-                            url: '/MenuItems/GetMenuItems',
-                            onChange: function (value) {
-                                if (value == '') {
-                                    $dg.datagrid('removeFilterRule', 'ParentId');
-                                } else {
-                                    $dg.datagrid('addFilterRule', {
-                                        field: 'ParentId',
-                                        op: 'equal',
-                                        value: value
-                                    });
-                                }
-                                $dg.datagrid('doFilter');
+                {
+                    field: 'ParentId',
+                    type: 'combobox',
+                    options: {
+                        valueField: 'Id',
+                        textField: 'Title',
+                        method: 'get',
+                        url: '/MenuItems/GetMenuItems',
+                        onChange: function (value) {
+                            if (value == '') {
+                                $dg.datagrid('removeFilterRule', 'ParentId');
+                            } else {
+                                $dg.datagrid('addFilterRule', {
+                                    field: 'ParentId',
+                                    op: 'equal',
+                                    value: value
+                                });
                             }
+                            $dg.datagrid('doFilter');
                         }
-                    },
+                    }
+                },
 
             ]);
         })

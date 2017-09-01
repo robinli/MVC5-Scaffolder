@@ -157,6 +157,29 @@
 {
     @Model
 }
+
+
+<script type="text/javascript">
+
+    paceOptions = {
+        ajax: {
+            trackMethods: ['GET', 'POST', 'DELETE', 'PUT', 'PATCH']
+        }
+    }
+
+
+    window.onerror = function (msg, url, line, col, error) {
+        //console.log(msg);
+        $.post('/Messages/SaveErrorLog', { content: msg, url: url, line: line, col: col }, function (data, status, xhr) {
+
+        });
+
+    }
+
+
+</script>
+
+
 <!-- Your GOOGLE ANALYTICS CODE Below-->
     @*<script type="text/javascript">
     var _gaq = _gaq || [];

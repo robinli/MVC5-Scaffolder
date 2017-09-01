@@ -210,6 +210,8 @@
   <ItemGroup>
     <Compile Include="App_Helpers\DashRouteHandler.cs" />
     <Compile Include="App_Helpers\HtmlHelperExtensions.cs" />
+    <Compile Include="App_Helpers\KeyGenerator.cs" />
+    <Compile Include="App_Helpers\Logger.cs" />
     <Compile Include="App_Helpers\Settings.cs" />
     <Compile Include="App_Helpers\StringExtensions.cs" />
     <Compile Include="App_Helpers\UserManager.cs" />
@@ -4531,6 +4533,10 @@
     <ProjectReference Include="..\Source\Service.Pattern\Service.Pattern.csproj">
       <Project>{86f86650-ee3c-4372-8fec-40c2fe015022}</Project>
       <Name>Service.Pattern</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Source\SqlHelper2\SqlHelper2.csproj">
+      <Project>{879158ef-ef85-4b55-91ef-21399e108cd7}</Project>
+      <Name>SqlHelper2</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

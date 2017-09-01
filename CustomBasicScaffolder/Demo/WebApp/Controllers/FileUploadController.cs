@@ -43,10 +43,11 @@ namespace WebApp.Controllers
             //string Lastfilename = "";
             var request = this.Request;
             var filedata = this.Request.Files[0];
+            var uploadfilename = string.Empty;
             Stopwatch watch = new Stopwatch();
             try
             {
-               
+
                 watch.Start();
                 // 如果没有上传文件
                 if (filedata == null ||
@@ -57,7 +58,9 @@ namespace WebApp.Controllers
                 }
                 fileType = this.Request.Form["fileType"];
                 //date = this.Request.Form["date"];
-                //filename = this.Request.Form["filename"];
+                //string filename = this.Request.Form["filename"];
+                string filename = filedata.FileName;
+                uploadfilename = filename;
                 //Lastfilename = this.Request.Form["Lastfilename"];
                 DataTable datatable = ExcelHelper.GetDataTableFromExcel(filedata.InputStream);
                 if (fileType == "Product")
@@ -74,7 +77,7 @@ namespace WebApp.Controllers
                 //    _unitOfWork.SaveChanges();
                 //}
 
-                string uploadfilename = System.IO.Path.GetFileName(filedata.FileName);
+                uploadfilename = System.IO.Path.GetFileName(filedata.FileName);
                 string folder = Server.MapPath("~/UploadFiles");
                 string time = DateTime.Now.ToString().Replace("\\", "").Replace("/", "").Replace(".", "").Replace(":", "").Replace("-", "").Replace(" ", "");//获取时间
                 string newFileName = string.Format("{0}_{1}",  time, uploadfilename);//重组成新的文件名
@@ -104,15 +107,24 @@ namespace WebApp.Controllers
             }
             catch (System.Data.SqlClient.SqlException e)
             {
+                Logger.Error(uploadfilename, "FileUpload", e.InnerException.InnerException.Message, fileType, e.Source, e.StackTrace);
                 return Json(new { success = false, message = e.InnerException.InnerException.Message }, JsonRequestBehavior.AllowGet);
             }
             catch (System.Data.Entity.Infrastructure.DbUpdateException e)
             {
+                Logger.Error(uploadfilename, "FileUpload", e.InnerException.InnerException.Message, fileType, e.Source, e.StackTrace);
                 return Json(new { success = false, message = e.InnerException.InnerException.Message }, JsonRequestBehavior.AllowGet);
+            }
+            catch (System.Data.Entity.Validation.DbEntityValidationException e)
+            {
+                var errormessage = string.Join(",", e.EntityValidationErrors.Select(x => x.ValidationErrors.FirstOrDefault()?.PropertyName + ":" + x.ValidationErrors.FirstOrDefault()?.ErrorMessage));
+                Logger.Error(uploadfilename, "FileUpload", errormessage, fileType, e.Source, e.StackTrace);
+                return Json(new { success = false, message = errormessage }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
             {
-                return Json(new { success = false, message = e.Message   }, JsonRequestBehavior.AllowGet);
+                Logger.Error(uploadfilename, "FileUpload", e.Message, fileType, e.Source, e.StackTrace);
+                return Json(new { success = false, message = e.Message }, JsonRequestBehavior.AllowGet);
             }
         }
 

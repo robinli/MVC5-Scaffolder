@@ -1,73 +1,234 @@
 ﻿@model IEnumerable<WebApp.Models.Message>
 @{
     ViewBag.Title = "日志信息";
-    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+  
 }
-@Html.Partial("_QuickNavbar")
-<div class="wrapper wrapper-content animated fadeInRight">
- 
-
+<!-- MAIN CONTENT -->
+<div id="content">
     <div class="row">
-        <div class="col-lg-3">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title  " style="border-color: #fd0000;">
-                    <span class="label label-danger pull-right">new</span>
-                    <h5>新增异常</h5>
-                </div>
-                <div class="ibox-content">
-                    <h1 class="no-margins">@ViewBag.TotalNewError.ToString("N0")</h1>
-                    <small>新增异常</small>
-                </div>
-            </div>
+        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+            <h1 class="page-title txt-color-blueDark">
+                <i class="fa fa-list-alt fa-fw "></i>
+                系统管理
+                <span>
+                    >
+                    日志消息
+                </span>
+            </h1>
         </div>
-        <div class="col-lg-3">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <span class="label label-danger pull-right">All</span>
-                    <h5>系统异常</h5>
-                </div>
-                <div class="ibox-content">
-                    <h1 class="no-margins">@ViewBag.TotalSysError.ToString("N0")</h1>
-                    <small>系统异常</small>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <span class="label label-danger pull-right">All</span>
-                    <h5>操作异常</h5>
-                </div>
-                <div class="ibox-content">
-                    <h1 class="no-margins">@ViewBag.TotalOpError.ToString("N0")</h1>
-                    <small>操作异常</small>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <span class="label label-danger pull-right">All</span>
-                    <h5>接口异常</h5>
-                </div>
-                <div class="ibox-content">
-                    <h1 class="no-margins">@ViewBag.TotalInterfaceError.ToString("N0")</h1>
-                    <small>接口异常</small>
-                </div>
-            </div>
+        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+
         </div>
     </div>
-    <div class="ibox float-e-margins">
-        <div class="ibox-title" style="border-color:#1ab394">
-            
-            <h5>日志信息</h5>
+
+    <!-- widget grid -->
+    <section id="widget-grid" class="">
+
+        <!-- row -->
+        <div class="row">
+            <article class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+
+                <!-- Widget ID (each widget will need unique ID)-->
+                <div class="jarviswidget jarviswidget-color-red" id="wid-id-0" data-widget-editbutton="false"   data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+                    <!-- widget options:
+                        usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+                        data-widget-colorbutton="false"
+                        data-widget-editbutton="false"
+                        data-widget-togglebutton="false"
+                        data-widget-deletebutton="false"
+                        data-widget-fullscreenbutton="false"
+                        data-widget-custombutton="false"
+                        data-widget-collapsed="true"
+                        data-widget-sortable="false"
+
+                    -->
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-warning"></i> </span>
+                        <h2 class="font-md"><strong>新增异常</strong> <i>new</i></h2>
+
+                    </header>
+
+                    <!-- widget div-->
+                    <div>
+
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body">
+
+                            <h1 class=" "> @ViewBag.TotalNewError.ToString("N0") </h1>
+                            <small>新增异常</small>
+
+                        </div>
+                        <!-- end widget content -->
+
+                    </div>
+                    <!-- end widget div -->
+
+                </div>
+
+
+
+            </article>
+            <article class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+                <!-- Widget ID (each widget will need unique ID)-->
+                <div class="jarviswidget jarviswidget-color-red" id="wid-id-1" data-widget-editbutton="false"  data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+                    <!-- widget options:
+                        usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+                        data-widget-colorbutton="false"
+                        data-widget-editbutton="false"
+                        data-widget-togglebutton="false"
+                        data-widget-deletebutton="false"
+                        data-widget-fullscreenbutton="false"
+                        data-widget-custombutton="false"
+                        data-widget-collapsed="true"
+                        data-widget-sortable="false"
+
+                    -->
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-warning"></i> </span>
+                        <h2 class="font-md"><strong>系统异常</strong> <i>all</i></h2>
+
+                    </header>
+
+                    <!-- widget div-->
+                    <div>
+
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body">
+
+                            <h1 class=" "> @ViewBag.TotalSysError.ToString("N0")</h1>
+                            <small>系统异常</small>
+
+                        </div>
+                        <!-- end widget content -->
+
+                    </div>
+                    <!-- end widget div -->
+
+                </div>
+
+
+            </article>
+
+            <article class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+                <!-- Widget ID (each widget will need unique ID)-->
+                <div class="jarviswidget jarviswidget-color-red" id="wid-id-2" data-widget-editbutton="false"   data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+                    <!-- widget options:
+                        usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+                        data-widget-colorbutton="false"
+                        data-widget-editbutton="false"
+                        data-widget-togglebutton="false"
+                        data-widget-deletebutton="false"
+                        data-widget-fullscreenbutton="false"
+                        data-widget-custombutton="false"
+                        data-widget-collapsed="true"
+                        data-widget-sortable="false"
+
+                    -->
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-warning"></i> </span>
+                        <h2 class="font-md"><strong>操作异常</strong> <i>all</i></h2>
+
+                    </header>
+
+                    <!-- widget div-->
+                    <div>
+
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body">
+
+                            <h1 class=" "> @ViewBag.TotalOpError.ToString("N0")</h1>
+                            <small>操作异常</small>
+
+                        </div>
+                        <!-- end widget content -->
+
+                    </div>
+                    <!-- end widget div -->
+
+                </div>
+
+
+            </article>
+
+            <article class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+                <!-- Widget ID (each widget will need unique ID)-->
+                <div class="jarviswidget jarviswidget-color-red" id="wid-id-3" data-widget-editbutton="false"  data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+                    <!-- widget options:
+                        usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+                        data-widget-colorbutton="false"
+                        data-widget-editbutton="false"
+                        data-widget-togglebutton="false"
+                        data-widget-deletebutton="false"
+                        data-widget-fullscreenbutton="false"
+                        data-widget-custombutton="false"
+                        data-widget-collapsed="true"
+                        data-widget-sortable="false"
+
+                    -->
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-warning"></i> </span>
+                        <h2 class="font-md"><strong>接口异常</strong> <i>all</i></h2>
+
+                    </header>
+
+                    <!-- widget div-->
+                    <div>
+
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body">
+
+                            <h1 class=" "> @ViewBag.TotalInterfaceError.ToString("N0")</h1>
+                            <small>接口异常</small>
+
+                        </div>
+                        <!-- end widget content -->
+
+                    </div>
+                    <!-- end widget div -->
+
+                </div>
+
+
+            </article>
+
         </div>
-        <div class="ibox-content">
-            <div class="row">
-                <!--begin datagrid-content -->
-                <div class="datagrid-content">
-                    <table id="messages_datagrid" class="easyui-datagrid" style="width:auto;height:auto"
-                           data-options="
+
+        <div class="row">
+
+            <div class="col-sm-12">
+                <div class="well">
+                    <h1>系统日志</h1>
+                    <div class="table-responsive">
+                        <table id="messages_datagrid" class="easyui-datagrid" style="width:auto;height:auto"
+                               data-options="
 				 rownumbers:true,
 				 checkOnSelect:true,
 				 selectOnCheck:true,
@@ -82,211 +243,220 @@
 				 onSelect:onSelect,
 				 pagination: 'true'
 				   ">
-                        <thead>
-                            <tr>
-                                @*<th data-options="field:'ck',checkbox:true"></th>*@
-                                @*<th data-options="field:'Id',width:80 ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Id)</th>*@
-                                <th data-options="field:'Group' ,width:100,align:'right',editor:{type:'numberbox',options:{prompt:'分组' ,required:true   } } ,sortable:true,resizable:true,formatter:groupformatter ">@Html.DisplayNameFor(model => model.Group)</th>
-                                <th data-options="field:'ExtensionKey1' ,width:140,editor:{type:'textbox',options:{prompt:'关键字' ,required:false ,validType:'length[0,50]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.ExtensionKey1)</th>
-                                <th data-options="field:'Type' ,width:100,align:'right',editor:{type:'numberbox',options:{prompt:'类型' ,required:true   } } ,sortable:true,resizable:true ,formatter:typeformatter ">@Html.DisplayNameFor(model => model.Type)</th>
-                                <th data-options="field:'Code' ,width:140,editor:{type:'textbox',options:{prompt:'异常代码' ,required:false ,validType:'length[0,50]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Code)</th>
-                                <th data-options="field:'Content' ,width:360,editor:{type:'textbox',options:{prompt:'内容' ,required:false   }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Content)</th>
-                                <th data-options="field:'User' ,width:140,editor:{type:'textbox',options:{prompt:'操作人' ,required:false ,validType:'length[0,255]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.User)</th>
-                                <th data-options="field:'Tags' ,width:140,editor:{type:'textbox',options:{prompt:'标签' ,required:false ,validType:'length[0,255]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Tags)</th>
-                                <th data-options="field:'Method' ,width:120,editor:{type:'textbox',options:{prompt:'调用方法' ,required:false ,validType:'length[0,255]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Method)</th>
-                                <th data-options="field:'Created',width:160,align:'right',editor:{type:'datebox',options:{prompt:'记录时间' ,required:true    }  },sortable:true,resizable:true  ,formatter:datetimeformatter">@Html.DisplayNameFor(model => model.Created)</th>
-                                <th data-options="field:'ExtensionKey2' ,width:140,editor:{type:'textbox',options:{prompt:'关键字2' ,required:false ,validType:'length[0,50]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.ExtensionKey2)</th>
-                                <th data-options="field:'IsNew' ,width:100,align:'right',editor:{type:'numberbox',options:{prompt:'新消息' ,required:true   } } ,sortable:true,resizable:true,formatter:newformatter ">@Html.DisplayNameFor(model => model.IsNew)</th>
-                                <th data-options="field:'IsNotification' ,width:100,align:'right',editor:{type:'numberbox',options:{prompt:'是否已通知' ,required:true   } } ,sortable:true,resizable:true ,formatter:noticeformatter">@Html.DisplayNameFor(model => model.IsNotification)</th>
-                            </tr>
-                        </thead>
-                    </table>
-                    
+                            <thead>
+                                <tr>
+                                    @*<th data-options="field:'ck',checkbox:true"></th>*@
+                                    @*<th data-options="field:'Id',width:80 ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Id)</th>*@
+                                    <th data-options="field:'Group' ,width:100,align:'right',editor:{type:'numberbox',options:{prompt:'分组' ,required:true   } } ,sortable:true,resizable:true,formatter:groupformatter ">@Html.DisplayNameFor(model => model.Group)</th>
+                                    <th data-options="field:'ExtensionKey1' ,width:140,editor:{type:'textbox',options:{prompt:'关键字' ,required:false ,validType:'length[0,50]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.ExtensionKey1)</th>
+                                    <th data-options="field:'Type' ,width:100,align:'right',editor:{type:'numberbox',options:{prompt:'类型' ,required:true   } } ,sortable:true,resizable:true ,formatter:typeformatter ">@Html.DisplayNameFor(model => model.Type)</th>
+                                    <th data-options="field:'Code' ,width:140,editor:{type:'textbox',options:{prompt:'异常代码' ,required:false ,validType:'length[0,50]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Code)</th>
+                                    <th data-options="field:'Content' ,width:360,editor:{type:'textbox',options:{prompt:'内容' ,required:false   }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Content)</th>
+                                    <th data-options="field:'User' ,width:140,editor:{type:'textbox',options:{prompt:'操作人' ,required:false ,validType:'length[0,255]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.User)</th>
+                                    <th data-options="field:'Tags' ,width:140,editor:{type:'textbox',options:{prompt:'标签' ,required:false ,validType:'length[0,255]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Tags)</th>
+                                    <th data-options="field:'Method' ,width:120,editor:{type:'textbox',options:{prompt:'调用方法' ,required:false ,validType:'length[0,255]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Method)</th>
+                                    <th data-options="field:'Created',width:160,align:'right',editor:{type:'datebox',options:{prompt:'记录时间' ,required:true    }  },sortable:true,resizable:true  ,formatter:datetimeformatter">@Html.DisplayNameFor(model => model.Created)</th>
+                                    <th data-options="field:'ExtensionKey2' ,width:140,editor:{type:'textbox',options:{prompt:'关键字2' ,required:false ,validType:'length[0,50]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.ExtensionKey2)</th>
+                                    <th data-options="field:'IsNew' ,width:100,align:'right',editor:{type:'numberbox',options:{prompt:'新消息' ,required:true   } } ,sortable:true,resizable:true,formatter:newformatter ">@Html.DisplayNameFor(model => model.IsNew)</th>
+                                    <th data-options="field:'IsNotification' ,width:100,align:'right',editor:{type:'numberbox',options:{prompt:'是否已通知' ,required:true   } } ,sortable:true,resizable:true ,formatter:noticeformatter">@Html.DisplayNameFor(model => model.IsNotification)</th>
+                                </tr>
+                            </thead>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+                     
+    </section>
+
+
+
+
+
+
+    <div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog  modal-lg">
+            <div class="modal-content animated bounceInRight">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h5 class="modal-title">日志</h5>
+
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+
                 </div>
             </div>
         </div>
     </div>
-    </div>
-    <div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog  modal-lg">
-        <div class="modal-content animated bounceInRight">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h5 class="modal-title">日志</h5>
-        
-            </div>
-            <div class="modal-body">
-                 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-            
-            </div>
-        </div>
-    </div>
+
+
 </div>
+<!-- END MAIN CONTENT -->
+    <!-- end file upload partial view -->
+    @section Scripts {
+        <script type="text/javascript">
 
 
-<!-- end file upload partial view -->
-@section Scripts {
-    <script type="text/javascript">
-
-        
 
 
-        //打开Excel上传导入
-        function importexcel() {
-            $("#importwindow").window("open");
-        }
-        //执行Excel到处下载
-        function exportexcel() {
-            var filterRules = JSON.stringify($dg.datagrid("options").filterRules);
-            //console.log(filterRules);
-            $.messager.progress({ title: "正在执行导出！" });
-            var formData = new FormData();
-            formData.append("filterRules", filterRules);
-            formData.append("sort", "Id");
-            formData.append("order", "asc");
-            $.postDownload("/Messages/ExportExcel", formData, function (fileName) {
-                $.messager.progress("close");
-                console.log(fileName);
-            })
-        }
-        //datagrid 增删改查操作
-        var $dg = $("#messages_datagrid");
-        var editIndex = undefined;
-        function reload() {
-            $dg.datagrid("reload");
-        }
-        function onClickCell(index, row) {
-            //console.log(row);
-            
-            $.get('Messages/Details/' + row.Id, function (data, status, xhr) {
-                //console.log(data);
-                $('.modal-body').html(data);
-                $('#myModal').modal();
-            });
-           
+            //打开Excel上传导入
+            function importexcel() {
+                $("#importwindow").window("open");
+            }
+            //执行Excel到处下载
+            function exportexcel() {
+                var filterRules = JSON.stringify($dg.datagrid("options").filterRules);
+                //console.log(filterRules);
+                $.messager.progress({ title: "正在执行导出！" });
+                var formData = new FormData();
+                formData.append("filterRules", filterRules);
+                formData.append("sort", "Id");
+                formData.append("order", "asc");
+                $.postDownload("/Messages/ExportExcel", formData, function (fileName) {
+                    $.messager.progress("close");
+                    console.log(fileName);
+                })
+            }
+            //datagrid 增删改查操作
+            var $dg = $("#messages_datagrid");
+            var editIndex = undefined;
+            function reload() {
+                $dg.datagrid("reload");
+            }
+            function onClickCell(index, row) {
+                //console.log(row);
 
-        }
-        //datagrid 开启行赛选功能
-        $(function () {
-            $dg.datagrid("enableFilter", [
-                {
-                    field: 'Group',
-                    type: 'combobox',
-                    options: {
-                        panelHeight: 'auto',
-                        data: MessageGroup,
-                        onChange: function (value) {
-                            if (value == '') {
-                                $dg.datagrid('removeFilterRule', 'Group');
-                            } else {
-                                $dg.datagrid('addFilterRule', {
-                                    field: 'Group',
-                                    op: 'equal',
-                                    value: value
-                                });
+                $.get('Messages/Details/' + row.Id, function (data, status, xhr) {
+                    //console.log(data);
+                    $('.modal-body').html(data);
+                    $('#myModal').modal();
+                });
+
+
+            }
+            //datagrid 开启行赛选功能
+            $(function () {
+                $dg.datagrid("enableFilter", [
+                    {
+                        field: 'Group',
+                        type: 'combobox',
+                        options: {
+                            panelHeight: 'auto',
+                            data: MessageGroup,
+                            onChange: function (value) {
+                                if (value == '') {
+                                    $dg.datagrid('removeFilterRule', 'Group');
+                                } else {
+                                    $dg.datagrid('addFilterRule', {
+                                        field: 'Group',
+                                        op: 'equal',
+                                        value: value
+                                    });
+                                }
+                                $dg.datagrid('doFilter');
                             }
-                            $dg.datagrid('doFilter');
+                        }
+                    },
+                    {
+                        field: 'Type',
+                        type: 'combobox',
+                        options: {
+                            panelHeight: 'auto',
+                            data: MessageType,
+                            onChange: function (value) {
+                                if (value == '') {
+                                    $dg.datagrid('removeFilterRule', 'Type');
+                                } else {
+                                    $dg.datagrid('addFilterRule', {
+                                        field: 'Type',
+                                        op: 'equal',
+                                        value: value
+                                    });
+                                }
+                                $dg.datagrid('doFilter');
+                            }
+                        }
+                    },
+                    {
+                        field: 'IsNew',
+                        type: 'combobox',
+                        options: {
+                            panelHeight: 'auto',
+                            data: MessageNew,
+                            onChange: function (value) {
+                                if (value == '') {
+                                    $dg.datagrid('removeFilterRule', 'IsNew');
+                                } else {
+                                    $dg.datagrid('addFilterRule', {
+                                        field: 'IsNew',
+                                        op: 'equal',
+                                        value: value
+                                    });
+                                }
+                                $dg.datagrid('doFilter');
+                            },
+                            onLoadSuccess: function () {
+
+                            }
+                        }
+                    },
+                    {
+                        field: 'IsNotification',
+                        type: 'combobox',
+                        options: {
+                            panelHeight: 'auto',
+                            data: MessageNotice,
+                            onChange: function (value) {
+                                if (value == '') {
+                                    $dg.datagrid('removeFilterRule', 'IsNotification');
+                                } else {
+                                    $dg.datagrid('addFilterRule', {
+                                        field: 'IsNotification',
+                                        op: 'equal',
+                                        value: value
+                                    });
+                                }
+                                $dg.datagrid('doFilter');
+                            }
+                        }
+                    },
+                    {
+                        field: "Created",
+                        type: "datebox",
+                        options: {
+                            onChange: function (value) {
+                                if (value == "") {
+                                    $dg.datagrid("removeFilterRule", "Created");
+                                } else {
+                                    $dg.datagrid("addFilterRule", {
+                                        field: "Created",
+                                        op: "equal",
+                                        value: value
+                                    });
+                                }
+                                $dg.datagrid("doFilter");
+                            }
                         }
                     }
-                },
-                {
-                    field: 'Type',
-                    type: 'combobox',
-                    options: {
-                        panelHeight: 'auto',
-                        data: MessageType,
-                        onChange: function (value) {
-                            if (value == '') {
-                                $dg.datagrid('removeFilterRule', 'Type');
-                            } else {
-                                $dg.datagrid('addFilterRule', {
-                                    field: 'Type',
-                                    op: 'equal',
-                                    value: value
-                                });
-                            }
-                            $dg.datagrid('doFilter');
-                        }
-                    }
-                },
-                {
+                ]);
+
+                $dg.datagrid('removeFilterRule', 'IsNew');
+                $dg.datagrid('addFilterRule', {
                     field: 'IsNew',
-                    type: 'combobox',
-                    options: {
-                        panelHeight: 'auto',
-                        data: MessageNew,
-                        onChange: function (value) {
-                            if (value == '') {
-                                $dg.datagrid('removeFilterRule', 'IsNew');
-                            } else {
-                                $dg.datagrid('addFilterRule', {
-                                    field: 'IsNew',
-                                    op: 'equal',
-                                    value: value
-                                });
-                            }
-                            $dg.datagrid('doFilter');
-                        },
-                        onLoadSuccess: function () {
-                           
-                        }
-                    }
-                },
-                {
-                    field: 'IsNotification',
-                    type: 'combobox',
-                    options: {
-                        panelHeight: 'auto',
-                        data: MessageNotice,
-                        onChange: function (value) {
-                            if (value == '') {
-                                $dg.datagrid('removeFilterRule', 'IsNotification');
-                            } else {
-                                $dg.datagrid('addFilterRule', {
-                                    field: 'IsNotification',
-                                    op: 'equal',
-                                    value: value
-                                });
-                            }
-                            $dg.datagrid('doFilter');
-                        }
-                    }
-                },
-                {
-                    field: "Created",
-                    type: "datebox",
-                    options: {
-                        onChange: function (value) {
-                            if (value == "") {
-                                $dg.datagrid("removeFilterRule", "Created");
-                            } else {
-                                $dg.datagrid("addFilterRule", {
-                                    field: "Created",
-                                    op: "equal",
-                                    value: value
-                                });
-                            }
-                            $dg.datagrid("doFilter");
-                        }
-                    }
-                }
-            ]);
-
-            $dg.datagrid('removeFilterRule', 'IsNew');
-            $dg.datagrid('addFilterRule', {
-                field: 'IsNew',
-		        op: 'equal',
-		        value: '0'
-		    });
-        })
-        //-----------------------------------------------------
-        //datagrid onSelect
-        //-----------------------------------------------------
-        function onSelect(index, row) {
-            //console.log(index, row);
-        }
-    </script>
-}
+                    op: 'equal',
+                    value: '0'
+                });
+            })
+            //-----------------------------------------------------
+            //datagrid onSelect
+            //-----------------------------------------------------
+            function onSelect(index, row) {
+                //console.log(index, row);
+            }
+        </script>
+    }

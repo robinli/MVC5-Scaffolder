@@ -74,19 +74,19 @@ namespace WebApp.Controllers
 
             var datarows = messages.Select(n => new
             {
-                Id             = n.Id,
-                Group          = n.Group,
-                StackTrace     = n.StackTrace,
-                ExtensionKey1  = n.ExtensionKey1,
-                Type           = n.Type,
-                Code           = n.Code,
-                Content        = n.Content,
-                ExtensionKey2  = n.ExtensionKey2,
-                Tags           = n.Tags,
-                Method         = n.Method,
-                Created        = n.Created,
-                IsNew          = n.IsNew,
-                User =n.User,
+                Id = n.Id,
+                Group = n.Group,
+                StackTrace = n.StackTrace,
+                ExtensionKey1 = n.ExtensionKey1,
+                Type = n.Type,
+                Code = n.Code,
+                Content = n.Content,
+                ExtensionKey2 = n.ExtensionKey2,
+                Tags = n.Tags,
+                Method = n.Method,
+                Created = n.Created,
+                IsNew = n.IsNew,
+                User = n.User,
                 IsNotification = n.IsNotification
             }
             ).ToList();
@@ -287,21 +287,22 @@ namespace WebApp.Controllers
                 Method = SubUrlString(url),
                 Tags = "Javascript",
                 ExtensionKey1 = "script",
-                User=Auth.CurrentUserName
-       
-                
+                User = Auth.CurrentUserName
+
+
 
             };
             _messageService.Insert(message);
             await _unitOfWork.SaveChangesAsync();
             return Json(new { success = true }, JsonRequestBehavior.AllowGet);
         }
-        private string SubUrlString(string url) {
+        private string SubUrlString(string url)
+        {
             string[] spstr = url.Split(new char[] { '/' });
             var strPath = string.Empty;
-            for(var i=0;i<spstr.Length;i++)
+            for (var i = 0; i < spstr.Length; i++)
             {
-                if(i>=3)
+                if (i >= 3)
                     strPath += spstr[i] + "/";
             }
             return strPath;

@@ -6,15 +6,142 @@
     ViewBag.Title = "登录用户管理";
 }
 
+<!-- MAIN CONTENT -->
+<div id="content">
+    <!-- quick navigation bar -->
+    <div class="row">
+        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+            <h1 class="page-title txt-color-blueDark">
+                <i class="fa fa-table fa-fw "></i>
+                @{
+//TODO:fix quick navigation path
+                }
+                路径
+                <span>
+                    >
+                    产品目录维护
+                </span>
+            </h1>
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+
+        </div>
+    </div>
+    <!-- end quick navigation bar -->
+    <!-- widget grid -->
+    <section id="widget-grid" class="">
+        <!-- row -->
+        <div class="row">
+            <!-- NEW WIDGET START -->
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <!-- Widget ID (each widget will need unique ID)-->
+                <div class="jarviswidget" id="wid-id-4" data-widget-editbutton="false">
+                    <!-- widget options:
+                    usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+                    data-widget-colorbutton="false"
+                    data-widget-editbutton="false"
+                    data-widget-togglebutton="false"
+                    data-widget-deletebutton="false"
+                    data-widget-fullscreenbutton="false"
+                    data-widget-custombutton="false"
+                    data-widget-collapsed="true"
+                    data-widget-sortable="false"
+                    -->
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+                        <h2>产品目录维护</h2>
+                    </header>
+
+                    <!-- widget div-->
+                    <div>
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body no-padding">
+                            @{
+//TODO:fix datagrid view alert-warning messages
+                            }
+                            <div class="alert alert-warning no-margin fade in">
+                                <button class="close" data-dismiss="alert">
+                                    ×
+                                </button>
+                                <i class="fa-fw fa fa-info"></i>
+                                A combined table effect with all classes mentioned above added to
+                            </div>
+                            <!--begin datagrid-content --><!-- MAIN CONTENT -->
+                            <div id="content">
+                                <!-- quick navigation bar -->
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+                                        <h1 class="page-title txt-color-blueDark">
+                                            <i class="fa fa-table fa-fw "></i>
+                                            @{
+//TODO:fix quick navigation path
+                                            }
+                                            路径
+                                            <span>
+                                                >
+                                                系统用户维护
+                                            </span>
+                                        </h1>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+
+                                    </div>
+                                </div>
+                                <!-- end quick navigation bar -->
+                                <!-- widget grid -->
+                                <section id="widget-grid" class="">
+                                    <!-- row -->
+                                    <div class="row">
+                                        <!-- NEW WIDGET START -->
+                                        <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                            <!-- Widget ID (each widget will need unique ID)-->
+                                            <div class="jarviswidget" id="wid-id-4" data-widget-editbutton="false">
+                                                <!-- widget options:
+                                                usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+                                                data-widget-colorbutton="false"
+                                                data-widget-editbutton="false"
+                                                data-widget-togglebutton="false"
+                                                data-widget-deletebutton="false"
+                                                data-widget-fullscreenbutton="false"
+                                                data-widget-custombutton="false"
+                                                data-widget-collapsed="true"
+                                                data-widget-sortable="false"
+                                                -->
+                                                <header>
+                                                    <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+                                                    <h2>系统用户维护</h2>
+                                                </header>
+
+                                                <!-- widget div-->
+                                                <div>
+                                                    <!-- widget edit box -->
+                                                    <div class="jarviswidget-editbox">
+                                                        <!-- This area used as dropdown edit box -->
+                                                    </div>
+                                                    <!-- end widget edit box -->
+                                                    <!-- widget content -->
+                                                    <div class="widget-body no-padding">
+                                                        @{
+//TODO:fix datagrid view alert-warning messages
+                                                        }
+                                                        <div class="alert alert-warning no-margin fade in">
+                                                            <button class="close" data-dismiss="alert">
+                                                                ×
+                                                            </button>
+                                                            <i class="fa-fw fa fa-info"></i>
+                                                            A combined table effect with all classes mentioned above added to
+                                                        </div>
+                                                        <!--begin datagrid-content -->
+                                                        <div class="table-responsive">
 
 
-
-
-<div class="table-responsive">
-
-
-    <table id="users_datagrid" class="easyui-datagrid" style="width:auto;height:auto"
-           data-options="
+                                                            <table id="users_datagrid" class="easyui-datagrid" style="width:auto;height:auto"
+                                                                   data-options="
                  rownumbers:true,
 
                 remoteFilter: true,
@@ -26,14 +153,14 @@
                 pagination: 'true',
                 striped:true
                    ">
-        <thead>
-            <tr>
-                @*<th data-options="field:'ck',checkbox:true"></th>*@
-                @*<th data-options="field:'Id',width:80">@Html.DisplayNameFor(model => model.Id)</th>*@
+                                                                <thead>
+                                                                    <tr>
+                                                                        @*<th data-options="field:'ck',checkbox:true"></th>*@
+                                                                        @*<th data-options="field:'Id',width:80">@Html.DisplayNameFor(model => model.Id)</th>*@
 
-                <th data-options="field:'UserName',width:140 ,editor:{type:'textbox',options:{required:true} } ">用户名</th>
-                <th data-options="field:'FullName',width:140,editor:{type:'textbox',options:{required:true} } ">@Html.DisplayNameFor(model => model.FullName)</th>
-                <th data-options="field:'CompanyCode',width:140,
+                                                                        <th data-options="field:'UserName',width:140 ,editor:{type:'textbox',options:{required:true} } ">用户名</th>
+                                                                        <th data-options="field:'FullName',width:140,editor:{type:'textbox',options:{required:true} } ">@Html.DisplayNameFor(model => model.FullName)</th>
+                                                                        <th data-options="field:'CompanyCode',width:140,
                     editor:{
                     type:'combogrid',options:{prompt:'公司' ,required:false ,validType:'length[0,50]',
                          idField:'CompanyCode',
@@ -53,10 +180,10 @@
                               $(ed1.target).combobox('setValue',rowData.Type);
 
                          }
-                        } 
+                        }
                     } ">@Html.DisplayNameFor(model => model.CompanyCode)</th>
-                <th data-options="field:'CompanyName',width:140,editor:{type:'textbox',options:{required:true,readonly:true} } ">@Html.DisplayNameFor(model => model.CompanyName)</th>
-                <th data-options="field:'AccountType',width:140,
+                    <th data-options="field:'CompanyName',width:140,editor:{type:'textbox',options:{required:true,readonly:true} } ">@Html.DisplayNameFor(model => model.CompanyName)</th>
+                    <th data-options="field:'AccountType',width:140,
                         editor:{
                             type:'combobox',
                             options:{
@@ -65,28 +192,49 @@
                                 readonly:true
                             }
                     } ,formatter:accounttypeformatter  ">公司组</th>
-                <th data-options="field:'Email',width:140,editor:{type:'textbox',options:{required:true} } ">@Html.DisplayNameFor(model => model.Email)</th>
-                <th data-options="field:'PhoneNumber',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.PhoneNumber)</th>
-                <th data-options="field:'AccessFailedCount',width:160  ">@Html.DisplayNameFor(model => model.AccessFailedCount)</th>
-                <th data-options="field:'LockoutEnabled',width:160  ">@Html.DisplayNameFor(model => model.LockoutEnabled)</th>
-                <th data-options="field:'LockoutEndDateUtc',width:160  ">@Html.DisplayNameFor(model => model.LockoutEndDateUtc)</th>
+                    <th data-options="field:'Email',width:140,editor:{type:'textbox',options:{required:true} } ">@Html.DisplayNameFor(model => model.Email)</th>
+                    <th data-options="field:'PhoneNumber',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.PhoneNumber)</th>
+                    <th data-options="field:'AccessFailedCount',width:160  ">@Html.DisplayNameFor(model => model.AccessFailedCount)</th>
+                    <th data-options="field:'LockoutEnabled',width:160  ">@Html.DisplayNameFor(model => model.LockoutEnabled)</th>
+                    <th data-options="field:'LockoutEndDateUtc',width:160  ">@Html.DisplayNameFor(model => model.LockoutEndDateUtc)</th>
 
 
-            </tr>
-        </thead>
+                </tr>
+            </thead>
 
 
-    </table>
-    <div id="users_toolbar" style="height:auto">
-        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="append()">新增</a>
-<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
-<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">保存</a>
-<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">取消</a>
+        </table>
+        <div id="users_toolbar" style="height:auto">
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="append()">新增</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">保存</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">取消</a>
 
-<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="reload()">刷新</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="reload()">刷新</a>
+        </div>
     </div>
+    <!--end datagrid-content -->
+
+</div>
+<!-- end widget content -->
+</div>
+<!-- end widget div -->
+
+</div>
+<!-- end widget -->
+
+</article>
+<!-- WIDGET END -->
+
 </div>
 
+<!-- end row -->
+</section>
+<!-- end widget grid -->
+
+
+</div>
+<!-- END MAIN CONTENT -->
 
 @section Scripts {
     <script type="text/javascript">
