@@ -10,51 +10,65 @@
 }
 
 
-
-
+<!-- MAIN CONTENT -->
+<div id="content">
+    <!-- quick navigation bar -->
     <div class="row">
-        <div class="col-lg-12">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <h5>菜单授权</h5>
-                    <div class="ibox-tools">
-                         
+        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+            <h1 class="page-title txt-color-blueDark">
+                <i class="fa fa-table fa-fw "></i>
+                @{
+//TODO:fix quick navigation path
+                }
+                路径
+                <span>
+                    >
+                    菜单授权
+                </span>
+            </h1>
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+
+        </div>
+    </div>
+    <!-- end quick navigation bar -->
+    
+
+
+    <div class="ibox-content">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <span class="panel-title">角色</span> <button id="refreshbtn" class="btn btn-rounded btn-success pull-right"><i class="fa fa-refresh"></i> 刷新</button>
+                        <div class="clearfix"></div>
                     </div>
-                </div>
-                <div class="ibox-content">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <span class="panel-title">角色</span> <button id="refreshbtn" class="btn btn-rounded btn-success pull-right"><i class="fa fa-refresh"></i> 刷新</button>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="panel-body">
-                                    <ul class="list-group elements-list">
-                                        @foreach (var item in ViewBag.Roles)
+                    <div class="panel-body">
+                        <ul class="list-group elements-list">
+                            @foreach (var item in ViewBag.Roles)
                                         {
-                                            <li class="list-group-item">
-                                                <span class="badge">@item.Count</span>
-                                                <strong>@item.RoleName</strong>
-                                            </li>
+                                        <li class="list-group-item">
+                                            <span class="badge">@item.Count</span>
+                                            <strong>@item.RoleName</strong>
+                                        </li>
                                         }
 
-                                    </ul>
+                        </ul>
 
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-9">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
 
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <span class="panel-title">授权菜单</span> <button id="savebutton" class="btn btn-rounded btn-success pull-right"><i class="fa fa-save"></i> 保存</button>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="panel-body">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <span class="panel-title">授权菜单</span> <button id="savebutton" class="btn btn-rounded btn-success pull-right"><i class="fa fa-save"></i> 保存</button>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="panel-body">
 
-                                    <table id="menu-tree" title="菜单项" style="width:auto;height:auto"
-                                           data-options="
+                        <table id="menu-tree" title="菜单项" style="width:auto;height:auto"
+                               data-options="
                                             iconCls: 'icon-ok',
                                             rownumbers: true,
                                             animate: true,
@@ -69,36 +83,34 @@
                                             onSelect:onSelect,
                                             onUnselect:onUnselect
                                             ">
-                                        <thead>
-                                            <tr>
-                                                <th data-options="field:'ck',checkbox: true ">选择</th>
-                                                <th data-options="field:'Title',width:180">Title</th>
-                                                <th data-options="field:'Code',width:80">Code</th>
-                                                <th data-options="field:'Url',width:120">Url</th>
-                                                <th data-options="field:'Create',width:80" formatter="formatcreatecheckbox">新增</th>
-                                                <th data-options="field:'Edit',width:80" formatter="formateditcheckbox">编辑</th>
-                                                <th data-options="field:'Delete',width:80 " formatter="formatdeletecheckbox">删除</th>
-                                                <th data-options="field:'Import',width:80 " formatter="formatimportcheckbox">导入</th>
-                                                <th data-options="field:'Export',width:80 " formatter="formatexportcheckbox">导出</th>
-                                                <th data-options="field:'FunctionPoint1',width:80 " formatter="formatpoint1checkbox">功能点1</th>
-                                                <th data-options="field:'FunctionPoint2',width:80 " formatter="formatpoint2checkbox">功能点2</th>
-                                                <th data-options="field:'FunctionPoint3',width:80 " formatter="formatpoint3checkbox">功能点3</th>
- 
-                                            </tr>
-                                        </thead>
-                                    </table>
+                            <thead>
+                                <tr>
+                                    <th data-options="field:'ck',checkbox: true ">选择</th>
+                                    <th data-options="field:'Title',width:180">Title</th>
+                                    <th data-options="field:'Code',width:80">Code</th>
+                                    <th data-options="field:'Url',width:120">Url</th>
+                                    <th data-options="field:'Create',width:80" formatter="formatcreatecheckbox">新增</th>
+                                    <th data-options="field:'Edit',width:80" formatter="formateditcheckbox">编辑</th>
+                                    <th data-options="field:'Delete',width:80 " formatter="formatdeletecheckbox">删除</th>
+                                    <th data-options="field:'Import',width:80 " formatter="formatimportcheckbox">导入</th>
+                                    <th data-options="field:'Export',width:80 " formatter="formatexportcheckbox">导出</th>
+                                    <th data-options="field:'FunctionPoint1',width:80 " formatter="formatpoint1checkbox">功能点1</th>
+                                    <th data-options="field:'FunctionPoint2',width:80 " formatter="formatpoint2checkbox">功能点2</th>
+                                    <th data-options="field:'FunctionPoint3',width:80 " formatter="formatpoint3checkbox">功能点3</th>
 
-                                </div>
-
-                            </div>
-                        </div>
+                                </tr>
+                            </thead>
+                        </table>
 
                     </div>
+
                 </div>
             </div>
+
         </div>
     </div>
 
+</div>
 
     @section Scripts {
         <script type="text/javascript">
@@ -107,13 +119,13 @@
                 var disabled = row.Url == "#" ? 'disabled ' : '';
 
                 var checked = val == true && row.Url != "#" ? 'checked ' : '';
-                
+
                 return "<input type=\"checkbox\"  name=\"op\"   value=" + val + " " + checked + disabled + " onClick=ckClick(" + JSON.stringify(row) + ",'create',this)  >";
             }
             function formateditcheckbox(val, row) {
                 var disabled = row.Url == "#" ? 'disabled ' : '';
                 var checked = val == true && row.Url != "#" ? 'checked' : '';
-                
+
                 return "<input type=\"checkbox\"  name=\"op\"   value=" + val + " " + checked + disabled + " onClick=ckClick(" + JSON.stringify(row) + ",'edit',this)  >";
             }
             function formatimportcheckbox(val, row) {
@@ -125,7 +137,7 @@
             function formatdeletecheckbox(val, row) {
                 var disabled = row.Url == "#" ? 'disabled ' : '';
                 var checked = val == true && row.Url != '#' ? 'checked' : '';
-                
+
                 return "<input type=\"checkbox\"  name=\"op\"   value=" + val + " " + checked + disabled + " onClick=ckClick(" + JSON.stringify(row) + ",'delete',this)  >";
             }
 
@@ -157,13 +169,13 @@
                 return "<input type=\"checkbox\"  name=\"op\"   value=" + val + " " + checked + disabled + " onClick=ckClick(" + JSON.stringify(row) + ",'point3',this)  >";
             }
 
-            function ckClick(row,name,element) {
+            function ckClick(row, name, element) {
                 if (name == 'create') {
                     $('#menu-tree').treegrid('update', {
-                    id: row.Id,
-                    row: {
-                        Create: element.checked,
-                    }
+                        id: row.Id,
+                        row: {
+                            Create: element.checked,
+                        }
                     });
                 }
                 if (name == 'edit') {
@@ -224,7 +236,7 @@
                         }
                     });
                 }
-                
+
             }
             function onUnselect(row) {
                 var data = $('#menu-tree').treegrid('getChildren', row.Id);
@@ -263,8 +275,8 @@
 
                             $('#menu-tree').treegrid('checkRow', item.MenuId);
 
-                            $('#menu-tree').treegrid('update',{
-                                id:  item.MenuId,
+                            $('#menu-tree').treegrid('update', {
+                                id: item.MenuId,
                                 row: {
                                     Import: item.Import,
                                     Create: item.Create,
@@ -300,7 +312,7 @@
                                 'FunctionPoint1': data.FunctionPoint1,
                                 'FunctionPoint2': data.FunctionPoint2,
                                 'FunctionPoint3': data.FunctionPoint3,
-                             
+
 
                             };
                             list.push(item);
