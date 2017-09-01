@@ -90,7 +90,7 @@
 
 
 
-            <li class="@Html.IsSelected(controller: "AccountManage,MenuItems,Employees")">
+            <li class="@Html.IsSelected(controller: "AccountManage,MenuItems,DataTableImportMappings")">
                 <a href="#"><i class="fa fa-lg fa-fw fa-cogs"></i> <span class="menu-item-parent">系统管理</span></a>
                 <ul>
                     <li class="@Html.RouteIf("AccountManage", "active")">
@@ -98,6 +98,9 @@
                     </li>
                     <li class="@Html.RouteIf("menuitems", "active")">
                         <a href="@Url.Action("index", "menuitems")"><i class="fa fa-lg fa-fw fa-bars"></i> <span class="menu-item-parent">系统菜单</span></a>
+                    </li>
+                    <li class="@Html.RouteIf("DataTableImportMappings", "active")">
+                        <a href="@Url.Action("index", "DataTableImportMappings")"><i class="fa fa-lg fa-fw fa-file-excel-o"></i> <span class="menu-item-parent">Excel导入配置</span></a>
                     </li>
                 </ul>
             </li>

@@ -241,6 +241,7 @@
     <Compile Include="Controllers\DataTableImportMappingsController.cs" />
     <Compile Include="Controllers\DepartmentsController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
+    <Compile Include="Controllers\FeaturesController.cs" />
     <Compile Include="Controllers\FileUploadController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -4521,6 +4522,8 @@
     <Content Include="Views\Categories\Edit.cshtml" />
     <Content Include="Views\Categories\EditForm.cshtml" />
     <Content Include="Views\Categories\_ProductEditForm.cshtml" />
+    <Content Include="Views\Features\Calendar.cshtml" />
+    <Content Include="Views\Features\Googlemap.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Source\Repository.Pattern.Ef6\Repository.Pattern.Ef6.csproj">
