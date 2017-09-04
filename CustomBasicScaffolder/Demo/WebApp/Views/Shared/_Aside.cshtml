@@ -94,13 +94,25 @@
                 <a href="#"><i class="fa fa-lg fa-fw fa-cogs"></i> <span class="menu-item-parent">系统管理</span></a>
                 <ul>
                     <li class="@Html.RouteIf("AccountManage", "active")">
-                        <a href="@Url.Action("index", "AccountManage")"><i class="fa fa-lg fa-fw fa-users"></i> <span class="menu-item-parent">系统登录账号</span><span class="badge bg-color-greenLight pull-right inbox-badge">9</span></a>
+                        <a href="@Url.Action("index", "AccountManage")"><i class="fa fa-lg fa-fw fa-user"></i> <span class="menu-item-parent">系统登录账号</span><span class="badge bg-color-greenLight pull-right inbox-badge">9</span></a>
+                    </li>
+                    <li class="@Html.RouteIf("management", "active")">
+                        <a href="@Url.Action("index", "management")"><i class="fa fa-lg fa-fw fa-group"></i> <span class="menu-item-parent">角色分配管理</span> </a>
                     </li>
                     <li class="@Html.RouteIf("menuitems", "active")">
                         <a href="@Url.Action("index", "menuitems")"><i class="fa fa-lg fa-fw fa-bars"></i> <span class="menu-item-parent">系统菜单</span></a>
                     </li>
+                    <li class="@Html.RouteIf("rolemenus", "active")">
+                        <a href="@Url.Action("index", "rolemenus")"><i class="fa fa-lg fa-fw fa-magnet"></i> <span class="menu-item-parent">菜单授权管理</span></a>
+                    </li>
                     <li class="@Html.RouteIf("DataTableImportMappings", "active")">
                         <a href="@Url.Action("index", "DataTableImportMappings")"><i class="fa fa-lg fa-fw fa-file-excel-o"></i> <span class="menu-item-parent">Excel导入配置</span></a>
+                    </li>
+                    <li class="@Html.RouteIf("messages", "active")">
+                        <a href="@Url.Action("index", "messages")"><i class="fa fa-lg fa-fw fa-file-text-o"></i> <span class="menu-item-parent">系统日志</span></a>
+                    </li>
+                    <li class="@Html.RouteIf("notifications", "active")">
+                        <a href="@Url.Action("index", "Notifications")"><i class="fa fa-lg fa-fw fa-bullhorn"></i> <span class="menu-item-parent">消息通知</span></a>
                     </li>
                 </ul>
             </li>
