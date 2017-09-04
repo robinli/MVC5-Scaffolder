@@ -1,5 +1,5 @@
 ﻿@model WebApp.Models.Category
-@{  ViewBag.Title = "产品目录维护 | Edit";} 
+@{  ViewBag.Title = "产品类型管理 | Edit";} 
 <!-- MAIN CONTENT -->
 <div id="content">
      <!-- quick navigation bar -->
@@ -13,7 +13,7 @@
                 路径
                 <span>
                     >
-                    产品目录维护
+                    产品类型管理
                 </span>
             </h1>
         </div>
@@ -41,7 +41,7 @@
             -->
             <header>
                 <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
-                <h2> 产品目录维护 </h2>
+                <h2> 产品类型管理 </h2>
 
             </header>
 
@@ -98,131 +98,8 @@
    
     <script type="text/javascript">
 	
-    		var categoryid = 0;
-		var ObjectState = "Modified";   
-                                 
-             var $productsdatagrid = $("#products_datagrid");
-                        $(document).ready(function () {
-				categoryid = $("#Id", "form").val();
-                $("form").submit(function () {
-					if (!$("form").valid())
-						return false;
-                    //var token = $("[name=__RequestVerificationToken]").val();
-                    //var serializedForm = $(this).serialize();
-                    var actionurl = $(this).attr("action");
-                    						if (!products_endEditing())
-								return false;                                         
-                        var products = $productsdatagrid.datagrid("getChanges");
-                                         
-                     var newitem = {
-						
-
-                        								//primaryKey   
-								Id: categoryid,
-                                                        Name: $("#Name", "form").val(),
-                        								//detailTables
-                                Products: products ,
-                                                ObjectState:ObjectState 
-                    };
-                    $.ajax({
-                        url: actionurl,
-                        type: "POST",
-                        dataType: "json",
-                        contentType: "application/json; charset=utf-8",
-                        data: JSON.stringify(newitem),
-                        success: function (result) {
-                            if (result.success) {
-                                self.location = "/Categories/Index";
-                            } else {
-                                alert(result.err);
-                            }
-                            
-                        },
-                        error: function (result) {
-                            console.log(result.statusText + result.responseText);
-                            alert(result.statusText + result.responseText);
-                        }
-                    });
-                    return false;
-                    
-
-                });
-            });
-      
       </script>
 
-  <script type="text/javascript">
-	
-	    
-	//==============$("#products_datagrid")=================// 
-    var $productsdatagrid = $("#products_datagrid")
-	var productseditIndex = undefined;
-    function products_endEditing() {
-        if ( productseditIndex == undefined) { return true }
-        if ($productsdatagrid.datagrid("validateRow", productseditIndex)) {
-						$productsdatagrid.datagrid("endEdit", productseditIndex);
-            productseditIndex = undefined;
-
-
-            return true;
-        } else {
-            return false;
-        }
-    }
-    function products_onClickCell(index, field) {
-        if (productseditIndex != index) {
-            if (products_endEditing()) {
-                $productsdatagrid.datagrid("selectRow", index)
-                        .datagrid("beginEdit", index);
-                var ed = $productsdatagrid.datagrid("getEditor", { index: index, field: field });
-                if (ed) {
-                    ($(ed.target).data("textbox") ? $(ed.target).textbox("textbox") : $(ed.target)).focus();
-                }
-                productseditIndex  = index;
-            } else {
-                $productsdatagrid.datagrid("selectRow", productseditIndex);
-            }
-        }
-    }
-    function products_append() {
-        if (products_endEditing()) {
-            $productsdatagrid.datagrid("appendRow", { Status:0   });
-            productseditIndex = $productsdatagrid.datagrid("getRows").length - 1;
-            $productsdatagrid.datagrid("selectRow", productseditIndex )
-                    .datagrid("beginEdit", productseditIndex);
-        }
-    }
-    function products_removeit() {
-        if (productseditIndex  == undefined) { return }
-        $productsdatagrid.datagrid("cancelEdit", productseditIndex )
-                .datagrid("deleteRow", productseditIndex );
-        productseditIndex = undefined;
-    }
-   
-    function products_reject() {
-        $productsdatagrid.datagrid("rejectChanges");
-        productseditIndex  = undefined;
-    }
-    function products_getChanges() {
-        var rows = $productsdatagrid.datagrid("getChanges");
-        alert(rows.length + " rows are changed!");
-    }
-
-
-	  
-	$(function () {
-	
-		$.get("/Categories/GetProductsByCategoryId/" + @Model.Id,function(data){
-            //console.log(data);
-            $productsdatagrid.datagrid("loadData",data);
-        
-        })
-
-
-	
-	});
-</script>
-
-
+  
 }
  

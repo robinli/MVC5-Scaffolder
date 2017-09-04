@@ -63,22 +63,26 @@ namespace WebApp.Controllers
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
         [ChildActionOnly]
-        public  ActionResult DisplayNotification() {
+        public ActionResult DisplayNotification()
+        {
             var item = new Notification();
             var query = _notificationService.Queryable().Where(x => x.Read == 0)
-                    .GroupBy(x=>x.Title)
+                    .GroupBy(x => x.Title)
                     .Select(x => new NotificationViewModel()
                     {
                         Group = x.Min(n => n.Group),
-                         Link = x.Min(n=>n.Link),
-                        Time = x.Min(n=>n.Created),
-                        Title =x.Count().ToString() + " " + x.Key 
+                        Link = x.Min(n => n.Link),
+                        Time = x.Min(n => n.Created),
+                        Title = x.Count().ToString() + " " + x.Key
 
                     });
             ViewBag.Count = _notificationService.Queryable().Where(x => x.Read == 0).Count();
 
             return PartialView("_NotificationView", query.ToList());
         }
+
+
+
 
         [HttpPost]
         public async Task<ActionResult> SaveData(NotificationChangeViewModel notifications)
@@ -273,13 +277,13 @@ namespace WebApp.Controllers
             TempData["ErrorMessage"] = msgText;
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _unitOfWork.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+        //        _unitOfWork.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
     }
 }

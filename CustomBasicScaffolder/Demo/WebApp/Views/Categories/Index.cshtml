@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<WebApp.Models.Category>
 @{
-	ViewBag.Title = "产品目录维护";
+	ViewBag.Title = "产品类型管理";
 }
 <!-- MAIN CONTENT -->
 <div id="content">
@@ -15,7 +15,7 @@
                 路径
                 <span>
                     >
-                  产品目录维护
+                  产品类型管理
                 </span>
             </h1>
         </div>
@@ -47,7 +47,7 @@
                     -->
                     <header>
                         <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-                        <h2>产品目录维护</h2>
+                        <h2>产品类型管理</h2>
                     </header>
 
                      <!-- widget div-->
@@ -101,6 +101,9 @@
 				</thead>
 				</table>
 				<div id="categories_toolbar" style="height:auto">
+                            @{
+                            //TODO: enable authorization 
+                            }
 							@*@if (Html.IsAuthorize("Create"))
 							{
 								<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="append()">新增</a>
@@ -128,7 +131,6 @@
 							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
 							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">保存</a>
 							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">取消</a>
-					
 							<a href="javascript:void(0)" class="easyui-menubutton" data-options="menu:'#importmenu',iconCls:'icon-paperclip' " onclick="importexcel()">导入数据</a>
                                        <div id="importmenu" style="width:150px;">
                                                 <div data-options="iconCls:'icon-cloud-upload'" onclick="importexcel()">导入数据</div>
@@ -138,115 +140,8 @@
 							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="reload()">刷新</a>
 				</div>
 		
-		            <div id="detailswindow" hidden="hidden" class="easyui-window animated bounceInRight" title="明细数据" data-options="modal:true,closed:true,iconcls:'icon-menu'" style="width:960px;height:520px">
-			<!--detail entity tabs -->
-			<div id="detailtabs" class="easyui-tabs" style="width:auto;height:400px;">
-							<!--Products tab   -->
-				<div title="Products" id="products" style="padding:10px;">
-			 
-						<table id="products_datagrid" class="easyui-datagrid"  style="width:940px;height:auto"
-						   data-options="
-								rownumbers:true,
-								remoteFilter: true,
-								singleSelect: true,
-								toolbar: '#products_toolbar',
-								url: '/Products/GetData',
-								method: 'get',
-								onClickCell: products_onClickCell,
-								pagination: true,
-                                striped:true
-							">
-							<thead>
-								<tr>
-									@*<th data-options="field:'ck',checkbox:true"></th>*@
-									 																								@*<th data-options="field:'Id',width:80"> Id </th>*@
-											
-
-
-
-									 											
-																								<th data-options="field:'Name',width:140,editor:{type:'textbox',options:{required:true  ,validType:'length[0,30]'} } "> 名称</th>
-											
-
-
-
-									 											
-																								<th data-options="field:'Unit',width:140,editor:{type:'textbox',options:{required:false  ,validType:'length[0,10]'} } "> 单位</th>
-											
-
-
-
-									 											
-																								<th data-options="field:'UnitPrice',width:100,align:'right',editor:{type:'numberbox',options:{required:true  ,precision:2 }} ,sortable:true,resizable:true ">单价</th>
-											
-
-
-
-									 											
-																								<th data-options="field:'StockQty',width:100,align:'right',editor:{type:'numberbox',options:{required:true  ,precision:0 }} ,sortable:true,resizable:true ">库存</th>
-											
-
-
-
-									 											
-																								<th data-options="field:'ConfirmDateTime',width:160,align:'right',editor:{type:'datebox',options:{required:true   }} ,formatter:dateformatter"> 确认日期</th>
-											
-
-
-
-									 											
-																								<th data-options="field:'IsRequiredQc',width:120,
-																editor: {type:'combobox',
-																options:{
-																	panelHeight: 'auto',
-																	data: [ { value: 'true', text: 'true' },
-																			{ value: 'false', text: 'false' }],
-																required:false}}">是否需要QC</th>
-											
-
-
-
-									 																								<th data-options="field:'CategoryId',width:100,
-														formatter:function(value,row){
-																return row.CategoryName;
-														},
-														editor:{
-																type:'combobox',
-														options:{
-																valueField:'Id',
-																textField:'Name',
-																method:'get',
-																url:'/Categories/GetCategories',
-																required:true
-														}
-													}"> 产品类别 </th>
-
-											
-
-
-
-									 								</tr>
-							</thead>
-						</table>
-						<!-- products_toolbar -->
-						<div id="products_toolbar" style="height:auto">
-							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="products_append()">新增</a>
-							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="products_removeit()">删除</a>
-							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="products_accept()">保存</a>
-							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="products_reject()">取消</a>
-							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-paperclip',plain:true" onclick="importexcel()">EXCEL 导入</a>
-							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="products_reload()">刷新</a>
-						</div>
-
-
-					 
 				</div>
-				<!--end Products tab   -->
-						</div>
-			<!--end detail entity tabs -->
-            </div>
-				</div>
-	 <!--end datagrid-content -->
+		<!--end datagrid-content -->
                         
                          </div>
                         <!-- end widget content -->
@@ -422,145 +317,10 @@
         //弹出明细信息
 		function showDetailsWindow(id) {
 			//console.log(index, row);
-			             $('#orderdetailswindow').window('open');
-			filterByCategoryId(id);
-					}
+			 		}
  
 		
 		
-		 
-			function filterByCategoryId(categoryid) {
-			var value = categoryid;
-
-			   			   $productsdg.datagrid("removeFilterRule", "CategoryId");
-			   $productsdg.datagrid("addFilterRule", {
-					field: "CategoryId",
-					op: "equal",
-					value: value
-				});
-			   $productsdg.datagrid("doFilter");
-			   
-		}
-		 //-----------------------------------------------------------------------
-		 // details datagrid functions
-		 //-----------------------------------------------------------------------
-								//--------------------------------------------------------------------
-				// #products_datagrid functions
-				//--------------------------------------------------------------------
-				var $productsdg = $("#products_datagrid");
-
-				var products_editIndex = undefined;
-		function products_reload() {
-				$productsdg.datagrid("reload");
-			}
-	function products_endEditing() {
-		if ( products_editIndex == undefined) { return true }
-		if ($productsdg.datagrid("validateRow", products_editIndex)) {
-						var ed = $productsdg.datagrid("getEditor", { index: products_editIndex, field: "CategoryId" });
-			var CategoryName = $(ed.target).combobox("getText");
-			var CategoryId = $(ed.target).combobox("getValue");
-		  
-			$productsdg.datagrid("getRows")[products_editIndex]["CategoryName"] = CategoryName;
-			$productsdg.datagrid("getRows")[products_editIndex]["CategoryId"] = CategoryId;
-			
-			
-						$productsdg.datagrid("endEdit", products_editIndex);
-			products_editIndex = undefined;
-
-
-			return true;
-		} else {
-			return false;
-		}
-	}
-	function products_onClickCell(index, field) {
-		if (products_editIndex != index) {
-			if (products_endEditing()) {
-				$productsdg.datagrid("selectRow", index)
-						.datagrid("beginEdit", index);
-				var ed = $productsdg.datagrid("getEditor", { index: index, field: field });
-				if (ed) {
-					($(ed.target).data("textbox") ? $(ed.target).textbox("textbox") : $(ed.target)).focus();
-				}
-				products_editIndex  = index;
-			} else {
-				$productsdg.datagrid("selectRow", products_editIndex);
-			}
-		}
-	}
-	function products_append() {
-		if (products_endEditing()) {
-			 var category = $dg.datagrid("getSelected");
-
-			$productsdg.datagrid("appendRow", { CategoryId:category.Id   });
-			productseditIndex = $productsdg.datagrid("getRows").length - 1;
-			$productsdg.datagrid("selectRow", products_editIndex )
-					.datagrid("beginEdit", products_editIndex);
-		}
-	}
-	function products_removeit() {
-		if (products_editIndex  == undefined) { return }
-		$productsdg.datagrid("cancelEdit", products_editIndex )
-				.datagrid("deleteRow", products_editIndex );
-		productseditIndex = undefined;
-	}
-   
-	function products_reject() {
-		$productsdg.datagrid("rejectChanges");
-		products_editIndex  = undefined;
-	}
-	function products_getChanges() {
-		var rows = $productsdg.datagrid("getChanges");
-		alert(rows.length + " rows are changed!");
-	}
-	function products_accept() {
-			if (products_endEditing()) {
-				if ($productsdg.datagrid("getChanges").length) {
-					var inserted = $productsdg.datagrid("getChanges", "inserted");
-					var deleted = $productsdg.datagrid("getChanges", "deleted");
-					var updated = $productsdg.datagrid("getChanges", "updated");
-					var effectRow = new Object();
-					if (inserted.length) {
-						effectRow.inserted = inserted;
-					}
-					if (deleted.length) {
-						effectRow.deleted = deleted;
-					}
-					if (updated.length) {
-						effectRow.updated = updated;
-					}
-					//console.log(JSON.stringify(effectRow));
-					$.post("/Products/SaveData", effectRow, function (response) {
-						//console.log(response);
-						if (response.Success) {
-							$.messager.alert("提示", "提交成功！");
-							$productsdg.datagrid("acceptChanges");
-							$productsdg.datagrid("reload");
-						}
-					}, "json").fail(function (response) {
-						//console.log(response);
-						$.messager.alert("错误", "提交错误了！","error");
-					  
-					});
-			  
-				}
-
-				//$productsdg.datagrid("acceptChanges");
-			}
-		}
-
-		$(function () {
-
-			$productsdg.datagrid("enableFilter", [
-									]);
-
-			filterByCategoryId(-1);
-		})
-
-
-
-
-				
 		 
 	 </script>
 }

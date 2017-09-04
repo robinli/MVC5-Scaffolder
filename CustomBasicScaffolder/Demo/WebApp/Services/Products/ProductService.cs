@@ -1,11 +1,6 @@
-﻿
-             
+﻿             
            
  
-
-
-
-
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -13,13 +8,10 @@ using System.Linq;
 using System.Linq.Expressions;
 using Repository.Pattern.Repositories;
 using Service.Pattern;
-
 using WebApp.Models;
 using WebApp.Repositories;
-
 using System.Data;
 using System.Reflection;
-
 using Newtonsoft.Json;
 using WebApp.Extensions;
 using System.IO;
@@ -47,12 +39,11 @@ namespace WebApp.Services
 
 		public void ImportDataTable(System.Data.DataTable datatable)
         {
-            var mapping = _mappingservice.Queryable().Where(x => x.EntitySetName == "Product").ToList();
             foreach (DataRow row in datatable.Rows)
             {
                  
                 Product item = new Product();
-				
+				var mapping = _mappingservice.Queryable().Where(x => x.EntitySetName == "Product").ToList();
 
                 foreach (var field in mapping)
                 {
@@ -86,15 +77,15 @@ namespace WebApp.Services
             }
         }
 		
-		public Stream ExportExcel( string filterRules = "",string sort = "Id", string order = "asc")
+		public Stream ExportExcel(string filterRules = "",string sort = "Id", string order = "asc")
         {
             var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
                        			 
             var products  = this.Query(new ProductQuery().Withfilter(filters)).Include(p => p.Category).OrderBy(n=>n.OrderBy(sort,order)).Select().ToList();
             
-            var datarows = products .Select(  n => new { CategoryName = (n.Category==null?"": n.Category.Name) , Id = n.Id , Name = n.Name , Unit = n.Unit , UnitPrice = n.UnitPrice , StockQty = n.StockQty , ConfirmDateTime = n.ConfirmDateTime , CategoryId = n.CategoryId }).ToList();
+                        var datarows = products .Select(  n => new { CategoryName = (n.Category==null?"": n.Category.Name) , Id = n.Id , Name = n.Name , Unit = n.Unit , UnitPrice = n.UnitPrice , StockQty = n.StockQty , ConfirmDateTime = n.ConfirmDateTime , IsRequiredQc = n.IsRequiredQc , CategoryId = n.CategoryId }).ToList();
            
-            return ExcelHelper.ExportExcel(typeof(Product),datarows);
+            return ExcelHelper.ExportExcel(typeof(Product), datarows);
 
         }
     }

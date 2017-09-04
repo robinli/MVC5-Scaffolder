@@ -1,5 +1,4 @@
-﻿
-                    
+﻿                    
       
      
 using System;
@@ -97,6 +96,16 @@ namespace WebApp.Repositories
 						}
 				   
 				    				
+					
+				    
+					
+					
+				    						if (rule.field == "IsRequiredQc" && !string.IsNullOrEmpty(rule.value) && rule.value.IsBool())
+						{	
+							 var boolval=Convert.ToBoolean(rule.value);
+							 And(x => x.IsRequiredQc == boolval);
+						}
+				   				
 					
 				    						if (rule.field == "CategoryId" && !string.IsNullOrEmpty(rule.value) && rule.value.IsInt())
 						{

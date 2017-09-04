@@ -4409,9 +4409,6 @@
     <Content Include="Views\MenuItems\_PopupSearch.cshtml" />
     <Content Include="Views\MenuItems\_MenuItemEditForm.cshtml" />
     <Content Include="Views\Shared\_ImportWindow.cshtml" />
-    <Content Include="Views\Products\Create.cshtml" />
-    <Content Include="Views\Products\Edit.cshtml" />
-    <Content Include="Views\Products\EditForm.cshtml" />
     <Content Include="Scripts\api\typehead_collection.json" />
     <Content Include="Scripts\easyui\demo\accordion\datagrid_data1.json" />
     <Content Include="Scripts\easyui\demo\combobox\combobox_data1.json" />
@@ -4446,7 +4443,6 @@
     <Content Include="Scripts\plugins\jquery-filer\examples\default\php\form_upload.php" />
     <Content Include="Scripts\plugins\jquery-filer\examples\dragdrop\php\ajax_remove_file.php" />
     <Content Include="Scripts\plugins\jquery-filer\examples\dragdrop\php\ajax_upload_file.php" />
-    <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-datagridview\datagrid_data.json" />
     <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-edatagrid\datagrid_data.json" />
     <Content Include="Scripts\easyui\themes\insdep\expand\jquery-easyui-etree\tree_data.json" />
@@ -4517,13 +4513,17 @@
     <Content Include="Views\Employees\Create.cshtml" />
     <Content Include="Views\Employees\Edit.cshtml" />
     <Content Include="Views\Employees\EditForm.cshtml" />
+    <Content Include="Views\Features\Calendar.cshtml" />
+    <Content Include="Views\Features\Googlemap.cshtml" />
     <Content Include="Views\Categories\Index.cshtml" />
     <Content Include="Views\Categories\Create.cshtml" />
     <Content Include="Views\Categories\Edit.cshtml" />
     <Content Include="Views\Categories\EditForm.cshtml" />
     <Content Include="Views\Categories\_ProductEditForm.cshtml" />
-    <Content Include="Views\Features\Calendar.cshtml" />
-    <Content Include="Views\Features\Googlemap.cshtml" />
+    <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Views\Products\Create.cshtml" />
+    <Content Include="Views\Products\Edit.cshtml" />
+    <Content Include="Views\Products\EditForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Source\Repository.Pattern.Ef6\Repository.Pattern.Ef6.csproj">

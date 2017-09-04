@@ -22,17 +22,28 @@
                 <a href="#" title="组织架构"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">组织架构</span></a>
                 <ul>
                     <li class="@Html.IsSelected(action: "Index", controller: "Companies")">
-                        <a href="@Url.Action("index", "Companies")" title="组织架构"><span class="menu-item-parent">公司信息</span></a>
+                        <a href="@Url.Action("index", "Companies")" title="公司信息"><span class="menu-item-parent">公司信息</span></a>
                     </li>
                     <li class="@Html.IsSelected(action: "Index", controller: "Departments")">
-                        <a href="@Url.Action("index", "Departments")" title="组织架构"><span class="menu-item-parent">部门信息</span></a>
+                        <a href="@Url.Action("index", "Departments")" title="部门信息"><span class="menu-item-parent">部门信息</span></a>
                     </li>
                     <li class="@Html.IsSelected(action: "Index", controller: "Employees")">
-                        <a href="@Url.Action("index", "Employees")" title="组织架构"><span class="menu-item-parent">员工信息</span></a>
+                        <a href="@Url.Action("index", "Employees")" title="员工信息"><span class="menu-item-parent">员工信息</span></a>
                     </li>
                 </ul>
             </li>
-           
+            <li class="@Html.IsSelected(controller: "Products,Categories")">
+                <a href="#" title="业务主数据管理"><i class="fa fa-lg fa-fw fa-folder-o"></i> <span class="menu-item-parent">业务主数据管理</span></a>
+                <ul>
+                    <li class="@Html.IsSelected(action: "Index", controller: "Products")">
+                        <a href="@Url.Action("index", "Products")" title="物料主档管理"><span class="menu-item-parent">物料主档管理</span></a>
+                    </li>
+                    <li class="@Html.IsSelected(action: "Index", controller: "Categories")">
+                        <a href="@Url.Action("index", "Categories")" title="物料类型管理"><span class="menu-item-parent">物料类型管理</span></a>
+                    </li>
+                    
+                </ul>
+            </li>
          
             <li class="@Html.RouteIf("features", "active")">
                 <a href="#"><i class="fa fa-lg fa-fw fa-cloud"><em>3</em></i> <span class="menu-item-parent">Cool Features!</span></a>
@@ -113,6 +124,9 @@
                     </li>
                     <li class="@Html.RouteIf("notifications", "active")">
                         <a href="@Url.Action("index", "Notifications")"><i class="fa fa-lg fa-fw fa-bullhorn"></i> <span class="menu-item-parent">消息通知</span></a>
+                    </li>
+                    <li class="@Html.RouteIf("hangfire", "active")">
+                        <a href="@Url.Action("index", "hangfire")"><i class="fa fa-lg fa-fw fa-tasks"></i> <span class="menu-item-parent">执行任务</span></a>
                     </li>
                 </ul>
             </li>
