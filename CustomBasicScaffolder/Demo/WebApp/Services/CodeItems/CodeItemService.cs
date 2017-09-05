@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+ 
 using Repository.Pattern.Repositories;
 using Service.Pattern;
 using WebApp.Models;
@@ -38,7 +39,27 @@ namespace WebApp.Services
 
         public void ImportDataTable(System.Data.DataTable datatable)
         {
-            foreach (DataRow row in datatable.Rows)
+            var list = new List<BaseCode>();
+            foreach (string codeType in datatable.AsEnumerable().Select(x=>x["类型"]).Distinct())
+            {
+                var baseCode = _baseCodeRepository.Queryable().Where(x => x.CodeType == codeType).FirstOrDefault();
+                if (baseCode == null)
+                {
+                    baseCode = new BaseCode();
+                    baseCode.CodeType = codeType;
+                    baseCode.Description = codeType;
+                    baseCode.ObjectState = Repository.Pattern.Infrastructure.ObjectState.Added;
+                    
+                    _baseCodeRepository.Insert(baseCode);
+                }
+                if (!list.Where(x => x.CodeType == codeType).Any())
+                {
+                    list.Add(baseCode);
+                }
+            }
+
+
+                foreach (DataRow row in datatable.Rows)
             {
 
                 CodeItem item = new CodeItem();
@@ -49,43 +70,39 @@ namespace WebApp.Services
                     var defval = field.DefaultValue;
                     var contation = datatable.Columns.Contains((field.SourceFieldName == null ? "" : field.SourceFieldName));
 
-                    if (contation && row[field.SourceFieldName] != DBNull.Value)
+                    if (field.SourceFieldName == "类型")
                     {
-                        Type codeitemtype = item.GetType();
-                        PropertyInfo propertyInfo = codeitemtype.GetProperty(field.FieldName);
-                        propertyInfo.SetValue(item, Convert.ChangeType(row[field.SourceFieldName], propertyInfo.PropertyType), null);
-                    }
-                    else if (!string.IsNullOrEmpty(defval))
-                    {
-                        Type codeitemtype = item.GetType();
-                        PropertyInfo propertyInfo = codeitemtype.GetProperty(field.FieldName);
-                        if (defval.ToLower() == "now" && propertyInfo.PropertyType == typeof(DateTime))
-                        {
-                            propertyInfo.SetValue(item, Convert.ChangeType(DateTime.Now, propertyInfo.PropertyType), null);
-                        }
-                        else
-                        {
-                            propertyInfo.SetValue(item, Convert.ChangeType(defval, propertyInfo.PropertyType), null);
-                        }
-                    }
-
-
-
-                    if (field.SourceFieldName == "类型") {
                         var codeType = row[field.SourceFieldName].ToString();
-                        var baseCode = _baseCodeRepository.Queryable().Where(x => x.CodeType == codeType).FirstOrDefault();
-                        if (baseCode == null) {
-                            baseCode = new BaseCode();
-                            baseCode.CodeType = codeType;
-                            baseCode.Description = codeType;
-                            _baseCodeRepository.Insert(baseCode);
-                        }
-                        else
-                        {
-                            item.BaseCodeId = baseCode.Id;
+                        var baseCode = list.Where(x => x.CodeType == codeType).FirstOrDefault();
+                        item.BaseCodeId = baseCode.Id;
 
-                        }
+                        
                     }
+                    else
+                    {
+                        if (contation && row[field.SourceFieldName] != DBNull.Value)
+                        {
+                            Type codeitemtype = item.GetType();
+                            PropertyInfo propertyInfo = codeitemtype.GetProperty(field.FieldName);
+                            propertyInfo.SetValue(item, Convert.ChangeType(row[field.SourceFieldName], propertyInfo.PropertyType), null);
+                        }
+                        else if (!string.IsNullOrEmpty(defval))
+                        {
+                            Type codeitemtype = item.GetType();
+                            PropertyInfo propertyInfo = codeitemtype.GetProperty(field.FieldName);
+                            if (defval.ToLower() == "now" && propertyInfo.PropertyType == typeof(DateTime))
+                            {
+                                propertyInfo.SetValue(item, Convert.ChangeType(DateTime.Now, propertyInfo.PropertyType), null);
+                            }
+                            else
+                            {
+                                propertyInfo.SetValue(item, Convert.ChangeType(defval, propertyInfo.PropertyType), null);
+                            }
+                        }
+
+                    }
+
+                    
                 }
 
 

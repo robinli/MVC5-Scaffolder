@@ -77,9 +77,10 @@ namespace WebApp.Controllers
                 {
                     this._unitOfWork.SetAutoDetectChangesEnabled(false);
                     _codeService.ImportDataTable(datatable);
-                    _unitOfWork.BulkSaveChanges();
+                    //_unitOfWork.BulkSaveChanges();
+                    
+                    _unitOfWork.SaveChanges();
                     this._unitOfWork.SetAutoDetectChangesEnabled(true);
-                    //_unitOfWork.SaveChanges();
                 }
 
                 //if (fileType == "Product")
