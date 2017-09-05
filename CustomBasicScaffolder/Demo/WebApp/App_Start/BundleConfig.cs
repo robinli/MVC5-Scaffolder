@@ -115,13 +115,15 @@ namespace WebApp
 
             //jquery.filer Script
             bundles.Add(new StyleBundle("~/plugins/jqueryfilerStyles").Include(
-                      "~/Scripts/plugins/jquery-filer/css/jquery.filer.css",
-                      "~/Scripts/plugins/jquery-filer/css/themes/jquery.filer-dragdropbox-theme.css"));
+                      "~/Scripts/plugin/jquery-filer/css/jquery.filer.css",
+                      "~/Scripts/plugin/jquery-filer/css/themes/jquery.filer-dragdropbox-theme.css"));
             bundles.Add(new ScriptBundle("~/plugins/jqueryfilerjs").Include(
-                      "~/Scripts/plugins/jquery-filer/js/jquery.filer.min.js"));
+                      "~/Scripts/plugin/jquery-filer/js/jquery.filer.min.js"));
             //FileSaver Script
-            bundles.Add(new ScriptBundle("~/plugins/filesaverjs").Include(
-                      "~/Scripts/FileSaver.js"));
+            bundles.Add(new ScriptBundle("~/plugins/filejs").Include(
+                      "~/Scripts/FileSaver.js",
+                      "~/Scripts/jquery.fileDownload.js"
+                      ));
 
 
 

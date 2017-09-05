@@ -11,7 +11,7 @@ namespace WebApp.Models
 
 	public partial class CodeItemMetadata
 	{
-		[Display(Name = "BaseCode")]
+		[Display(Name = "类型")]
 		public BaseCode BaseCode { get; set; }
 
 		[Required(ErrorMessage = "Please enter : Id")]
@@ -19,16 +19,16 @@ namespace WebApp.Models
 		public int Id { get; set; }
 
 		[Required(ErrorMessage = "Please enter : Code")]
-		[Display(Name = "值")]
+		[Display(Name = "Key")]
 		[MaxLength(20)]
 		public string Code { get; set; }
 
 		[Required(ErrorMessage = "Please enter : Text")]
-		[Display(Name = "显示名称")]
+		[Display(Name = "Value")]
 		[MaxLength(50)]
 		public string Text { get; set; }
 
-		[Display(Name = "代码类别名称")]
+		[Display(Name = "类型")]
 		public int BaseCodeId { get; set; }
 
 	}

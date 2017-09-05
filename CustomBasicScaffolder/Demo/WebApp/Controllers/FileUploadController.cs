@@ -23,15 +23,17 @@ namespace WebApp.Controllers
      public class FileUploadController : Controller
     {
         private readonly IProductService _productService;
+        private readonly ICodeItemService _codeService;
  
         private readonly IUnitOfWorkAsync _unitOfWork;
 
-        public FileUploadController(IProductService productService, IUnitOfWorkAsync unitOfWork)
+        public FileUploadController(ICodeItemService _codeService,IProductService productService, IUnitOfWorkAsync unitOfWork)
         {
             //_iBOMComponentService = iBOMComponentService;
             //_sKUService  = sKUService;
             _unitOfWork = unitOfWork;
             _productService = productService;
+            this._codeService = _codeService;
         }
         //回单文件上传 文件名格式 回单+_+日期+_原始文件
         [HttpPost]
@@ -56,7 +58,7 @@ namespace WebApp.Controllers
                 {
                     return this.HttpNotFound();
                 }
-                fileType = this.Request.Form["fileType"];
+                fileType = this.Request.Form["FileType"];
                 //date = this.Request.Form["date"];
                 //string filename = this.Request.Form["filename"];
                 string filename = filedata.FileName;
@@ -71,6 +73,15 @@ namespace WebApp.Controllers
                     this._unitOfWork.SetAutoDetectChangesEnabled(true);
                     //_unitOfWork.SaveChanges();
                 }
+                if (fileType == "CodeItem")
+                {
+                    this._unitOfWork.SetAutoDetectChangesEnabled(false);
+                    _codeService.ImportDataTable(datatable);
+                    _unitOfWork.BulkSaveChanges();
+                    this._unitOfWork.SetAutoDetectChangesEnabled(true);
+                    //_unitOfWork.SaveChanges();
+                }
+
                 //if (fileType == "Product")
                 //{
                 //    _iBOMComponentService.ImportDataTable(datatable);

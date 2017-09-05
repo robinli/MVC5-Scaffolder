@@ -3539,6 +3539,7 @@
     <Content Include="Scripts\jquery.easyui.mobile-1.4.5.js" />
     <Content Include="Scripts\jquery.easyui.mobile-1.4.5.min.js" />
     <Content Include="Scripts\jquery.extend.js" />
+    <Content Include="Scripts\jquery.filerupload.js" />
     <Content Include="Scripts\jquery.fileDownload.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
@@ -4089,10 +4090,28 @@
     <Content Include="Scripts\plugin\jcrop\jquery.Jcrop.min.js" />
     <Content Include="Scripts\plugin\jqgrid\grid.locale-en.min.js" />
     <Content Include="Scripts\plugin\jqgrid\jquery.jqGrid.min.js" />
+    <Content Include="Scripts\plugin\jquery-filer\assets\fonts\jquery.filer-icons\jquery-filer-preview.html" />
+    <Content Include="Scripts\plugin\jquery-filer\assets\fonts\jquery.filer-icons\jquery-filer.css" />
+    <Content Include="Scripts\plugin\jquery-filer\assets\fonts\jquery.filer-icons\jquery-filer.svg" />
+    <Content Include="Scripts\plugin\jquery-filer\css\jquery.filer.css" />
+    <Content Include="Scripts\plugin\jquery-filer\css\themes\jquery.filer-dragdropbox-theme.css" />
+    <Content Include="Scripts\plugin\jquery-filer\examples\default\index.html" />
+    <Content Include="Scripts\plugin\jquery-filer\examples\default\js\custom.js" />
+    <Content Include="Scripts\plugin\jquery-filer\examples\default\php\form_upload.php" />
+    <Content Include="Scripts\plugin\jquery-filer\examples\dragdrop\index.html" />
+    <Content Include="Scripts\plugin\jquery-filer\examples\dragdrop\js\custom.js" />
+    <Content Include="Scripts\plugin\jquery-filer\examples\dragdrop\php\ajax_remove_file.php" />
+    <Content Include="Scripts\plugin\jquery-filer\examples\dragdrop\php\ajax_upload_file.php" />
+    <Content Include="Scripts\plugin\jquery-filer\js\jquery.filer.js" />
+    <Content Include="Scripts\plugin\jquery-filer\js\jquery.filer.min.js" />
     <Content Include="Scripts\plugin\jquery-form\jquery-form.min.js" />
     <Content Include="Scripts\plugin\jquery-nestable\jquery.nestable.min.js" />
     <Content Include="Scripts\plugin\jquery-touch\jquery.ui.touch-punch.min.js" />
     <Content Include="Scripts\plugin\jquery-validate\jquery.validate.min.js" />
+    <Content Include="Scripts\plugin\jquery.fileuploader\jquery.fileuploader.dragdrop.js" />
+    <Content Include="Scripts\plugin\jquery.fileuploader\jquery.fileuploader-theme-dragdrop.css" />
+    <Content Include="Scripts\plugin\jquery.fileuploader\jquery.fileuploader.min.css" />
+    <Content Include="Scripts\plugin\jquery.fileuploader\jquery.fileuploader.min.js" />
     <Content Include="Scripts\plugin\js-migrate\jquery-migrate-1.2.1.min.js" />
     <Content Include="Scripts\plugin\knob\jquery.knob.min.js" />
     <Content Include="Scripts\plugin\markdown\bootstrap-markdown.min.js" />
@@ -4197,7 +4216,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\img\realestate\thumbs\" />
-    <Folder Include="ExcelTemplate\" />
     <Folder Include="export\" />
   </ItemGroup>
   <ItemGroup>
@@ -4373,6 +4391,7 @@
     <Content Include="Areas\Landing\Views\Landing\Index.cshtml" />
     <Content Include="Areas\Landing\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Landing\Views\web.config" />
+    <Content Include="ExcelTemplate\Code.xlsx" />
     <None Include="Project_Readme.html" />
     <Content Include="Views\Shared\skin-config.html" />
     <Content Include="skin-config.html" />
@@ -4524,6 +4543,9 @@
     <Content Include="Views\Products\Create.cshtml" />
     <Content Include="Views\Products\Edit.cshtml" />
     <Content Include="Views\Products\EditForm.cshtml" />
+    <Content Include="Scripts\plugin\jquery-filer\assets\fonts\jquery.filer-icons\jquery-filer.eot" />
+    <Content Include="Scripts\plugin\jquery-filer\assets\fonts\jquery.filer-icons\jquery-filer.ttf" />
+    <Content Include="Scripts\plugin\jquery-filer\assets\fonts\jquery.filer-icons\jquery-filer.woff" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Source\Repository.Pattern.Ef6\Repository.Pattern.Ef6.csproj">

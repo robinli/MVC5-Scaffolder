@@ -412,7 +412,7 @@ foreach (PropertyMetadata property in properties) {
 
 @section Scripts {
 	<script type="text/javascript">
-
+        var entityname = "<#= ModelTypeName #>";
 			        //下载Excel导入模板
                     function downloadtemplate() {
                             //TODO: 修改下载模板的路径
@@ -859,6 +859,7 @@ foreach (PropertyMetadata property in properties) {
 		 #>
 
 	 </script>
+     <script src="~/Scripts/jquery.filerupload.js"></script>
 }
 
  

@@ -11,7 +11,7 @@
 
 
 @{
-    ViewBag.Title = "键值对配置";
+    ViewBag.Title = "键值对维护";
 }
 
 <!-- MAIN CONTENT -->
@@ -24,10 +24,10 @@
                 @{
 //TODO:fix quick navigation path
                 }
-                路径
+                系统管理
                 <span>
                     >
-                    键值对配置
+                    键值对维护
                 </span>
             </h1>
         </div>
@@ -57,7 +57,7 @@
                     -->
                     <header>
                         <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-                        <h2>键值对配置</h2>
+                        <h2>键值对维护</h2>
                     </header>
 
                     <!-- widget div-->
@@ -118,10 +118,10 @@
                                 required:true
                             }
                         }">@Html.DisplayNameFor(model => model.BaseCodeId)</th>
-                        <th data-options="field:'Code' ,width:140,editor:{type:'textbox',options:{prompt:'值' ,required:true ,validType:'length[0,20]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Code)</th>
+                        <th data-options="field:'Code' ,width:140,editor:{type:'textbox',options:{prompt:'Key' ,required:true ,validType:'length[0,20]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Code)</th>
 
 
-                        <th data-options="field:'Text' ,width:140,editor:{type:'textbox',options:{prompt:'显示' ,required:true ,validType:'length[0,20]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Text)</th>
+                        <th data-options="field:'Text' ,width:140,editor:{type:'textbox',options:{prompt:'Value' ,required:true ,validType:'length[0,20]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Text)</th>
 
 
 
@@ -136,9 +136,11 @@
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">保存</a>
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">取消</a>
-
-                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-paperclip',plain:true" onclick="importexcel()">EXCEL 导入</a>
-                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-download-alt',plain:true" onclick="exportexcel()">导出 Excel</a>
+                <a href="javascript:void(0)" class="easyui-menubutton" data-options="menu:'#importmenu',iconCls:'icon-paperclip' " onclick="importexcel()">导入数据</a>
+                <div id="importmenu" style="width:150px;">
+                    <div data-options="iconCls:'icon-cloud-upload'" onclick="importexcel()">导入数据</div>
+                    <div data-options="iconCls:'icon-download-alt'" onclick="downloadtemplate()">下载用于导入的模板</div>
+                </div>
                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="reload()">刷新</a>
             </div>
 
@@ -168,9 +170,18 @@
 <!-- END MAIN CONTENT -->
 
 @section Scripts {
+ 
     <script type="text/javascript">
+        var entityname = "CodeItem";
 
+        //下载Excel导入模板
+        function downloadtemplate() {
+            //TODO: 修改下载模板的路径
+            var url = "/ExcelTemplate/Code.xlsx";
+            $.fileDownload(url)
+                .fail(function () { $.messager.alert("错误", "没有找到模板文件! {" + url + "}"); });
 
+        }
         //打开Excel上传导入
         function importexcel() {
             $("#importwindow").window("open");
@@ -340,6 +351,9 @@
 
 
     </script>
+
+
+    <script src="~/Scripts/jquery.filerupload.js"></script>
 }
 
 
