@@ -94,7 +94,7 @@ namespace <#=DefaultNamespace #>.Services
             {
                  
                 <#= ModelName #> item = new <#= ModelName #>();
-				var mapping = _mappingservice.Queryable().Where(x => x.EntitySetName == "<#= ModelName #>").ToList();
+				var mapping = _mappingservice.Queryable().Where(x => x.EntitySetName == "<#= ModelName #>" &&  x.IsEnabled==true).ToList();
 
                 foreach (var field in mapping)
                 {
