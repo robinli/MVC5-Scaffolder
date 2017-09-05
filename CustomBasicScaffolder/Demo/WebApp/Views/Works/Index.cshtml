@@ -1,197 +1,406 @@
-﻿
-
-
-@model IEnumerable<WebApp.Models.Work>
-
-
-
-
+﻿@model IEnumerable<WebApp.Models.Work>
 @{
-    ViewBag.Title = "Works";
+	ViewBag.Title = "工作单";
 }
-
-
-<div class="row">
-    <div class="col-lg-12">
-        <div class="ibox float-e-margins">
-            <div class="ibox-title">
-                <h5>Works Data</h5>
-                <div class="ibox-tools">
-                    <a class="collapse-link">
-                        <i class="fa fa-chevron-up"></i>
-                    </a>
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-wrench"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li>
-                            <a href="table_data_tables.html#">Config option 1</a>
-                        </li>
-                        <li>
-                            <a href="table_data_tables.html#">Config option 2</a>
-                        </li>
-                    </ul>
-                    <a class="close-link">
-                        <i class="fa fa-times"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="ibox-content">
-
-                <div class="table-responsive">
-           
- 
-       <table id="works_datagrid" class="easyui-datagrid" title="Works DataGrid" style="width:auto;height:auto"
-                   data-options="
-                 rownumbers:true,
-                 
-                remoteFilter: true,
-                singleSelect: true,
-                toolbar: '#works_toolbar',
-                url: '/Works/GetData',
-                method: 'get',
-                onClickCell: onClickCell,
-                pagination: 'true'
-                   ">
-                <thead>
-                    <tr>
-                        @*<th data-options="field:'ck',checkbox:true"></th>*@
-        
-				     <th data-options="field:'Name',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Name)</th>
-		
-                
-				     <th data-options="field:'Status',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.Status)</th>
-		
-                
-				     <th data-options="field:'StartDate',width:160,align:'right',editor:{type:'datetimebox',options:{}}">@Html.DisplayNameFor(model => model.StartDate)</th>
-		
-                
-				     <th data-options="field:'EndDate',width:160,align:'right',editor:{type:'datetimebox',options:{}}">@Html.DisplayNameFor(model => model.EndDate)</th>
-		
-                
-					 <th data-options="field:'Enableed',width:120,editor:'textbox' ">@Html.DisplayNameFor(model => model.Enableed)</th>
-		
-                
-				     <th data-options="field:'Hour',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">@Html.DisplayNameFor(model => model.Hour)</th>
-		
-                
-				     <th data-options="field:'Priority',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">@Html.DisplayNameFor(model => model.Priority)</th>
-		
-                
-				     <th data-options="field:'Score',width:100,align:'right',editor:{type:'numberbox',options:{precision:0}}">@Html.DisplayNameFor(model => model.Score)</th>
-		
-               
-    </tr>
-    </thead>
- 
-
-</table>
-	<div id="works_toolbar" style="height:auto">
-                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append()">Append</a>
-                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">Remove</a>
-                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">Accept</a>
-                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">Reject</a>
-                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="getChanges()">GetChanges</a>
-            </div>
-				</div>
-
-            </div>
+<!-- MAIN CONTENT -->
+<div id="content">
+    <!-- quick navigation bar -->
+    <div class="row">
+        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+            <h1 class="page-title txt-color-blueDark">
+                <i class="fa fa-table fa-fw "></i>
+                @{ 
+                  //TODO:fix quick navigation path
+                 }
+                路径
+                <span>
+                    >
+                  工作单
+                </span>
+            </h1>
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+            
         </div>
     </div>
+    <!-- end quick navigation bar -->
+
+
+     <!-- widget grid -->
+     <section id="widget-grid" class="">
+        <!-- row -->
+        <div class="row">
+            <!-- NEW WIDGET START -->
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <!-- Widget ID (each widget will need unique ID)-->
+                <div class="jarviswidget" id="wid-id-4" data-widget-editbutton="false">
+                    <!-- widget options:
+                    usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+                    data-widget-colorbutton="false"
+                    data-widget-editbutton="false"
+                    data-widget-togglebutton="false"
+                    data-widget-deletebutton="false"
+                    data-widget-fullscreenbutton="false"
+                    data-widget-custombutton="false"
+                    data-widget-collapsed="true"
+                    data-widget-sortable="false"
+                    -->
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+                        <h2>工作单</h2>
+                    </header>
+
+                     <!-- widget div-->
+                    <div>
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body no-padding">
+                             @{ 
+                                //TODO:fix datagrid view alert-warning messages
+                              }
+                            <div class="alert alert-warning no-margin fade in">
+                                <button class="close" data-dismiss="alert">
+                                    ×
+                                </button>
+                                <i class="fa-fw fa fa-info"></i>
+                                A combined table effect with all classes mentioned above added to  
+                            </div>
+	 <!--begin datagrid-content -->
+	 <div class="table-responsive">
+		<table id="works_datagrid" class="easyui-datagrid"   style="width:auto;height:auto"
+				   data-options="
+                        rownumbers:true,
+				        checkOnSelect:true,
+				        selectOnCheck:true,
+				        idField:'Id',
+				        sortName:'Id',
+				        sortOrder:'desc',
+				        remoteFilter: true,
+				        singleSelect: true,
+				        toolbar: '#works_toolbar',
+				        url: '/Works/GetData',
+				        method: 'get',
+				        onClickCell: onClickCell,
+				        pagination: true,
+                        striped:true
+				   ">
+				<thead>
+					<tr>
+						@*<th data-options="field:'ck',checkbox:true"></th>*@
+                        <th data-options="field:'_operate1',width:100 ,sortable:false,resizable:true,formatter:showdetailsformatter ">操作</th>
+		
+					 <th data-options="field:'Name' ,width:140,editor:{type:'textbox',options:{prompt:'任务' ,required:true ,validType:'length[0,20]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Name)</th>
+		
+				
+					 <th data-options="field:'Status' ,width:140,editor:{type:'textbox',options:{prompt:'状态' ,required:true ,validType:'length[0,10]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Status)</th>
+		
+				
+					 <th data-options="field:'StartDate',width:160,align:'right',editor:{type:'datebox',options:{prompt:'开始日期' ,required:true    }  },sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.StartDate)</th>
+		
+				
+					 <th data-options="field:'EndDate',width:160,align:'right',editor:{type:'datebox',options:{prompt:'结束日期' ,required:true    }  },sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.EndDate)</th>
+		
+				
+					 <th data-options="field:'Enableed' ,width:120,align:'center',editor:{type:'checkbox',options:{prompt:'是否启用',on:'true',off:'false',required:true} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Enableed)</th>
+		
+		
+				
+					 <th data-options="field:'Hour' ,width:100,align:'right',editor:{type:'numberbox',options:{prompt:'用时(H)' ,required:true  ,min:1,max:99,precision:0 } } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Hour)</th>
+		
+				
+					 <th data-options="field:'Priority' ,width:100,align:'right',editor:{type:'numberbox',options:{prompt:'优先级' ,required:true  ,min:1,max:9,precision:0 } } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Priority)</th>
+		
+				
+					 <th data-options="field:'Score' ,width:100,align:'right',editor:{type:'numberbox',options:{prompt:'分数' ,required:true  ,min:1,max:100,precision:2 } } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Score)</th>
+		
+			   
+						</tr>
+				</thead>
+				</table>
+				<div id="works_toolbar" style="height:auto">
+                            @{
+                            //TODO: enable authorization 
+                            }
+							@*@if (Html.IsAuthorize("Create"))
+							{
+								<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="append()">新增</a>
+							}
+							@if (Html.IsAuthorize("Delete"))
+							{
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
+							}
+							@if (Html.IsAuthorize("Edit"))
+							{
+								<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">保存</a>
+								<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">取消</a>
+							}
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="reload()">刷新</a>
+							@if (Html.IsAuthorize("Import"))
+							{
+								 <a href="javascript:void(0)" class="easyui-menubutton" data-options="menu:'#importmenu',iconCls:'icon-paperclip' " onclick="importexcel()">导入数据</a>
+                                       <div id="importmenu" style="width:150px;">
+                                                <div data-options="iconCls:'icon-cloud-upload'" onclick="importexcel()">导入数据</div>
+                                                <div data-options="iconCls:'icon-download-alt'" onclick="downloadtemplate()" >下载用于导入的模板</div>
+                                        </div>
+                                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-download-alt',plain:true" onclick="exportexcel()">导出至Excel</a>
+							}*@
+						    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="append()">新增</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">保存</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">取消</a>
+							<a href="javascript:void(0)" class="easyui-menubutton" data-options="menu:'#importmenu',iconCls:'icon-paperclip' " onclick="importexcel()">导入数据</a>
+                                       <div id="importmenu" style="width:150px;">
+                                                <div data-options="iconCls:'icon-cloud-upload'" onclick="importexcel()">导入数据</div>
+                                                <div data-options="iconCls:'icon-download-alt'" onclick="downloadtemplate()" >下载用于导入的模板</div>
+                                        </div>
+                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-download-alt',plain:true" onclick="exportexcel()">导出至Excel</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="reload()">刷新</a>
+				</div>
+		
+				</div>
+		<!--end datagrid-content -->
+                        
+                         </div>
+                        <!-- end widget content -->
+                    </div>
+                    <!-- end widget div -->
+
+                </div>
+                <!-- end widget -->
+
+            </article>
+            <!-- WIDGET END -->
+
+        </div>
+
+        <!-- end row -->
+    </section>
+    <!-- end widget grid -->
+
+	<!-- file upload partial view -->
+	@Html.Partial("_ImportWindow",new  ViewDataDictionary { { "EntityName","Work" }})		 
+	<!-- end file upload partial view -->
+
 </div>
+<!-- END MAIN CONTENT -->
+
 @section Scripts {
-    <script type="text/javascript">
-         var $dg = $('#works_datagrid');
+	<script type="text/javascript">
+        var entityname = "Work";
+			        //下载Excel导入模板
+                    function downloadtemplate() {
+                            //TODO: 修改下载模板的路径
+                            var url = "/ExcelTemplate/Work.xlsx";
+                            $.fileDownload(url)
+                             .fail(function () { $.messager.alert("错误","没有找到模板文件! {" + url + "}"); });
+                                                
+                    }
+					//打开Excel上传导入
+					function importexcel() {
+						$("#importwindow").window("open");
+					}
+					 //执行Excel到处下载
+					function exportexcel() {
+						var filterRules = JSON.stringify($dg.datagrid("options").filterRules);
+						//console.log(filterRules);
+						$.messager.progress({ title: "正在执行导出！" });
+						var formData = new FormData();
+						formData.append("filterRules", filterRules);
+						formData.append("sort", "Id");
+						formData.append("order", "asc");
+						$.postDownload("/Works/ExportExcel", formData, function (fileName) {
+							$.messager.progress("close");
+							console.log(fileName);
+
+						})
+					}
+		 //datagrid 增删改查操作
+		 var $dg = $("#works_datagrid");
 		 var editIndex = undefined;
-        function endEditing() {
-            if (editIndex == undefined) { return true }
-            if ($dg.datagrid('validateRow', editIndex)) {
+		function reload() {
+				 if (endEditing()) {
+						$dg.datagrid("reload");
+				 }
+			}
+		function endEditing() {
+			if (editIndex == undefined) { return true }
+			if ($dg.datagrid("validateRow", editIndex)) {
 
-								$dg.datagrid('endEdit', editIndex);
-                editIndex = undefined;
+								$dg.datagrid("endEdit", editIndex);
+				editIndex = undefined;
 
-                
-                return true;
-            } else {
-                return false;
-            }
-        }
-        function onClickCell(index, field) {
-            if (editIndex != index) {
-                if (endEditing()) {
-                    $dg.datagrid('selectRow', index)
-                            .datagrid('beginEdit', index);
-                    var ed = $dg.datagrid('getEditor', { index: index, field: field });
-                    if (ed) {
-                        ($(ed.target).data('textbox') ? $(ed.target).textbox('textbox') : $(ed.target)).focus();
-                    }
-                    editIndex = index;
-                } else {
-                    $dg.datagrid('selectRow', editIndex);
-                }
-            }
-        }
-        function append() {
-            if (endEditing()) {
-                $dg.datagrid('appendRow', {   });
-                editIndex = $dg.datagrid('getRows').length - 1;
-                $dg.datagrid('selectRow', editIndex)
-                        .datagrid('beginEdit', editIndex);
-            }
-        }
-        function removeit() {
-            if (editIndex == undefined) { return }
-            $dg.datagrid('cancelEdit', editIndex)
-                    .datagrid('deleteRow', editIndex);
-            editIndex = undefined;
-        }
-        function accept() {
-            if (endEditing()) {
-                if ($dg.datagrid('getChanges').length) {
-                    var inserted = $dg.datagrid('getChanges', "inserted");
-                    var deleted = $dg.datagrid('getChanges', "deleted");
-                    var updated = $dg.datagrid('getChanges', "updated");
-                    var effectRow = new Object();
-                    if (inserted.length) {
-                        effectRow.inserted = inserted;
-                    }
-                    if (deleted.length) {
-                        effectRow.deleted = deleted;
-                    }
-                    if (updated.length) {
-                        effectRow.updated = updated;
-                    }
-                    console.log(JSON.stringify(effectRow));
-                    $.post("/Works/SaveData", effectRow, function (rsp) {
-                        console.log(rsp);
-                        if (rsp.Success) {
-                            $.messager.alert("提示", "提交成功！");
-                            $dg.datagrid('acceptChanges');
-                        }
-                    }, "json").fail(function () {
-                        $.messager.alert("错误", "提交错误了！",'error');
-                      
-                    });
-              
-                }
+				
+				return true;
+			} else {
+				return false;
+			}
+		}
+		function onClickCell(index, field) {
+			var _operates = ["_operate1", "_operate2", "_operate3", "ck"]
+			if ($.inArray(field, _operates) >= 0) {
+				return;
+			}
+			if (editIndex != index) {
+				if (endEditing()) {
+					$dg.datagrid("selectRow", index)
+							.datagrid("beginEdit", index);
+					var ed = $dg.datagrid("getEditor", { index: index, field: field });
+					if (ed) {
+						($(ed.target).data("textbox") ? $(ed.target).textbox("textbox") : $(ed.target)).focus();
+					}
+					editIndex = index;
+				} else {
+					$dg.datagrid("selectRow", editIndex);
+				}
+			}
+		}
+		function append() {
+			if (endEditing()) {
+				//$dg.datagrid("appendRow", { Status: 0 });
+				//editIndex = $dg.datagrid("getRows").length - 1;
+				$dg.datagrid("insertRow", { index: 0, row: { Status: 0 } });
+				editIndex = 0 ;
+				$dg.datagrid("selectRow", editIndex)
+						.datagrid("beginEdit", editIndex);
+			}
+		}
+		function removeit() {
+			if (editIndex == undefined) { return }
+			$dg.datagrid("cancelEdit", editIndex)
+					.datagrid("deleteRow", editIndex);
+			editIndex = undefined;
+		}
+		function accept() {
+			if (endEditing()) {
+				if ($dg.datagrid("getChanges").length) {
+					var inserted = $dg.datagrid("getChanges", "inserted");
+					var deleted = $dg.datagrid("getChanges", "deleted");
+					var updated = $dg.datagrid("getChanges", "updated");
+					var effectRow = new Object();
+					if (inserted.length) {
+						effectRow.inserted = inserted;
+					}
+					if (deleted.length) {
+						effectRow.deleted = deleted;
+					}
+					if (updated.length) {
+						effectRow.updated = updated;
+					}
+					//console.log(JSON.stringify(effectRow));
+					$.post("/Works/SaveData", effectRow, function (response) {
+						//console.log(response);
+						if (response.Success) {
+							$.messager.alert("提示", "提交成功！");
+							$dg.datagrid("acceptChanges");
+							$dg.datagrid("reload");
+						}
+					}, "json").fail(function (response) {
+						//console.log(response);
+						$.messager.alert("错误", "提交错误了！","error");
+						//$dg.datagrid("reload");
+					});
+			  
+				}
 
-                $dg.datagrid('acceptChanges');
-            }
-        }
-        function reject() {
-            $dg.datagrid('rejectChanges');
-            editIndex = undefined;
-        }
-        function getChanges() {
-            var rows = $dg.datagrid('getChanges');
-            alert(rows.length + ' rows are changed!');
-        }
+				//$dg.datagrid("acceptChanges");
+			}
+		}
+		function reject() {
+			$dg.datagrid("rejectChanges");
+			editIndex = undefined;
+		}
+		function getChanges() {
+			var rows = $dg.datagrid("getChanges");
+			alert(rows.length + " rows are changed!");
+		}
 
-
+		//datagrid 开启行赛选功能
 		 $(function () {
 		  
-           $dg.datagrid('enableFilter');
-        })
-     </script>
+		   $dg.datagrid("enableFilter",[
+		   				{
+					  field: "Status",
+					  type: "combobox",
+					  options: {
+						   panelHeight: "auto",
+						   data: [{ value: "", text: "All" }, { value: 0, text: "启用" }, { value: 1, text: "禁用" }],
+						   onChange: function (value) {
+							  if (value == "") {
+								  $dg.datagrid("removeFilterRule", "Status");
+							  } else {
+								  $dg.datagrid("addFilterRule", {
+									  field: "Status",
+									  op: "equal",
+									  value: value
+								  });
+							  }
+							  $dg.datagrid("doFilter");
+						  }
+					  }
+				  },
+		   
+		   				{
+					  field: "StartDate",
+					  type: "datebox",
+					  options: {
+						  onChange: function (value) {
+							  if (value == "") {
+								  $dg.datagrid("removeFilterRule", "StartDate");
+							  } else {
+								  $dg.datagrid("addFilterRule", {
+									  field: "StartDate",
+									  op: "equal",
+									  value: value
+								  });
+							  }
+							  $dg.datagrid("doFilter");
+						  }
+					  }
+				  },
+		   				{
+					  field: "EndDate",
+					  type: "datebox",
+					  options: {
+						  onChange: function (value) {
+							  if (value == "") {
+								  $dg.datagrid("removeFilterRule", "EndDate");
+							  } else {
+								  $dg.datagrid("addFilterRule", {
+									  field: "EndDate",
+									  op: "equal",
+									  value: value
+								  });
+							  }
+							  $dg.datagrid("doFilter");
+						  }
+					  }
+				  },
+		   		   
+		   		   
+		   ]);
+		})
+				//-----------------------------------------------------
+		//datagrid onSelect
+		//-----------------------------------------------------
+        function showdetailsformatter(value, row, index) {
+
+            return '<a onclick="showDetailsWindow(' + row.Id + ')" class="easyui-linkbutton" href="javascript:void(0)">查看明细</a>';
+
+        }
+        //弹出明细信息
+		function showDetailsWindow(id) {
+			//console.log(index, row);
+			 		}
+ 
+		
+		
+		 
+	 </script>
+     <script src="~/Scripts/jquery.filerupload.js"></script>
 }
 
+ 

@@ -32,6 +32,16 @@
                     </li>
                 </ul>
             </li>
+            <li class="@Html.IsSelected(controller: "Wroks")">
+                <a href="#" title="业务操作"><i class="fa fa-lg fa-fw fa-folder-o"></i> <span class="menu-item-parent">业务操作</span></a>
+                <ul>
+                    <li class="@Html.IsSelected(action: "Index", controller: "Works")">
+                        <a href="@Url.Action("index", "works")" title="工作单"><span class="menu-item-parent">工作单</span></a>
+                    </li>
+                 
+
+                </ul>
+            </li>
             <li class="@Html.IsSelected(controller: "Products,Categories")">
                 <a href="#" title="业务主数据管理"><i class="fa fa-lg fa-fw fa-folder-o"></i> <span class="menu-item-parent">业务主数据管理</span></a>
                 <ul>
@@ -118,6 +128,9 @@
                     </li>
                     <li class="@Html.RouteIf("DataTableImportMappings", "active")">
                         <a href="@Url.Action("index", "DataTableImportMappings")"><i class="fa fa-lg fa-fw fa-file-excel-o"></i> <span class="menu-item-parent">Excel导入配置</span></a>
+                    </li>
+                    <li class="@Html.RouteIf("codeitems", "active")">
+                        <a href="@Url.Action("index", "codeitems")"><i class="fa fa-lg fa-fw fa-list"></i> <span class="menu-item-parent">键值对维护</span></a>
                     </li>
                     <li class="@Html.RouteIf("messages", "active")">
                         <a href="@Url.Action("index", "messages")"><i class="fa fa-lg fa-fw fa-file-text-o"></i> <span class="menu-item-parent">系统日志</span></a>

@@ -4398,11 +4398,6 @@
     <Content Include="skin-config.html" />
     <Content Include="Views\Companies\_PopupSearch.cshtml" />
     <Content Include="Views\Companies\Index.cshtml" />
-    <Content Include="Views\Works\Index.cshtml" />
-    <Content Include="Views\Works\_PopupSearch.cshtml" />
-    <Content Include="Views\Works\Create.cshtml" />
-    <Content Include="Views\Works\Edit.cshtml" />
-    <Content Include="Views\Works\EditForm.cshtml" />
     <Content Include="Views\BaseCodes\Index.cshtml" />
     <Content Include="Views\BaseCodes\Create.cshtml" />
     <Content Include="Views\BaseCodes\Edit.cshtml" />
@@ -4547,6 +4542,10 @@
     <Content Include="Scripts\plugin\jquery-filer\assets\fonts\jquery.filer-icons\jquery-filer.eot" />
     <Content Include="Scripts\plugin\jquery-filer\assets\fonts\jquery.filer-icons\jquery-filer.ttf" />
     <Content Include="Scripts\plugin\jquery-filer\assets\fonts\jquery.filer-icons\jquery-filer.woff" />
+    <Content Include="Views\Works\Index.cshtml" />
+    <Content Include="Views\Works\Create.cshtml" />
+    <Content Include="Views\Works\Edit.cshtml" />
+    <Content Include="Views\Works\EditForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Source\Repository.Pattern.Ef6\Repository.Pattern.Ef6.csproj">

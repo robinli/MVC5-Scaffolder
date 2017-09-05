@@ -1,73 +1,153 @@
-﻿
+﻿@model WebApp.Models.Work
+@{  ViewBag.Title = "工作单 | Create";}
+<!-- MAIN CONTENT -->
+<div id="content">
+    <!-- quick navigation bar -->
+    <div class="row">
+        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+            <h1 class="page-title txt-color-blueDark">
+                <i class="fa fa-table fa-fw "></i>
+                @{ 
+                  //TODO:fix quick navigation path
+                 }
+                路径
+                <span>
+                    >
+                    工作单
+                </span>
+            </h1>
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
 
-
-@model WebApp.Models.Work
-
-@{
-    ViewBag.Title = "Works | Create";
-}
-
-
-
-
-<div class="row">
-            <div class="col-md-12">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>Works form<small> create new Works</small></h5>
-                        <div class="ibox-tools">
-                            <a class="collapse-link">
-                                <i class="fa fa-chevron-up"></i>
-                            </a>
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                <i class="fa fa-wrench"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-user">
-                                <li><a href="#">Config option 1</a>
-                                </li>
-                                <li><a href="#">Config option 2</a>
-                                </li>
-                            </ul>
-                            <a class="close-link">
-                                <i class="fa fa-times"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="ibox-content">
-                 
-
-@using (Html.BeginForm()) 
-{
-   
-    @*@Html.AntiForgeryToken()*@
-    		
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
- 
-		 
-        @Html.Partial("EditForm")
-	 
-		<div class="row">
-        <div class="hr-line-dashed"></div>
-                                <div class="form-group">
-                                    <div class="col-sm-4 col-sm-offset-2">
-                                        <button class="btn btn-white" type="reset">Cancel</button>
-                                        <button class="btn btn-primary" type="submit">Save</button>
-                                    </div>
-                                </div>
-	    </div>
-
-
-		 }
-    </div>
         </div>
     </div>
-</div>
+    <!-- end quick navigation bar -->
+    <!-- NEW WIDGET START -->
+    <article class="col-sm-12 col-md-12 col-lg-12">
 
+        <!-- Widget ID (each widget will need unique ID)-->
+        <div class="jarviswidget" id="wid-id-1" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false">
+            <!-- widget options:
+            usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+            data-widget-colorbutton="false"
+            data-widget-editbutton="false"
+            data-widget-togglebutton="false"
+            data-widget-deletebutton="false"
+            data-widget-fullscreenbutton="false"
+            data-widget-custombutton="false"
+            data-widget-collapsed="true"
+            data-widget-sortable="false"
+            -->
+            <header>
+                <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                <h2> 工作单 </h2>
+
+            </header>
+
+            <!-- widget div-->
+            <div>
+
+                <!-- widget edit box -->
+                <div class="jarviswidget-editbox">
+                    <!-- This area used as dropdown edit box -->
+
+                </div>
+                <!-- end widget edit box -->
+
+                <!-- widget content -->
+                <div class="widget-body no-padding">
+                    <form id="work_form" class="easyui-form form-horizontal" method="post" data-options="novalidate:true">
+                       
+                        <!-- form toolbar -->
+                        <div id="form_toolbar" style="height:auto" class="datagrid-toolbar">
+                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="append()">新增</a>
+                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
+                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="savedata()">保存</a>
+                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="cancel()">取消</a>
+                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-paperclip',plain:true" onclick="importexcel()">EXCEL 导入</a>
+                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-download-alt',plain:true" onclick="exportexcel()">导出 Excel</a>
+                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="refresh()">刷新</a>
+                        </div>
+                        <header>
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        </header>
+                        <!-- end form toolbar -->
+                        @*@Html.AntiForgeryToken()*@
+		 
+                        @Html.Partial("EditForm")
+		
+	 
+                        </form>		 
+
+                 </div>
+                 <!-- end widget content -->
+                 </div>
+            <!-- end widget div -->
+
+        </div>
+        <!-- end widget -->
+
+
+    </article>
+    <!-- WIDGET END -->
+
+</div>
+<!-- END MAIN CONTENT -->
 @section Scripts {
  
      <script type="text/javascript">
+
+	 function append() {
+
+        }
+        function removeit() {
+        }
+        function savedata() {
+
+			   if ($("#work_form").form("enableValidation").form("validate")) {						
+                 var data = $("#work_form").form("getJson");
+				  				  						
+                 $.post("/Works/Create", data, function (response) {						
+                     //console.log(response);						
+                     if (response.success) {						
+                         $.messager.alert("提示", "保存成功！");						
+						
+                     } else {						
+                         $.messager.alert("错误", "保存失败！" + response.err, "error");						
+                     }						
+                 }, "json").fail(function (response) {						
+                     //console.log(response);						
+                     $.messager.alert("错误", "保存失败！", "error");						
+                     //$dg.datagrid("reload");						
+                 });						
+             }						
+
+
+        }
+        function cancel() {
+
+        }
+        function importexcel() {
+
+        }
+        function exportexcel() {
+        }
+        function refresh() {
+
+        }
+
+
      
-            </script>
+     
+        </script>
+
+
+
+
+
+
+
 
 
 }
+ 
