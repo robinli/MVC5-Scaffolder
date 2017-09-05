@@ -1,23 +1,26 @@
-﻿﻿
+﻿﻿@model WebApp.Models.Order
 
 
 
 
-
-
-@model WebApp.Models.Order
-
-
- @*@Html.HiddenFor(model => model.Id)*@
-
- <!--输出form表单界面-->
+ <!-- 输出form表单界面 -->
  <table class="table table-bordered">
      <caption>
+        @{
+        //TODO: fix edit form commonent!
+        }
+        <div class="alert alert-warning no-margin fade in">
+            <button class="close" data-dismiss="alert">
+                ×
+            </button>
+            <i class="fa-fw fa fa-info"></i>
+            A combined table effect with all classes mentioned above added to
+        </div>
      </caption>
 	    <tr>
       	   <td class="control-label">   @Html.DisplayNameFor(model => model.Id)  </td>
 	   <td> 
-						   			<input  disabled  id="@Html.IdFor(model => model.Id)" name="@Html.NameFor(model => model.Id)" tabindex="0" style="width:100%" class="easyui-numberbox" type="text" data-options="prompt:'Id',label:'Id:',required:true ,precision:0" />
+						   			<input  disabled  id="@Html.IdFor(model => model.Id)" name="@Html.NameFor(model => model.Id)" tabindex="0" style="width:100%" class="easyui-numberbox" type="text" data-options="prompt:'Id',label:'',required:true ,precision:0" />
 			  
 				   </td>
 	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.Customer)  </td>
@@ -31,11 +34,13 @@
 				   class="easyui-textbox" 
 				   type="text" 
 				   data-options="prompt:'客户',
-								 label:'客户:',
+								 label:'',
 								 required:true ,validType:'length[0,20]'" />
 			              
 				   </td>
-	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.ShippingAddress)  </td>
+	   	   </tr>
+	   	    <tr>
+      	   <td class="control-label">   @Html.DisplayNameFor(model => model.ShippingAddress)  </td>
 	   <td> 
 			
 			  			<input id="@Html.IdFor(model => model.ShippingAddress)" 
@@ -46,13 +51,11 @@
 				   class="easyui-textbox" 
 				   type="text" 
 				   data-options="prompt:'发货地址',
-								 label:'发货地址:',
+								 label:'',
 								 required:true ,validType:'length[0,50]'" />
 			              
 				   </td>
-	   	   </tr>
-	   	    <tr>
-      	   <td class="control-label">   @Html.DisplayNameFor(model => model.OrderDate)  </td>
+	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.OrderDate)  </td>
 	   <td> 
 			
 			  			<input id="@Html.IdFor(model => model.OrderDate)" 
@@ -62,19 +65,17 @@
 				   type="text" 
 				   value="@Html.ValueFor(model => model.OrderDate)"
 				   data-options="prompt:'订单日期',
-								 label:'订单日期:',
+								 label:'',
 								 required:true,
 								 formatter:dateformatter" />
 			              
 				   </td>
-	   	    		<td></td> <td></td>
-			<td></td> <td></td>
-		     </tr>
-	    @*<tfoot>
+	   	   </tr>
+	   	        <tfoot>
         <tr>
            
         <tr>
-    </tfoot>*@
+    </tfoot>
 </table>
   <!--输出form表单界面-->
 
@@ -163,85 +164,6 @@
 <!--end details tabs -->
  
 
- <script type="text/javascript">
-	
-	    
-	//==============$("#orderdetails_datagrid")=================// 
-    var $orderdetailsdatagrid = $("#orderdetails_datagrid")
-	var orderdetailseditIndex = undefined;
-    function orderdetails_endEditing() {
-        if ( orderdetailseditIndex == undefined) { return true }
-        if ($orderdetailsdatagrid.datagrid("validateRow", orderdetailseditIndex)) {
-			            var ed = $orderdetailsdatagrid.datagrid("getEditor", { index: orderdetailseditIndex, field: "ProductId" });
-            var ProductName = $(ed.target).combobox("getText");
-            var ProductId = $(ed.target).combobox("getValue");
-          
-            $orderdetailsdatagrid.datagrid("getRows")[orderdetailseditIndex]["ProductName"] = ProductName;
-            $orderdetailsdatagrid.datagrid("getRows")[orderdetailseditIndex]["ProductId"] = ProductId;
-            
-            
-						$orderdetailsdatagrid.datagrid("endEdit", orderdetailseditIndex);
-            orderdetailseditIndex = undefined;
-
-
-            return true;
-        } else {
-            return false;
-        }
-    }
-    function orderdetails_onClickCell(index, field) {
-        if (orderdetailseditIndex != index) {
-            if (orderdetails_endEditing()) {
-                $orderdetailsdatagrid.datagrid("selectRow", index)
-                        .datagrid("beginEdit", index);
-                var ed = $orderdetailsdatagrid.datagrid("getEditor", { index: index, field: field });
-                if (ed) {
-                    ($(ed.target).data("textbox") ? $(ed.target).textbox("textbox") : $(ed.target)).focus();
-                }
-                orderdetailseditIndex  = index;
-            } else {
-                $orderdetailsdatagrid.datagrid("selectRow", orderdetailseditIndex);
-            }
-        }
-    }
-    function orderdetails_append() {
-        if (orderdetails_endEditing()) {
-            $orderdetailsdatagrid.datagrid("appendRow", { Status:0   });
-            orderdetailseditIndex = $orderdetailsdatagrid.datagrid("getRows").length - 1;
-            $orderdetailsdatagrid.datagrid("selectRow", orderdetailseditIndex )
-                    .datagrid("beginEdit", orderdetailseditIndex);
-        }
-    }
-    function orderdetails_removeit() {
-        if (orderdetailseditIndex  == undefined) { return }
-        $orderdetailsdatagrid.datagrid("cancelEdit", orderdetailseditIndex )
-                .datagrid("deleteRow", orderdetailseditIndex );
-        orderdetailseditIndex = undefined;
-    }
-   
-    function orderdetails_reject() {
-        $orderdetailsdatagrid.datagrid("rejectChanges");
-        orderdetailseditIndex  = undefined;
-    }
-    function orderdetails_getChanges() {
-        var rows = $orderdetailsdatagrid.datagrid("getChanges");
-        alert(rows.length + " rows are changed!");
-    }
-
-
-	  
-	$(function () {
-	
-		$.get("/Orders/GetOrderDetailsByOrderId/" + @Model.Id,function(data){
-            //console.log(data);
-            $orderdetailsdatagrid.datagrid("loadData",data);
-        
-        })
-
-
-	
-	});
-</script>
 
 
 

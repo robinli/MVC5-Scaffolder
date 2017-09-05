@@ -68,23 +68,23 @@ namespace WebApp.Controllers
 		{
 			if (orders.updated != null)
 			{
-				foreach (var updated in orders.updated)
+				foreach (var item in orders.updated)
 				{
-					_orderService.Update(updated);
+					_orderService.Update(item);
 				}
 			}
 			if (orders.deleted != null)
 			{
-				foreach (var deleted in orders.deleted)
+				foreach (var item in orders.deleted)
 				{
-					_orderService.Delete(deleted);
+					_orderService.Delete(item);
 				}
 			}
 			if (orders.inserted != null)
 			{
-				foreach (var inserted in orders.inserted)
+				foreach (var item in orders.inserted)
 				{
-					_orderService.Insert(inserted);
+					_orderService.Insert(item);
 				}
 			}
 			await _unitOfWork.SaveChangesAsync();

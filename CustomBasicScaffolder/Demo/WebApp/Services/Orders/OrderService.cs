@@ -1,11 +1,6 @@
-﻿
-             
+﻿             
            
  
-
-
-
-
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -13,13 +8,10 @@ using System.Linq;
 using System.Linq.Expressions;
 using Repository.Pattern.Repositories;
 using Service.Pattern;
-
 using WebApp.Models;
 using WebApp.Repositories;
-
 using System.Data;
 using System.Reflection;
-
 using Newtonsoft.Json;
 using WebApp.Extensions;
 using System.IO;
@@ -51,7 +43,7 @@ namespace WebApp.Services
             {
                  
                 Order item = new Order();
-				var mapping = _mappingservice.Queryable().Where(x => x.EntitySetName == "Order").ToList();
+				var mapping = _mappingservice.Queryable().Where(x => x.EntitySetName == "Order" &&  x.IsEnabled==true).ToList();
 
                 foreach (var field in mapping)
                 {

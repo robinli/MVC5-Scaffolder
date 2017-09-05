@@ -254,7 +254,7 @@ foreach (PropertyMetadata property in properties) {
 		#>
             <div id="detailswindow" hidden="hidden" class="easyui-window animated bounceInRight" title="明细数据" data-options="modal:true,closed:true,iconcls:'icon-menu'" style="width:960px;height:520px">
 			<!--detail entity tabs -->
-			<div id="detailtabs" class="easyui-tabs" style="width:auto;height:400px;">
+			<div id="detailstabs" class="easyui-tabs" style="width:auto;height:400px;">
 			<# 
 				foreach (var prop in ModelMetadata.Properties.Where(x=>x.AssociationDirection == AssociationDirection.OneToMany)) 
 				{
@@ -669,7 +669,7 @@ foreach (PropertyMetadata property in properties) {
 			 <#  if(GenerateMasterDetailRelationship  && OneToManyModelMetadata.Count >0) 
 			 { 
 			#>
-            $('#orderdetailswindow').window('open');
+            $('#detailswindow').window('open');
 			filterBy<#= foreignKey  #>(id);
 			<# } #>
 		}

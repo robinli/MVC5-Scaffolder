@@ -38,7 +38,9 @@
                     <li class="@Html.IsSelected(action: "Index", controller: "Works")">
                         <a href="@Url.Action("index", "works")" title="工作单"><span class="menu-item-parent">工作单</span></a>
                     </li>
-                 
+                    <li class="@Html.IsSelected(action: "Index", controller: "Orders")">
+                        <a href="@Url.Action("index", "orders")" title="订单信息"><span class="menu-item-parent">订单信息</span></a>
+                    </li>
 
                 </ul>
             </li>
