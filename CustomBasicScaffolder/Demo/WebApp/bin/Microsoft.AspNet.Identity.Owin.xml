@@ -272,6 +272,17 @@
             <param name="createCallback"></param>
             <returns></returns>
         </member>
+        <member name="M:Owin.AppBuilderExtensions.CreatePerOwinContext``1(Owin.IAppBuilder,System.Func{Microsoft.AspNet.Identity.Owin.IdentityFactoryOptions{``0},Microsoft.Owin.IOwinContext,``0},System.Action{Microsoft.AspNet.Identity.Owin.IdentityFactoryOptions{``0},``0})">
+            <summary>
+                Registers a callback that will be invoked to create an instance of type T that will be stored in the OwinContext
+                which can fetched via context.Get
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="app"></param>
+            <param name="createCallback"></param>
+            <param name="disposeCallback"></param>
+            <returns></returns>
+        </member>
         <member name="M:Owin.AppBuilderExtensions.UseExternalSignInCookie(Owin.IAppBuilder)">
             <summary>
                 Configure the app to use owin middleware based cookie authentication for external identities

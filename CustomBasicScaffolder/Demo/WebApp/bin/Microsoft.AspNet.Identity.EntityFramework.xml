@@ -569,6 +569,37 @@
                 disposed if contextOwnsConnection is false.
             </param>
         </member>
+        <member name="M:Microsoft.AspNet.Identity.EntityFramework.IdentityDbContext`6.#ctor(System.Data.Entity.Infrastructure.DbCompiledModel)">
+            <summary>
+                Constructs a new context instance using conventions to create the name of
+                the database to which a connection will be made, and initializes it from
+                the given model.  The by-convention name is the full name (namespace + class
+                name) of the derived context class.  See the class remarks for how this is
+                used to create a connection.
+            </summary>
+            <param name="model">The model that will back this context.</param>
+        </member>
+        <member name="M:Microsoft.AspNet.Identity.EntityFramework.IdentityDbContext`6.#ctor(System.Data.Common.DbConnection,System.Boolean)">
+            <summary>
+                Constructs a new context instance using the existing connection to connect
+                to a database.  The connection will not be disposed when the context is disposed
+                if contextOwnsConnection is false.
+            </summary>
+            <param name="existingConnection">An existing connection to use for the new context.</param>
+            <param name="contextOwnsConnection">If set to true the connection is disposed when the context is disposed, otherwise
+                the caller must dispose the connection.
+            </param>
+        </member>
+        <member name="M:Microsoft.AspNet.Identity.EntityFramework.IdentityDbContext`6.#ctor(System.String,System.Data.Entity.Infrastructure.DbCompiledModel)">
+            <summary>
+                Constructs a new context instance using the given string as the name or connection
+                string for the database to which a connection will be made, and initializes
+                it from the given model.  See the class remarks for how this is used to create
+                a connection.
+            </summary>
+            <param name="nameOrConnectionString">Either the database name or a connection string.</param>
+            <param name="model">The model that will back this context.</param>
+        </member>
         <member name="M:Microsoft.AspNet.Identity.EntityFramework.IdentityDbContext`6.OnModelCreating(System.Data.Entity.DbModelBuilder)">
             <summary>
                 Maps table names, and sets up relationships between the various user entities
@@ -623,6 +654,37 @@
                 disposed if contextOwnsConnection is false.
             </param>
         </member>
+        <member name="M:Microsoft.AspNet.Identity.EntityFramework.IdentityDbContext.#ctor(System.Data.Entity.Infrastructure.DbCompiledModel)">
+            <summary>
+                Constructs a new context instance using conventions to create the name of
+                the database to which a connection will be made, and initializes it from
+                the given model.  The by-convention name is the full name (namespace + class
+                name) of the derived context class.  See the class remarks for how this is
+                used to create a connection.
+            </summary>
+            <param name="model">The model that will back this context.</param>
+        </member>
+        <member name="M:Microsoft.AspNet.Identity.EntityFramework.IdentityDbContext.#ctor(System.Data.Common.DbConnection,System.Boolean)">
+            <summary>
+                Constructs a new context instance using the existing connection to connect
+                to a database.  The connection will not be disposed when the context is disposed
+                if contextOwnsConnection is false.
+            </summary>
+            <param name="existingConnection">An existing connection to use for the new context.</param>
+            <param name="contextOwnsConnection">If set to true the connection is disposed when the context is disposed, otherwise
+                the caller must dispose the connection.
+            </param>
+        </member>
+        <member name="M:Microsoft.AspNet.Identity.EntityFramework.IdentityDbContext.#ctor(System.String,System.Data.Entity.Infrastructure.DbCompiledModel)">
+            <summary>
+                Constructs a new context instance using the given string as the name or connection
+                string for the database to which a connection will be made, and initializes
+                it from the given model.  See the class remarks for how this is used to create
+                a connection.
+            </summary>
+            <param name="nameOrConnectionString">Either the database name or a connection string.</param>
+            <param name="model">The model that will back this context.</param>
+        </member>
         <member name="T:Microsoft.AspNet.Identity.EntityFramework.IdentityDbContext`1">
             <summary>
                 DbContext which uses a custom user entity with a string primary key
@@ -660,6 +722,37 @@
                 database, and initializes it from the given model.  The connection will not be disposed when the context is
                 disposed if contextOwnsConnection is false.
             </param>
+        </member>
+        <member name="M:Microsoft.AspNet.Identity.EntityFramework.IdentityDbContext`1.#ctor(System.Data.Entity.Infrastructure.DbCompiledModel)">
+            <summary>
+                Constructs a new context instance using conventions to create the name of
+                the database to which a connection will be made, and initializes it from
+                the given model.  The by-convention name is the full name (namespace + class
+                name) of the derived context class.  See the class remarks for how this is
+                used to create a connection.
+            </summary>
+            <param name="model">The model that will back this context.</param>
+        </member>
+        <member name="M:Microsoft.AspNet.Identity.EntityFramework.IdentityDbContext`1.#ctor(System.Data.Common.DbConnection,System.Boolean)">
+            <summary>
+                Constructs a new context instance using the existing connection to connect
+                to a database.  The connection will not be disposed when the context is disposed
+                if contextOwnsConnection is false.
+            </summary>
+            <param name="existingConnection">An existing connection to use for the new context.</param>
+            <param name="contextOwnsConnection">If set to true the connection is disposed when the context is disposed, otherwise
+                the caller must dispose the connection.
+            </param>
+        </member>
+        <member name="M:Microsoft.AspNet.Identity.EntityFramework.IdentityDbContext`1.#ctor(System.String,System.Data.Entity.Infrastructure.DbCompiledModel)">
+            <summary>
+                Constructs a new context instance using the given string as the name or connection
+                string for the database to which a connection will be made, and initializes
+                it from the given model.  See the class remarks for how this is used to create
+                a connection.
+            </summary>
+            <param name="nameOrConnectionString">Either the database name or a connection string.</param>
+            <param name="model">The model that will back this context.</param>
         </member>
         <member name="T:Microsoft.AspNet.Identity.EntityFramework.IdentityResources">
             <summary>
