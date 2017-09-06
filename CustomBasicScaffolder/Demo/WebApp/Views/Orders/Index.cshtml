@@ -152,16 +152,16 @@
 
                                             <table id="orderdetails_datagrid" class="easyui-datagrid" style="width:940px;height:auto"
                                                    data-options="
-								rownumbers:true,
-								remoteFilter: true,
-								singleSelect: true,
-								toolbar: '#orderdetails_toolbar',
-								url: '/OrderDetails/GetData',
-								method: 'get',
-								onClickCell: orderdetails_onClickCell,
-								pagination: true,
-                                striped:true
-							">
+								                    rownumbers:true,
+								                    remoteFilter: true,
+								                    singleSelect: true,
+								                    toolbar: '#orderdetails_toolbar',
+								                    url: '',
+								                    method: 'get',
+								                    onClickCell: orderdetails_onClickCell,
+								                    pagination: true,
+                                                    striped:true
+							                        ">
                                                 <thead>
                                                     <tr>
                                                         @*<th data-options="field:'ck',checkbox:true"></th>*@
@@ -440,8 +440,9 @@
         //弹出明细信息
         function showDetailsWindow(id) {
             console.log(id);
+            $orderdetailsdg.datagrid('reload','/OrderDetails/GetDataByOrderId?orderid=' + id);
             $('#detailswindow').window('open');
-            filterByOrderId(id);
+            //filterByOrderId(id);
         }
 
 
@@ -580,7 +581,7 @@
             $orderdetailsdg.datagrid("enableFilter", [
             ]);
 
-            filterByOrderId(-1);
+            //filterByOrderId(-1);
         })
 
 

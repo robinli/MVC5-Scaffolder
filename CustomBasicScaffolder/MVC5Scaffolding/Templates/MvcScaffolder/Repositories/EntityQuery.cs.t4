@@ -46,12 +46,6 @@ namespace <#=DefaultNamespace #>.Repositories
             return this;
         }
 
-		public <#= ModelName #>Query WithPopupSearch(string search,string para="")
-        {
-            if (!string.IsNullOrEmpty(search))
-                And(<#= QueryLambdaText #>);
-            return this;
-        }
 
 		public <#= ModelName #>Query Withfilter(IEnumerable<filterRule> filters)
         {
@@ -135,6 +129,107 @@ namespace <#=DefaultNamespace #>.Repositories
            }
             return this;
         }
+
+
+
+        <#
+        //PropertyMetadata primaryKey = ModelMetadata.PrimaryKeys.FirstOrDefault();
+        foreach (PropertyMetadata property1 in ModelMetadata.Properties) { 
+            var propertyname = property1.PropertyName.Replace("_","");
+            var lowerpropertyname = property1.PropertyName.Replace("_","").ToLower();
+            var typename= property1.ShortTypeName;
+            if (property1.IsForeignKey) {
+           
+        #>
+         public  <#= ModelName #>Query By<#= property1.PropertyName.Replace("_","") #>Withfilter(<#= typename #> <#= lowerpropertyname #>, IEnumerable<filterRule> filters)
+         {
+            And(x => x.<#= propertyname #> == <#= lowerpropertyname #>);
+            
+            if (filters != null)
+           {
+               foreach (var rule in filters)
+               {
+                     
+                <#
+					IEnumerable<PropertyMetadata> properties1 = ModelMetadata.Properties;
+				    foreach (PropertyMetadata property in properties1) {
+						 if (property.Scaffold && !property.IsAssociation) {
+				  #>
+
+					<# 
+						if(property.ShortTypeName=="string") {
+					#>
+						if (rule.field == "<#= property.PropertyName  #>"  && !string.IsNullOrEmpty(rule.value))
+						{
+							And(x => x.<#= property.PropertyName #>.Contains(rule.value));
+						}
+				    <# 
+					   // end if
+						} 
+					#>
+
+				    <# 
+						if(property.ShortTypeName=="int"  ) {
+					#>
+						if (rule.field == "<#= property.PropertyName  #>" && !string.IsNullOrEmpty(rule.value) && rule.value.IsInt())
+						{
+							int val = Convert.ToInt32(rule.value);
+							And(x => x.<#= property.PropertyName #> == val);
+						}
+				    <# 
+					   // end if
+						} #>
+
+					<# 
+						if(property.ShortTypeName=="float" || property.ShortTypeName=="decimal" || property.ShortTypeName=="double") {
+					#>
+						if (rule.field == "<#= property.PropertyName  #>" && !string.IsNullOrEmpty(rule.value) && rule.value.IsDecimal())
+						{
+							var val = Convert.ToDecimal(rule.value);
+							And(x => x.<#= property.PropertyName #> == val);
+						}
+				    <# 
+					   // end if
+						} #>
+
+					<# 
+						if(property.ShortTypeName=="DateTime" ) {
+					#>
+						if (rule.field == "<#= property.PropertyName  #>" && !string.IsNullOrEmpty(rule.value) && rule.value.IsDateTime())
+						{	
+							var date = Convert.ToDateTime(rule.value) ;
+							And(x => SqlFunctions.DateDiff("d", date, x.<#= property.PropertyName #>)>=0);
+						}
+				   <# 
+					   } // end if
+				   #>
+
+				    <# 
+						if(property.ShortTypeName=="bool" || property.ShortTypeName=="Boolean") {
+					#>
+						if (rule.field == "<#= property.PropertyName  #>" && !string.IsNullOrEmpty(rule.value) && rule.value.IsBool())
+						{	
+							 var boolval=Convert.ToBoolean(rule.value);
+							 And(x => x.<#= property.PropertyName #> == boolval);
+						}
+				   <# 
+					   } // end if
+				   #>
+				<# 
+					//end if end foreach  
+						 }
+                    }
+				 #>
+
+               }
+            }
+            return this;
+         }
+             
+        <#
+          }
+        }
+        #>
     }
 }
 

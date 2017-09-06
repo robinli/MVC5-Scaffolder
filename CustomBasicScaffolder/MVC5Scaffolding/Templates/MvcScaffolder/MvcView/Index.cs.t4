@@ -312,9 +312,7 @@ foreach (PropertyMetadata property in properties) {
 																required:<#= isRequired.ToString().ToLower() #>
 														}
 													}"> <#= GetDisplayName(foreignKeyPropertyName) #> </th>
-
 											<# } else { #>
-
 											<#
 												if(fieldtypename=="string") {
 											#>
@@ -350,10 +348,6 @@ foreach (PropertyMetadata property in properties) {
 											<# } else { #>
 													<th data-options="field:'<#= subproperty.PropertyName #>',width:120,editor:{type:'textbox',options:{required:<#= isRequired.ToString().ToLower() #>  <#= maxLength #>}} "> <#= GetDisplayName(subproperty.PropertyName) #></th>
 											<# }  } #>
-
-
-
-
 									 <# 
 											}
 									 #>
@@ -556,7 +550,7 @@ foreach (PropertyMetadata property in properties) {
 			alert(rows.length + " rows are changed!");
 		}
 
-		//datagrid 开启行赛选功能
+		//datagrid 开启筛选功能
 		 $(function () {
 		  
 		   $dg.datagrid("enableFilter",[
@@ -588,7 +582,6 @@ foreach (PropertyMetadata property in properties) {
 		   <# 
 				}
 		   #>
-
 		   <# 
 				foreach(var property in  ModelMetadata.Properties.Where(x=>x.ShortTypeName=="DateTime" && x.Scaffold==true))
 				{
