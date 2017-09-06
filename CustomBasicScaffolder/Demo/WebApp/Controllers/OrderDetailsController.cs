@@ -78,14 +78,14 @@ namespace WebApp.Controllers
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
                 [HttpGet]
-        public async Task<ActionResult> GetDataByOrderId (int  orderid ,int page = 1, int rows = 10, string sort = "Id", string order = "asc", string filterRules = "")
+        public  ActionResult GetDataByOrderId (int  orderid ,int page = 1, int rows = 10, string sort = "Id", string order = "asc", string filterRules = "")
         {    
             var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
 			var totalCount = 0;
-            			    var orderdetails  = await _orderDetailService
+            			    var orderdetails  =  _orderDetailService
 						               .Query(new OrderDetailQuery().ByOrderIdWithfilter(orderid,filters)).Include(o => o.Order).Include(o => o.Product)
 							           .OrderBy(n=>n.OrderBy(sort,order))
-							           .SelectPageAsync(page, rows, out totalCount);
+							           .SelectPage(page, rows, out totalCount);
 				            var datarows = orderdetails .Select(  n => new { OrderCustomer = (n.Order==null?"": n.Order.Customer) ,ProductName = (n.Product==null?"": n.Product.Name) , Id = n.Id , ProductId = n.ProductId , Qty = n.Qty , Price = n.Price , Amount = n.Amount , OrderId = n.OrderId }).ToList();
 			var pagelist = new { total = totalCount, rows = datarows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);

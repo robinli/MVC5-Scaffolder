@@ -24,12 +24,6 @@ namespace WebApp.Repositories
             return this;
         }
 
-		public OrderQuery WithPopupSearch(string search,string para="")
-        {
-            if (!string.IsNullOrEmpty(search))
-                And( x =>  x.Id.ToString().Contains(search) || x.Customer.Contains(search) || x.ShippingAddress.Contains(search) || x.OrderDate.ToString().Contains(search) );
-            return this;
-        }
 
 		public OrderQuery Withfilter(IEnumerable<filterRule> filters)
         {
@@ -81,7 +75,10 @@ namespace WebApp.Repositories
            }
             return this;
         }
-    }
+
+
+
+            }
 }
 
 
