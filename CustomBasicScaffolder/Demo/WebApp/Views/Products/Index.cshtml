@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<WebApp.Models.Product>
 @{
-	ViewBag.Title = "物料主档管理";
+	ViewBag.Title = "物料主档";
 }
 <!-- MAIN CONTENT -->
 <div id="content">
@@ -15,7 +15,7 @@
                 路径
                 <span>
                     >
-                  物料主档管理
+                  物料主档
                 </span>
             </h1>
         </div>
@@ -33,7 +33,7 @@
             <!-- NEW WIDGET START -->
             <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <!-- Widget ID (each widget will need unique ID)-->
-                <div class="jarviswidget" id="wid-id-4" data-widget-editbutton="false">
+                <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
                     <!-- widget options:
                     usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
                     data-widget-colorbutton="false"
@@ -47,7 +47,7 @@
                     -->
                     <header>
                         <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-                        <h2>物料主档管理</h2>
+                        <h2>物料主档</h2>
                     </header>
 
                      <!-- widget div-->
@@ -202,7 +202,7 @@
 
 @section Scripts {
 	<script type="text/javascript">
-
+        var entityname = "Product";
 			        //下载Excel导入模板
                     function downloadtemplate() {
                             //TODO: 修改下载模板的路径
@@ -338,12 +338,11 @@
 			alert(rows.length + " rows are changed!");
 		}
 
-		//datagrid 开启行赛选功能
+		//datagrid 开启筛选功能
 		 $(function () {
 		  
 		   $dg.datagrid("enableFilter",[
-		   
-		   				{
+		   		   				{
 					  field: "ConfirmDateTime",
 					  type: "datebox",
 					  options: {
@@ -404,6 +403,7 @@
 		
 		 
 	 </script>
+     <script src="~/Scripts/jquery.filerupload.js"></script>
 }
 
  

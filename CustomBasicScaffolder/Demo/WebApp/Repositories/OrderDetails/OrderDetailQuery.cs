@@ -178,7 +178,7 @@ namespace WebApp.Repositories
         public OrderDetailQuery ByOrderIdWithfilter(int orderid, IEnumerable<filterRule> filters)
         {
             And(x => x.OrderId == orderid);
-
+            
             if (filters != null)
             {
                 foreach (var rule in filters)

@@ -35,6 +35,10 @@ namespace Repository.Pattern.Ef6
 
         public UnitOfWork(IDataContextAsync dataContext)
         {
+            string licenseName = "13;100-TEST";//... PRO license name
+            string licenseKey = "0D0E8959891B87975F829CA4DDBA76B1";//... PRO license key
+            Z.EntityFramework.Extensions.LicenseManager.AddLicense(licenseName, licenseKey);
+
             _dataContext = dataContext;
             
             _repositories = new Dictionary<string, dynamic>();

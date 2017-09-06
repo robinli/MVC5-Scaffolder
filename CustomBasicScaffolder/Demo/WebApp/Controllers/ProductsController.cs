@@ -55,16 +55,30 @@ namespace WebApp.Controllers
 			var totalCount = 0;
 			//int pagenum = offset / limit +1;
 											var products  = await _productService
-						.Query(new ProductQuery().Withfilter(filters)).Include(p => p.Category)
-							.OrderBy(n=>n.OrderBy(sort,order))
-							.SelectPageAsync(page, rows, out totalCount);
-							 
-			
+						               .Query(new ProductQuery().Withfilter(filters)).Include(p => p.Category)
+							           .OrderBy(n=>n.OrderBy(sort,order))
+							           .SelectPageAsync(page, rows, out totalCount);
 				
 						var datarows = products .Select(  n => new { CategoryName = (n.Category==null?"": n.Category.Name) , Id = n.Id , Name = n.Name , Unit = n.Unit , UnitPrice = n.UnitPrice , StockQty = n.StockQty , ConfirmDateTime = n.ConfirmDateTime , IsRequiredQc = n.IsRequiredQc , CategoryId = n.CategoryId }).ToList();
 			var pagelist = new { total = totalCount, rows = datarows };
 			return Json(pagelist, JsonRequestBehavior.AllowGet);
 		}
+
+                 [HttpGet]
+        public async Task<ActionResult> GetDataByCategoryId (int  categoryid ,int page = 1, int rows = 10, string sort = "Id", string order = "asc", string filterRules = "")
+        {    
+            var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
+			var totalCount = 0;
+            			    var products  = await _productService
+						               .Query(new ProductQuery().ByCategoryIdWithfilter(categoryid,filters)).Include(p => p.Category)
+							           .OrderBy(n=>n.OrderBy(sort,order))
+							           .SelectPageAsync(page, rows, out totalCount);
+				            var datarows = products .Select(  n => new { CategoryName = (n.Category==null?"": n.Category.Name) , Id = n.Id , Name = n.Name , Unit = n.Unit , UnitPrice = n.UnitPrice , StockQty = n.StockQty , ConfirmDateTime = n.ConfirmDateTime , IsRequiredQc = n.IsRequiredQc , CategoryId = n.CategoryId }).ToList();
+			var pagelist = new { total = totalCount, rows = datarows };
+            return Json(pagelist, JsonRequestBehavior.AllowGet);
+        }
+        
+
 
 		[HttpPost]
 				public async Task<ActionResult> SaveData(ProductChangeViewModel products)

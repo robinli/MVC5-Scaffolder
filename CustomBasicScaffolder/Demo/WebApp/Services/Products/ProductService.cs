@@ -43,7 +43,7 @@ namespace WebApp.Services
             {
                  
                 Product item = new Product();
-				var mapping = _mappingservice.Queryable().Where(x => x.EntitySetName == "Product").ToList();
+				var mapping = _mappingservice.Queryable().Where(x => x.EntitySetName == "Product" &&  x.IsEnabled==true).ToList();
 
                 foreach (var field in mapping)
                 {
