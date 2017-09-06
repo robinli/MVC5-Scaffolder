@@ -273,7 +273,7 @@ foreach (PropertyMetadata property in properties) {
 								remoteFilter: true,
 								singleSelect: true,
 								toolbar: '#<#= entitySetNameToLower #>_toolbar',
-								url: '/<#= entitySetName #>/GetData',
+								url: '',
 								method: 'get',
 								onClickCell: <#= entitySetNameToLower #>_onClickCell,
 								pagination: true,
@@ -661,9 +661,26 @@ foreach (PropertyMetadata property in properties) {
 			//console.log(index, row);
 			 <#  if(GenerateMasterDetailRelationship  && OneToManyModelMetadata.Count >0) 
 			 { 
-			#>
+			 #>
+
             $('#detailswindow').window('open');
-			filterBy<#= foreignKey  #>(id);
+             <# 
+				foreach (var prop in ModelMetadata.Properties.Where(x=>x.AssociationDirection == AssociationDirection.OneToMany)) 
+				{
+					var submetadata =  OneToManyModelMetadata[prop.PropertyName];
+					var entitySetName = submetadata.EntitySetName;
+					var entitySetNameToLower = submetadata.EntitySetName.ToLower();
+					var subModeType = prop.ShortTypeName;
+					var datagridelement = entitySetNameToLower + "_datagrid";
+					var datagridvar = "$"+ entitySetNameToLower +  "dg";
+					var editindex = entitySetNameToLower + "_editIndex";
+					var detailnamevar = entitySetNameToLower;
+					var subforeignKey = submetadata.RelatedEntities.Where(x=>x.ShortTypeName == ModelTypeName).First().ForeignKeyPropertyNames[0];
+				#>
+			        <#= datagridvar #>.datagrid('reload','/<#= entitySetName #>/GetDataBy<#= subforeignKey #>?<#= subforeignKey.ToLower() #>=' + id);
+			
+                <# } #>
+            //filterBy<#= foreignKey  #>(id);
 			<# } #>
 		}
  
@@ -837,7 +854,7 @@ foreach (PropertyMetadata property in properties) {
 			<#= datagridvar #>.datagrid("enableFilter", [
 									]);
 
-			filterBy<#= foreignKey  #>(-1);
+			//filterBy<#= foreignKey  #>(-1);
 		})
 
 

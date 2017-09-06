@@ -72,7 +72,6 @@ namespace <#= Namespace #>
 	var primaryKeyNullableTypeName = GetNullableTypeName(primaryKeyType, primaryKeyShortTypeName);
 	var lambdaVar = ModelVariable[0];
 	var relatedProperties = ModelMetadata.RelatedEntities.ToDictionary(item => item.AssociationPropertyName);
-	
 	string bindAttribute;
 	var modelService= "I" + ModelTypeName + "Service";
 	var modelServiceVar= "_" + ModelVariable + "Service";
@@ -152,18 +151,15 @@ namespace <#= Namespace #>
 			<# if (UseAsync) { #>
 				<# if(!String.IsNullOrEmpty(includeExpressions)) { #>
 				var <#= modelVariablePlural #>  = await <#= modelServiceVar #>
-						.Query(new <#= ModelTypeName #>Query().Withfilter(filters))<#= includeExpressions #>
-							.OrderBy(n=>n.OrderBy(sort,order))
-							.SelectPageAsync(page, rows, out totalCount);
-							 
-			
+						               .Query(new <#= ModelTypeName #>Query().Withfilter(filters))<#= includeExpressions #>
+							           .OrderBy(n=>n.OrderBy(sort,order))
+							           .SelectPageAsync(page, rows, out totalCount);
 				<#  } else { #>
 				var <#= modelVariablePlural #>  = await  <#= modelServiceVar #>
-						.Query(new <#= ModelTypeName #>Query().Withfilter(filters))
-							.OrderBy(n=>n.OrderBy(sort,order))
-							.SelectPageAsync(page, rows, out totalCount);
-							 
-				<#  } #>
+						               .Query(new <#= ModelTypeName #>Query().Withfilter(filters))
+							           .OrderBy(n=>n.OrderBy(sort,order))
+							           .SelectPageAsync(page, rows, out totalCount);
+      			<#  } #>
 
 			<# } else { #>
 				<# if(!String.IsNullOrEmpty(includeExpressions)) { #>
@@ -178,6 +174,41 @@ namespace <#= Namespace #>
 			var pagelist = new { total = totalCount, rows = datarows };
 			return Json(pagelist, JsonRequestBehavior.AllowGet);
 		}
+
+         <#
+        //PropertyMetadata primaryKey = ModelMetadata.PrimaryKeys.FirstOrDefault();
+        foreach (PropertyMetadata property in ModelMetadata.Properties) { 
+            var propertyname = property.PropertyName.Replace("_","");
+            var lowerpropertyname = property.PropertyName.Replace("_","").ToLower();
+            var typename= property.ShortTypeName;
+            if (property.IsForeignKey) {
+           
+        #>
+        [HttpGet]
+        public async Task<ActionResult> GetDataBy<#= propertyname #> (<#= typename #>  <#= lowerpropertyname #> ,int page = 1, int rows = 10, string sort = "Id", string order = "asc", string filterRules = "")
+        {    
+            var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
+			var totalCount = 0;
+            <# if(!String.IsNullOrEmpty(includeExpressions)) { #>
+			    var <#= modelVariablePlural #>  = await <#= modelServiceVar #>
+						               .Query(new <#= ModelTypeName #>Query().By<#= propertyname #>Withfilter(<#= lowerpropertyname #>,filters))<#= includeExpressions #>
+							           .OrderBy(n=>n.OrderBy(sort,order))
+							           .SelectPageAsync(page, rows, out totalCount);
+				<#  } else { #>
+				var <#= modelVariablePlural #>  = await  <#= modelServiceVar #>
+						               .Query(new <#= ModelTypeName #>Query().By<#= propertyname #>Withfilter(<#= lowerpropertyname #>,filters))
+							           .OrderBy(n=>n.OrderBy(sort,order))
+							           .SelectPageAsync(page, rows, out totalCount);
+      			<#  } #>
+            var datarows = <#= modelVariablePlural #> .Select( <#= SelectLambdaText #>).ToList();
+			var pagelist = new { total = totalCount, rows = datarows };
+            return Json(pagelist, JsonRequestBehavior.AllowGet);
+        }
+        <#      }
+            }
+        #>
+
+
 
 		[HttpPost]
 		<# if (UseAsync) { #>
