@@ -375,5 +375,10 @@
             Gets or sets the <see cref="T:Microsoft.Owin.Security.Twitter.ITwitterAuthenticationProvider"/> used to handle authentication events.
             </summary>
         </member>
+        <member name="P:Microsoft.Owin.Security.Twitter.TwitterAuthenticationOptions.CookieManager">
+            <summary>
+            An abstraction for reading and setting cookies during the authentication process.
+            </summary>
+        </member>
     </members>
 </doc>

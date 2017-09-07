@@ -3604,7 +3604,7 @@ position:relative;
 .alert-info .alert-icons+b+p{ padding:0 0 0 20px;}
 
 
-.label,.badge{ padding:2px 6px; color:#fff; background:#777777; font-style:normal; font-family:Arial,"Microsoft YaHei","微软雅黑"; font-size: 12px; line-height: 14px; }
+.label,.badge{ padding:2px 6px; /*color:#fff; background:#777777;*/ font-style:normal; font-family:Arial,"Microsoft YaHei","微软雅黑"; font-size: 12px; line-height: 14px; }
 .badge{border-radius:15px; }
 .l-btn-text .label,
 .l-btn-text .badge

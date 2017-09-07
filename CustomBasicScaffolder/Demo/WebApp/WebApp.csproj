@@ -4546,6 +4546,7 @@
     <Content Include="Views\Products\Create.cshtml" />
     <Content Include="Views\Products\Edit.cshtml" />
     <Content Include="Views\Products\EditForm.cshtml" />
+    <Content Include="Views\Account\Profile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Source\Repository.Pattern.Ef6\Repository.Pattern.Ef6.csproj">

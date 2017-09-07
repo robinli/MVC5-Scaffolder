@@ -56,9 +56,23 @@
             </summary>
             <param name="parameters">Query string parameters from a request.</param>
         </member>
+        <member name="M:Microsoft.Owin.Security.OAuth.Messages.AuthorizeEndpointRequest.ContainsGrantType(System.String)">
+            <summary>
+            True if the "response_type" query string contains the passed responseType.
+            See also, http://openid.net/specs/oauth-v2-multiple-response-types-1_0.html
+            </summary>
+            <param name="responseType">The responseType that is expected within the "response_type" query string</param>
+            <returns>True if the "response_type" query string contains the passed responseType.</returns>
+        </member>
         <member name="P:Microsoft.Owin.Security.OAuth.Messages.AuthorizeEndpointRequest.ResponseType">
             <summary>
             The "response_type" query string parameter of the Authorize request. Known values are "code" and "token".
+            </summary>
+        </member>
+        <member name="P:Microsoft.Owin.Security.OAuth.Messages.AuthorizeEndpointRequest.ResponseMode">
+            <summary>
+            The "response_mode" query string parameter of the Authorize request. Known values are "query", "fragment" and "form_post"
+            See also, http://openid.net/specs/oauth-v2-form-post-response-mode-1_0.html
             </summary>
         </member>
         <member name="P:Microsoft.Owin.Security.OAuth.Messages.AuthorizeEndpointRequest.ClientId">
@@ -337,6 +351,12 @@
             redirect_uri authorize request parameter to have http URI addresses.
             </summary>
         </member>
+        <member name="P:Microsoft.Owin.Security.OAuth.OAuthAuthorizationServerOptions.FormPostEndpoint">
+            <summary>
+            Endpoint responsible for Form Post Response Mode
+            See also, http://openid.net/specs/oauth-v2-form-post-response-mode-1_0.html
+            </summary>
+        </member>
         <member name="T:Microsoft.Owin.Security.OAuth.OAuthAuthorizationServerMiddleware">
             <summary>
             Authorization Server middleware component which is added to an OWIN pipeline. This class is not
@@ -458,6 +478,57 @@
             <summary>
             Default value for AuthenticationType property in the OAuthBearerAuthenticationOptions and
             OAuthAuthorizationServerOptions.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Owin.Security.OAuth.OAuthTokenEndpointResponseContext">
+            <summary>
+            Provides context information used at the end of a token-endpoint-request.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Owin.Security.OAuth.OAuthTokenEndpointResponseContext.#ctor(Microsoft.Owin.IOwinContext,Microsoft.Owin.Security.OAuth.OAuthAuthorizationServerOptions,Microsoft.Owin.Security.AuthenticationTicket,Microsoft.Owin.Security.OAuth.Messages.TokenEndpointRequest,System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Owin.Security.OAuth.OAuthTokenEndpointResponseContext"/> class
+            </summary>
+            <param name="context"></param>
+            <param name="options"></param>
+            <param name="ticket"></param>
+            <param name="tokenEndpointRequest"></param>
+        </member>
+        <member name="M:Microsoft.Owin.Security.OAuth.OAuthTokenEndpointResponseContext.Issue(System.Security.Claims.ClaimsIdentity,Microsoft.Owin.Security.AuthenticationProperties)">
+            <summary>
+            Issues the token.
+            </summary>
+            <param name="identity"></param>
+            <param name="properties"></param>
+        </member>
+        <member name="P:Microsoft.Owin.Security.OAuth.OAuthTokenEndpointResponseContext.Identity">
+            <summary>
+            Gets the identity of the resource owner.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Owin.Security.OAuth.OAuthTokenEndpointResponseContext.Properties">
+            <summary>
+            Dictionary containing the state of the authentication session.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Owin.Security.OAuth.OAuthTokenEndpointResponseContext.AccessToken">
+            <summary>
+            The issued Access-Token
+            </summary>
+        </member>
+        <member name="P:Microsoft.Owin.Security.OAuth.OAuthTokenEndpointResponseContext.TokenEndpointRequest">
+            <summary>
+            Gets information about the token endpoint request. 
+            </summary>
+        </member>
+        <member name="P:Microsoft.Owin.Security.OAuth.OAuthTokenEndpointResponseContext.TokenIssued">
+            <summary>
+            Gets whether or not the token should be issued.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Owin.Security.OAuth.OAuthTokenEndpointResponseContext.AdditionalResponseParameters">
+            <summary>
+            Enables additional values to be appended to the token response.
             </summary>
         </member>
         <member name="T:Microsoft.Owin.Security.OAuth.BaseValidatingClientContext">
@@ -582,15 +653,64 @@
             this property in addition to changing IsValidated to true.
             </summary>
         </member>
+        <member name="T:Microsoft.Owin.Security.OAuth.OAuthAuthorizationEndpointResponseContext">
+            <summary>
+            Provides context information when processing an Authorization Response
+            </summary>
+        </member>
+        <member name="M:Microsoft.Owin.Security.OAuth.OAuthAuthorizationEndpointResponseContext.#ctor(Microsoft.Owin.IOwinContext,Microsoft.Owin.Security.OAuth.OAuthAuthorizationServerOptions,Microsoft.Owin.Security.AuthenticationTicket,Microsoft.Owin.Security.OAuth.Messages.AuthorizeEndpointRequest,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Owin.Security.OAuth.OAuthAuthorizationEndpointResponseContext"/> class
+            </summary>
+            <param name="context"></param>
+            <param name="options"></param>
+            <param name="ticket"></param>
+            <param name="tokenEndpointRequest"></param>
+        </member>
+        <member name="P:Microsoft.Owin.Security.OAuth.OAuthAuthorizationEndpointResponseContext.Identity">
+            <summary>
+            Gets the identity of the resource owner.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Owin.Security.OAuth.OAuthAuthorizationEndpointResponseContext.Properties">
+            <summary>
+            Dictionary containing the state of the authentication session.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Owin.Security.OAuth.OAuthAuthorizationEndpointResponseContext.AuthorizeEndpointRequest">
+            <summary>
+            Gets information about the authorize endpoint request. 
+            </summary>
+        </member>
+        <member name="P:Microsoft.Owin.Security.OAuth.OAuthAuthorizationEndpointResponseContext.AdditionalResponseParameters">
+            <summary>
+            Enables additional values to be appended to the token response.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Owin.Security.OAuth.OAuthAuthorizationEndpointResponseContext.AccessToken">
+            <summary>
+            The serialized Access-Token. Depending on the flow, it can be null.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Owin.Security.OAuth.OAuthAuthorizationEndpointResponseContext.AuthorizationCode">
+            <summary>
+            The created Authorization-Code. Depending on the flow, it can be null.
+            </summary>
+        </member>
         <member name="T:Microsoft.Owin.Security.OAuth.OAuthAuthorizeEndpointContext">
             <summary>
             An event raised after the Authorization Server has processed the request, but before it is passed on to the web application.
             Calling RequestCompleted will prevent the request from passing on to the web application.
             </summary>
         </member>
-        <member name="M:Microsoft.Owin.Security.OAuth.OAuthAuthorizeEndpointContext.#ctor(Microsoft.Owin.IOwinContext,Microsoft.Owin.Security.OAuth.OAuthAuthorizationServerOptions)">
+        <member name="M:Microsoft.Owin.Security.OAuth.OAuthAuthorizeEndpointContext.#ctor(Microsoft.Owin.IOwinContext,Microsoft.Owin.Security.OAuth.OAuthAuthorizationServerOptions,Microsoft.Owin.Security.OAuth.Messages.AuthorizeEndpointRequest)">
             <summary>
             Creates an instance of this context
+            </summary>
+        </member>
+        <member name="P:Microsoft.Owin.Security.OAuth.OAuthAuthorizeEndpointContext.AuthorizeRequest">
+            <summary>
+            Gets OAuth authorization request data.
             </summary>
         </member>
         <member name="T:Microsoft.Owin.Security.OAuth.IOAuthAuthorizationServerProvider">
@@ -643,7 +763,7 @@
         </member>
         <member name="M:Microsoft.Owin.Security.OAuth.IOAuthAuthorizationServerProvider.ValidateTokenRequest(Microsoft.Owin.Security.OAuth.OAuthValidateTokenRequestContext)">
             <summary>
-            Called for each request to the Authorize endpoint to determine if the request is valid and should continue. 
+            Called for each request to the Token endpoint to determine if the request is valid and should continue. 
             The default behavior when using the OAuthAuthorizationServerProvider is to assume well-formed requests, with 
             validated client credentials, should continue processing. An application may add any additional constraints.
             </summary>
@@ -740,6 +860,24 @@
             <param name="context">The context of the event carries information in and results out.</param>
             <returns>Task to enable asynchronous execution</returns>
         </member>
+        <member name="M:Microsoft.Owin.Security.OAuth.IOAuthAuthorizationServerProvider.AuthorizationEndpointResponse(Microsoft.Owin.Security.OAuth.OAuthAuthorizationEndpointResponseContext)">
+            <summary>
+            Called before the AuthorizationEndpoint redirects its response to the caller. The response could be the
+            token, when using implicit flow or the AuthorizationEndpoint when using authorization code flow.  
+            An application may implement this call in order to do any final modification of the claims being used 
+            to issue access or refresh tokens. This call may also be used in order to add additional 
+            response parameters to the authorization endpoint's response.
+            </summary>
+            <param name="context">The context of the event carries information in and results out.</param>
+            <returns>Task to enable asynchronous execution</returns>
+        </member>
+        <member name="M:Microsoft.Owin.Security.OAuth.IOAuthAuthorizationServerProvider.TokenEndpointResponse(Microsoft.Owin.Security.OAuth.OAuthTokenEndpointResponseContext)">
+            <summary>
+            Called before the TokenEndpoint redirects its response to the caller. 
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
         <member name="T:Microsoft.Owin.Security.OAuth.OAuthAuthorizationServerProvider">
             <summary>
             Default implementation of IOAuthAuthorizationServerProvider used by Authorization
@@ -797,7 +935,7 @@
         </member>
         <member name="M:Microsoft.Owin.Security.OAuth.OAuthAuthorizationServerProvider.ValidateTokenRequest(Microsoft.Owin.Security.OAuth.OAuthValidateTokenRequestContext)">
             <summary>
-            Called for each request to the Authorize endpoint to determine if the request is valid and should continue. 
+            Called for each request to the Token endpoint to determine if the request is valid and should continue. 
             The default behavior when using the OAuthAuthorizationServerProvider is to assume well-formed requests, with 
             validated client credentials, should continue processing. An application may add any additional constraints.
             </summary>
@@ -863,7 +1001,7 @@
         </member>
         <member name="M:Microsoft.Owin.Security.OAuth.OAuthAuthorizationServerProvider.GrantCustomExtension(Microsoft.Owin.Security.OAuth.OAuthGrantCustomExtensionContext)">
             <summary>
-            Called when a request to the Token andpoint arrives with a "grant_type" of any other value. If the application supports custom grant types
+            Called when a request to the Token endpoint arrives with a "grant_type" of any other value. If the application supports custom grant types
             it is entirely responsible for determining if the request should result in an access_token. If context.Validated is called with ticket
             information the response body is produced in the same way as the other standard grant types. If additional response parameters must be
             included they may be added in the final TokenEndpoint call.
@@ -893,6 +1031,24 @@
             </summary>
             <param name="context">The context of the event carries information in and results out.</param>
             <returns>Task to enable asynchronous execution</returns>
+        </member>
+        <member name="M:Microsoft.Owin.Security.OAuth.OAuthAuthorizationServerProvider.AuthorizationEndpointResponse(Microsoft.Owin.Security.OAuth.OAuthAuthorizationEndpointResponseContext)">
+            <summary>
+            Called before the AuthorizationEndpoint redirects its response to the caller. The response could be the
+            token, when using implicit flow or the AuthorizationEndpoint when using authorization code flow.  
+            An application may implement this call in order to do any final modification of the claims being used 
+            to issue access or refresh tokens. This call may also be used in order to add additional 
+            response parameters to the authorization endpoint's response.
+            </summary>
+            <param name="context">The context of the event carries information in and results out.</param>
+            <returns>Task to enable asynchronous execution</returns>
+        </member>
+        <member name="M:Microsoft.Owin.Security.OAuth.OAuthAuthorizationServerProvider.TokenEndpointResponse(Microsoft.Owin.Security.OAuth.OAuthTokenEndpointResponseContext)">
+            <summary>
+            Called before the TokenEndpoint redirects its response to the caller. 
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
         </member>
         <member name="P:Microsoft.Owin.Security.OAuth.OAuthAuthorizationServerProvider.OnMatchEndpoint">
             <summary>
@@ -930,7 +1086,7 @@
         </member>
         <member name="P:Microsoft.Owin.Security.OAuth.OAuthAuthorizationServerProvider.OnValidateTokenRequest">
             <summary>
-            Called for each request to the Authorize endpoint to determine if the request is valid and should continue. 
+            Called for each request to the Token endpoint to determine if the request is valid and should continue. 
             The default behavior when using the OAuthAuthorizationServerProvider is to assume well-formed requests, with 
             validated client credentials, should continue processing. An application may add any additional constraints.
             </summary>
@@ -1010,6 +1166,24 @@
             modification of the claims being used to issue access or refresh tokens. This call may also be used in order to add additional 
             response parameters to the Token endpoint's json response body.
             </summary>
+        </member>
+        <member name="P:Microsoft.Owin.Security.OAuth.OAuthAuthorizationServerProvider.OnAuthorizationEndpointResponse">
+            <summary>
+            Called before the AuthorizationEndpoint redirects its response to the caller. The response could be the
+            token, when using implicit flow or the AuthorizationEndpoint when using authorization code flow.  
+            An application may implement this call in order to do any final modification of the claims being used 
+            to issue access or refresh tokens. This call may also be used in order to add additional 
+            response parameters to the authorization endpoint's response.
+            </summary>
+            <param name="context">The context of the event carries information in and results out.</param>
+            <returns>Task to enable asynchronous execution</returns>
+        </member>
+        <member name="P:Microsoft.Owin.Security.OAuth.OAuthAuthorizationServerProvider.OnTokenEndpointResponse">
+            <summary>
+            Called before the TokenEndpoint redirects its response to the caller. 
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
         </member>
         <member name="T:Microsoft.Owin.Security.OAuth.OAuthBearerAuthenticationProvider">
             <summary>

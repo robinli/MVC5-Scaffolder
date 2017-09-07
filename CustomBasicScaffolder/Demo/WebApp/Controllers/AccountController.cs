@@ -432,6 +432,8 @@ namespace WebApp.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public new ActionResult Profile() => View();
+
         //
         // GET: /Account/ExternalLoginFailure
         [AllowAnonymous]
