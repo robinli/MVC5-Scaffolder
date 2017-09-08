@@ -3533,14 +3533,14 @@
 
 .alert-red,.alert-orange,.alert-yellow,.alert-olive,.alert-green,.alert-teal,.alert-blue,.alert-violet,.alert-purple,.alert-pink,.alert-brown,.alert-black
 { 
-border-width:1px; border-style:solid; border-color:#c5c5c5; background-color:#f5f5f5;
+/*border-width:1px; border-style:solid; border-color:#c5c5c5; background-color:#f5f5f5;
 padding:10px 15px;
 line-height: normal;
 text-indent:0;
 text-align:left;
 border-radius:2px;
 box-shadow:0 2px 3px #e3e3e3;
-position:relative;
+position:relative;*/
 }
 
 .alert-warning{ background-color:#f9edbe; border-color:#f0c36d;}
