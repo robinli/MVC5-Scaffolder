@@ -266,6 +266,44 @@ namespace WebApp.Controllers
             return View();
         }
 
+        public async Task<ActionResult> ChangePassword() {
+            var userId = User.Identity.GetUserId();
+            if (userId == null)
+            {
+                return View("Error");
+            }
+            var user = await UserManager.FindByIdAsync(userId);
+            var changepasswordViewModel = new UserChangePasswordViewModel();
+            changepasswordViewModel.UserName = user.UserName;
+            changepasswordViewModel.FullName = user.FullName;
+            changepasswordViewModel.Email = user.Email;
+           
+
+            return View(changepasswordViewModel);
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ChangePassword(UserChangePasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await UserManager.FindByEmailAsync(model.Email);
+                if (user == null)
+                {
+                    return View("Error");
+                }
+                var result = await UserManager.ChangePasswordAsync(user.Id, model.OldPassword, model.ConfirmPassword);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                else {
+                    AddErrors(result);
+                }
+            }
+                return View(model);
+        }
         //
         // GET: /Account/ResetPassword
         [AllowAnonymous]
