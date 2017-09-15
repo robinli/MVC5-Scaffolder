@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<WebApp.Models.Work>
 @{
-	ViewBag.Title = "工作单";
+	ViewBag.Title = "工单";
 }
 <!-- MAIN CONTENT -->
 <div id="content">
@@ -15,7 +15,7 @@
                 路径
                 <span>
                     >
-                  工作单
+                  工单
                 </span>
             </h1>
         </div>
@@ -33,7 +33,7 @@
             <!-- NEW WIDGET START -->
             <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <!-- Widget ID (each widget will need unique ID)-->
-                <div class="jarviswidget" id="wid-id-4" data-widget-editbutton="false">
+                <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
                     <!-- widget options:
                     usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
                     data-widget-colorbutton="false"
@@ -47,7 +47,7 @@
                     -->
                     <header>
                         <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-                        <h2>工作单</h2>
+                        <h2>工单</h2>
                     </header>
 
                      <!-- widget div-->
@@ -318,7 +318,7 @@
 			alert(rows.length + " rows are changed!");
 		}
 
-		//datagrid 开启行赛选功能
+		//datagrid 开启筛选功能
 		 $(function () {
 		  
 		   $dg.datagrid("enableFilter",[
@@ -343,39 +343,50 @@
 					  }
 				  },
 		   
+           				{
+					  field: "Hour",
+					  type: "numberbox",
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+		   				{
+					  field: "Priority",
+					  type: "numberbox",
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+		   				{
+					  field: "Score",
+					  type: "numberbox",
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+		   
+
 		   				{
 					  field: "StartDate",
-					  type: "datebox",
+					  type: "dateRange",
 					  options: {
 						  onChange: function (value) {
-							  if (value == "") {
-								  $dg.datagrid("removeFilterRule", "StartDate");
-							  } else {
-								  $dg.datagrid("addFilterRule", {
+							    $dg.datagrid("addFilterRule", {
 									  field: "StartDate",
-									  op: "equal",
+									  op: "between",
 									  value: value
 								  });
-							  }
-							  $dg.datagrid("doFilter");
+							   
+							    $dg.datagrid("doFilter");
 						  }
 					  }
 				  },
 		   				{
 					  field: "EndDate",
-					  type: "datebox",
+					  type: "dateRange",
 					  options: {
 						  onChange: function (value) {
-							  if (value == "") {
-								  $dg.datagrid("removeFilterRule", "EndDate");
-							  } else {
-								  $dg.datagrid("addFilterRule", {
+							    $dg.datagrid("addFilterRule", {
 									  field: "EndDate",
-									  op: "equal",
+									  op: "between",
 									  value: value
 								  });
-							  }
-							  $dg.datagrid("doFilter");
+							   
+							    $dg.datagrid("doFilter");
 						  }
 					  }
 				  },

@@ -582,6 +582,22 @@ foreach (PropertyMetadata property in properties) {
 		   <# 
 				}
 		   #>
+
+           <# 
+				foreach(var property in  ModelMetadata.Properties.Where(x=>(x.ShortTypeName=="float" || x.ShortTypeName=="decimal" || x.ShortTypeName=="double" || x.ShortTypeName=="int") && x.Scaffold==true))
+				{
+
+		   #>
+				{
+					  field: "<#= property.PropertyName #>",
+					  type: "numberbox",
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+		   <# 
+				}
+		   #>
+
+
 		   <# 
 				foreach(var property in  ModelMetadata.Properties.Where(x=>x.ShortTypeName=="DateTime" && x.Scaffold==true))
 				{
@@ -589,19 +605,16 @@ foreach (PropertyMetadata property in properties) {
 		   #>
 				{
 					  field: "<#= property.PropertyName #>",
-					  type: "datebox",
+					  type: "dateRange",
 					  options: {
 						  onChange: function (value) {
-							  if (value == "") {
-								  $dg.datagrid("removeFilterRule", "<#= property.PropertyName #>");
-							  } else {
-								  $dg.datagrid("addFilterRule", {
+							    $dg.datagrid("addFilterRule", {
 									  field: "<#= property.PropertyName #>",
-									  op: "equal",
+									  op: "between",
 									  value: value
 								  });
-							  }
-							  $dg.datagrid("doFilter");
+							   
+							    $dg.datagrid("doFilter");
 						  }
 					  }
 				  },

@@ -212,6 +212,7 @@
     <Compile Include="App_Helpers\HtmlHelperExtensions.cs" />
     <Compile Include="App_Helpers\KeyGenerator.cs" />
     <Compile Include="App_Helpers\Logger.cs" />
+    <Compile Include="App_Helpers\MyDictionary.cs" />
     <Compile Include="App_Helpers\Settings.cs" />
     <Compile Include="App_Helpers\StringExtensions.cs" />
     <Compile Include="App_Helpers\UserManager.cs" />
@@ -3538,6 +3539,7 @@
     <Content Include="Scripts\jquery.easyui-1.4.5.min.js" />
     <Content Include="Scripts\jquery.easyui.mobile-1.4.5.js" />
     <Content Include="Scripts\jquery.easyui.mobile-1.4.5.min.js" />
+    <Content Include="Scripts\jquery.easyui.extend.js" />
     <Content Include="Scripts\jquery.extend.js" />
     <Content Include="Scripts\jquery.filerupload.js" />
     <Content Include="Scripts\jquery.fileDownload.js" />
@@ -3703,6 +3705,7 @@
     <Content Include="Scripts\plugin\bootstrap-timepicker\bootstrap-timepicker.min.js" />
     <Content Include="Scripts\plugin\bootstrap-wizard\jquery.bootstrap.wizard.min.js" />
     <Content Include="Scripts\plugin\bootstraptree\bootstrap-tree.min.js" />
+    <Content Include="Scripts\plugin\bootstrapvalidator\bootstrapValidator.js" />
     <Content Include="Scripts\plugin\bootstrapvalidator\bootstrapValidator.min.js" />
     <Content Include="Scripts\plugin\bootstrapvalidator\language\ar_MA.min.js" />
     <Content Include="Scripts\plugin\bootstrapvalidator\language\be_NL.min.js" />
@@ -4052,6 +4055,9 @@
     <Content Include="Scripts\plugin\datatables\jquery.dataTables.min.js" />
     <Content Include="Scripts\plugin\datatables\swf\copy_csv_xls.swf" />
     <Content Include="Scripts\plugin\datatables\swf\copy_csv_xls_pdf.swf" />
+    <Content Include="Scripts\plugin\daterangepicker\daterangepicker.css" />
+    <Content Include="Scripts\plugin\daterangepicker\daterangepicker.js" />
+    <Content Include="Scripts\plugin\daterangepicker\moment.min.js" />
     <Content Include="Scripts\plugin\delete-table-row\delete-table-row.min.js" />
     <Content Include="Scripts\plugin\dropzone\dropzone-amd-module.min.js" />
     <Content Include="Scripts\plugin\dropzone\dropzone.min.js" />
@@ -4533,10 +4539,6 @@
     <Content Include="Scripts\plugin\jquery-filer\assets\fonts\jquery.filer-icons\jquery-filer.eot" />
     <Content Include="Scripts\plugin\jquery-filer\assets\fonts\jquery.filer-icons\jquery-filer.ttf" />
     <Content Include="Scripts\plugin\jquery-filer\assets\fonts\jquery.filer-icons\jquery-filer.woff" />
-    <Content Include="Views\Works\Index.cshtml" />
-    <Content Include="Views\Works\Create.cshtml" />
-    <Content Include="Views\Works\Edit.cshtml" />
-    <Content Include="Views\Works\EditForm.cshtml" />
     <Content Include="Views\Orders\Index.cshtml" />
     <Content Include="Views\Orders\Create.cshtml" />
     <Content Include="Views\Orders\Edit.cshtml" />
@@ -4548,6 +4550,10 @@
     <Content Include="Views\Products\EditForm.cshtml" />
     <Content Include="Views\Account\Profile.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
+    <Content Include="Views\Works\Index.cshtml" />
+    <Content Include="Views\Works\Create.cshtml" />
+    <Content Include="Views\Works\Edit.cshtml" />
+    <Content Include="Views\Works\EditForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Source\Repository.Pattern.Ef6\Repository.Pattern.Ef6.csproj">

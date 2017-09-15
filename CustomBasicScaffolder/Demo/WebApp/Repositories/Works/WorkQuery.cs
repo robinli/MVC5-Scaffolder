@@ -24,12 +24,6 @@ namespace WebApp.Repositories
             return this;
         }
 
-		public WorkQuery WithPopupSearch(string search,string para="")
-        {
-            if (!string.IsNullOrEmpty(search))
-                And( x =>  x.Name.Contains(search) || x.Status.Contains(search) || x.StartDate.ToString().Contains(search) || x.EndDate.ToString().Contains(search) || x.Hour.ToString().Contains(search) || x.Priority.ToString().Contains(search) || x.Score.ToString().Contains(search) );
-            return this;
-        }
 
 		public WorkQuery Withfilter(IEnumerable<filterRule> filters)
         {
@@ -61,8 +55,15 @@ namespace WebApp.Repositories
 					
 											if (rule.field == "StartDate" && !string.IsNullOrEmpty(rule.value) && rule.value.IsDateTime())
 						{	
-							var date = Convert.ToDateTime(rule.value) ;
-							And(x => SqlFunctions.DateDiff("d", date, x.StartDate)>=0);
+							if (rule.op == "between")
+                            {
+                                var datearray = rule.value.Split(new char[] { '-' });
+                                var start = Convert.ToDateTime(datearray[0]);
+                                var end = Convert.ToDateTime(datearray[1]);
+ 
+							    And(x => SqlFunctions.DateDiff("d", start, x.StartDate) >= 0);
+                                And(x => SqlFunctions.DateDiff("d", end, x.StartDate) <= 0);
+						    }
 						}
 				   
 				    				
@@ -71,8 +72,15 @@ namespace WebApp.Repositories
 					
 											if (rule.field == "EndDate" && !string.IsNullOrEmpty(rule.value) && rule.value.IsDateTime())
 						{	
-							var date = Convert.ToDateTime(rule.value) ;
-							And(x => SqlFunctions.DateDiff("d", date, x.EndDate)>=0);
+							if (rule.op == "between")
+                            {
+                                var datearray = rule.value.Split(new char[] { '-' });
+                                var start = Convert.ToDateTime(datearray[0]);
+                                var end = Convert.ToDateTime(datearray[1]);
+ 
+							    And(x => SqlFunctions.DateDiff("d", start, x.EndDate) >= 0);
+                                And(x => SqlFunctions.DateDiff("d", end, x.EndDate) <= 0);
+						    }
 						}
 				   
 				    				
@@ -90,7 +98,29 @@ namespace WebApp.Repositories
 				    						if (rule.field == "Hour" && !string.IsNullOrEmpty(rule.value) && rule.value.IsInt())
 						{
 							int val = Convert.ToInt32(rule.value);
-							And(x => x.Hour == val);
+							switch (rule.op) {
+                            case "equal":
+                                And(x => x.Hour == val);
+                                break;
+                            case "notequal":
+                                And(x => x.Hour != val);
+                                break;
+                            case "less":
+                                And(x => x.Hour < val);
+                                break;
+                            case "lessorequal":
+                                And(x => x.Hour <= val);
+                                break;
+                            case "greater":
+                                And(x => x.Hour > val);
+                                break;
+                            case "greaterorequal" :
+                                And(x => x.Hour >= val);
+                                break;
+                            default:
+                                And(x => x.Hour == val);
+                                break;
+                        }
 						}
 				    
 					
@@ -100,7 +130,29 @@ namespace WebApp.Repositories
 				    						if (rule.field == "Priority" && !string.IsNullOrEmpty(rule.value) && rule.value.IsInt())
 						{
 							int val = Convert.ToInt32(rule.value);
-							And(x => x.Priority == val);
+							switch (rule.op) {
+                            case "equal":
+                                And(x => x.Priority == val);
+                                break;
+                            case "notequal":
+                                And(x => x.Priority != val);
+                                break;
+                            case "less":
+                                And(x => x.Priority < val);
+                                break;
+                            case "lessorequal":
+                                And(x => x.Priority <= val);
+                                break;
+                            case "greater":
+                                And(x => x.Priority > val);
+                                break;
+                            case "greaterorequal" :
+                                And(x => x.Priority >= val);
+                                break;
+                            default:
+                                And(x => x.Priority == val);
+                                break;
+                        }
 						}
 				    
 					
@@ -111,7 +163,29 @@ namespace WebApp.Repositories
 											if (rule.field == "Score" && !string.IsNullOrEmpty(rule.value) && rule.value.IsDecimal())
 						{
 							var val = Convert.ToDecimal(rule.value);
-							And(x => x.Score == val);
+							switch (rule.op) {
+                            case "equal":
+                                And(x => x.Score == val);
+                                break;
+                            case "notequal":
+                                And(x => x.Score != val);
+                                break;
+                            case "less":
+                                And(x => x.Score < val);
+                                break;
+                            case "lessorequal":
+                                And(x => x.Score <= val);
+                                break;
+                            case "greater":
+                                And(x => x.Score > val);
+                                break;
+                            case "greaterorequal" :
+                                And(x => x.Score >= val);
+                                break;
+                            default:
+                                And(x => x.Score == val);
+                                break;
+                        }
 						}
 				    
 					
@@ -121,7 +195,10 @@ namespace WebApp.Repositories
            }
             return this;
         }
-    }
+
+
+
+            }
 }
 
 

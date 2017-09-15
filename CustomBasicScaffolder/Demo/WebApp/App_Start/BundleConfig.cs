@@ -105,6 +105,7 @@ namespace WebApp
             //EasyUI plugins Script
             bundles.Add(new ScriptBundle("~/plugins/easyuipluginsjs").Include(
                       "~/Scripts/easyui/plugins/datagrid-filter.js",
+                      "~/Scripts/jquery.easyui.extend.js",
                       "~/Scripts/easyui/plugins/jquery.edatagrid.js"));
 
 
@@ -112,6 +113,12 @@ namespace WebApp
             bundles.Add(new ScriptBundle("~/plugins/momentjs").Include(
                       "~/Scripts/moment-with-locales.js"));
 
+            //daterangepicker
+
+            bundles.Add(new ScriptBundle("~/plugins/daterangepickerjs").Include(
+                      "~/Scripts/plugin/daterangepicker/daterangepicker.js"));
+            bundles.Add(new StyleBundle("~/plugins/daterangepickerStyles").Include(
+                      "~/Scripts/plugin/daterangepicker/daterangepicker.css"));
 
             //jquery.filer Script
             bundles.Add(new StyleBundle("~/plugins/jqueryfilerStyles").Include(

@@ -77,7 +77,29 @@ namespace <#=DefaultNamespace #>.Repositories
 						if (rule.field == "<#= property.PropertyName  #>" && !string.IsNullOrEmpty(rule.value) && rule.value.IsInt())
 						{
 							int val = Convert.ToInt32(rule.value);
-							And(x => x.<#= property.PropertyName #> == val);
+							switch (rule.op) {
+                            case "equal":
+                                And(x => x.<#= property.PropertyName  #> == val);
+                                break;
+                            case "notequal":
+                                And(x => x.<#= property.PropertyName  #> != val);
+                                break;
+                            case "less":
+                                And(x => x.<#= property.PropertyName  #> < val);
+                                break;
+                            case "lessorequal":
+                                And(x => x.<#= property.PropertyName  #> <= val);
+                                break;
+                            case "greater":
+                                And(x => x.<#= property.PropertyName  #> > val);
+                                break;
+                            case "greaterorequal" :
+                                And(x => x.<#= property.PropertyName  #> >= val);
+                                break;
+                            default:
+                                And(x => x.<#= property.PropertyName  #> == val);
+                                break;
+                        }
 						}
 				    <# 
 					   // end if
@@ -89,7 +111,29 @@ namespace <#=DefaultNamespace #>.Repositories
 						if (rule.field == "<#= property.PropertyName  #>" && !string.IsNullOrEmpty(rule.value) && rule.value.IsDecimal())
 						{
 							var val = Convert.ToDecimal(rule.value);
-							And(x => x.<#= property.PropertyName #> == val);
+							switch (rule.op) {
+                            case "equal":
+                                And(x => x.<#= property.PropertyName  #> == val);
+                                break;
+                            case "notequal":
+                                And(x => x.<#= property.PropertyName  #> != val);
+                                break;
+                            case "less":
+                                And(x => x.<#= property.PropertyName  #> < val);
+                                break;
+                            case "lessorequal":
+                                And(x => x.<#= property.PropertyName  #> <= val);
+                                break;
+                            case "greater":
+                                And(x => x.<#= property.PropertyName  #> > val);
+                                break;
+                            case "greaterorequal" :
+                                And(x => x.<#= property.PropertyName  #> >= val);
+                                break;
+                            default:
+                                And(x => x.<#= property.PropertyName  #> == val);
+                                break;
+                        }
 						}
 				    <# 
 					   // end if
@@ -100,8 +144,15 @@ namespace <#=DefaultNamespace #>.Repositories
 					#>
 						if (rule.field == "<#= property.PropertyName  #>" && !string.IsNullOrEmpty(rule.value) && rule.value.IsDateTime())
 						{	
-							var date = Convert.ToDateTime(rule.value) ;
-							And(x => SqlFunctions.DateDiff("d", date, x.<#= property.PropertyName #>)>=0);
+							if (rule.op == "between")
+                            {
+                                var datearray = rule.value.Split(new char[] { '-' });
+                                var start = Convert.ToDateTime(datearray[0]);
+                                var end = Convert.ToDateTime(datearray[1]);
+ 
+							    And(x => SqlFunctions.DateDiff("d", start, x.<#= property.PropertyName #>) >= 0);
+                                And(x => SqlFunctions.DateDiff("d", end, x.<#= property.PropertyName #>) <= 0);
+						    }
 						}
 				   <# 
 					   } // end if
@@ -174,7 +225,29 @@ namespace <#=DefaultNamespace #>.Repositories
 						if (rule.field == "<#= property.PropertyName  #>" && !string.IsNullOrEmpty(rule.value) && rule.value.IsInt())
 						{
 							int val = Convert.ToInt32(rule.value);
-							And(x => x.<#= property.PropertyName #> == val);
+							switch (rule.op) {
+                            case "equal":
+                                And(x => x.<#= property.PropertyName  #> == val);
+                                break;
+                            case "notequal":
+                                And(x => x.<#= property.PropertyName  #> != val);
+                                break;
+                            case "less":
+                                And(x => x.<#= property.PropertyName  #> < val);
+                                break;
+                            case "lessorequal":
+                                And(x => x.<#= property.PropertyName  #> <= val);
+                                break;
+                            case "greater":
+                                And(x => x.<#= property.PropertyName  #> > val);
+                                break;
+                            case "greaterorequal" :
+                                And(x => x.<#= property.PropertyName  #> >= val);
+                                break;
+                            default:
+                                And(x => x.<#= property.PropertyName  #> == val);
+                                break;
+                        }
 						}
 				    <# 
 					   // end if
@@ -186,7 +259,29 @@ namespace <#=DefaultNamespace #>.Repositories
 						if (rule.field == "<#= property.PropertyName  #>" && !string.IsNullOrEmpty(rule.value) && rule.value.IsDecimal())
 						{
 							var val = Convert.ToDecimal(rule.value);
-							And(x => x.<#= property.PropertyName #> == val);
+							switch (rule.op) {
+                            case "equal":
+                                And(x => x.<#= property.PropertyName  #> == val);
+                                break;
+                            case "notequal":
+                                And(x => x.<#= property.PropertyName  #> != val);
+                                break;
+                            case "less":
+                                And(x => x.<#= property.PropertyName  #> < val);
+                                break;
+                            case "lessorequal":
+                                And(x => x.<#= property.PropertyName  #> <= val);
+                                break;
+                            case "greater":
+                                And(x => x.<#= property.PropertyName  #> > val);
+                                break;
+                            case "greaterorequal" :
+                                And(x => x.<#= property.PropertyName  #> >= val);
+                                break;
+                            default:
+                                And(x => x.<#= property.PropertyName  #> == val);
+                                break;
+                        }
 						}
 				    <# 
 					   // end if
@@ -195,11 +290,18 @@ namespace <#=DefaultNamespace #>.Repositories
 					<# 
 						if(property.ShortTypeName=="DateTime" ) {
 					#>
-						if (rule.field == "<#= property.PropertyName  #>" && !string.IsNullOrEmpty(rule.value) && rule.value.IsDateTime())
+						if (rule.field == "<#= property.PropertyName  #>" && !string.IsNullOrEmpty(rule.value) )
 						{	
-							var date = Convert.ToDateTime(rule.value) ;
-							And(x => SqlFunctions.DateDiff("d", date, x.<#= property.PropertyName #>)>=0);
-						}
+                            if (rule.op == "between")
+                            {
+                                var datearray = rule.value.Split(new char[] { '-' });
+                                var start = Convert.ToDateTime(datearray[0]);
+                                var end = Convert.ToDateTime(datearray[1]);
+ 
+							    And(x => SqlFunctions.DateDiff("d", start, x.<#= property.PropertyName #>) >= 0);
+                                And(x => SqlFunctions.DateDiff("d", end, x.<#= property.PropertyName #>) <= 0);
+						    }
+                        }
 				   <# 
 					   } // end if
 				   #>
