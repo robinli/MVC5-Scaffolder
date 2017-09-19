@@ -57,8 +57,8 @@
 $.extend($.fn.datagrid.defaults.filters, {
     dateRange: {
         init: function (container, options) {
-            var cc = $('<span class="textbox combo datebox" sytle="height: 22px"><span class="textbox-addon textbox-addon-right" style="right: 0px; top: 1px;"><a href="javascript:" class="textbox-icon combo-arrow" icon-index="0" tabindex="-1" style="width: 18px; height: 22px;"></a></span></span>').appendTo(container);
-            var input = $('<input type="text" class="textbox-text validatebox-text"  style="border:0px;margin: 0px 28px 0px 0px; padding-top: 0px; padding-bottom: 0px; height: 22px; line-height: 22px; width:auto">').appendTo(cc);
+            var cc = $('<span class="textbox combo datebox"><span class="textbox-addon textbox-addon-right" style="right: 0px; top: 1px;"><a href="javascript:" class="textbox-icon combo-arrow" icon-index="0" tabindex="-1" style="width: 18px; height: 22px;"></a></span></span>').appendTo(container);
+            var input = $('<input type="text" style="border:0px">').appendTo(cc);
             var myoptions = {
                 applyClass: 'btn-sm btn-success',
                 cancelClass: 'btn-sm btn-default',
@@ -71,14 +71,14 @@ $.extend($.fn.datagrid.defaults.filters, {
                     firstDay: 1,
                     daysOfWeek: ['日', '一', '二', '三', '四', '五', '六'],
                     monthNames: ['一月', '二月', '三月', '四月', '五月', '六月',
-                        '七月', '八月', '九月', '十月', '十一月', '十二月'],
+                        '七月', '八月', '九月', '十月', '十一月', '十二月'],  
                 },
                 ranges: {
-
+                    
                     //'最近1小时': [moment().subtract('hours',1), moment()],
                     '今日': [moment(), moment()],
                     '昨日': [moment().subtract(1, 'days').startOf('day'), moment().subtract(1, 'days').endOf('day')],
-                    '最近7日': [moment().subtract(6, 'days'), moment()],
+                    '最近7日': [moment().subtract(6,'days'), moment()],
                     '最近30日': [moment().subtract(29, 'days'), moment()],
                     '本月': [moment().startOf("month"), moment().endOf("month")],
                     '上个月': [moment().subtract(1, "month").startOf("month"), moment().subtract(1, "month").endOf("month")]
@@ -92,31 +92,36 @@ $.extend($.fn.datagrid.defaults.filters, {
             container.find('.textbox-icon').on('click', function () {
                 container.find('input').trigger('click.daterangepicker');
             });
-            input.on('cancel.daterangepicker', function (ev, picker) {
-                $(this).val('');
-                options.onChange('', '');
-            });
-            input.on('apply.daterangepicker', function (ev, picker) {
-                options.onChange(picker.startDate.format('MM/DD/YYYY')+ '-' + picker.endDate.format('MM/DD/YYYY'));
-            });
-
+            if (options.onChange == undefined) {
+                console.log('Can not find function:onChange for', input[0]);
+            }
+            else {
+                input.on('cancel.daterangepicker', function (ev, picker) {
+                    $(this).val('');
+                    options.onChange('');
+                });
+                input.on('apply.daterangepicker', function (ev, picker) {
+                    options.onChange(picker.startDate.format('MM/DD/YYYY') +'-'+ picker.endDate.format('MM/DD/YYYY'));
+                });
+            }
+            
+            
             return input;
         },
         destroy: function (target) {
             $(target).daterangepicker('destroy');
         },
         getValue: function (target) {
-            console.log(target);
-            return $(target).daterangepicker('getValue');
+            return $(target).daterangepicker('getValue') ;
         },
         setValue: function (target, value) {
-
+           
             $(target).daterangepicker('setValue', value);
-
+           
         },
         resize: function (target, width) {
-            $(target)._outerWidth(width)._outerHeight(22);
-            // $(target).daterangepicker('resize', width / 2);
+            $(target)._outerWidth(width)._outerHeight(24);
+           // $(target).daterangepicker('resize', width / 2);
         }
     }
 });

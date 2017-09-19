@@ -142,7 +142,7 @@ namespace <#=DefaultNamespace #>.Repositories
 					<# 
 						if(property.ShortTypeName=="DateTime" ) {
 					#>
-						if (rule.field == "<#= property.PropertyName  #>" && !string.IsNullOrEmpty(rule.value) && rule.value.IsDateTime())
+						if (rule.field == "<#= property.PropertyName  #>" && !string.IsNullOrEmpty(rule.value) )
 						{	
 							if (rule.op == "between")
                             {
