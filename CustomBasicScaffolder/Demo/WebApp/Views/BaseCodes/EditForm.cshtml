@@ -1,174 +1,105 @@
-﻿﻿
-
-
-@model WebApp.Models.BaseCode
-
-
- @*@Html.HiddenFor(model => model.Id)*@
+﻿﻿@model WebApp.Models.BaseCode
 
 
 
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.CodeType,   htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                                @Html.EditorFor(model => model.CodeType, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.CodeType,"" , new { @class = "text-danger" })
-            </div>
+ <!-- 输出form表单界面 -->
+ <table class="table table-bordered">
+     <caption>
+        @{
+        //TODO: fix edit form commonent!
+        }
+        <div class="alert alert-warning no-margin fade in">
+            <button class="close" data-dismiss="alert">
+                ×
+            </button>
+            <i class="fa-fw fa fa-info"></i>
+            A combined table effect with all classes mentioned above added to
         </div>
-
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Description,   htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Description,"" , new { @class = "text-danger" })
-            </div>
-        </div>
-
-		   
-
- 
-
-
-     <!-- details tabs -->
-    <div class="tabs-container">
-        <!-- Nav tabs -->
-        <ul class="nav nav-tabs">
-								<li class="active"><a data-toggle="tab" href="#tab-codeitems"> CodeItems</a></li>
-								        
-			 
-   
-		 </ul>
-		 <!-- Tab panes -->
-         <div class="tab-content">
-		  		  <div id="tab-codeitems" class="tab-pane active">
-
-            <div class="panel-body">
-
-                <div class="table-responsive">
-				<table id="codeitems_datagrid" class="easyui-datagrid" title="CodeItems DataGrid" style="width:auto;height:400px"
-                       data-options="
-                            rownumbers:true,
-                            iconCls: 'fa fa-list',
-                            remoteFilter: false,
-                            singleSelect: true,
-                            toolbar: '#codeitems_toolbar',
-                            method: 'get',
-                            onClickCell: codeitems_onClickCell,
-                            pagination: 'true'
-                    " >
-                    <thead>
-                        <tr>
-						@*<th data-options="field:'ck',checkbox:true"></th>*@
-				        
-														<th data-options="field:'Id',width:80"> Id </th>
-											
-						
-															<th data-options="field:'Code',width:140,editor:{type:'textbox',options:{required:false} } "> 值</th>
-							
-											
-						
-															<th data-options="field:'Text',width:140,editor:{type:'textbox',options:{required:false} } "> 显示</th>
-							
-											
-														 
-
+     </caption>
+	    <tr>
+      	   <td class="control-label">   @Html.DisplayNameFor(model => model.Id)  </td>
+	   <td> 
+						   			<input  disabled  id="@Html.IdFor(model => model.Id)" name="@Html.NameFor(model => model.Id)" tabindex="0" style="width:100%" class="easyui-numberbox" type="text" data-options="prompt:'Id',label:'',required:true ,precision:0" />
+			  
+				   </td>
+	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.CodeType)  </td>
+	   <td> 
+			
+			  			<input id="@Html.IdFor(model => model.CodeType)" 
+				   name="@Html.NameFor(model => model.CodeType)" 
+				   value="@Html.ValueFor(model => model.CodeType)"
+				   tabindex="1" 
+				   style="width:100%" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'代码名称',
+								 label:'',
+								 required:true ,validType:'length[0,20]'" />
+			              
+				   </td>
+	   	   </tr>
+	   	    <tr>
+      	   <td class="control-label">   @Html.DisplayNameFor(model => model.Description)  </td>
+	   <td> 
+			
+			  			<input id="@Html.IdFor(model => model.Description)" 
+				   name="@Html.NameFor(model => model.Description)" 
+				   value="@Html.ValueFor(model => model.Description)"
+				   tabindex="2" 
+				   style="width:100%" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'描述',
+								 label:'',
+								 required:true ,validType:'length[0,50]'" />
+			              
+				   </td>
+	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.CreatedBy)  </td>
+	   <td> 
+			
+			  			<input id="@Html.IdFor(model => model.CreatedBy)" 
+				   name="@Html.NameFor(model => model.CreatedBy)" 
+				   value="@Html.ValueFor(model => model.CreatedBy)"
+				   tabindex="3" 
+				   style="width:100%" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'CreatedBy',
+								 label:'',
+								 required:false " />
+			              
+				   </td>
+	   	   </tr>
+	   	    <tr>
+      	   <td class="control-label">   @Html.DisplayNameFor(model => model.LastModifiedBy)  </td>
+	   <td> 
+			
+			  			<input id="@Html.IdFor(model => model.LastModifiedBy)" 
+				   name="@Html.NameFor(model => model.LastModifiedBy)" 
+				   value="@Html.ValueFor(model => model.LastModifiedBy)"
+				   tabindex="4" 
+				   style="width:100%" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'LastModifiedBy',
+								 label:'',
+								 required:false " />
+			              
+				   </td>
+	   	    		<td></td> <td></td>
+		     </tr>
+	    <tfoot>
+        <tr>
            
-											                           
-                        </tr>
-                    </thead>
-                </table>
+        <tr>
+    </tfoot>
+</table>
+  <!--输出form表单界面-->
 
-				<div id="codeitems_toolbar" style="height:auto">
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="codeitems_append()">Append</a>
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="codeitems_removeit()">Remove</a>
-                    @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="codeitems_accept()">Accept</a>*@
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="codeitems_reject()">Reject</a>
-                    @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="codeitems_getChanges()">GetChanges</a>*@
-                </div>
+<!--========================================================================================-->
+  
 
-                </div>
-            </div>
-
-		  	</div>
-	</div>
-	</div>
-<!--end details tabs -->
- 
-
- <script type="text/javascript">
-	
-	    
-	var codeitemseditIndex = undefined;
-    function codeitems_endEditing() {
-        if ( codeitemseditIndex == undefined) { return true }
-        if ($codeitemsdatagrid.datagrid('validateRow', codeitemseditIndex)) {
-		 
-            
-            
-						$codeitemsdatagrid.datagrid('endEdit', codeitemseditIndex);
-            codeitemseditIndex = undefined;
-
-
-            return true;
-        } else {
-            return false;
-        }
-    }
-    function codeitems_onClickCell(index, field) {
-        if (codeitemseditIndex != index) {
-            if (codeitems_endEditing()) {
-                $codeitemsdatagrid.datagrid('selectRow', index)
-                        .datagrid('beginEdit', index);
-                var ed = $codeitemsdatagrid.datagrid('getEditor', { index: index, field: field });
-                if (ed) {
-                    ($(ed.target).data('textbox') ? $(ed.target).textbox('textbox') : $(ed.target)).focus();
-                }
-                codeitemseditIndex  = index;
-            } else {
-                $codeitemsdatagrid.datagrid('selectRow', codeitemseditIndex);
-            }
-        }
-    }
-    function codeitems_append() {
-        if (codeitems_endEditing()) {
-            $codeitemsdatagrid.datagrid('appendRow', {   });
-            codeitemseditIndex = $codeitemsdatagrid.datagrid('getRows').length - 1;
-            $codeitemsdatagrid.datagrid('selectRow', codeitemseditIndex )
-                    .datagrid('beginEdit', codeitemseditIndex);
-        }
-    }
-    function codeitems_removeit() {
-        if (codeitemseditIndex  == undefined) { return }
-        $codeitemsdatagrid.datagrid('cancelEdit', codeitemseditIndex )
-                .datagrid('deleteRow', codeitemseditIndex );
-        codeitemseditIndex = undefined;
-    }
-   
-    function codeitems_reject() {
-        $codeitemsdatagrid.datagrid('rejectChanges');
-        codeitemseditIndex  = undefined;
-    }
-    function codeitems_getChanges() {
-        var rows = $codeitemsdatagrid.datagrid('getChanges');
-        alert(rows.length + ' rows are changed!');
-    }
-
-
-	  
-	$(function () {
-	
-		$.get('/BaseCodes/GetCodeItemsByBaseCodeId/' + @Model.Id,function(data){
-            //console.log(data);
-            $codeitemsdatagrid.datagrid('loadData',data);
-        
-        })
-
-
-	
-	});
-</script>
 
 
 

@@ -15,7 +15,7 @@ namespace WebApp.Models
     {
         public BaseCode()
         {
-            CodeItems = new HashSet<CodeItem>();
+            //CodeItems = new HashSet<CodeItem>();
         }
         [Key]
         public int Id { get; set; }
@@ -24,7 +24,7 @@ namespace WebApp.Models
         [MaxLength(50), Display(Name = "描述"), Required(ErrorMessage = "必填")]
         public string Description { get; set; }
 
-        public ICollection<CodeItem> CodeItems { get; set; }
+        //public ICollection<CodeItem> CodeItems { get; set; }
 
     }
 
@@ -36,10 +36,16 @@ namespace WebApp.Models
         public string Code { get; set; }
         [MaxLength(20), Display(Name = "显示"), Required(ErrorMessage = "必填")]
         public string Text { get; set; }
+        [MaxLength(20), Display(Name = "代码名称"), Required(ErrorMessage = "必填"), Index("CodeItem_IX",2,IsUnique = true)]
+        public string CodeType { get; set; }
+        [MaxLength(50), Display(Name = "描述"), Required(ErrorMessage = "必填")]
+        public string Description { get; set; }
+        [Display(Name = "是否禁用")]
+        public int IsDisabled { get; set; }
 
-        [Required(ErrorMessage = "必填"), Index("CodeItem_IX", 2,IsUnique = true)]
-        public int BaseCodeId { get; set; }
-        [ForeignKey("BaseCodeId")]
-        public BaseCode BaseCode { get; set; }
+        //[Required(ErrorMessage = "必填"), Index("CodeItem_IX", 2,IsUnique = true)]
+        //public int BaseCodeId { get; set; }
+        //[ForeignKey("BaseCodeId")]
+        //public BaseCode BaseCode { get; set; }
     }
 }

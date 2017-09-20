@@ -301,6 +301,14 @@
     <Compile Include="Migrations\201709200232235_ds.Designer.cs">
       <DependentUpon>201709200232235_ds.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709200527416_c.cs" />
+    <Compile Include="Migrations\201709200527416_c.Designer.cs">
+      <DependentUpon>201709200527416_c.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709200629506_f.cs" />
+    <Compile Include="Migrations\201709200629506_f.Designer.cs">
+      <DependentUpon>201709200629506_f.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -3558,6 +3566,15 @@
     <Content Include="Scripts\jquery.easyui.mobile-1.4.5.js" />
     <Content Include="Scripts\jquery.easyui.mobile-1.4.5.min.js" />
     <Content Include="Scripts\jquery.easyui.extend.js" />
+    <Content Include="Scripts\jquery.extend.formatter.js">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>jquery.extend.formatter.tt</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery.extend.formatter.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>jquery.extend.formatter.js</LastGenOutput>
+    </Content>
     <Content Include="Scripts\jquery.extend.js" />
     <Content Include="Scripts\jquery.filerupload.js" />
     <Content Include="Scripts\jquery.fileDownload.js" />
@@ -4422,12 +4439,6 @@
     <Content Include="skin-config.html" />
     <Content Include="Views\Companies\_PopupSearch.cshtml" />
     <Content Include="Views\Companies\Index.cshtml" />
-    <Content Include="Views\BaseCodes\Index.cshtml" />
-    <Content Include="Views\BaseCodes\Create.cshtml" />
-    <Content Include="Views\BaseCodes\Edit.cshtml" />
-    <Content Include="Views\BaseCodes\EditForm.cshtml" />
-    <Content Include="Views\BaseCodes\_PopupSearch.cshtml" />
-    <Content Include="Views\BaseCodes\_CodeItemEditForm.cshtml" />
     <Content Include="Views\OrderDetails\Index.cshtml" />
     <Content Include="Views\OrderDetails\Create.cshtml" />
     <Content Include="Views\OrderDetails\Edit.cshtml" />
@@ -4504,10 +4515,6 @@
     <Content Include="Views\Messages\Edit.cshtml" />
     <Content Include="Views\Messages\EditForm.cshtml" />
     <Content Include="Views\Messages\Index.cshtml" />
-    <Content Include="Views\CodeItems\Create.cshtml" />
-    <Content Include="Views\CodeItems\Edit.cshtml" />
-    <Content Include="Views\CodeItems\EditForm.cshtml" />
-    <Content Include="Views\CodeItems\Index.cshtml" />
     <Content Include="Scripts\libs\jquery-2.1.1.min.map" />
     <Content Include="Scripts\plugin\bootstrap-tags\dist\bootstrap-tagsinput.min.js.map" />
     <Content Include="Scripts\plugin\ckeditor\CHANGES.md" />
@@ -4572,6 +4579,15 @@
     <Content Include="Views\Works\Create.cshtml" />
     <Content Include="Views\Works\Edit.cshtml" />
     <Content Include="Views\Works\EditForm.cshtml" />
+    <Content Include="Views\BaseCodes\Index.cshtml" />
+    <Content Include="Views\BaseCodes\Create.cshtml" />
+    <Content Include="Views\BaseCodes\Edit.cshtml" />
+    <Content Include="Views\BaseCodes\EditForm.cshtml" />
+    <Content Include="Views\BaseCodes\_CodeItemEditForm.cshtml" />
+    <Content Include="Views\CodeItems\Index.cshtml" />
+    <Content Include="Views\CodeItems\Create.cshtml" />
+    <Content Include="Views\CodeItems\Edit.cshtml" />
+    <Content Include="Views\CodeItems\EditForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Source\Repository.Pattern.Ef6\Repository.Pattern.Ef6.csproj">
@@ -4619,6 +4635,15 @@
     <EmbeddedResource Include="Migrations\201709200232235_ds.resx">
       <DependentUpon>201709200232235_ds.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709200527416_c.resx">
+      <DependentUpon>201709200527416_c.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709200629506_f.resx">
+      <DependentUpon>201709200629506_f.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

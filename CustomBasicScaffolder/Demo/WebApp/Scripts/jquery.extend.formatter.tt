@@ -1,0 +1,61 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Data" #>
+<#@ assembly name="System.Data.DataSetExtensions" #>
+<#@ assembly name="System.Xml" #>
+<#@ assembly name="System.Xml.Linq" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Data.SqlClient" #>
+<#@ import namespace="System.Data" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Xml" #>
+<#@ import namespace="System.Xml.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Linq" #>
+<#@ output extension=".js" #>
+
+<#
+              foreach(var item in GetTables())
+               {
+#>
+       <#= item.codetype #>   <#= item.code #> <#= item.description #>
+<#
+               }
+        
+#>
+
+
+
+<#+
+
+public   IEnumerable<codeitem> GetTables(){
+    using (SqlConnection db = new SqlConnection("Data Source=(LocalDb)\\MSSQLLocalDB; Initial Catalog=aspnet-WebApp;Integrated Security=True")) {
+                db.Open();
+                string sql = "select codetype,code,text,Description from Codeitems where isDisabled = 0 ";
+                var cmd = db.CreateCommand();
+                cmd.CommandText = sql;
+                var reader = cmd.ExecuteReader();
+                var list=new List<codeitem>();
+                while (reader.Read()) {
+
+                    var codetype = reader.GetString(0);
+                    var code = reader.GetString(1);
+                    var text = reader.GetString(2);
+                    var description = reader.GetString(3);
+                    list.Add(new codeitem(){codetype = codetype,code = code,text = text,description=description });
+               }
+               db.Close();
+               return list;
+        }
+
+    }
+ public class codeitem
+    {
+        public codeitem(){
+        }
+        public string codetype{get;set;}
+        public string code{get;set;}
+        public string text{get;set;}
+        public string description{get;set;}
+    } 
+ #>

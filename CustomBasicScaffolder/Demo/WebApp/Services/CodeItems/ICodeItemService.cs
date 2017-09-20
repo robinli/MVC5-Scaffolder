@@ -1,9 +1,5 @@
-﻿
-
-     
+﻿     
  
- 
-
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -21,8 +17,7 @@ namespace WebApp.Services
     public interface ICodeItemService:IService<CodeItem>
     {
 
-                  IEnumerable<CodeItem> GetByBaseCodeId(int  basecodeid);
-        
+                
          
  
 		void ImportDataTable(DataTable datatable);

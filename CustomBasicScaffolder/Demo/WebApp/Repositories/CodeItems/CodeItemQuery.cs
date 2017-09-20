@@ -1,5 +1,4 @@
-﻿
-                    
+﻿                    
       
      
 using System;
@@ -21,16 +20,10 @@ namespace WebApp.Repositories
         public CodeItemQuery WithAnySearch(string search)
         {
             if (!string.IsNullOrEmpty(search))
-                And( x =>  x.Id.ToString().Contains(search) || x.Code.Contains(search) || x.Text.Contains(search) || x.BaseCodeId.ToString().Contains(search) );
+                And( x =>  x.Id.ToString().Contains(search) || x.Code.Contains(search) || x.Text.Contains(search) || x.Description.Contains(search) || x.IsDisabled.ToString().Contains(search)  );
             return this;
         }
 
-		public CodeItemQuery WithPopupSearch(string search,string para="")
-        {
-            if (!string.IsNullOrEmpty(search))
-                And( x =>  x.Id.ToString().Contains(search) || x.Code.Contains(search) || x.Text.Contains(search) || x.BaseCodeId.ToString().Contains(search) );
-            return this;
-        }
 
 		public CodeItemQuery Withfilter(IEnumerable<filterRule> filters)
         {
@@ -43,7 +36,29 @@ namespace WebApp.Repositories
 				    						if (rule.field == "Id" && !string.IsNullOrEmpty(rule.value) && rule.value.IsInt())
 						{
 							int val = Convert.ToInt32(rule.value);
-							And(x => x.Id == val);
+							switch (rule.op) {
+                            case "equal":
+                                And(x => x.Id == val);
+                                break;
+                            case "notequal":
+                                And(x => x.Id != val);
+                                break;
+                            case "less":
+                                And(x => x.Id < val);
+                                break;
+                            case "lessorequal":
+                                And(x => x.Id <= val);
+                                break;
+                            case "greater":
+                                And(x => x.Id > val);
+                                break;
+                            case "greaterorequal" :
+                                And(x => x.Id >= val);
+                                break;
+                            default:
+                                And(x => x.Id == val);
+                                break;
+                        }
 						}
 				    
 					
@@ -67,12 +82,49 @@ namespace WebApp.Repositories
 					
 					
 				    				
+											if (rule.field == "Description"  && !string.IsNullOrEmpty(rule.value))
+						{
+							And(x => x.Description.Contains(rule.value));
+						}
+				    
+				    
 					
-				    						if (rule.field == "BaseCodeId" && !string.IsNullOrEmpty(rule.value) && rule.value.IsInt())
+					
+				    				
+					
+				    						if (rule.field == "IsDisabled" && !string.IsNullOrEmpty(rule.value) && rule.value.IsInt())
 						{
 							int val = Convert.ToInt32(rule.value);
-							And(x => x.BaseCodeId == val);
+							switch (rule.op) {
+                            case "equal":
+                                And(x => x.IsDisabled == val);
+                                break;
+                            case "notequal":
+                                And(x => x.IsDisabled != val);
+                                break;
+                            case "less":
+                                And(x => x.IsDisabled < val);
+                                break;
+                            case "lessorequal":
+                                And(x => x.IsDisabled <= val);
+                                break;
+                            case "greater":
+                                And(x => x.IsDisabled > val);
+                                break;
+                            case "greaterorequal" :
+                                And(x => x.IsDisabled >= val);
+                                break;
+                            default:
+                                And(x => x.IsDisabled == val);
+                                break;
+                        }
 						}
+				    
+					
+					
+				    				
+					
+				    						 
 				    
 					
 					
@@ -82,7 +134,122 @@ namespace WebApp.Repositories
            }
             return this;
         }
-    }
+
+
+
+                 public  CodeItemQuery ByBaseCodeIdWithfilter(int basecodeid, IEnumerable<filterRule> filters)
+         {
+             
+            
+            if (filters != null)
+           {
+               foreach (var rule in filters)
+               {
+                     
+                
+					
+				    						if (rule.field == "Id" && !string.IsNullOrEmpty(rule.value) && rule.value.IsInt())
+						{
+							int val = Convert.ToInt32(rule.value);
+							switch (rule.op) {
+                            case "equal":
+                                And(x => x.Id == val);
+                                break;
+                            case "notequal":
+                                And(x => x.Id != val);
+                                break;
+                            case "less":
+                                And(x => x.Id < val);
+                                break;
+                            case "lessorequal":
+                                And(x => x.Id <= val);
+                                break;
+                            case "greater":
+                                And(x => x.Id > val);
+                                break;
+                            case "greaterorequal" :
+                                And(x => x.Id >= val);
+                                break;
+                            default:
+                                And(x => x.Id == val);
+                                break;
+                        }
+						}
+				    
+					
+					
+				    				
+											if (rule.field == "Code"  && !string.IsNullOrEmpty(rule.value))
+						{
+							And(x => x.Code.Contains(rule.value));
+						}
+				    
+				    
+					
+					
+				    				
+											if (rule.field == "Text"  && !string.IsNullOrEmpty(rule.value))
+						{
+							And(x => x.Text.Contains(rule.value));
+						}
+				    
+				    
+					
+					
+				    				
+											if (rule.field == "Description"  && !string.IsNullOrEmpty(rule.value))
+						{
+							And(x => x.Description.Contains(rule.value));
+						}
+				    
+				    
+					
+					
+				    				
+					
+				    						if (rule.field == "IsDisabled" && !string.IsNullOrEmpty(rule.value) && rule.value.IsInt())
+						{
+							int val = Convert.ToInt32(rule.value);
+							switch (rule.op) {
+                            case "equal":
+                                And(x => x.IsDisabled == val);
+                                break;
+                            case "notequal":
+                                And(x => x.IsDisabled != val);
+                                break;
+                            case "less":
+                                And(x => x.IsDisabled < val);
+                                break;
+                            case "lessorequal":
+                                And(x => x.IsDisabled <= val);
+                                break;
+                            case "greater":
+                                And(x => x.IsDisabled > val);
+                                break;
+                            case "greaterorequal" :
+                                And(x => x.IsDisabled >= val);
+                                break;
+                            default:
+                                And(x => x.IsDisabled == val);
+                                break;
+                        }
+						}
+				    
+					
+					
+				    				
+					
+				    						 
+				    
+					
+					
+				    				
+               }
+            }
+            return this;
+         }
+             
+            }
 }
 
 

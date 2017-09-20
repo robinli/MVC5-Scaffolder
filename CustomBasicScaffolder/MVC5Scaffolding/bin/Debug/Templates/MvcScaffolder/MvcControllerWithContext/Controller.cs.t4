@@ -102,38 +102,9 @@ namespace <#= Namespace #>
 		}
 
 		// GET: <#= routePrefix #>/<#= ViewPrefix #>Index
-<# if (UseAsync) { #>
-		public async Task<ActionResult> <#= ViewPrefix #>Index()
-<# } else { #>
 		public ActionResult <#= ViewPrefix #>Index()
-<# } #>
 		{
-			
-<#  var includeExpressions = "";
-		includeExpressions = String.Join("", relatedProperties.Values.Select(property => String.Format(".Include({0} => {0}.{1})", lambdaVar, property.AssociationPropertyName)));
-#>
-<# if(!String.IsNullOrEmpty(includeExpressions)) { #>
-			var <#= modelVariablePlural #>  = <#= modelServiceVar #>.Queryable()<#= includeExpressions #>;
-			
-<#		if (UseAsync) { #>
-		  
-			return View(await <#= modelVariablePlural #>.ToListAsync());
-			
-<#		} else { #>
-			 return View(<#= modelVariablePlural #>);
-			
-<#		} #>
-<# } else { #>
-<#		if (UseAsync) { #>
-			var <#= modelVariablePlural #>  = <#= modelServiceVar #>.Queryable();
-			return View(await <#= modelVariablePlural #>.ToListAsync()  );
-			
-<#		} else { #>
-			var <#= modelVariablePlural #>  = <#= modelServiceVar #>.Queryable().AsQueryable();
-			return View(<#= modelVariablePlural #>  );
-		
-<#		} #>
-<# } #>
+			 return View();
 		}
 
 		// Get :<#= routePrefix #>/<#= ViewPrefix #>PageList

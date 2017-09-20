@@ -147,6 +147,7 @@ namespace Repository.Pattern.Ef6
                             //auditableEntity.Entity.CreatedBy = HttpContext.Current.User.Identity.Name;
                             break;
                         case EntityState.Modified:
+                          
                             auditableEntity.Property("CreatedDate").IsModified = false;
                             auditableEntity.Property("CreatedBy").IsModified = false;
                             auditableEntity.Entity.LastModifiedDate = currentDateTime;

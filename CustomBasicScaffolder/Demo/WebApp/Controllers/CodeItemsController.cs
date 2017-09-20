@@ -36,13 +36,13 @@ namespace WebApp.Controllers
         }
 
         // GET: CodeItems/Index
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
 
-            var codeitems = _codeItemService.Queryable().Include(c => c.BaseCode);
 
 
-            return View(await codeitems.ToListAsync());
+
+            return View();
 
         }
 
@@ -52,42 +52,44 @@ namespace WebApp.Controllers
         public async Task<ActionResult> GetData(int page = 1, int rows = 10, string sort = "Id", string order = "asc", string filterRules = "")
         {
             var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
-            int totalCount = 0;
+            var totalCount = 0;
             //int pagenum = offset / limit +1;
             var codeitems = await _codeItemService
-                .Query(new CodeItemQuery().Withfilter(filters)).Include(c => c.BaseCode)
-                .OrderBy(n => n.OrderBy(sort, order))
-                .SelectPageAsync(page, rows, out totalCount);
+       .Query(new CodeItemQuery().Withfilter(filters))
+       .OrderBy(n => n.OrderBy(sort, order))
+       .SelectPageAsync(page, rows, out totalCount);
 
-
-
-            var datarows = codeitems.Select(n => new { BaseCodeCodeType = (n.BaseCode == null ? "" : n.BaseCode.CodeType), Id = n.Id, Code = n.Code, Text = n.Text, BaseCodeId = n.BaseCodeId }).ToList();
+            var datarows = codeitems.Select(n => new { CodeType=n.CodeType, Id = n.Id, Code = n.Code, Text = n.Text, Description = n.Description, IsDisabled = n.IsDisabled }).ToList();
             var pagelist = new { total = totalCount, rows = datarows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
+
+         
+
+
 
         [HttpPost]
         public async Task<ActionResult> SaveData(CodeItemChangeViewModel codeitems)
         {
             if (codeitems.updated != null)
             {
-                foreach (var updated in codeitems.updated)
+                foreach (var item in codeitems.updated)
                 {
-                    _codeItemService.Update(updated);
+                    _codeItemService.Update(item);
                 }
             }
             if (codeitems.deleted != null)
             {
-                foreach (var deleted in codeitems.deleted)
+                foreach (var item in codeitems.deleted)
                 {
-                    _codeItemService.Delete(deleted);
+                    _codeItemService.Delete(item);
                 }
             }
             if (codeitems.inserted != null)
             {
-                foreach (var inserted in codeitems.inserted)
+                foreach (var item in codeitems.inserted)
                 {
-                    _codeItemService.Insert(inserted);
+                    _codeItemService.Insert(item);
                 }
             }
             await _unitOfWork.SaveChangesAsync();
@@ -137,7 +139,7 @@ namespace WebApp.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "BaseCode,Id,Code,Text,BaseCodeId")] CodeItem codeItem)
+        public async Task<ActionResult> Create([Bind(Include = "BaseCode,Id,Code,Text,Description,IsDisabled,BaseCodeId,CreatedDate,CreatedBy,LastModifiedDate,LastModifiedBy")] CodeItem codeItem)
         {
             if (ModelState.IsValid)
             {
@@ -160,7 +162,7 @@ namespace WebApp.Controllers
                 DisplayErrorMessage(modelStateErrors);
             }
             var basecodeRepository = _unitOfWork.RepositoryAsync<BaseCode>();
-            ViewBag.BaseCodeId = new SelectList(await basecodeRepository.Queryable().ToListAsync(), "Id", "CodeType", codeItem.BaseCodeId);
+            //ViewBag.BaseCodeId = new SelectList(await basecodeRepository.Queryable().ToListAsync(), "Id", "CodeType", codeItem.BaseCodeId);
 
             return View(codeItem);
         }
@@ -178,7 +180,7 @@ namespace WebApp.Controllers
                 return HttpNotFound();
             }
             var basecodeRepository = _unitOfWork.RepositoryAsync<BaseCode>();
-            ViewBag.BaseCodeId = new SelectList(basecodeRepository.Queryable(), "Id", "CodeType", codeItem.BaseCodeId);
+            //ViewBag.BaseCodeId = new SelectList(basecodeRepository.Queryable(), "Id", "CodeType", codeItem.BaseCodeId);
             return View(codeItem);
         }
 
@@ -186,7 +188,7 @@ namespace WebApp.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "BaseCode,Id,Code,Text,BaseCodeId")] CodeItem codeItem)
+        public async Task<ActionResult> Edit([Bind(Include = "BaseCode,Id,Code,Text,Description,IsDisabled,BaseCodeId,CreatedDate,CreatedBy,LastModifiedDate,LastModifiedBy")] CodeItem codeItem)
         {
             if (ModelState.IsValid)
             {
@@ -211,7 +213,7 @@ namespace WebApp.Controllers
                 DisplayErrorMessage(modelStateErrors);
             }
             var basecodeRepository = _unitOfWork.RepositoryAsync<BaseCode>();
-            ViewBag.BaseCodeId = new SelectList(await basecodeRepository.Queryable().ToListAsync(), "Id", "CodeType", codeItem.BaseCodeId);
+            //ViewBag.BaseCodeId = new SelectList( await basecodeRepository.Queryable().ToListAsync(), "Id", "CodeType", codeItem.BaseCodeId);
 
             return View(codeItem);
         }
