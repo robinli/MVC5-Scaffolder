@@ -77,7 +77,7 @@ namespace WebApp.Services
         {
             var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
                                    var works  = this.Query(new WorkQuery().Withfilter(filters)).OrderBy(n=>n.OrderBy(sort,order)).Select().ToList();
-                        var datarows = works .Select(  n => new {  Name = n.Name , Status = n.Status , StartDate = n.StartDate , EndDate = n.EndDate , Enableed = n.Enableed , Hour = n.Hour , Priority = n.Priority , Score = n.Score }).ToList();
+                        var datarows = works .Select(  n => new {  Id = n.Id , Name = n.Name , Status = n.Status , StartDate = n.StartDate , EndDate = n.EndDate , Enableed = n.Enableed , Hour = n.Hour , Priority = n.Priority , Score = n.Score }).ToList();
            
             return ExcelHelper.ExportExcel(typeof(Work), datarows);
 

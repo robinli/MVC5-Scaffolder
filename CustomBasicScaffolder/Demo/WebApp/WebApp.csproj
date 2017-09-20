@@ -297,6 +297,10 @@
     <Compile Include="Migrations\201709200041592_adf.Designer.cs">
       <DependentUpon>201709200041592_adf.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709200232235_ds.cs" />
+    <Compile Include="Migrations\201709200232235_ds.Designer.cs">
+      <DependentUpon>201709200232235_ds.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -4611,6 +4615,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709200041592_adf.resx">
       <DependentUpon>201709200041592_adf.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709200232235_ds.resx">
+      <DependentUpon>201709200232235_ds.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

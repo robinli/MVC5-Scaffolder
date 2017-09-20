@@ -13,9 +13,9 @@ namespace Repository.Pattern.Infrastructure
 
     public interface IAuditable
     {
-        DateTime? Created { get; set; }
+        DateTime? CreatedDate { get; set; }
         string CreatedBy { get; set; }
-        DateTime? LastModified { get; set; }
+        DateTime? LastModifiedDate { get; set; }
         string LastModifiedBy { get; set; }
     }
 }

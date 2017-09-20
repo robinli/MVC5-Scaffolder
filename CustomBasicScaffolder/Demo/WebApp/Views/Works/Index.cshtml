@@ -92,7 +92,8 @@
 					<tr>
 						@*<th data-options="field:'ck',checkbox:true"></th>*@
                         <th data-options="field:'_operate1',width:100 ,sortable:false,resizable:true,formatter:showdetailsformatter ">操作</th>
-		
+					@*<th data-options="field:'Id',width:80 ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Id)</th>*@
+				
 					 <th data-options="field:'Name' ,width:140,editor:{type:'textbox',options:{prompt:'Name' ,required:false ,validType:'length[0,50]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Name)</th>
 		
 				
@@ -344,6 +345,11 @@
 				  },
 		   
            				{
+					  field: "Id",
+					  type: "numberbox",
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+		   				{
 					  field: "Hour",
 					  type: "numberbox",
 					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']

@@ -20,7 +20,7 @@ namespace WebApp.Repositories
         public WorkQuery WithAnySearch(string search)
         {
             if (!string.IsNullOrEmpty(search))
-                And( x =>  x.Name.Contains(search) || x.Status.Contains(search) || x.StartDate.ToString().Contains(search) || x.EndDate.ToString().Contains(search) || x.Hour.ToString().Contains(search) || x.Priority.ToString().Contains(search) || x.Score.ToString().Contains(search) );
+                And( x =>  x.Id.ToString().Contains(search) || x.Name.Contains(search) || x.Status.Contains(search) || x.StartDate.ToString().Contains(search) || x.EndDate.ToString().Contains(search) || x.Hour.ToString().Contains(search) || x.Priority.ToString().Contains(search) || x.Score.ToString().Contains(search) );
             return this;
         }
 
@@ -32,6 +32,38 @@ namespace WebApp.Repositories
                foreach (var rule in filters)
                {
                   
+					
+				    						if (rule.field == "Id" && !string.IsNullOrEmpty(rule.value) && rule.value.IsInt())
+						{
+							int val = Convert.ToInt32(rule.value);
+							switch (rule.op) {
+                            case "equal":
+                                And(x => x.Id == val);
+                                break;
+                            case "notequal":
+                                And(x => x.Id != val);
+                                break;
+                            case "less":
+                                And(x => x.Id < val);
+                                break;
+                            case "lessorequal":
+                                And(x => x.Id <= val);
+                                break;
+                            case "greater":
+                                And(x => x.Id > val);
+                                break;
+                            case "greaterorequal" :
+                                And(x => x.Id >= val);
+                                break;
+                            default:
+                                And(x => x.Id == val);
+                                break;
+                        }
+						}
+				    
+					
+					
+				    				
 											if (rule.field == "Name"  && !string.IsNullOrEmpty(rule.value))
 						{
 							And(x => x.Name.Contains(rule.value));

@@ -151,6 +151,38 @@
 								 required:true ,precision:2" />
 			              
 				   </td>
+	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.CreatedBy)  </td>
+	   <td> 
+			
+			  			<input id="@Html.IdFor(model => model.CreatedBy)" 
+				   name="@Html.NameFor(model => model.CreatedBy)" 
+				   value="@Html.ValueFor(model => model.CreatedBy)"
+				   tabindex="9" 
+				   style="width:100%" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'CreatedBy',
+								 label:'',
+								 required:false " />
+			              
+				   </td>
+	   	   </tr>
+	   	    <tr>
+      	   <td class="control-label">   @Html.DisplayNameFor(model => model.LastModifiedBy)  </td>
+	   <td> 
+			
+			  			<input id="@Html.IdFor(model => model.LastModifiedBy)" 
+				   name="@Html.NameFor(model => model.LastModifiedBy)" 
+				   value="@Html.ValueFor(model => model.LastModifiedBy)"
+				   tabindex="10" 
+				   style="width:100%" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'LastModifiedBy',
+								 label:'',
+								 required:false " />
+			              
+				   </td>
 	   	    		<td></td> <td></td>
 		     </tr>
 	    <tfoot>

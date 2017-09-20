@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace WebApp.Models
 {
-    //[MetadataType(typeof(WorkMetadata))]
+    [MetadataType(typeof(WorkMetadata))]
     public partial class Work
     {
     }
@@ -38,6 +38,18 @@ namespace WebApp.Models
 
         [Display(Name = "Score")]
         public decimal Score { get; set; }
+
+        [Display(Name = "CreatedDate")]
+        public DateTime CreatedDate { get; set; }
+
+        [Display(Name = "CreatedBy")]
+        public string CreatedBy { get; set; }
+
+        [Display(Name = "LastModifiedDate")]
+        public DateTime LastModifiedDate { get; set; }
+
+        [Display(Name = "LastModifiedBy")]
+        public string LastModifiedBy { get; set; }
 
     }
 
