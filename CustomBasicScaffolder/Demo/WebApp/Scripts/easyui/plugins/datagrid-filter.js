@@ -288,6 +288,85 @@
                         }, opts.filterDelay);
                     }
                 });
+                if ($(this).hasClass('datebox-f')) {//datebox
+                    input.bind('blur.filter', function (e) {
+                        var t = $(this);
+                        if (this.timer) {
+                            clearTimeout(this.timer);
+                        }
+                        if (e.keyCode == 13) {
+                            _doFilter();
+                        } else {
+                            this.timer = setTimeout(function () {
+                                _doFilter();
+                            }, opts.filterDelay);
+                        }
+                    });
+                }
+
+                if ($(this).hasClass('daterange')) {//daterange
+                    input.bind('apply.daterangepicker', function (e) {
+                        //console.log(input);
+                        var t = $(this);
+                        if (this.timer) {
+                            clearTimeout(this.timer);
+                        }
+                        if (e.keyCode == 13) {
+                            _doFilterForDateRange();
+                        } else {
+                            this.timer = setTimeout(function () {
+                                _doFilterForDateRange();
+                            }, opts.filterDelay);
+                        }
+                    });
+                    input.bind('cancel.daterangepicker', function (e) {
+                        $(this).val('');
+                        var t = $(this);
+                        if (this.timer) {
+                            clearTimeout(this.timer);
+                        }
+                        if (e.keyCode == 13) {
+                            _doFilterForDateRange();
+                        } else {
+                            this.timer = setTimeout(function () {
+                                _doFilterForDateRange();
+                            }, opts.filterDelay);
+                        }
+                    });
+                }
+                if ($(this).hasClass('combobox-f')) {//combobox
+
+                    input.bind('blur.filter', function (e, value) {
+                        var t = $(this);
+                        if (this.timer) {
+                            clearTimeout(this.timer);
+                        }
+                        if (e.keyCode == 13) {
+                            _doFilterForCombobox();
+                        } else {
+                            this.timer = setTimeout(function () {
+                                _doFilterForCombobox();
+                            }, opts.filterDelay);
+                        }
+                    });
+                }
+                if ($(this).hasClass('combogrid-f')) {//combogrid
+
+                    input.bind('blur.filter', function (e, value) {
+                        var t = $(this);
+                        if (this.timer) {
+                            clearTimeout(this.timer);
+                        }
+                        if (e.keyCode == 13) {
+                            _doFilterForCombobox();
+                        } else {
+                            this.timer = setTimeout(function () {
+                                _doFilterForCombobox();
+                            }, opts.filterDelay);
+                        }
+                    });
+                }
+
                 function _doFilter() {
                     var rule = $(target)[name]('getFilterRule', field);
                     var value = input.val();
@@ -303,6 +382,52 @@
                     } else {
                         if (rule) {
                             $(target)[name]('removeFilterRule', field);
+                            $(target)[name]('doFilter');
+                        }
+                    }
+                }
+
+                function _doFilterForCombobox() {
+                    var rule = $(target)[name]('getFilterRule', field);
+                    //var value = input.val();
+                    //console.log(input.parent().find('input[type=hidden]').val(), 'value');
+                    var value = input.parent().find('input[type=hidden]').val();
+                    if (value != '') {
+                        if ((rule && rule.value != value) || !rule) {
+                            $(target)[name]('addFilterRule', {
+                                field: field,
+                                op: opts.defaultFilterOperator,
+                                value: value
+                            });
+                            $(target)[name]('doFilter');
+                        }
+                    } else {
+                        if (rule) {
+                            $(target)[name]('removeFilterRule', field);
+                            $(target)[name]('doFilter');
+                        }
+                    }
+                }
+
+                function _doFilterForDateRange() {
+                    var rule = $(target)[name]('getFilterRule', field);
+                    var value = input.val();
+                    if (value != '') {
+                        if ((rule && rule.value != value) || !rule) {
+                            $(target)[name]('addFilterRule', {
+                                field: field,
+                                op: opts.defaultFilterOperator,
+                                value: value
+                            });
+                            $(target)[name]('doFilter');
+                        }
+                    } else {
+                        if (rule) {
+                            $(target)[name]('addFilterRule', {
+                                field: field,
+                                op: opts.defaultFilterOperator,
+                                value: value
+                            });
                             $(target)[name]('doFilter');
                         }
                     }
