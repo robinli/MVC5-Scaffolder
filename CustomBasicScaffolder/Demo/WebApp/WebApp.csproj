@@ -281,6 +281,22 @@
     <Compile Include="Migrations\201706020033047_te.Designer.cs">
       <DependentUpon>201706020033047_te.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709190856444_test1.cs" />
+    <Compile Include="Migrations\201709190856444_test1.Designer.cs">
+      <DependentUpon>201709190856444_test1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709190946038_dd.cs" />
+    <Compile Include="Migrations\201709190946038_dd.Designer.cs">
+      <DependentUpon>201709190946038_dd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709200029016_te1.cs" />
+    <Compile Include="Migrations\201709200029016_te1.Designer.cs">
+      <DependentUpon>201709200029016_te1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709200041592_adf.cs" />
+    <Compile Include="Migrations\201709200041592_adf.Designer.cs">
+      <DependentUpon>201709200041592_adf.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -330,9 +346,7 @@
     <Compile Include="Models\Task.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\WorkMetadata.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Models\WorkMetadata.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\BaseCodes\BaseCodeQuery.cs" />
     <Compile Include="Repositories\BaseCodes\BaseCodeRepository.cs" />
@@ -4585,6 +4599,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706020033047_te.resx">
       <DependentUpon>201706020033047_te.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709190856444_test1.resx">
+      <DependentUpon>201709190856444_test1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709190946038_dd.resx">
+      <DependentUpon>201709190946038_dd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709200029016_te1.resx">
+      <DependentUpon>201709200029016_te1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709200041592_adf.resx">
+      <DependentUpon>201709200041592_adf.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

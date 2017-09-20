@@ -33,9 +33,9 @@
 				   style="width:100%" 
 				   class="easyui-textbox" 
 				   type="text" 
-				   data-options="prompt:'任务',
+				   data-options="prompt:'Name',
 								 label:'',
-								 required:true ,validType:'length[0,20]'" />
+								 required:false ,validType:'length[0,50]'" />
 			              
 				   </td>
 	   	   </tr>
@@ -50,9 +50,9 @@
 				   style="width:100%" 
 				   class="easyui-textbox" 
 				   type="text" 
-				   data-options="prompt:'状态',
+				   data-options="prompt:'Status',
 								 label:'',
-								 required:true ,validType:'length[0,10]'" />
+								 required:false ,validType:'length[0,50]'" />
 			              
 				   </td>
 	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.StartDate)  </td>
@@ -64,7 +64,7 @@
 				   style="width:100%" class="easyui-datebox" 
 				   type="text" 
 				   value="@Html.ValueFor(model => model.StartDate)"
-				   data-options="prompt:'开始日期',
+				   data-options="prompt:'StartDate',
 								 label:'',
 								 required:true,
 								 formatter:dateformatter" />
@@ -81,7 +81,7 @@
 				   style="width:100%" class="easyui-datebox" 
 				   type="text" 
 				   value="@Html.ValueFor(model => model.EndDate)"
-				   data-options="prompt:'结束日期',
+				   data-options="prompt:'EndDate',
 								 label:'',
 								 required:true,
 								 formatter:dateformatter" />
@@ -97,9 +97,9 @@
 					style="width:100%" 
 					class="easyui-textbox" 
 					type="text" 
-					data-options="prompt:'是否启用',
+					data-options="prompt:'Enableed',
 					             label:'',
-								 required:true " />
+								 required:false " />
 			              
 				   </td>
 	   	   </tr>
@@ -114,9 +114,9 @@
 				   style="width:100%" 
 				   class="easyui-numberbox" 
 				   type="text" 
-				   data-options="prompt:'用时(H)',
+				   data-options="prompt:'Hour',
 								 label:'',
-								 required:true ,min:1,max:99,precision:0" />
+								 required:true ,precision:0" />
 			              
 				   </td>
 	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.Priority)  </td>
@@ -129,9 +129,9 @@
 				   style="width:100%" 
 				   class="easyui-numberbox" 
 				   type="text" 
-				   data-options="prompt:'优先级',
+				   data-options="prompt:'Priority',
 								 label:'',
-								 required:true ,min:1,max:9,precision:0" />
+								 required:true ,precision:0" />
 			              
 				   </td>
 	   	   </tr>
@@ -146,9 +146,9 @@
 				   style="width:100%" 
 				   class="easyui-numberbox" 
 				   type="text" 
-				   data-options="prompt:'分数',
+				   data-options="prompt:'Score',
 								 label:'',
-								 required:true ,min:1,max:100,precision:2" />
+								 required:true ,precision:2" />
 			              
 				   </td>
 	   	    		<td></td> <td></td>

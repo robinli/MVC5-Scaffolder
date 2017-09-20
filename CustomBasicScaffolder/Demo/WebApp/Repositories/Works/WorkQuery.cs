@@ -53,7 +53,7 @@ namespace WebApp.Repositories
 					
 				    
 					
-											if (rule.field == "StartDate" && !string.IsNullOrEmpty(rule.value)  )
+											if (rule.field == "StartDate" && !string.IsNullOrEmpty(rule.value) )
 						{	
 							if (rule.op == "between")
                             {
@@ -70,7 +70,7 @@ namespace WebApp.Repositories
 					
 				    
 					
-											if (rule.field == "EndDate" && !string.IsNullOrEmpty(rule.value)  )
+											if (rule.field == "EndDate" && !string.IsNullOrEmpty(rule.value) )
 						{	
 							if (rule.op == "between")
                             {

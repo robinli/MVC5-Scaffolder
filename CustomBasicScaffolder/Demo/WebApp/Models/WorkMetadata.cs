@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace WebApp.Models
 {
-    [MetadataType(typeof(WorkMetadata))]
+    //[MetadataType(typeof(WorkMetadata))]
     public partial class Work
     {
     }
@@ -15,51 +15,40 @@ namespace WebApp.Models
         [Display(Name = "Id")]
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Please enter : 任务")]
-        [Display(Name = "任务")]
-        [MaxLength(20)]
+        [Display(Name = "Name")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "Please enter : 状态")]
-        [Display(Name = "状态")]
-        [UIHint("BaseCode")]
-        [MaxLength(10)]
+        [Display(Name = "Status")]
         public string Status { get; set; }
 
-        [Required(ErrorMessage = "Please enter : 开始日期")]
-        [Display(Name = "开始日期")]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Display(Name = "StartDate")]
         public DateTime StartDate { get; set; }
 
-        [Display(Name = "结束日期")]
+        [Display(Name = "EndDate")]
         public DateTime EndDate { get; set; }
 
-        [Required(ErrorMessage = "Please enter : 是否启用")]
-        [Display(Name = "是否启用")]
+        [Display(Name = "Enableed")]
         public bool Enableed { get; set; }
 
-        [Required(ErrorMessage = "Please enter : 用时(H)")]
-        [Display(Name = "用时(H)")]
-        [Range(1, 99)]
+        [Display(Name = "Hour")]
         public int Hour { get; set; }
 
-        [Required(ErrorMessage = "Please enter : 优先级")]
-        [Display(Name = "优先级")]
-        [Range(1, 9)]
+        [Display(Name = "Priority")]
         public int Priority { get; set; }
 
-        [Required(ErrorMessage = "Please enter : 分数")]
-        [Display(Name = "分数")]
-        [Range(1, 100)]
+        [Display(Name = "Score")]
         public decimal Score { get; set; }
 
     }
 
 
-    public class WorkChangeViewModel
+
+
+	public class WorkChangeViewModel
     {
         public IEnumerable<Work> inserted { get; set; }
         public IEnumerable<Work> deleted { get; set; }
         public IEnumerable<Work> updated { get; set; }
     }
+
 }

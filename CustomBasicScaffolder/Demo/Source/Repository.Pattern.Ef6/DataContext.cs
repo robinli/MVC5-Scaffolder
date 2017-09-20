@@ -48,6 +48,31 @@ namespace Repository.Pattern.Ef6
         public override int SaveChanges()
         {
             SyncObjectsStatePreCommit();
+            var currentDateTime = DateTime.Now;
+            foreach (var auditableEntity in ChangeTracker.Entries<IAuditable>())
+            {
+                if (auditableEntity.State == EntityState.Added || auditableEntity.State == EntityState.Modified)
+                {
+                    auditableEntity.Entity.LastModified = currentDateTime;
+                    switch (auditableEntity.State)
+                    {
+                        case EntityState.Added:
+                            auditableEntity.Entity.Created = currentDateTime;
+                            //auditableEntity.Entity.CreatedBy = HttpContext.Current.User.Identity.Name;
+                            break;
+                        case EntityState.Modified:
+                            auditableEntity.Property("Created").IsModified = false;
+                            auditableEntity.Property("CreatedBy").IsModified = false;
+                            auditableEntity.Entity.LastModified = currentDateTime;
+                            //auditableEntity.Entity.LastModifiedBy = HttpContext.Current.User.Identity.Name;
+                            //if (auditableEntity.Property(p => p.Created).IsModified || auditableEntity.Property(p => p.CreatedBy).IsModified)
+                            //{
+                            //    throw new DbEntityValidationException(string.Format("Attempt to change created audit trails on a modified {0}", auditableEntity.Entity.GetType().FullName));
+                            //}
+                            break;
+                    }
+                }
+            }
             var changes = base.SaveChanges();
             SyncObjectsStatePostCommit();
             return changes;
@@ -78,6 +103,7 @@ namespace Repository.Pattern.Ef6
         ///     objects written to the underlying database.</returns>
         public override async Task<int> SaveChangesAsync()
         {
+             
             return await this.SaveChangesAsync(CancellationToken.None);
         }
         /// <summary>
@@ -106,6 +132,34 @@ namespace Repository.Pattern.Ef6
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken)
         {
             SyncObjectsStatePreCommit();
+
+            var currentDateTime = DateTime.Now;
+
+            foreach (var auditableEntity in ChangeTracker.Entries<IAuditable>())
+            {
+                if (auditableEntity.State == EntityState.Added || auditableEntity.State == EntityState.Modified)
+                {
+                    auditableEntity.Entity.LastModified = currentDateTime;
+                    switch (auditableEntity.State)
+                    {
+                        case EntityState.Added:
+                            auditableEntity.Entity.Created = currentDateTime;
+                            //auditableEntity.Entity.CreatedBy = HttpContext.Current.User.Identity.Name;
+                            break;
+                        case EntityState.Modified:
+                            auditableEntity.Property("Created").IsModified = false;
+                            auditableEntity.Property("CreatedBy").IsModified = false;
+                            auditableEntity.Entity.LastModified = currentDateTime;
+                            //auditableEntity.Entity.LastModifiedBy = HttpContext.Current.User.Identity.Name;
+                            //if (auditableEntity.Property(p => p.Created).IsModified || auditableEntity.Property(p => p.CreatedBy).IsModified)
+                            //{
+                            //    throw new DbEntityValidationException(string.Format("Attempt to change created audit trails on a modified {0}", auditableEntity.Entity.GetType().FullName));
+                            //}
+                            break;
+                    }
+                }
+            }
+
             var changesAsync = await base.SaveChangesAsync(cancellationToken);
             SyncObjectsStatePostCommit();
             return changesAsync;

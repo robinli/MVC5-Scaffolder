@@ -105,18 +105,21 @@ $.extend($.fn.datagrid.defaults.filters, {
                 });
             }
             
-            
+            //console.log($(target));
             return input;
         },
         destroy: function (target) {
             $(target).daterangepicker('destroy');
         },
         getValue: function (target) {
-            return $(target).daterangepicker('getValue') ;
+            //console.log($(target));
+            return $(target).data('daterangepicker').getStartDate() + '-' + $(target).data('daterangepicker').getEndDate();
         },
         setValue: function (target, value) {
-           
-            $(target).daterangepicker('setValue', value);
+            //console.log($(target), value);
+            var daterange = value.split('-');
+            $(target).data('daterangepicker').setStartDate(daterange[0]);
+            $(target).data('daterangepicker').setEndDate(daterange[1]);
            
         },
         resize: function (target, width) {

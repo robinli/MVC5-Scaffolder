@@ -53,15 +53,17 @@ namespace WebApp.Controllers
             var totalCount = 0;
             //int pagenum = offset / limit +1;
             var works = await _workService
-                .Query(new WorkQuery().Withfilter(filters))
-                .OrderBy(n => n.OrderBy(sort, order))
-                .SelectPageAsync(page, rows, out totalCount);
+       .Query(new WorkQuery().Withfilter(filters))
+       .OrderBy(n => n.OrderBy(sort, order))
+       .SelectPageAsync(page, rows, out totalCount);
 
-
-            var datarows = works.Select(n => new { Name = n.Name, Status = n.Status, StartDate = n.StartDate, EndDate = n.EndDate, Enableed = n.Enableed, Hour = n.Hour, Priority = n.Priority, Score = n.Score }).ToList();
+            var datarows = works.Select(n => new { Id = n.Id, Name = n.Name, Status = n.Status, StartDate = n.StartDate, EndDate = n.EndDate, Enableed = n.Enableed, Hour = n.Hour, Priority = n.Priority, Score = n.Score }).ToList();
             var pagelist = new { total = totalCount, rows = datarows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
+
+
+
 
         [HttpPost]
         public async Task<ActionResult> SaveData(WorkChangeViewModel works)
@@ -87,6 +89,9 @@ namespace WebApp.Controllers
                     _workService.Insert(item);
                 }
             }
+         
+
+
             await _unitOfWork.SaveChangesAsync();
 
             return Json(new { Success = true }, JsonRequestBehavior.AllowGet);

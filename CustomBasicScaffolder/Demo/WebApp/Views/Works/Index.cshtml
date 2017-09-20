@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<WebApp.Models.Work>
 @{
-	ViewBag.Title = "工单";
+	ViewBag.Title = "Work";
 }
 <!-- MAIN CONTENT -->
 <div id="content">
@@ -15,7 +15,7 @@
                 路径
                 <span>
                     >
-                  工单
+                  Work
                 </span>
             </h1>
         </div>
@@ -47,7 +47,7 @@
                     -->
                     <header>
                         <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-                        <h2>工单</h2>
+                        <h2>Work</h2>
                     </header>
 
                      <!-- widget div-->
@@ -93,29 +93,29 @@
 						@*<th data-options="field:'ck',checkbox:true"></th>*@
                         <th data-options="field:'_operate1',width:100 ,sortable:false,resizable:true,formatter:showdetailsformatter ">操作</th>
 		
-					 <th data-options="field:'Name' ,width:140,editor:{type:'textbox',options:{prompt:'任务' ,required:true ,validType:'length[0,20]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Name)</th>
+					 <th data-options="field:'Name' ,width:140,editor:{type:'textbox',options:{prompt:'Name' ,required:false ,validType:'length[0,50]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Name)</th>
 		
 				
-					 <th data-options="field:'Status' ,width:140,editor:{type:'textbox',options:{prompt:'状态' ,required:true ,validType:'length[0,10]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Status)</th>
+					 <th data-options="field:'Status' ,width:140,editor:{type:'textbox',options:{prompt:'Status' ,required:false ,validType:'length[0,50]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Status)</th>
 		
 				
-					 <th data-options="field:'StartDate',width:160,align:'right',editor:{type:'datebox',options:{prompt:'开始日期' ,required:true    }  },sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.StartDate)</th>
+					 <th data-options="field:'StartDate',width:160,align:'right',editor:{type:'datebox',options:{prompt:'StartDate' ,required:true    }  },sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.StartDate)</th>
 		
 				
-					 <th data-options="field:'EndDate',width:160,align:'right',editor:{type:'datebox',options:{prompt:'结束日期' ,required:true    }  },sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.EndDate)</th>
+					 <th data-options="field:'EndDate',width:160,align:'right',editor:{type:'datebox',options:{prompt:'EndDate' ,required:true    }  },sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.EndDate)</th>
 		
 				
-					 <th data-options="field:'Enableed' ,width:120,align:'center',editor:{type:'checkbox',options:{prompt:'是否启用',on:'true',off:'false',required:true} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Enableed)</th>
+					 <th data-options="field:'Enableed' ,width:120,align:'center',editor:{type:'checkbox',options:{prompt:'Enableed',on:'true',off:'false',required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Enableed)</th>
 		
 		
 				
-					 <th data-options="field:'Hour' ,width:100,align:'right',editor:{type:'numberbox',options:{prompt:'用时(H)' ,required:true  ,min:1,max:99,precision:0 } } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Hour)</th>
+					 <th data-options="field:'Hour' ,width:100,align:'right',editor:{type:'numberbox',options:{prompt:'Hour' ,required:true  ,precision:0 } } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Hour)</th>
 		
 				
-					 <th data-options="field:'Priority' ,width:100,align:'right',editor:{type:'numberbox',options:{prompt:'优先级' ,required:true  ,min:1,max:9,precision:0 } } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Priority)</th>
+					 <th data-options="field:'Priority' ,width:100,align:'right',editor:{type:'numberbox',options:{prompt:'Priority' ,required:true  ,precision:0 } } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Priority)</th>
 		
 				
-					 <th data-options="field:'Score' ,width:100,align:'right',editor:{type:'numberbox',options:{prompt:'分数' ,required:true  ,min:1,max:100,precision:2 } } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Score)</th>
+					 <th data-options="field:'Score' ,width:100,align:'right',editor:{type:'numberbox',options:{prompt:'Score' ,required:true  ,precision:2 } } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Score)</th>
 		
 			   
 						</tr>
