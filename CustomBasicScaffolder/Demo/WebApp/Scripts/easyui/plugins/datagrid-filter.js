@@ -1,4 +1,4 @@
-(function ($) {
+﻿(function ($) {
     function getPluginName(target) {
         if ($(target).data('treegrid')) {
             return 'treegrid';
@@ -288,6 +288,7 @@
                         }, opts.filterDelay);
                     }
                 });
+                // add @ 2017/9/20 custom datebox，daterange combobox combogrid  changed event do filter // 
                 if ($(this).hasClass('datebox-f')) {//datebox
                     input.bind('blur.filter', function (e) {
                         var t = $(this);
@@ -367,26 +368,8 @@
                     });
                 }
 
-                function _doFilter() {
-                    var rule = $(target)[name]('getFilterRule', field);
-                    var value = input.val();
-                    if (value != '') {
-                        if ((rule && rule.value != value) || !rule) {
-                            $(target)[name]('addFilterRule', {
-                                field: field,
-                                op: opts.defaultFilterOperator,
-                                value: value
-                            });
-                            $(target)[name]('doFilter');
-                        }
-                    } else {
-                        if (rule) {
-                            $(target)[name]('removeFilterRule', field);
-                            $(target)[name]('doFilter');
-                        }
-                    }
-                }
-
+             
+               
                 function _doFilterForCombobox() {
                     var rule = $(target)[name]('getFilterRule', field);
                     //var value = input.val();
@@ -428,6 +411,27 @@
                                 op: opts.defaultFilterOperator,
                                 value: value
                             });
+                            $(target)[name]('doFilter');
+                        }
+                    }
+                }
+               // add @ 2017/9/20 combobox changed event do filter // 
+
+                function _doFilter() {
+                    var rule = $(target)[name]('getFilterRule', field);
+                    var value = input.val();
+                    if (value != '') {
+                        if ((rule && rule.value != value) || !rule) {
+                            $(target)[name]('addFilterRule', {
+                                field: field,
+                                op: opts.defaultFilterOperator,
+                                value: value
+                            });
+                            $(target)[name]('doFilter');
+                        }
+                    } else {
+                        if (rule) {
+                            $(target)[name]('removeFilterRule', field);
                             $(target)[name]('doFilter');
                         }
                     }

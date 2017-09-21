@@ -15,12 +15,13 @@ function typeformatter(value, row, index) {
     if (value === null || value === '') {
         return "";
     }
-    for (var i = 0; i < MessageType.length; i++) {
-        if (MessageType[i].value.toString() === value.toString()) {
-            return MessageType[i].text;
+    $.each(MessageType, function (index, item) {
+        if (item.value === value.toString()) {
+            return item.text;
         }
-    }
+    });
     return value;
+     
 }
 
 function newformatter(value, row, index) {

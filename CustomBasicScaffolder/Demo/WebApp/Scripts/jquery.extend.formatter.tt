@@ -15,10 +15,60 @@
 <#@ output extension=".js" #>
 
 <#
-              foreach(var item in GetTables())
+              foreach(var item in GetTables().Select(x=>new { codetype = x.codetype,description = x.description }).Distinct())
                {
+               var filtername = item.codetype.ToLower() + "filtersource";
+               var datasourcename = item.codetype.ToLower() + "datasource";
 #>
-       <#= item.codetype #>   <#= item.code #> <#= item.description #>
+ // <#= item.description #>
+ var <#= filtername  #> = [{ value: '', text: 'All'}] ; 
+ var <#= datasourcename  #> = [] ; 
+ <#  foreach(var data in  GetTables().Where(x=>x.codetype == item.codetype) ) {  #>
+   <#= filtername  #>.push({ value: '<#= data.code #>', text: '<#= data.text #>' });
+   <#= datasourcename  #>.push({ value: '<#= data.code #>', text: '<#= data.text #>' });
+<#    } #>
+//for datagrid <#= item.codetype #> field  formatter
+function <#= item.codetype.ToLower() #>formatter(value, row, index) {
+    if (value === null || value === '' || value === undefined ) {
+        return "";
+    }
+    $.each(<#= datasourcename  #>, function (index, item) {
+        if (item.value === value.toString()) {
+            return item.text;
+        }
+    });
+    return value;
+   
+}
+
+//for datagrid   <#= item.codetype #>   field filter 
+$.extend($.fn.datagrid.defaults.filters, {
+    <#= item.codetype.ToLower() #>combobox: {
+        init: function (container, options) {
+            var input = $('<input type="text">').appendTo(container);
+            var myoptions = {
+                panelHeight: "auto",
+                data: <#= filtername #>
+            }
+            $.extend(options, myoptions);
+            input.combobox(options);
+            return input;
+        },
+        destroy: function (target) {
+            $(target).combobox('destroy');
+        },
+        getValue: function (target) {
+            return $(target).combobox('getValue');
+        },
+        setValue: function (target, value) {
+           $(target).combobox('setValue', value);
+        },
+        resize: function (target, width) {
+            $(target).combobox('resize', width);
+        }
+    }
+});
+
 <#
                }
         
