@@ -2895,6 +2895,7 @@
     <Content Include="Scripts\easyui\plugins\datagrid-filter.js" />
     <Content Include="Scripts\easyui\plugins\datagrid-groupview.js" />
     <Content Include="Scripts\easyui\plugins\datagrid-scrollview.js" />
+    <Content Include="Scripts\easyui\plugins\editable-datagrid.html" />
     <Content Include="Scripts\easyui\plugins\filter.png" />
     <Content Include="Scripts\easyui\plugins\jquery.accordion.js" />
     <Content Include="Scripts\easyui\plugins\jquery.calendar.js" />

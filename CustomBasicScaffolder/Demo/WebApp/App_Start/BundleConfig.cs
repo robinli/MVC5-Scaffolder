@@ -105,7 +105,6 @@ namespace WebApp
             //EasyUI plugins Script
             bundles.Add(new ScriptBundle("~/plugins/easyuipluginsjs").Include(
                       "~/Scripts/easyui/plugins/datagrid-filter.js",
-                      "~/Scripts/jquery.easyui.extend.js",
                       "~/Scripts/easyui/plugins/jquery.edatagrid.js"));
 
 
@@ -135,8 +134,9 @@ namespace WebApp
 
 
             //format enum json
-            bundles.Add(new ScriptBundle("~/plugins/extendformatterjs").Include(
+            bundles.Add(new ScriptBundle("~/plugins/jqueryeasyuiextendjs").Include(
                       "~/Scripts/jquery.extend.js",
+                      "~/Scripts/jquery.easyui.extend.js",
                       "~/Scripts/enum.json.js",
                       "~/Scripts/datagrid.formatter.js",
                       "~/Scripts/jquery.extend.formatter.js"));

@@ -446,7 +446,7 @@
 									dg.datagrid('cancelEdit', index);
 									dg.datagrid('deleteRow', index);
 								}
-								opts.onDestroy.call(dg[0], index, row);
+								opts.onDestroy.call(dg[0], index, $.extend(row,data));
 								var pager = dg.datagrid('getPager');
 								if (pager.length && !dg.datagrid('getRows').length){
 									dg.datagrid('options').pageNumber = pager.pagination('options').pageNumber;

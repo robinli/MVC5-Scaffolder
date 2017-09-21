@@ -1,58 +1,4 @@
-﻿$.extend($.fn.datagrid.defaults.filters, {
-    dateRange1: {
-        init: function (container, options) {
-            var input = $('<input>').appendTo(container);
-            input.datebox({
-                panelWidth: 300,
-                panelHeight: 209,
-                onShowPanel: function () {
-                    var dd = input.combo('getText').split(':');
-                    var d1 = $.fn.datebox.defaults.parser(dd[0]);
-                    var d2 = $.fn.datebox.defaults.parser(dd[1]);
-                    var p = input.combo('panel');
-                    p.find('.c1').calendar('moveTo', d1);
-                    p.find('.c2').calendar('moveTo', d2);
-                }
-            });
-            var p = input.datebox('panel');
-            $('<div><div class="c1" style="width:50%;float:left"></div><div class="c2" style="width:50%;float:right"></div></div>').appendTo(p);
-            var c1 = p.find('.c1').calendar();
-            var c2 = p.find('.c2').calendar();
-
-            var footer = $('<div class="easyui-panel"></div>').appendTo(p);
-            var btn = $('<a class="easyui-linkbutton" data-options="plain:true,iconCls:"icon- save" href="javascript:void(0)">Done</a>').appendTo(footer);
-            btn.bind('click', function () {
-                var v1 = $.fn.datebox.defaults.formatter(c1.calendar('options').current);
-                var v2 = $.fn.datebox.defaults.formatter(c2.calendar('options').current);
-                var v = v1 + ':' + v2;
-                input.combo('setValue', v).combo('setText', v);
-                input.combo('hidePanel');
-            })
-            return input;
-        },
-        destroy: function (target) {
-            $(target).combo('destroy');
-        },
-        getValue: function (target) {
-            var p = $(target).combo('panel');
-            var v1 = $.fn.datebox.defaults.formatter(p.find('.c1').calendar('options').current);
-            var v2 = $.fn.datebox.defaults.formatter(p.find('.c2').calendar('options').current);
-            return v1 + ':' + v2;
-        },
-        setValue: function (target, value) {
-            var dd = value.split(':');
-            var d1 = $.fn.datebox.defaults.parser(dd[0]);
-            var d2 = $.fn.datebox.defaults.parser(dd[1]);
-            var p = $(target).combo('panel');
-            p.find('.c1').calendar('moveTo', d1);
-            p.find('.c2').calendar('moveTo', d2);
-            $(target).combo('setValue', value).combo('setText', value);
-        },
-        resize: function (target, width) {
-            $(target).combo('resize', width);
-        }
-    }
-});
+﻿
 
 $.extend($.fn.datagrid.defaults.filters, {
     dateRange: {
@@ -125,6 +71,40 @@ $.extend($.fn.datagrid.defaults.filters, {
         resize: function (target, width) {
             $(target)._outerWidth(width)._outerHeight(24);
            // $(target).daterangepicker('resize', width / 2);
+        }
+    }
+});
+
+
+$.extend($.fn.datagrid.defaults.editors, {
+    datebox: {
+        init: function (container, options) {
+            var input = $('<input>').appendTo(container);
+            input.datebox(options);
+            return input;
+        },
+        destroy: function (target) {
+            $(target).datebox('destroy');
+        },
+        getValue: function (target) {
+            
+            return $(target).datebox('getValue');
+        },
+        setValue: function (target, value) {
+
+            var date = {};
+            if (moment(value).isValid()) {
+                date = moment(value).format('MM/DD/YYYY');
+                $(target).datebox('setValue', date);
+            } else {
+                $(target).datebox('setValue', '');
+            }
+            //console.log(value, date)
+        
+            
+        },
+        resize: function (target, width) {
+            $(target).datebox('resize', width);
         }
     }
 });
