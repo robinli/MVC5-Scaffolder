@@ -67,7 +67,7 @@
                                     ×
                                 </button>
                                 <i class="fa-fw fa fa-info"></i>
-                                A combined table effect with all classes mentioned above added to  
+                                当有新增/修改记录后，请执行【更新javascript】才会最终生效 
                             </div>
 	 <!--begin datagrid-content -->
 	 <div class="table-responsive">
@@ -148,6 +148,8 @@
                                         </div>
                             <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-download-alt',plain:true" onclick="exportexcel()">导出至Excel</a>
 							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="reload()">刷新</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-code',plain:true" onclick="updatejavascript()">更新Javascript</a>
+
 				</div>
 		
 				</div>
@@ -180,6 +182,20 @@
 @section Scripts {
 	<script type="text/javascript">
         var entityname = "CodeItem";
+        //更新javascript
+        function updatejavascript() {
+
+            $.post("/CodeItems/UpdateJavascript", null, function (response) {
+                if (response.Success) {
+                    $.messager.alert("提示", "更新成功！");
+                    
+                }
+            }, "json").fail(function (response) {
+              $.messager.alert("错误", "提交错误了！", "error");
+            
+            });
+        }
+
 			        //下载Excel导入模板
                     function downloadtemplate() {
                             //TODO: 修改下载模板的路径

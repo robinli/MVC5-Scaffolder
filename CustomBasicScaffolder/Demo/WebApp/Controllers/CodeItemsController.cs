@@ -14,7 +14,7 @@ using WebApp.Models;
 using WebApp.Services;
 using WebApp.Repositories;
 using WebApp.Extensions;
-
+using System.IO;
 
 namespace WebApp.Controllers
 {
@@ -64,7 +64,12 @@ namespace WebApp.Controllers
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
 
-         
+        [HttpPost]
+        public ActionResult UpdateJavascript() {
+            var jsfilename = Path.Combine(Server.MapPath("~/Scripts/"), "jquery.extend.formatter.js");
+            this._codeItemService.UpdateJavascript(jsfilename);
+            return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
+        }
 
 
 

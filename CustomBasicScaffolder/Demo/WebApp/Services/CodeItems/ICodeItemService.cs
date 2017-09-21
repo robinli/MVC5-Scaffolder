@@ -17,10 +17,11 @@ namespace WebApp.Services
     public interface ICodeItemService:IService<CodeItem>
     {
 
-                
-         
- 
-		void ImportDataTable(DataTable datatable);
+
+
+        void UpdateJavascript(string filename);
+
+        void ImportDataTable(DataTable datatable);
 		Stream ExportExcel( string filterRules = "",string sort = "Id", string order = "asc");
 	}
 }

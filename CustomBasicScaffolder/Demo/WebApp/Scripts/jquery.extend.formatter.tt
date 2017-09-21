@@ -69,6 +69,38 @@ $.extend($.fn.datagrid.defaults.filters, {
     }
 });
 
+//for datagrid   <#= item.codetype #>   field  editor 
+$.extend($.fn.datagrid.defaults.editors, {
+    <#= item.codetype.ToLower() #>combobox: {
+        init: function (container, options) {
+            var input = $('<input type="text">').appendTo(container);
+            var myoptions = {
+                panelHeight: "auto",
+                data: <#= datasourcename #>,
+                valueField: 'value',
+                textField: 'text'
+            }
+            $.extend(options, myoptions);
+            input.combobox(options);
+            return input;
+        },
+        destroy: function (target) {
+            $(target).combobox('destroy');
+        },
+        getValue: function (target) {
+            return $(target).combobox('getValue');
+        },
+        setValue: function (target, value) {
+            //console.info(dateformatter(value));
+            $(target).combobox('setValue', value);
+        },
+        resize: function (target, width) {
+            $(target).combobox('resize', width);
+        }
+    }
+});
+
+
 <#
                }
         
