@@ -135,10 +135,11 @@ namespace WebApp
 
 
             //format enum json
-            bundles.Add(new ScriptBundle("~/plugins/enumformatterjs").Include(
+            bundles.Add(new ScriptBundle("~/plugins/extendformatterjs").Include(
                       "~/Scripts/jquery.extend.js",
                       "~/Scripts/enum.json.js",
-                       "~/Scripts/datagrid.formatter.js"));
+                      "~/Scripts/datagrid.formatter.js",
+                      "~/Scripts/jquery.extend.formatter.js"));
 
 
 

@@ -55,13 +55,16 @@
 @Scripts.Render("~/plugins/jqueryfilerjs")
 
 @Scripts.Render("~/plugins/filejs")
-<!--format enum json-->
-@Scripts.Render("~/plugins/enumformatterjs")
+
 
     <!-- EasyUI plugins Script-->        
 @Scripts.Render("~/plugins/easyuipluginsjs")
 
-<script src="~/Scripts/jquery.extend.formatter.js"></script>
+<!--format enum json-->
+ 
+@Scripts.Render(System.Web.Optimization.BundleTable.Bundles.ResolveBundleUrl("~/plugins/extendformatterjs", true))
+
+ 
 <!-- DO NOT REMOVE : GLOBAL FUNCTIONS! -->
 <script type="text/javascript">
     pageSetUp();

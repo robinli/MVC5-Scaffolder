@@ -234,13 +234,7 @@
 		function endEditing() {
 			if (editIndex == undefined) { return true }
 			if ($dg.datagrid("validateRow", editIndex)) {
-
-								var ed = $dg.datagrid("getEditor", { index: editIndex, field: "BaseCodeId" });
-				var basecodecodetype = $(ed.target).combobox("getText");
-				var basecodeid = $(ed.target).combobox("getValue");
-			   
-				$dg.datagrid("getRows")[editIndex]["BaseCodeCodeType"] =  basecodecodetype;
-				$dg.datagrid("getRows")[editIndex]["BaseCodeId"] = basecodeid;
+                 
  
 
 								$dg.datagrid("endEdit", editIndex);
