@@ -112,12 +112,13 @@ namespace WebApp.Services
                 sw.WriteLine($"     {{ ");
                 sw.WriteLine($"         return \"\";");
                 sw.WriteLine($"     }} ");
-                sw.WriteLine($"     $.each({datasourcename}, function (index, item) {{");
+                sw.WriteLine($"     for (var i = 0; i < {datasourcename}.length; i++) {{");
+                sw.WriteLine($"      var item = {datasourcename}[i];");
                 sw.WriteLine($"     if (item.value === value.toString())");
                 sw.WriteLine($"     {{");
                 sw.WriteLine($"         return item.text;");
                 sw.WriteLine($"     }}");
-                sw.WriteLine($" }});");
+                sw.WriteLine($"     }};");
                 sw.WriteLine($" return value;");
                 sw.WriteLine($" }} ");
 

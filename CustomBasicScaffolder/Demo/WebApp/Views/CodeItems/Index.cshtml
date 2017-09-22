@@ -105,7 +105,7 @@
 					 <th data-options="field:'Description' ,width:140,editor:{type:'textbox',options:{prompt:'描述' ,required:true ,validType:'length[0,50]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Description)</th>
 		
 				
-					 <th data-options="field:'IsDisabled' ,width:100,align:'right',editor:{type:'numberbox',options:{prompt:'是否禁用' ,required:true   } } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.IsDisabled)</th>
+					 <th data-options="field:'IsDisabled' ,width:100,align:'right',editor:{type:'numberbox',options:{prompt:'是否禁用' ,required:true   } } ,sortable:true,resizable:true,formatter:isdisabledformatter ">@Html.DisplayNameFor(model => model.IsDisabled)</th>
 		
 							 
 				</thead>
@@ -337,14 +337,9 @@
 				  },
 		   				{
 					  field: "IsDisabled",
-					  type: "numberbox",
-					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
-				  },
-		   				{
-					  field: "BaseCodeId",
-					  type: "numberbox",
-					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
-				  }
+                      type: "isdisabledcombobox",
+					   
+				  } 
 		   
 
 		   		   

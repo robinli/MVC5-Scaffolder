@@ -108,3 +108,31 @@ $.extend($.fn.datagrid.defaults.editors, {
         }
     }
 });
+
+
+
+function dateformatter(value, row, index) {
+    //console.log(value);
+    if (value == typeof (undefined))
+        return null;
+    if (value == null)
+        return null;
+    else {
+
+        if (moment(value).isValid()) {
+
+            return moment(value).format('MM/DD/YYYY');
+
+        }
+    }
+}
+function datetimeformatter(value, row, index) {
+
+
+    if (value == typeof (undefined))
+        return null;
+    if (value == null)
+        return null;
+    else
+        return moment(value).format('MM/DD/YYYY HH:mm:ss');
+}

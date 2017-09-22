@@ -247,18 +247,18 @@
                                 <tr>
                                     @*<th data-options="field:'ck',checkbox:true"></th>*@
                                     @*<th data-options="field:'Id',width:80 ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Id)</th>*@
-                                    <th data-options="field:'Group' ,width:100,align:'right',editor:{type:'numberbox',options:{prompt:'分组' ,required:true   } } ,sortable:true,resizable:true,formatter:groupformatter ">@Html.DisplayNameFor(model => model.Group)</th>
-                                    <th data-options="field:'ExtensionKey1' ,width:140,editor:{type:'textbox',options:{prompt:'关键字' ,required:false ,validType:'length[0,50]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.ExtensionKey1)</th>
-                                    <th data-options="field:'Type' ,width:100,align:'right',editor:{type:'numberbox',options:{prompt:'类型' ,required:true   } } ,sortable:true,resizable:true ,formatter:typeformatter ">@Html.DisplayNameFor(model => model.Type)</th>
-                                    <th data-options="field:'Code' ,width:140,editor:{type:'textbox',options:{prompt:'异常代码' ,required:false ,validType:'length[0,50]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Code)</th>
-                                    <th data-options="field:'Content' ,width:360,editor:{type:'textbox',options:{prompt:'内容' ,required:false   }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Content)</th>
-                                    <th data-options="field:'User' ,width:140,editor:{type:'textbox',options:{prompt:'操作人' ,required:false ,validType:'length[0,255]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.User)</th>
-                                    <th data-options="field:'Tags' ,width:140,editor:{type:'textbox',options:{prompt:'标签' ,required:false ,validType:'length[0,255]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Tags)</th>
-                                    <th data-options="field:'Method' ,width:120,editor:{type:'textbox',options:{prompt:'调用方法' ,required:false ,validType:'length[0,255]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Method)</th>
-                                    <th data-options="field:'Created',width:160,align:'right',editor:{type:'datebox',options:{prompt:'记录时间' ,required:true    }  },sortable:true,resizable:true  ,formatter:datetimeformatter">@Html.DisplayNameFor(model => model.Created)</th>
-                                    <th data-options="field:'ExtensionKey2' ,width:140,editor:{type:'textbox',options:{prompt:'关键字2' ,required:false ,validType:'length[0,50]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.ExtensionKey2)</th>
-                                    <th data-options="field:'IsNew' ,width:100,align:'right',editor:{type:'numberbox',options:{prompt:'新消息' ,required:true   } } ,sortable:true,resizable:true,formatter:newformatter ">@Html.DisplayNameFor(model => model.IsNew)</th>
-                                    <th data-options="field:'IsNotification' ,width:100,align:'right',editor:{type:'numberbox',options:{prompt:'是否已通知' ,required:true   } } ,sortable:true,resizable:true ,formatter:noticeformatter">@Html.DisplayNameFor(model => model.IsNotification)</th>
+                                    <th data-options="field:'Group' ,width:100,align:'right' ,sortable:true,resizable:true,formatter:messagegroupformatter ">@Html.DisplayNameFor(model => model.Group)</th>
+                                    <th data-options="field:'ExtensionKey1' ,width:140 ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.ExtensionKey1)</th>
+                                    <th data-options="field:'Type' ,width:100,align:'right' ,sortable:true,resizable:true ,formatter:messagetypeformatter ">@Html.DisplayNameFor(model => model.Type)</th>
+                                    <th data-options="field:'Code' ,width:140,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Code)</th>
+                                    <th data-options="field:'Content' ,width:360 ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Content)</th>
+                                    <th data-options="field:'User' ,width:140 ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.User)</th>
+                                    <th data-options="field:'Tags' ,width:140,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Tags)</th>
+                                    <th data-options="field:'Method' ,width:120 ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Method)</th>
+                                    <th data-options="field:'Created',width:160,align:'right',sortable:true,resizable:true  ,formatter:datetimeformatter">@Html.DisplayNameFor(model => model.Created)</th>
+                                    <th data-options="field:'ExtensionKey2' ,width:140,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.ExtensionKey2)</th>
+                                    <th data-options="field:'IsNew' ,width:100,align:'right',sortable:true,resizable:true,formatter:isnewformatter ">@Html.DisplayNameFor(model => model.IsNew)</th>
+                                    <th data-options="field:'IsNotification' ,width:100,align:'right',sortable:true,resizable:true ,formatter:isnoticeformatter">@Html.DisplayNameFor(model => model.IsNotification)</th>
                                 </tr>
                             </thead>
                         </table>
@@ -344,86 +344,23 @@
                 $dg.datagrid("enableFilter", [
                     {
                         field: 'Group',
-                        type: 'combobox',
-                        options: {
-                            panelHeight: 'auto',
-                            data: MessageGroup,
-                            onChange: function (value) {
-                                if (value == '') {
-                                    $dg.datagrid('removeFilterRule', 'Group');
-                                } else {
-                                    $dg.datagrid('addFilterRule', {
-                                        field: 'Group',
-                                        op: 'equal',
-                                        value: value
-                                    });
-                                }
-                                $dg.datagrid('doFilter');
-                            }
-                        }
+                        type: 'messagegroupcombobox',
+                         
                     },
                     {
                         field: 'Type',
-                        type: 'combobox',
-                        options: {
-                            panelHeight: 'auto',
-                            data: MessageType,
-                            onChange: function (value) {
-                                if (value == '') {
-                                    $dg.datagrid('removeFilterRule', 'Type');
-                                } else {
-                                    $dg.datagrid('addFilterRule', {
-                                        field: 'Type',
-                                        op: 'equal',
-                                        value: value
-                                    });
-                                }
-                                $dg.datagrid('doFilter');
-                            }
-                        }
+                        type: 'messagetypecombobox',
+                         
                     },
                     {
                         field: 'IsNew',
-                        type: 'combobox',
-                        options: {
-                            panelHeight: 'auto',
-                            data: MessageNew,
-                            onChange: function (value) {
-                                if (value == '') {
-                                    $dg.datagrid('removeFilterRule', 'IsNew');
-                                } else {
-                                    $dg.datagrid('addFilterRule', {
-                                        field: 'IsNew',
-                                        op: 'equal',
-                                        value: value
-                                    });
-                                }
-                                $dg.datagrid('doFilter');
-                            },
-                            onLoadSuccess: function () {
-
-                            }
-                        }
+                        type: 'isnewcombobox',
+                        
                     },
                     {
                         field: 'IsNotification',
-                        type: 'combobox',
-                        options: {
-                            panelHeight: 'auto',
-                            data: MessageNotice,
-                            onChange: function (value) {
-                                if (value == '') {
-                                    $dg.datagrid('removeFilterRule', 'IsNotification');
-                                } else {
-                                    $dg.datagrid('addFilterRule', {
-                                        field: 'IsNotification',
-                                        op: 'equal',
-                                        value: value
-                                    });
-                                }
-                                $dg.datagrid('doFilter');
-                            }
-                        }
+                        type: 'isnoticecombobox',
+                        
                     },
                     {
                         field: "Created",

@@ -122,12 +122,8 @@
                     <th data-options="field:'CompanyName',width:140,editor:{type:'textbox',options:{required:true,readonly:true} } ">@Html.DisplayNameFor(model => model.CompanyName)</th>
                     <th data-options="field:'AccountType',width:140,
                         editor:{
-                            type:'combobox',
-                            options:{
-                                 data:GCAccountType,
-                                required:true,
-                                readonly:true
-                            }
+                            type:'accounttypecombobox',
+                             
                     } ,formatter:accounttypeformatter  ">公司组</th>
                     <th data-options="field:'Email',width:140,editor:{type:'textbox',options:{required:true} } ">@Html.DisplayNameFor(model => model.Email)</th>
                     <th data-options="field:'PhoneNumber',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.PhoneNumber)</th>

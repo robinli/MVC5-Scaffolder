@@ -103,7 +103,7 @@
                                             <th data-options="field:'Link' ,width:140,editor:{type:'textbox',options:{prompt:'链接' ,required:false ,validType:'length[0,255]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Link)</th>
 
 
-                                            <th data-options="field:'Read' ,width:100,align:'right',editor:{type:'numberbox',options:{prompt:'已读' ,required:true   } } ,sortable:true,resizable:true , formatter:newformatter">@Html.DisplayNameFor(model => model.Read)</th>
+                                            <th data-options="field:'Read' ,width:100,align:'right',editor:{type:'numberbox',options:{prompt:'已读' ,required:true   } } ,sortable:true,resizable:true , formatter:isnewformatter">@Html.DisplayNameFor(model => model.Read)</th>
 
 
                                             <th data-options="field:'From' ,width:140,editor:{type:'textbox',options:{prompt:'From' ,required:false   }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.From)</th>
@@ -298,26 +298,8 @@
             $dg.datagrid("enableFilter", [
                 {
                     field: 'Read',
-                    type: 'combobox',
-                    options: {
-                        panelHeight: 'auto',
-                        data: MessageNew,
-                        onChange: function (value) {
-                            if (value == '') {
-                                $dg.datagrid('removeFilterRule', 'Read');
-                            } else {
-                                $dg.datagrid('addFilterRule', {
-                                    field: 'Read',
-                                    op: 'equal',
-                                    value: value
-                                });
-                            }
-                            $dg.datagrid('doFilter');
-                        },
-                        onLoadSuccess: function () {
-
-                        }
-                    }
+                    type: 'isnewcombobox',
+                     
                 },
                 {
                     field: "Created",
