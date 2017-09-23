@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.8
+VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demo", "Demo", "{AB9FA9EB-1296-49A1-B2E2-F4E6A16AC6EA}"
 EndProject
@@ -22,6 +22,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp", "Demo\WebApp\WebApp.csproj", "{BDBD18FD-EDB6-488B-B7A9-984970CA7CEE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlHelper2", "Demo\Source\SqlHelper2\SqlHelper2.csproj", "{879158EF-EF85-4B55-91EF-21399E108CD7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PublicPara.CodeText.Data", "Demo\Source\Public.CodeText.Data\PublicPara.CodeText.Data.csproj", "{63591D24-1FBB-4835-8BBE-AEBB5F70F7E9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -83,6 +85,14 @@ Global
 		{879158EF-EF85-4B55-91EF-21399E108CD7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{879158EF-EF85-4B55-91EF-21399E108CD7}.Release|x86.ActiveCfg = Release|Any CPU
 		{879158EF-EF85-4B55-91EF-21399E108CD7}.Release|x86.Build.0 = Release|Any CPU
+		{63591D24-1FBB-4835-8BBE-AEBB5F70F7E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63591D24-1FBB-4835-8BBE-AEBB5F70F7E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63591D24-1FBB-4835-8BBE-AEBB5F70F7E9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{63591D24-1FBB-4835-8BBE-AEBB5F70F7E9}.Debug|x86.Build.0 = Debug|Any CPU
+		{63591D24-1FBB-4835-8BBE-AEBB5F70F7E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63591D24-1FBB-4835-8BBE-AEBB5F70F7E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63591D24-1FBB-4835-8BBE-AEBB5F70F7E9}.Release|x86.ActiveCfg = Release|Any CPU
+		{63591D24-1FBB-4835-8BBE-AEBB5F70F7E9}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -94,6 +104,7 @@ Global
 		{86F86650-EE3C-4372-8FEC-40C2FE015022} = {3AD1755C-D626-41AA-91C9-0587255D8055}
 		{BDBD18FD-EDB6-488B-B7A9-984970CA7CEE} = {AB9FA9EB-1296-49A1-B2E2-F4E6A16AC6EA}
 		{879158EF-EF85-4B55-91EF-21399E108CD7} = {3AD1755C-D626-41AA-91C9-0587255D8055}
+		{63591D24-1FBB-4835-8BBE-AEBB5F70F7E9} = {3AD1755C-D626-41AA-91C9-0587255D8055}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9EFF7156-1D21-4843-A9A3-728D5970CE63}

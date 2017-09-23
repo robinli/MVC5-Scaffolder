@@ -1,7 +1,4 @@
-﻿             
-           
- 
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -186,7 +183,7 @@ namespace WebApp.Services
             File.WriteAllText(filename, sw.ToString());
         }
         private IEnumerable<CodeItem> GetCodeItems() {
-            var result = this.Queryable().Where(x => x.IsDisabled == 0).ToList();
+            var result = this.Queryable().Where(x => x.IsDisabled == 0).OrderBy(x=>x.CodeType).ThenBy(x=>x.Code).ToList();
             return result;
 
         }

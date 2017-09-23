@@ -4591,6 +4591,10 @@
     <Content Include="Views\CodeItems\EditForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Source\Public.CodeText.Data\PublicPara.CodeText.Data.csproj">
+      <Project>{63591d24-1fbb-4835-8bbe-aebb5f70f7e9}</Project>
+      <Name>PublicPara.CodeText.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Source\Repository.Pattern.Ef6\Repository.Pattern.Ef6.csproj">
       <Project>{f68a1d19-93fb-47c1-a22b-42bea3e4fd8c}</Project>
       <Name>Repository.Pattern.Ef6</Name>
