@@ -103,24 +103,8 @@ namespace PublicPara.CodeText.Data
                      
                     return false;
                 }
-                int index = 0;
-                try
-                {
-                    if (CodeListSet._codeListEntries[index].index != ((CodeLists)(index + 1)))
-                    {
-
-                        return false;
-                    }
-                    for (index = 0; index < CodeListSet._codeListEntries.Length; index++)
-                    {
-                        this.codeLists[CodeListSet._codeListEntries[index].name].GetType();
-                    }
-                }
-                catch (Exception e)
-                {
-
-                    return false;
-                }
+         
+                 
              
             return true;
         }
@@ -224,7 +208,7 @@ namespace PublicPara.CodeText.Data
         }
 
 
-        private static CodeListEntry[] _codeListEntries;
+         
         public static CodeListSet CLS;
         public Hashtable codeLists;
  

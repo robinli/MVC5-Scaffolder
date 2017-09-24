@@ -11,7 +11,7 @@ namespace WebApp.Controllers
         public ActionResult Index()
         {
 
-            var list =  CodeListSet.CLS["AccountType"].EnumRecords();
+            var list = CodeListSet.CLS["AccountType"].EnumRecords();
             var val = CodeListSet.CLS["AccountType"].Code2Value("1");
             return View();
         }
