@@ -4576,7 +4576,6 @@
     <Content Include="Views\Products\EditForm.cshtml" />
     <Content Include="Views\Account\Profile.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
-    <Content Include="Views\Works\Index.cshtml" />
     <Content Include="Views\Works\Create.cshtml" />
     <Content Include="Views\Works\Edit.cshtml" />
     <Content Include="Views\Works\EditForm.cshtml" />
@@ -4589,6 +4588,7 @@
     <Content Include="Views\CodeItems\Create.cshtml" />
     <Content Include="Views\CodeItems\Edit.cshtml" />
     <Content Include="Views\CodeItems\EditForm.cshtml" />
+    <Content Include="Views\Works\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Source\Public.CodeText.Data\PublicPara.CodeText.Data.csproj">

@@ -68,6 +68,58 @@ namespace Happy.Scaffolding.MVC.Scaffolders
 
     public static class AttributeHelper
     {
+        //get default value
+        public static DefaultValueAttribute GetDefaultValueAttribute(object obj, string propertyName)
+        {
+            if (obj == null) return null;
+            return GetDefaultValueAttribute(obj.GetType(), propertyName);
+        }
+
+        public static  DefaultValueAttribute GetDefaultValueAttribute(Type type, string propertyName)
+        {
+
+            var property = type.GetProperty(propertyName);
+            if (property == null) return null;
+
+            return GetDefaultValueAttribute(property);
+        }
+
+        public static  DefaultValueAttribute GetDefaultValueAttribute(PropertyInfo property)
+        {
+            var atts = property.GetCustomAttributes(
+                 typeof(System.ComponentModel.DefaultValueAttribute), true);
+
+            if (atts.Length == 0)
+            {
+
+                var metaattr = GetMetaDefaultValueAttribute(property);
+                return metaattr;
+            }
+            else
+            {
+                return atts[0] as  DefaultValueAttribute;
+            }
+        }
+
+        private static DefaultValueAttribute GetMetaDefaultValueAttribute(PropertyInfo property)
+        {
+            var atts = property.DeclaringType.GetCustomAttributes(
+                typeof(MetadataTypeAttribute), true);
+            if (atts.Length == 0)
+                return null;
+
+            var metaAttr = atts[0] as MetadataTypeAttribute;
+            var metaProperty =
+                metaAttr.MetadataClassType.GetProperty(property.Name);
+            if (metaProperty == null)
+                return null;
+            return GetDefaultValueAttribute(metaProperty);
+        }
+
+
+
+
+
         public static DisplayAttribute GetDisplayAttribute(object obj, string propertyName) {
             if (obj == null) return null;
             return GetDisplayAttribute(obj.GetType(), propertyName);

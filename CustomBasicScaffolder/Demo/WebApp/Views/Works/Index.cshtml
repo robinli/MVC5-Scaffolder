@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<WebApp.Models.Work>
 @{
-    ViewBag.Title = "Work";
+    ViewBag.Title = "任务";
 }
 <!-- MAIN CONTENT -->
 <div id="content">
@@ -15,7 +15,7 @@
                 路径
                 <span>
                     >
-                    Work
+                    任务
                 </span>
             </h1>
         </div>
@@ -45,7 +45,7 @@
                     -->
                     <header>
                         <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-                        <h2>Work</h2>
+                        <h2>任务</h2>
                     </header>
 
                     <!-- widget div-->
@@ -189,230 +189,226 @@
 @section Scripts {
     <script type="text/javascript">
         var entityname = "Work";
-        //下载Excel导入模板
-        function downloadtemplate() {
-            //TODO: 修改下载模板的路径
-            var url = "/ExcelTemplate/Work.xlsx";
-            $.fileDownload(url)
-                .fail(function () { $.messager.alert("错误", "没有找到模板文件! {" + url + "}"); });
+			        //下载Excel导入模板
+                    function downloadtemplate() {
+                            //TODO: 修改下载模板的路径
+                            var url = "/ExcelTemplate/Work.xlsx";
+                            $.fileDownload(url)
+                             .fail(function () { $.messager.alert("错误","没有找到模板文件! {" + url + "}"); });
 
-        }
-        //打开Excel上传导入
-        function importexcel() {
-            $("#importwindow").window("open");
-        }
-        //执行Excel到处下载
-        function exportexcel() {
-            var filterRules = JSON.stringify($dg.datagrid("options").filterRules);
-            //console.log(filterRules);
-            $.messager.progress({ title: "正在执行导出！" });
-            var formData = new FormData();
-            formData.append("filterRules", filterRules);
-            formData.append("sort", "Id");
-            formData.append("order", "asc");
-            $.postDownload("/Works/ExportExcel", formData, function (fileName) {
-                $.messager.progress("close");
-                console.log(fileName);
-
-            })
-        }
-        //datagrid 增删改查操作
-        var $dg = $("#works_datagrid");
-        var editIndex = undefined;
-        function reload() {
-            if (endEditing()) {
-                $dg.datagrid("reload");
-            }
-        }
-        function endEditing() {
-            if (editIndex == undefined) { return true }
-            if ($dg.datagrid("validateRow", editIndex)) {
-
-                $dg.datagrid("endEdit", editIndex);
-                editIndex = undefined;
-
-
-                return true;
-            } else {
-                return false;
-            }
-        }
-        function onClickCell(index, field) {
-            var _operates = ["_operate1", "_operate2", "_operate3", "ck"]
-            if ($.inArray(field, _operates) >= 0) {
-                return;
-            }
-            if (editIndex != index) {
-                if (endEditing()) {
-                    $dg.datagrid("selectRow", index)
-                        .datagrid("beginEdit", index);
-                    var ed = $dg.datagrid("getEditor", { index: index, field: field });
-                    if (ed) {
-                        ($(ed.target).data("textbox") ? $(ed.target).textbox("textbox") : $(ed.target)).focus();
                     }
-                    editIndex = index;
-                } else {
-                    $dg.datagrid("selectRow", editIndex);
-                }
-            }
-        }
-        function append() {
-            if (endEditing()) {
-                //$dg.datagrid("appendRow", { Status: 0 });
-                //editIndex = $dg.datagrid("getRows").length - 1;
-                $dg.datagrid("insertRow", { index: 0, row: { Status: 0 } });
-                editIndex = 0;
-                $dg.datagrid("selectRow", editIndex)
-                    .datagrid("beginEdit", editIndex);
-            }
-        }
-        function removeit() {
-            if (editIndex == undefined) { return }
-            $dg.datagrid("cancelEdit", editIndex)
-                .datagrid("deleteRow", editIndex);
-            editIndex = undefined;
-        }
-        function accept() {
-            if (endEditing()) {
-                if ($dg.datagrid("getChanges").length) {
-                    var inserted = $dg.datagrid("getChanges", "inserted");
-                    var deleted = $dg.datagrid("getChanges", "deleted");
-                    var updated = $dg.datagrid("getChanges", "updated");
-                    var effectRow = new Object();
-                    if (inserted.length) {
-                        effectRow.inserted = inserted;
-                    }
-                    if (deleted.length) {
-                        effectRow.deleted = deleted;
-                    }
-                    if (updated.length) {
-                        effectRow.updated = updated;
-                    }
-                    //console.log(JSON.stringify(effectRow));
-                    $.post("/Works/SaveData", effectRow, function (response) {
-                        //console.log(response);
-                        if (response.Success) {
-                            $.messager.alert("提示", "提交成功！");
-                            $dg.datagrid("acceptChanges");
-                            $dg.datagrid("reload");
-                        }
-                    }, "json").fail(function (response) {
-                        //console.log(response);
-                        $.messager.alert("错误", "提交错误了！", "error");
-                        //$dg.datagrid("reload");
-                    });
+					//打开Excel上传导入
+					function importexcel() {
+						$("#importwindow").window("open");
+					}
+					 //执行Excel到处下载
+					function exportexcel() {
+						var filterRules = JSON.stringify($dg.datagrid("options").filterRules);
+						//console.log(filterRules);
+						$.messager.progress({ title: "正在执行导出！" });
+						var formData = new FormData();
+						formData.append("filterRules", filterRules);
+						formData.append("sort", "Id");
+						formData.append("order", "asc");
+						$.postDownload("/Works/ExportExcel", formData, function (fileName) {
+							$.messager.progress("close");
+							console.log(fileName);
 
-                }
+						})
+					}
+		 //datagrid 增删改查操作
+		 var $dg = $("#works_datagrid");
+		 var editIndex = undefined;
+		function reload() {
+				 if (endEditing()) {
+						$dg.datagrid("reload");
+				 }
+			}
+		function endEditing() {
+			if (editIndex == undefined) { return true }
+			if ($dg.datagrid("validateRow", editIndex)) {
 
-                //$dg.datagrid("acceptChanges");
-            }
-        }
-        function reject() {
-            $dg.datagrid("rejectChanges");
-            editIndex = undefined;
-        }
-        function getChanges() {
-            var rows = $dg.datagrid("getChanges");
-            alert(rows.length + " rows are changed!");
-        }
-
-        //datagrid 开启筛选功能
-        $(function () {
-
-            $dg.datagrid("enableFilter", [
-                {
-                    field: "Enableed",
-                    type: "isenabledcombobox",
-                },
-                {
-                    field: "Status",
-                    type: "combobox",
-                    options: {
-                        panelHeight: "auto",
-                        data: [{ value: "", text: "All" }, { value: 0, text: "启用" }, { value: 1, text: "禁用" }],
-                        onChange: function (value) {
-                            if (value == "") {
-                                $dg.datagrid("removeFilterRule", "Status");
-                            } else {
-                                $dg.datagrid("addFilterRule", {
-                                    field: "Status",
-                                    op: "equal",
-                                    value: value
-                                });
-                            }
-                            $dg.datagrid("doFilter");
-                        }
-                    }
-                },
-
-                {
-                    field: "Id",
-                    type: "numberbox",
-                    op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
-                },
-                {
-                    field: "Hour",
-                    type: "numberbox",
-                    op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
-                },
-                {
-                    field: "Priority",
-                    type: "numberbox",
-                    op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
-                },
-                {
-                    field: "Score",
-                    type: "numberbox",
-                    op: ['equal', 'notequal', 'less', 'lessorequal', 'greater', 'greaterorequal']
-                },
+								$dg.datagrid("endEdit", editIndex);
+				editIndex = undefined;
 
 
-                {
-                    field: "StartDate",
-                    type: "dateRange",
-                    options: {
-                        onChange: function (value) {
-                            $dg.datagrid("addFilterRule", {
-                                field: "StartDate",
-                                op: "between",
-                                value: value
-                            });
+				return true;
+			} else {
+				return false;
+			}
+		}
+		function onClickCell(index, field) {
+			var _operates = ["_operate1", "_operate2", "_operate3", "ck"]
+			if ($.inArray(field, _operates) >= 0) {
+				return;
+			}
+			if (editIndex != index) {
+				if (endEditing()) {
+					$dg.datagrid("selectRow", index)
+							.datagrid("beginEdit", index);
+					var ed = $dg.datagrid("getEditor", { index: index, field: field });
+					if (ed) {
+						($(ed.target).data("textbox") ? $(ed.target).textbox("textbox") : $(ed.target)).focus();
+					}
+					editIndex = index;
+				} else {
+					$dg.datagrid("selectRow", editIndex);
+				}
+			}
+		}
+		function append() {
+			if (endEditing()) {
+				//$dg.datagrid("appendRow", { Status: 0 });
+				//editIndex = $dg.datagrid("getRows").length - 1;
+				$dg.datagrid("insertRow", { index: 0, row: { StartDate: $.dateNow(), Enableed: 'true', Hour: '8', Priority: '10',  } });
+				editIndex = 0 ;
+				$dg.datagrid("selectRow", editIndex)
+						.datagrid("beginEdit", editIndex);
+			}
+		}
+		function removeit() {
+			if (editIndex == undefined) { return }
+			$dg.datagrid("cancelEdit", editIndex)
+					.datagrid("deleteRow", editIndex);
+			editIndex = undefined;
+		}
+		function accept() {
+			if (endEditing()) {
+				if ($dg.datagrid("getChanges").length) {
+					var inserted = $dg.datagrid("getChanges", "inserted");
+					var deleted = $dg.datagrid("getChanges", "deleted");
+					var updated = $dg.datagrid("getChanges", "updated");
+					var effectRow = new Object();
+					if (inserted.length) {
+						effectRow.inserted = inserted;
+					}
+					if (deleted.length) {
+						effectRow.deleted = deleted;
+					}
+					if (updated.length) {
+						effectRow.updated = updated;
+					}
+					//console.log(JSON.stringify(effectRow));
+					$.post("/Works/SaveData", effectRow, function (response) {
+						//console.log(response);
+						if (response.Success) {
+							$.messager.alert("提示", "提交成功！");
+							$dg.datagrid("acceptChanges");
+							$dg.datagrid("reload");
+						}
+					}, "json").fail(function (response) {
+						//console.log(response);
+						$.messager.alert("错误", "提交错误了！","error");
+						//$dg.datagrid("reload");
+					});
 
-                            $dg.datagrid("doFilter");
-                        }
-                    }
-                },
-                {
-                    field: "EndDate",
-                    type: "dateRange",
-                    options: {
-                        onChange: function (value) {
-                            $dg.datagrid("addFilterRule", {
-                                field: "EndDate",
-                                op: "between",
-                                value: value
-                            });
+				}
 
-                            $dg.datagrid("doFilter");
-                        }
-                    }
-                },
+				//$dg.datagrid("acceptChanges");
+			}
+		}
+		function reject() {
+			$dg.datagrid("rejectChanges");
+			editIndex = undefined;
+		}
+		function getChanges() {
+			var rows = $dg.datagrid("getChanges");
+			alert(rows.length + " rows are changed!");
+		}
+
+		//datagrid 开启筛选功能
+		 $(function () {
+
+		   $dg.datagrid("enableFilter",[
+		   				{
+					  field: "Status",
+					  type: "combobox",
+					  options: {
+						   panelHeight: "auto",
+						   data: [{ value: "", text: "All" }, { value: 0, text: "启用" }, { value: 1, text: "禁用" }],
+						   onChange: function (value) {
+							  if (value == "") {
+								  $dg.datagrid("removeFilterRule", "Status");
+							  } else {
+								  $dg.datagrid("addFilterRule", {
+									  field: "Status",
+									  op: "equal",
+									  value: value
+								  });
+							  }
+							  $dg.datagrid("doFilter");
+						  }
+					  }
+				  },
+
+           				{
+					  field: "Id",
+					  type: "numberbox",
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+		   				{
+					  field: "Hour",
+					  type: "numberbox",
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+		   				{
+					  field: "Priority",
+					  type: "numberbox",
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+		   				{
+					  field: "Score",
+					  type: "numberbox",
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
 
 
-            ]);
-        })
-        //-----------------------------------------------------
-        //datagrid onSelect
-        //-----------------------------------------------------
+		   				{
+					  field: "StartDate",
+					  type: "dateRange",
+					  options: {
+						  onChange: function (value) {
+							    $dg.datagrid("addFilterRule", {
+									  field: "StartDate",
+									  op: "between",
+									  value: value
+								  });
+
+							    $dg.datagrid("doFilter");
+						  }
+					  }
+				  },
+		   				{
+					  field: "EndDate",
+					  type: "dateRange",
+					  options: {
+						  onChange: function (value) {
+							    $dg.datagrid("addFilterRule", {
+									  field: "EndDate",
+									  op: "between",
+									  value: value
+								  });
+
+							    $dg.datagrid("doFilter");
+						  }
+					  }
+				  },
+
+
+		   ]);
+		})
+				//-----------------------------------------------------
+		//datagrid onSelect
+		//-----------------------------------------------------
         function showdetailsformatter(value, row, index) {
 
             return '<a onclick="showDetailsWindow(' + row.Id + ')" class="easyui-linkbutton" href="javascript:void(0)">查看明细</a>';
 
         }
         //弹出明细信息
-        function showDetailsWindow(id) {
-            //console.log(index, row);
-        }
+		function showDetailsWindow(id) {
+			//console.log(index, row);
+			 		}
 
 
 

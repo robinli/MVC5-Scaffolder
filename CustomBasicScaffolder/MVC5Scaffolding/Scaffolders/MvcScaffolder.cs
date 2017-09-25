@@ -14,6 +14,7 @@ using Microsoft.AspNet.Scaffolding;
 using Happy.Scaffolding.MVC;
 using Happy.Scaffolding.MVC.Models;
 using System.Reflection;
+using System.Text;
 
 namespace Happy.Scaffolding.MVC.Scaffolders
 {
@@ -171,6 +172,8 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             var fieldRequired = GetAllFieldRequired(modelType, efMetadata);
             var fieldMaxLength = GetAllFieldMaxLength(modelType, efMetadata);
             var fieldDisplayAttribute = GetAllFieldDisplayAttribute(modelType, efMetadata);
+            var fieldDefaultValueExpression = GetDefaultValueExpression(modelType.FullName);
+
             var oneToManyModels = GetOneToManyModelDictionary(efMetadata, efService, dbContextTypeName);
 
             var oneToManyAnonymousObjTextDic = GetOneToManyAnonymousObjTextDic(oneToManyModels);
@@ -275,6 +278,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                     , fieldRequired:fieldRequired as Dictionary<string,bool>
                     , fieldMaxLength: fieldMaxLength as Dictionary<string, string>
                     , fieldDisplayAttribute: fieldDisplayAttribute
+                    , fieldDefaultValueExpression: fieldDefaultValueExpression
                     );
             }
 
@@ -725,6 +729,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             , Dictionary<string, bool> fieldRequired = null
             , Dictionary<string, string> fieldMaxLength = null
             , IList<DisplayAttributeViewModel> fieldDisplayAttribute =null
+            , string fieldDefaultValueExpression = ""
             )
         {
 
@@ -761,6 +766,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 ,{"FromLayoutCols",formClos}
                 ,{"GenerateMasterDetailRelationship" ,generateMasterDetailRelationship}
                 ,{"FieldDisplayAttribute" ,fieldDisplayAttribute}
+                ,{"FieldDefaultValueExpression" ,fieldDefaultValueExpression}
                 //, {"ViewDataTypeShortName", modelType.Name} // 可刪除
                 , {"MetaTable", _ModelMetadataVM.DataModel}
                 , {"JQueryVersion","2.1.0"} // 如何讀取專案的 jQuery 版本
@@ -823,6 +829,26 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             }
             return lookup;
         }
+
+        protected string GetDefaultValueExpression(string fullclassName)
+        {
+
+            var type = GetReflectionType(fullclassName);
+            var shortName = type.Name;
+            var sbstring = new StringBuilder();
+            var expression = new StringWriter(sbstring);
+            foreach (PropertyInfo prop in type.GetProperties())
+            {
+                
+                var value = AttributeHelper.GetDefaultValueAttribute(type, prop.Name);
+                if(value!=null)
+                {
+                    expression.Write($"{prop.Name}: '{value.Value.ToString()}', ");
+                }
+            }
+            return sbstring.ToString() ;
+        }
+
 
         protected Dictionary<string, System.ComponentModel.DataAnnotations.DisplayAttribute> GetDisplayAttribute(string fullclassName) {
             var lookup = new Dictionary<string, System.ComponentModel.DataAnnotations.DisplayAttribute>();

@@ -32,11 +32,13 @@ function <#= item.codetype.ToLower() #>formatter(value, row, index) {
     if (value === null || value === '' || value === undefined ) {
         return "";
     }
-    $.each(<#= datasourcename  #>, function (index, item) {
-        if (item.value === value.toString()) {
-            return item.text;
-        }
-    });
+    for (var i = 0; i < <#= datasourcename #>.length; i++) {
+      var item = <#= datasourcename #>[i];
+     if (item.value === value.toString())
+     {
+         return item.text;
+     }
+     }
     return value;
    
 }

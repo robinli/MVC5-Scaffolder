@@ -4,3 +4,4 @@
         return moment(new Date()).format('MM/DD/YYYY');
     }
 });
+//$.dateNow()

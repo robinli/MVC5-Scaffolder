@@ -494,7 +494,7 @@ foreach (PropertyMetadata property in properties) {
 			if (endEditing()) {
 				//$dg.datagrid("appendRow", { Status: 0 });
 				//editIndex = $dg.datagrid("getRows").length - 1;
-				$dg.datagrid("insertRow", { index: 0, row: { Status: 0 } });
+				$dg.datagrid("insertRow", { index: 0, row: { <#= FieldDefaultValueExpression #> } });
 				editIndex = 0 ;
 				$dg.datagrid("selectRow", editIndex)
 						.datagrid("beginEdit", editIndex);
