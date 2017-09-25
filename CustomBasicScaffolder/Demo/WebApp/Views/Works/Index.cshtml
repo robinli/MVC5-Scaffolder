@@ -95,7 +95,7 @@
                                             <th data-options="field:'Name' ,width:140,editor:{type:'textbox',options:{prompt:'Name' ,required:false ,validType:'length[0,50]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Name)</th>
 
 
-                                            <th data-options="field:'Status' ,width:140,editor:{type:'textbox',options:{prompt:'Status' ,required:false ,validType:'length[0,50]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Status)</th>
+                                            <th data-options="field:'Status' ,width:140,editor:{type:'statuscombobox',options:{prompt:'Status' ,required:false ,validType:'length[0,50]'  }  } ,sortable:true,resizable:true,formatter:statusformatter ">@Html.DisplayNameFor(model => model.Status)</th>
 
 
                                             <th data-options="field:'StartDate',width:160,align:'right',editor:{type:'datebox',options:{prompt:'StartDate' ,required:true    }  },sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.StartDate)</th>
@@ -260,7 +260,7 @@
 			if (endEditing()) {
 				//$dg.datagrid("appendRow", { Status: 0 });
 				//editIndex = $dg.datagrid("getRows").length - 1;
-				$dg.datagrid("insertRow", { index: 0, row: { StartDate: $.dateNow(), Enableed: 'true', Hour: '8', Priority: '10',  } });
+				$dg.datagrid("insertRow", { index: 0, row: {Status:'1', StartDate: $.datetimeNow(),EndDate:'', Enableed: 'true', Hour: '8', Priority: '10',  } });
 				editIndex = 0 ;
 				$dg.datagrid("selectRow", editIndex)
 						.datagrid("beginEdit", editIndex);

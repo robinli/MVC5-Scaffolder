@@ -843,7 +843,10 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 var value = AttributeHelper.GetDefaultValueAttribute(type, prop.Name);
                 if(value!=null)
                 {
-                    expression.Write($"{prop.Name}: '{value.Value.ToString()}', ");
+                    if(value.ToString()=="NOW")
+                        expression.Write($"{prop.Name}: $.datetimeNow(), ");
+                    else
+                        expression.Write($"{prop.Name}: '{value.Value.ToString()}', ");
                 }
             }
             return sbstring.ToString() ;
