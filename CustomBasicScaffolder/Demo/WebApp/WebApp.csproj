@@ -2075,6 +2075,16 @@
     <Content Include="Images\p_big2.jpg" />
     <Content Include="Images\p_big3.jpg" />
     <Content Include="Images\zender_logo.png" />
+    <Content Include="img\avatars\1.png" />
+    <Content Include="img\avatars\2.png" />
+    <Content Include="img\avatars\3.png" />
+    <Content Include="img\avatars\4.png" />
+    <Content Include="img\avatars\5.png" />
+    <Content Include="img\avatars\copyright.txt" />
+    <Content Include="img\avatars\female.png" />
+    <Content Include="img\avatars\male.png" />
+    <Content Include="img\avatars\sunny-big.png" />
+    <Content Include="img\avatars\sunny.png" />
     <Content Include="img\flags\16\Spain.png" />
     <Content Include="img\flags\16\United-States.png" />
     <Content Include="img\flags\32\Abkhazia.png" />
@@ -2466,21 +2476,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="img\a1.jpg" />
-    <Content Include="img\a2.jpg" />
-    <Content Include="img\a3.jpg" />
-    <Content Include="img\a4.jpg" />
-    <Content Include="img\a5.jpg" />
-    <Content Include="img\a6.jpg" />
-    <Content Include="img\a7.jpg" />
-    <Content Include="img\a8.jpg" />
-    <Content Include="img\angular_logo.png" />
-    <Content Include="img\dashbard4_1.jpg" />
-    <Content Include="img\dashbard4_2.jpg" />
-    <Content Include="img\email_1.jpg" />
-    <Content Include="img\email_2.jpg" />
-    <Content Include="img\email_3.jpg" />
-    <Content Include="img\full_height.jpg" />
     <Content Include="img\gallery\1.jpg" />
     <Content Include="img\gallery\10.jpg" />
     <Content Include="img\gallery\10s.jpg" />
@@ -2505,7 +2500,6 @@
     <Content Include="img\gallery\8s.jpg" />
     <Content Include="img\gallery\9.jpg" />
     <Content Include="img\gallery\9s.jpg" />
-    <Content Include="img\html_logo.png" />
     <Content Include="img\landing\avatar1.jpg" />
     <Content Include="img\landing\avatar2.jpg" />
     <Content Include="img\landing\avatar3.jpg" />
@@ -2517,20 +2511,6 @@
     <Content Include="img\landing\laptop.png" />
     <Content Include="img\landing\perspective.png" />
     <Content Include="img\landing\word_map.png" />
-    <Content Include="img\meteor_logo.png" />
-    <Content Include="img\mvc_logo.png" />
-    <Content Include="img\off_canvas.jpg" />
-    <Content Include="img\p1.jpg" />
-    <Content Include="img\p2.jpg" />
-    <Content Include="img\p3.jpg" />
-    <Content Include="img\profile.jpg" />
-    <Content Include="img\profile_big.jpg" />
-    <Content Include="img\profile_small.jpg" />
-    <Content Include="img\p_big1.jpg" />
-    <Content Include="img\p_big2.jpg" />
-    <Content Include="img\p_big3.jpg" />
-    <Content Include="img\rails_logo.png" />
-    <Content Include="img\zender_logo.png" />
     <Content Include="Scripts\app.config.js" />
     <Content Include="Scripts\app.min.js" />
     <Content Include="Scripts\app\inspinia.js" />
@@ -4194,6 +4174,8 @@
     <Content Include="Scripts\smartwidgets\jarvis.widget.min.js" />
     <Content Include="Scripts\speech\voicecommand.min.js" />
     <Content Include="SqlScripts\sp_insertmessages.sql" />
+    <None Include="Views\Notifications\_notifications.cshtml" />
+    <None Include="Views\Messages\_notifications.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Int.cshtml">
       <SubType>Code</SubType>
     </Content>

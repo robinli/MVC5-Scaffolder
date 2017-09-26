@@ -124,7 +124,11 @@ namespace WebApp.Controllers
         }
 
 
+        [HttpGet]
+        public ActionResult Notify() {
 
+            return PartialView("_notifications");
+        }
 
         // GET: Messages/Details/5
         public async Task<ActionResult> Details(int? id)

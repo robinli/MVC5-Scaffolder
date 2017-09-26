@@ -249,6 +249,11 @@ namespace WebApp.Controllers
             DisplaySuccessMessage("Has delete a Notification record");
             return RedirectToAction("Index");
         }
+        [HttpGet]
+        public ActionResult Notify() {
+
+            return PartialView("_notifications");
+        }
 
 
 

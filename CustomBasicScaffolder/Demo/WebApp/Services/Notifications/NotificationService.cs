@@ -98,122 +98,27 @@ namespace WebApp.Services
             this.Insert(item);
         }
 
-        public void AddConfirmProductionPlanMessage(string productNo, string customCode)
-        {
-            var item = new Notification();
-            item.Title = $"新导入 {productNo} - {customCode} 生产计划.";
-            item.Content = $"新导入 {productNo} - {customCode} 生产计划.请确认";
-            item.Link = "/ProductionPlans/Check";
-            item.From = Auth.CurrentUserName;
-            item.To = "ALL";
-            item.Created = DateTime.Now;
-            item.Creator = Auth.CurrentUserName;
-            item.Group = 2;
-            this.Insert(item);
-        }
-
-        public void AddConfirmPurchaseOrderMessage(string po)
-        {
-            var item = new Notification();
-            item.Title = $"新导入采购单.";
-            item.Content = $"新导入 {po}  采购单.请确认";
-            item.Link = "/PurchaseOrderHeaders/Index";
-            item.From = Auth.CurrentUserName;
-            item.To = "ALL";
-            item.Created = DateTime.Now;
-            item.Creator = Auth.CurrentUserName;
-            item.Group = 3;
-            this.Insert(item);
-        }
-
-        public void AddPublishPurchaseOrderMessage(string po)
-        {
-            var item = new Notification();
-            item.Title = $"新发布采购单.";
-            item.Content = $"采购单 {po}  已发布.请确认";
-            item.Link = "/DeliveryDetails/Promise";
-            item.From = Auth.CurrentUserName;
-            item.To = "ALL";
-            item.Created = DateTime.Now;
-            item.Creator = Auth.CurrentUserName;
-            item.Group = 4;
-            this.Insert(item);
-        }
-
-        public void AddPromisedPurchaseOrderMessage(string po, int linenumber)
-        {
-            var item = new Notification();
-            item.Title = $"新承诺采购单.";
-            item.Content = $"采购单 {po}-{linenumber}  已承诺.请确认";
-            item.Link = "/DeliveryDetails/Confirm";
-            item.From = Auth.CurrentUserName;
-            item.To = "ALL";
-            item.Created = DateTime.Now;
-            item.Creator = Auth.CurrentUserName;
-            item.Group = 5;
-            this.Insert(item);
-        }
-        public void AddConfirmPurchaseOrderMessage(string po, int linenumber)
-        {
-            var item = new Notification();
-            item.Title = $"新确认采购单.";
-            item.Content = $"采购单 {po}-{linenumber}  已承诺.请确认";
-            item.Link = "/DeliveryDetails/Trace";
-            item.From = Auth.CurrentUserName;
-            item.To = "ALL";
-            item.Created = DateTime.Now;
-            item.Creator = Auth.CurrentUserName;
-            item.Group = 6;
-            this.Insert(item);
-        }
-
-        public void AddShippedPurchaseOrderMessage(string po, string billNo, string vehicle)
-        {
-            var item = new Notification();
-            item.Title = $"新发货采购单.";
-            item.Content = $"采购单 {po}-{billNo}-{vehicle}  已发货.请确认";
-            item.Link = "/DeliveryDetails/Expect";
-            item.From = Auth.CurrentUserName;
-            item.To = "ALL";
-            item.Created = DateTime.Now;
-            item.Creator = Auth.CurrentUserName;
-            item.Group = 7;
-            this.Insert(item);
-        }
-
-        public void AddDelivereddPurchaseOrderMessage(string po, string billNo, string vehicle)
-        {
-            var item = new Notification();
-            item.Title = $"新到货采购单.";
-            item.Content = $"采购单 {po}-{billNo}-{vehicle}  已到达.请确认";
-            item.Link = "/DeliveryDetails/Receiving";
-            item.From = Auth.CurrentUserName;
-            item.To = "ALL";
-            item.Created = DateTime.Now;
-            item.Creator = Auth.CurrentUserName;
-            item.Group = 8;
-            this.Insert(item);
-        }
-
-        public void AddReceivedPurchaseOrderMessage(string po, string billNo, string vehicle)
-        {
-            var item = new Notification();
-            item.Title = $"新收货完成采购单.";
-            item.Content = $"采购单 {po}-{billNo}-{vehicle}  收货完成.请确认";
-            item.Link = "/PurchaseOrderHeaders/Index";
-            item.From = Auth.CurrentUserName;
-            item.To = "ALL";
-            item.Created = DateTime.Now;
-            item.Creator = Auth.CurrentUserName;
-            item.Group = 9;
-            this.Insert(item);
-        }
+        
 
 
         public void ReadMessageWithGroup(int group) {
             this.Queryable().Where(x => x.Read == 0 && x.Group == group).Update(x => new Notification { Read = 1 });
         }
 
+        public void AddNotify(string title, string message, string to,string from)
+        {
+            var item = new Notification()
+            {
+                Title = title,
+                Content = message,
+                To = to,
+                From = from,
+                Created = DateTime.Now,
+                Read = 0,
+                Group=0
+            };
+            this.Insert(item);
+        }
     }
 }
 

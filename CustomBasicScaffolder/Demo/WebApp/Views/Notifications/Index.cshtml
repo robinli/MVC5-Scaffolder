@@ -236,7 +236,7 @@
             if (endEditing()) {
                 //$dg.datagrid("appendRow", { Status: 0 });
                 //editIndex = $dg.datagrid("getRows").length - 1;
-                $dg.datagrid("insertRow", { index: 0, row: { Read: 0, Created: $.dateNow() } });
+                $dg.datagrid("insertRow", { index: 0, row: { Read: 0, Created: $.datetimeNow() } });
                 editIndex = 0;
                 $dg.datagrid("selectRow", editIndex)
                     .datagrid("beginEdit", editIndex);
