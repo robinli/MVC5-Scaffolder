@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<WebApp.Models.Department>
 @{
-	ViewBag.Title = "部门维护";
+	ViewBag.Title = "部门";
 }
 <!-- MAIN CONTENT -->
 <div id="content">
@@ -15,7 +15,7 @@
                 路径
                 <span>
                     >
-                  部门维护
+                  部门
                 </span>
             </h1>
         </div>
@@ -33,7 +33,7 @@
             <!-- NEW WIDGET START -->
             <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <!-- Widget ID (each widget will need unique ID)-->
-                <div class="jarviswidget" id="wid-id-4" data-widget-editbutton="false">
+                <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
                     <!-- widget options:
                     usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
                     data-widget-colorbutton="false"
@@ -47,7 +47,7 @@
                     -->
                     <header>
                         <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-                        <h2>部门维护</h2>
+                        <h2>部门</h2>
                     </header>
 
                      <!-- widget div-->
@@ -121,7 +121,10 @@
 				</thead>
 				</table>
 				<div id="departments_toolbar" style="height:auto">
-							@if (Html.IsAuthorize("Create"))
+                            @{
+                            //TODO: enable authorization 
+                            }
+							@*@if (Html.IsAuthorize("Create"))
 							{
 								<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="append()">新增</a>
 							}
@@ -143,19 +146,18 @@
                                                 <div data-options="iconCls:'icon-download-alt'" onclick="downloadtemplate()" >下载用于导入的模板</div>
                                         </div>
                                  <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-download-alt',plain:true" onclick="exportexcel()">导出至Excel</a>
-							}
-						  @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="append()">新增</a>
+							}*@
+						    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="append()">新增</a>
 							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
 							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">保存</a>
 							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">取消</a>
-					
 							<a href="javascript:void(0)" class="easyui-menubutton" data-options="menu:'#importmenu',iconCls:'icon-paperclip' " onclick="importexcel()">导入数据</a>
                                        <div id="importmenu" style="width:150px;">
                                                 <div data-options="iconCls:'icon-cloud-upload'" onclick="importexcel()">导入数据</div>
                                                 <div data-options="iconCls:'icon-download-alt'" onclick="downloadtemplate()" >下载用于导入的模板</div>
                                         </div>
                             <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-download-alt',plain:true" onclick="exportexcel()">导出至Excel</a>
-							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="reload()">刷新</a>*@
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="reload()">刷新</a>
 				</div>
 		
 				</div>
@@ -187,7 +189,7 @@
 
 @section Scripts {
 	<script type="text/javascript">
-
+        var entityname = "Department";
 			        //下载Excel导入模板
                     function downloadtemplate() {
                             //TODO: 修改下载模板的路径
@@ -267,7 +269,7 @@
 			if (endEditing()) {
 				//$dg.datagrid("appendRow", { Status: 0 });
 				//editIndex = $dg.datagrid("getRows").length - 1;
-				$dg.datagrid("insertRow", { index: 0, row: { Status: 0 } });
+				$dg.datagrid("insertRow", { index: 0, row: {  } });
 				editIndex = 0 ;
 				$dg.datagrid("selectRow", editIndex)
 						.datagrid("beginEdit", editIndex);
@@ -323,11 +325,23 @@
 			alert(rows.length + " rows are changed!");
 		}
 
-		//datagrid 开启行赛选功能
+		//datagrid 开启筛选功能
 		 $(function () {
 		  
 		   $dg.datagrid("enableFilter",[
 		   
+           				{
+					  field: "Id",
+					  type: "numberbox",
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+		   				{
+					  field: "CompanyId",
+					  type: "numberbox",
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+		   
+
 		   		   
 		   		   {
 				 field: "CompanyId",
@@ -371,6 +385,7 @@
 		
 		 
 	 </script>
+     <script src="~/Scripts/jquery.filerupload.js"></script>
 }
 
  

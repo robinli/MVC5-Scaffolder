@@ -1,6 +1,15 @@
-﻿             
-           
- 
+﻿// <copyright file="DepartmentService.cs" company="neozhu/MVC5-Scaffolder">
+// Copyright (c) 2017 All Rights Reserved
+// </copyright>
+// <author>neo.zhu</author>
+// <date>9/27/2017 10:04:42 AM </date>
+// <summary>
+//  实现定义的业务逻辑,通过依赖注入降低模块之间的耦合度
+//   
+//  
+//  
+// </summary>
+
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -43,7 +52,7 @@ namespace WebApp.Services
             {
                  
                 Department item = new Department();
-				var mapping = _mappingservice.Queryable().Where(x => x.EntitySetName == "Department").ToList();
+				var mapping = _mappingservice.Queryable().Where(x => x.EntitySetName == "Department" &&  x.IsEnabled==true).ToList();
 
                 foreach (var field in mapping)
                 {

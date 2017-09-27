@@ -4174,6 +4174,10 @@
     <Content Include="Scripts\smartwidgets\jarvis.widget.min.js" />
     <Content Include="Scripts\speech\voicecommand.min.js" />
     <Content Include="SqlScripts\sp_insertmessages.sql" />
+    <Content Include="Views\Departments\Index.cshtml" />
+    <Content Include="Views\Departments\Create.cshtml" />
+    <Content Include="Views\Departments\Edit.cshtml" />
+    <Content Include="Views\Departments\EditForm.cshtml" />
     <None Include="Views\Notifications\_notifications.cshtml" />
     <None Include="Views\Messages\_notifications.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Int.cshtml">
@@ -4529,10 +4533,6 @@
     <Content Include="Views\Account\_ErrorText.cshtml" />
     <Content Include="Views\Account\_LoginText.cshtml" />
     <Content Include="Views\Account\_SocialMedia.cshtml" />
-    <Content Include="Views\Departments\Index.cshtml" />
-    <Content Include="Views\Departments\Create.cshtml" />
-    <Content Include="Views\Departments\Edit.cshtml" />
-    <Content Include="Views\Departments\EditForm.cshtml" />
     <Content Include="Views\Employees\Index.cshtml" />
     <Content Include="Views\Employees\Create.cshtml" />
     <Content Include="Views\Employees\Edit.cshtml" />

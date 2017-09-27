@@ -19,11 +19,23 @@
 <#@ parameter type="System.String" name="ModelNamespace" #>
 <#@ parameter type="System.String" name="FolderNamespace" #>
 <#@ parameter type="System.String" name="ModelName" #>
-<#@ parameter type="System.String" name="PluralizedModelName" #>                    
+<#@ parameter type="System.String" name="PluralizedModelName" #>
 <#@ parameter type="Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata" name="ModelMetadata" #>
-<#@ parameter type="System.String" name="PrimaryKeyName" #>      
-<#@ parameter type="System.String" name="QueryLambdaText" #>    
-<#@ parameter type="System.Collections.Generic.Dictionary<string, Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata>" name="OneToManyModelMetadata" #> 
+<#@ parameter type="System.String" name="PrimaryKeyName" #>
+<#@ parameter type="System.String" name="QueryLambdaText" #>
+<#@ parameter type="System.Collections.Generic.Dictionary<string, Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata>" name="OneToManyModelMetadata" #>
+// <copyright file="<#= ModelName #>Repository.cs" company="neozhu/MVC5-Scaffolder">
+// Copyright (c) <#= DateTime.Now.Year #> All Rights Reserved
+// </copyright>
+// <author>neo.zhu</author>
+// <date><#= DateTime.Now.ToString("G") #> </date>
+// <summary>
+//  Repository封装了对业务模型数据查询和存储逻辑(CRUD数据操作)
+//   
+//  
+//  
+// </summary>
+
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;

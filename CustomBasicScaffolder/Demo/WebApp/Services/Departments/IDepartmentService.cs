@@ -1,5 +1,15 @@
-﻿     
- 
+﻿// <copyright file="IDepartmentService.cs" company="neozhu/MVC5-Scaffolder">
+// Copyright (c) 2017 All Rights Reserved
+// </copyright>
+// <author>neo.zhu</author>
+// <date>9/27/2017 10:04:42 AM </date>
+// <summary>
+//  定义具体的业务逻辑接口
+//   
+//  
+//  
+// </summary>
+
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;

@@ -38,6 +38,18 @@ else
 <#@ parameter type="System.Collections.Generic.Dictionary<string, string>" name="OneToManyAnonymousObjText" #>
 <#@ parameter type="System.String" name ="SelectLambdaText" #>
 <#@ parameter type="System.Boolean" name ="GenerateMasterDetailRelationship" #>
+// <copyright file="<#= ControllerName #>.cs" company="neozhu/MVC5-Scaffolder">
+// Copyright (c) <#= DateTime.Now.Year #> All Rights Reserved
+// </copyright>
+// <author>neo.zhu</author>
+// <date><#= DateTime.Now.ToString("G") #> </date>
+// <summary>
+// 
+// TODO: RegisterType UnityConfig.cs
+// container.RegisterType<IRepositoryAsync<<#=ModelTypeName #>>, Repository<<#=ModelTypeName #>>>();
+// container.RegisterType<I<#=ModelTypeName #>Service, <#=ModelTypeName #>Service>();
+// </summary>
+
 using System;
 using Newtonsoft.Json;
 using System.Collections.Generic;
@@ -87,9 +99,7 @@ namespace <#= Namespace #>
 	public class <#= ControllerName #> : Controller
 	{
 		
-		//Please RegisterType UnityConfig.cs
-		//container.RegisterType<IRepositoryAsync<<#=ModelTypeName #>>, Repository<<#=ModelTypeName #>>>();
-		//container.RegisterType<I<#=ModelTypeName #>Service, <#=ModelTypeName #>Service>();
+		
 		
 		//private <#= ContextTypeName #> db = new <#= ContextTypeName #>();
 		private readonly <#= modelService #>  <#= modelServiceVar #>;
@@ -100,7 +110,9 @@ namespace <#= Namespace #>
 			<#= modelServiceVar #>  = <#= ModelVariable  #>Service;
 			_unitOfWork = unitOfWork;
 		}
-
+        <#  var includeExpressions = "";
+        includeExpressions = String.Join("", relatedProperties.Values.Select(property => String.Format(".Include({0} => {0}.{1})", lambdaVar, property.AssociationPropertyName)));
+        #>
 		// GET: <#= routePrefix #>/<#= ViewPrefix #>Index
 		public ActionResult <#= ViewPrefix #>Index()
 		{

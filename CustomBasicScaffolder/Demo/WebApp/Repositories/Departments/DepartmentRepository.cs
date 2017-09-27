@@ -1,7 +1,15 @@
-﻿                    
-      
-    
- 
+﻿// <copyright file="DepartmentRepository.cs" company="neozhu/MVC5-Scaffolder">
+// Copyright (c) 2017 All Rights Reserved
+// </copyright>
+// <author>neo.zhu</author>
+// <date>9/27/2017 10:04:41 AM </date>
+// <summary>
+//  Repository封装了对业务模型数据查询和存储逻辑(CRUD数据操作)
+//   
+//  
+//  
+// </summary>
+
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;

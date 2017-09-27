@@ -10,7 +10,7 @@ namespace WebApp.Controllers
     {
         public ActionResult Index()
         {
-
+            DateTime.Now.ToString("G");
             var list = CodeListSet.CLS["AccountType"].EnumRecords();
             var val = CodeListSet.CLS["AccountType"].Code2Value("1");
             return View();

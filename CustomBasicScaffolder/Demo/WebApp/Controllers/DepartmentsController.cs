@@ -1,4 +1,16 @@
-﻿using System;
+﻿// <copyright file="DepartmentsController.cs" company="neozhu/MVC5-Scaffolder">
+// Copyright (c) 2017 All Rights Reserved
+// </copyright>
+// <author>neo.zhu</author>
+// <date>9/27/2017 10:04:43 AM </date>
+// <summary>
+// 
+// TODO: RegisterType UnityConfig.cs
+// container.RegisterType<IRepositoryAsync<Department>, Repository<Department>>();
+// container.RegisterType<IDepartmentService, DepartmentService>();
+// </summary>
+
+using System;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Data;
@@ -21,9 +33,7 @@ namespace WebApp.Controllers
 	public class DepartmentsController : Controller
 	{
 		
-		//Please RegisterType UnityConfig.cs
-		//container.RegisterType<IRepositoryAsync<Department>, Repository<Department>>();
-		//container.RegisterType<IDepartmentService, DepartmentService>();
+		
 		
 		//private StoreContext db = new StoreContext();
 		private readonly IDepartmentService  _departmentService;
@@ -34,16 +44,10 @@ namespace WebApp.Controllers
 			_departmentService  = departmentService;
 			_unitOfWork = unitOfWork;
 		}
-
-		// GET: Departments/Index
-		public async Task<ActionResult> Index()
+        		// GET: Departments/Index
+		public ActionResult Index()
 		{
-			
-			var departments  = _departmentService.Queryable().Include(d => d.Company);
-			
-		  
-			return View(await departments.ToListAsync());
-			
+			 return View();
 		}
 
 		// Get :Departments/PageList
@@ -55,16 +59,30 @@ namespace WebApp.Controllers
 			var totalCount = 0;
 			//int pagenum = offset / limit +1;
 											var departments  = await _departmentService
-						.Query(new DepartmentQuery().Withfilter(filters)).Include(d => d.Company)
-							.OrderBy(n=>n.OrderBy(sort,order))
-							.SelectPageAsync(page, rows, out totalCount);
-							 
-			
+						               .Query(new DepartmentQuery().Withfilter(filters)).Include(d => d.Company)
+							           .OrderBy(n=>n.OrderBy(sort,order))
+							           .SelectPageAsync(page, rows, out totalCount);
 				
 						var datarows = departments .Select(  n => new { CompanyName = (n.Company==null?"": n.Company.Name) , Id = n.Id , Name = n.Name , Manager = n.Manager , CompanyId = n.CompanyId }).ToList();
 			var pagelist = new { total = totalCount, rows = datarows };
 			return Json(pagelist, JsonRequestBehavior.AllowGet);
 		}
+
+                 [HttpGet]
+        public async Task<ActionResult> GetDataByCompanyId (int  companyid ,int page = 1, int rows = 10, string sort = "Id", string order = "asc", string filterRules = "")
+        {    
+            var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
+			var totalCount = 0;
+            			    var departments  = await _departmentService
+						               .Query(new DepartmentQuery().ByCompanyIdWithfilter(companyid,filters)).Include(d => d.Company)
+							           .OrderBy(n=>n.OrderBy(sort,order))
+							           .SelectPageAsync(page, rows, out totalCount);
+				            var datarows = departments .Select(  n => new { CompanyName = (n.Company==null?"": n.Company.Name) , Id = n.Id , Name = n.Name , Manager = n.Manager , CompanyId = n.CompanyId }).ToList();
+			var pagelist = new { total = totalCount, rows = datarows };
+            return Json(pagelist, JsonRequestBehavior.AllowGet);
+        }
+        
+
 
 		[HttpPost]
 				public async Task<ActionResult> SaveData(DepartmentChangeViewModel departments)
@@ -137,7 +155,7 @@ namespace WebApp.Controllers
 		// To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		//[ValidateAntiForgeryToken]
-		public async Task<ActionResult> Create([Bind(Include = "Company,Id,Name,Manager,CompanyId")] Department department)
+		public async Task<ActionResult> Create([Bind(Include = "Company,Id,Name,Manager,CompanyId,CreatedDate,CreatedBy,LastModifiedDate,LastModifiedBy")] Department department)
 		{
 			if (ModelState.IsValid)
 			{
@@ -185,7 +203,7 @@ namespace WebApp.Controllers
 		// To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		//[ValidateAntiForgeryToken]
-		public async Task<ActionResult> Edit([Bind(Include = "Company,Id,Name,Manager,CompanyId")] Department department)
+		public async Task<ActionResult> Edit([Bind(Include = "Company,Id,Name,Manager,CompanyId,CreatedDate,CreatedBy,LastModifiedDate,LastModifiedBy")] Department department)
 		{
 			if (ModelState.IsValid)
 			{

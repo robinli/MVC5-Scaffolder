@@ -19,11 +19,23 @@
 <#@ parameter type="System.String" name="ModelNamespace" #>
 <#@ parameter type="System.String" name="FolderNamespace" #>
 <#@ parameter type="System.String" name="ModelName" #>
-<#@ parameter type="System.String" name="PluralizedModelName" #>             
-<#@ parameter type="System.String" name="PrimaryKeyName" #>           
+<#@ parameter type="System.String" name="PluralizedModelName" #>
+<#@ parameter type="System.String" name="PrimaryKeyName" #>
 <#@ parameter type="Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata" name="ModelMetadata" #>
-<#@ parameter type="System.Collections.Generic.Dictionary<string, Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata>" name="OneToManyModelMetadata" #> 
+<#@ parameter type="System.Collections.Generic.Dictionary<string, Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata>" name="OneToManyModelMetadata" #>
 <#@ parameter type="System.String" name ="SelectLambdaText" #>
+// <copyright file="<#= ModelName #>Service.cs" company="neozhu/MVC5-Scaffolder">
+// Copyright (c) <#= DateTime.Now.Year #> All Rights Reserved
+// </copyright>
+// <author>neo.zhu</author>
+// <date><#= DateTime.Now.ToString("G") #> </date>
+// <summary>
+//  实现定义的业务逻辑,通过依赖注入降低模块之间的耦合度
+//   
+//  
+//  
+// </summary>
+
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
