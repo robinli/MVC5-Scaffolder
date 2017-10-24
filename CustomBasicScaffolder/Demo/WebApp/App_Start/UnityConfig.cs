@@ -1,23 +1,21 @@
 using System;
-using Microsoft.Practices.Unity;
-using Microsoft.Practices.Unity.Configuration;
 using System.Data.Entity;
 using WebApp.Models;
 using Microsoft.AspNet.Identity;
-
 using Repository.Pattern.UnitOfWork;
 using Repository.Pattern.Ef6;
 using Repository.Pattern.DataContext;
-
 using Repository.Pattern.Repositories;
 using WebApp.Services;
-
 using Microsoft.AspNet.Identity.EntityFramework;
-
 using Microsoft.Owin.Security;
 using System.Web;
+using Unity;
+using Unity.Lifetime;
+using Unity.Injection;
+using Unity.Mvc;
 
-namespace WebApp.App_Start
+namespace WebApp
 {
     /// <summary>
     /// Specifies the Unity configuration for the main container.
@@ -32,6 +30,10 @@ namespace WebApp.App_Start
             return container;
         });
 
+        /// <summary>
+        /// Configured Unity Container.
+        /// </summary>
+        public static IUnityContainer Container => container.Value;
         /// <summary>
         /// Gets the configured Unity container.
         /// </summary>
@@ -60,15 +62,15 @@ namespace WebApp.App_Start
             //container.RegisterType<ICategoryService, CategoryService>(new PerRequestLifetimeManager());
             //container.RegisterType<IRepositoryAsync<Order>, Repository<Order>>(new PerRequestLifetimeManager());
             //container.RegisterType<IOrderService, OrderService>(new PerRequestLifetimeManager());
-            container.RegisterType<DbContext, ApplicationDbContext>(new HierarchicalLifetimeManager());
-            container.RegisterType<ApplicationDbContext>(new HierarchicalLifetimeManager());
+            container.RegisterType<DbContext, ApplicationDbContext>(new HierarchicalLifetimeManager(),null);
+            container.RegisterType<ApplicationDbContext>(new HierarchicalLifetimeManager(),null);
 
-            container.RegisterType<IRoleStore<ApplicationRole, string>, RoleStore<ApplicationRole>>(new HierarchicalLifetimeManager());
+            container.RegisterType<IRoleStore<ApplicationRole, string>, RoleStore<ApplicationRole>>(new HierarchicalLifetimeManager(),null);
             container.RegisterType<IUserStore<ApplicationUser>, UserStore<ApplicationUser>>(new HierarchicalLifetimeManager());
             container.RegisterType<IAuthenticationManager>(new InjectionFactory(o => HttpContext.Current.GetOwinContext().Authentication));
             //container.RegisterType<IAuthenticationManager>(new InjectionFactory(o => HttpContext.Current.GetOwinContext().Authentication));
-            container.RegisterType<IUnitOfWorkAsync, UnitOfWork>(new PerRequestLifetimeManager());
-            container.RegisterType<IDataContextAsync, StoreContext>(new PerRequestLifetimeManager());
+            container.RegisterType<IUnitOfWorkAsync, UnitOfWork>(new PerRequestLifetimeManager(),null);
+            container.RegisterType<IDataContextAsync, StoreContext>(new PerRequestLifetimeManager(), null);
 
 
             container.RegisterType<IRepositoryAsync<DataTableImportMapping>, Repository<DataTableImportMapping>>();
