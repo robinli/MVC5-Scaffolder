@@ -2509,7 +2509,6 @@
     <Content Include="Scripts\app\inspinia.js" />
     <Content Include="Scripts\app\skin.config.min.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
-    <Content Include="Scripts\datagrid.formatter.js" />
     <Content Include="Scripts\demo.min.js" />
     <Content Include="Scripts\easyui\changelog.txt" />
     <Content Include="Scripts\easyui\demo-mobile\accordion\basic.html" />
@@ -3529,16 +3528,17 @@
     <Content Include="Scripts\easyui\themes\metro\window.css" />
     <Content Include="Scripts\easyui\themes\mobile.css" />
     <Content Include="Scripts\FileSaver.js" />
+    <Content Include="Scripts\jquery.extend.formatter.js" />
     <Content Include="Scripts\jquery.easyui.extend.js" />
-    <Content Include="Scripts\jquery.extend.formatter.js">
+    <Content Include="Scripts\jquery.extend.formatter1.js">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>jquery.extend.formatter.tt</DependentUpon>
+      <DependentUpon>jquery.extend.formatter.tmp</DependentUpon>
     </Content>
-    <Content Include="Scripts\jquery.extend.formatter.tt">
+    <None Include="Scripts\jquery.extend.formatter.tmp">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>jquery.extend.formatter.js</LastGenOutput>
-    </Content>
+      <LastGenOutput>jquery.extend.formatter1.js</LastGenOutput>
+    </None>
     <Content Include="Scripts\jquery.extend.js" />
     <Content Include="Scripts\jquery.filerupload.js" />
     <Content Include="Scripts\jquery.fileDownload.js" />
