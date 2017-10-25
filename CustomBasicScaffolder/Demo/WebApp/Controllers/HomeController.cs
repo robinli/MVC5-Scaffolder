@@ -32,6 +32,9 @@ namespace WebApp.Controllers
         public ActionResult BlankPage() {
             return View();
         }
+        public ActionResult AgileBoard() {
+            return View();
+        }
 
 
         public ActionResult Contact()
