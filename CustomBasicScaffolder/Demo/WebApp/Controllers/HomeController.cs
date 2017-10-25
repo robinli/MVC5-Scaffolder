@@ -29,6 +29,9 @@ namespace WebApp.Controllers
 
             return View();
         }
+        public ActionResult BlankPage() {
+            return View();
+        }
 
 
         public ActionResult Contact()
