@@ -333,6 +333,19 @@
             });
         },
 
+        resize: function (width) {
+            var input = _i($(this));
+            //console.log(width, input);
+            input.parent().css('width', width);
+            input.css('width', width);
+            var wrapped_list = _getWrappedList();
+            wrapped_list.css({
+                width: width,
+                maxHeight: '100%'
+            });
+
+        },
+
         /**
          * Check if has initiated
          */
@@ -1045,7 +1058,7 @@
         output += _renderCss(input);
 
         // Draw table
-        output += "<table class=\"table datagrid-body\">";
+        output += "<table class=\"table \">";
 
         // Show head
         output += _renderTableHeader(input);
@@ -1206,7 +1219,7 @@
         // output += "</style>";
 
         // Draw table
-        output += "<table class=\"table datagrid-body\">";
+        output += "<table class=\"table  \">";
 
         // Show head
         output += _renderTableHeader(input);
@@ -2009,7 +2022,7 @@
          * (Sting) - 'value'
          * (Object) - {name:'value', text:'Value'}
          */
-         
+
         fields: [
             { name: 'value', text: 'Value' },
             { name: 'text', text: 'Text' }

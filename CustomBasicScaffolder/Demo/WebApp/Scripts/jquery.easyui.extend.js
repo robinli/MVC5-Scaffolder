@@ -104,7 +104,7 @@ $.extend($.fn.datagrid.defaults.filters, {
         },
         resize: function (target, width) {
             //console.log($(target), width);
-          
+            $(target).inputpicker('resize',width);
         }
     }
 });
