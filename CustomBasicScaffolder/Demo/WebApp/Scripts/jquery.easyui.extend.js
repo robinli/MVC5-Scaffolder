@@ -1,5 +1,5 @@
 ﻿
-
+//dateRange filter 
 $.extend($.fn.datagrid.defaults.filters, {
     dateRange: {
         init: function (container, options) {
@@ -75,7 +75,41 @@ $.extend($.fn.datagrid.defaults.filters, {
     }
 });
 
+$.extend($.fn.datagrid.defaults.filters, {
+    inputpicker: {
+        init: function (container, options) {
+             
+            var input = $('<input type="text" style="height:24px;padding-left:12px">').appendTo(container);
+            var myoptions = {
+                filterOpen: false
+            }
+            $.extend(options, myoptions)
+            input.inputpicker(options);
 
+    
+            return input;
+        },
+        destroy: function (target) {
+            $(target).inputpicker('destroy');
+        },
+        getValue: function (target) {
+            //console.log($(target), $(target).val());
+            return $(target).val();
+        },
+        setValue: function (target, value) {
+            //console.log($(target), value);
+            $(target).inputpicker('val',value);
+            
+
+        },
+        resize: function (target, width) {
+            //console.log($(target), width);
+          
+        }
+    }
+});
+
+//datebox editor
 $.extend($.fn.datagrid.defaults.editors, {
     datebox: {
         init: function (container, options) {

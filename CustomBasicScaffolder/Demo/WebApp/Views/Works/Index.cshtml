@@ -158,6 +158,7 @@
                                     </div>
                                     <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-download-alt',plain:true" onclick="exportexcel()">导出至Excel</a>
                                     <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="reload()">刷新</a>
+                                    <input class="form-control" id="status"  style="width:80px" />
                                 </div>
 
                             </div>
@@ -188,6 +189,14 @@
 
 @section Scripts {
     <script type="text/javascript">
+
+        $('#status').inputpicker({
+            data: statusfiltersource,
+             
+            
+        });
+
+
         var entityname = "Work";
 			        //下载Excel导入模板
                     function downloadtemplate() {
@@ -322,30 +331,15 @@
 		   $dg.datagrid("enableFilter",[
 		   				{
 					  field: "Status",
-					  type: "combobox",
+                      type: "inputpicker",
 					  options: {
-						   panelHeight: "auto",
-						   data: [{ value: "", text: "All" }, { value: 0, text: "启用" }, { value: 1, text: "禁用" }],
-						   onChange: function (value) {
-							  if (value == "") {
-								  $dg.datagrid("removeFilterRule", "Status");
-							  } else {
-								  $dg.datagrid("addFilterRule", {
-									  field: "Status",
-									  op: "equal",
-									  value: value
-								  });
-							  }
-							  $dg.datagrid("doFilter");
-						  }
+						 
+                           data: statusfiltersource,
+						   
 					  }
 				  },
 
-           				{
-					  field: "Id",
-					  type: "numberbox",
-					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
-				  },
+           				 
 		   				{
 					  field: "Hour",
 					  type: "numberbox",

@@ -119,6 +119,14 @@ namespace WebApp
             bundles.Add(new StyleBundle("~/plugins/daterangepickerStyles").Include(
                       "~/Scripts/plugin/daterangepicker/daterangepicker.css"));
 
+            //inputpicker
+
+            bundles.Add(new ScriptBundle("~/plugins/inputpickerjs").Include(
+                      "~/Scripts/plugin/inputpicker/jquery.inputpicker.js"));
+            bundles.Add(new StyleBundle("~/plugins/inputpickerStyles").Include(
+                      "~/Scripts/plugin/inputpicker/jquery.inputpicker.css"));
+
+
             //jquery.filer Script
             bundles.Add(new StyleBundle("~/plugins/jqueryfilerStyles").Include(
                       "~/Scripts/plugin/jquery-filer/css/jquery.filer.css",

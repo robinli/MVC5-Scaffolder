@@ -4088,6 +4088,8 @@
     <Content Include="Scripts\plugin\highchartTable\jquery.highchartTable.min.js" />
     <Content Include="Scripts\plugin\ie-placeholder\jquery.placeholder.min.js" />
     <Content Include="Scripts\plugin\ie-placeholder_\jquery.placeholder.min.js" />
+    <Content Include="Scripts\plugin\inputpicker\jquery.inputpicker.css" />
+    <Content Include="Scripts\plugin\inputpicker\jquery.inputpicker.js" />
     <Content Include="Scripts\plugin\ion-slider\ion.rangeSlider-backup.min.js" />
     <Content Include="Scripts\plugin\ion-slider\ion.rangeSlider.min.js" />
     <Content Include="Scripts\plugin\jcrop\jquery.color.min.js" />
@@ -4165,6 +4167,8 @@
     <Content Include="Views\Departments\EditForm.cshtml" />
     <Content Include="Views\Home\BlankPage.cshtml" />
     <Content Include="Views\Home\AgileBoard.cshtml" />
+    <Content Include="Scripts\plugin\inputpicker\example-districts.json" />
+    <Content Include="Scripts\plugin\inputpicker\example-regions.json" />
     <None Include="Views\Notifications\_notifications.cshtml" />
     <None Include="Views\Messages\_notifications.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Int.cshtml">

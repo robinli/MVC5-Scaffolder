@@ -156,7 +156,6 @@
         filterRules: [],
         // specify whether the filtered records need to match ALL or ANY of the applied filters
         filterMatchingType: 'all',	// possible values: 'all','any'
-        filterIncludingChild: false,
         // filterCache: {},
         filterMatcher: function (data) {
             var name = getPluginName(this);
@@ -170,16 +169,10 @@
                     $.map(data.rows, function (row) {
                         if (isMatch(row, row[opts.idField])) {
                             rr[row[opts.idField]] = row;
-                            var prow = getRow(data.rows, row._parentId);
-                            while (prow) {
-                                rr[prow[opts.idField]] = prow;
-                                prow = getRow(data.rows, prow._parentId);
-                            }
-                            if (opts.filterIncludingChild) {
-                                var cc = getAllChildRows(data.rows, row[opts.idField]);
-                                $.map(cc, function (row) {
-                                    rr[row[opts.idField]] = row;
-                                });
+                            row = getRow(data.rows, row._parentId);
+                            while (row) {
+                                rr[row[opts.idField]] = row;
+                                row = getRow(data.rows, row._parentId);
                             }
                         }
                     });
@@ -242,27 +235,6 @@
                 }
                 return null;
             }
-            function getAllChildRows(rows, id) {
-                var cc = getChildRows(rows, id);
-                var stack = $.extend(true, [], cc);
-                while (stack.length) {
-                    var row = stack.shift();
-                    var c2 = getChildRows(rows, row[opts.idField]);
-                    cc = cc.concat(c2);
-                    stack = stack.concat(c2);
-                }
-                return cc;
-            }
-            function getChildRows(rows, id) {
-                var cc = [];
-                for (var i = 0; i < rows.length; i++) {
-                    var row = rows[i];
-                    if (row._parentId == id) {
-                        cc.push(row);
-                    }
-                }
-                return cc;
-            }
         },
         defaultFilterType: 'text',
         defaultFilterOperator: 'contains',
@@ -275,6 +247,8 @@
                 if (input.data('textbox')) {
                     input = input.textbox('textbox');
                 }
+                //console.log(input.get(0));
+                //console.log(field);
                 input.unbind('.filter').bind('keydown.filter', function (e) {
                     var t = $(this);
                     if (this.timer) {
@@ -288,7 +262,6 @@
                         }, opts.filterDelay);
                     }
                 });
-                // add @ 2017/9/20 custom datebox，daterange combobox combogrid  changed event do filter // 
                 if ($(this).hasClass('datebox-f')) {//datebox
                     input.bind('blur.filter', function (e) {
                         var t = $(this);
@@ -337,7 +310,7 @@
                 }
                 if ($(this).hasClass('combobox-f')) {//combobox
 
-                    input.bind('blur.filter', function (e, value) {
+                    input.bind('blur.filter', function (e) {
                         var t = $(this);
                         if (this.timer) {
                             clearTimeout(this.timer);
@@ -353,7 +326,7 @@
                 }
                 if ($(this).hasClass('combogrid-f')) {//combogrid
 
-                    input.bind('blur.filter', function (e, value) {
+                    input.bind('blur.filter', function (e) {
                         var t = $(this);
                         if (this.timer) {
                             clearTimeout(this.timer);
@@ -367,9 +340,41 @@
                         }
                     });
                 }
+                if ($(this).hasClass('inputpicker-original')) {//inputpicker
+                    input.bind('change.filter', function (e) {
+                        var t = $(this);
+                        if (this.timer) {
+                            clearTimeout(this.timer);
+                        }
+                        if (e.keyCode == 13) {
+                            _doFilter();
+                        } else {
+                            this.timer = setTimeout(function () {
+                                _doFilter();
+                            }, opts.filterDelay);
+                        }
+                    });
+                }
+                function _doFilter() {
+                    var rule = $(target)[name]('getFilterRule', field);
+                    var value = input.val();
+                    if (value != '') {
+                        if ((rule && rule.value != value) || !rule) {
+                            $(target)[name]('addFilterRule', {
+                                field: field,
+                                op: opts.defaultFilterOperator,
+                                value: value
+                            });
+                            $(target)[name]('doFilter');
+                        }
+                    } else {
+                        if (rule) {
+                            $(target)[name]('removeFilterRule', field);
+                            $(target)[name]('doFilter');
+                        }
+                    }
+                }
 
-             
-               
                 function _doFilterForCombobox() {
                     var rule = $(target)[name]('getFilterRule', field);
                     //var value = input.val();
@@ -415,27 +420,6 @@
                         }
                     }
                 }
-               // add @ 2017/9/20 combobox changed event do filter // 
-
-                function _doFilter() {
-                    var rule = $(target)[name]('getFilterRule', field);
-                    var value = input.val();
-                    if (value != '') {
-                        if ((rule && rule.value != value) || !rule) {
-                            $(target)[name]('addFilterRule', {
-                                field: field,
-                                op: opts.defaultFilterOperator,
-                                value: value
-                            });
-                            $(target)[name]('doFilter');
-                        }
-                    } else {
-                        if (rule) {
-                            $(target)[name]('removeFilterRule', field);
-                            $(target)[name]('doFilter');
-                        }
-                    }
-                }
             }
         },
         filterStringify: function (data) {
@@ -466,6 +450,7 @@
                 $(target)._outerWidth(width)._outerHeight(22);
             }
         }
+
     });
     $.fn.treegrid.defaults.filters = $.fn.datagrid.defaults.filters;
 
@@ -630,10 +615,17 @@
                 }
             }
             var menu = input[0].menu;
+           
             if (menu) {
+                console.log(opts.operators);
+                if (opts.operators[param.op]) {
+                    param.op = 'equal';
+                } 
                 menu.find('.' + opts.filterMenuIconCls).removeClass(opts.filterMenuIconCls);
                 var item = menu.menu('findItem', opts.operators[param.op]['text']);
+               
                 menu.menu('setIcon', {
+                  
                     target: item.target,
                     iconCls: opts.filterMenuIconCls
                 });
@@ -992,9 +984,15 @@
                     input.addClass('datagrid-filter').attr('name', field);
                     input[0].filter = filter;
                     input[0].menu = createFilterButton(div, fopts.op);
+
                     if (fopts.options) {
+
                         if (fopts.options.onInit) {
                             fopts.options.onInit.call(input[0], target);
+                        }
+                        else {//°ó¶¨onInit
+                            opts.defaultFilterOptions.onInit.call(input[0], target);
+
                         }
                     } else {
                         opts.defaultFilterOptions.onInit.call(input[0], target);
