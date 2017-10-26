@@ -156,6 +156,7 @@
         filterRules: [],
         // specify whether the filtered records need to match ALL or ANY of the applied filters
         filterMatchingType: 'all',	// possible values: 'all','any'
+        filterIncludingChild: false,
         // filterCache: {},
         filterMatcher: function (data) {
             var name = getPluginName(this);
@@ -169,10 +170,18 @@
                     $.map(data.rows, function (row) {
                         if (isMatch(row, row[opts.idField])) {
                             rr[row[opts.idField]] = row;
-                            row = getRow(data.rows, row._parentId);
-                            while (row) {
-                                rr[row[opts.idField]] = row;
-                                row = getRow(data.rows, row._parentId);
+                            var prow = getRow(data.rows, row._parentId);  
+                            while (prow) {
+                                rr[prow[opts.idField]] = prow;
+                                prow = getRow(data.rows, prow._parentId);
+
+                            }
+                            if (opts.filterIncludingChild) {
+                                var cc = getAllChildRows(data.rows, row[opts.idField]);
+                                $.map(cc, function (row) {
+                                    rr[row[opts.idField]] = row;
+
+                                });
                             }
                         }
                     });
@@ -234,6 +243,32 @@
                     }
                 }
                 return null;
+            }
+            function getAllChildRows(rows, id) {
+                var cc = getChildRows(rows, id);
+                var stack = $.extend(true, [], cc);
+                while (stack.length) {
+                    var row = stack.shift();
+                    var c2 = getChildRows(rows, row[opts.idField]);
+                    cc = cc.concat(c2);
+                    stack = stack.concat(c2);
+
+                }
+                return cc;
+
+            }
+            function getChildRows(rows, id) {
+                var cc = [];
+                for (var i = 0; i < rows.length; i++) {
+                    var row = rows[i];
+                    if (row._parentId == id) {
+                        cc.push(row);
+
+                    }
+
+                }
+                return cc;
+
             }
         },
         defaultFilterType: 'text',
@@ -615,17 +650,17 @@
                 }
             }
             var menu = input[0].menu;
-           
+
             if (menu) {
                 console.log(opts.operators);
                 if (opts.operators[param.op]) {
                     param.op = 'equal';
-                } 
+                }
                 menu.find('.' + opts.filterMenuIconCls).removeClass(opts.filterMenuIconCls);
                 var item = menu.menu('findItem', opts.operators[param.op]['text']);
-               
+
                 menu.menu('setIcon', {
-                  
+
                     target: item.target,
                     iconCls: opts.filterMenuIconCls
                 });
