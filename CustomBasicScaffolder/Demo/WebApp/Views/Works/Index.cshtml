@@ -192,10 +192,17 @@
 
         $('#status').inputpicker({
             data: statusfiltersource,
-             
+            filterOpen:false,
+            onChange: function (value,text) {
+                console.log(value,text);
+            },
             
-        });
-
+        }).change(function (input) {
+            //console.log(input);
+            //console.log($('#status').inputpicker('getText'));
+            //console.log($('#status').inputpicker('getValue'));
+            });
+        $('#status').inputpicker('val', 1);
 
         var entityname = "Work";
 			        //下载Excel导入模板

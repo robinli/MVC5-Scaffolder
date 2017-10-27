@@ -21,6 +21,7 @@
     methods = {
         init: function (options) {
             return this.each(function () {
+               
                 var uuid = _generateUid();
                 var original = $(this);
                 var input;   // Shadow input
@@ -113,6 +114,10 @@
                         var input = _i(original);
                         // dd(['on Change original:' + original.val(), original] );
                         _setValue(input, original.val());
+                        if (options.onChange != null && options.onChange instanceof Function ) {
+                            options.onChange(original.val(),input.val());
+                        }
+
                     });
 
                     // input Events
@@ -331,6 +336,27 @@
                     original.trigger('change');
                 }
             });
+        },
+        setValue: function (value) {
+            return this.each(function () {
+                var original = _o($(this));
+                var input = _i(original);
+                if (_setValue(input, value)) {
+                    original.trigger('change');
+                }
+            });
+        },
+        getText: function () {
+            var original = _o($(this));
+            var input = _i(original);
+            return input.val();
+        },
+
+        getValue: function () {
+            var original = _o($(this));
+            var input = _o(original);
+            //console.log(input);
+            return input.val();
         },
 
         resize: function (width) {
