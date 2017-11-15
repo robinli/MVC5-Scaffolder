@@ -10,6 +10,19 @@ namespace WebApp.Controllers
     {
         public ActionResult Index()
         {
+
+            var paras = new List<object>();
+            var sql = "INSERT INTO [dbo].[Tb1]([f1]) VALUES (@f1)";
+            paras.Add(new { f1="a" });
+            paras.Add(new { f1 = "a" });
+            paras.Add(new { f1 = "a" });
+            paras.Add(new { f1 = "a" });
+            paras.Add(new { f1 = "a" });
+
+            SqlHelper2.DatabaseFactory.CreateDatabase().ExecuteNonQuery(sql,paras);
+
+
+
             DateTime.Now.ToString("G");
             var list = CodeListSet.CLS["AccountType"].EnumRecords();
             var val = CodeListSet.CLS["AccountType"].Code2Value("1");

@@ -146,6 +146,7 @@ namespace SqlHelper2 {
             {
                 using (var cmd = connection.CreateCommand())
                 {
+                    var db = new CommandDatabase(cmd); 
                     cmd.CommandText = procedureName;
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.SetParameters(parameters);
@@ -169,6 +170,64 @@ namespace SqlHelper2 {
                 using (var cmd = connection.CreateCommand())
                 {
                     return new CommandDatabase(cmd).ExecuteSPNonQuery(procedureName, parameters);
+                }
+            }
+        }
+
+        public int ExecuteNonQuery(string sql, IEnumerable<object> parameters = null)
+        {
+            var result = 0;
+            using (var connection = CreateConnection())
+            {
+                using (var transaction = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        using (var cmd = connection.CreateCommand())
+                        {
+                            cmd.Transaction = transaction;
+
+                            var db = new CommandDatabase(cmd);
+                            result = db.ExecuteNonQuery(sql, parameters);
+                        }
+
+                        transaction.Commit();
+                        return result;
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
+            }
+        }
+
+        public int ExecuteNonQuery(IEnumerable<string> sqllist)
+        {
+            var result = 0;
+            using (var connection = CreateConnection())
+            {
+                using (var transaction = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        using (var cmd = connection.CreateCommand())
+                        {
+                            cmd.Transaction = transaction;
+
+                            var db = new CommandDatabase(cmd);
+                            result = db.ExecuteNonQuery(sqllist);
+                        }
+
+                        transaction.Commit();
+                        return result;
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
                 }
             }
         }

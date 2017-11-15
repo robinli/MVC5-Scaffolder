@@ -6,6 +6,8 @@ using System.Data;
 namespace SqlHelper2 {
     public interface IDatabase {
         int ExecuteNonQuery(string sql, object parameters = null);
+        int ExecuteNonQuery(string sql, IEnumerable<object> parameters = null);
+        int ExecuteNonQuery(IEnumerable<string> sqllist);
         int ExecuteSPNonQuery(string procedureName, object parameters = null);
 
         IEnumerable<T> ExecuteDataReader<T>(string sql, object parameters, Func<DbDataReader, T> action);
