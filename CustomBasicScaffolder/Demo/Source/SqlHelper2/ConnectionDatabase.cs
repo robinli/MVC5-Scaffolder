@@ -86,14 +86,8 @@ namespace SqlHelper2
                 {
                     using (var adapter = CreateDataAdapter())
                     {
-                        cmd.CommandText = sql;
-                        cmd.SetParameters(parameters);
-
-                        adapter.SelectCommand = cmd;
-
-                        var ds = new DataSet();
-                        adapter.Fill(ds);
-                        return ds;
+                        var db = new CommandDatabase(cmd, adapter);
+                        return db.ExecuteDataSet(sql,parameters);
 
                     }
                 }
@@ -255,6 +249,54 @@ namespace SqlHelper2
                     {
                         transaction.Rollback();
                         throw;
+                    }
+                }
+            }
+        }
+
+        public void ExecuteDataSet(string sql, object parameters, Action<DataSet> action)
+        {
+            using (var connection = CreateConnection())
+            {
+                using (var cmd = connection.CreateCommand())
+                {
+                    using (var adapter = CreateDataAdapter())
+                    {
+                        var db = new CommandDatabase(cmd, adapter);
+                         db.ExecuteDataSet(sql, parameters,action);
+
+                    }
+                }
+            }
+        }
+
+        public void ExecuteDataTable(string sql, object parameters, Action<DataTable> action)
+        {
+            using (var connection = CreateConnection())
+            {
+                using (var cmd = connection.CreateCommand())
+                {
+                    using (var adapter = CreateDataAdapter())
+                    {
+                        var db = new CommandDatabase(cmd, adapter);
+                        db.ExecuteDataTable(sql, parameters, action);
+
+                    }
+                }
+            }
+        }
+
+        public void ExecuteSpDataSet(string procedureName, object parameters, Action<DataSet> action)
+        {
+            using (var connection = CreateConnection())
+            {
+                using (var cmd = connection.CreateCommand())
+                {
+                    using (var adapter = CreateDataAdapter())
+                    {
+                        var db = new CommandDatabase(cmd, adapter);
+                        db.ExecuteSpDataSet(procedureName, parameters, action);
+
                     }
                 }
             }

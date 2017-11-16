@@ -8,39 +8,39 @@ namespace SqlHelper2
 {
     public class CommandDatabase : IDatabase
     {
-        public readonly DbCommand Command;
+        public readonly DbCommand command;
 
         public readonly DbDataAdapter dataAdapter;
         public CommandDatabase(DbCommand cmd, DbDataAdapter adapter)
         {
             dataAdapter = adapter;
-            Command = cmd;
+            command = cmd;
         }
 
         public CommandDatabase(DbCommand cmd)
         {
-            Command = cmd;
+            command = cmd;
         }
 
         private void PrepareCommand(string sql, object parameters)
         {
-            Command.CommandType = CommandType.Text;
-            Command.CommandText = sql;
-            Command.SetParameters(parameters);
+            command.CommandType = CommandType.Text;
+            command.CommandText = sql;
+            command.SetParameters(parameters);
         }
 
         public int ExecuteNonQuery(string sql, object parameters)
         {
             PrepareCommand(sql, parameters);
 
-            return Command.ExecuteNonQuery();
+            return command.ExecuteNonQuery();
         }
 
         public IEnumerable<T> ExecuteDataReader<T>(string sql, object parameters, Func<DbDataReader, T> action)
         {
             PrepareCommand(sql, parameters);
 
-            using (var dr = Command.ExecuteReader())
+            using (var dr = command.ExecuteReader())
             {
                 while (dr.Read())
                     yield return action.Invoke(dr);
@@ -51,7 +51,7 @@ namespace SqlHelper2
         {
             PrepareCommand(sql, parameters);
 
-            using (var dr = Command.ExecuteReader())
+            using (var dr = command.ExecuteReader())
             {
                 while (dr.Read())
                     action.Invoke(dr);
@@ -67,13 +67,13 @@ namespace SqlHelper2
         public T ExecuteScalar<T>(string sql, object parameters)
         {
             PrepareCommand(sql, parameters);
-            var result = Command.ExecuteScalar();
+            var result = command.ExecuteScalar();
             return (result != null) ? (T)result : default(T);
         }
 
         public void BulkCopy(DataTable table, int batchSize)
         {
-            using (var bulkcopy = new SqlBulkCopy((SqlConnection)Command.Connection))
+            using (var bulkcopy = new SqlBulkCopy((SqlConnection)command.Connection))
             {
                 if (table != null && table.Rows.Count > 0)
                 {
@@ -86,11 +86,11 @@ namespace SqlHelper2
 
         public bool HasRow(string sql, object parameters)
         {
-            Command.CommandType = CommandType.Text;
-            Command.CommandText = sql;
-            Command.SetParameters(parameters);
+            command.CommandType = CommandType.Text;
+            command.CommandText = sql;
+            command.SetParameters(parameters);
 
-            using (var dr = Command.ExecuteReader())
+            using (var dr = command.ExecuteReader())
             {
                 return dr.HasRows;
             }
@@ -100,7 +100,7 @@ namespace SqlHelper2
         {
             PrepareCommand(sql, parameters);
 
-            dataAdapter.SelectCommand = Command;
+            dataAdapter.SelectCommand = command;
 
             var ds = new DataSet();
             dataAdapter.Fill(ds);
@@ -110,7 +110,7 @@ namespace SqlHelper2
         public DataTable ExecuteDataTable(string sql, object parameters = null)
         {
             PrepareCommand(sql, parameters);
-            dataAdapter.SelectCommand = Command;
+            dataAdapter.SelectCommand = command;
             var ds = new DataSet();
             dataAdapter.Fill(ds);
             return (ds.Tables.Count >= 0 ? ds.Tables[0] : null);
@@ -119,9 +119,9 @@ namespace SqlHelper2
         public DataSet ExecuteSpDataSet(string procedureName, object parameters)
         {
             PrepareCommand(procedureName, parameters);
-            Command.CommandText = procedureName;
-            Command.CommandType = CommandType.StoredProcedure;
-            dataAdapter.SelectCommand = Command;
+            command.CommandText = procedureName;
+            command.CommandType = CommandType.StoredProcedure;
+            dataAdapter.SelectCommand = command;
             var ds = new DataSet();
             dataAdapter.Fill(ds);
             return ds;
@@ -130,8 +130,8 @@ namespace SqlHelper2
         public int ExecuteSPNonQuery(string procedureName, object parameters = null)
         {
             PrepareCommand(procedureName, parameters);
-            Command.CommandType = CommandType.StoredProcedure;
-            return Command.ExecuteNonQuery();
+            command.CommandType = CommandType.StoredProcedure;
+            return command.ExecuteNonQuery();
         }
 
         public int ExecuteNonQuery(string sql, IEnumerable<object> parameters = null)
@@ -140,8 +140,8 @@ namespace SqlHelper2
             foreach (var parameter in parameters)
             {
                 PrepareCommand(sql, parameter);
-                Command.CommandText = sql;
-                result += Command.ExecuteNonQuery();
+                command.CommandText = sql;
+                result += command.ExecuteNonQuery();
             }
             return result;
         }
@@ -151,10 +151,39 @@ namespace SqlHelper2
             var result = 0;
             foreach (var sql in sqllist)
             {
-                Command.CommandText = sql;
-                result += Command.ExecuteNonQuery();
+                command.CommandText = sql;
+                result += command.ExecuteNonQuery();
             }
             return result;
+        }
+
+        public void ExecuteDataSet(string sql, object parameters, Action<DataSet> action)
+        {
+            PrepareCommand(sql, parameters);
+            dataAdapter.SelectCommand = command;
+            var ds = new DataSet();
+            dataAdapter.Fill(ds);
+            action.Invoke(ds);
+        }
+
+        public void ExecuteDataTable(string sql, object parameters, Action<DataTable> action)
+        {
+            PrepareCommand(sql, parameters);
+            dataAdapter.SelectCommand = command;
+            var ds = new DataSet();
+            dataAdapter.Fill(ds);
+            action.Invoke(ds.Tables.Count >= 0 ? ds.Tables[0] : null);
+        }
+
+        public void ExecuteSpDataSet(string procedureName, object parameters, Action<DataSet> action)
+        {
+            PrepareCommand(procedureName, parameters);
+            command.CommandText = procedureName;
+            command.CommandType = CommandType.StoredProcedure;
+            dataAdapter.SelectCommand = command;
+            var ds = new DataSet();
+            dataAdapter.Fill(ds);
+            action.Invoke(ds);
         }
     }
 }

@@ -19,8 +19,13 @@ namespace WebApp.Controllers
             paras.Add(new { f1 = "a" });
             paras.Add(new { f1 = "a" });
 
-            SqlHelper2.DatabaseFactory.CreateDatabase().ExecuteNonQuery(sql,paras);
-
+            //var ds= SqlHelper2.DatabaseFactory.CreateDatabase().ExecuteDataSet("select * from tb1",null);
+          SqlHelper2.DatabaseFactory.CreateDatabase().ExecuteDataSet("select * from tb1", null,ds=> {
+              Console.Write(ds);
+          });
+            SqlHelper2.DatabaseFactory.CreateDatabase().ExecuteDataTable("select * from tb1", null, dt => {
+                Console.Write(dt);
+            });
 
 
             DateTime.Now.ToString("G");
