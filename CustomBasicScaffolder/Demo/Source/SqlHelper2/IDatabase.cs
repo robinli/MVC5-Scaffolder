@@ -9,7 +9,7 @@ namespace SqlHelper2 {
         int ExecuteNonQuery(string sql, IEnumerable<object> parameters = null);
         int ExecuteNonQuery(IEnumerable<string> sqllist);
         int ExecuteSPNonQuery(string procedureName, object parameters = null);
-
+        int ExecuteSPNonQuery(string procedureName,IEnumerable<object> parameters = null);
         IEnumerable<T> ExecuteDataReader<T>(string sql, object parameters, Func<DbDataReader, T> action);
 
         void ExecuteDataReader(string sql, object parameters, Action<DbDataReader> action);

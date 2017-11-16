@@ -195,6 +195,31 @@ namespace SqlHelper2
                 }
             }
         }
+        public int ExecuteSPNonQuery(string procedureName, IEnumerable<object> parameters = null)
+        {
+            var result = 0;
+            using (var connection = CreateConnection())
+            {
+                using (var transaction = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        using (var cmd = connection.CreateCommand())
+                        {
+                            cmd.Transaction = transaction;
+                            var db = new CommandDatabase(cmd);
+                            result += db.ExecuteSPNonQuery(procedureName, parameters);
+                            transaction.Commit();
+                            return result;
+                        }
+                    }
+                    catch {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
+            }
+        }
 
         public int ExecuteNonQuery(string sql, IEnumerable<object> parameters = null)
         {

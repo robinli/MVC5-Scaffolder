@@ -134,6 +134,18 @@ namespace SqlHelper2
             return command.ExecuteNonQuery();
         }
 
+        public int ExecuteSPNonQuery(string procedureName, IEnumerable<object> parameters = null)
+        {
+            var result = 0;
+            foreach (var parameter in parameters)
+            {
+                PrepareCommand(procedureName, parameter);
+                command.CommandType = CommandType.StoredProcedure;
+                result += command.ExecuteNonQuery();
+            }
+            return result;
+        }
+
         public int ExecuteNonQuery(string sql, IEnumerable<object> parameters = null)
         {
             var result = 0;
