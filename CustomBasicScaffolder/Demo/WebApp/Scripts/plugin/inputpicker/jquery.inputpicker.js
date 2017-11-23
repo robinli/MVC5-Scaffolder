@@ -197,9 +197,37 @@
 
         destroy: function (options) {
             return this.each(function () {
-                var input = _i($(this));
+                /*
+                  original
+                        .addClass('inputpicker-original')
+                        .addClass('inputpicker-original-' + uuid)
+                        .attr('tabindex', -1)
+                        .data('inputpicker-input', input)
+                        .data('inputpicker-original-css', {
+                            'top': original.css('top'),
+                            'position': original.css('position')
+                        })
+                        .css({
+                            'position': 'fixed',
+                            'top': '-1000px'
+                        });
+                 */
+                var original = _o($(this));
+                var input = _i(original);
+                var wrapped_list = _getWrappedList(input);
+                var uuid = _uuid(input);
                 input.removeClass('inputpicker-input');
                 input.removeData('inputpicker-settings');
+                input.remove();
+                wrapped_list.remove();
+
+                var original_css = original.data('inputpicker-original-css');
+                original.css('top', original_css['top']).css('position', original_css['position']);
+                original.removeData('inputpicker-original-css');
+                original.prop('tabindex', null);
+                original.removeClass('inputpicker-original-' + uuid);
+                original.off('focus.inputpicker');
+                original.off('change.inputpicker');
             })
         },
 
