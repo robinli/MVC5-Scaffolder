@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<WebApp.Models.Product>
 @{
-	ViewBag.Title = "物料主档";
+	ViewBag.Title = "Product";
 }
 <!-- MAIN CONTENT -->
 <div id="content">
@@ -15,7 +15,7 @@
                 路径
                 <span>
                     >
-                  物料主档
+                  Product
                 </span>
             </h1>
         </div>
@@ -47,7 +47,7 @@
                     -->
                     <header>
                         <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-                        <h2>物料主档</h2>
+                        <h2>Product</h2>
                     </header>
 
                      <!-- widget div-->
@@ -282,7 +282,7 @@
 			if (endEditing()) {
 				//$dg.datagrid("appendRow", { Status: 0 });
 				//editIndex = $dg.datagrid("getRows").length - 1;
-				$dg.datagrid("insertRow", { index: 0, row: { Status: 0 } });
+				$dg.datagrid("insertRow", { index: 0, row: {  } });
 				editIndex = 0 ;
 				$dg.datagrid("selectRow", editIndex)
 						.datagrid("beginEdit", editIndex);
@@ -342,21 +342,41 @@
 		 $(function () {
 		  
 		   $dg.datagrid("enableFilter",[
-		   		   				{
+		   
+           				{
+					  field: "Id",
+					  type: "numberbox",
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+		   				{
+					  field: "UnitPrice",
+					  type: "numberbox",
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+		   				{
+					  field: "StockQty",
+					  type: "numberbox",
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+		   				{
+					  field: "CategoryId",
+					  type: "numberbox",
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+		   
+
+		   				{
 					  field: "ConfirmDateTime",
-					  type: "datebox",
+					  type: "dateRange",
 					  options: {
 						  onChange: function (value) {
-							  if (value == "") {
-								  $dg.datagrid("removeFilterRule", "ConfirmDateTime");
-							  } else {
-								  $dg.datagrid("addFilterRule", {
+							    $dg.datagrid("addFilterRule", {
 									  field: "ConfirmDateTime",
-									  op: "equal",
+									  op: "between",
 									  value: value
 								  });
-							  }
-							  $dg.datagrid("doFilter");
+							   
+							    $dg.datagrid("doFilter");
 						  }
 					  }
 				  },

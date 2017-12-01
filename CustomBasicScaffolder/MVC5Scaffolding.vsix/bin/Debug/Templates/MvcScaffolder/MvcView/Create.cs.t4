@@ -33,13 +33,11 @@ bool isControlHtmlAttributesSupported = MvcVersion >= requiredMvcVersion;
             </h1>
         </div>
         <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
-
         </div>
     </div>
     <!-- end quick navigation bar -->
     <!-- NEW WIDGET START -->
     <article class="col-sm-12 col-md-12 col-lg-12">
-
         <!-- Widget ID (each widget will need unique ID)-->
         <div class="jarviswidget" id="wid-id-1" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false">
             <!-- widget options:
@@ -56,71 +54,54 @@ bool isControlHtmlAttributesSupported = MvcVersion >= requiredMvcVersion;
             <header>
                 <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
                 <h2> <#= PageTitle #> </h2>
-
             </header>
-
             <!-- widget div-->
             <div>
-
                 <!-- widget edit box -->
                 <div class="jarviswidget-editbox">
                     <!-- This area used as dropdown edit box -->
-
                 </div>
                 <!-- end widget edit box -->
-
                 <!-- widget content -->
                 <div class="widget-body no-padding">
-                    <form id="<#= ModelTypeName.ToLower() #>_form" class="easyui-form form-horizontal" method="post" data-options="novalidate:true">
-                       
-                        <!-- form toolbar -->
+                     <!-- form toolbar -->
                         <div id="form_toolbar" style="height:auto" class="datagrid-toolbar">
-                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="append()">新增</a>
-                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
-                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="savedata()">保存</a>
-                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="cancel()">取消</a>
-                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-paperclip',plain:true" onclick="importexcel()">EXCEL 导入</a>
-                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-download-alt',plain:true" onclick="exportexcel()">导出 Excel</a>
-                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="refresh()">刷新</a>
-                        </div>
-                        <header>
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        </header>
-                        <!-- end form toolbar -->
-                        @*@Html.AntiForgeryToken()*@
-		 
-                        @Html.Partial("<#= ViewPrefix #>EditForm")
-		
-	 
+                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="createitem()">新增</a>
+                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeitem()">删除</a>
+                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="saveitem()">保存</a>
+                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">取消</a>
+                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-paperclip',plain:true" onclick="importexcel()">EXCEL 导入</a>
+                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-download-alt',plain:true" onclick="exportexcel()">导出 Excel</a>
+                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="refresh()">刷新</a>
+                         </div>
+                        <!--end form toolbar-->
+                    <form id="<#= ModelTypeName.ToLower() #>_form" class="smart-form  easyui-form" method="post" data-options="novalidate:true">
+                                @Html.Partial("<#= ViewPrefix #>EditForm")
                         </form>		 
-
                  </div>
                  <!-- end widget content -->
                  </div>
             <!-- end widget div -->
-
         </div>
         <!-- end widget -->
-
-
     </article>
     <!-- WIDGET END -->
-
 </div>
 <!-- END MAIN CONTENT -->
 @section Scripts {
- 
      <script type="text/javascript">
-
-	 function append() {
+	   //create new item
+        function createitem() {
 
         }
-        function removeit() {
-        }
-        function savedata() {
+        //delete item
+        function deleteitem() {
 
+        }
+        //save item
+        function saveitem() {
 			   if ($("#<#= ModelTypeName.ToLower() #>_form").form("enableValidation").form("validate")) {						
-                 var data = $("#<#= ModelTypeName.ToLower() #>_form").form("getJson");
+                 var item = $("#<#= ModelTypeName.ToLower() #>_form").serializeObject();
 				  <#  if(GenerateMasterDetailRelationship  && OneToManyModelMetadata.Count >0) { 
 						var primaryKeyVar = ModelTypeName.ToLower() + primaryKey.ToLower();
 				  #>
@@ -133,21 +114,15 @@ bool isControlHtmlAttributesSupported = MvcVersion >= requiredMvcVersion;
 						if (!<#= detailnamevar #>_endEditing())
 								return false;                    
                         var <#= detailnamevar #> = <#= boostraptablevar #>.datagrid("getChanges");
-						
 						data.<#=  fieldpropertyname #> = <#= detailnamevar #> ;
 				  <# } #>
-
-				  
-
 				  <#
 				    }
 				  #>
-				  						
-                 $.post("/<#= ControllerRootName #>/Create", data, function (response) {						
+                 $.post("/<#= ControllerRootName #>/Create", item, function (response) {						
                      //console.log(response);						
                      if (response.success) {						
                          $.messager.alert("提示", "保存成功！");						
-						
                      } else {						
                          $.messager.alert("错误", "保存失败！" + response.err, "error");						
                      }						
@@ -157,38 +132,23 @@ bool isControlHtmlAttributesSupported = MvcVersion >= requiredMvcVersion;
                      //$dg.datagrid("reload");						
                  });						
              }						
-
-
         }
-        function cancel() {
-
+        function reject() {
         }
         function importexcel() {
-
         }
         function exportexcel() {
         }
         function refresh() {
-
         }
-
-
-     
-     
         </script>
-
-
-
-
 <#  if(GenerateMasterDetailRelationship  && OneToManyModelMetadata.Count >0) { 
 	var primaryKeyVar = ModelTypeName.ToLower() + primaryKey.ToLower();
 #>
 <script type="text/javascript">
-	
 	  <# foreach(var item in OneToManyModelMetadata) {
                 var boostraptablevar = "$" + item.Key.ToLower()  + "datagrid";
                 var detailnamevar=item.Key.ToLower();
-		        
 				var submodelmetadata =  item.Value;
 				var editindex = detailnamevar + "editIndex";
       #>  
@@ -210,18 +170,13 @@ bool isControlHtmlAttributesSupported = MvcVersion >= requiredMvcVersion;
             var ed = <#= boostraptablevar #>.datagrid("getEditor", { index: <#= editindex #>, field: "<#= fkeyname #>" });
             var <#= fdispname #> = $(ed.target).combobox("getText");
             var <#= fkeyname #> = $(ed.target).combobox("getValue");
-          
             <#= boostraptablevar #>.datagrid("getRows")[<#= editindex #>]["<#= fdispname #>"] = <#= fdispname #>;
             <#= boostraptablevar #>.datagrid("getRows")[<#= editindex #>]["<#= fkeyname #>"] = <#= fkeyname #>;
-            
-            
 			<# 
                } }
 			#>
 			<#= boostraptablevar #>.datagrid("endEdit", <#= editindex #>);
             <#= editindex #> = undefined;
-
-
             return true;
         } else {
             return false;
@@ -256,7 +211,6 @@ bool isControlHtmlAttributesSupported = MvcVersion >= requiredMvcVersion;
                 .datagrid("deleteRow", <#= editindex #> );
         <#= detailnamevar #>editIndex = undefined;
     }
-   
     function <#= detailnamevar #>_reject() {
         <#= boostraptablevar #>.datagrid("rejectChanges");
         <#= editindex #>  = undefined;
@@ -265,10 +219,7 @@ bool isControlHtmlAttributesSupported = MvcVersion >= requiredMvcVersion;
         var rows = <#= boostraptablevar #>.datagrid("getChanges");
         alert(rows.length + " rows are changed!");
     }
-
-
 	  <# } #>
-
 	$(function () {
 	<#
     if (GenerateMasterDetailRelationship) 
@@ -281,34 +232,21 @@ bool isControlHtmlAttributesSupported = MvcVersion >= requiredMvcVersion;
                 var relatedEntities = relmodemeta.RelatedEntities;
                 var foreignKeyNames = relatedEntities.Where(n=>n.EntitySetName ==ModelMetadata.EntitySetName).Select(n=>n.ForeignKeyPropertyNames).First();
                 var foreignKeyName = foreignKeyNames[0];
-                 
 				var boostraptablevar = "$" + property.PropertyName.ToLower()  + "datagrid";
     #>
-
 		$.get("/<#= ControllerRootName  #>/Get<#= property.PropertyName #>By<#= foreignKeyName #>/" + @Model.Id,function(data){
             //console.log(data);
             <#= boostraptablevar #>.datagrid("loadData",data);
-        
         })
-
-
 	<# 
 			}
         }
     }
 	#>
-
 	});
 </script>
-
 <# 
      }
  #>
-
-
-
-
-
 }
- 
 <#@ include file="ModelMetadataFunctions.cs.include.t4" #>

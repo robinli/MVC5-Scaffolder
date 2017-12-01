@@ -250,3 +250,12 @@ h3, h4, h5 {
     margin-top: 5px;
     font-size: 12px;
 }
+
+
+
+caption {
+    padding-top: 0px; 
+    padding-bottom: 0px; 
+    color: #999;
+    text-align: left;
+}

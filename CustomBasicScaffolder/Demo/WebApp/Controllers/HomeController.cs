@@ -11,21 +11,27 @@ namespace WebApp.Controllers
         public ActionResult Index()
         {
 
-            var paras = new List<object>();
-            var sql = "INSERT INTO [dbo].[Tb1]([f1]) VALUES (@f1)";
-            paras.Add(new { f1="a" });
-            paras.Add(new { f1 = "a" });
-            paras.Add(new { f1 = "a" });
-            paras.Add(new { f1 = "a" });
-            paras.Add(new { f1 = "a" });
+          //  var parameters = new List<object>();
+          //  var sql = "INSERT INTO [dbo].[Tb1]([f1]) VALUES (@f1)";
+          //  parameters.Add(new { f1="a" });
+          //  parameters.Add(new { f1 = "b" });
+          //  parameters.Add(new { f1 = "c" });
+          //  parameters.Add(new { f1 = "d" });
+          //  parameters.Add(new { f1 = "e" });
+          //  SqlHelper2.DatabaseFactory.CreateDatabase().ExecuteNonQuery(sql, parameters);
 
-            //var ds= SqlHelper2.DatabaseFactory.CreateDatabase().ExecuteDataSet("select * from tb1",null);
-          SqlHelper2.DatabaseFactory.CreateDatabase().ExecuteDataSet("select * from tb1", null,ds=> {
-              Console.Write(ds);
-          });
-            SqlHelper2.DatabaseFactory.CreateDatabase().ExecuteDataTable("select * from tb1", null, dt => {
-                Console.Write(dt);
-            });
+          //  var sqllist = new List<string>();
+          //  sqllist.Add("INSERT INTO [dbo].[Tb1]([f1]) VALUES ('a')");
+          //  sqllist.Add("INSERT INTO [dbo].[Tb1]([f1]) VALUES ('b')");
+          //  sqllist.Add("INSERT INTO [dbo].[Tb1]([f1]) VALUES ('c')");
+          //  SqlHelper2.DatabaseFactory.CreateDatabase().ExecuteNonQuery(sqllist);
+          //  //var ds= SqlHelper2.DatabaseFactory.CreateDatabase().ExecuteDataSet("select * from tb1",null);
+          //  SqlHelper2.DatabaseFactory.CreateDatabase().ExecuteDataSet("select * from tb1", null,ds=> {
+          //    Console.Write(ds);
+          //});
+          //  SqlHelper2.DatabaseFactory.CreateDatabase().ExecuteDataTable("select * from tb1", null, dt => {
+          //      Console.Write(dt);
+          //  });
 
 
             DateTime.Now.ToString("G");

@@ -15,10 +15,10 @@ D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pat
 D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern.Ef6\obj\Debug\Repository.Pattern.Ef6.csprojResolveAssemblyReference.cache
 D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern.Ef6\obj\Debug\Repository.Pattern.Ef6.dll
 D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern.Ef6\obj\Debug\Repository.Pattern.Ef6.pdb
-D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern.Ef6\obj\Debug\Repository.Pattern.Ef6.csprojResolveAssemblyReference.cache
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern.Ef6\bin\Debug\Repository.Pattern.Ef6.dll.config
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern.Ef6\bin\Debug\Repository.Pattern.Ef6.dll
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern.Ef6\bin\Debug\Repository.Pattern.Ef6.pdb
+D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern.Ef6\bin\Debug\CommonServiceLocator.dll
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern.Ef6\bin\Debug\EntityFramework.dll
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern.Ef6\bin\Debug\EntityFramework.SqlServer.dll
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern.Ef6\bin\Debug\LinqKit.dll
@@ -30,7 +30,7 @@ D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Dem
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern.Ef6\bin\Debug\EntityFramework.xml
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern.Ef6\bin\Debug\EntityFramework.SqlServer.xml
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern.Ef6\bin\Debug\LinqKit.xml
+D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern.Ef6\obj\Debug\Repository.Pattern.Ef6.csprojResolveAssemblyReference.cache
+D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern.Ef6\obj\Debug\Repository.Pattern.Ef6.csproj.CoreCompileInputs.cache
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern.Ef6\obj\Debug\Repository.Pattern.Ef6.dll
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern.Ef6\obj\Debug\Repository.Pattern.Ef6.pdb
-D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern.Ef6\obj\Debug\Repository.Pattern.Ef6.csproj.CoreCompileInputs.cache
-D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern.Ef6\bin\Debug\CommonServiceLocator.dll

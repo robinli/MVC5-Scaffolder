@@ -44,12 +44,11 @@ else
 // <author>neo.zhu</author>
 // <date><#= DateTime.Now.ToString("G") #> </date>
 // <summary>
-// 
+// Create By Custom MVC5 Scaffolder for Visual Studio
 // TODO: RegisterType UnityConfig.cs
 // container.RegisterType<IRepositoryAsync<<#=ModelTypeName #>>, Repository<<#=ModelTypeName #>>>();
 // container.RegisterType<I<#=ModelTypeName #>Service, <#=ModelTypeName #>Service>();
 // </summary>
-
 using System;
 using Newtonsoft.Json;
 using System.Collections.Generic;
@@ -67,8 +66,6 @@ using Repository.Pattern.Infrastructure;
 <# foreach (var namespaceName in RequiredNamespaces) { #>
 using <#= namespaceName #>;
 <# } #>
-
-
 namespace <#= Namespace #>
 {
 <#
@@ -98,13 +95,9 @@ namespace <#= Namespace #>
 #>
 	public class <#= ControllerName #> : Controller
 	{
-		
-		
-		
 		//private <#= ContextTypeName #> db = new <#= ContextTypeName #>();
 		private readonly <#= modelService #>  <#= modelServiceVar #>;
 		private readonly IUnitOfWorkAsync _unitOfWork;
-
 		public <#= ControllerName #> (<#= modelService #>  <#= ModelVariable  #>Service, IUnitOfWorkAsync unitOfWork)
 		{
 			<#= modelServiceVar #>  = <#= ModelVariable  #>Service;
@@ -118,7 +111,6 @@ namespace <#= Namespace #>
 		{
 			 return View();
 		}
-
 		// Get :<#= routePrefix #>/<#= ViewPrefix #>PageList
 		// For Index View Boostrap-Table load  data 
 		[HttpGet]
@@ -143,21 +135,17 @@ namespace <#= Namespace #>
 							           .OrderBy(n=>n.OrderBy(sort,order))
 							           .SelectPageAsync(page, rows, out totalCount);
       			<#  } #>
-
 			<# } else { #>
 				<# if(!String.IsNullOrEmpty(includeExpressions)) { #>
 				var <#= modelVariablePlural #>  = <#= modelServiceVar #>.Query(new <#= ModelTypeName #>Query().Withfilter(filters))<#= includeExpressions #>.OrderBy(n=>n.OrderBy(sort,order)).SelectPage(page, rows, out totalCount);
-			
 				<#  } else { #>
 				var <#= modelVariablePlural #>  = <#= modelServiceVar #>.Query(new <#= ModelTypeName #>Query().Withfilter(filters)).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(page, rows, out totalCount);
 				<#  } #>
-
 			<# } #>
 			var datarows = <#= modelVariablePlural #> .Select( <#= SelectLambdaText #>).ToList();
 			var pagelist = new { total = totalCount, rows = datarows };
 			return Json(pagelist, JsonRequestBehavior.AllowGet);
 		}
-
          <#
         //PropertyMetadata primaryKey = ModelMetadata.PrimaryKeys.FirstOrDefault();
         foreach (PropertyMetadata property in ModelMetadata.Properties) { 
@@ -165,7 +153,6 @@ namespace <#= Namespace #>
             var lowerpropertyname = property.PropertyName.Replace("_","").ToLower();
             var typename= property.ShortTypeName;
             if (property.IsForeignKey) {
-           
         #>
         [HttpGet]
         public async Task<ActionResult> GetDataBy<#= propertyname #> (<#= typename #>  <#= lowerpropertyname #> ,int page = 1, int rows = 10, string sort = "Id", string order = "asc", string filterRules = "")
@@ -190,9 +177,6 @@ namespace <#= Namespace #>
         <#      }
             }
         #>
-
-
-
 		[HttpPost]
 		<# if (UseAsync) { #>
 		public async Task<ActionResult> SaveData(<#= ModelTypeName #>ChangeViewModel <#= modelVariablePlural #>)
@@ -219,7 +203,6 @@ namespace <#= Namespace #>
 				}
 			}
 			await _unitOfWork.SaveChangesAsync();
-
 			return Json(new {Success=true}, JsonRequestBehavior.AllowGet);
 		}
 		<# } else {  #>
@@ -247,11 +230,9 @@ namespace <#= Namespace #>
 				}
 			}
 			_unitOfWork.SaveChanges();
-
 			return Json(new {Success=true}, JsonRequestBehavior.AllowGet);
 		}
 		<# } #>
-
 		<# 
 			  foreach(RelatedModelMetadata relatedModel in 	ModelMetadata.RelatedEntities)
 			  {
@@ -282,7 +263,6 @@ namespace <#= Namespace #>
 		<#
 			} 
 		 #>
-
 		<# 
 		if( GenerateMasterDetailRelationship && OneToManyModelMetadata.Count>0)
 		{
@@ -321,8 +301,6 @@ namespace <#= Namespace #>
 			   }
 		}
 		#>
-
-	   
 		// GET: <#=            routePrefix #>/<#= ViewPrefix #>Details/5
 <# if (UseAsync) { #>
 		public async Task<ActionResult> <#= ViewPrefix #>Details(<#= primaryKeyNullableTypeName #> id)
@@ -335,9 +313,7 @@ namespace <#= Namespace #>
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 			}
 <# if (UseAsync) { #>
-
 			var  <#= ModelVariable #> = await <#= modelServiceVar #>.FindAsync(id);
-
 <# } else { #>
 			var <#= ModelVariable #> = <#= modelServiceVar #>.Find(id);
 <# } #>
@@ -347,8 +323,6 @@ namespace <#= Namespace #>
 			}
 			return View(<#= ModelVariable #>);
 		}
-		
-
 		// GET: <#= routePrefix #>/<#= ViewPrefix #>Create
 		<# if (false) { #>
 		public async Task<ActionResult> <#= ViewPrefix #>Create()
@@ -368,7 +342,6 @@ namespace <#= Namespace #>
 <# } #>
 			return View(<#= ModelVariable #>);
 		}
-
 		// POST: <#= routePrefix #>/<#= ViewPrefix #>Create
 <# if (IsOverpostingProtectionRequired) {
 	foreach (var line in OverpostingWarningMessage.Split(new string[] { Environment.NewLine }, StringSplitOptions.None)) { 
@@ -436,10 +409,8 @@ namespace <#= Namespace #>
 			ViewBag.<#= property.ForeignKeyPropertyNames[0] #> = new SelectList(<#= property.ShortTypeName.ToLower() #>Repository.Queryable(), "<#= property.PrimaryKeyNames[0] #>", "<#= property.DisplayPropertyName #>", <#= ModelVariable #>.<#= property.ForeignKeyPropertyNames[0] #>);
 			<# } #>
 			<# } #>
-
 			return View(<#= ModelVariable #>);
 		}
-
 		// GET: <#= routePrefix #>/<#= ViewPrefix #>Edit/5
 <# if (UseAsync) { #>
 		public async Task<ActionResult> <#= ViewPrefix #>Edit(<#= primaryKeyNullableTypeName #> id)
@@ -466,7 +437,6 @@ namespace <#= Namespace #>
 <# } #>
 			return View(<#= ModelVariable #>);
 		}
-
 		// POST: <#= routePrefix #><#= ViewPrefix #>/Edit/5
 <# if (IsOverpostingProtectionRequired) {
 	foreach (var line in OverpostingWarningMessage.Split(new string[] { Environment.NewLine }, StringSplitOptions.None)) { 
@@ -507,7 +477,6 @@ namespace <#= Namespace #>
 				<#    } else {  #>
 				<#=  modelServiceVar #>.Update(<#=            ModelVariable #>);
 				<#    } #>
-				
 <# if (UseAsync) { #>
 				await   _unitOfWork.SaveChangesAsync();
 <# } else { #>
@@ -536,10 +505,8 @@ namespace <#= Namespace #>
 			ViewBag.<#= property.ForeignKeyPropertyNames[0] #> = new SelectList(<#= property.ShortTypeName.ToLower() #>Repository.Queryable(), "<#= property.PrimaryKeyNames[0] #>", "<#= property.DisplayPropertyName #>", <#= ModelVariable #>.<#= property.ForeignKeyPropertyNames[0] #>);
 			<# } #>
 			<# } #>
-
 			return View(<#= ModelVariable #>);
 		}
-
 		// GET: <#= routePrefix #>/<#= ViewPrefix #>Delete/5
 <# if (UseAsync) { #>
 		public async Task<ActionResult> <#= ViewPrefix #>Delete(<#= primaryKeyNullableTypeName #> id)
@@ -562,7 +529,6 @@ namespace <#= Namespace #>
 			}
 			return View(<#= ModelVariable #>);
 		}
-
 		// POST: <#= routePrefix #>/<#= ViewPrefix #>Delete/5
 		[HttpPost, ActionName("<#= ViewPrefix #>Delete")]
 		//[ValidateAntiForgeryToken]
@@ -590,14 +556,11 @@ namespace <#= Namespace #>
 			DisplaySuccessMessage("Has delete a <#= ModelTypeName #> record");
 			return RedirectToAction("<#= ViewPrefix #>Index");
 		}
-
-
 <#
 	if (GenerateMasterDetailRelationship) 
 	{
 		foreach (PropertyMetadata property in ModelMetadata.Properties) 
 		{
-			
 			if ( property.AssociationDirection == AssociationDirection.OneToMany && OneToManyModelMetadata.ContainsKey(property.PropertyName))
 			{
 				var modelTypeName=property.ShortTypeName;
@@ -629,7 +592,6 @@ namespace <#= Namespace #>
 				foreach (var relatedproperty in subrelatedProperties.Values) { #>
 			var <#=     relatedproperty.ShortTypeName.ToLower() #>Repository = _unitOfWork.RepositoryAsync<<#=     relatedproperty.ShortTypeName #>>();             
 			<#                } #>
-
 			if (<#= varModelType #> == null)
 			{
 			<#   
@@ -640,7 +602,6 @@ namespace <#= Namespace #>
 				ViewBag.<#= relatedproperty.ForeignKeyPropertyNames[0] #> = new SelectList(<#=     relatedproperty.ShortTypeName.ToLower() #>Repository.Queryable(), "<#=     relatedproperty.PrimaryKeyNames[0] #>", "<#=     relatedproperty.DisplayPropertyName #>" );
 				<# } #>
 			<# } #>
-				
 				//return HttpNotFound();
 				return PartialView("_<#= modelTypeName #>EditForm", new <#= modelTypeName #>());
 			}
@@ -654,12 +615,9 @@ namespace <#= Namespace #>
 				ViewBag.<#=  relatedproperty.ForeignKeyPropertyNames[0] #> = new SelectList(<#= relatedproperty.ShortTypeName.ToLower() #>Repository.Queryable(), "<#=     relatedproperty.PrimaryKeyNames[0] #>", "<#=     relatedproperty.DisplayPropertyName #>" , <#=     varModelType #>.<#=     relatedproperty.ForeignKeyPropertyNames[0] #> );  
 				<# } #>
 			<#  } #>
-				 
 			}
 			return PartialView("_<#= modelTypeName #>EditForm",  <#= varModelType #>);
-
 		}
-		
 		// Get Create Row By Id For Edit
 		// Get : <#= routePrefix #>/Create<#= modelTypeName #>
 		[HttpGet]
@@ -678,9 +636,7 @@ namespace <#= Namespace #>
 			  <# } #>
 		  <# } #>
 			return PartialView("_<#= modelTypeName #>EditForm");
-
 		}
-
 		// Post Delete Detail Row By Id
 		// Get : <#= routePrefix #>/Delete<#= modelTypeName #>/:id
 		[HttpPost,ActionName("Delete<#= modelTypeName #>")]
@@ -704,13 +660,11 @@ namespace <#= Namespace #>
 			DisplaySuccessMessage("Has delete a Order record");
 			return RedirectToAction("Index");
 		}
-
 <#
 			}
 		}
 	}
 #>       
-
 <#
 	if (GenerateMasterDetailRelationship) 
 	{     
@@ -735,7 +689,6 @@ namespace <#= Namespace #>
 			var <#= property.PropertyName.ToLower() #> = <#= modelServiceVar #>.Get<#= property.PropertyName #>By<#= foreignKeyName #>(id);
 			if (Request.IsAjaxRequest())
 			{
-
 				<# if (UseAsync) { #>
 				var data = await <#= property.PropertyName.ToLower() #>.AsQueryable().ToListAsync();
 				<# } else { #>
@@ -745,14 +698,12 @@ namespace <#= Namespace #>
 				return Json(rows, JsonRequestBehavior.AllowGet);
 			}  
 			return View(<#= property.PropertyName.ToLower() #>); 
-
 		}
 <#
 			}
 		}
 	}
 #> 
-
 		//导出Excel
 		[HttpPost]
 		public ActionResult ExportExcel( string filterRules = "",string sort = "Id", string order = "asc")
@@ -760,21 +711,15 @@ namespace <#= Namespace #>
 			var fileName = "<#=  modelVariablePlural   #>_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xlsx";
 			var stream=  <#= modelServiceVar #>.ExportExcel(filterRules,sort, order );
 			return File(stream, "application/vnd.ms-excel", fileName);
-	  
 		}
-		
-
-
 		private void DisplaySuccessMessage(string msgText)
 		{
 			TempData["SuccessMessage"] = msgText;
 		}
-
 		private void DisplayErrorMessage(string msgText)
 		{
 			TempData["ErrorMessage"] = msgText;
 		}
-
 		protected override void Dispose(bool disposing)
 		{
 			if (disposing)
@@ -806,7 +751,6 @@ namespace <#= Namespace #>
 		}
 		return shortTypeName;
 	}
-
 	bool IsGuid(string typeName) {
 		return String.Equals("System.Guid", typeName, StringComparison.OrdinalIgnoreCase);
 	}
