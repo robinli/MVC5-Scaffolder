@@ -124,8 +124,16 @@ namespace WebApp.Controllers
         {
             var product = new Product();
             //set default value
-            var categoryRepository = _unitOfWork.RepositoryAsync<Category>();
-            ViewBag.CategoryId = new SelectList(categoryRepository.Queryable(), "Id", "Name");
+            //var categoryRepository = _unitOfWork.RepositoryAsync<Category>();
+            //ViewBag.CategoryId = new SelectList(categoryRepository.Queryable(), "Id", "Name");
+            return View(product);
+        }
+        public ActionResult PopupCreate()
+        {
+            var product = new Product();
+            //set default value
+            //var categoryRepository = _unitOfWork.RepositoryAsync<Category>();
+            //ViewBag.CategoryId = new SelectList(categoryRepository.Queryable(), "Id", "Name");
             return View(product);
         }
         // POST: Products/Create
@@ -158,6 +166,19 @@ namespace WebApp.Controllers
             ViewBag.CategoryId = new SelectList(await categoryRepository.Queryable().ToListAsync(), "Id", "Name", product.CategoryId);
             return View(product);
         }
+        public async Task<ActionResult> PopupEdit(int? id) {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var product = await _productService.FindAsync(id);
+            if (product == null)
+            {
+                return HttpNotFound();
+            }
+     
+            return  PartialView("Edit", product);
+        }
         // GET: Products/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
@@ -170,9 +191,9 @@ namespace WebApp.Controllers
             {
                 return HttpNotFound();
             }
-            var categoryRepository = _unitOfWork.RepositoryAsync<Category>();
-            ViewBag.CategoryId = new SelectList(categoryRepository.Queryable(), "Id", "Name", product.CategoryId);
-            return View(product);
+            //var categoryRepository = _unitOfWork.RepositoryAsync<Category>();
+            //ViewBag.CategoryId = new SelectList(categoryRepository.Queryable(), "Id", "Name", product.CategoryId);
+            return View("Edit",product);
         }
         // POST: Products/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
