@@ -3543,6 +3543,8 @@
     <Content Include="Scripts\jquery.filerupload.js" />
     <Content Include="Scripts\jquery.fileDownload.js" />
     <Content Include="Scripts\libs\jquery-2.1.1.min.js" />
+    <Content Include="Scripts\libs\jquery-3.2.1.js" />
+    <Content Include="Scripts\libs\jquery-3.2.1.min.js" />
     <Content Include="Scripts\libs\jquery-ui-1.10.3.min.js" />
     <Content Include="Scripts\locale\easyui-lang-af.js" />
     <Content Include="Scripts\locale\easyui-lang-am.js" />
