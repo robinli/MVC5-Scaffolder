@@ -66,6 +66,12 @@
                     <li class="@Html.RouteIf("googlemap", "active")">
                         <a href="@Url.Action("googlemap", "features")"><i class="fa fa-lg fa-fw fa-map-marker"></i> <span class="menu-item-parent">GMap Skins</span><span class="badge bg-color-greenLight pull-right inbox-badge">9</span></a>
                     </li>
+                    <li class="@Html.RouteIf("agileboard", "active")">
+                        <a href="@Url.Action("agileboard", "features")"><i class="fa fa-lg fa-fw fa-tasks"></i> <span class="menu-item-parent">Agile Board</span></a>
+                    </li>
+                    <li class="@Html.RouteIf("teammember", "active")">
+                        <a href="@Url.Action("teammember", "features")"><i class="fa fa-lg fa-fw fa-address-card-o"></i> <span class="menu-item-parent">Team Member</span><span class="badge bg-color-greenLight pull-right inbox-badge">16</span></a>
+                    </li>
                 </ul>
             </li>	
           

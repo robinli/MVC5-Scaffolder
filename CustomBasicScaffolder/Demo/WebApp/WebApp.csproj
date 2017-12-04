@@ -506,6 +506,7 @@
     <Content Include="Content\ajax\website-template.html" />
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\demo.min.css" />
+    <Content Include="Content\css\font-awesome.css" />
     <Content Include="Content\css\font-awesome.min.css" />
     <Content Include="Content\css\invoice.min.css" />
     <Content Include="Content\css\lockscreen.min.css" />
@@ -3535,6 +3536,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>jquery.extend.formatter.tmp</DependentUpon>
     </Content>
+    <Content Include="Content\fonts\fontawesome-webfont.woff2" />
     <None Include="Scripts\jquery.extend.formatter.tmp">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>jquery.extend.formatter1.js</LastGenOutput>
@@ -4168,9 +4170,10 @@
     <Content Include="Views\Departments\Edit.cshtml" />
     <Content Include="Views\Departments\EditForm.cshtml" />
     <Content Include="Views\Home\BlankPage.cshtml" />
-    <Content Include="Views\Home\AgileBoard.cshtml" />
+    <Content Include="Views\Features\AgileBoard.cshtml" />
     <Content Include="Scripts\plugin\inputpicker\example-districts.json" />
     <Content Include="Scripts\plugin\inputpicker\example-regions.json" />
+    <Content Include="Views\Features\TeamMember.cshtml" />
     <None Include="Views\Notifications\_notifications.cshtml" />
     <None Include="Views\Messages\_notifications.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Int.cshtml">

@@ -20,5 +20,13 @@ namespace WebApp.Controllers
         {
             return View();
         }
+        public ActionResult AgileBoard()
+        {
+            return View();
+        }
+        public ActionResult TeamMember()
+        {
+            return View();
+        }
     }
 }
