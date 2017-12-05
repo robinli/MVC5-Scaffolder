@@ -1,5 +1,5 @@
 ﻿@model WebApp.Models.Work
-@{  ViewBag.Title = "Work | Edit";} 
+@{  ViewBag.Title = "工单信息 | Edit";} 
 <!-- MAIN CONTENT -->
 <div id="content">
      <!-- quick navigation bar -->
@@ -13,7 +13,7 @@
                 路径
                 <span>
                     >
-                    Work
+                    工单信息
                 </span>
             </h1>
         </div>
@@ -41,7 +41,7 @@
             -->
             <header>
                 <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
-                <h2> Work </h2>
+                <h2> 工单信息 </h2>
 
             </header>
 
@@ -57,26 +57,20 @@
 
                 <!-- widget content -->
                 <div class="widget-body no-padding ">
-
-                        <form id="work_form" class="easyui-form form-horizontal" method="post" data-options="novalidate:true">
                             <!--form toolbar-->
                             <div id="form_toolbar" style="height:auto" class="datagrid-toolbar">
-                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="append()">新增</a>
-                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
-                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">保存</a>
+                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="createitem()">新增</a>
+                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeitem()">删除</a>
+                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="saveitem()">保存</a>
                                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">取消</a>
                                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-paperclip',plain:true" onclick="importexcel()">EXCEL 导入</a>
                                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-download-alt',plain:true" onclick="exportexcel()">导出 Excel</a>
-                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="reload()">刷新</a>
+                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="refresh()">刷新</a>
                             </div>
-                             <!--form toolbar-->
-                             <header>
-                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                            </header>
-                           
-                            @*@Html.AntiForgeryToken()*@
-                            @Html.Partial("EditForm")
-                         </form>		 
+                            <!--form toolbar-->
+                        <form id="work_form" class="smart-form easyui-form" method="post" data-options="novalidate:true">
+                             @Html.Partial("EditForm")
+                        </form>		 
 
                  </div>
                  <!-- end widget content -->
@@ -97,7 +91,43 @@
 @section Scripts {
    
     <script type="text/javascript">
-	
+	    //create new item
+        function createitem() {
+
+        }
+        //delete item
+        function deleteitem() {
+
+        }
+        //save item
+        function saveitem() {
+            if ($('#work_form').form('enableValidation').form('validate')) {
+                var item = $('#work_form').serializeObject();
+                  
+                $.post("/Works/Edit", item, function (response) {
+                    //console.log(response);						
+                    if (response.success) {
+                        $.messager.alert("提示", "保存成功！");
+
+                    } else {
+                        $.messager.alert("错误", "保存失败！" + response.err, "error");
+                    }
+                }, "json").fail(function (response) {
+                    //console.log(response);						
+                    $.messager.alert("错误", "保存失败！", "error");
+                    //$dg.datagrid("reload");						
+                });
+            }
+        }
+        // cancel
+        function reject() {
+
+        }
+        // reload
+        function refresh() { 
+        }
+
+
       </script>
 
   

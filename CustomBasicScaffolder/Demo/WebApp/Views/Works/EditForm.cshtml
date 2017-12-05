@@ -1,8 +1,4 @@
 ﻿﻿@model WebApp.Models.Work
-
-
-
-
  <!-- 输出form表单界面 -->
  <table class="table table-bordered">
      <caption>
@@ -20,182 +16,190 @@
 	    <tr>
       	   <td class="control-label">   @Html.DisplayNameFor(model => model.Id)  </td>
 	   <td> 
-						   			<input  disabled  id="@Html.IdFor(model => model.Id)" name="@Html.NameFor(model => model.Id)" tabindex="0" style="width:100%" class="easyui-numberbox" type="text" data-options="prompt:'Id',label:'',required:true ,precision:0" />
-			  
-				   </td>
+			   			   			<input id="@Html.IdFor(model => model.Id)" 
+                   name="@Html.NameFor(model => model.Id)" 
+                   value="@Html.ValueFor(model => model.Id)"
+                   tabindex="0"   
+                   class="easyui-numberbox" type="text" 
+                   data-options="prompt:'Id',
+                                 readonly:true,
+                                 width:300,
+                                 label:'',required:true ,precision:0" />
+			  				   </td>
 	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.Name)  </td>
 	   <td> 
-			
-			  			<input id="@Html.IdFor(model => model.Name)" 
+			   			  			<input id="@Html.IdFor(model => model.Name)" 
 				   name="@Html.NameFor(model => model.Name)" 
 				   value="@Html.ValueFor(model => model.Name)"
 				   tabindex="1" 
-				   style="width:100%" 
 				   class="easyui-textbox" 
 				   type="text" 
 				   data-options="prompt:'Name',
 								 label:'',
+                                 width:300,
 								 required:false ,validType:'length[0,50]'" />
-			              
-				   </td>
-	   	   </tr>
-	   	    <tr>
-      	   <td class="control-label">   @Html.DisplayNameFor(model => model.Status)  </td>
+			  				   </td>
+	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.Status)  </td>
 	   <td> 
-			
-			  			<input id="@Html.IdFor(model => model.Status)" 
+			   			  			<input id="@Html.IdFor(model => model.Status)" 
 				   name="@Html.NameFor(model => model.Status)" 
 				   value="@Html.ValueFor(model => model.Status)"
 				   tabindex="2" 
-				   style="width:100%" 
 				   class="easyui-textbox" 
 				   type="text" 
 				   data-options="prompt:'Status',
 								 label:'',
+                                 width:300,
 								 required:false ,validType:'length[0,50]'" />
-			              
-				   </td>
-	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.StartDate)  </td>
+			  				   </td>
+	   	   </tr>
+	   	    <tr>
+      	   <td class="control-label">   @Html.DisplayNameFor(model => model.StartDate)  </td>
 	   <td> 
-			
-			  			<input id="@Html.IdFor(model => model.StartDate)" 
+			   			  			<input id="@Html.IdFor(model => model.StartDate)" 
 			       name="@Html.NameFor(model => model.StartDate)" 
 				   tabindex="3" 
-				   style="width:100%" class="easyui-datebox" 
+				   class="easyui-datebox" 
 				   type="text" 
 				   value="@Html.ValueFor(model => model.StartDate)"
 				   data-options="prompt:'StartDate',
 								 label:'',
+                                 width:300,
 								 required:true,
 								 formatter:dateformatter" />
-			              
-				   </td>
-	   	   </tr>
-	   	    <tr>
-      	   <td class="control-label">   @Html.DisplayNameFor(model => model.EndDate)  </td>
+			  				   </td>
+	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.EndDate)  </td>
 	   <td> 
-			
-			  			<input id="@Html.IdFor(model => model.EndDate)" 
+			   			  			<input id="@Html.IdFor(model => model.EndDate)" 
 			       name="@Html.NameFor(model => model.EndDate)" 
 				   tabindex="4" 
-				   style="width:100%" class="easyui-datebox" 
+				   class="easyui-datebox" 
 				   type="text" 
 				   value="@Html.ValueFor(model => model.EndDate)"
 				   data-options="prompt:'EndDate',
 								 label:'',
+                                 width:300,
 								 required:true,
 								 formatter:dateformatter" />
-			              
-				   </td>
+			  				   </td>
 	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.Enableed)  </td>
 	   <td> 
-			
-			              <input id="@Html.IdFor(model => model.Enableed)" 
-					name="@Html.NameFor(model => model.Enableed)" 
-					value="@Html.ValueFor(model => model.Enableed)"
-					tabindex="5" 
-					style="width:100%" 
-					class="easyui-textbox" 
-					type="text" 
-					data-options="prompt:'Enableed',
-					             label:'',
-								 required:false " />
-			              
-				   </td>
+			   			  			   <label class="checkbox">
+                 <input id="@Html.IdFor(model => model.Enableed)"
+                       name="@Html.NameFor(model => model.Enableed)"
+                       value="true" @(Model.Enableed ? "checked=\"checked\"" : "")
+                       tabindex="6"
+                       type="checkbox" />
+                <i></i>
+            </label>
+              				   </td>
 	   	   </tr>
 	   	    <tr>
       	   <td class="control-label">   @Html.DisplayNameFor(model => model.Hour)  </td>
 	   <td> 
-			
-			  			<input id="@Html.IdFor(model => model.Hour)"
+			   			  			<input id="@Html.IdFor(model => model.Hour)"
 				   name="@Html.NameFor(model => model.Hour)" 
 				   value="@Html.ValueFor(model => model.Hour)"
 				   tabindex="6" 
-				   style="width:100%" 
 				   class="easyui-numberbox" 
 				   type="text" 
 				   data-options="prompt:'Hour',
 								 label:'',
+                                 width:300,
 								 required:true ,precision:0" />
-			              
-				   </td>
+              				   </td>
 	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.Priority)  </td>
 	   <td> 
-			
-			  			<input id="@Html.IdFor(model => model.Priority)"
+			   			  			<input id="@Html.IdFor(model => model.Priority)"
 				   name="@Html.NameFor(model => model.Priority)" 
 				   value="@Html.ValueFor(model => model.Priority)"
 				   tabindex="7" 
-				   style="width:100%" 
 				   class="easyui-numberbox" 
 				   type="text" 
 				   data-options="prompt:'Priority',
 								 label:'',
+                                 width:300,
 								 required:true ,precision:0" />
-			              
-				   </td>
-	   	   </tr>
-	   	    <tr>
-      	   <td class="control-label">   @Html.DisplayNameFor(model => model.Score)  </td>
+              				   </td>
+	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.Score)  </td>
 	   <td> 
-			
-			  			<input id="@Html.IdFor(model => model.Score)"
+			   			  			<input id="@Html.IdFor(model => model.Score)"
 				   name="@Html.NameFor(model => model.Score)" 
 				   value="@Html.ValueFor(model => model.Score)"
 				   tabindex="8" 
-				   style="width:100%" 
 				   class="easyui-numberbox" 
 				   type="text" 
 				   data-options="prompt:'Score',
 								 label:'',
+                                 width:300,
 								 required:true ,precision:2" />
-			              
-				   </td>
+              				   </td>
+	   	   </tr>
+	   	    <tr>
+      	   <td class="control-label">   @Html.DisplayNameFor(model => model.CreatedDate)  </td>
+	   <td> 
+			   			  			<input id="@Html.IdFor(model => model.CreatedDate)" 
+			       name="@Html.NameFor(model => model.CreatedDate)" 
+				   tabindex="9" 
+				   class="easyui-datebox" 
+				   type="text" 
+				   value="@Html.ValueFor(model => model.CreatedDate)"
+				   data-options="prompt:'创建时间',
+								 label:'',
+                                 width:300,
+								 required:false,
+								 formatter:dateformatter" />
+			  				   </td>
 	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.CreatedBy)  </td>
 	   <td> 
-			
-			  			<input id="@Html.IdFor(model => model.CreatedBy)" 
+			   			  			<input id="@Html.IdFor(model => model.CreatedBy)" 
 				   name="@Html.NameFor(model => model.CreatedBy)" 
 				   value="@Html.ValueFor(model => model.CreatedBy)"
-				   tabindex="9" 
-				   style="width:100%" 
+				   tabindex="10" 
 				   class="easyui-textbox" 
 				   type="text" 
-				   data-options="prompt:'CreatedBy',
+				   data-options="prompt:'创建用户',
 								 label:'',
-								 required:false " />
-			              
-				   </td>
+                                 width:300,
+								 required:false ,validType:'length[0,20]'" />
+			  				   </td>
+	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.LastModifiedDate)  </td>
+	   <td> 
+			   			  			<input id="@Html.IdFor(model => model.LastModifiedDate)" 
+			       name="@Html.NameFor(model => model.LastModifiedDate)" 
+				   tabindex="11" 
+				   class="easyui-datebox" 
+				   type="text" 
+				   value="@Html.ValueFor(model => model.LastModifiedDate)"
+				   data-options="prompt:'最后更新时间',
+								 label:'',
+                                 width:300,
+								 required:false,
+								 formatter:dateformatter" />
+			  				   </td>
 	   	   </tr>
 	   	    <tr>
       	   <td class="control-label">   @Html.DisplayNameFor(model => model.LastModifiedBy)  </td>
 	   <td> 
-			
-			  			<input id="@Html.IdFor(model => model.LastModifiedBy)" 
+			   			  			<input id="@Html.IdFor(model => model.LastModifiedBy)" 
 				   name="@Html.NameFor(model => model.LastModifiedBy)" 
 				   value="@Html.ValueFor(model => model.LastModifiedBy)"
-				   tabindex="10" 
-				   style="width:100%" 
+				   tabindex="12" 
 				   class="easyui-textbox" 
 				   type="text" 
-				   data-options="prompt:'LastModifiedBy',
+				   data-options="prompt:'最后更新用户',
 								 label:'',
-								 required:false " />
-			              
-				   </td>
+                                 width:300,
+								 required:false ,validType:'length[0,20]'" />
+			  				   </td>
 	   	    		<td></td> <td></td>
+			<td></td> <td></td>
 		     </tr>
 	    <tfoot>
         <tr>
-           
         <tr>
     </tfoot>
 </table>
   <!--输出form表单界面-->
-
 <!--========================================================================================-->
-  
-
-
-
-
+ 

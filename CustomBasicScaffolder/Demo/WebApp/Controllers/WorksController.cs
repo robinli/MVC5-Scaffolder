@@ -1,4 +1,15 @@
-﻿using System;
+﻿// <copyright file="WorksController.cs" company="neozhu/MVC5-Scaffolder">
+// Copyright (c) 2017 All Rights Reserved
+// </copyright>
+// <author>neo.zhu</author>
+// <date>12/5/2017 4:53:27 PM </date>
+// <summary>
+// Create By Custom MVC5 Scaffolder for Visual Studio
+// TODO: RegisterType UnityConfig.cs
+// container.RegisterType<IRepositoryAsync<Work>, Repository<Work>>();
+// container.RegisterType<IWorkService, WorkService>();
+// </summary>
+using System;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Data;
@@ -14,36 +25,23 @@ using WebApp.Models;
 using WebApp.Services;
 using WebApp.Repositories;
 using WebApp.Extensions;
-
-
 namespace WebApp.Controllers
 {
 	public class WorksController : Controller
 	{
-		
-		//Please RegisterType UnityConfig.cs
-		//container.RegisterType<IRepositoryAsync<Work>, Repository<Work>>();
-		//container.RegisterType<IWorkService, WorkService>();
-		
 		//private StoreContext db = new StoreContext();
 		private readonly IWorkService  _workService;
 		private readonly IUnitOfWorkAsync _unitOfWork;
-
 		public WorksController (IWorkService  workService, IUnitOfWorkAsync unitOfWork)
 		{
 			_workService  = workService;
 			_unitOfWork = unitOfWork;
 		}
-
-		// GET: Works/Index
-		public async Task<ActionResult> Index()
+        		// GET: Works/Index
+		public ActionResult Index()
 		{
-			
-			var works  = _workService.Queryable();
-			return View(await works.ToListAsync()  );
-			
+			 return View();
 		}
-
 		// Get :Works/PageList
 		// For Index View Boostrap-Table load  data 
 		[HttpGet]
@@ -56,16 +54,11 @@ namespace WebApp.Controllers
 						               .Query(new WorkQuery().Withfilter(filters))
 							           .OrderBy(n=>n.OrderBy(sort,order))
 							           .SelectPageAsync(page, rows, out totalCount);
-      			
-						var datarows = works .Select(  n => new {  Id = n.Id , Name = n.Name , Status = n.Status , StartDate = n.StartDate , EndDate = n.EndDate , Enableed = n.Enableed , Hour = n.Hour , Priority = n.Priority , Score = n.Score }).ToList();
+      									var datarows = works .Select(  n => new {  Id = n.Id , Name = n.Name , Status = n.Status , StartDate = n.StartDate , EndDate = n.EndDate , Enableed = n.Enableed , Hour = n.Hour , Priority = n.Priority , Score = n.Score }).ToList();
 			var pagelist = new { total = totalCount, rows = datarows };
 			return Json(pagelist, JsonRequestBehavior.AllowGet);
 		}
-
-         
-
-
-		[HttpPost]
+         		[HttpPost]
 				public async Task<ActionResult> SaveData(WorkChangeViewModel works)
 		{
 			if (works.updated != null)
@@ -90,31 +83,22 @@ namespace WebApp.Controllers
 				}
 			}
 			await _unitOfWork.SaveChangesAsync();
-
 			return Json(new {Success=true}, JsonRequestBehavior.AllowGet);
 		}
-		
-		
-		
-	   
-		// GET: Works/Details/5
+								// GET: Works/Details/5
 		public async Task<ActionResult> Details(int? id)
 		{
 			if (id == null)
 			{
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 			}
-
 			var  work = await _workService.FindAsync(id);
-
 			if (work == null)
 			{
 				return HttpNotFound();
 			}
 			return View(work);
 		}
-		
-
 		// GET: Works/Create
 				public ActionResult Create()
 				{
@@ -122,7 +106,6 @@ namespace WebApp.Controllers
 			//set default value
 			return View(work);
 		}
-
 		// POST: Works/Create
 		// To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
@@ -148,8 +131,17 @@ namespace WebApp.Controllers
 			 }
 			 DisplayErrorMessage(modelStateErrors);
 			}
-			
-			return View(work);
+						return View(work);
+		}
+        // GET: Works/PopupEdit/5
+		public async Task<ActionResult> PopupEdit(int? id)
+		{
+			if (id == null)
+			{
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+			}
+			var work = await _workService.FindAsync(id);
+			return Json(work,JsonRequestBehavior.AllowGet);
 		}
 
 		// GET: Works/Edit/5
@@ -166,7 +158,6 @@ namespace WebApp.Controllers
 			}
 			return View(work);
 		}
-
 		// POST: Works/Edit/5
 		// To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
@@ -177,8 +168,7 @@ namespace WebApp.Controllers
 			{
 				work.ObjectState = ObjectState.Modified;
 								_workService.Update(work);
-								
-				await   _unitOfWork.SaveChangesAsync();
+								await   _unitOfWork.SaveChangesAsync();
 				if (Request.IsAjaxRequest())
 				{
 					return Json(new { success = true }, JsonRequestBehavior.AllowGet);
@@ -194,10 +184,8 @@ namespace WebApp.Controllers
 			}
 			DisplayErrorMessage(modelStateErrors);
 			}
-			
-			return View(work);
+						return View(work);
 		}
-
 		// GET: Works/Delete/5
 		public async Task<ActionResult> Delete(int? id)
 		{
@@ -212,7 +200,6 @@ namespace WebApp.Controllers
 			}
 			return View(work);
 		}
-
 		// POST: Works/Delete/5
 		[HttpPost, ActionName("Delete")]
 		//[ValidateAntiForgeryToken]
@@ -228,12 +215,8 @@ namespace WebApp.Controllers
 			DisplaySuccessMessage("Has delete a Work record");
 			return RedirectToAction("Index");
 		}
-
-
        
-
  
-
 		//导出Excel
 		[HttpPost]
 		public ActionResult ExportExcel( string filterRules = "",string sort = "Id", string order = "asc")
@@ -241,21 +224,15 @@ namespace WebApp.Controllers
 			var fileName = "works_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xlsx";
 			var stream=  _workService.ExportExcel(filterRules,sort, order );
 			return File(stream, "application/vnd.ms-excel", fileName);
-	  
 		}
-		
-
-
 		private void DisplaySuccessMessage(string msgText)
 		{
 			TempData["SuccessMessage"] = msgText;
 		}
-
 		private void DisplayErrorMessage(string msgText)
 		{
 			TempData["ErrorMessage"] = msgText;
 		}
-
 		protected override void Dispose(bool disposing)
 		{
 			if (disposing)
