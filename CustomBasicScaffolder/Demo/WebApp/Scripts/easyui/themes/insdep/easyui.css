@@ -50,7 +50,7 @@
   background: url('images/blank.gif') no-repeat;
 }
 .panel-header-noborder {
-  border-width: 0 0 1px;
+  border-width: 0 0 0px;
 }
 .panel-body {
   overflow: auto;
@@ -154,8 +154,8 @@
 }
 .panel-title {
   font-weight: bold;
-  height: 16px;
-  line-height: 16px;
+  height: 20px;
+  line-height: 20px;
 }
 .panel-footer {
   border: 1px solid #c5c5c5;
@@ -1094,12 +1094,15 @@
   white-space: nowrap;
   border-width: 1px;
   border-style: solid;
-  border-radius: 3px 3px 0 0;
+  border-radius: 0px 0px 0 0;
 }
-.tabs li.tabs-selected a.tabs-inner {
-  font-weight: bold;
-  outline: none;
-}
+    .tabs li.tabs-selected a.tabs-inner {
+        font-weight: bold;
+        outline: none;
+        box-shadow: 0 -2px 0 #57889c;
+        border-top-width: 0 !important;
+        margin-top: 2px !important
+    }
 .tabs li.tabs-selected a:hover.tabs-inner {
   cursor: default;
   pointer: default;

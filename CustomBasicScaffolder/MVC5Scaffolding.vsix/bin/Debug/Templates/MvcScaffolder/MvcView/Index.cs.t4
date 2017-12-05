@@ -248,11 +248,36 @@ foreach (PropertyMetadata property in properties) {
 							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="reload()">刷新</a>
 				</div>
 		
-		<#
+		
+		</div>
+		<!--end datagrid-content -->
+                        
+                         </div>
+                        <!-- end widget content -->
+                    </div>
+                    <!-- end widget div -->
+
+                </div>
+                <!-- end widget -->
+
+            </article>
+            <!-- WIDGET END -->
+
+        </div>
+
+        <!-- end row -->
+    </section>
+    <!-- end widget grid -->
+
+	<!-- file upload partial view -->
+	@Html.Partial("_ImportWindow",new  ViewDataDictionary { { "EntityName","<#= ModelTypeName #>" }})		 
+	<!-- end file upload partial view -->
+        <#
 		if( GenerateMasterDetailRelationship && OneToManyModelMetadata.Count>0)
 		{
 		#>
-            <div id="detailswindow" hidden="hidden" class="easyui-window animated bounceInRight" title="明细数据" data-options="modal:true,closed:true,iconcls:'icon-menu'" style="width:960px;height:520px">
+            <!-- detail popup window -->
+            <div id="detailswindow" hidden="hidden" class="easyui-window" title="明细数据" data-options="modal:true,closed:true,iconcls:'icon-menu'" style="width:960px;height:520px">
 			<!--detail entity tabs -->
 			<div id="detailstabs" class="easyui-tabs" style="width:auto;height:400px;">
 			<# 
@@ -374,33 +399,10 @@ foreach (PropertyMetadata property in properties) {
 			</div>
 			<!--end detail entity tabs -->
             </div>
+            <!-- end detail popup window -->
 		<# 
 		}
 		 #>
-		</div>
-		<!--end datagrid-content -->
-                        
-                         </div>
-                        <!-- end widget content -->
-                    </div>
-                    <!-- end widget div -->
-
-                </div>
-                <!-- end widget -->
-
-            </article>
-            <!-- WIDGET END -->
-
-        </div>
-
-        <!-- end row -->
-    </section>
-    <!-- end widget grid -->
-
-	<!-- file upload partial view -->
-	@Html.Partial("_ImportWindow",new  ViewDataDictionary { { "EntityName","<#= ModelTypeName #>" }})		 
-	<!-- end file upload partial view -->
-
 </div>
 <!-- END MAIN CONTENT -->
 

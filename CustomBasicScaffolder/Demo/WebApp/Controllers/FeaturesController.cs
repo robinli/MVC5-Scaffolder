@@ -24,6 +24,9 @@ namespace WebApp.Controllers
         {
             return View();
         }
+        public ActionResult General() {
+            return View();
+        }
         public ActionResult TeamMember()
         {
             return View();

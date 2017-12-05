@@ -4174,6 +4174,7 @@
     <Content Include="Scripts\plugin\inputpicker\example-districts.json" />
     <Content Include="Scripts\plugin\inputpicker\example-regions.json" />
     <Content Include="Views\Features\TeamMember.cshtml" />
+    <Content Include="Views\Features\General.cshtml" />
     <None Include="Views\Notifications\_notifications.cshtml" />
     <None Include="Views\Messages\_notifications.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Int.cshtml">
@@ -4241,6 +4242,11 @@
     <Content Include="Views\Products\Create.cshtml" />
     <Content Include="Views\Products\Edit.cshtml" />
     <Content Include="Views\Products\EditForm.cshtml" />
+    <Content Include="Views\Orders\Index.cshtml" />
+    <Content Include="Views\Orders\Create.cshtml" />
+    <Content Include="Views\Orders\Edit.cshtml" />
+    <Content Include="Views\Orders\EditForm.cshtml" />
+    <Content Include="Views\Orders\_OrderDetailEditForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -4547,11 +4553,11 @@
     <Content Include="Scripts\plugin\jquery-filer\assets\fonts\jquery.filer-icons\jquery-filer.eot" />
     <Content Include="Scripts\plugin\jquery-filer\assets\fonts\jquery.filer-icons\jquery-filer.ttf" />
     <Content Include="Scripts\plugin\jquery-filer\assets\fonts\jquery.filer-icons\jquery-filer.woff" />
-    <Content Include="Views\Orders\Index.cshtml" />
-    <Content Include="Views\Orders\Create.cshtml" />
-    <Content Include="Views\Orders\Edit.cshtml" />
-    <Content Include="Views\Orders\EditForm.cshtml" />
-    <Content Include="Views\Orders\_OrderDetailEditForm.cshtml" />
+    <Content Include="Views\Orders1\Index.cshtml" />
+    <Content Include="Views\Orders1\Create.cshtml" />
+    <Content Include="Views\Orders1\Edit.cshtml" />
+    <Content Include="Views\Orders1\EditForm.cshtml" />
+    <Content Include="Views\Orders1\_OrderDetailEditForm.cshtml" />
     <Content Include="Views\Account\Profile.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
     <Content Include="Views\Works\Create.cshtml" />
