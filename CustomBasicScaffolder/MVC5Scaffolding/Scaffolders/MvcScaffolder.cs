@@ -250,7 +250,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             string viewFolderPath = Path.Combine(viewRootPath, controllerRootName);
             // Shared Layout Views
             //AddSharedLayoutTemplates(project, viewRootPath, selectionRelativePath, dbContextNamespace, dbContextTypeName, modelType, efMetadata);
-            foreach (string viewName in new string[4] { "Index", "Create", "Edit", "EditForm"})
+            foreach (string viewName in new string[5] { "Index", "Create", "Edit", "EditForm", "_PopupDetailFormView" })
             {
                 //string viewName = string.Format(view, viewPrefix);
                 //未完成

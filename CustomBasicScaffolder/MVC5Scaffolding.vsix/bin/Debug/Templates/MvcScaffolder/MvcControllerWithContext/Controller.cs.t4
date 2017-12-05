@@ -411,6 +411,25 @@ namespace <#= Namespace #>
 			<# } #>
 			return View(<#= ModelVariable #>);
 		}
+        // GET: <#= routePrefix #>/<#= ViewPrefix #>PopupEdit/5
+<# if (UseAsync) { #>
+		public async Task<ActionResult> <#= ViewPrefix #>PopupEdit(<#= primaryKeyNullableTypeName #> id)
+<# } else { #>
+		public ActionResult <#= ViewPrefix #>Edit(<#= primaryKeyNullableTypeName #> id)
+<# } #>
+		{
+			if (id == null)
+			{
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+			}
+<# if (UseAsync) { #>
+			var <#= ModelVariable #> = await <#= modelServiceVar #>.FindAsync(id);
+<# } else { #>
+			var <#= ModelVariable #> = <#= modelServiceVar #>.Find(id);
+<# } #>
+			return Json(<#= ModelVariable #>,JsonRequestBehavior.AllowGet);
+		}
+
 		// GET: <#= routePrefix #>/<#= ViewPrefix #>Edit/5
 <# if (UseAsync) { #>
 		public async Task<ActionResult> <#= ViewPrefix #>Edit(<#= primaryKeyNullableTypeName #> id)

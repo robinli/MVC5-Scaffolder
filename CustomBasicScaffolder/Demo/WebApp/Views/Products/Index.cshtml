@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<WebApp.Models.Product>
 @{
-	ViewBag.Title = "Product";
+	ViewBag.Title = "物料主档";
 }
 <!-- MAIN CONTENT -->
 <div id="content">
@@ -15,7 +15,7 @@
                 路径
                 <span>
                     >
-                  Product
+                  物料主档
                 </span>
             </h1>
         </div>
@@ -47,7 +47,7 @@
                     -->
                     <header>
                         <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-                        <h2>Product</h2>
+                        <h2>物料主档</h2>
                     </header>
 
                      <!-- widget div-->
@@ -173,7 +173,8 @@
 							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="reload()">刷新</a>
 				</div>
 		
-				</div>
+		
+		</div>
 		<!--end datagrid-content -->
                         
                          </div>
@@ -196,8 +197,9 @@
 	<!-- file upload partial view -->
 	@Html.Partial("_ImportWindow",new  ViewDataDictionary { { "EntityName","Product" }})		 
 	<!-- end file upload partial view -->
-
-</div>
+                    <!-- detail popup window -->
+            @Html.Partial("_PopupDetailFormView",new WebApp.Models.Product() )
+            </div>
 <!-- END MAIN CONTENT -->
 
 @section Scripts {
@@ -417,7 +419,14 @@
         //弹出明细信息
 		function showDetailsWindow(id) {
 			//console.log(index, row);
-			 		}
+			             $.getJSON('/Products/PopupEdit/' + id, function (data, status, xhr) {
+                //console.log(data);
+                $('#product_form').form('load', data);
+                $('#detailswindow').window('open');
+                
+
+            });
+            		}
  
 		
 		

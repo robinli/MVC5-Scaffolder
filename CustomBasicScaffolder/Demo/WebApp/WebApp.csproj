@@ -4238,7 +4238,7 @@
     <Content Include="Views\Companies\EditForm.cshtml" />
     <Content Include="Views\RoleMenus\_navMenuBar.cshtml" />
     <Content Include="Views\RoleMenus\Index.cshtml" />
-    <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Views\Products\Index1.cshtml" />
     <Content Include="Views\Products\Create.cshtml" />
     <Content Include="Views\Products\Edit.cshtml" />
     <Content Include="Views\Products\EditForm.cshtml" />
@@ -4247,6 +4247,8 @@
     <Content Include="Views\Orders\Edit.cshtml" />
     <Content Include="Views\Orders\EditForm.cshtml" />
     <Content Include="Views\Orders\_OrderDetailEditForm.cshtml" />
+    <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Views\Products\_PopupDetailFormView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -4553,11 +4555,6 @@
     <Content Include="Scripts\plugin\jquery-filer\assets\fonts\jquery.filer-icons\jquery-filer.eot" />
     <Content Include="Scripts\plugin\jquery-filer\assets\fonts\jquery.filer-icons\jquery-filer.ttf" />
     <Content Include="Scripts\plugin\jquery-filer\assets\fonts\jquery.filer-icons\jquery-filer.woff" />
-    <Content Include="Views\Orders1\Index.cshtml" />
-    <Content Include="Views\Orders1\Create.cshtml" />
-    <Content Include="Views\Orders1\Edit.cshtml" />
-    <Content Include="Views\Orders1\EditForm.cshtml" />
-    <Content Include="Views\Orders1\_OrderDetailEditForm.cshtml" />
     <Content Include="Views\Account\Profile.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
     <Content Include="Views\Works\Create.cshtml" />

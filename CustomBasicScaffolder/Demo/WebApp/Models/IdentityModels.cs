@@ -41,6 +41,10 @@ namespace WebApp.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<WebApp.Models.Product> Products { get; set; }
+
+        public System.Data.Entity.DbSet<WebApp.Models.Category> Categories { get; set; }
     }
 
    

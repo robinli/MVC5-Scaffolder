@@ -1,10 +1,10 @@
 ﻿// <copyright file="ProductsController.cs" company="neozhu/MVC5-Scaffolder">
 // Copyright (c) 2017 All Rights Reserved
 // </copyright>
-// <author>neozhu</author>
-// <date>12/1/2017 8:31:50 AM </date>
+// <author>neo.zhu</author>
+// <date>12/5/2017 3:58:10 PM </date>
 // <summary>
-// 
+// Create By Custom MVC5 Scaffolder for Visual Studio
 // TODO: RegisterType UnityConfig.cs
 // container.RegisterType<IRepositoryAsync<Product>, Repository<Product>>();
 // container.RegisterType<IProductService, ProductService>();
@@ -51,9 +51,9 @@ namespace WebApp.Controllers
             var totalCount = 0;
             //int pagenum = offset / limit +1;
             var products = await _productService
-            .Query(new ProductQuery().Withfilter(filters)).Include(p => p.Category)
-            .OrderBy(n => n.OrderBy(sort, order))
-            .SelectPageAsync(page, rows, out totalCount);
+       .Query(new ProductQuery().Withfilter(filters)).Include(p => p.Category)
+       .OrderBy(n => n.OrderBy(sort, order))
+       .SelectPageAsync(page, rows, out totalCount);
             var datarows = products.Select(n => new { CategoryName = (n.Category == null ? "" : n.Category.Name), Id = n.Id, Name = n.Name, Unit = n.Unit, UnitPrice = n.UnitPrice, StockQty = n.StockQty, ConfirmDateTime = n.ConfirmDateTime, IsRequiredQc = n.IsRequiredQc, CategoryId = n.CategoryId }).ToList();
             var pagelist = new { total = totalCount, rows = datarows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
@@ -124,16 +124,8 @@ namespace WebApp.Controllers
         {
             var product = new Product();
             //set default value
-            //var categoryRepository = _unitOfWork.RepositoryAsync<Category>();
-            //ViewBag.CategoryId = new SelectList(categoryRepository.Queryable(), "Id", "Name");
-            return View(product);
-        }
-        public ActionResult PopupCreate()
-        {
-            var product = new Product();
-            //set default value
-            //var categoryRepository = _unitOfWork.RepositoryAsync<Category>();
-            //ViewBag.CategoryId = new SelectList(categoryRepository.Queryable(), "Id", "Name");
+            var categoryRepository = _unitOfWork.RepositoryAsync<Category>();
+            ViewBag.CategoryId = new SelectList(categoryRepository.Queryable(), "Id", "Name");
             return View(product);
         }
         // POST: Products/Create
@@ -166,19 +158,18 @@ namespace WebApp.Controllers
             ViewBag.CategoryId = new SelectList(await categoryRepository.Queryable().ToListAsync(), "Id", "Name", product.CategoryId);
             return View(product);
         }
-        public async Task<ActionResult> PopupEdit(int? id) {
+        // GET: Products/PopupEdit/5
+        public async Task<ActionResult> PopupEdit(int? id)
+        {
+            
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             var product = await _productService.FindAsync(id);
-            if (product == null)
-            {
-                return HttpNotFound();
-            }
-     
-            return  PartialView("Edit", product);
+            return Json(product, JsonRequestBehavior.AllowGet);
         }
+
         // GET: Products/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
@@ -191,9 +182,9 @@ namespace WebApp.Controllers
             {
                 return HttpNotFound();
             }
-            //var categoryRepository = _unitOfWork.RepositoryAsync<Category>();
-            //ViewBag.CategoryId = new SelectList(categoryRepository.Queryable(), "Id", "Name", product.CategoryId);
-            return View("Edit",product);
+            var categoryRepository = _unitOfWork.RepositoryAsync<Category>();
+            ViewBag.CategoryId = new SelectList(categoryRepository.Queryable(), "Id", "Name", product.CategoryId);
+            return View(product);
         }
         // POST: Products/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -255,6 +246,8 @@ namespace WebApp.Controllers
             DisplaySuccessMessage("Has delete a Product record");
             return RedirectToAction("Index");
         }
+
+
         //导出Excel
         [HttpPost]
         public ActionResult ExportExcel(string filterRules = "", string sort = "Id", string order = "asc")

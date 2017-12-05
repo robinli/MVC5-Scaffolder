@@ -117,7 +117,7 @@ bool isControlHtmlAttributesSupported = MvcVersion >= requiredMvcVersion;
         //save item
         function saveitem() {
             if ($('#<#= ModelTypeName.ToLower() #>_form').form('enableValidation').form('validate')) {
-                var item = $('#product_form').serializeObject();
+                var item = $('#<#= ModelTypeName.ToLower() #>_form').serializeObject();
                   <#  if(GenerateMasterDetailRelationship  && OneToManyModelMetadata.Count >0) { 
 						var primaryKeyVar = ModelTypeName.ToLower() + primaryKey.ToLower();
 				  #>

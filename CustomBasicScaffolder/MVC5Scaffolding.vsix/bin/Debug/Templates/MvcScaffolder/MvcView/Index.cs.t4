@@ -394,15 +394,21 @@ foreach (PropertyMetadata property in properties) {
 				</div>
 				<!--end <#= entitySetName  #> tab   -->
 			<# 
-				}
+				} 
 			#>
+            
 			</div>
 			<!--end detail entity tabs -->
             </div>
             <!-- end detail popup window -->
 		<# 
-		}
+		} else {
 		 #>
+            <!-- detail popup window -->
+            @Html.Partial("_PopupDetailFormView",new <#=ViewDataTypeName #>() )
+            <#
+                }
+            #>
 </div>
 <!-- END MAIN CONTENT -->
 
@@ -696,7 +702,15 @@ foreach (PropertyMetadata property in properties) {
 			
                 <# } #>
             //filterBy<#= foreignKey  #>(id);
-			<# } #>
+			<# }  else { #>
+            $.getJSON('/<#= ControllerRootName #>/PopupEdit/' + id, function (data, status, xhr) {
+                //console.log(data);
+                $('#<#= ModelTypeName.ToLower() #>_form').form('load', data);
+                $('#detailswindow').window('open');
+                
+
+            });
+            <# } #>
 		}
  
 		
