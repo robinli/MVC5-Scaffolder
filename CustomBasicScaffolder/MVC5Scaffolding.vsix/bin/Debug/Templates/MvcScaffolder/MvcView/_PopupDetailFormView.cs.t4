@@ -220,7 +220,7 @@
     <!-- details tabs -->
     <div class="tabs-container">
         <!-- Nav tabs -->
-        <ul class="nav nav-tabs">
+        <ul class="nav nav-tabs bordered">
 <#
 		var idx=0;
         foreach (var dic in OneToManyModelMetadata) 
@@ -239,7 +239,7 @@
 #>   
 		 </ul>
 		 <!-- Tab panes -->
-         <div class="tab-content">
+         <div class="tab-content padding-10">
 		  <#
 			idx=0;
         foreach (var dic in OneToManyModelMetadata) 
