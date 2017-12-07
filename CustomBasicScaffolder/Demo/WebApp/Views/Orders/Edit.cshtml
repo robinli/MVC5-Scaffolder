@@ -1,5 +1,5 @@
 ﻿@model WebApp.Models.Order
-@{  ViewBag.Title = "订单信息 | Edit";} 
+@{  ViewBag.Title = "订单管理 | Edit";} 
 <!-- MAIN CONTENT -->
 <div id="content">
      <!-- quick navigation bar -->
@@ -13,7 +13,7 @@
                 路径
                 <span>
                     >
-                    订单信息
+                    订单管理
                 </span>
             </h1>
         </div>
@@ -41,7 +41,7 @@
             -->
             <header>
                 <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
-                <h2> 订单信息 </h2>
+                <h2> 订单管理 </h2>
 
             </header>
 
@@ -102,7 +102,7 @@
         //save item
         function saveitem() {
             if ($('#order_form').form('enableValidation').form('validate')) {
-                var item = $('#product_form').serializeObject();
+                var item = $('#order_form').serializeObject();
                   				  //获取明细表数据
 				   
 						if (!orderdetails_endEditing())

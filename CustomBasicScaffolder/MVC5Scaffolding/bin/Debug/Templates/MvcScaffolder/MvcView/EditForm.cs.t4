@@ -327,7 +327,7 @@
 				<div id="<#= subpropertyName.ToLower() #>_toolbar" style="height:auto">
                     <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="<#= subpropertyName.ToLower() #>_createitem()">新增</a>
                     <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="<#= subpropertyName.ToLower() #>_removeitem()">删除</a>
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="<#= subpropertyName.ToLower() #>_saveitem()">保持</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="<#= subpropertyName.ToLower() #>_saveitem()">保存</a>
                     <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="<#= subpropertyName.ToLower() #>_reject()">取消</a>
                 </div>
                 </div>

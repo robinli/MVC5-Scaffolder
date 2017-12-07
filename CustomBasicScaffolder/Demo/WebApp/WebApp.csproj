@@ -4242,11 +4242,6 @@
     <Content Include="Views\Products\Create.cshtml" />
     <Content Include="Views\Products\Edit.cshtml" />
     <Content Include="Views\Products\EditForm.cshtml" />
-    <Content Include="Views\Orders\Index.cshtml" />
-    <Content Include="Views\Orders\Create.cshtml" />
-    <Content Include="Views\Orders\Edit.cshtml" />
-    <Content Include="Views\Orders\EditForm.cshtml" />
-    <Content Include="Views\Orders\_OrderDetailEditForm.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\Products\_PopupDetailFormView.cshtml" />
     <Content Include="Views\Works\Index.cshtml" />
@@ -4254,6 +4249,12 @@
     <Content Include="Views\Works\Edit.cshtml" />
     <Content Include="Views\Works\EditForm.cshtml" />
     <Content Include="Views\Works\_PopupDetailFormView.cshtml" />
+    <Content Include="Views\Orders\Index.cshtml" />
+    <Content Include="Views\Orders\Create.cshtml" />
+    <Content Include="Views\Orders\Edit.cshtml" />
+    <Content Include="Views\Orders\EditForm.cshtml" />
+    <Content Include="Views\Orders\_PopupDetailFormView.cshtml" />
+    <Content Include="Views\Orders\_OrderDetailEditForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
