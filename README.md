@@ -13,8 +13,9 @@ Visual Studio.net 2013 asp.net MVC 5 Scaffolding代码生成向导开源项目
 5.	查询功能，会根据字段类型的不同生成不同的控件方便操作，datebox，combox
 6.	Excel导入功能，目前只能实现简单表导入的配置
 
-
 感谢你的支持
+我的联系方式
+QQ：28440117，email:new163@163.com,微信：neostwitter
 
  
 
