@@ -1,5 +1,5 @@
 ﻿#region Using
-
+using System.Linq;
 using System;
 using System.Reflection;
 using System.Text;
@@ -7,6 +7,9 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using Microsoft.Ajax.Utilities;
+using WebApp.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 
 #endregion
 
@@ -90,6 +93,125 @@ namespace WebApp
 
             htmlHelper.RenderPartial(partialViewName);
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="html"></param>
+        /// <param name="controller"></param>
+        /// <param name="action"></param>
+        /// <param name="cssClass"></param>
+        /// <returns></returns>
+        public static string IsSelected(this HtmlHelper html, string controller = null, string action = null, string cssClass = null)
+        {
+
+            if (String.IsNullOrEmpty(cssClass))
+                cssClass = "active";
+
+            string currentAction = (string)html.ViewContext.HttpContext.Request.RequestContext.RouteData.Values["action"];
+            string currentController = (string)html.ViewContext.HttpContext.Request.RequestContext.RouteData.Values["controller"];
+
+            if (String.IsNullOrEmpty(controller))
+            {
+                controller = currentController;
+            }
+
+            if (String.IsNullOrEmpty(action))
+                action = currentAction;
+            var ctrs = controller.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            if (ctrs.Length > 1)
+            {
+                return ctrs.Contains(currentController) ? cssClass : String.Empty;
+            }
+            return controller == currentController && action == currentAction ? cssClass : String.Empty;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="html"></param>
+        /// <param name="menu"></param>
+        /// <returns></returns>
+        public static bool IsAuthorize(this HtmlHelper html, string menu)
+        {
+            string userid = html.ViewContext.HttpContext.User.Identity.GetUserId();
+            string currentAction = (string)html.ViewContext.RouteData.Values["action"];
+            string currentController = (string)html.ViewContext.RouteData.Values["controller"];
+            string key = userid + currentAction + currentController;
+            // var data= html.ViewContext.HttpContext.Cache.Data<IList<WebApp.Models.RoleMenu>>(key,10000,()=>{
+            var rolemanager = html.ViewContext.HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
+            var usermanager = html.ViewContext.HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+
+            var roles = usermanager.GetRoles(userid);
+            StoreContext db = new StoreContext();
+            var authorize = db.RoleMenus.Where(x => roles.Contains(x.RoleName) && x.MenuItem.Action == currentAction && x.MenuItem.Controller == currentController).ToList();
+            //return authorize;
+            //});
+            var data = authorize;
+            if (menu == "Create")
+            {
+                return data.Where(x => x.Create == true).Any();
+            }
+            if (menu == "Edit")
+            {
+                return data.Where(x => x.Edit == true).Any();
+            }
+            if (menu == "Delete")
+            {
+                return data.Where(x => x.Delete == true).Any();
+            }
+            if (menu == "Import")
+            {
+                return data.Where(x => x.Import == true).Any();
+            }
+
+
+
+
+            return false;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="html"></param>
+        /// <param name="linkText"></param>
+        /// <param name="action"></param>
+        /// <param name="controllerName"></param>
+        /// <param name="iconClass"></param>
+        /// <returns></returns>
+        public static MvcHtmlString ActionButton(this HtmlHelper html, string linkText, string action, string controllerName, string iconClass)
+        {
+            //<a href="/@lLink.ControllerName/@lLink.ActionName" title="@lLink.LinkText"><i class="@lLink.IconClass"></i><span class="">@lLink.LinkText</span></a>
+            var lURL = new UrlHelper(html.ViewContext.RequestContext);
+
+            // build the <span class="">@lLink.LinkText</span> tag
+            var lSpanBuilder = new TagBuilder("span");
+            lSpanBuilder.MergeAttribute("class", "");
+            lSpanBuilder.SetInnerText(linkText);
+            string lSpanHtml = lSpanBuilder.ToString(TagRenderMode.Normal);
+
+            // build the <i class="@lLink.IconClass"></i> tag
+            var lIconBuilder = new TagBuilder("i");
+            lIconBuilder.MergeAttribute("class", iconClass);
+            string lIconHtml = lIconBuilder.ToString(TagRenderMode.Normal);
+
+            // build the <a href="@lLink.ControllerName/@lLink.ActionName" title="@lLink.LinkText">...</a> tag
+            var lAnchorBuilder = new TagBuilder("a");
+            lAnchorBuilder.MergeAttribute("href", lURL.Action(action, controllerName));
+            lAnchorBuilder.InnerHtml = lIconHtml + lSpanHtml; // include the <i> and <span> tags inside
+            string lAnchorHtml = lAnchorBuilder.ToString(TagRenderMode.Normal);
+
+            return MvcHtmlString.Create(lAnchorHtml);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="html"></param>
+        /// <returns></returns>
+        public static string PageClass(this HtmlHelper html)
+        {
+            string currentAction = (string)html.ViewContext.RouteData.Values["action"];
+            return currentAction;
+        }
+
 
         /// <summary>
         ///     Retrieves a non-HTML encoded string containing the assembly version and the application copyright as a formatted

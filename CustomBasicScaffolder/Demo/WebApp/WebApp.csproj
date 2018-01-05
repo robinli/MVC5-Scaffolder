@@ -205,7 +205,6 @@
     <Compile Include="App_Helpers\HtmlHelperExtensions.cs" />
     <Compile Include="App_Helpers\KeyGenerator.cs" />
     <Compile Include="App_Helpers\Logger.cs" />
-    <Compile Include="App_Helpers\MyDictionary.cs" />
     <Compile Include="App_Helpers\Settings.cs" />
     <Compile Include="App_Helpers\StringExtensions.cs" />
     <Compile Include="App_Helpers\UserManager.cs" />
@@ -249,12 +248,11 @@
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\RoleMenusController.cs" />
     <Compile Include="Controllers\WorksController.cs" />
-    <Compile Include="Extensions\AttributeHelper.cs" />
-    <Compile Include="Extensions\ExcelHelper.cs" />
-    <Compile Include="Extensions\filterRule.cs" />
-    <Compile Include="Extensions\HtmlExtensions.cs" />
-    <Compile Include="Extensions\LinqOrderByColumnsNameExtensions.cs" />
-    <Compile Include="Extensions\PageListExtensions.cs" />
+    <Compile Include="App_Helpers\AttributeHelper.cs" />
+    <Compile Include="App_Helpers\ExcelHelper.cs" />
+    <Compile Include="App_Helpers\filterRule.cs" />
+    <Compile Include="App_Helpers\CacheExtensions.cs" />
+    <Compile Include="App_Helpers\LinqOrderByColumnsNameExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -4260,6 +4258,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\img\realestate\thumbs\" />
     <Folder Include="export\" />
+    <Folder Include="Extensions\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
