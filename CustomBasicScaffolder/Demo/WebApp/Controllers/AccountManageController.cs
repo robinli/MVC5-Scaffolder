@@ -12,7 +12,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using WebApp.Models;
-using WebApp.Extensions;
+ 
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using WebApp.Services;

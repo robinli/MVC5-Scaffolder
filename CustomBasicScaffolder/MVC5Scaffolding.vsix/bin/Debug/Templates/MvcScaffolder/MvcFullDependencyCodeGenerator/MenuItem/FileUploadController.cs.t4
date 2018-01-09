@@ -18,7 +18,7 @@ using System.IO;
 using <#= DefaultNamespace #>.Models;
 using <#= DefaultNamespace #>.Services;
 using <#= DefaultNamespace #>.Repositories;
-using <#= DefaultNamespace #>.Extensions;
+ 
 
 
 namespace <#= DefaultNamespace #>.Controllers

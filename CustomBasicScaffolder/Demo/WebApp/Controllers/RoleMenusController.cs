@@ -13,7 +13,7 @@ using Repository.Pattern.Infrastructure;
 using WebApp.Models;
 using WebApp.Services;
 using WebApp.Repositories;
-using WebApp.Extensions;
+ 
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 

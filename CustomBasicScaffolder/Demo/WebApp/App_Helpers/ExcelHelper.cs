@@ -9,7 +9,7 @@ using System.Linq;
 using System.Reflection;
 using System.Web;
 
-namespace WebApp.Extensions
+namespace WebApp
 {
     public class ExcelHelper
     {

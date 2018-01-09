@@ -17,7 +17,7 @@ using Microsoft.Owin.Security;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using <#= DefaultNamespace #>.Models;
-using <#= DefaultNamespace #>.Extensions;
+ 
 
 namespace <#= DefaultNamespace #>.Controllers
 {
