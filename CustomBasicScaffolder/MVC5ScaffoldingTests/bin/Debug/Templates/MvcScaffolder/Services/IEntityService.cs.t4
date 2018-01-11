@@ -1,5 +1,4 @@
-﻿
-<#@ Template Language="C#" HostSpecific="True"  #>
+﻿<#@ Template Language="C#" HostSpecific="True"  #>
 <#@ Output Extension="cs" #>
 <#@ ScaffoldingAssembly Processor="ScaffoldingAssemblyLoader" #>
 <#@ assembly name="System.ComponentModel.DataAnnotations" #>
@@ -21,11 +20,20 @@
 <#@ parameter type="System.String" name="ModelName" #>
 <#@ parameter type="System.String" name="PluralizedModelName" #>
 <#@ parameter type="Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata" name="ModelMetadata" #>
-
-<#@ parameter type="System.String" name="PrimaryKeyName" #>     
-<#@ parameter type="System.Collections.Generic.Dictionary<string, Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata>" name="OneToManyModelMetadata" #> 
- 
+<#@ parameter type="System.String" name="PrimaryKeyName" #>
+<#@ parameter type="System.Collections.Generic.Dictionary<string, Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata>" name="OneToManyModelMetadata" #>
 <#@ parameter type="System.String" name ="SelectLambdaText" #>
+// <copyright file="I<#= ModelName #>Service.cs" company="neozhu/MVC5-Scaffolder">
+// Copyright (c) <#= DateTime.Now.Year #> All Rights Reserved
+// </copyright>
+// <author>neo.zhu</author>
+// <date><#= DateTime.Now.ToString("G") #> </date>
+// <summary>
+//  定义具体的业务逻辑接口
+//   
+//  
+//  
+// </summary>
 
 using System;
 using System.Collections.Generic;

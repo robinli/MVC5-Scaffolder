@@ -4090,6 +4090,8 @@
     <Content Include="Scripts\plugin\highchartTable\jquery.highchartTable.min.js" />
     <Content Include="Scripts\plugin\ie-placeholder\jquery.placeholder.min.js" />
     <Content Include="Scripts\plugin\ie-placeholder_\jquery.placeholder.min.js" />
+    <Content Include="Scripts\plugin\inputpicker\jquery.inputpicker - last.css" />
+    <Content Include="Scripts\plugin\inputpicker\jquery.inputpicker - last.js" />
     <Content Include="Scripts\plugin\inputpicker\jquery.inputpicker.css" />
     <Content Include="Scripts\plugin\inputpicker\jquery.inputpicker.js" />
     <Content Include="Scripts\plugin\ion-slider\ion.rangeSlider-backup.min.js" />

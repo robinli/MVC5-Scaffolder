@@ -7,6 +7,7 @@ namespace WebApp.Models
     [MetadataType(typeof(EmployeeMetadata))]
     public partial class Employee
     {
+   
     }
 
     public partial class EmployeeMetadata

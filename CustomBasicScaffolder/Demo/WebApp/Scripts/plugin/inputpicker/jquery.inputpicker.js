@@ -45,7 +45,7 @@
                 {
                     original.data('inputpicker-uuid', uuid);
                     var ow = original.outerWidth();
-
+                   
                     // Clone input
                     var input = original.clone();
 
@@ -53,7 +53,7 @@
                     input.val('').data('inputpicker-uuid', uuid).addClass('inputpicker-input').prop('id', 'inputpicker-' + uuid).prop('name', 'inputpicker-' + uuid);
 
                     // Inputpicker div ( wrap fake input and arrow )
-                    var inputpicker_div = $("<div id=\"inputpicker-div-" + uuid + "\" class=\"inputpicker-div\" data-uuid=\"" + uuid + "\" style=\"width:" + ow + "px;position:relative;overflow:auto;height:100%;\"><span class=\"inputpicker-arrow\" data-uuid=\"" + uuid + "\" onclick=\"$(this).parent().find('input').inputpicker('toggle');event.stopPropagation();\"><b></b></span></div>")
+                    var inputpicker_div = $("<div id=\"inputpicker-div-" + uuid + "\" class=\"inputpicker-div\" data-uuid=\"" + uuid + "\" style=\"width:" + (ow+2) + "px;position:relative;overflow:auto;height:100%;\"> </div>")
                         .append(input)
                         .on('click', function (e) {
 
@@ -390,7 +390,7 @@
         resize: function (width) {
             var input = _i($(this));
             //console.log(width, input);
-            input.parent().css('width', width);
+            input.parent().css('width', (width+2));
             input.css('width', width);
             var wrapped_list = _getWrappedList();
             wrapped_list.css({
