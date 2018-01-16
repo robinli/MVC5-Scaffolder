@@ -1,7 +1,7 @@
 /**
- * EasyUI for jQuery 1.5.3
+ * EasyUI for jQuery 1.5.4
  * 
- * Copyright (c) 2009-2017 www.jeasyui.com. All rights reserved.
+ * Copyright (c) 2009-2018 www.jeasyui.com. All rights reserved.
  *
  * Licensed under the freeware license: http://www.jeasyui.com/license_freeware.php
  * To use it on other terms please contact us: info@jeasyui.com
@@ -65,9 +65,9 @@
 				onSelect:function(date){
 					var target = this.target;
 					var opts = $(target).datebox('options');
+					opts.onSelect.call(target, date);
 					setValue(target, opts.formatter.call(target, date));
 					$(target).combo('hidePanel');
-					opts.onSelect.call(target, date);
 				}
 			});
 		}
@@ -246,12 +246,15 @@
 		buttons:[{
 			text: function(target){return $(target).datebox('options').currentText;},
 			handler: function(target){
+				var opts = $(target).datebox('options');
 				var now = new Date();
+				var current = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 				$(target).datebox('calendar').calendar({
-					year:now.getFullYear(),
-					month:now.getMonth()+1,
-					current:new Date(now.getFullYear(), now.getMonth(), now.getDate())
+					year:current.getFullYear(),
+					month:current.getMonth()+1,
+					current:current
 				});
+				opts.onSelect.call(target, current);
 				doEnter(target);
 			}
 		},{

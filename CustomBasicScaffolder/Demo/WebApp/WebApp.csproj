@@ -2935,8 +2935,10 @@
     <Content Include="Scripts\easyui\src\jquery.slider.js" />
     <Content Include="Scripts\easyui\src\jquery.tabs.js" />
     <Content Include="Scripts\easyui\src\jquery.window.js" />
+    <Content Include="Scripts\easyui\themes\angular.css" />
     <Content Include="Scripts\easyui\themes\black\accordion.css" />
     <Content Include="Scripts\easyui\themes\black\calendar.css" />
+    <Content Include="Scripts\easyui\themes\black\checkbox.css" />
     <Content Include="Scripts\easyui\themes\black\combo.css" />
     <Content Include="Scripts\easyui\themes\black\combobox.css" />
     <Content Include="Scripts\easyui\themes\black\datagrid.css" />
@@ -2974,6 +2976,7 @@
     <Content Include="Scripts\easyui\themes\black\panel.css" />
     <Content Include="Scripts\easyui\themes\black\progressbar.css" />
     <Content Include="Scripts\easyui\themes\black\propertygrid.css" />
+    <Content Include="Scripts\easyui\themes\black\radiobutton.css" />
     <Content Include="Scripts\easyui\themes\black\searchbox.css" />
     <Content Include="Scripts\easyui\themes\black\slider.css" />
     <Content Include="Scripts\easyui\themes\black\spinner.css" />
@@ -2987,6 +2990,7 @@
     <Content Include="Scripts\easyui\themes\black\window.css" />
     <Content Include="Scripts\easyui\themes\bootstrap\accordion.css" />
     <Content Include="Scripts\easyui\themes\bootstrap\calendar.css" />
+    <Content Include="Scripts\easyui\themes\bootstrap\checkbox.css" />
     <Content Include="Scripts\easyui\themes\bootstrap\combo.css" />
     <Content Include="Scripts\easyui\themes\bootstrap\combobox.css" />
     <Content Include="Scripts\easyui\themes\bootstrap\datagrid.css" />
@@ -3024,6 +3028,7 @@
     <Content Include="Scripts\easyui\themes\bootstrap\panel.css" />
     <Content Include="Scripts\easyui\themes\bootstrap\progressbar.css" />
     <Content Include="Scripts\easyui\themes\bootstrap\propertygrid.css" />
+    <Content Include="Scripts\easyui\themes\bootstrap\radiobutton.css" />
     <Content Include="Scripts\easyui\themes\bootstrap\searchbox.css" />
     <Content Include="Scripts\easyui\themes\bootstrap\slider.css" />
     <Content Include="Scripts\easyui\themes\bootstrap\spinner.css" />
@@ -3038,6 +3043,7 @@
     <Content Include="Scripts\easyui\themes\color.css" />
     <Content Include="Scripts\easyui\themes\default\accordion.css" />
     <Content Include="Scripts\easyui\themes\default\calendar.css" />
+    <Content Include="Scripts\easyui\themes\default\checkbox.css" />
     <Content Include="Scripts\easyui\themes\default\combo.css" />
     <Content Include="Scripts\easyui\themes\default\combobox.css" />
     <Content Include="Scripts\easyui\themes\default\datagrid.css" />
@@ -3075,6 +3081,7 @@
     <Content Include="Scripts\easyui\themes\default\panel.css" />
     <Content Include="Scripts\easyui\themes\default\progressbar.css" />
     <Content Include="Scripts\easyui\themes\default\propertygrid.css" />
+    <Content Include="Scripts\easyui\themes\default\radiobutton.css" />
     <Content Include="Scripts\easyui\themes\default\searchbox.css" />
     <Content Include="Scripts\easyui\themes\default\slider.css" />
     <Content Include="Scripts\easyui\themes\default\spinner.css" />
@@ -3088,6 +3095,7 @@
     <Content Include="Scripts\easyui\themes\default\window.css" />
     <Content Include="Scripts\easyui\themes\gray\accordion.css" />
     <Content Include="Scripts\easyui\themes\gray\calendar.css" />
+    <Content Include="Scripts\easyui\themes\gray\checkbox.css" />
     <Content Include="Scripts\easyui\themes\gray\combo.css" />
     <Content Include="Scripts\easyui\themes\gray\combobox.css" />
     <Content Include="Scripts\easyui\themes\gray\datagrid.css" />
@@ -3125,6 +3133,7 @@
     <Content Include="Scripts\easyui\themes\gray\panel.css" />
     <Content Include="Scripts\easyui\themes\gray\progressbar.css" />
     <Content Include="Scripts\easyui\themes\gray\propertygrid.css" />
+    <Content Include="Scripts\easyui\themes\gray\radiobutton.css" />
     <Content Include="Scripts\easyui\themes\gray\searchbox.css" />
     <Content Include="Scripts\easyui\themes\gray\slider.css" />
     <Content Include="Scripts\easyui\themes\gray\spinner.css" />
@@ -3417,6 +3426,7 @@
     <Content Include="Scripts\easyui\themes\insdep\jquery.insdep-extend.min.js" />
     <Content Include="Scripts\easyui\themes\material\accordion.css" />
     <Content Include="Scripts\easyui\themes\material\calendar.css" />
+    <Content Include="Scripts\easyui\themes\material\checkbox.css" />
     <Content Include="Scripts\easyui\themes\material\combo.css" />
     <Content Include="Scripts\easyui\themes\material\combobox.css" />
     <Content Include="Scripts\easyui\themes\material\datagrid.css" />
@@ -3458,6 +3468,7 @@
     <Content Include="Scripts\easyui\themes\material\passwordbox.css" />
     <Content Include="Scripts\easyui\themes\material\progressbar.css" />
     <Content Include="Scripts\easyui\themes\material\propertygrid.css" />
+    <Content Include="Scripts\easyui\themes\material\radiobutton.css" />
     <Content Include="Scripts\easyui\themes\material\searchbox.css" />
     <Content Include="Scripts\easyui\themes\material\slider.css" />
     <Content Include="Scripts\easyui\themes\material\spinner.css" />
@@ -3472,6 +3483,7 @@
     <Content Include="Scripts\easyui\themes\material\window.css" />
     <Content Include="Scripts\easyui\themes\metro\accordion.css" />
     <Content Include="Scripts\easyui\themes\metro\calendar.css" />
+    <Content Include="Scripts\easyui\themes\metro\checkbox.css" />
     <Content Include="Scripts\easyui\themes\metro\combo.css" />
     <Content Include="Scripts\easyui\themes\metro\combobox.css" />
     <Content Include="Scripts\easyui\themes\metro\datagrid.css" />
@@ -3513,6 +3525,7 @@
     <Content Include="Scripts\easyui\themes\metro\passwordbox.css" />
     <Content Include="Scripts\easyui\themes\metro\progressbar.css" />
     <Content Include="Scripts\easyui\themes\metro\propertygrid.css" />
+    <Content Include="Scripts\easyui\themes\metro\radiobutton.css" />
     <Content Include="Scripts\easyui\themes\metro\searchbox.css" />
     <Content Include="Scripts\easyui\themes\metro\slider.css" />
     <Content Include="Scripts\easyui\themes\metro\spinner.css" />

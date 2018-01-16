@@ -1,7 +1,7 @@
 /**
- * EasyUI for jQuery 1.5.3
+ * EasyUI for jQuery 1.5.4
  * 
- * Copyright (c) 2009-2017 www.jeasyui.com. All rights reserved.
+ * Copyright (c) 2009-2018 www.jeasyui.com. All rights reserved.
  *
  * Licensed under the freeware license: http://www.jeasyui.com/license_freeware.php
  * To use it on other terms please contact us: info@jeasyui.com
@@ -123,7 +123,8 @@ $.fn.datetimebox.parseOptions=function(_26){
 var t=$(_26);
 return $.extend({},$.fn.datebox.parseOptions(_26),$.parser.parseOptions(_26,["timeSeparator","spinnerWidth",{showSeconds:"boolean"}]));
 };
-$.fn.datetimebox.defaults=$.extend({},$.fn.datebox.defaults,{spinnerWidth:"100%",showSeconds:true,timeSeparator:":",keyHandler:{up:function(e){
+$.fn.datetimebox.defaults=$.extend({},$.fn.datebox.defaults,{spinnerWidth:"100%",showSeconds:true,timeSeparator:":",panelEvents:{mousedown:function(e){
+}},keyHandler:{up:function(e){
 },down:function(e){
 },left:function(e){
 },right:function(e){

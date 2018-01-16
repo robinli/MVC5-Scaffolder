@@ -1,7 +1,7 @@
 /**
- * EasyUI for jQuery 1.5.3
+ * EasyUI for jQuery 1.5.4
  * 
- * Copyright (c) 2009-2017 www.jeasyui.com. All rights reserved.
+ * Copyright (c) 2009-2018 www.jeasyui.com. All rights reserved.
  *
  * Licensed under the freeware license: http://www.jeasyui.com/license_freeware.php
  * To use it on other terms please contact us: info@jeasyui.com
@@ -140,20 +140,23 @@ var _25=$.data(_24,"combotreegrid");
 var _26=_25.options;
 var _27=_25.grid;
 _25.remainText=true;
+var qq=_26.multiple?q.split(_26.separator):[q];
+qq=$.grep(qq,function(q){
+return $.trim(q)!="";
+});
 _27.treegrid("clearSelections").treegrid("clearChecked").treegrid("highlightRow",-1);
 if(_26.mode=="remote"){
-$(_24).combotreegrid("clear");
+_28(qq);
 _27.treegrid("load",$.extend({},_26.queryParams,{q:q}));
 }else{
 if(q){
-var _28=_27.treegrid("getData");
+var _29=_27.treegrid("getData");
 var vv=[];
-var qq=_26.multiple?q.split(_26.separator):[q];
 $.map(qq,function(q){
 q=$.trim(q);
 if(q){
 var v=undefined;
-$.easyui.forEach(_28,true,function(row){
+$.easyui.forEach(_29,true,function(row){
 if(q.toLowerCase()==String(row[_26.treeField]).toLowerCase()){
 v=row[_26.idField];
 return false;
@@ -175,60 +178,103 @@ return false;
 }
 if(v!=undefined){
 vv.push(v);
+}else{
+vv.push(q);
 }
 }
 });
-_16(_24,vv);
+_28(vv);
 _25.remainText=false;
 }
 }
+function _28(vv){
+if(!_26.reversed){
+$(_24).combotreegrid("setValues",vv);
+}
 };
-function _29(_2a){
-_11(_2a);
 };
-$.fn.combotreegrid=function(_2b,_2c){
-if(typeof _2b=="string"){
-var _2d=$.fn.combotreegrid.methods[_2b];
-if(_2d){
-return _2d(this,_2c);
+function _2a(_2b){
+var _2c=$.data(_2b,"combotreegrid");
+var _2d=_2c.options;
+var _2e=_2c.grid;
+var tr=_2d.finder.getTr(_2e[0],null,"highlight");
+_2c.remainText=false;
+if(tr.length){
+var id=tr.attr("node-id");
+if(_2d.multiple){
+if(tr.hasClass("datagrid-row-selected")){
+_2e.treegrid("uncheckNode",id);
 }else{
-return this.combo(_2b,_2c);
+_2e.treegrid("checkNode",id);
+}
+}else{
+_2e.treegrid("selectRow",id);
 }
 }
-_2b=_2b||{};
+var vv=[];
+if(_2d.multiple){
+$.map(_2e.treegrid("getCheckedNodes"),function(row){
+vv.push(row[_2d.idField]);
+});
+}else{
+var row=_2e.treegrid("getSelected");
+if(row){
+vv.push(row[_2d.idField]);
+}
+}
+$.map(_2d.unselectedValues,function(v){
+if($.easyui.indexOfArray(_2d.mappingRows,_2d.idField,v)>=0){
+$.easyui.addArrayItem(vv,v);
+}
+});
+$(_2b).combotreegrid("setValues",vv);
+if(!_2d.multiple){
+$(_2b).combotreegrid("hidePanel");
+}
+};
+$.fn.combotreegrid=function(_2f,_30){
+if(typeof _2f=="string"){
+var _31=$.fn.combotreegrid.methods[_2f];
+if(_31){
+return _31(this,_30);
+}else{
+return this.combo(_2f,_30);
+}
+}
+_2f=_2f||{};
 return this.each(function(){
-var _2e=$.data(this,"combotreegrid");
-if(_2e){
-$.extend(_2e.options,_2b);
+var _32=$.data(this,"combotreegrid");
+if(_32){
+$.extend(_32.options,_2f);
 }else{
-_2e=$.data(this,"combotreegrid",{options:$.extend({},$.fn.combotreegrid.defaults,$.fn.combotreegrid.parseOptions(this),_2b)});
+_32=$.data(this,"combotreegrid",{options:$.extend({},$.fn.combotreegrid.defaults,$.fn.combotreegrid.parseOptions(this),_2f)});
 }
 _1(this);
 });
 };
 $.fn.combotreegrid.methods={options:function(jq){
-var _2f=jq.combo("options");
-return $.extend($.data(jq[0],"combotreegrid").options,{width:_2f.width,height:_2f.height,originalValue:_2f.originalValue,disabled:_2f.disabled,readonly:_2f.readonly});
+var _33=jq.combo("options");
+return $.extend($.data(jq[0],"combotreegrid").options,{width:_33.width,height:_33.height,originalValue:_33.originalValue,disabled:_33.disabled,readonly:_33.readonly});
 },grid:function(jq){
 return $.data(jq[0],"combotreegrid").grid;
-},setValues:function(jq,_30){
+},setValues:function(jq,_34){
 return jq.each(function(){
-var _31=$(this).combotreegrid("options");
-if($.isArray(_30)){
-_30=$.map(_30,function(_32){
-if(_32&&typeof _32=="object"){
-$.easyui.addArrayItem(_31.mappingRows,_31.idField,_32);
-return _32[_31.idField];
+var _35=$(this).combotreegrid("options");
+if($.isArray(_34)){
+_34=$.map(_34,function(_36){
+if(_36&&typeof _36=="object"){
+$.easyui.addArrayItem(_35.mappingRows,_35.idField,_36);
+return _36[_35.idField];
 }else{
-return _32;
+return _36;
 }
 });
 }
-_16(this,_30);
+_16(this,_34);
 });
-},setValue:function(jq,_33){
+},setValue:function(jq,_37){
 return jq.each(function(){
-$(this).combotreegrid("setValues",$.isArray(_33)?_33:[_33]);
+$(this).combotreegrid("setValues",$.isArray(_37)?_37:[_37]);
 });
 },clear:function(jq){
 return jq.each(function(){
@@ -236,35 +282,35 @@ $(this).combotreegrid("setValues",[]);
 });
 },reset:function(jq){
 return jq.each(function(){
-var _34=$(this).combotreegrid("options");
-if(_34.multiple){
-$(this).combotreegrid("setValues",_34.originalValue);
+var _38=$(this).combotreegrid("options");
+if(_38.multiple){
+$(this).combotreegrid("setValues",_38.originalValue);
 }else{
-$(this).combotreegrid("setValue",_34.originalValue);
+$(this).combotreegrid("setValue",_38.originalValue);
 }
 });
 }};
-$.fn.combotreegrid.parseOptions=function(_35){
-var t=$(_35);
-return $.extend({},$.fn.combo.parseOptions(_35),$.fn.treegrid.parseOptions(_35),$.parser.parseOptions(_35,["mode",{limitToGrid:"boolean"}]));
+$.fn.combotreegrid.parseOptions=function(_39){
+var t=$(_39);
+return $.extend({},$.fn.combo.parseOptions(_39),$.fn.treegrid.parseOptions(_39),$.parser.parseOptions(_39,["mode",{limitToGrid:"boolean"}]));
 };
 $.fn.combotreegrid.defaults=$.extend({},$.fn.combo.defaults,$.fn.treegrid.defaults,{editable:false,singleSelect:true,limitToGrid:false,unselectedValues:[],mappingRows:[],mode:"local",textField:null,keyHandler:{up:function(e){
 },down:function(e){
 },left:function(e){
 },right:function(e){
 },enter:function(e){
-_29(this);
+_2a(this);
 },query:function(q,e){
 _23(this,q);
 }},inputEvents:$.extend({},$.fn.combo.defaults.inputEvents,{blur:function(e){
-var _36=e.data.target;
-var _37=$(_36).combotreegrid("options");
-if(_37.limitToGrid){
-_29(_36);
+var _3a=e.data.target;
+var _3b=$(_3a).combotreegrid("options");
+if(_3b.limitToGrid){
+_2a(_3a);
 }
 }}),filter:function(q,row){
-var _38=$(this).combotreegrid("options");
-return (row[_38.treeField]||"").toLowerCase().indexOf(q.toLowerCase())>=0;
+var _3c=$(this).combotreegrid("options");
+return (row[_3c.treeField]||"").toLowerCase().indexOf(q.toLowerCase())>=0;
 }});
 })(jQuery);
 

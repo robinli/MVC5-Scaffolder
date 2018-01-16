@@ -1,7 +1,7 @@
 /**
- * EasyUI for jQuery 1.5.3
+ * EasyUI for jQuery 1.5.4
  * 
- * Copyright (c) 2009-2017 www.jeasyui.com. All rights reserved.
+ * Copyright (c) 2009-2018 www.jeasyui.com. All rights reserved.
  *
  * Licensed under the freeware license: http://www.jeasyui.com/license_freeware.php
  * To use it on other terms please contact us: info@jeasyui.com
@@ -88,6 +88,8 @@ $(this).filebox("clear");
 return jq;
 },setValues:function(jq){
 return jq;
+},files:function(jq){
+return jq.next().find(".textbox-value")[0].files;
 }};
 $.fn.filebox.parseOptions=function(_14){
 var t=$(_14);

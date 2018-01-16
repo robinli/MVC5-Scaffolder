@@ -1,7 +1,7 @@
 /**
- * EasyUI for jQuery 1.5.3
+ * EasyUI for jQuery 1.5.4
  * 
- * Copyright (c) 2009-2017 www.jeasyui.com. All rights reserved.
+ * Copyright (c) 2009-2018 www.jeasyui.com. All rights reserved.
  *
  * Licensed under the freeware license: http://www.jeasyui.com/license_freeware.php
  * To use it on other terms please contact us: info@jeasyui.com
@@ -43,9 +43,9 @@ _3.calendar=$("<div></div>").appendTo(cc).calendar();
 $.extend(_3.calendar.calendar("options"),{fit:true,border:false,onSelect:function(_9){
 var _a=this.target;
 var _b=$(_a).datebox("options");
+_b.onSelect.call(_a,_9);
 _18(_a,_b.formatter.call(_a,_9));
 $(_a).combo("hidePanel");
-_b.onSelect.call(_a,_9);
 }});
 }
 $(_2).combo("textbox").parent().addClass("datebox");
@@ -181,17 +181,20 @@ _16(this,q);
 }},currentText:"Today",closeText:"Close",okText:"Ok",buttons:[{text:function(_30){
 return $(_30).datebox("options").currentText;
 },handler:function(_31){
+var _32=$(_31).datebox("options");
 var now=new Date();
-$(_31).datebox("calendar").calendar({year:now.getFullYear(),month:now.getMonth()+1,current:new Date(now.getFullYear(),now.getMonth(),now.getDate())});
+var _33=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+$(_31).datebox("calendar").calendar({year:_33.getFullYear(),month:_33.getMonth()+1,current:_33});
+_32.onSelect.call(_31,_33);
 _19(_31);
-}},{text:function(_32){
-return $(_32).datebox("options").closeText;
-},handler:function(_33){
+}},{text:function(_34){
+return $(_34).datebox("options").closeText;
+},handler:function(_35){
 $(this).closest("div.combo-panel").panel("close");
-}}],formatter:function(_34){
-var y=_34.getFullYear();
-var m=_34.getMonth()+1;
-var d=_34.getDate();
+}}],formatter:function(_36){
+var y=_36.getFullYear();
+var m=_36.getMonth()+1;
+var d=_36.getDate();
 return (m<10?("0"+m):m)+"/"+(d<10?("0"+d):d)+"/"+y;
 },parser:function(s){
 if(!s){
@@ -206,7 +209,7 @@ return new Date(y,m-1,d);
 }else{
 return new Date();
 }
-},onSelect:function(_35){
+},onSelect:function(_37){
 }});
 })(jQuery);
 

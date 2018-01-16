@@ -1,5 +1,4 @@
 .spinner-arrow {
-  background-color: #E0ECFF;
   display: inline-block;
   overflow: hidden;
   vertical-align: top;
@@ -8,6 +7,12 @@
   opacity: 1.0;
   filter: alpha(opacity=100);
   width: 18px;
+}
+.spinner-arrow.spinner-button-top,
+.spinner-arrow.spinner-button-bottom,
+.spinner-arrow.spinner-button-left,
+.spinner-arrow.spinner-button-right {
+  background-color: #E0ECFF;
 }
 .spinner-arrow-up,
 .spinner-arrow-down {
@@ -21,18 +26,27 @@
   height: 50%;
   color: #444;
   outline-style: none;
+  background-color: #E0ECFF;
 }
 .spinner-arrow-hover {
   background-color: #eaf2ff;
   opacity: 1.0;
   filter: alpha(opacity=100);
 }
+.spinner-button-top:hover,
+.spinner-button-bottom:hover,
+.spinner-button-left:hover,
+.spinner-button-right:hover,
 .spinner-arrow-up:hover,
 .spinner-arrow-down:hover {
   opacity: 1.0;
   filter: alpha(opacity=100);
   background-color: #eaf2ff;
 }
+.textbox-disabled .spinner-button-top:hover,
+.textbox-disabled .spinner-button-bottom:hover,
+.textbox-disabled .spinner-button-left:hover,
+.textbox-disabled .spinner-button-right:hover,
 .textbox-icon-disabled .spinner-arrow-up:hover,
 .textbox-icon-disabled .spinner-arrow-down:hover {
   opacity: 0.6;
@@ -46,9 +60,11 @@
 }
 .spinner-arrow-up {
   background: url('images/spinner_arrows.png') no-repeat 1px center;
+  background-color: #E0ECFF;
 }
 .spinner-arrow-down {
   background: url('images/spinner_arrows.png') no-repeat -15px center;
+  background-color: #E0ECFF;
 }
 .spinner-button-up {
   background: url('images/spinner_arrows.png') no-repeat -32px center;

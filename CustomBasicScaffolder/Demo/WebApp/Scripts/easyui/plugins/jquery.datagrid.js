@@ -1,7 +1,7 @@
 /**
- * EasyUI for jQuery 1.5.3
+ * EasyUI for jQuery 1.5.4
  * 
- * Copyright (c) 2009-2017 www.jeasyui.com. All rights reserved.
+ * Copyright (c) 2009-2018 www.jeasyui.com. All rights reserved.
  *
  * Licensed under the freeware license: http://www.jeasyui.com/license_freeware.php
  * To use it on other terms please contact us: info@jeasyui.com
@@ -267,6 +267,11 @@ _5c.panel($.extend({},_5b,{id:null,doSize:false,onResize:function(_5d,_5e){
 if($.data(_59,"datagrid")){
 _20(_59);
 $(_59).datagrid("fitColumns");
+clearTimeout(_5b.fitTimer);
+_5b.fitTimer=setTimeout(function(){
+$(_59).datagrid("fitColumns");
+_5b.fitTimer=null;
+},0);
 _5b.onResize.call(_5c,_5d,_5e);
 }
 },onExpand:function(){
