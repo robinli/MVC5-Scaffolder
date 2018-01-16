@@ -187,11 +187,12 @@ bool isControlHtmlAttributesSupported = MvcVersion >= requiredMvcVersion;
             if (<#= detailnamevar #>_endEditing()) {
                 <#= boostraptablevar #>.datagrid("selectRow", index)
                         .datagrid("beginEdit", index);
+                 <#= editindex #>  = index;
                 var ed = <#= boostraptablevar #>.datagrid("getEditor", { index: index, field: field });
                 if (ed) {
                     ($(ed.target).data("textbox") ? $(ed.target).textbox("textbox") : $(ed.target)).focus();
                 }
-                <#= editindex #>  = index;
+               
             } else {
                 <#= boostraptablevar #>.datagrid("selectRow", <#= editindex #>);
             }
