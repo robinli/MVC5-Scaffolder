@@ -230,7 +230,7 @@
 		 </ul>
 		 <!-- Tab panes -->
          <div class="tab-content">
-		  <#
+		 <#
 			idx=0;
         foreach (var dic in OneToManyModelMetadata) 
         {
@@ -332,12 +332,14 @@
                 </div>
                 </div>
             </div>
+        </div>
 		  <# idx++;
            }
 		  #>
 	</div>
 	</div>
-	</div>
+ 
 <!--end details tabs -->
+
 <#  } #>
 <#@ include file="ModelMetadataFunctions.cs.include.t4" #>

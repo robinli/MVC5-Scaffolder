@@ -343,12 +343,13 @@
                 </div>
                 </div>
             </div>
+            </div>
 		  <# idx++;
            }
 		  #>
 	</div>
 	</div>
-	</div>
+	 
 <!--end details tabs -->
 <#  } #>
 </div>
@@ -505,11 +506,12 @@
 			if (<#= detailnamevar #>_endEditing()) {
 				<#= datagridvar #>.datagrid("selectRow", index)
 						.datagrid("beginEdit", index);
+                <#= editindex #>  = index;
 				var ed = <#= datagridvar #>.datagrid("getEditor", { index: index, field: field });
 				if (ed) {
 					($(ed.target).data("textbox") ? $(ed.target).textbox("textbox") : $(ed.target)).focus();
 				}
-				<#= editindex #>  = index;
+				
 			} else {
 				<#= datagridvar #>.datagrid("selectRow", <#= editindex #>);
 			}

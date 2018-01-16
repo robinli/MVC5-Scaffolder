@@ -343,12 +343,13 @@
                 </div>
                 </div>
             </div>
+            </div>
 		  <# idx++;
            }
 		  #>
 	</div>
 	</div>
-	</div>
+	 
 <!--end details tabs -->
 <#  } #>
 </div>
