@@ -45,8 +45,8 @@
     <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="CommonServiceLocator, Version=2.0.1.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Unity.5.0.1\lib\net45\CommonServiceLocator.dll</HintPath>
+    <Reference Include="CommonServiceLocator, Version=2.0.2.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\CommonServiceLocator.2.0.2\lib\net45\CommonServiceLocator.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
@@ -3540,6 +3540,9 @@
     <Content Include="Scripts\easyui\themes\metro\window.css" />
     <Content Include="Scripts\easyui\themes\mobile.css" />
     <Content Include="Scripts\FileSaver.js" />
+    <None Include="Scripts\jquery-2.2.4.intellisense.js" />
+    <Content Include="Scripts\jquery-2.2.4.js" />
+    <Content Include="Scripts\jquery-2.2.4.min.js" />
     <Content Include="Scripts\jquery.extend.formatter.js" />
     <Content Include="Scripts\jquery.easyui.extend.js" />
     <Content Include="Scripts\jquery.extend.formatter1.js">
@@ -3548,6 +3551,7 @@
       <DependentUpon>jquery.extend.formatter.tmp</DependentUpon>
     </Content>
     <Content Include="Content\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Scripts\jquery-2.2.4.min.map" />
     <None Include="Scripts\jquery.extend.formatter.tmp">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>jquery.extend.formatter1.js</LastGenOutput>

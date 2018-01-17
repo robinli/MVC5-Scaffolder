@@ -36,12 +36,12 @@
     <link rel="apple-touch-startup-image" href="~/content/img/splash/ipad-portrait.png" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait)">
     <link rel="apple-touch-startup-image" href="~/content/img/splash/iphone.png" media="screen and (max-device-width: 320px)">
     <!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
-    <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script> if (!window.jQuery) { document.write('<script src="/scripts/libs/jquery-2.1.1.min.js"><\/script>'); } </script>
+    <script src="//code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script> if (!window.jQuery) { document.write('<script src="/scripts/jquery-2.2.4.min.js"><\/script>'); } </script>
     <!--jquery easyui  -->
     @Scripts.Render("~/plugins/easyuijs")
     <!-- inputpicker   -->
-    @Scripts.Render("~/plugins/inputpickerjs")
+    
 </head>
 <body class="@ViewBag.PageClass @Settings.CurrentTheme">
     
