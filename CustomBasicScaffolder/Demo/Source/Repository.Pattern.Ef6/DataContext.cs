@@ -222,6 +222,24 @@ namespace Repository.Pattern.Ef6
            return  this.BulkSaveChangesAsync(false, CancellationToken.None);
         }
 
-       
+        void IDataContext.BulkInsert<TEntity>(IEnumerable<TEntity> entities)
+        {
+            this.BulkInsert(entities);
+        }
+
+        void IDataContext.BulkUpdate<TEntity>(IEnumerable<TEntity> entities)
+        {
+            this.BulkUpdate(entities);
+        }
+
+        void IDataContext.BulkDelete<TEntity>(IEnumerable<TEntity> entities)
+        {
+            this.BulkDelete(entities);
+        }
+
+        void IDataContext.BulkMerge<TEntity>(IEnumerable<TEntity> entities)
+        {
+            this.BulkMerge(entities);
+        }
     }
 }

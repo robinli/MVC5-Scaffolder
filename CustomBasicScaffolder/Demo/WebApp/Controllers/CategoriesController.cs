@@ -36,11 +36,27 @@ namespace WebApp.Controllers
 		}
 
 		// GET: Categories/Index
-		public async Task<ActionResult> Index()
+		public  ActionResult Index()
 		{
-			
-			var categories  = _categoryService.Queryable();
-			return View(await categories.ToListAsync()  );
+
+            var list = new List<Category>();
+            list.Add(new Category() { Name = "Name1", CreatedBy = "", CreatedDate = DateTime.Now });
+            list.Add(new Category() { Name = "Name2", CreatedBy = "", CreatedDate = DateTime.Now });
+            list.Add(new Category() { Name = "Name3", CreatedBy = "", CreatedDate = DateTime.Now });
+            list.Add(new Category() { Name = "Name4", CreatedBy = "", CreatedDate = DateTime.Now });
+
+            _unitOfWork.BulkInsert(list);
+
+            var categories  = _categoryService.Queryable().Where(x=>x.Name.Contains("Name"));
+            //foreach (var item in categories) {
+            //    item.LastModifiedBy = "test";
+            //    item.LastModifiedDate = DateTime.Now;
+            //    item.Name = "Test1xx";
+            //}
+            _unitOfWork.BulkDelete(categories);
+            //_unitOfWork.BulkUpdate(categories);
+
+            return View( );
 			
 		}
 

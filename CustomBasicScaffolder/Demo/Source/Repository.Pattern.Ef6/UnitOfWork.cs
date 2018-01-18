@@ -198,6 +198,26 @@ namespace Repository.Pattern.Ef6
             return this._dataContext.BulkSaveChangesAsync();
         }
 
+        void IUnitOfWork.BulkInsert<TEntity>(IEnumerable<TEntity> entities)
+        {
+            this._dataContext.BulkInsert(entities);
+        }
+
+        void IUnitOfWork.BulkUpdate<TEntity>(IEnumerable<TEntity> entities)
+        {
+            this._dataContext.BulkUpdate(entities);
+        }
+
+        void IUnitOfWork.BulkDelete<TEntity>(IEnumerable<TEntity> entities)
+        {
+            this._dataContext.BulkDelete(entities);
+        }
+
+        void IUnitOfWork.BulkMerge<TEntity>(IEnumerable<TEntity> entities)
+        {
+            this._dataContext.BulkMerge(entities);
+        }
+
         #endregion
     }
 }

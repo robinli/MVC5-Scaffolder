@@ -1,6 +1,7 @@
 ﻿using System;
 using Repository.Pattern.Infrastructure;
- 
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Repository.Pattern.DataContext
 {
@@ -15,7 +16,11 @@ namespace Repository.Pattern.DataContext
         void SetAutoDetectChangesEnabled(bool enabled);
 
         void BulkSaveChanges();
+        void BulkInsert<TEntity>(IEnumerable<TEntity> entities) where TEntity : class, IObjectState;
+        void BulkUpdate<TEntity>(IEnumerable<TEntity> entities) where TEntity : class, IObjectState;
+        void BulkDelete<TEntity>(IEnumerable<TEntity> entities) where TEntity : class, IObjectState;
+        void BulkMerge<TEntity>(IEnumerable<TEntity> entities) where TEntity : class, IObjectState;
 
-       
+
     }
 }
