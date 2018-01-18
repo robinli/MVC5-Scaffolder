@@ -14,7 +14,7 @@ namespace Repository.Pattern.DataContext
 
 
         void SetAutoDetectChangesEnabled(bool enabled);
-
+                     
         void BulkSaveChanges();
         void BulkInsert<TEntity>(IEnumerable<TEntity> entities) where TEntity : class, IObjectState;
         void BulkUpdate<TEntity>(IEnumerable<TEntity> entities) where TEntity : class, IObjectState;
