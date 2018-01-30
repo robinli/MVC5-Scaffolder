@@ -1,5 +1,5 @@
 /**
- * EasyUI for jQuery 1.5.4
+ * EasyUI for jQuery 1.5.4.1
  * 
  * Copyright (c) 2009-2018 www.jeasyui.com. All rights reserved.
  *
@@ -105,7 +105,7 @@ var _1d=$("<div class=\"panel\"></div>").insertBefore(_1c);
 _1d[0].appendChild(_1c);
 _1d.bind("_resize",function(e,_1e){
 if($(this).hasClass("easyui-fluid")||_1e){
-_3(_1c);
+_3(_1c,{});
 }
 return false;
 });
@@ -326,7 +326,12 @@ if(!_3f.collapsed){
 if(_3f.href&&(!_3e.isLoaded||!_3f.cache)){
 _2f(_3c);
 _39(_3c);
+_3f.doneLayout=true;
 }
+}
+if(!_3f.doneLayout){
+_3f.doneLayout=true;
+_39(_3c);
 }
 };
 };
@@ -594,7 +599,7 @@ _2f(this);
 });
 },resize:function(jq,_7b){
 return jq.each(function(){
-_3(this,_7b);
+_3(this,_7b||{});
 });
 },doLayout:function(jq,all){
 return jq.each(function(){

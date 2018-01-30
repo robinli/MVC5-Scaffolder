@@ -1,3 +1,9 @@
+Version 1.5.4.x
+---------------
+* Bug
+ * tabs: The selecting history has wrong order when the title contains complex elements. fixed.
+
+
 Version 1.5.4
 -------------
 * Bug

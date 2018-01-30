@@ -1,5 +1,5 @@
 /**
- * EasyUI for jQuery 1.5.4
+ * EasyUI for jQuery 1.5.4.1
  * 
  * Copyright (c) 2009-2018 www.jeasyui.com. All rights reserved.
  *
@@ -425,8 +425,10 @@
 					options.onOpen.call(this);
 				}
 				var popts = $(this).panel('options');
-				state.selectHis.push(popts.title);
-				state.options.onSelect.call(container, popts.title, getTabIndex(container, this));
+				var index = getTabIndex(container, this);
+				// state.selectHis.push(popts.title);
+				state.selectHis.push(index);
+				state.options.onSelect.call(container, popts.title, index);
 			},
 			onBeforeClose: function(){
 				if (options.onBeforeClose){
@@ -540,13 +542,13 @@
 					s_title.css('padding-right', '');
 				}
 			}
-			if (oldTitle != opts.title){
-				for(var i=0; i<selectHis.length; i++){
-					if (selectHis[i] == oldTitle){
-						selectHis[i] = opts.title;
-					}
-				}
-			}
+			// if (oldTitle != opts.title){
+			// 	for(var i=0; i<selectHis.length; i++){
+			// 		if (selectHis[i] == oldTitle){
+			// 			selectHis[i] = opts.title;
+			// 		}
+			// 	}
+			// }
 		}
 		if (opts.disabled){
 			opts.tab.addClass('tabs-disabled');
@@ -563,9 +565,10 @@
 	 * close a tab with specified index or title
 	 */
 	function closeTab(container, which) {
-		var opts = $.data(container, 'tabs').options;
-		var tabs = $.data(container, 'tabs').tabs;
-		var selectHis = $.data(container, 'tabs').selectHis;
+		var state = $.data(container, 'tabs');
+		var opts = state.options;
+		var tabs = state.tabs;
+		var selectHis = state.selectHis;
 		
 		if (!exists(container, which)) return;
 		
@@ -585,20 +588,34 @@
 		setSize(container);
 		
 		// remove the select history item
+		var his = [];
 		for(var i=0; i<selectHis.length; i++){
-			if (selectHis[i] == title){
-				selectHis.splice(i, 1);
-				i --;
+			var tindex = selectHis[i];
+			if (tindex != index){
+				his.push(tindex > index ? tindex-1 : tindex);
 			}
 		}
-		
-		// select the nearest tab panel
-		var hisTitle = selectHis.pop();
-		if (hisTitle){
-			selectTab(container, hisTitle);
-		} else if (tabs.length){
-			selectTab(container, 0);
+		state.selectHis = his;
+		var selected = $(container).tabs('getSelected');
+		if (!selected && his.length){
+			index = state.selectHis.pop();
+			$(container).tabs('select', index);
 		}
+
+		// for(var i=0; i<selectHis.length; i++){
+		// 	if (selectHis[i] == title){
+		// 		selectHis.splice(i, 1);
+		// 		i --;
+		// 	}
+		// }
+		
+		// // select the nearest tab panel
+		// var hisTitle = selectHis.pop();
+		// if (hisTitle){
+		// 	selectTab(container, hisTitle);
+		// } else if (tabs.length){
+		// 	selectTab(container, 0);
+		// }
 	}
 	
 	/**
@@ -619,7 +636,10 @@
 			for(var i=0; i<tabs.length; i++){
 				var p = tabs[i];
 				tmp.html(p.panel('options').title);
-				if (tmp.text() == which){
+				var title = tmp.text();
+				tmp.html(which);
+				which = tmp.text();
+				if (title == which){
 					tab = p;
 					if (removeit){
 						tabs.splice(i, 1);
