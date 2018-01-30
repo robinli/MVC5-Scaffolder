@@ -10,22 +10,24 @@ namespace WebApp
             //bundles.Add(new StyleBundle("~/content/smartadmin").IncludeDirectory("~/Content/css", "*.min.css"));
 
             bundles.Add(new StyleBundle("~/content/smartadmin").Include(
-                "~/Content/css/bootstrap.min.css",
-                "~/Content/css/demo.min.css",
-                "~/Content/css/font-awesome.min.css",
+                "~/Content/css/bootstrap.css",
+                "~/Content/css/font-awesome.css",
+                 "~/Content/css/smartadmin-production-plugins.css",
+                 "~/Content/css/smartadmin-production.css",
+                 "~/Content/css/smartadmin-skins.css",
+                "~/Content/css/demo.css",
+                 "~/Content/css/site.css",
+                  "~/Content/css/smartadmin-rtl.css",
                 "~/Content/css/invoice.min.css",
                 "~/Content/css/lockscreen.min.css",
-                "~/Content/css/smartadmin-production-plugins.min.css",
-                "~/Content/css/smartadmin-production.min.css",
-                "~/Content/css/smartadmin-rtl.min.css",
-                "~/Content/css/smartadmin-skins.min.css",
-                "~/Content/css/your_style.min.css"));
+                     "~/Content/css/your_style.min.css"));
 
 
             bundles.Add(new ScriptBundle("~/scripts/smartadmin").Include(
                 "~/scripts/app.config.js",
                 "~/scripts/plugin/jquery-touch/jquery.ui.touch-punch.min.js",
                 "~/scripts/bootstrap/bootstrap.min.js",
+                "~/scripts/plugin/moment/moment.js",
                 "~/scripts/notification/SmartNotification.min.js",
                 "~/scripts/smartwidgets/jarvis.widget.min.js",
                 "~/scripts/plugin/jquery-validate/jquery.validate.min.js",
@@ -38,8 +40,7 @@ namespace WebApp
                 "~/scripts/app.min.js"));
 
             bundles.Add(new ScriptBundle("~/scripts/full-calendar").Include(
-                "~/scripts/plugin/moment/moment.min.js",
-                "~/scripts/plugin/fullcalendar/jquery.fullcalendar.min.js"
+                 "~/scripts/plugin/fullcalendar/fullcalendar.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/scripts/charts").Include(
@@ -87,7 +88,7 @@ namespace WebApp
                 "~/scripts/plugin/vectormap/jquery-jvectormap-world-mill-en.js"
                 ));
 
-           
+
 
 
 

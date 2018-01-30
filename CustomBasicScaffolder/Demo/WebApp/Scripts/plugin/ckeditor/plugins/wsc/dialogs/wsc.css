@@ -3,80 +3,65 @@ Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 
-html, body
-{
-	background-color: transparent;
-	margin: 0px;
-	padding: 0px;
+html, body {
+    background-color: transparent;
+    margin: 0px;
+    padding: 0px;
 }
 
-body
-{
-	padding: 10px;
+body { padding: 10px; }
+
+body, td, input, select, textarea {
+    font-family: 'Microsoft Sans Serif', Arial, Helvetica, Verdana;
+    font-size: 11px;
 }
 
-body, td, input, select, textarea
-{
-	font-size: 11px;
-	font-family: 'Microsoft Sans Serif' , Arial, Helvetica, Verdana;
+.midtext {
+    margin: 10px;
+    padding: 0px;
 }
 
-.midtext
-{
-	padding:0px;
-	margin:10px;
+.midtext p {
+    margin: 10px;
+    padding: 0px;
 }
 
-.midtext p
-{
-	padding:0px;
-	margin:10px;
+.Button {
+    background-color: #c7c78f;
+    border: #737357 1px solid;
+    color: #3b3b1f;
 }
 
-.Button
-{
-	border: #737357 1px solid;
-	color: #3b3b1f;
-	background-color: #c7c78f;
+.PopupTabArea {
+    background-color: #e3e3c7;
+    color: #737357;
 }
 
-.PopupTabArea
-{
-	color: #737357;
-	background-color: #e3e3c7;
+.PopupTitleBorder { border-bottom: #d5d59d 1px solid; }
+
+.PopupTabEmptyArea {
+    border-bottom: #d5d59d 1px solid;
+    padding-left: 10px;
 }
 
-.PopupTitleBorder
-{
-	border-bottom: #d5d59d 1px solid;
-}
-.PopupTabEmptyArea
-{
-	padding-left: 10px;
-	border-bottom: #d5d59d 1px solid;
+.PopupTab, .PopupTabSelected {
+    border-left: #d5d59d 1px solid;
+    border-right: #d5d59d 1px solid;
+    border-top: #d5d59d 1px solid;
+    color: #737357;
+    padding: 3px 5px 3px 5px;
 }
 
-.PopupTab, .PopupTabSelected
-{
-	border-right: #d5d59d 1px solid;
-	border-top: #d5d59d 1px solid;
-	border-left: #d5d59d 1px solid;
-	padding: 3px 5px 3px 5px;
-	color: #737357;
+.PopupTab {
+    border-bottom: #d5d59d 1px solid;
+    cursor: pointer;
+    margin-top: 1px;
 }
 
-.PopupTab
-{
-	margin-top: 1px;
-	border-bottom: #d5d59d 1px solid;
-	cursor: pointer;
-}
-
-.PopupTabSelected
-{
-	font-weight: bold;
-	cursor: default;
-	padding-top: 4px;
-	border-bottom: #f1f1e3 1px solid;
-	background-color: #f1f1e3;
+.PopupTabSelected {
+    background-color: #f1f1e3;
+    border-bottom: #f1f1e3 1px solid;
+    cursor: default;
+    font-weight: bold;
+    padding-top: 4px;
 }
