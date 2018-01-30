@@ -1,7 +1,4 @@
-﻿
-@using WebApp.Models
-
-@model LoginViewModel
+﻿@model WebApp.Models.AccountLoginModel
 @{
     ViewBag.PageId = "extr-page";
     ViewBag.PageClass = "animated fadeInDown";
@@ -20,7 +17,7 @@
                     <header>
                         Sign In
                     </header>
-                    @*@Html.HiddenFor(m => m.ReturnUrl)*@
+                    @Html.HiddenFor(m => m.ReturnUrl)
                     @Html.AntiForgeryToken()
                     @Html.ValidationBootstrap()
                     <fieldset>
@@ -28,7 +25,7 @@
                             <label class="label">E-mail</label>
                             <label class="input">
                                 <i class="icon-append fa fa-user"></i>
-                                <input type="email" name="email" value="admin@email.com">
+                                <input type="email" name="email" value="demo@email.com">
                                 <b class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i> Please enter email address/username</b>
                             </label>
                         </section>

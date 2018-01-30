@@ -1,5 +1,4 @@
-﻿@using WebApp.Models
-@model RegisterViewModel
+﻿@model WebApp.Models.AccountRegistrationModel
 @{
     ViewBag.PageId = "extr-page";
 }
@@ -23,7 +22,7 @@
                         <section>
                             <label class="input">
                                 <i class="icon-append fa fa-user"></i>
-                                <input type="text" name="username" placeholder="Username" id="username" autocomplete="off" value="@Model.UserName">
+                                <input type="text" name="username" placeholder="Username" id="username" autocomplete="off" value="@Model.Username">
                                 <b class="tooltip tooltip-bottom-right">(Optional) Used to display the profile name on the website</b>
                             </label>
                         </section>
@@ -34,25 +33,59 @@
                                 <b class="tooltip tooltip-bottom-right">Needed to enter the website</b>
                             </label>
                         </section>
-               
+                        <section>
+                            <label class="input">
+                                <i class="icon-append fa fa-envelope"></i>
+                                <input type="email" name="emailConfirm" placeholder="Confirm email address" autocomplete="off" value="@Model.EmailConfirm">
+                                <b class="tooltip tooltip-bottom-right">Needed to verify your account</b>
+                            </label>
+                        </section>
                         <section>
                             <label class="input">
                                 <i class="icon-append fa fa-lock"></i>
-                                <input type="password" name="password" placeholder="Password" id="password" autocomplete="off"    >
+                                <input type="password" name="password" placeholder="Password" id="password" autocomplete="off">
                                 <b class="tooltip tooltip-bottom-right">Don't forget your password</b>
                             </label>
                         </section>
                         <section>
                             <label class="input">
                                 <i class="icon-append fa fa-lock"></i>
-                                <input type="password" name="confirmPassword" placeholder="Confirm password" autocomplete="off"  >
+                                <input type="password" name="passwordConfirm" placeholder="Confirm password" autocomplete="off">
                                 <b class="tooltip tooltip-bottom-right">Don't forget your password</b>
                             </label>
                         </section>
                     </fieldset>
                     <fieldset>
-                        
-                         
+                        <div class="row">
+                            <section class="col col-6">
+                                <label class="input">
+                                    <input type="text" name="firstname" placeholder="First name">
+                                </label>
+                            </section>
+                            <section class="col col-6">
+                                <label class="input">
+                                    <input type="text" name="lastname" placeholder="Last name">
+                                </label>
+                            </section>
+                        </div>
+                        <div class="row">
+                            <section class="col col-6">
+                                <label class="select">
+                                    <select name="gender">
+                                        <option value="0" selected="selected" disabled="disabled">Gender</option>
+                                        <option value="1">Male</option>
+                                        <option value="2">Female</option>
+                                        <option value="3">Prefer not to answer</option>
+                                    </select> <i></i>
+                                </label>
+                            </section>
+                            <section class="col col-6">
+                                <label class="input">
+                                    <i class="icon-append fa fa-calendar"></i>
+                                    <input type="text" name="birthdate" placeholder="Birthdate" class="datepicker" data-dateformat='dd/mm/yy'>
+                                </label>
+                            </section>
+                        </div>
                         <section>
                             <label class="checkbox">
                                 <input type="checkbox" name="terms" id="terms">
@@ -103,18 +136,31 @@
                         required: true,
                         email: true
                     },
+                    emailConfirm: {
+                        required: true,
+                        email: true,
+                        equalTo: '#email'
+                    },
                     password: {
                         required: true,
                         minlength: 4,
                         maxlength: 20
                     },
-                    confirmPassword: {
+                    passwordConfirm: {
                         required: true,
                         minlength: 4,
                         maxlength: 20,
                         equalTo: '#password'
                     },
-                   
+                    firstname: {
+                        required: false
+                    },
+                    lastname: {
+                        required: false
+                    },
+                    gender: {
+                        required: false
+                    },
                     terms: {
                         required: true
                     }
@@ -126,10 +172,15 @@
                         required: 'Please enter your email address',
                         email: 'Please enter a VALID email address'
                     },
+                    emailConfirm: {
+                        required: 'Please enter your email address one more time',
+                        email: 'Please enter a VALID email address',
+                        equalTo: 'Please enter the same email address as above'
+                    },
                     password: {
                         required: 'Please enter your password'
                     },
-                    confirmPassword: {
+                    passwordConfirm: {
                         required: 'Please enter your password one more time',
                         equalTo: 'Please enter the same password as above'
                     },
