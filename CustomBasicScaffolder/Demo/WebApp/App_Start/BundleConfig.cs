@@ -10,24 +10,22 @@ namespace WebApp
             //bundles.Add(new StyleBundle("~/content/smartadmin").IncludeDirectory("~/Content/css", "*.min.css"));
 
             bundles.Add(new StyleBundle("~/content/smartadmin").Include(
-                "~/Content/css/bootstrap.css",
-                "~/Content/css/font-awesome.css",
-                 "~/Content/css/smartadmin-production-plugins.css",
-                 "~/Content/css/smartadmin-production.css",
-                 "~/Content/css/smartadmin-skins.css",
-                "~/Content/css/demo.css",
-                 "~/Content/css/site.css",
-                  "~/Content/css/smartadmin-rtl.css",
-                "~/Content/css/invoice.min.css",
-                "~/Content/css/lockscreen.min.css",
-                     "~/Content/css/your_style.min.css"));
-
+                    "~/Content/css/bootstrap.css",
+                    "~/Content/css/font-awesome.css",
+                    "~/Content/css/smartadmin-production-plugins.css",
+                    "~/Content/css/smartadmin-production.css",
+                    "~/Content/css/smartadmin-skins.css",
+                    "~/Content/css/demo.css",
+                    "~/Content/css/site.css",
+                    "~/Content/css/smartadmin-rtl.css",
+                    "~/Content/css/invoice.min.css",
+                    "~/Content/css/lockscreen.min.css",
+                    "~/Content/css/your_style.min.css"));
 
             bundles.Add(new ScriptBundle("~/scripts/smartadmin").Include(
                 "~/scripts/app.config.js",
                 "~/scripts/plugin/jquery-touch/jquery.ui.touch-punch.min.js",
                 "~/scripts/bootstrap/bootstrap.min.js",
-                "~/scripts/plugin/moment/moment.js",
                 "~/scripts/notification/SmartNotification.min.js",
                 "~/scripts/smartwidgets/jarvis.widget.min.js",
                 "~/scripts/plugin/jquery-validate/jquery.validate.min.js",
@@ -38,8 +36,24 @@ namespace WebApp
                 "~/scripts/plugin/msie-fix/jquery.mb.browser.min.js",
                 "~/scripts/plugin/fastclick/fastclick.min.js",
                 "~/scripts/app.min.js"));
+            //bundles.Add(new ScriptBundle("~/scripts/smartadmin").Include(
+            //    "~/scripts/app.config.js",
+            //    "~/scripts/plugin/jquery-touch/jquery.ui.touch-punch.min.js",
+            //    "~/scripts/bootstrap/bootstrap.min.js",
+            //    "~/scripts/plugin/moment/moment.js",
+            //    "~/scripts/notification/SmartNotification.min.js",
+            //    "~/scripts/smartwidgets/jarvis.widget.min.js",
+            //    "~/scripts/plugin/jquery-validate/jquery.validate.min.js",
+            //    "~/scripts/plugin/masked-input/jquery.maskedinput.min.js",
+            //    "~/scripts/plugin/select2/select2.min.js",
+            //    "~/scripts/plugin/bootstrap-slider/bootstrap-slider.min.js",
+            //    "~/scripts/plugin/bootstrap-progressbar/bootstrap-progressbar.min.js",
+            //    "~/scripts/plugin/msie-fix/jquery.mb.browser.min.js",
+            //    "~/scripts/plugin/fastclick/fastclick.min.js",
+            //    "~/scripts/app.min.js"));
 
             bundles.Add(new ScriptBundle("~/scripts/full-calendar").Include(
+                "~/scripts/plugin/moment/moment.js",
                  "~/scripts/plugin/fullcalendar/fullcalendar.js"
                 ));
 
@@ -110,8 +124,8 @@ namespace WebApp
 
 
             //moment Script
-            bundles.Add(new ScriptBundle("~/plugins/momentjs").Include(
-                      "~/Scripts/moment-with-locales.js"));
+            //bundles.Add(new ScriptBundle("~/plugins/momentjs").Include(
+            //          "~/Scripts/moment-with-locales.js"));
 
             //daterangepicker
 

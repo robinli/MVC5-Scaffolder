@@ -5,9 +5,7 @@
 
 
  
-@*<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
-<script> if (!window.jQuery.ui) { document.write('<script src="/scripts/libs/jquery-ui-1.10.3.min.js"><\/script>'); } </script>*@
- 
+
 <!-- IMPORTANT: SmartAdmin Core -->
 @Scripts.Render("~/scripts/smartadmin")
 
@@ -21,7 +19,8 @@
 
 <!-- Voice command : plugin -->
 <script src="~/scripts/speech/voicecommand.min.js"></script>
-
+<!-- Full Calendar -->
+@Scripts.Render("~/scripts/full-calendar")
 <!-- SmartChat UI : plugin -->
 @*@Scripts.Render("~/scripts/smart-chat")*@
 
@@ -40,8 +39,7 @@
 <!-- Vector Maps Plugin: Vectormap engine, Vectormap language -->
 @Scripts.Render("~/scripts/vector-map")
 
-<!-- Full Calendar -->
-@Scripts.Render("~/scripts/full-calendar")
+
 
  
 <!-- daterangepicker   -->
@@ -65,8 +63,10 @@
  
 <!-- DO NOT REMOVE : GLOBAL FUNCTIONS! -->
 <script type="text/javascript">
-    pageSetUp();
-    drawBreadCrumb();
+    $(document).ready(function () {
+        pageSetUp();
+        drawBreadCrumb();
+    });
 
 
  

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace WebApp.Models
@@ -57,6 +58,10 @@ namespace WebApp.Models
         [DataType(DataType.Password)]
         [Compare("Password")]
         public string PasswordConfirm { get; set; }
+        public int Gender { get; set; }
+        public string Firstname { get; set; }
+        public string Lastname { get; set; }
+        public DateTime Birthdate {get;set;}
     }
 
     public class ExternalLoginConfirmationViewModel

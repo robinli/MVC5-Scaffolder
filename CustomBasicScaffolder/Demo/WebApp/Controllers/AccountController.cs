@@ -149,6 +149,9 @@ namespace WebApp.Controllers
             // Prepare the identity with the provided information
             var user = new ApplicationUser {
                 UserName = viewModel.Username,
+        
+                CompanyCode = "1",
+                CompanyName="",
                 Email = viewModel.Email,
                 AccountType = 0 };
 

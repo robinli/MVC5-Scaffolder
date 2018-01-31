@@ -4533,6 +4533,7 @@
     <Content Include="Views\Features\General.cshtml" />
     <Content Include="Views\Account\Error.cshtml" />
     <Content Include="Views\Account\Lock.cshtml" />
+    <Content Include="Views\Features\Templates.cshtml" />
     <None Include="Views\Notifications\_notifications.cshtml" />
     <None Include="Views\Messages\_notifications.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Int.cshtml">
