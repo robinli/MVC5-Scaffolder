@@ -11,7 +11,7 @@
     <div class="row">
         @{ Html.RenderPartial("_LoginText"); }
         <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
-            <div class="well no-padding">
+            <section class="well no-padding">
                 <form action="@Url.Action("register", "account")" method="POST" id="smart-form-register" class="smart-form client-form">
                     <header>
                         Registration
@@ -68,7 +68,17 @@
                                 </label>
                             </section>
                         </div>
+                        <section>
+
+
+                            <label class="select">
+                                @Html.DropDownListFor(model => model.CompanyCode, new SelectList(ViewBag.companylist, "Value", "Text")) <i></i>
+                            </label>
+                            <input hidden id="companyName" name="companyName" type="text" />
+
+                        </section>
                         <div class="row">
+
                             <section class="col col-6">
                                 <label class="select">
                                     <select name="gender">
@@ -105,10 +115,11 @@
                         </p>
                     </div>
                 </form>
+                </section>
             </div>
             @{ Html.RenderPartial("_SocialMedia"); }
         </div>
-    </div>
+    
 </div>
 
 @{ Html.RenderPartial("_TermsAndConditions"); }
@@ -126,11 +137,27 @@
                 $('#myModal').modal('toggle');
             }
         });
-
+        $('#CompanyCode').change(function () {
+            var text = $('#CompanyCode').find('option:selected').text();
+            $('#companyName').val(text);
+            console.log(text);
+        })
+        var errorClass = 'invalid';
+        var errorElement = 'em';
         // Validation
         $(function () {
             // Validation
             $("#smart-form-register").validate({
+                errorClass: errorClass,
+                errorElement: errorElement,
+                highlight: function (element) {
+                    $(element).parent().removeClass('state-success').addClass("state-error");
+                    $(element).removeClass('valid');
+                },
+                unhighlight: function (element) {
+                    $(element).parent().removeClass("state-error").addClass('state-success');
+                    $(element).addClass('valid');
+                },
                 // Rules for form validation
                 rules: {
                     email: {
@@ -142,6 +169,7 @@
                         email: true,
                         equalTo: '#email'
                     },
+                    companyName:{ required: true},
                     password: {
                         required: true,
                         minlength: 4,

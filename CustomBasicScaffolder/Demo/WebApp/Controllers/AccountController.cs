@@ -9,12 +9,14 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using System.Web.UI;
+using System.Web.UI.WebControls;
 using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 
 using WebApp.Models;
+using WebApp.Services;
 
 #endregion
 
@@ -48,11 +50,12 @@ namespace WebApp.Controllers
             }
             private set { _signInManager = value; }
         }
-
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        private readonly ICompanyService _companyService;
+        public AccountController(ICompanyService companyService,ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            _companyService = companyService;
         }
 
         // GET: /account/forgotpassword
@@ -135,7 +138,9 @@ namespace WebApp.Controllers
         {
             // We do not want to use any existing identity information
             EnsureLoggedOut();
-
+            var data = this._companyService.Queryable().Select(x=>new ListItem() { Value=x.Id.ToString(), Text=x.Name  });
+            
+            ViewBag.companylist = data;
             return View(new AccountRegistrationModel());
         }
 
@@ -145,6 +150,9 @@ namespace WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(AccountRegistrationModel viewModel)
         {
+            var data = this._companyService.Queryable().Select(x => new ListItem() { Value = x.Id.ToString(), Text = x.Name });
+            ViewBag.companylist = data;
+
             // Ensure we have a valid viewModel to work with
             if (!ModelState.IsValid)
                 return View(viewModel);
@@ -152,9 +160,9 @@ namespace WebApp.Controllers
             // Prepare the identity with the provided information
             var user = new ApplicationUser {
                 UserName = viewModel.Username,
-        
-                CompanyCode = "1",
-                CompanyName="",
+                FullName = viewModel.Lastname + "." + viewModel.Firstname,
+                CompanyCode = viewModel.CompanyCode,
+                CompanyName= viewModel.CompanyName,
                 Email = viewModel.Email,
                 AccountType = 0 };
 

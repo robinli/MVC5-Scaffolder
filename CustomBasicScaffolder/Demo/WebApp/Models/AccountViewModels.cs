@@ -62,6 +62,8 @@ namespace WebApp.Models
         public string Firstname { get; set; }
         public string Lastname { get; set; }
         public DateTime Birthdate {get;set;}
+        public string CompanyCode { get; set; }
+        public string CompanyName { get; set; }
     }
 
     public class ExternalLoginConfirmationViewModel

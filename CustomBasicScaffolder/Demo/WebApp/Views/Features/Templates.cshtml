@@ -1,7 +1,6 @@
 ﻿			<!-- MAIN CONTENT -->
 <div id="content">
 
-
     <div class="row">
         <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
             <h1 class="page-title txt-color-blueDark">
@@ -17,8 +16,21 @@
         </div>
 
         <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+
             <!-- Button trigger modal -->
-            <a data-toggle="modal" href="#myModal" class="btn btn-success btn-lg pull-right header-btn hidden-mobile"><i class="fa fa-circle-arrow-up fa-lg"></i> Launch form modal</a>
+            <a href="/ajax/modal-content/model-content-2.html" data-toggle="modal" data-target="#remoteModal" class="btn btn-success btn-lg pull-right header-btn hidden-mobile">
+                <i class="fa fa-circle-arrow-up fa-lg"></i>
+                Launch form modal
+            </a>
+
+            <!-- MODAL PLACE HOLDER -->
+            <div class="modal fade" id="remoteModal" tabindex="-1" role="dialog" aria-labelledby="remoteModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content"></div>
+                </div>
+            </div>
+            <!-- END MODAL -->
+
         </div>
     </div>
 
@@ -44,20 +56,22 @@
                 <!-- Widget ID (each widget will need unique ID)-->
                 <div class="jarviswidget" id="wid-id-1" data-widget-editbutton="false" data-widget-custombutton="false">
                     <!-- widget options:
-                        usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+                    usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
 
-                        data-widget-colorbutton="false"
-                        data-widget-editbutton="false"
-                        data-widget-togglebutton="false"
-                        data-widget-deletebutton="false"
-                        data-widget-fullscreenbutton="false"
-                        data-widget-custombutton="false"
-                        data-widget-collapsed="true"
-                        data-widget-sortable="false"
+                    data-widget-colorbutton="false"
+                    data-widget-editbutton="false"
+                    data-widget-togglebutton="false"
+                    data-widget-deletebutton="false"
+                    data-widget-fullscreenbutton="false"
+                    data-widget-custombutton="false"
+                    data-widget-collapsed="true"
+                    data-widget-sortable="false"
 
                     -->
                     <header>
-                        <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                        <span class="widget-icon">
+                            <i class="fa fa-edit"></i>
+                        </span>
                         <h2>Checkout Form </h2>
 
                     </header>
@@ -74,7 +88,7 @@
                         <!-- widget content -->
                         <div class="widget-body no-padding">
 
-                            <form id="checkout-form" class="smart-form" novalidate="novalidate">
+                            <form action="" id="checkout-form" class="smart-form" novalidate="novalidate">
 
                                 <fieldset>
                                     <div class="row">
@@ -381,8 +395,8 @@
                                     </div>
 
                                     <section>
-                                        <label for="address2" class="input">
-                                            <input type="text" name="address2" id="address2" placeholder="Address">
+                                        <label for="address" class="input">
+                                            <input type="text" name="address" placeholder="Address">
                                         </label>
                                     </section>
 
@@ -477,20 +491,22 @@
                 <!-- Widget ID (each widget will need unique ID)-->
                 <div class="jarviswidget" id="wid-id-3" data-widget-editbutton="false" data-widget-custombutton="false">
                     <!-- widget options:
-                        usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+                    usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
 
-                        data-widget-colorbutton="false"
-                        data-widget-editbutton="false"
-                        data-widget-togglebutton="false"
-                        data-widget-deletebutton="false"
-                        data-widget-fullscreenbutton="false"
-                        data-widget-custombutton="false"
-                        data-widget-collapsed="true"
-                        data-widget-sortable="false"
+                    data-widget-colorbutton="false"
+                    data-widget-editbutton="false"
+                    data-widget-togglebutton="false"
+                    data-widget-deletebutton="false"
+                    data-widget-fullscreenbutton="false"
+                    data-widget-custombutton="false"
+                    data-widget-collapsed="true"
+                    data-widget-sortable="false"
 
                     -->
                     <header>
-                        <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                        <span class="widget-icon">
+                            <i class="fa fa-edit"></i>
+                        </span>
                         <h2>Registration form </h2>
 
                     </header>
@@ -507,7 +523,7 @@
                         <!-- widget content -->
                         <div class="widget-body no-padding">
 
-                            <form id="order-form" class="smart-form" novalidate="novalidate">
+                            <form action="" id="order-form" class="smart-form" novalidate="novalidate">
                                 <header>
                                     Order services
                                 </header>
@@ -587,9 +603,11 @@
                                     </div>
 
                                     <section>
-                                        <div class="input input-file">
-                                            <span class="button"><input id="file2" type="file" name="file2" onchange="this.parentNode.nextSibling.value = this.value">Browse</span><input type="text" placeholder="Include some files" readonly="">
-                                        </div>
+                                        <label for="file" class="input input-file">
+                                            <div class="button">
+                                                <input type="file" name="file" onchange="this.parentNode.nextSibling.value = this.value">Browse
+                                            </div><input type="text" placeholder="Include some files" readonly="">
+                                        </label>
                                     </section>
 
                                     <section>
@@ -617,20 +635,22 @@
                 <!-- Widget ID (each widget will need unique ID)-->
                 <div class="jarviswidget" id="wid-id-7" data-widget-editbutton="false" data-widget-custombutton="false">
                     <!-- widget options:
-                        usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+                    usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
 
-                        data-widget-colorbutton="false"
-                        data-widget-editbutton="false"
-                        data-widget-togglebutton="false"
-                        data-widget-deletebutton="false"
-                        data-widget-fullscreenbutton="false"
-                        data-widget-custombutton="false"
-                        data-widget-collapsed="true"
-                        data-widget-sortable="false"
+                    data-widget-colorbutton="false"
+                    data-widget-editbutton="false"
+                    data-widget-togglebutton="false"
+                    data-widget-deletebutton="false"
+                    data-widget-fullscreenbutton="false"
+                    data-widget-custombutton="false"
+                    data-widget-collapsed="true"
+                    data-widget-sortable="false"
 
                     -->
                     <header>
-                        <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                        <span class="widget-icon">
+                            <i class="fa fa-edit"></i>
+                        </span>
                         <h2>Review form </h2>
 
                     </header>
@@ -647,7 +667,7 @@
                         <!-- widget content -->
                         <div class="widget-body no-padding">
 
-                            <form id="review-form" class="smart-form">
+                            <form action="" id="review-form" class="smart-form">
                                 <header>
                                     Review form
                                 </header>
@@ -678,43 +698,73 @@
                                     <section>
                                         <div class="rating">
                                             <input type="radio" name="quality" id="quality-5">
-                                            <label for="quality-5"><i class="fa fa-star"></i></label>
+                                            <label for="quality-5">
+                                                <i class="fa fa-star"></i>
+                                            </label>
                                             <input type="radio" name="quality" id="quality-4">
-                                            <label for="quality-4"><i class="fa fa-star"></i></label>
+                                            <label for="quality-4">
+                                                <i class="fa fa-star"></i>
+                                            </label>
                                             <input type="radio" name="quality" id="quality-3">
-                                            <label for="quality-3"><i class="fa fa-star"></i></label>
+                                            <label for="quality-3">
+                                                <i class="fa fa-star"></i>
+                                            </label>
                                             <input type="radio" name="quality" id="quality-2">
-                                            <label for="quality-2"><i class="fa fa-star"></i></label>
+                                            <label for="quality-2">
+                                                <i class="fa fa-star"></i>
+                                            </label>
                                             <input type="radio" name="quality" id="quality-1">
-                                            <label for="quality-1"><i class="fa fa-star"></i></label>
+                                            <label for="quality-1">
+                                                <i class="fa fa-star"></i>
+                                            </label>
                                             Quality of the product
                                         </div>
 
                                         <div class="rating">
                                             <input type="radio" name="reliability" id="reliability-5">
-                                            <label for="reliability-5"><i class="fa fa-star"></i></label>
+                                            <label for="reliability-5">
+                                                <i class="fa fa-star"></i>
+                                            </label>
                                             <input type="radio" name="reliability" id="reliability-4">
-                                            <label for="reliability-4"><i class="fa fa-star"></i></label>
+                                            <label for="reliability-4">
+                                                <i class="fa fa-star"></i>
+                                            </label>
                                             <input type="radio" name="reliability" id="reliability-3">
-                                            <label for="reliability-3"><i class="fa fa-star"></i></label>
+                                            <label for="reliability-3">
+                                                <i class="fa fa-star"></i>
+                                            </label>
                                             <input type="radio" name="reliability" id="reliability-2">
-                                            <label for="reliability-2"><i class="fa fa-star"></i></label>
+                                            <label for="reliability-2">
+                                                <i class="fa fa-star"></i>
+                                            </label>
                                             <input type="radio" name="reliability" id="reliability-1">
-                                            <label for="reliability-1"><i class="fa fa-star"></i></label>
+                                            <label for="reliability-1">
+                                                <i class="fa fa-star"></i>
+                                            </label>
                                             Reliability of the product
                                         </div>
 
                                         <div class="rating">
                                             <input type="radio" name="overall" id="overall-5">
-                                            <label for="overall-5"><i class="fa fa-star"></i></label>
+                                            <label for="overall-5">
+                                                <i class="fa fa-star"></i>
+                                            </label>
                                             <input type="radio" name="overall" id="overall-4">
-                                            <label for="overall-4"><i class="fa fa-star"></i></label>
+                                            <label for="overall-4">
+                                                <i class="fa fa-star"></i>
+                                            </label>
                                             <input type="radio" name="overall" id="overall-3">
-                                            <label for="overall-3"><i class="fa fa-star"></i></label>
+                                            <label for="overall-3">
+                                                <i class="fa fa-star"></i>
+                                            </label>
                                             <input type="radio" name="overall" id="overall-2">
-                                            <label for="overall-2"><i class="fa fa-star"></i></label>
+                                            <label for="overall-2">
+                                                <i class="fa fa-star"></i>
+                                            </label>
                                             <input type="radio" name="overall" id="overall-1">
-                                            <label for="overall-1"><i class="fa fa-star"></i></label>
+                                            <label for="overall-1">
+                                                <i class="fa fa-star"></i>
+                                            </label>
                                             Overall rating
                                         </div>
                                     </section>
@@ -743,20 +793,22 @@
                 <!-- Widget ID (each widget will need unique ID)-->
                 <div class="jarviswidget" id="wid-id-4" data-widget-editbutton="false" data-widget-custombutton="false">
                     <!-- widget options:
-                        usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+                    usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
 
-                        data-widget-colorbutton="false"
-                        data-widget-editbutton="false"
-                        data-widget-togglebutton="false"
-                        data-widget-deletebutton="false"
-                        data-widget-fullscreenbutton="false"
-                        data-widget-custombutton="false"
-                        data-widget-collapsed="true"
-                        data-widget-sortable="false"
+                    data-widget-colorbutton="false"
+                    data-widget-editbutton="false"
+                    data-widget-togglebutton="false"
+                    data-widget-deletebutton="false"
+                    data-widget-fullscreenbutton="false"
+                    data-widget-custombutton="false"
+                    data-widget-collapsed="true"
+                    data-widget-sortable="false"
 
                     -->
                     <header>
-                        <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                        <span class="widget-icon">
+                            <i class="fa fa-edit"></i>
+                        </span>
                         <h2>Registration form </h2>
 
                     </header>
@@ -773,7 +825,7 @@
                         <!-- widget content -->
                         <div class="widget-body no-padding">
 
-                            <form id="smart-form-register" class="smart-form">
+                            <form action="" id="smart-form-register" class="smart-form">
                                 <header>
                                     Registration form
                                 </header>
@@ -786,7 +838,6 @@
                                             <b class="tooltip tooltip-bottom-right">Needed to enter the website</b>
                                         </label>
                                     </section>
-
 
 
                                     <section>
@@ -842,7 +893,7 @@
                                         <section class="col col-6">
                                             <label class="input">
                                                 <i class="icon-append fa fa-calendar"></i>
-                                                <input type="text" name="request" placeholder="Request activation on" class="datepicker" data-dateformat='dd/mm/yy'>
+                                                <input type="text" name="request" placeholder="Request activation on" class="datepicker" data-dateformat="dd/mm/yy">
                                             </label>
                                         </section>
                                     </div>
@@ -876,20 +927,22 @@
                 <!-- Widget ID (each widget will need unique ID)-->
                 <div class="jarviswidget" id="wid-id-6" data-widget-editbutton="false" data-widget-custombutton="false">
                     <!-- widget options:
-                        usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+                    usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
 
-                        data-widget-colorbutton="false"
-                        data-widget-editbutton="false"
-                        data-widget-togglebutton="false"
-                        data-widget-deletebutton="false"
-                        data-widget-fullscreenbutton="false"
-                        data-widget-custombutton="false"
-                        data-widget-collapsed="true"
-                        data-widget-sortable="false"
+                    data-widget-colorbutton="false"
+                    data-widget-editbutton="false"
+                    data-widget-togglebutton="false"
+                    data-widget-deletebutton="false"
+                    data-widget-fullscreenbutton="false"
+                    data-widget-custombutton="false"
+                    data-widget-collapsed="true"
+                    data-widget-sortable="false"
 
                     -->
                     <header>
-                        <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                        <span class="widget-icon">
+                            <i class="fa fa-edit"></i>
+                        </span>
                         <h2>Comment form </h2>
 
                     </header>
@@ -938,7 +991,9 @@
 
                                     <section>
                                         <label class="label">Comment</label>
-                                        <label class="textarea"> <i class="icon-append fa fa-comment"></i> 										<textarea rows="4" name="comment"></textarea> </label>
+                                        <label class="textarea">
+                                            <i class="icon-append fa fa-comment"></i> <textarea rows="4" name="comment"></textarea>
+                                        </label>
                                         <div class="note">
                                             You may use these HTML tags and attributes: &lt;a href="" title=""&gt;, &lt;abbr title=""&gt;, &lt;acronym title=""&gt;, &lt;b&gt;, &lt;blockquote cite=""&gt;, &lt;cite&gt;, &lt;code&gt;, &lt;del datetime=""&gt;, &lt;em&gt;, &lt;i&gt;, &lt;q cite=""&gt;, &lt;strike&gt;, &lt;strong&gt;.
                                         </div>
@@ -970,20 +1025,22 @@
                 <!-- Widget ID (each widget will need unique ID)-->
                 <div class="jarviswidget" id="wid-id-8" data-widget-editbutton="false" data-widget-custombutton="false">
                     <!-- widget options:
-                        usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+                    usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
 
-                        data-widget-colorbutton="false"
-                        data-widget-editbutton="false"
-                        data-widget-togglebutton="false"
-                        data-widget-deletebutton="false"
-                        data-widget-fullscreenbutton="false"
-                        data-widget-custombutton="false"
-                        data-widget-collapsed="true"
-                        data-widget-sortable="false"
+                    data-widget-colorbutton="false"
+                    data-widget-editbutton="false"
+                    data-widget-togglebutton="false"
+                    data-widget-deletebutton="false"
+                    data-widget-fullscreenbutton="false"
+                    data-widget-custombutton="false"
+                    data-widget-collapsed="true"
+                    data-widget-sortable="false"
 
                     -->
                     <header>
-                        <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                        <span class="widget-icon">
+                            <i class="fa fa-edit"></i>
+                        </span>
                         <h2>Contacts form </h2>
 
                     </header>
@@ -1009,14 +1066,14 @@
                                             <label class="label">Name</label>
                                             <label class="input">
                                                 <i class="icon-append fa fa-user"></i>
-                                                <input type="text" name="named" id="named">
+                                                <input type="text" name="name1" id="name1">
                                             </label>
                                         </section>
                                         <section class="col col-6">
                                             <label class="label">E-mail</label>
                                             <label class="input">
                                                 <i class="icon-append fa fa-envelope-o"></i>
-                                                <input type="email" name="emaild" id="emaild">
+                                                <input type="email" name="email1" id="email1">
                                             </label>
                                         </section>
                                     </div>
@@ -1071,515 +1128,555 @@
 
     </section>
     <!-- end widget grid -->
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                        &times;
-                    </button>
-                    <h4 class="modal-title">
-                        <img src="/content/img/logo.png" width="150" alt="SmartAdmin">
-                    </h4>
-                </div>
-                <div class="modal-body no-padding">
-
-                    <form id="login-form" class="smart-form">
-
-                        <fieldset>
-                            <section>
-                                <div class="row">
-                                    <label class="label col col-2">Username</label>
-                                    <div class="col col-10">
-                                        <label class="input">
-                                            <i class="icon-append fa fa-user"></i>
-                                            <input type="email" name="email">
-                                        </label>
-                                    </div>
-                                </div>
-                            </section>
-
-                            <section>
-                                <div class="row">
-                                    <label class="label col col-2">Password</label>
-                                    <div class="col col-10">
-                                        <label class="input">
-                                            <i class="icon-append fa fa-lock"></i>
-                                            <input type="password" name="password">
-                                        </label>
-                                        <div class="note">
-                                            <a href="javascript:void(0)">Forgot password?</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-
-                            <section>
-                                <div class="row">
-                                    <div class="col col-2"></div>
-                                    <div class="col col-10">
-                                        <label class="checkbox">
-                                            <input type="checkbox" name="remember" checked="">
-                                            <i></i>Keep me logged in
-                                        </label>
-                                    </div>
-                                </div>
-                            </section>
-                        </fieldset>
-
-                        <footer>
-                            <button type="submit" class="btn btn-primary">
-                                Sign in
-                            </button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">
-                                Cancel
-                            </button>
-
-                        </footer>
-                    </form>
-
-
-                </div>
-
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-
 
 </div>
 <!-- END MAIN CONTENT -->
 
 @section pagespecific {
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.12.1/jquery-ui.js" asp-fallback-src="~/js/libs/jquery-ui-1.12.1.js" asp-fallback-test="window.jQuery && window.jQuery.ui" crossorigin="anonymous"></script> 
 <script type="text/javascript">
 
-    // DO NOT REMOVE : GLOBAL FUNCTIONS!
+     /* DO NOT REMOVE : GLOBAL FUNCTIONS!
+  *
+  * pageSetUp(); WILL CALL THE FOLLOWING FUNCTIONS
+  *
+  * // activate tooltips
+  * $("[rel=tooltip]").tooltip();
+  *
+  * // activate popovers
+  * $("[rel=popover]").popover();
+  *
+  * // activate popovers with hover states
+  * $("[rel=popover-hover]").popover({ trigger: "hover" });
+  *
+  * // activate inline charts
+  * runAllCharts();
+  *
+  * // setup widgets
+  * setup_widgets_desktop();
+  *
+  * // run form elements
+  * runAllForms();
+  *
+  ********************************
+  *
+  * pageSetUp() is needed whenever you load a page.
+  * It initializes and checks for all basic elements of the page
+  * and makes rendering easier.
+  *
+  */
 
-    $(document).ready(function () {
-
-        var $checkoutForm = $('#checkout-form').validate({
-            // Rules for form validation
-            rules: {
-                fname: {
-                    required: true
-                },
-                lname: {
-                    required: true
-                },
-                email: {
-                    required: true,
-                    email: true
-                },
-                phone: {
-                    required: true
-                },
-                country: {
-                    required: true
-                },
-                city: {
-                    required: true
-                },
-                code: {
-                    required: true,
-                    digits: true
-                },
-                address: {
-                    required: true
-                },
-                name: {
-                    required: true
-                },
-                card: {
-                    required: true,
-                    creditcard: true
-                },
-                cvv: {
-                    required: true,
-                    digits: true
-                },
-                month: {
-                    required: true
-                },
-                year: {
-                    required: true,
-                    digits: true
-                }
-            },
-
-            // Messages for form validation
-            messages: {
-                fname: {
-                    required: 'Please enter your first name'
-                },
-                lname: {
-                    required: 'Please enter your last name'
-                },
-                email: {
-                    required: 'Please enter your email address',
-                    email: 'Please enter a VALID email address'
-                },
-                phone: {
-                    required: 'Please enter your phone number'
-                },
-                country: {
-                    required: 'Please select your country'
-                },
-                city: {
-                    required: 'Please enter your city'
-                },
-                code: {
-                    required: 'Please enter code',
-                    digits: 'Digits only please'
-                },
-                address: {
-                    required: 'Please enter your full address'
-                },
-                name: {
-                    required: 'Please enter name on your card'
-                },
-                card: {
-                    required: 'Please enter your card number'
-                },
-                cvv: {
-                    required: 'Enter CVV2',
-                    digits: 'Digits only'
-                },
-                month: {
-                    required: 'Select month'
-                },
-                year: {
-                    required: 'Enter year',
-                    digits: 'Digits only please'
-                }
-            },
-
-            // Do not change code below
-            errorPlacement: function (error, element) {
-                error.insertAfter(element.parent());
-            }
-        });
-
-        var $registerForm = $("#smart-form-register").validate({
-
-            // Rules for form validation
-            rules: {
-                username: {
-                    required: true
-                },
-                email: {
-                    required: true,
-                    email: true
-                },
-                password: {
-                    required: true,
-                    minlength: 3,
-                    maxlength: 20
-                },
-                passwordConfirm: {
-                    required: true,
-                    minlength: 3,
-                    maxlength: 20,
-                    equalTo: '#password'
-                },
-                firstname: {
-                    required: true
-                },
-                lastname: {
-                    required: true
-                },
-                gender: {
-                    required: true
-                },
-                terms: {
-                    required: true
-                }
-            },
-
-            // Messages for form validation
-            messages: {
-                login: {
-                    required: 'Please enter your login'
-                },
-                email: {
-                    required: 'Please enter your email address',
-                    email: 'Please enter a VALID email address'
-                },
-                password: {
-                    required: 'Please enter your password'
-                },
-                passwordConfirm: {
-                    required: 'Please enter your password one more time',
-                    equalTo: 'Please enter the same password as above'
-                },
-                firstname: {
-                    required: 'Please select your first name'
-                },
-                lastname: {
-                    required: 'Please select your last name'
-                },
-                gender: {
-                    required: 'Please select your gender'
-                },
-                terms: {
-                    required: 'You must agree with Terms and Conditions'
-                }
-            },
-
-            // Do not change code below
-            errorPlacement: function (error, element) {
-                error.insertAfter(element.parent());
-            }
-        });
-
-        var $reviewForm = $("#review-form").validate({
-            // Rules for form validation
-            rules: {
-                name: {
-                    required: true
-                },
-                email: {
-                    required: true,
-                    email: true
-                },
-                review: {
-                    required: true,
-                    minlength: 20
-                },
-                quality: {
-                    required: true
-                },
-                reliability: {
-                    required: true
-                },
-                overall: {
-                    required: true
-                }
-            },
-
-            // Messages for form validation
-            messages: {
-                name: {
-                    required: 'Please enter your name'
-                },
-                email: {
-                    required: 'Please enter your email address',
-                    email: '<i class="fa fa-warning"></i><strong>Please enter a VALID email addres</strong>'
-                },
-                review: {
-                    required: 'Please enter your review'
-                },
-                quality: {
-                    required: 'Please rate quality of the product'
-                },
-                reliability: {
-                    required: 'Please rate reliability of the product'
-                },
-                overall: {
-                    required: 'Please rate the product'
-                }
-            },
-
-            // Do not change code below
-            errorPlacement: function (error, element) {
-                error.insertAfter(element.parent());
-            }
-        });
-
-        var $commentForm = $("#comment-form").validate({
-            // Rules for form validation
-            rules: {
-                name: {
-                    required: true
-                },
-                email: {
-                    required: true,
-                    email: true
-                },
-                url: {
-                    url: true
-                },
-                comment: {
-                    required: true
-                }
-            },
-
-            // Messages for form validation
-            messages: {
-                name: {
-                    required: 'Enter your name',
-                },
-                email: {
-                    required: 'Enter your email address',
-                    email: 'Enter a VALID email'
-                },
-                url: {
-                    email: 'Enter a VALID url'
-                },
-                comment: {
-                    required: 'Please enter your comment'
-                }
-            },
-
-            // Ajax form submition
-            submitHandler: function (form) {
-                $(form).ajaxSubmit({
-                    success: function () {
-                        $("#comment-form").addClass('submited');
-                    }
-                });
-            },
-
-            // Do not change code below
-            errorPlacement: function (error, element) {
-                error.insertAfter(element.parent());
-            }
-        });
-
-        var $contactForm = $("#contact-form").validate({
-            // Rules for form validation
-            rules: {
-                name: {
-                    required: true
-                },
-                email: {
-                    required: true,
-                    email: true
-                },
-                message: {
-                    required: true,
-                    minlength: 10
-                }
-            },
-
-            // Messages for form validation
-            messages: {
-                name: {
-                    required: 'Please enter your name',
-                },
-                email: {
-                    required: 'Please enter your email address',
-                    email: 'Please enter a VALID email address'
-                },
-                message: {
-                    required: 'Please enter your message'
-                }
-            },
-
-            // Ajax form submition
-            submitHandler: function (form) {
-                $(form).ajaxSubmit({
-                    success: function () {
-                        $("#contact-form").addClass('submited');
-                    }
-                });
-            },
-
-            // Do not change code below
-            errorPlacement: function (error, element) {
-                error.insertAfter(element.parent());
-            }
-        });
-
-        var $loginForm = $("#login-form").validate({
-            // Rules for form validation
-            rules: {
-                email: {
-                    required: true,
-                    email: true
-                },
-                password: {
-                    required: true,
-                    minlength: 3,
-                    maxlength: 20
-                }
-            },
-
-            // Messages for form validation
-            messages: {
-                email: {
-                    required: 'Please enter your email address',
-                    email: 'Please enter a VALID email address'
-                },
-                password: {
-                    required: 'Please enter your password'
-                }
-            },
-
-            // Do not change code below
-            errorPlacement: function (error, element) {
-                error.insertAfter(element.parent());
-            }
-        });
-
-        var $orderForm = $("#order-form").validate({
-            // Rules for form validation
-            rules: {
-                name: {
-                    required: true
-                },
-                email: {
-                    required: true,
-                    email: true
-                },
-                phone: {
-                    required: true
-                },
-                interested: {
-                    required: true
-                },
-                budget: {
-                    required: true
-                }
-            },
-
-            // Messages for form validation
-            messages: {
-                name: {
-                    required: 'Please enter your name'
-                },
-                email: {
-                    required: 'Please enter your email address',
-                    email: 'Please enter a VALID email address'
-                },
-                phone: {
-                    required: 'Please enter your phone number'
-                },
-                interested: {
-                    required: 'Please select interested service'
-                },
-                budget: {
-                    required: 'Please select your budget'
-                }
-            },
-
-            // Do not change code below
-            errorPlacement: function (error, element) {
-                error.insertAfter(element.parent());
-            }
-        });
-
-        // START AND FINISH DATE
-        $('#startdate').datepicker({
-            dateFormat: 'dd.mm.yy',
-            prevText: '<i class="fa fa-chevron-left"></i>',
-            nextText: '<i class="fa fa-chevron-right"></i>',
-            onSelect: function (selectedDate) {
-                $('#finishdate').datepicker('option', 'minDate', selectedDate);
-            }
-        });
-
-        $('#finishdate').datepicker({
-            dateFormat: 'dd.mm.yy',
-            prevText: '<i class="fa fa-chevron-left"></i>',
-            nextText: '<i class="fa fa-chevron-right"></i>',
-            onSelect: function (selectedDate) {
-                $('#startdate').datepicker('option', 'maxDate', selectedDate);
-            }
-        });
+     pageSetUp();
 
 
+     // PAGE RELATED SCRIPTS
 
-    })
+     // pagefunction
+
+     var pagefunction = function () {
+
+
+         var errorClass = 'invalid';
+         var errorElement = 'em';
+
+         var $checkoutForm = $('#checkout-form').validate({
+             errorClass: errorClass,
+             errorElement: errorElement,
+             highlight: function (element) {
+                 $(element).parent().removeClass('state-success').addClass("state-error");
+                 $(element).removeClass('valid');
+             },
+             unhighlight: function (element) {
+                 $(element).parent().removeClass("state-error").addClass('state-success');
+                 $(element).addClass('valid');
+             },
+
+             // Rules for form validation
+             rules: {
+                 fname: {
+                     required: true
+                 },
+                 lname: {
+                     required: true
+                 },
+                 email: {
+                     required: true,
+                     email: true
+                 },
+                 phone: {
+                     required: true
+                 },
+                 country: {
+                     required: true
+                 },
+                 city: {
+                     required: true
+                 },
+                 code: {
+                     required: true,
+                     digits: true
+                 },
+                 address: {
+                     required: true
+                 },
+                 name: {
+                     required: true
+                 },
+                 card: {
+                     required: true,
+                     creditcard: true
+                 },
+                 cvv: {
+                     required: true,
+                     digits: true
+                 },
+                 month: {
+                     required: true
+                 },
+                 year: {
+                     required: true,
+                     digits: true
+                 }
+             },
+
+             // Messages for form validation
+             messages: {
+                 fname: {
+                     required: 'Please enter your first name'
+                 },
+                 lname: {
+                     required: 'Please enter your last name'
+                 },
+                 email: {
+                     required: 'Please enter your email address',
+                     email: 'Please enter a VALID email address'
+                 },
+                 phone: {
+                     required: 'Please enter your phone number'
+                 },
+                 country: {
+                     required: 'Please select your country'
+                 },
+                 city: {
+                     required: 'Please enter your city'
+                 },
+                 code: {
+                     required: 'Please enter code',
+                     digits: 'Digits only please'
+                 },
+                 address: {
+                     required: 'Please enter your full address'
+                 },
+                 name: {
+                     required: 'Please enter name on your card'
+                 },
+                 card: {
+                     required: 'Please enter your card number'
+                 },
+                 cvv: {
+                     required: 'Enter CVV2',
+                     digits: 'Digits only'
+                 },
+                 month: {
+                     required: 'Select month'
+                 },
+                 year: {
+                     required: 'Enter year',
+                     digits: 'Digits only please'
+                 }
+             },
+
+             // Do not change code below
+             errorPlacement: function (error, element) {
+                 error.insertAfter(element.parent());
+             }
+         });
+
+         var $registerForm = $("#smart-form-register").validate({
+             errorClass: errorClass,
+             errorElement: errorElement,
+             highlight: function (element) {
+                 $(element).parent().removeClass('state-success').addClass("state-error");
+                 $(element).removeClass('valid');
+             },
+             unhighlight: function (element) {
+                 $(element).parent().removeClass("state-error").addClass('state-success');
+                 $(element).addClass('valid');
+             },
+
+             // Rules for form validation
+             rules: {
+                 username: {
+                     required: true
+                 },
+                 email: {
+                     required: true,
+                     email: true
+                 },
+                 password: {
+                     required: true,
+                     minlength: 3,
+                     maxlength: 20
+                 },
+                 passwordConfirm: {
+                     required: true,
+                     minlength: 3,
+                     maxlength: 20,
+                     equalTo: '#password'
+                 },
+                 firstname: {
+                     required: true
+                 },
+                 lastname: {
+                     required: true
+                 },
+                 gender: {
+                     required: true
+                 },
+                 terms: {
+                     required: true
+                 }
+             },
+
+             // Messages for form validation
+             messages: {
+                 login: {
+                     required: 'Please enter your login'
+                 },
+                 email: {
+                     required: 'Please enter your email address',
+                     email: 'Please enter a VALID email address'
+                 },
+                 password: {
+                     required: 'Please enter your password'
+                 },
+                 passwordConfirm: {
+                     required: 'Please enter your password one more time',
+                     equalTo: 'Please enter the same password as above'
+                 },
+                 firstname: {
+                     required: 'Please select your first name'
+                 },
+                 lastname: {
+                     required: 'Please select your last name'
+                 },
+                 gender: {
+                     required: 'Please select your gender'
+                 },
+                 terms: {
+                     required: 'You must agree with Terms and Conditions'
+                 }
+             },
+
+             // Do not change code below
+             errorPlacement: function (error, element) {
+                 error.insertAfter(element.parent());
+             }
+         });
+
+         var $reviewForm = $("#review-form").validate({
+             errorClass: errorClass,
+             errorElement: errorElement,
+             highlight: function (element) {
+                 $(element).parent().removeClass('state-success').addClass("state-error");
+                 $(element).removeClass('valid');
+             },
+             unhighlight: function (element) {
+                 $(element).parent().removeClass("state-error").addClass('state-success');
+                 $(element).addClass('valid');
+             },
+             // Rules for form validation
+             rules: {
+                 name: {
+                     required: true
+                 },
+                 email: {
+                     required: true,
+                     email: true
+                 },
+                 review: {
+                     required: true,
+                     minlength: 20
+                 },
+                 quality: {
+                     required: true
+                 },
+                 reliability: {
+                     required: true
+                 },
+                 overall: {
+                     required: true
+                 }
+             },
+
+             // Messages for form validation
+             messages: {
+                 name: {
+                     required: 'Please enter your name'
+                 },
+                 email: {
+                     required: 'Please enter your email address',
+                     email: '<i class="fa fa-warning"></i><strong>Please enter a VALID email addres</strong>'
+                 },
+                 review: {
+                     required: 'Please enter your review'
+                 },
+                 quality: {
+                     required: 'Please rate quality of the product'
+                 },
+                 reliability: {
+                     required: 'Please rate reliability of the product'
+                 },
+                 overall: {
+                     required: 'Please rate the product'
+                 }
+             },
+
+             // Do not change code below
+             errorPlacement: function (error, element) {
+                 error.insertAfter(element.parent());
+             }
+         });
+
+         var $commentForm = $("#comment-form").validate({
+             errorClass: errorClass,
+             errorElement: errorElement,
+             highlight: function (element) {
+                 $(element).parent().removeClass('state-success').addClass("state-error");
+                 $(element).removeClass('valid');
+             },
+             unhighlight: function (element) {
+                 $(element).parent().removeClass("state-error").addClass('state-success');
+                 $(element).addClass('valid');
+             },
+             // Rules for form validation
+             rules: {
+                 name: {
+                     required: true
+                 },
+                 email: {
+                     required: true,
+                     email: true
+                 },
+                 url: {
+                     url: true
+                 },
+                 comment: {
+                     required: true
+                 }
+             },
+
+             // Messages for form validation
+             messages: {
+                 name: {
+                     required: 'Enter your name',
+                 },
+                 email: {
+                     required: 'Enter your email address',
+                     email: 'Enter a VALID email'
+                 },
+                 url: {
+                     email: 'Enter a VALID url'
+                 },
+                 comment: {
+                     required: 'Please enter your comment'
+                 }
+             },
+
+             // Ajax form submition
+             submitHandler: function (form) {
+                 $(form).ajaxSubmit({
+                     success: function () {
+                         $("#comment-form").addClass('submited');
+                     }
+                 });
+             },
+
+             // Do not change code below
+             errorPlacement: function (error, element) {
+                 error.insertAfter(element.parent());
+             }
+         });
+
+         var $contactForm = $("#contact-form").validate({
+             errorClass: errorClass,
+             errorElement: errorElement,
+             highlight: function (element) {
+                 $(element).parent().removeClass('state-success').addClass("state-error");
+                 $(element).removeClass('valid');
+             },
+             unhighlight: function (element) {
+                 $(element).parent().removeClass("state-error").addClass('state-success');
+                 $(element).addClass('valid');
+             },
+             // Rules for form validation
+             rules: {
+                 name: {
+                     required: true
+                 },
+                 email: {
+                     required: true,
+                     email: true
+                 },
+                 message: {
+                     required: true,
+                     minlength: 10
+                 }
+             },
+
+             // Messages for form validation
+             messages: {
+                 name: {
+                     required: 'Please enter your name',
+                 },
+                 email: {
+                     required: 'Please enter your email address',
+                     email: 'Please enter a VALID email address'
+                 },
+                 message: {
+                     required: 'Please enter your message'
+                 }
+             },
+
+             // Ajax form submition
+             submitHandler: function (form) {
+                 $(form).ajaxSubmit({
+                     success: function () {
+                         $("#contact-form").addClass('submited');
+                     }
+                 });
+             },
+
+             // Do not change code below
+             errorPlacement: function (error, element) {
+                 error.insertAfter(element.parent());
+             }
+         });
+
+         var $loginForm = $("#login-form").validate({
+             errorClass: errorClass,
+             errorElement: errorElement,
+             highlight: function (element) {
+                 $(element).parent().removeClass('state-success').addClass("state-error");
+                 $(element).removeClass('valid');
+             },
+             unhighlight: function (element) {
+                 $(element).parent().removeClass("state-error").addClass('state-success');
+                 $(element).addClass('valid');
+             },
+             // Rules for form validation
+             rules: {
+                 email: {
+                     required: true,
+                     email: true
+                 },
+                 password: {
+                     required: true,
+                     minlength: 3,
+                     maxlength: 20
+                 }
+             },
+
+             // Messages for form validation
+             messages: {
+                 email: {
+                     required: 'Please enter your email address',
+                     email: 'Please enter a VALID email address'
+                 },
+                 password: {
+                     required: 'Please enter your password'
+                 }
+             },
+
+             // Do not change code below
+             errorPlacement: function (error, element) {
+                 error.insertAfter(element.parent());
+             }
+         });
+
+         var $orderForm = $("#order-form").validate({
+             errorClass: errorClass,
+             errorElement: errorElement,
+             highlight: function (element) {
+                 $(element).parent().removeClass('state-success').addClass("state-error");
+                 $(element).removeClass('valid');
+             },
+             unhighlight: function (element) {
+                 $(element).parent().removeClass("state-error").addClass('state-success');
+                 $(element).addClass('valid');
+             },
+             // Rules for form validation
+             rules: {
+                 name: {
+                     required: true
+                 },
+                 email: {
+                     required: true,
+                     email: true
+                 },
+                 phone: {
+                     required: true
+                 },
+                 interested: {
+                     required: true
+                 },
+                 budget: {
+                     required: true
+                 }
+             },
+
+             // Messages for form validation
+             messages: {
+                 name: {
+                     required: 'Please enter your name'
+                 },
+                 email: {
+                     required: 'Please enter your email address',
+                     email: 'Please enter a VALID email address'
+                 },
+                 phone: {
+                     required: 'Please enter your phone number'
+                 },
+                 interested: {
+                     required: 'Please select interested service'
+                 },
+                 budget: {
+                     required: 'Please select your budget'
+                 }
+             },
+
+             // Do not change code below
+             errorPlacement: function (error, element) {
+                 error.insertAfter(element.parent());
+             }
+         });
+
+         // START AND FINISH DATE
+         $('#startdate').datepicker({
+             dateFormat: 'dd.mm.yy',
+             prevText: '<i class="fa fa-chevron-left"></i>',
+             nextText: '<i class="fa fa-chevron-right"></i>',
+             onSelect: function (selectedDate) {
+                 $('#finishdate').datepicker('option', 'minDate', selectedDate);
+             }
+         });
+
+         $('#finishdate').datepicker({
+             dateFormat: 'dd.mm.yy',
+             prevText: '<i class="fa fa-chevron-left"></i>',
+             nextText: '<i class="fa fa-chevron-right"></i>',
+             onSelect: function (selectedDate) {
+                 $('#startdate').datepicker('option', 'maxDate', selectedDate);
+             }
+         });
+
+     };
+
+     // end pagefunction
+
+     // Load form valisation dependency
+     loadScript("/scripts/plugin/jquery-form/jquery-form.min.js", pagefunction);
 
 </script>
+
 }
