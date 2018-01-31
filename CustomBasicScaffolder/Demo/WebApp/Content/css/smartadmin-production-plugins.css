@@ -4744,7 +4744,7 @@ article.sortable-grid { min-height: 30px; }
     -webkit-border-radius: 0px !important;
     -webkit-box-shadow: none !important;
     border-radius: 0px !important;
-    border-width: 0px 0px 1px !important;
+    border-width: 0px 0px 1px 5px !important;
     box-shadow: none !important;
     margin: 0 0 10px;
     padding: 10px;

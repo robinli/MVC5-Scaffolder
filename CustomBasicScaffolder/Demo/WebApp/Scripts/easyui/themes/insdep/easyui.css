@@ -1372,6 +1372,7 @@
 .datagrid .panel-body {
   overflow: hidden;
   position: relative;
+  padding:0px;
 }
 .datagrid-view {
   position: relative;
