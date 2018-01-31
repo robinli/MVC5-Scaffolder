@@ -14638,9 +14638,9 @@ input[type="color"].ui-autocomplete-loading {
  */
 
 .alert {
-    -moz-border-radius: 0px;
-    -webkit-border-radius: 0px;
-    border-left-width: 5px;
+    -moz-border-radius: 0px !important;
+    -webkit-border-radius: 0px !important;
+    border-left-width: 5px !important;
     border-radius: 0px;
     border-width: 0px;
     color: #675100;
