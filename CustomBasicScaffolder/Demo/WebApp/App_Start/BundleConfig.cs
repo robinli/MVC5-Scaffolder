@@ -1,15 +1,109 @@
-﻿using System.Web;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Web;
 using System.Web.Optimization;
 
 namespace WebApp
 {
+    public class ProperStyleBundle : StyleBundle
+    {
+        public override IBundleOrderer Orderer
+        {
+            get { return new NonOrderingBundleOrderer(); }
+            set { throw new Exception("Unable to override Non-Ordered bundler"); }
+        }
+
+        public ProperStyleBundle(string virtualPath) : base(virtualPath) { }
+
+        public ProperStyleBundle(string virtualPath, string cdnPath) : base(virtualPath, cdnPath) { }
+
+        public override Bundle Include(params string[] virtualPaths)
+        {
+            foreach (var virtualPath in virtualPaths)
+            {
+                this.Include(virtualPath);
+            }
+            return this;
+        }
+
+        public override Bundle Include(string virtualPath, params IItemTransform[] transforms)
+        {
+            var realPath = System.Web.Hosting.HostingEnvironment.MapPath(virtualPath);
+            if (!File.Exists(realPath))
+            {
+                throw new FileNotFoundException("Virtual path not found: " + virtualPath);
+            }
+            var trans = new List<IItemTransform>(transforms).Union(new[] { new ProperCssRewriteUrlTransform(virtualPath) }).ToArray();
+            return base.Include(virtualPath, trans);
+        }
+
+        // This provides files in the same order as they have been added. 
+        private class NonOrderingBundleOrderer : IBundleOrderer
+        {
+            public IEnumerable<BundleFile> OrderFiles(BundleContext context, IEnumerable<BundleFile> files)
+            {
+                return files;
+            }
+        }
+
+        private class ProperCssRewriteUrlTransform : IItemTransform
+        {
+            private readonly string _basePath;
+
+            public ProperCssRewriteUrlTransform(string basePath)
+            {
+                _basePath = basePath.EndsWith("/") ? basePath : VirtualPathUtility.GetDirectory(basePath);
+            }
+
+            public string Process(string includedVirtualPath, string input)
+            {
+                if (includedVirtualPath == null)
+                {
+                    throw new ArgumentNullException("includedVirtualPath");
+                }
+                return ConvertUrlsToAbsolute(_basePath, input);
+            }
+
+            private static string RebaseUrlToAbsolute(string baseUrl, string url)
+            {
+                if (string.IsNullOrWhiteSpace(url)
+                     || string.IsNullOrWhiteSpace(baseUrl)
+                     || url.StartsWith("/", StringComparison.OrdinalIgnoreCase)
+                     || url.StartsWith("data:", StringComparison.OrdinalIgnoreCase)
+                    )
+                {
+                    return url;
+                }
+                if (!baseUrl.EndsWith("/", StringComparison.OrdinalIgnoreCase))
+                {
+                    baseUrl = baseUrl + "/";
+                }
+                return VirtualPathUtility.ToAbsolute(baseUrl + url);
+            }
+
+            private static string ConvertUrlsToAbsolute(string baseUrl, string content)
+            {
+                if (string.IsNullOrWhiteSpace(content))
+                {
+                    return content;
+                }
+                return new Regex("url\\(['\"]?(?<url>[^)]+?)['\"]?\\)")
+                    .Replace(content, (match =>
+                                       "url(" + RebaseUrlToAbsolute(baseUrl, match.Groups["url"].Value) + ")"));
+            }
+        }
+    }
+
     public class BundleConfig
     {
         public static void RegisterBundles(BundleCollection bundles)
         {
             //bundles.Add(new StyleBundle("~/content/smartadmin").IncludeDirectory("~/content/css", "*.min.css"));
 
-            bundles.Add(new StyleBundle("~/content/smartadmin").Include(
+            bundles.Add(new ProperStyleBundle("~/content/smartadmin").Include(
                     "~/Content/css/bootstrap.css",
                     "~/Content/css/font-awesome.css",
                     "~/Content/css/smartadmin-production-plugins.css",
@@ -20,7 +114,7 @@ namespace WebApp
                     "~/Content/css/smartadmin-rtl.css",
                     "~/Content/css/invoice.min.css",
                     "~/Content/css/lockscreen.min.css",
-                    "~/Content/css/your_style.min.css"));
+                    "~/Content/css/your_style.min.css" ));
 
             bundles.Add(new ScriptBundle("~/scripts/smartadmin").Include(
                 "~/scripts/app.config.js",
@@ -108,15 +202,15 @@ namespace WebApp
 
 
             //EasyUI style
-            bundles.Add(new StyleBundle("~/plugins/easyuiStyles").Include(
+            bundles.Add(new ProperStyleBundle("~/plugins/easyuiStyles").Include(
                         "~/fonts/font-awesome3.2/css/font-awesome.css",
                         "~/Scripts/easyui/themes/insdep/easyui.css",
                         "~/Scripts/easyui/themes/insdep/easyui_animation.css",
                       "~/Scripts/easyui/themes/insdep/easyui_plus.css"
                       ));
             //EasyUI Script
-            bundles.Add(new ScriptBundle("~/plugins/easyuijs").Include(
-                      "~/Scripts/easyui/jquery.easyui.min.js"));
+            //bundles.Add(new ScriptBundle("~/plugins/easyuijs").Include(
+            //          "~/Scripts/easyui/jquery.easyui.min.js"));
             //EasyUI plugins Script
             bundles.Add(new ScriptBundle("~/plugins/easyuipluginsjs").Include(
                       "~/Scripts/easyui/plugins/datagrid-filter.js",
@@ -131,19 +225,19 @@ namespace WebApp
 
             bundles.Add(new ScriptBundle("~/plugins/daterangepickerjs").Include(
                       "~/Scripts/plugin/daterangepicker/daterangepicker.js"));
-            bundles.Add(new StyleBundle("~/plugins/daterangepickerStyles").Include(
+            bundles.Add(new ProperStyleBundle("~/plugins/daterangepickerStyles").Include(
                       "~/Scripts/plugin/daterangepicker/daterangepicker.css"));
 
             //inputpicker
 
             bundles.Add(new ScriptBundle("~/plugins/inputpickerjs").Include(
                       "~/Scripts/plugin/inputpicker/jquery.inputpicker.js"));
-            bundles.Add(new StyleBundle("~/plugins/inputpickerStyles").Include(
+            bundles.Add(new ProperStyleBundle("~/plugins/inputpickerStyles").Include(
                       "~/Scripts/plugin/inputpicker/jquery.inputpicker.css"));
 
 
             //jquery.filer Script
-            bundles.Add(new StyleBundle("~/plugins/jqueryfilerStyles").Include(
+            bundles.Add(new ProperStyleBundle("~/plugins/jqueryfilerStyles").Include(
                       "~/Scripts/plugin/jquery-filer/css/jquery.filer.css",
                       "~/Scripts/plugin/jquery-filer/css/themes/jquery.filer-dragdropbox-theme.css"));
             bundles.Add(new ScriptBundle("~/plugins/jqueryfilerjs").Include(
@@ -168,7 +262,7 @@ namespace WebApp
 
 
 
-            BundleTable.EnableOptimizations = false;
+            BundleTable.EnableOptimizations = true;
 
         }
     }
