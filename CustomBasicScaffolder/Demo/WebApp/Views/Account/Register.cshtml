@@ -114,7 +114,7 @@
 @{ Html.RenderPartial("_TermsAndConditions"); }
 
 @section pagespecific{
-
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.12.1/jquery-ui.js" asp-fallback-src="~/js/libs/jquery-ui-1.12.1.js" asp-fallback-test="window.jQuery && window.jQuery.ui" crossorigin="anonymous"></script> 
     <script type="text/javascript">
         // Model i agree button
         $("#i-agree").click(function () {

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Web.UI;
 using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -66,6 +67,7 @@ namespace WebApp.Controllers
 
         // GET: /account/login
         [AllowAnonymous]
+        
         public ActionResult Login(string returnUrl)
         {
             // We do not want to use any existing identity information
@@ -128,6 +130,7 @@ namespace WebApp.Controllers
 
         // GET: /account/register
         [AllowAnonymous]
+     
         public ActionResult Register()
         {
             // We do not want to use any existing identity information
@@ -190,6 +193,7 @@ namespace WebApp.Controllers
         {
             // First we clean the authentication ticket like always
             FormsAuthentication.SignOut();
+            this.SignInManager.SignOut();
 
             // Second we clear the principal to ensure the user does not retain any authentication
             HttpContext.User = new GenericPrincipal(new GenericIdentity(string.Empty), null);

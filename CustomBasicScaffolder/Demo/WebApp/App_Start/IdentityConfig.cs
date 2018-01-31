@@ -115,7 +115,10 @@ namespace WebApp
             : base(userManager, authenticationManager)
         {
         }
+        public void SignOut() {
 
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+        }
         public override Task<ClaimsIdentity> CreateUserIdentityAsync(ApplicationUser user)
         {
             return user.GenerateUserIdentityAsync((ApplicationUserManager)UserManager);
