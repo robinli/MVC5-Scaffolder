@@ -7,11 +7,11 @@
     <meta name="description" content="SmartAdmin for ASP.NET MVC 5" />
     <meta name="author" content="SmartAdmin.Neo.Zhu" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <!-- easyui  Styles -->
-    @Styles.Render("~/plugins/easyuiStyles")
+    
     <!-- Basic Styles -->
     @Styles.Render("~/content/smartadmin")
-    
+    <!-- easyui  Styles -->
+    @Styles.Render("~/plugins/easyuiStyles")
     <!-- jquery.filer  Styles -->
     @Styles.Render("~/plugins/jqueryfilerStyles")
     <!-- daterangepicker  Styles -->
@@ -42,6 +42,7 @@
     <!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
     <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
     <script> if (!window.jQuery) { document.write('<script src="/scripts/libs/jquery-3.2.1.min.js"><\/script>'); } </script>
+
     <!--jquery easyui  -->
     @Scripts.Render("~/plugins/easyuijs")
 

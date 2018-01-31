@@ -36,7 +36,9 @@
   height: 16px;
   line-height: 16px;
 }
+ 
 .panel { overflow: hidden;text-align: left;margin: 0;border: 0; border-radius: 0;}
+
 .panel-header,
 .panel-body {
   border-width: 1px;
@@ -1465,21 +1467,28 @@
 .datagrid-header td,
 .datagrid-body td,
 .datagrid-footer td {
-  border-width: 0 1px 1px 0;
+  border-width: 0 1px 1px 0px  ;
   border-style: dotted;
   margin: 0;
   padding: 0;
 }
+
+    .datagrid-body td:last-child {
+        border-color: #ccc;
+        border-width: 0px 1px 1px 0px !important;
+        border-style: dotted;
+    }
+
 .datagrid-cell,
-.datagrid-cell-group,
-.datagrid-header-rownumber,
-.datagrid-cell-rownumber {
-  margin: 0;
-  padding: 0 4px;
-  white-space: nowrap;
-  word-wrap: normal;
-  overflow: hidden;
-}
+    .datagrid-cell-group,
+    .datagrid-header-rownumber,
+    .datagrid-cell-rownumber {
+        margin: 0;
+        padding: 0 4px;
+        white-space: nowrap;
+        word-wrap: normal;
+        overflow: hidden;
+    }
 .datagrid-header .datagrid-cell {
   height: auto;
 }
@@ -1627,11 +1636,17 @@
 .datagrid-footer td {
   border-color: #ccc;
 }
-.datagrid-htable,
-.datagrid-btable,
-.datagrid-ftable {
-  border-collapse: separate;
-}
+    .datagrid-header td:last-child {
+        border-color: #ccc;
+        border-width: 0px 1px 1px 0px;
+        border-style: dotted;
+    }
+
+    .datagrid-htable,
+    .datagrid-btable,
+    .datagrid-ftable {
+        border-collapse: separate;
+    }
 .datagrid-row-alt {
   background: #fafafa;
 }

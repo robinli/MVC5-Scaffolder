@@ -1,0 +1,6 @@
+D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern\bin\Release\Repository.Pattern.dll.config
+D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern\bin\Release\Repository.Pattern.dll
+D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern\bin\Release\Repository.Pattern.pdb
+D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern\obj\Release\Repository.Pattern.csproj.CoreCompileInputs.cache
+D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern\obj\Release\Repository.Pattern.dll
+D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern\obj\Release\Repository.Pattern.pdb

@@ -1,0 +1,6 @@
+D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Public.CodeText.Data\bin\Release\PublicPara.CodeText.Data.dll
+D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Public.CodeText.Data\bin\Release\PublicPara.CodeText.Data.pdb
+D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Public.CodeText.Data\obj\Release\PublicPara.CodeText.Data.csprojResolveAssemblyReference.cache
+D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Public.CodeText.Data\obj\Release\PublicPara.CodeText.Data.csproj.CoreCompileInputs.cache
+D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Public.CodeText.Data\obj\Release\PublicPara.CodeText.Data.dll
+D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Public.CodeText.Data\obj\Release\PublicPara.CodeText.Data.pdb
