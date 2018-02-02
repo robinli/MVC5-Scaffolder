@@ -593,7 +593,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 , {"IsOverpostingProtectionRequired", true}
                 , {"BindAttributeIncludeText", bindAttributeIncludeText}
                 , {"OverpostingWarningMessage", "To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598."}
-                , {"RequiredNamespaces", new HashSet<string>(){modelType.Namespace.FullName,project.GetDefaultNamespace() + ".Services",project.GetDefaultNamespace() + ".Repositories",project.GetDefaultNamespace() + ".Extensions"}}
+                , {"RequiredNamespaces", new HashSet<string>(){modelType.Namespace.FullName,project.GetDefaultNamespace() + ".Services",project.GetDefaultNamespace() + ".Repositories"}}
                 , {"ViewPrefix", viewPrefix}
             };
 

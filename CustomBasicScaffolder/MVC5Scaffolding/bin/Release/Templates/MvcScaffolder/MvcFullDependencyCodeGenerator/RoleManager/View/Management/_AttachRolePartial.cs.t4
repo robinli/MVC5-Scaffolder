@@ -1,0 +1,16 @@
+﻿
+<#@ template language="C#" HostSpecific="True" #>
+<#@ output extension=".cshtml" #>
+<#@ parameter type="System.String" name="DefaultNamespace" #>
+
+@using <#= DefaultNamespace #>.Models
+@model AttachRoleViewModel
+
+<form action="/management/account/roles" method="post" class="form-inline" role="form">
+    @Html.HiddenFor(m => m.UserId)
+    <div class="col-md-6">
+        @Html.DropDownListFor(m => m.RoleName, (SelectListItem[])ViewBag.RoleSelectList, null, new { @class = "form-control" })
+    </div>
+    <input type="submit" value="追加" class="btn btn-success" name="Attach"/>
+    <input type="submit" value="删除" class="btn btn-warning" name="Purge"/>
+</form>
