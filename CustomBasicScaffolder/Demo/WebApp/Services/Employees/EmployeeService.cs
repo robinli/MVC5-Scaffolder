@@ -1,6 +1,15 @@
-﻿             
-           
- 
+﻿// <copyright file="EmployeeService.cs" company="neozhu/MVC5-Scaffolder">
+// Copyright (c) 2018 All Rights Reserved
+// </copyright>
+// <author>neo.zhu</author>
+// <date>2/6/2018 10:11:12 AM </date>
+// <summary>
+//  实现定义的业务逻辑,通过依赖注入降低模块之间的耦合度
+//   
+//  
+//  
+// </summary>
+
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -43,7 +52,7 @@ namespace WebApp.Services
             {
                  
                 Employee item = new Employee();
-				var mapping = _mappingservice.Queryable().Where(x => x.EntitySetName == "Employee").ToList();
+				var mapping = _mappingservice.Queryable().Where(x => x.EntitySetName == "Employee" &&  x.IsEnabled==true).ToList();
 
                 foreach (var field in mapping)
                 {
@@ -83,7 +92,7 @@ namespace WebApp.Services
                        			 
             var employees  = this.Query(new EmployeeQuery().Withfilter(filters)).Include(p => p.Company).OrderBy(n=>n.OrderBy(sort,order)).Select().ToList();
             
-                        var datarows = employees .Select(  n => new { CompanyName = (n.Company==null?"": n.Company.Name) , Id = n.Id , Name = n.Name , Sex = n.Sex , Age = n.Age , Brithday = n.Brithday , CompanyId = n.CompanyId }).ToList();
+                        var datarows = employees .Select(  n => new { CompanyName = (n.Company==null?"": n.Company.Name) , Id = n.Id , Name = n.Name , Title = n.Title , Sex = n.Sex , Age = n.Age , Brithday = n.Brithday , IsDeleted = n.IsDeleted , CompanyId = n.CompanyId }).ToList();
            
             return ExcelHelper.ExportExcel(typeof(Employee), datarows);
 

@@ -25,11 +25,18 @@ namespace WebApp.Models
     {
         [Key]
         public int Id { get; set; }
+        [MaxLength(20)]
+        [Required]
         public string Name { get; set; }
+        [MaxLength(30)]
+        public string Title { get; set; }
+        [MaxLength(10)]
+        [Required]
         public string Sex { get; set; }
         public int Age { get; set; }
         public DateTime Brithday { get; set; }
-
+      
+        public int IsDeleted { get; set; }
         public int CompanyId { get; set; }
         [ForeignKey("CompanyId")]
         public Company Company { get; set; }

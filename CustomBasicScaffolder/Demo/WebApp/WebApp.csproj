@@ -301,6 +301,14 @@
     <Compile Include="Migrations\201709200629506_f.Designer.cs">
       <DependentUpon>201709200629506_f.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802060209178_test2.cs" />
+    <Compile Include="Migrations\201802060209178_test2.Designer.cs">
+      <DependentUpon>201802060209178_test2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802060215500_dd1.cs" />
+    <Compile Include="Migrations\201802060215500_dd1.Designer.cs">
+      <DependentUpon>201802060215500_dd1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -4441,6 +4449,11 @@
     <Content Include="Views\Account\Lock.cshtml" />
     <Content Include="Views\Features\Templates.cshtml" />
     <Content Include="Views\Categories\_PopupDetailFormView.cshtml" />
+    <Content Include="Views\Employees\Index.cshtml" />
+    <Content Include="Views\Employees\Create.cshtml" />
+    <Content Include="Views\Employees\Edit.cshtml" />
+    <Content Include="Views\Employees\EditForm.cshtml" />
+    <Content Include="Views\Employees\_PopupDetailFormView.cshtml" />
     <None Include="Views\Notifications\_notifications.cshtml" />
     <None Include="Views\Messages\_notifications.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Int.cshtml">
@@ -4808,10 +4821,6 @@
     <Content Include="Views\Account\_ErrorText.cshtml" />
     <Content Include="Views\Account\_LoginText.cshtml" />
     <Content Include="Views\Account\_SocialMedia.cshtml" />
-    <Content Include="Views\Employees\Index.cshtml" />
-    <Content Include="Views\Employees\Create.cshtml" />
-    <Content Include="Views\Employees\Edit.cshtml" />
-    <Content Include="Views\Employees\EditForm.cshtml" />
     <Content Include="Views\Features\Calendar.cshtml" />
     <Content Include="Views\Features\Googlemap.cshtml" />
     <Content Include="Views\Categories\Index.cshtml" />
@@ -4889,6 +4898,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709200629506_f.resx">
       <DependentUpon>201709200629506_f.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802060209178_test2.resx">
+      <DependentUpon>201802060209178_test2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802060215500_dd1.resx">
+      <DependentUpon>201802060215500_dd1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -74,7 +74,7 @@
                                     ×
                                 </button>
                                 <i class="fa-fw fa fa-info"></i>
-                                A combined table effect with all classes mentioned above added to
+                                执行【生成】配置信息时会先删除已经存在的mapping关系，同时请更新导入模板！
                             </div>
                             <!--begin datagrid-content -->
                             <div class="table-responsive">
@@ -141,6 +141,7 @@
                                         <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="generate()">生成</a>
                                         <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
                                         <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">保存</a>
+                                        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-file',plain:true" onclick="createexceltemplate()">创建Excel模板</a>
                                         <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">取消</a>
       
                                     </div>
@@ -184,8 +185,28 @@
                         });
 
                     });
+                } else {
+                    $.messager.alert("提示", "请选中需要生成Mapping的实体类！");
+                    $('#entities').focus();
                 }
 
+            }
+            function createexceltemplate() {
+                var entityname = $('#entities').combobox('getValue');
+                if (entityname.length > 0) {
+                    $.messager.progress({ title: '正在处理请耐心等待！' });
+                    $.post('/DataTableImportMappings/CreateExcelTemplate', { entityname: entityname }, function (data, textStatus, jqXHR) {
+                        //console.log(data);
+                        $.messager.progress('close');
+                        $.messager.alert("提示", "创建完成！", 'info', function () {
+                            $dg.datagrid('reload');
+                        });
+
+                    });
+                } else {
+                    $.messager.alert("提示", "请选中需要生成模板的实体类！");
+                    $('#entities').focus();
+                }
             }
 
 

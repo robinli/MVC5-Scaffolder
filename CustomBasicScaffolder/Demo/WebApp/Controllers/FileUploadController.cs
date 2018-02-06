@@ -24,14 +24,16 @@ namespace WebApp.Controllers
     {
         private readonly IProductService _productService;
         private readonly ICodeItemService _codeService;
+        private readonly IEmployeeService _empService;
  
         private readonly IUnitOfWorkAsync _unitOfWork;
 
-        public FileUploadController(ICodeItemService _codeService,IProductService productService, IUnitOfWorkAsync unitOfWork)
+        public FileUploadController(IEmployeeService _empService, ICodeItemService _codeService,IProductService productService, IUnitOfWorkAsync unitOfWork)
         {
             //_iBOMComponentService = iBOMComponentService;
             //_sKUService  = sKUService;
-            _unitOfWork = unitOfWork;
+            this._empService = _empService;
+             _unitOfWork = unitOfWork;
             _productService = productService;
             this._codeService = _codeService;
         }
@@ -69,6 +71,14 @@ namespace WebApp.Controllers
                 {
                     this._unitOfWork.SetAutoDetectChangesEnabled(false);
                     _productService.ImportDataTable(datatable);
+                    _unitOfWork.BulkSaveChanges();
+                    this._unitOfWork.SetAutoDetectChangesEnabled(true);
+                    //_unitOfWork.SaveChanges();
+                }
+                if (fileType == "Employee")
+                {
+                    this._unitOfWork.SetAutoDetectChangesEnabled(false);
+                    this._empService.ImportDataTable(datatable);
                     _unitOfWork.BulkSaveChanges();
                     this._unitOfWork.SetAutoDetectChangesEnabled(true);
                     //_unitOfWork.SaveChanges();
