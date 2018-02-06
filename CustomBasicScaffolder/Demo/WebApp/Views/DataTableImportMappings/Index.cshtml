@@ -186,7 +186,7 @@
 
                     });
                 } else {
-                    $.messager.alert("提示", "请选中需要生成Mapping的实体类！");
+                    $.messager.alert("提示", "请选中需要生成Mapping关系的实体类！");
                     $('#entities').focus();
                 }
 
@@ -198,10 +198,13 @@
                     $.post('/DataTableImportMappings/CreateExcelTemplate', { entityname: entityname }, function (data, textStatus, jqXHR) {
                         //console.log(data);
                         $.messager.progress('close');
-                        $.messager.alert("提示", "创建完成！", 'info', function () {
-                            $dg.datagrid('reload');
-                        });
-
+                        if (data.success) {
+                            $.messager.alert("提示", "创建完成！", 'info', function () {
+                                $dg.datagrid('reload');
+                            });
+                        } else {
+                            $.messager.alert("错误", data.message, 'error')
+                        }
                     });
                 } else {
                     $.messager.alert("提示", "请选中需要生成模板的实体类！");

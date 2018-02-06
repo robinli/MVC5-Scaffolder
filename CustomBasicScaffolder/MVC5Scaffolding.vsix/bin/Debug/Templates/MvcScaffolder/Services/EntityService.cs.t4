@@ -48,7 +48,6 @@ using <#= DefaultNamespace #>.Repositories;
 using System.Data;
 using System.Reflection;
 using Newtonsoft.Json;
-using <#=DefaultNamespace #>.Extensions;
 using System.IO;
 
 namespace <#=DefaultNamespace #>.Services

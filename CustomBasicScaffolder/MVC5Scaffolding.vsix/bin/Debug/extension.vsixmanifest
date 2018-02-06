@@ -1,6 +1,6 @@
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011">
   <Metadata>
-    <Identity Id="CustomBasicScaffolderExtension..40e7bb7e-f72d-44cf-8439-2567be2590c6" Version="3.8.8.1" Language="en-US" Publisher="Neo.Zhu" />
+    <Identity Id="CustomBasicScaffolderExtension..40e7bb7e-f72d-44cf-8439-2567be2590c6" Version="3.8.8.4" Language="en-US" Publisher="Neo.Zhu" />
     <DisplayName>URF MVC5 With EasyUI SmartAdmin </DisplayName>
     <Description xml:space="preserve">Generates ASP.NET MVC 5 with EasyUI and Entity Framework 6.x SmartAdmin web application.</Description>
     <MoreInfo>https://github.com/neozhu/MVC5-Scaffolder/</MoreInfo>

@@ -21,7 +21,6 @@ namespace WebApp.Services
         void GenerateByEnityName(string entityName);
 
         DataTableImportMapping FindMapping(string entitySetName, string sourceFieldName);
-         
- 
-	}
+        void CreateExcelTemplate(string entityname, string filename);
+    }
 }

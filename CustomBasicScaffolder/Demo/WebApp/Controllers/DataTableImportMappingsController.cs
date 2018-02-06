@@ -14,8 +14,7 @@ using Newtonsoft.Json;
 using WebApp.Models;
 using WebApp.Services;
 using WebApp.Repositories;
- 
-
+using Z.EntityFramework.Plus;
 
 namespace WebApp.Controllers
 {
@@ -103,7 +102,21 @@ namespace WebApp.Controllers
             _unitOfWork.SaveChanges();
             return Json(new { success = true }, JsonRequestBehavior.AllowGet);
         }
-       
+        public ActionResult CreateExcelTemplate(string entityname) {
+
+            var count = this._dataTableImportMappingService.Queryable().Where(x => x.EntitySetName == entityname && x.IsEnabled == true).DeferredAny().FromCache();
+            if (count)
+            {
+                string filename = Server.MapPath("~/ExcelTemplate/" + entityname + ".xlsx");
+                _dataTableImportMappingService.CreateExcelTemplate(entityname, filename);
+
+                return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+            }
+            else {
+                return Json(new { success = false,message="没有找到[" + entityname + "]配置信息请,先执行【生成】mapping关系" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         // GET: DataTableImportMappings/Details/5
         public ActionResult Details(int? id)
         {

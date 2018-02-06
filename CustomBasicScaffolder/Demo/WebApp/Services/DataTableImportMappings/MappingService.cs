@@ -15,6 +15,9 @@ using WebApp.Repositories;
 using System.Reflection;
 using Repository.Pattern.Ef6;
 using Z.EntityFramework.Plus;
+using System.IO;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
 
 namespace WebApp.Services
 {
@@ -79,8 +82,8 @@ namespace WebApp.Services
                                                    x.PropertyType == typeof(Decimal) 
                                                    )
                             })
-                   .OrderBy(x => x.EntitySetName).ThenBy(x => x.FieldName)
-                   .Where(x => x.EntitySetName == entityName && x.FieldTypeName != "ICollection`1").ToList();
+                   .OrderBy(x => x.EntitySetName)
+                   .Where(x =>  x.FieldTypeName != "ICollection`1").ToList();
 
             var entityType = asm.GetTypes()
                    .Where(type => typeof(Entity).IsAssignableFrom(type)).Where(x => x.Name == entityName).First();
@@ -106,6 +109,41 @@ namespace WebApp.Services
         {
             return this.Queryable().Where(x => x.EntitySetName == entitySetName && x.SourceFieldName == sourceFieldName).FirstOrDefault();
         }
+
+        public void CreateExcelTemplate(string entityname, string filename)
+        {
+            var mapping = this.Queryable().Where(x => x.EntitySetName == entityname && x.IsEnabled == true).ToList();
+            FileInfo finame = new FileInfo(filename);
+            if (File.Exists(filename))
+            {
+                File.Delete(filename);
+            }
+            using (ExcelPackage excel = new ExcelPackage(finame))
+            {
+                var sheet = excel.Workbook.Worksheets.Add(entityname);
+                int col = 0;
+                foreach (var row in mapping) {
+                    col++;
+                    sheet.Cells[1, col].Value = row.SourceFieldName;
+                    sheet.Cells[1, col].Style.Font.Bold = true;
+                    sheet.Cells[1, col].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                    sheet.Cells[1, col].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                    sheet.Cells[1, col].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                    sheet.Cells[1, col].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+
+                    sheet.Cells[1, col].Style.Border.Top.Color.SetColor(System.Drawing.Color.Black);
+                    sheet.Cells[1, col].Style.Border.Bottom.Color.SetColor(System.Drawing.Color.Black);
+                    sheet.Cells[1, col].Style.Border.Left.Color.SetColor(System.Drawing.Color.Black);
+                    sheet.Cells[1, col].Style.Border.Right.Color.SetColor(System.Drawing.Color.Black);
+                    sheet.Cells[1, col].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                    sheet.Cells[1, col].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
+                    if (row.TypeName=="DateTime")
+                        sheet.Cells[1, col].Style.Numberformat.Format = "mm-dd-yyyy";
+                }
+                excel.Save();
+            }
+        }
+         
     }
 }
 
