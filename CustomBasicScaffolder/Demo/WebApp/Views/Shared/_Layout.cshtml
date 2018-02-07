@@ -51,7 +51,12 @@
     
 
     @{ Html.RenderPartial("_Header", RenderSection("topright", false)); }
-    @{ Html.RenderPartialIf("_Aside", Request.IsAuthenticated); }
+    @if (Request.IsAuthenticated)
+    {
+           Html.RenderAction("RenderMenus", "RoleMenus");
+    }
+
+    @*@{ Html.RenderPartialIf("_Aside", Request.IsAuthenticated); }*@
     <div id="main" role="main">
         @{ Html.RenderPartialIf("_Ribbon", Request.IsAuthenticated); }
         @RenderBody()

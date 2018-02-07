@@ -92,7 +92,7 @@ namespace WebApp.Services
 
         public IEnumerable<MenuItem> RenderMenus(string[] roleNames)
         {
-            var allmenus = _menurepository.Queryable().ToList();
+            var allmenus = _menurepository.Queryable().OrderBy(n=>n.Code).ToList();
             var mymenus = _repository.Queryable().Where(x => roleNames.Contains(x.RoleName));
             var menulist = new List<MenuItem>();
             foreach (var item in allmenus)

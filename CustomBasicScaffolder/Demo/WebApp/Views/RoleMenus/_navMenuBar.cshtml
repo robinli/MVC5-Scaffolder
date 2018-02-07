@@ -1,92 +1,75 @@
 ﻿@using WebApp.Models
-@using WebApp.Extensions
+
 @model  IEnumerable<MenuItem>
+<!-- Left panel : Navigation area -->
+<!-- Note: This width of the aside area can be adjusted through LESS variables -->
+<aside id="left-panel">
+    <!-- User info -->
+    @{ Html.RenderPartial("_CurrentUser"); }
+    <!-- end user info -->
+    <!-- NAVIGATION : This navigation is also responsive
 
+    To make this navigation dynamic please make sure to link the node
+    (the reference to the nav > ul) after page load. Or the navigation
+    will not initialize.
+    -->
+    <nav>
+        <!-- NOTE: Notice the gaps after each icon usage <i></i>..
+        Please note that these links work a bit different than
+        traditional href="" links. See documentation for details.
+        -->
 
-<nav class="navbar-default navbar-static-side" role="navigation">
-    <div class="sidebar-collapse">
-        <ul class="nav metismenu" id="side-menu">
-            <li class="nav-header">
-                <div class="dropdown profile-element">
-                    <span>
-                        <img alt="image" class="img-circle" src="~/Images/profile_small.jpg" />
-                    </span>
-                    <a data-toggle="dropdown" class="dropdown-toggle" href="empty_page.html#">
-                        <span class="clear">
-                            <span class="block m-t-xs">
-                                <strong class="font-bold">David Williams</strong>
-                            </span> <span class="text-muted text-xs block">Art Director <b class="caret"></b></span>
-                        </span>
-                    </a>
-                    <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                        <li><a href="profile.html">Profile</a></li>
-                        <li><a href="contacts.html">Contacts</a></li>
-                        <li><a href="mailbox.html">Mailbox</a></li>
-                        <li class="divider"></li>
-                        <li><a href="login.html">Logout</a></li>
-                    </ul>
-                </div>
-                <div class="logo-element">
-                    IN+
-                </div>
-            </li>
-
+        <ul>
+           
             @{
-
-
-                // Hent nodes på 2. niveau
                 var nodes = Model;
-
-                // Check om nogle nodes på 2. niveau eksisterer
                 if (nodes.Any())
                 {
-                   
-                 
-                        foreach (var node in nodes.Where(x => x.ParentId == null))
-                        {
-                            // Start den rekursive metode til rendering af træstruktur
-                                @RenderSubMenuRecursive(node)
-                        }
-
-           
-
-
+                    foreach (var node in nodes.Where(x => x.ParentId == null))
+                    {
+                        @RenderSubMenuRecursive(node)
+                    }
                 }
             }
 
-            @* Helper metode til at rendere venstremenu som træstruktur *@
             @helper RenderSubMenuRecursive(WebApp.Models.MenuItem node)
+            {
+
+var childNodes = Model.Where(x => x.ParentId == node.Id);
+if (childNodes.Any())
 {
-    // Reference til alle childnodes af den givne node, som er sat til at blive vist på sitet
-    var childNodes = Model.Where(x => x.ParentId == node.Id);
-    if (childNodes.Any())
-    {
-        var childcontrollers = String.Join("", childNodes.Select(x => String.Format(",{0}", x.Controller))).Substring(1);
-        var icon = String.IsNullOrEmpty(node.IconCls)?"fa fa-folder-o":node.IconCls;
+    var childcontrollers = String.Join("", childNodes.Select(x => String.Format(",{0}", x.Controller))).Substring(1);
+    var icon = String.IsNullOrEmpty(node.IconCls) ? "fa fa-lg fa-fw fa-folder-o" : node.IconCls;
         <li class="@Html.IsSelected(controller: childcontrollers)">
-            <a href="#"><i class="@icon"></i> <span class="nav-label">@node.Title</span> <span class="fa arrow"></span></a>
-            <ul class="nav nav-second-level collapse @Html.IsSelected(controller:node.Controller, cssClass: "in")">
+            <a href="#" title="@node.Description"><i class="@icon"></i> <span class="menu-item-parent">@node.Title</span> </a>
+            <ul>
                 @foreach (var childNode in childNodes)
                 {
                     @RenderSubMenuRecursive(childNode)
                 }
             </ul>
         </li>
-    }
-    else
-    {
-        
-        <li class="@Html.IsSelected(action: node.Action, controller: node.Controller)"><a href="@Url.Action(node.Action, node.Controller)">@node.Title</a></li>
-        
-    }
+}
+else
+{
+
+        <li class="@Html.IsSelected(action:node.Action, controller: node.Controller)">
+            <a href="@Url.Action(node.Action, node.Controller)" title="@node.Description">
+            <span class="menu-item-parent">@node.Title</span>
+            </a>
+        </li>
+
+}
 
 
 
 
 
 }
-
         </ul>
+    </nav>
+    <span class="minifyme" data-action="minifyMenu">
+        <i class="fa fa-arrow-circle-left hit"></i>
+    </span>
 
-    </div>
-</nav>
+</aside>

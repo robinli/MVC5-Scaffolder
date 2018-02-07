@@ -74,6 +74,7 @@ namespace WebApp.Controllers
 
         [HttpGet]
         [ChildActionOnly]
+        [OutputCache(Duration =600, Location = System.Web.UI.OutputCacheLocation.Client)]
         public ActionResult RenderMenus()
         {
             var roles = UserManager.GetRoles(this.User.Identity.GetUserId()).ToArray();
