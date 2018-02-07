@@ -90,7 +90,7 @@ namespace WebApp.Services
                 menu.Title = item.Controller.Replace("Controller", "");
                 menu.Url = "/" + item.Controller.Replace("Controller", "") + "/" + item.Action;
                 menu.Action = item.Action;
-                menu.Controller = item.Controller;
+                menu.Controller = item.Controller.Replace("Controller", "");
                 menu.IsEnabled = true;
                 if (!this.Queryable().Where(x => x.Url == menu.Url).Any())
                 {
