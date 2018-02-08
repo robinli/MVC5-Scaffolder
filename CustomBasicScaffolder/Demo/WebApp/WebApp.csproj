@@ -3860,6 +3860,7 @@
     <Content Include="Scripts\plugin\bootstrap-progressbar\bootstrap-progressbar.min.js" />
     <Content Include="Scripts\plugin\bootstrap-slider\bootstrap-slider.js" />
     <Content Include="Scripts\plugin\bootstrap-slider\bootstrap-slider.min.js" />
+    <Content Include="Scripts\plugin\bootstrap-suggest\bootstrap-suggest.js" />
     <Content Include="Scripts\plugin\bootstrap-tags\bootstrap-tagsinput-angular.js" />
     <Content Include="Scripts\plugin\bootstrap-tags\bootstrap-tagsinput-angular.min.js" />
     <Content Include="Scripts\plugin\bootstrap-tags\bootstrap-tagsinput.js" />
@@ -4454,6 +4455,13 @@
     <Content Include="Views\Employees\Edit.cshtml" />
     <Content Include="Views\Employees\EditForm.cshtml" />
     <Content Include="Views\Employees\_PopupDetailFormView.cshtml" />
+    <Content Include="Views\Companies\Index.cshtml" />
+    <Content Include="Views\Companies\Create.cshtml" />
+    <Content Include="Views\Companies\Edit.cshtml" />
+    <Content Include="Views\Companies\EditForm.cshtml" />
+    <Content Include="Views\Companies\_PopupDetailFormView.cshtml" />
+    <Content Include="Views\Companies\_DepartmentEditForm.cshtml" />
+    <Content Include="Views\Companies\_EmployeeEditForm.cshtml" />
     <None Include="Views\Notifications\_notifications.cshtml" />
     <None Include="Views\Messages\_notifications.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Int.cshtml">
@@ -4509,11 +4517,6 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\BaseCode.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Slider.cshtml" />
-    <Content Include="Views\Companies\Create.cshtml" />
-    <Content Include="Views\Companies\Edit.cshtml" />
-    <Content Include="Views\Companies\_DepartmentEditForm.cshtml" />
-    <Content Include="Views\Companies\_EmployeeEditForm.cshtml" />
-    <Content Include="Views\Companies\EditForm.cshtml" />
     <Content Include="Views\RoleMenus\_navMenuBar.cshtml" />
     <Content Include="Views\RoleMenus\Index.cshtml" />
     <Content Include="Views\Products\Index1.cshtml" />
@@ -4712,8 +4715,6 @@
     <None Include="Project_Readme.html" />
     <Content Include="Views\Shared\skin-config.html" />
     <Content Include="skin-config.html" />
-    <Content Include="Views\Companies\_PopupSearch.cshtml" />
-    <Content Include="Views\Companies\Index.cshtml" />
     <Content Include="Views\OrderDetails\Index.cshtml" />
     <Content Include="Views\OrderDetails\Create.cshtml" />
     <Content Include="Views\OrderDetails\Edit.cshtml" />

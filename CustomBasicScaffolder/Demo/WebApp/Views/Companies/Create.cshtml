@@ -1,12 +1,5 @@
-﻿
-
-@model WebApp.Models.Company
-
-@{
-    ViewBag.Title = "Create";
-}
-
-
+﻿@model WebApp.Models.Company
+@{  ViewBag.Title = "公司信息 | Create";}
 <!-- MAIN CONTENT -->
 <div id="content">
     <!-- quick navigation bar -->
@@ -14,7 +7,10 @@
         <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
             <h1 class="page-title txt-color-blueDark">
                 <i class="fa fa-table fa-fw "></i>
-                组织架构
+                @{ 
+                  //TODO:fix quick navigation path
+                 }
+                路径
                 <span>
                     >
                     公司信息
@@ -22,13 +18,11 @@
             </h1>
         </div>
         <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
-
         </div>
     </div>
     <!-- end quick navigation bar -->
     <!-- NEW WIDGET START -->
     <article class="col-sm-12 col-md-12 col-lg-12">
-
         <!-- Widget ID (each widget will need unique ID)-->
         <div class="jarviswidget" id="wid-id-1" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false">
             <!-- widget options:
@@ -44,121 +38,76 @@
             -->
             <header>
                 <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
-                <h2>Basic Form Elements </h2>
-
+                <h2> 公司信息 </h2>
             </header>
-
             <!-- widget div-->
             <div>
-
                 <!-- widget edit box -->
                 <div class="jarviswidget-editbox">
                     <!-- This area used as dropdown edit box -->
-
                 </div>
                 <!-- end widget edit box -->
                 <!-- widget content -->
-                <div class="widget-body ">
-
-                    <form action="/Create/Companies" method="post" class="form-horizontal">
-                        @Html.AntiForgeryToken()
-
-
-                        <header>
-                            <div class="alert alert-warning no-margin fade in">
-                                <button class="close" data-dismiss="alert">
-                                    ×
-                                </button>
-                                <i class="fa-fw fa fa-info"></i>
-                                A combined table effect with all classes mentioned above added to
-                            </div>
-                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                            <hr />
-
-                        </header>
-
-
-                        @Html.Partial("EditForm")
-                        <div class="form-group">
-                            <div class="col-md-offset-2 col-md-10">
-                                <input type="submit" value="Create" class="btn btn-primary" />
-                            </div>
-                        </div>
-
-                    </form>
-
-                </div>
-                <!-- end widget content -->
-
-            </div>
+                <div class="widget-body no-padding">
+                     <!-- form toolbar -->
+                        <div id="form_toolbar" style="height:auto" class="datagrid-toolbar">
+                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="createitem()">新增</a>
+                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeitem()">删除</a>
+                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="saveitem()">保存</a>
+                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">取消</a>
+                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-paperclip',plain:true" onclick="importexcel()">EXCEL 导入</a>
+                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-download-alt',plain:true" onclick="exportexcel()">导出 Excel</a>
+                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="refresh()">刷新</a>
+                         </div>
+                        <!--end form toolbar-->
+                    <form id="company_form" class="smart-form  easyui-form" method="post" data-options="novalidate:true">
+                                @Html.Partial("EditForm")
+                        </form>		 
+                 </div>
+                 <!-- end widget content -->
+                 </div>
             <!-- end widget div -->
-
         </div>
         <!-- end widget -->
-
-
     </article>
     <!-- WIDGET END -->
-
 </div>
-
+<!-- END MAIN CONTENT -->
 @section Scripts {
+     <script type="text/javascript">
+	   //create new item
+        function createitem() {
 
-    <script type="text/javascript">
+        }
+        //delete item
+        function deleteitem() {
 
-        var companyid = 0;
-        var ObjectState = "Added";
-
-        var $departmentstable = {};
-
-        var $employeetable = {};
-        $(document).ready(function () {
-
-            $('form').submit(function () {
-                var token = $('[name=__RequestVerificationToken]').val();
-                var serializedForm = $(this).serialize();
-                var actionurl = $(this).attr('action');
-
-
-
-                var newitem = {
-                    Departments: departments,
-                    Employee: employee,
-
-                    Id: companyid,
-                    Name: $('#Name', 'form').val(),
-                    Address: $('#Address', 'form').val(),
-                    City: $('#City', 'form').val(),
-                    Province: $('#Province', 'form').val(),
-                    RegisterDate: $('#RegisterDate', 'form').val(),
-                    Employees: $('#Employees', 'form').val(),
-                    ObjectState: ObjectState
-                };
-                $.ajax({
-                    url: actionurl,
-                    type: "POST",
-                    dataType: "json",
-                    contentType: "application/json; charset=utf-8",
-                    data: JSON.stringify(newitem),
-                    success: function (result) {
-                        if (result.success) {
-                            self.location = "/Companies/Index";
-                        } else {
-                            alert(result.err);
-                        }
-
-                    },
-                    error: function (result) {
-                        console.log(result.statusText + result.responseText);
-                        alert(result.statusText + result.responseText);
-                    }
-                });
-                return false;
-
-
-            });
-        });
-    </script>
-
-
+        }
+        //save item
+        function saveitem() {
+			   if ($("#company_form").form("enableValidation").form("validate")) {						
+                 var item = $("#company_form").serializeObject();
+				                   $.post("/Companies/Create", item, function (response) {						
+                     //console.log(response);						
+                     if (response.success) {						
+                         $.messager.alert("提示", "保存成功！");						
+                     } else {						
+                         $.messager.alert("错误", "保存失败！" + response.err, "error");						
+                     }						
+                 }, "json").fail(function (response) {						
+                     //console.log(response);						
+                     $.messager.alert("错误", "保存失败！", "error");						
+                     //$dg.datagrid("reload");						
+                 });						
+             }						
+        }
+        function reject() {
+        }
+        function importexcel() {
+        }
+        function exportexcel() {
+        }
+        function refresh() {
+        }
+        </script>
 }

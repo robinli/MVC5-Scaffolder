@@ -1,10 +1,14 @@
-﻿
-             
-           
- 
-
-
-
+﻿// <copyright file="CompanyService.cs" company="neozhu/MVC5-Scaffolder">
+// Copyright (c) 2018 All Rights Reserved
+// </copyright>
+// <author>neo.zhu</author>
+// <date>2/8/2018 2:19:13 PM </date>
+// <summary>
+//  实现定义的业务逻辑,通过依赖注入降低模块之间的耦合度
+//   
+//  
+//  
+// </summary>
 
 using System;
 using System.Collections.Generic;
@@ -13,15 +17,11 @@ using System.Linq;
 using System.Linq.Expressions;
 using Repository.Pattern.Repositories;
 using Service.Pattern;
-
 using WebApp.Models;
 using WebApp.Repositories;
-
 using System.Data;
 using System.Reflection;
-
 using Newtonsoft.Json;
- 
 using System.IO;
 
 namespace WebApp.Services
@@ -55,7 +55,7 @@ namespace WebApp.Services
             {
                  
                 Company item = new Company();
-				var mapping = _mappingservice.Queryable().Where(x => x.EntitySetName == "Company").ToList();
+				var mapping = _mappingservice.Queryable().Where(x => x.EntitySetName == "Company" &&  x.IsEnabled==true).ToList();
 
                 foreach (var field in mapping)
                 {

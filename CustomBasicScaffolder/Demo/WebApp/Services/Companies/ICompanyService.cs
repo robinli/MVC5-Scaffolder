@@ -1,8 +1,14 @@
-﻿
-
-     
- 
- 
+﻿// <copyright file="ICompanyService.cs" company="neozhu/MVC5-Scaffolder">
+// Copyright (c) 2018 All Rights Reserved
+// </copyright>
+// <author>neo.zhu</author>
+// <date>2/8/2018 2:19:13 PM </date>
+// <summary>
+//  定义具体的业务逻辑接口
+//   
+//  
+//  
+// </summary>
 
 using System;
 using System.Collections.Generic;
