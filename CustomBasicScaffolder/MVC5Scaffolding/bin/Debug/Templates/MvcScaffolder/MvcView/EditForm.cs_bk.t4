@@ -308,9 +308,9 @@
 
 				<div id="<#= subpropertyName.ToLower() #>_toolbar" style="height:auto">
                     <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="<#= subpropertyName.ToLower() #>_append()">Append</a>
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="<#= subpropertyName.ToLower() #>_removeit()">Remove</a>
-                    @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="<#= subpropertyName.ToLower() #>_accept()">Accept</a>*@
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="<#= subpropertyName.ToLower() #>_reject()">Reject</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-trash-o fa-fw',plain:true" onclick="<#= subpropertyName.ToLower() #>_removeit()">Remove</a>
+                    @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-floppy-o fa-fw',plain:true" onclick="<#= subpropertyName.ToLower() #>_accept()">Accept</a>*@
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-undo fa-fw',plain:true" onclick="<#= subpropertyName.ToLower() #>_reject()">Reject</a>
                     @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="<#= subpropertyName.ToLower() #>_getChanges()">GetChanges</a>*@
                 </div>
 

@@ -34,5 +34,8 @@ namespace WebApp.Controllers
         {
             return View();
         }
+        public ActionResult Bootstrap() {
+            return View();
+        }
     }
 }

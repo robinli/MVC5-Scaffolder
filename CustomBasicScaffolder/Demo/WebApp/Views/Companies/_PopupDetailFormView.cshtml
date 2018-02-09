@@ -7,13 +7,16 @@
                     iconcls:'icon-menu',
                     onOpen:resize" style="width:960px;height:520px">
     <form id="company_form" class="smart-form easyui-form" method="post" data-options="novalidate:true">
+     
+        
+     
         <table class="table table-bordered">
             <caption>
                 <!--form toolbar-->
                 <div id="form_toolbar" style="height:auto" class="datagrid-toolbar">
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="saveitem()">保存</a>
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="cancelitem()">取消</a>
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="refreshitem()">刷新</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-floppy-o',plain:true" onclick="saveitem()">保存</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-undo',plain:true" onclick="cancelitem()">取消</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-refresh',plain:true" onclick="refreshitem()">刷新</a>
                 </div>
                 <!--form toolbar-->
             </caption>
@@ -60,15 +63,35 @@
                 </td>
                 <td class="control-label">   @Html.DisplayNameFor(model => model.City)  </td>
                 <td>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" class="form-control">
+                            <div class="input-group-btn">
+                               
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" tabindex="-1" aria-expanded="false">
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu pull-right" role="menu">
+                                    <li><a href="javascript:void(0);">Action</a></li>
+                                    <li><a href="javascript:void(0);">Another action</a></li>
+                                    <li><a href="javascript:void(0);">Something else here</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="javascript:void(0);">Cancel</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                     <div class="input-group" style="width:200px">
                         <input id="@Html.IdFor(model => model.City)"
                                name="@Html.NameFor(model => model.City)"
                                value="@Html.ValueFor(model => model.City)"
                                tabindex="3"
-                               class="form-control"
+                               class="form-control input-sm "
                                type="text" style="width:200px" />
                         <div class="input-group-btn">
-                           
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" tabindex="-1" aria-expanded="false">
+                                <span class="caret"></span>
+                            </button>
                             <ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
                         </div>
                     </div>

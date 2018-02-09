@@ -115,7 +115,6 @@ namespace WebApp
 
             //EasyUI style
             bundles.Add(new ProperStyleBundle("~/plugins/easyuiStyles").Include(
-                        "~/fonts/font-awesome3.2/css/font-awesome.css",
                         "~/Scripts/easyui/themes/insdep/easyui.css",
                         "~/Scripts/easyui/themes/insdep/easyui_animation.css",
                       "~/Scripts/easyui/themes/insdep/easyui_plus.css"

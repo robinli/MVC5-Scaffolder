@@ -109,38 +109,38 @@
                             }
 							@*@if (Html.IsAuthorize("Create"))
 							{
-								<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="append()">新增</a>
+								<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-plus',plain:true" onclick="append()">新增</a>
 							}
 							@if (Html.IsAuthorize("Delete"))
 							{
-							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-trash-o',plain:true" onclick="removeit()">删除</a>
 							}
 							@if (Html.IsAuthorize("Edit"))
 							{
-								<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">保存</a>
-								<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">取消</a>
+								<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-floppy-o',plain:true" onclick="accept()">保存</a>
+								<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-undo',plain:true" onclick="reject()">取消</a>
 							}
-							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="reload()">刷新</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-refresh',plain:true" onclick="reload()">刷新</a>
 							@if (Html.IsAuthorize("Import"))
 							{
-								 <a href="javascript:void(0)" class="easyui-menubutton" data-options="menu:'#importmenu',iconCls:'icon-paperclip' " onclick="importexcel()">导入数据</a>
+								 <a href="javascript:void(0)" class="easyui-menubutton" data-options="menu:'#importmenu',iconCls:'fa fa-upload' " onclick="importexcel()">导入数据</a>
                                        <div id="importmenu" style="width:150px;">
-                                                <div data-options="iconCls:'icon-cloud-upload'" onclick="importexcel()">导入数据</div>
-                                                <div data-options="iconCls:'icon-download-alt'" onclick="downloadtemplate()" >下载用于导入的模板</div>
+                                                <div data-options="iconCls:'fa fa-file-excel-o'" onclick="importexcel()">导入数据</div>
+                                                <div data-options="iconCls:'fa fa-cloud-download '" onclick="downloadtemplate()" >下载用于导入的模板</div>
                                         </div>
-                                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-download-alt',plain:true" onclick="exportexcel()">导出至Excel</a>
+                                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-file-excel-o',plain:true" onclick="exportexcel()">导出至Excel</a>
 							}*@
-						    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="append()">新增</a>
-							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
-							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">保存</a>
-							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">取消</a>
-							<a href="javascript:void(0)" class="easyui-menubutton" data-options="menu:'#importmenu',iconCls:'icon-paperclip' " onclick="importexcel()">导入数据</a>
+						    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-plus',plain:true" onclick="append()">新增</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-trash-o',plain:true" onclick="removeit()">删除</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-floppy-o',plain:true" onclick="accept()">保存</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-undo',plain:true" onclick="reject()">取消</a>
+							<a href="javascript:void(0)" class="easyui-menubutton" data-options="menu:'#importmenu',iconCls:'fa fa-upload' " onclick="importexcel()">导入数据</a>
                                        <div id="importmenu" style="width:150px;">
-                                                <div data-options="iconCls:'icon-cloud-upload'" onclick="importexcel()">导入数据</div>
-                                                <div data-options="iconCls:'icon-download-alt'" onclick="downloadtemplate()" >下载用于导入的模板</div>
+                                                <div data-options="iconCls:'fa fa-file-excel-o'" onclick="importexcel()">导入数据</div>
+                                                <div data-options="iconCls:'fa fa-cloud-download '" onclick="downloadtemplate()" >下载用于导入的模板</div>
                                         </div>
-                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-download-alt',plain:true" onclick="exportexcel()">导出至Excel</a>
-							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="reload()">刷新</a>
+                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-file-excel-o',plain:true" onclick="exportexcel()">导出至Excel</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-refresh',plain:true" onclick="reload()">刷新</a>
 				</div>
 		
 				</div>
