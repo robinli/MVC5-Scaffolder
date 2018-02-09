@@ -107,7 +107,7 @@
                         <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-floppy-o fa-fw',plain:true" onclick="accept()">Accept</a>
                         <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-undo fa-fw',plain:true" onclick="reject()">Reject</a>
                         <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="getChanges()">GetChanges</a>
-                        @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-paperclip',plain:true" onclick="importexcel()">EXCEL 导入</a>*@
+                        @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-upload fa-fw',plain:true" onclick="importexcel()">EXCEL 导入</a>*@
                     </div>
                 </div>
 

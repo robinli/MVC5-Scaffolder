@@ -14,7 +14,7 @@
                     closed:true,
                     iconcls:'icon-menu',
                     onOpen:resize" style="width:960px;height:520px">
-    <form id="<#=entityName.ToLower()#>_form" class="smart-form easyui-form" method="post" data-options="novalidate:true">
+    <form id="<#=entityName.ToLower()#>_form" class="easyui-form form-horizontal" method="post" data-options="novalidate:true">
  <table class="table table-bordered">
      <caption>
          <!--form toolbar-->
