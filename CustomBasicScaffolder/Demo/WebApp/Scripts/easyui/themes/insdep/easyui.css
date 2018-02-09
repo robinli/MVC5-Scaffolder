@@ -379,7 +379,7 @@
 .l-btn-icon {
   position: absolute;
   top: 50%;
-  margin-top: -8px;
+  margin-top: -6px;
   font-size: 1px;
 }
 .l-btn span span .l-btn-empty {
@@ -1676,21 +1676,21 @@
 .datagrid-toolbar .textbox-label
 { line-height: 26px !important; }
 .datagrid-toolbar .l-btn .l-btn-left .l-btn-text
-{ margin:1px 10px 1px 10px;}
+{ margin:5px 10px 1px 10px;}
 
 .datagrid .panel-footer .l-btn .l-btn-text,
 .datagrid-toolbar .l-btn .l-btn-icon-left .l-btn-text
-{ margin:1px 10px 1px 25px;}
+{ margin:5px 10px 1px 25px;}
 
 .datagrid-toolbar .m-btn .l-btn-left .l-btn-text
-{ margin:1px 20px 1px 10px;}
+{ margin:5px 20px 1px 10px;}
 .datagrid-toolbar .m-btn .l-btn-icon-left .l-btn-text
-{ margin:1px 24px 1px 26px;}
+{ margin:5px 24px 1px 26px;}
 
 .datagrid-toolbar .textbox-label{ border:none; background: transparent; }
 
 .datagrid .panel-footer .l-btn .l-btn-empty
-{ margin:1px 10px 1px 0;}
+{ margin:5px 10px 1px 0;}
 .datagrid-pager .l-btn-left .l-btn-empty
 { margin: 3px 5px;}
 .datagrid .panel-footer .l-btn .l-btn-icon-left .l-btn-icon,
@@ -2546,7 +2546,7 @@
   top: auto;
   bottom: 0px;
   left: 50%;
-  margin-left: -8px;
+  margin-left: -6px;
 }
 .m-btn-line {
   display: inline-block;
