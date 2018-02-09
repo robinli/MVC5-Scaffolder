@@ -6,7 +6,7 @@
                     closed:true,
                     iconcls:'icon-menu',
                     onOpen:resize" style="width:960px;height:520px">
-    <form id="company_form" class="smart-form easyui-form" method="post" data-options="novalidate:true">
+    <form id="company_form" class="easyui-form form-horizontal" method="post" data-options="novalidate:true">
      
         
      
@@ -63,8 +63,8 @@
                 </td>
                 <td class="control-label">   @Html.DisplayNameFor(model => model.City)  </td>
                 <td>
-                    <div class="form-group">
-                        <div class="input-group">
+           
+                        <div class="input-group input-group-sm">
                             <input type="text" class="form-control">
                             <div class="input-group-btn">
                                
@@ -80,7 +80,7 @@
                                 </ul>
                             </div>
                         </div>
-                    </div>
+                     
                     <div class="input-group" style="width:200px">
                         <input id="@Html.IdFor(model => model.City)"
                                name="@Html.NameFor(model => model.City)"

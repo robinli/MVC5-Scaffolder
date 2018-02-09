@@ -70,7 +70,7 @@ bool isControlHtmlAttributesSupported = MvcVersion >= requiredMvcVersion;
                                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-trash-o fa-fw',plain:true" onclick="removeitem()">删除</a>
                                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-floppy-o fa-fw',plain:true" onclick="saveitem()">保存</a>
                                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-undo fa-fw',plain:true" onclick="reject()">取消</a>
-                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-paperclip',plain:true" onclick="importexcel()">EXCEL 导入</a>
+                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-upload fa-fw',plain:true" onclick="importexcel()">EXCEL 导入</a>
                                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-cloud-download fa-fw',plain:true" onclick="exportexcel()">导出 Excel</a>
                                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-refresh fa-fw',plain:true" onclick="refresh()">刷新</a>
                          </div>
