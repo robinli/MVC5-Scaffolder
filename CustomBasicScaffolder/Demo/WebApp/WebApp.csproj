@@ -3695,6 +3695,9 @@
     <Content Include="Scripts\libs\jquery-3.2.1.min.js" />
     <Content Include="Scripts\libs\jquery-ui-1.10.3.min.js" />
     <Content Include="Scripts\libs\jquery-ui-1.12.1.min.js" />
+    <Content Include="Scripts\libs\jquery-ui-1.12.1.js" />
+    <Content Include="Scripts\libs\jquery-ui-1.12.1.noConflict.js" />
+    <Content Include="Scripts\libs\jquery-ui-1.12.1.noConflict.min.js" />
     <Content Include="Scripts\locale\easyui-lang-af.js" />
     <Content Include="Scripts\locale\easyui-lang-am.js" />
     <Content Include="Scripts\locale\easyui-lang-ar.js" />
