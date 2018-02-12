@@ -21,10 +21,14 @@ namespace WebApp.Models
         [Display(Name = "全名")]
         public string FullName { get; set; }
         public int AccountType { get; set; }
-        [Display(Name = "公司代码")]
+        [Display(Name = "所属公司")]
         public string CompanyCode { get; set; }
         [Display(Name = "公司名称")]
         public string CompanyName { get; set; }
+        [Display(Name = "是否在线")]
+        public bool IsOnline { get; set; }
+        [Display(Name = "是否开启聊天功能")]
+        public bool EnabledChat { get; set; }
     }
 
    

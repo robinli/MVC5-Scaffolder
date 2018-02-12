@@ -17,14 +17,14 @@ $.extend($.fn.datagrid.defaults.filters, {
                     firstDay: 1,
                     daysOfWeek: ['日', '一', '二', '三', '四', '五', '六'],
                     monthNames: ['一月', '二月', '三月', '四月', '五月', '六月',
-                        '七月', '八月', '九月', '十月', '十一月', '十二月'],  
+                        '七月', '八月', '九月', '十月', '十一月', '十二月'],
                 },
                 ranges: {
-                    
+
                     //'最近1小时': [moment().subtract('hours',1), moment()],
                     '今日': [moment(), moment()],
                     '昨日': [moment().subtract(1, 'days').startOf('day'), moment().subtract(1, 'days').endOf('day')],
-                    '最近7日': [moment().subtract(6,'days'), moment()],
+                    '最近7日': [moment().subtract(6, 'days'), moment()],
                     '最近30日': [moment().subtract(29, 'days'), moment()],
                     '本月': [moment().startOf("month"), moment().endOf("month")],
                     '上个月': [moment().subtract(1, "month").startOf("month"), moment().subtract(1, "month").endOf("month")]
@@ -47,10 +47,10 @@ $.extend($.fn.datagrid.defaults.filters, {
                     options.onChange('');
                 });
                 input.on('apply.daterangepicker', function (ev, picker) {
-                    options.onChange(picker.startDate.format('MM/DD/YYYY') +'-'+ picker.endDate.format('MM/DD/YYYY'));
+                    options.onChange(picker.startDate.format('MM/DD/YYYY') + '-' + picker.endDate.format('MM/DD/YYYY'));
                 });
             }
-            
+
             //console.log($(target));
             return input;
         },
@@ -66,11 +66,11 @@ $.extend($.fn.datagrid.defaults.filters, {
             var daterange = value.split('-');
             $(target).data('daterangepicker').setStartDate(daterange[0]);
             $(target).data('daterangepicker').setEndDate(daterange[1]);
-           
+
         },
         resize: function (target, width) {
             $(target)._outerWidth(width)._outerHeight(24);
-           // $(target).daterangepicker('resize', width / 2);
+            // $(target).daterangepicker('resize', width / 2);
         }
     }
 });
@@ -78,7 +78,7 @@ $.extend($.fn.datagrid.defaults.filters, {
 $.extend($.fn.datagrid.defaults.filters, {
     inputpicker: {
         init: function (container, options) {
-             
+
             var input = $('<input type="text" style="height:24px;padding-left:12px">').appendTo(container);
             var myoptions = {
                 filterOpen: false
@@ -86,7 +86,7 @@ $.extend($.fn.datagrid.defaults.filters, {
             $.extend(options, myoptions)
             input.inputpicker(options);
 
-    
+
             return input;
         },
         destroy: function (target) {
@@ -98,13 +98,13 @@ $.extend($.fn.datagrid.defaults.filters, {
         },
         setValue: function (target, value) {
             //console.log($(target), value);
-            $(target).inputpicker('val',value);
-            
+            $(target).inputpicker('val', value);
+
 
         },
         resize: function (target, width) {
             //console.log($(target), width);
-            $(target).inputpicker('resize',width);
+            $(target).inputpicker('resize', width);
         }
     }
 });
@@ -121,7 +121,7 @@ $.extend($.fn.datagrid.defaults.editors, {
             $(target).datebox('destroy');
         },
         getValue: function (target) {
-            
+
             return $(target).datebox('getValue');
         },
         setValue: function (target, value) {
@@ -134,11 +134,43 @@ $.extend($.fn.datagrid.defaults.editors, {
                 $(target).datebox('setValue', '');
             }
             //console.log(value, date)
-        
-            
+
+
         },
         resize: function (target, width) {
             $(target).datebox('resize', width);
+        }
+    }
+});
+//CheckBox Editor
+$.extend($.fn.datagrid.defaults.editors, {
+    booleaneditor: {
+        
+
+        init: function (container, options) {
+            var checked = '<div class="datagrid-cell"><div class="smart-form"><label class="checkbox ">' +
+                '<input type="checkbox" name="checkbox"   >' +
+                '<i></i>&nbsp; </label></div></div>';
+            var input = $(checked).appendTo(container);
+            
+            return input;
+        },
+        destroy: function (target) {
+            
+        },
+        getValue: function (target) {
+            console.log('getValue', $(target[0]).find(':checkbox').prop('checked'));
+            return $(target[0]).find(':checkbox').prop('checked');
+        },
+        setValue: function (target, value) {
+        
+                $(target[0]).find(':checkbox').prop('checked', value);
+           
+
+
+        },
+        resize: function (target, width) {
+             
         }
     }
 });
@@ -151,14 +183,14 @@ function dateformatter(value, row, index) {
         return null;
     if (value == null)
         return null;
-    else {
 
-        if (moment(value).isValid()) {
 
-            return moment(value).format('MM/DD/YYYY');
+    if (moment(value).isValid()) {
 
-        }
+        return moment(value).format('MM/DD/YYYY');
+
     }
+
 }
 function datetimeformatter(value, row, index) {
 
@@ -167,6 +199,44 @@ function datetimeformatter(value, row, index) {
         return null;
     if (value == null)
         return null;
-    else
+    if (moment(value).isValid())
         return moment(value).format('MM/DD/YYYY HH:mm:ss');
+}
+
+function isTrue(value) {
+    if (typeof (value) === 'string') {
+        value = value.trim().toLowerCase();
+    }
+    switch (value) {
+        case true:
+        case "true":
+        case 1:
+        case "1":
+        case "on":
+        case "yes":
+            return true;
+        default:
+            return false;
+    }
+}
+function booleanformatter(value, row, index) {
+ 
+  
+
+
+    if (isTrue(value)) {
+        var checked = '<div class="smart-form"><label class="checkbox state-disabled">' +
+            '<input type="checkbox" name="checkbox" checked="checked" disabled="disabled">' +
+            '<i></i>&nbsp; </label></div>';
+
+        return checked
+    } else {
+        var unchecked = '<div class="smart-form"><label class="checkbox state-disabled">' +
+            '<input type="checkbox" name="checkbox"   disabled="disabled">' +
+            '<i></i>&nbsp; </label></div>';
+
+        return unchecked
+    }
+
+
 }

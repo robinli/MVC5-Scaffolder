@@ -66,21 +66,7 @@ namespace WebApp.Controllers
         {
             return View();
         }
-        // Get :AccountManager/PageList
-        // For Index View Boostrap-Table load  data 
-        [HttpGet]
-        public ActionResult PageList(int offset = 0, int limit = 10, string search = "", string sort = "UserName", string order = "asc")
-        {
-            int totalCount = 0;
-            int pagenum = offset / limit + 1;
-
-            var users = _userManager.Users.Where(n => n.UserName.Contains(search) || n.Email.Contains(search) || n.PhoneNumber.Contains(search)).OrderByName(sort, order);
-            totalCount = users.Count();
-            var datalist = users.Skip(offset).Take(limit);
-            var rows = datalist.Select(n => new { Id = n.Id, UserName = n.UserName, Email = n.Email, PhoneNumber = n.PhoneNumber, AccessFailedCount = n.AccessFailedCount, LockoutEnabled = n.LockoutEnabled, LockoutEndDateUtc = n.LockoutEndDateUtc }).ToList();
-            var pagelist = new { total = totalCount, rows = rows };
-            return Json(pagelist, JsonRequestBehavior.AllowGet);
-        }
+     
         [HttpGet]
         public ActionResult GetData(int page = 1, int rows = 10, string sort = "Id", string order = "desc", string filterRules = "")
         {
@@ -108,7 +94,19 @@ namespace WebApp.Controllers
             }
             totalCount = users.Count();
             var datalist = users.Skip((page - 1) * rows).Take(rows);
-            var datarows = datalist.Select(n => new { Id = n.Id, UserName = n.UserName, FullName = n.FullName, CompanyCode = n.CompanyCode, CompanyName = n.CompanyName, AccountType = n.AccountType, Email = n.Email, PhoneNumber = n.PhoneNumber, AccessFailedCount = n.AccessFailedCount, LockoutEnabled = n.LockoutEnabled, LockoutEndDateUtc = n.LockoutEndDateUtc }).ToList();
+            var datarows = datalist.Select(n => new { Id = n.Id,
+                UserName = n.UserName,
+                FullName = n.FullName,
+                CompanyCode = n.CompanyCode,
+                CompanyName = n.CompanyName,
+                AccountType = n.AccountType,
+                Email = n.Email,
+                PhoneNumber = n.PhoneNumber,
+                AccessFailedCount = n.AccessFailedCount,
+                LockoutEnabled = n.LockoutEnabled,
+                LockoutEndDateUtc = n.LockoutEndDateUtc,
+                IsOnline=n.IsOnline,
+                EnabledChat=n.EnabledChat }).ToList();
             var pagelist = new { total = totalCount, rows = datarows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
@@ -136,6 +134,7 @@ namespace WebApp.Controllers
                     user.CompanyName = item.CompanyName;
                     user.AccountType = item.AccountType;
                     user.PhoneNumber = item.PhoneNumber;
+                    user.EnabledChat = item.EnabledChat;
                     var result = UserManager.Update(user);
 
                 }

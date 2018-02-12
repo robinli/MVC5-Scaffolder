@@ -79,17 +79,16 @@
 
                                 <table id="users_datagrid" class="easyui-datagrid" style="width:auto;height:auto"
                                        data-options="
-                 rownumbers:true,
-
-                remoteFilter: true,
-                singleSelect: true,
-                toolbar: '#users_toolbar',
-                url: '/AccountManage/GetData',
-                method: 'get',
-                onClickCell: onClickCell,
-                pagination: 'true',
-                striped:true
-                   ">
+                                            rownumbers:true,
+                                            remoteFilter: true,
+                                            singleSelect: true,
+                                            toolbar: '#users_toolbar',
+                                            url: '/AccountManage/GetData',
+                                            method: 'get',
+                                            onClickCell: onClickCell,
+                                            pagination: 'true',
+                                            striped:true
+                                               ">
                                     <thead>
                                         <tr>
                                             @*<th data-options="field:'ck',checkbox:true"></th>*@
@@ -97,39 +96,51 @@
 
                                             <th data-options="field:'UserName',width:140 ,editor:{type:'textbox',options:{required:true} } ">用户名</th>
                                             <th data-options="field:'FullName',width:140,editor:{type:'textbox',options:{required:true} } ">@Html.DisplayNameFor(model => model.FullName)</th>
+                                            <th data-options="field:'Email',width:140,editor:{type:'textbox',options:{required:true} } ">@Html.DisplayNameFor(model => model.Email)</th>
+                                            <th data-options="field:'EnabledChat',
+                                                                width:150,
+                                                                formatter:booleanformatter,
+                                                                editor:{type:'booleaneditor',
+                                                                        options:{}}">@Html.DisplayNameFor(model => model.EnabledChat)</th>
                                             <th data-options="field:'CompanyCode',width:140,
-                    editor:{
-                    type:'combogrid',options:{prompt:'公司' ,required:false ,validType:'length[0,50]',
-                         idField:'CompanyCode',
-                         panelWidth:400,
-                         textField:'CompanyCode',
-                         method:'get',
-                         url:'AccountManage/GetCompanyData',
-                         columns:[[
-                         {field:'CompanyCode',title:'公司代码',width:80},
-                         {field:'CompanyName',title:'公司名称',width:230},
-                         {field:'Type',title:'类型',width:80,formatter:accounttypeformatter}
-                         ]],
-                         onSelect:function(rowIndex,rowData){
-                             var ed = $dg.datagrid('getEditor',{index:editIndex,field:'CompanyName'});
-                              $(ed.target).textbox('setValue',rowData.CompanyName);
-                             var ed1 = $dg.datagrid('getEditor',{index:editIndex,field:'AccountType'});
-                              $(ed1.target).combobox('setValue',rowData.Type);
-
-                         }
-                        }
-                    } ">@Html.DisplayNameFor(model => model.CompanyCode)</th>
-                    <th data-options="field:'CompanyName',width:140,editor:{type:'textbox',options:{required:true,readonly:true} } ">@Html.DisplayNameFor(model => model.CompanyName)</th>
+                                                              editor:{
+                                                                 type:'combogrid',options:{prompt:'公司' ,required:false ,validType:'length[0,50]',
+                                                                      idField:'CompanyCode',
+                                                                      panelWidth:400,
+                                                                      textField:'CompanyName',
+                                                                      method:'get',
+                                                                      url:'AccountManage/GetCompanyData',
+                                                                      columns:[[
+                                                                               {field:'CompanyCode',title:'公司代码',width:80},
+                                                                               {field:'CompanyName',title:'公司名称',width:230},
+                                                                               {field:'Type',title:'类型',width:80,formatter:accounttypeformatter}
+                                                                               ]],
+                                                                      onSelect:function(rowIndex,rowData){
+                                                                         var row=$dg.datagrid('getRows')[editIndex];
+                                                                         
+                                                                         row.CompanyName = rowData.CompanyName;
+                                                                         row.CompanyCode = rowData.CompanyCode;
+                                                                         var ed1 = $dg.datagrid('getEditor',{index:editIndex,field:'AccountType'});
+                                                                         $(ed1.target).combobox('setValue',rowData.Type);
+                                                                         
+                                                                      }
+                                                                    }
+                                                            },
+                                                            formatter:function(value,row,index){
+                                                                return row.CompanyName
+                                                                } ">@Html.DisplayNameFor(model => model.CompanyCode)</th>
+                    @*<th data-options="field:'CompanyName',width:140,editor:{type:'textbox',options:{required:true,readonly:true} } ">@Html.DisplayNameFor(model => model.CompanyName)</th>*@
                     <th data-options="field:'AccountType',width:140,
                         editor:{
                             type:'accounttypecombobox',
-                             
+
                     } ,formatter:accounttypeformatter  ">公司组</th>
-                    <th data-options="field:'Email',width:140,editor:{type:'textbox',options:{required:true} } ">@Html.DisplayNameFor(model => model.Email)</th>
+                    
                     <th data-options="field:'PhoneNumber',width:140,editor:{type:'textbox',options:{required:false} } ">@Html.DisplayNameFor(model => model.PhoneNumber)</th>
-                    <th data-options="field:'AccessFailedCount',width:160  ">@Html.DisplayNameFor(model => model.AccessFailedCount)</th>
-                    <th data-options="field:'LockoutEnabled',width:160  ">@Html.DisplayNameFor(model => model.LockoutEnabled)</th>
-                    <th data-options="field:'LockoutEndDateUtc',width:160  ">@Html.DisplayNameFor(model => model.LockoutEndDateUtc)</th>
+                    <th data-options="field:'IsOnline',width:120,formatter:booleanformatter  ">@Html.DisplayNameFor(model => model.IsOnline)</th>
+                    <th data-options="field:'AccessFailedCount',width:120  ">@Html.DisplayNameFor(model => model.AccessFailedCount)</th>
+                    <th data-options="field:'LockoutEnabled',width:120,formatter:booleanformatter  ">@Html.DisplayNameFor(model => model.LockoutEnabled)</th>
+                    <th data-options="field:'LockoutEndDateUtc',width:120  ">@Html.DisplayNameFor(model => model.LockoutEndDateUtc)</th>
 
 
                 </tr>
@@ -192,13 +203,14 @@
         function onClickCell(index, field) {
             if (editIndex != index) {
                 if (endEditing()) {
+                    editIndex = index;
                     $dg.datagrid('selectRow', index)
                         .datagrid('beginEdit', index);
                     var ed = $dg.datagrid('getEditor', { index: index, field: field });
                     if (ed) {
                         ($(ed.target).data('textbox') ? $(ed.target).textbox('textbox') : $(ed.target)).focus();
                     }
-                    editIndex = index;
+                   
                 } else {
                     $dg.datagrid('selectRow', editIndex);
                 }
@@ -236,7 +248,7 @@
                     }
                     console.log(JSON.stringify(effectRow));
                     $.post("/AccountManage/SaveData", effectRow, function (rsp) {
-                        console.log(rsp);
+                       // console.log(rsp);
                         if (rsp.Success) {
                             $.messager.alert("提示", "提交成功！");
                             $dg.datagrid('acceptChanges');
