@@ -141,10 +141,10 @@ namespace WebApp
 
             //inputpicker
 
-            bundles.Add(new ScriptBundle("~/plugins/inputpickerjs").Include(
-                      "~/Scripts/plugin/inputpicker/jquery.inputpicker.js"));
-            bundles.Add(new ProperStyleBundle("~/plugins/inputpickerStyles").Include(
-                      "~/Scripts/plugin/inputpicker/jquery.inputpicker.css"));
+            //bundles.Add(new ScriptBundle("~/plugins/inputpickerjs").Include(
+            //          "~/Scripts/plugin/inputpicker/jquery.inputpicker.js"));
+            //bundles.Add(new ProperStyleBundle("~/plugins/inputpickerStyles").Include(
+            //          "~/Scripts/plugin/inputpicker/jquery.inputpicker.css"));
 
             //Bootstrap Search Suggest
             bundles.Add(new ScriptBundle("~/plugins/bootstrapsuggestjs").Include(
@@ -161,7 +161,10 @@ namespace WebApp
                       "~/Scripts/FileSaver.js",
                       "~/Scripts/jquery.fileDownload.js"
                       ));
-
+            //signalR 2.2.2 Script
+            bundles.Add(new ScriptBundle("~/plugins/signalrjs").Include(
+                      "~/Scripts/jquery.signalR-2.2.2.js"
+                      ));
 
 
             //format enum json

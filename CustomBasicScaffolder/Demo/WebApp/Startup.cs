@@ -15,7 +15,7 @@ namespace WebApp
             ConfigureAuth(app);
             ConfigureHangfire(app);
 
-            
+            app.MapSignalR();
 
 
 

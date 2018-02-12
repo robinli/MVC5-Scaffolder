@@ -64,37 +64,18 @@
                 <td class="control-label">   @Html.DisplayNameFor(model => model.City)  </td>
                 <td>
            
-                        <div class="input-group input-group-sm">
-                            <input type="text" class="form-control">
-                            <div class="input-group-btn">
-                               
-                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" tabindex="-1" aria-expanded="false">
-                                    <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu pull-right" role="menu">
-                                    <li><a href="javascript:void(0);">Action</a></li>
-                                    <li><a href="javascript:void(0);">Another action</a></li>
-                                    <li><a href="javascript:void(0);">Something else here</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="javascript:void(0);">Cancel</a></li>
-                                </ul>
-                            </div>
-                        </div>
+                    <input id="@Html.IdFor(model => model.City)"
+                           name="@Html.NameFor(model => model.City)"
+                           value="@Html.ValueFor(model => model.City)"
+                           tabindex="2"
+                           class="easyui-textbox"
+                           type="text"
+                           data-options="prompt:'所在城市',
+								 label:'',
+                                width:200,
+								 required:false ,validType:'length[0,50]'" />
                      
-                    <div class="input-group" style="width:200px">
-                        <input id="@Html.IdFor(model => model.City)"
-                               name="@Html.NameFor(model => model.City)"
-                               value="@Html.ValueFor(model => model.City)"
-                               tabindex="3"
-                               class="form-control input-sm "
-                               type="text" style="width:200px" />
-                        <div class="input-group-btn">
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" tabindex="-1" aria-expanded="false">
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
-                        </div>
-                    </div>
+                    
                 </td>
             </tr>
             <tr>
@@ -145,14 +126,14 @@
                     <input id="@Html.IdFor(model => model.CreatedDate)"
                            name="@Html.NameFor(model => model.CreatedDate)"
                            tabindex="7"
-                           class="easyui-datebox"
+                           class="easyui-datetimebox"
                            type="text"
                            value="@Html.ValueFor(model => model.CreatedDate)"
                            data-options="prompt:'创建时间',
 								 label:'',
                                 width:200,
 								 required:false,
-								 formatter:dateformatter" />
+								 formatter:datetimeformatter" />
                 </td>
             </tr>
             <tr>
@@ -174,14 +155,14 @@
                     <input id="@Html.IdFor(model => model.LastModifiedDate)"
                            name="@Html.NameFor(model => model.LastModifiedDate)"
                            tabindex="9"
-                           class="easyui-datebox"
+                           class="easyui-datetimebox"
                            type="text"
                            value="@Html.ValueFor(model => model.LastModifiedDate)"
                            data-options="prompt:'最后更新时间',
 								 label:'',
                                 width:200,
 								 required:false,
-								 formatter:dateformatter" />
+								 formatter:datetimeformatter" />
                 </td>
             </tr>
             <tr>
@@ -216,6 +197,7 @@
 <script type="text/javascript">
     //load data by foreign key
     function loadData(id, data) {
+        console.log(id, data);
         $('#company_form').form('load', data);
     }
     //save item
@@ -254,25 +236,7 @@
 
 
     $(function () {
-        $("input#City").bsSuggest({
-            data: {
-                value: messagetypefiltersource
-            },
-            effectiveFieldsAlias: { text: "Text" },
-            ignorecase: true,
-            showHeader: false,
-            showBtn: false,     //不显示下拉按钮
-            delayUntilKeyup: true, //获取数据的方式为 firstByUrl 时，延迟到有输入/获取到焦点时才请求数据
-            idField: "value",
-            keyField: "text",
-            clearable: false
-        }).on('onDataRequestSuccess', function (e, result) {
-            console.log('onDataRequestSuccess: ', result);
-        }).on('onSetSelectValue', function (e, keyword, data) {
-            console.log('onSetSelectValue: ', keyword, data);
-        }).on('onUnsetSelectValue', function () {
-            console.log("onUnsetSelectValue");
-        });
+         
 
     })
 

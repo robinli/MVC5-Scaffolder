@@ -118,14 +118,14 @@
 			   			  			<input id="@Html.IdFor(model => model.CreatedDate)" 
 			       name="@Html.NameFor(model => model.CreatedDate)" 
 				   tabindex="7" 
-				   class="easyui-datebox" 
+				   class="easyui-datetimebox" 
 				   type="text" 
 				   value="@Html.ValueFor(model => model.CreatedDate)"
 				   data-options="prompt:'创建时间',
 								 label:'',
                                  width:300,
 								 required:false,
-								 formatter:dateformatter" />
+								 formatter:datetimeformatter" />
 			  				   </td>
 	   	   </tr>
 	   	    <tr>
@@ -147,14 +147,14 @@
 			   			  			<input id="@Html.IdFor(model => model.LastModifiedDate)" 
 			       name="@Html.NameFor(model => model.LastModifiedDate)" 
 				   tabindex="9" 
-				   class="easyui-datebox" 
+				   class="easyui-datetimebox" 
 				   type="text" 
 				   value="@Html.ValueFor(model => model.LastModifiedDate)"
 				   data-options="prompt:'最后更新时间',
 								 label:'',
                                  width:300,
 								 required:false,
-								 formatter:dateformatter" />
+								 formatter:datetimeformatter" />
 			  				   </td>
 	   	   </tr>
 	   	    <tr>

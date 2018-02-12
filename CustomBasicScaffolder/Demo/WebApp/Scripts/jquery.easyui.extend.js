@@ -1,5 +1,42 @@
 ﻿
-//dateRange filter 
+$.extend($.fn.datebox.defaults, {
+    formatter: function (value) {
+        //console.log(value, 'formatter');
+        if (moment(value).isValid()) {
+            var date = moment(value).format('MM/DD/YYYY');
+            return date;
+        } 
+    },
+    parser: function (value) {
+        
+        if (moment(value).isValid()) {
+            console.log(moment(value).toDate(), 'parser');
+            return moment(value).toDate();
+        } else {
+            return moment().toDate();
+        }
+    }
+});
+$.extend($.fn.datetimebox.defaults, {
+    formatter: function (value) {
+        //console.log(value, 'formatter');
+        if (moment(value).isValid()) {
+            var date = moment(value).format('MM/DD/YYYY HH:mm:ss');
+            return date;
+        }
+    },
+    parser: function (value) {
+
+        if (moment(value).isValid()) {
+            //console.log(moment(value).toDate(), 'parser');
+            return moment(value).toDate();
+        } else {
+            return moment().toDate();
+        }
+    }
+});
+
+//dateRange filter
 $.extend($.fn.datagrid.defaults.filters, {
     dateRange: {
         init: function (container, options) {
