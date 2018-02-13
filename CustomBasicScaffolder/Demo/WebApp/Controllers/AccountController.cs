@@ -210,7 +210,9 @@ namespace WebApp.Controllers
             // this clears the Request.IsAuthenticated flag since this triggers a new request
             return RedirectToLocal();
         }
-
+        public ActionResult Profile() {
+            return View();
+        }
         private ActionResult RedirectToLocal(string returnUrl = "")
         {
             // If the return url starts with a slash "/" we assume it belongs to our site
@@ -238,7 +240,7 @@ namespace WebApp.Controllers
                 ModelState.AddModelError("", error);
             }
         }
-
+        
         private void EnsureLoggedOut()
         {
             // If the request is (still) marked as authenticated we send the user to the logout action

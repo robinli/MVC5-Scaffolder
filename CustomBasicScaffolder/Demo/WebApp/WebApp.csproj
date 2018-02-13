@@ -4466,6 +4466,8 @@
     <Content Include="Views\Companies\_EmployeeEditForm.cshtml" />
     <Content Include="Views\Features\Bootstrap.cshtml" />
     <Content Include="Views\Home\Chat.cshtml" />
+    <Content Include="Views\Features\Widgets.cshtml" />
+    <Content Include="Views\Shared\_ChangePasswordPartial.cshtml" />
     <None Include="Views\Notifications\_notifications.cshtml" />
     <None Include="Views\Messages\_notifications.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Int.cshtml">
@@ -4484,7 +4486,6 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\_RemoveAccountPartial.cshtml" />
     <Content Include="Views\Account\_SetPasswordPartial.cshtml" />

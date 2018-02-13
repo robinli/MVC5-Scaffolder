@@ -65,6 +65,8 @@
         Html.RenderPartial("_Footer");
         Html.RenderPartialIf("_Tiles", Settings.EnableTiles);
     }
+
+    @{Html.RenderPartialIf("_ChangePasswordPartial", Request.IsAuthenticated); }
     @{ Html.RenderPartial("_Scripts", RenderSection("pagespecific", false)); }
     @RenderSection("scripts", required: false)
 </body>
