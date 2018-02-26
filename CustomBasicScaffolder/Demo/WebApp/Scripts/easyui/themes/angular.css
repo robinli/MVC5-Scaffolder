@@ -306,6 +306,14 @@ eui-button-group eui-linkbutton:last-child .l-btn{
 	width: 100%;
 	height: auto;
 }
+.tabs-scrollable{
+	transition: left 400ms, right 400ms;
+	position: absolute;
+	width: auto;
+	height: 100%;
+	left: 0;
+	top: 0;
+}
 .tabs li{
 	display: inherit;
 }
@@ -323,11 +331,18 @@ eui-button-group eui-linkbutton:last-child .l-btn{
 .tabs-close{
 	outline: none;
 }
+.tabs-scroller-left,.tabs-scroller-right{
+	position: relative;
+	display: block;
+	width: 21px;
+	height: 100%;
+}
 .tabs-header-left .tabs li{
 	right: -1px;
 }
 .tabs-header-left .tabs li,.tabs-header-right .tabs li,
-.tabs-header-left .tabs li a.tabs-inner,.tabs-header-right .tabs li a.tabs-inner{
+.tabs-header-left .tabs li a.tabs-inner,
+.tabs-header-right .tabs li a.tabs-inner{
 	display: inherit;
 }
 

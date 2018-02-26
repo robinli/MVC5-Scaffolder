@@ -117,7 +117,7 @@ namespace WebApp
             bundles.Add(new ProperStyleBundle("~/plugins/easyuiStyles").Include(
                         "~/Scripts/easyui/themes/insdep/easyui.css",
                         "~/Scripts/easyui/themes/insdep/easyui_animation.css",
-                      "~/Scripts/easyui/themes/insdep/easyui_plus.css"
+                        "~/Scripts/easyui/themes/insdep/easyui_plus.css"
                       ));
             //EasyUI Script
             //bundles.Add(new ScriptBundle("~/plugins/easyuijs").Include(

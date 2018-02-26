@@ -2,7 +2,9 @@ Version 1.5.4.x
 ---------------
 * Bug
  * tabs: The selecting history has wrong order when the title contains complex elements. fixed.
-
+* Improvement
+ * numberbox: The 'cloneFrom' method is available.
+ * slider: The 'step' property can be set as a floating number.
 
 Version 1.5.4
 -------------

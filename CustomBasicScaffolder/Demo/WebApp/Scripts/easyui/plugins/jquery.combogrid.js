@@ -1,5 +1,5 @@
 /**
- * EasyUI for jQuery 1.5.4.1
+ * EasyUI for jQuery 1.5.4.2
  * 
  * Copyright (c) 2009-2018 www.jeasyui.com. All rights reserved.
  *
@@ -338,7 +338,8 @@ var _59=$(_58).combogrid("options");
 if(_59.reversed){
 $(_58).combogrid("setValues",$(_58).combogrid("getValues"));
 }
-}}),filter:function(q,row){
+}}),panelEvents:{mousedown:function(e){
+}},filter:function(q,row){
 var _5a=$(this).combogrid("options");
 return (row[_5a.textField]||"").toLowerCase().indexOf(q.toLowerCase())>=0;
 }});
