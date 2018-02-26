@@ -171,8 +171,6 @@ namespace WebApp
             bundles.Add(new ScriptBundle("~/plugins/jqueryeasyuiextendjs").Include(
                       "~/Scripts/jquery.extend.js",
                       "~/Scripts/jquery.easyui.extend.js",
-                      "~/Scripts/enum.json.js",
-                      "~/Scripts/datagrid.formatter.js",
                       "~/Scripts/jquery.extend.formatter.js"));
 
 
