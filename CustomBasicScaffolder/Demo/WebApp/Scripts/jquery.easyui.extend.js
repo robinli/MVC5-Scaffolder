@@ -10,7 +10,7 @@ $.extend($.fn.datebox.defaults, {
     parser: function (value) {
         
         if (moment(value).isValid()) {
-            console.log(moment(value).toDate(), 'parser');
+            //console.log(moment(value).toDate(), 'parser');
             return moment(value).toDate();
         } else {
             return moment().toDate();
@@ -76,7 +76,7 @@ $.extend($.fn.datagrid.defaults.filters, {
                 container.find('input').trigger('click.daterangepicker');
             });
             if (options.onChange == undefined) {
-                console.log('Can not find function:onChange for', input[0]);
+                //console.log('Can not find function:onChange for', input[0]);
             }
             else {
                 input.on('cancel.daterangepicker', function (ev, picker) {
@@ -196,7 +196,7 @@ $.extend($.fn.datagrid.defaults.editors, {
             
         },
         getValue: function (target) {
-            console.log('getValue', $(target[0]).find(':checkbox').prop('checked'));
+            //console.log('getValue', $(target[0]).find(':checkbox').prop('checked'));
             return $(target[0]).find(':checkbox').prop('checked');
         },
         setValue: function (target, value) {

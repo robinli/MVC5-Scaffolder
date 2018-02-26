@@ -68,7 +68,9 @@
             <summary> IQueryable enumeration </summary>
         </member>
         <member name="M:LinqKit.ExpandableQuery`1.ToString">
-            <summary> IQueryable string presentation.  </summary>
+            <summary>
+            IQueryable string presentation.
+            </summary>
         </member>
         <member name="M:LinqKit.ExpandableQuery`1.GetAsyncEnumerator">
             <summary> Enumerator for async-await </summary>
@@ -249,11 +251,19 @@
             <summary> Visit invocation expression </summary>
         </member>
         <member name="T:LinqKit.Extensions">
-            <summary>Refer to http://www.albahari.com/nutshell/linqkit.html and
-            http://tomasp.net/blog/linq-expand.aspx for more information.</summary>
+            <summary>
+            Refer to http://www.albahari.com/nutshell/linqkit.html and http://tomasp.net/blog/linq-expand.aspx for more information.
+            </summary>
         </member>
         <member name="M:LinqKit.Extensions.AsExpandable``1(System.Linq.IQueryable{``0})">
-            <summary> LinqKit: Returns wrapper that automatically expands expressions </summary>
+            <summary>
+            LinqKit: Returns wrapper that automatically expands expressions using a default QueryOptimizer.
+            </summary>
+        </member>
+        <member name="M:LinqKit.Extensions.AsExpandable``1(System.Linq.IQueryable{``0},System.Func{System.Linq.Expressions.Expression,System.Linq.Expressions.Expression})">
+            <summary>
+            LinqKit: Returns wrapper that automatically expands expressions using a custom QueryOptimizer.
+            </summary>
         </member>
         <member name="M:LinqKit.Extensions.Expand``1(System.Linq.Expressions.Expression{``0})">
             <summary> LinqKit: Expands expression </summary>
@@ -354,7 +364,7 @@
         <member name="T:LinqKit.LinqKitExtension">
             <summary>
             Extensibility point: If you want to modify expanded queries before executing them
-            set your own functionality to override empty QueryOptimizer
+            set your own functionality to override default QueryOptimizer.
             </summary>
         </member>
         <member name="F:LinqKit.LinqKitExtension.QueryOptimizer">
