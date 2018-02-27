@@ -3,7 +3,7 @@
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
 //! license : MIT
 //! momentjs.com
-;
+
 (function(global, factory) {
     typeof exports === "object" && typeof module !== "undefined"
         ? module.exports = factory()
@@ -13,7 +13,7 @@
 }(this,
     function() {
         "use strict";
-
+       
         var hookCallback;
 
         function utils_hooks__hooks() {
@@ -3817,3 +3817,5 @@
         return _moment;
 
     }));
+
+moment.suppressDeprecationWarnings = true;
