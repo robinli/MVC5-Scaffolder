@@ -1140,7 +1140,6 @@
     <Content Include="fonts\font-awesome\css\font-awesome.css" />
     <Content Include="fonts\font-awesome\css\font-awesome.min.css" />
     <Content Include="fonts\font-awesome\fonts\fontawesome-webfont.svg" />
-    <Content Include="fonts\ionicons.svg" />
     <Content Include="Images\a1.jpg" />
     <Content Include="Images\a2.jpg" />
     <Content Include="Images\a3.jpg" />
@@ -4567,9 +4566,6 @@
     <Content Include="Properties\Angular\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Properties\Angular\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="fonts\ionicons.eot" />
-    <Content Include="fonts\ionicons.ttf" />
-    <Content Include="fonts\ionicons.woff" />
     <Content Include="locales\en.json" />
     <Content Include="locales\es.json" />
     <Content Include="Content\plugins\bootstrap-rtl\bootstrap-rtl.css.map" />
