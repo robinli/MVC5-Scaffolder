@@ -1,7 +1,8 @@
 ﻿
 $.extend($.fn.datebox.defaults, {
     formatter: function (value) {
-        //console.log(value, 'formatter');
+        
+   
         if (moment(value).isValid()) {
             var date = moment(value).format('MM/DD/YYYY');
             return date;
@@ -9,7 +10,7 @@ $.extend($.fn.datebox.defaults, {
     },
     parser: function (value) {
         
-        if (moment(value).isValid()) {
+        if (value !='1/1/0001 12:00:00 AM' && moment(value).isValid()) {
             //console.log(moment(value).toDate(), 'parser');
             return moment(value).toDate();
         } else {
@@ -95,11 +96,13 @@ $.extend($.fn.datagrid.defaults.filters, {
             $(target).daterangepicker('destroy');
         },
         getValue: function (target) {
-            //console.log($(target));
+           
+           
             return $(target).data('daterangepicker').getStartDate() + '-' + $(target).data('daterangepicker').getEndDate();
         },
         setValue: function (target, value) {
             //console.log($(target), value);
+    
             var daterange = value.split('-');
             $(target).data('daterangepicker').setStartDate(daterange[0]);
             $(target).data('daterangepicker').setEndDate(daterange[1]);
@@ -112,39 +115,7 @@ $.extend($.fn.datagrid.defaults.filters, {
     }
 });
 
-$.extend($.fn.datagrid.defaults.filters, {
-    inputpicker: {
-        init: function (container, options) {
-
-            var input = $('<input type="text" style="height:24px;padding-left:12px">').appendTo(container);
-            var myoptions = {
-                filterOpen: false
-            }
-            $.extend(options, myoptions)
-            input.inputpicker(options);
-
-
-            return input;
-        },
-        destroy: function (target) {
-            $(target).inputpicker('destroy');
-        },
-        getValue: function (target) {
-            //console.log($(target), $(target).val());
-            return $(target).val();
-        },
-        setValue: function (target, value) {
-            //console.log($(target), value);
-            $(target).inputpicker('val', value);
-
-
-        },
-        resize: function (target, width) {
-            //console.log($(target), width);
-            $(target).inputpicker('resize', width);
-        }
-    }
-});
+ 
 
 //datebox editor
 $.extend($.fn.datagrid.defaults.editors, {
