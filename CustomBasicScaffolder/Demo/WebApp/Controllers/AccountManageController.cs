@@ -94,14 +94,18 @@ namespace WebApp.Controllers
             }
             totalCount = users.Count();
             var datalist = users.Skip((page - 1) * rows).Take(rows);
-            var datarows = datalist.Select(n => new { Id = n.Id,
+            var datarows = datalist.Select(n => new {
+                Id = n.Id,
                 UserName = n.UserName,
                 FullName = n.FullName,
+                Gender = n.Gender,
                 CompanyCode = n.CompanyCode,
                 CompanyName = n.CompanyName,
                 AccountType = n.AccountType,
                 Email = n.Email,
                 PhoneNumber = n.PhoneNumber,
+                AvatarsX50 = n.AvatarsX50,
+                AvatarsX120 = n.AvatarsX120,
                 AccessFailedCount = n.AccessFailedCount,
                 LockoutEnabled = n.LockoutEnabled,
                 LockoutEndDateUtc = n.LockoutEndDateUtc,
@@ -135,6 +139,7 @@ namespace WebApp.Controllers
                     user.AccountType = item.AccountType;
                     user.PhoneNumber = item.PhoneNumber;
                     user.EnabledChat = item.EnabledChat;
+                    user.Gender = item.Gender;
                     var result = UserManager.Update(user);
 
                 }
@@ -156,6 +161,7 @@ namespace WebApp.Controllers
                         UserName = item.UserName,
                         Email = item.Email,
                         FullName = item.FullName,
+                        Gender = item.Gender,
                         CompanyCode = item.CompanyCode,
                         CompanyName = item.CompanyName,
                         PhoneNumber = item.PhoneNumber,

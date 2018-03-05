@@ -20,6 +20,8 @@ namespace WebApp.Models
 
         [Display(Name = "全名")]
         public string FullName { get; set; }
+        [Display(Name = "性别")]
+        public int Gender { get; set; }
         public int AccountType { get; set; }
         [Display(Name = "所属公司")]
         public string CompanyCode { get; set; }
@@ -29,6 +31,10 @@ namespace WebApp.Models
         public bool IsOnline { get; set; }
         [Display(Name = "是否开启聊天功能")]
         public bool EnabledChat { get; set; }
+        [Display(Name = "小头像")]
+        public string AvatarsX50 { get; set; }
+        [Display(Name = "大头像")]
+        public string AvatarsX120 { get; set; }
     }
 
    

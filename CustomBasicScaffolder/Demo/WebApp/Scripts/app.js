@@ -531,7 +531,8 @@ var calc_navbar_height = function () {
         app.applyTheme = function () {
             var selectedTheme = localStorage && localStorage.getItem("smart-style");
             var selectedLogo = localStorage && localStorage.getItem("smart-logo");
-
+            //console.log(selectedTheme, selectedLogo);
+         
             if (selectedTheme) {
                 $.root_.removeClassPrefix("smart-style")
                     .addClass(selectedTheme);
@@ -542,7 +543,7 @@ var calc_navbar_height = function () {
             }
 
             if (selectedLogo) {
-                $("#logo img").attr("src", selectedLogo);
+                $("#logo img").attr("src", "/content" + selectedLogo);
             }
         };
 

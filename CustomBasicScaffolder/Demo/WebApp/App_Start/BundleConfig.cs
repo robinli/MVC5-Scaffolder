@@ -30,18 +30,18 @@ namespace WebApp
 
             bundles.Add(new ScriptBundle("~/scripts/smartadmin").Include(
                 "~/scripts/app.config.js",
-                "~/scripts/plugin/jquery-touch/jquery.ui.touch-punch.min.js",
-                "~/scripts/bootstrap/bootstrap.min.js",
-                "~/scripts/notification/SmartNotification.min.js",
-                "~/scripts/smartwidgets/jarvis.widget.min.js",
-                "~/scripts/plugin/jquery-validate/jquery.validate.min.js",
-                "~/scripts/plugin/masked-input/jquery.maskedinput.min.js",
-                "~/scripts/plugin/select2/select2.min.js",
-                "~/scripts/plugin/bootstrap-slider/bootstrap-slider.min.js",
-                "~/scripts/plugin/bootstrap-progressbar/bootstrap-progressbar.min.js",
-                "~/scripts/plugin/msie-fix/jquery.mb.browser.min.js",
-                "~/scripts/plugin/fastclick/fastclick.min.js",
-                "~/scripts/app.min.js"));
+                "~/scripts/plugin/jquery-touch/jquery.ui.touch-punch.js",
+                "~/scripts/bootstrap/bootstrap.js",
+                "~/scripts/notification/SmartNotification.js",
+                "~/scripts/smartwidgets/jarvis.widget.js",
+                "~/scripts/plugin/jquery-validate/jquery.validate.js",
+                "~/scripts/plugin/masked-input/jquery.maskedinput.js",
+                "~/scripts/plugin/select2/select2.js",
+                "~/scripts/plugin/bootstrap-slider/bootstrap-slider.js",
+                "~/scripts/plugin/bootstrap-progressbar/bootstrap-progressbar.js",
+                "~/scripts/plugin/msie-fix/jquery.mb.browser.js",
+                "~/scripts/plugin/fastclick/fastclick.js",
+                "~/scripts/app.js"));
             //bundles.Add(new ScriptBundle("~/scripts/smartadmin").Include(
             //    "~/scripts/app.config.js",
             //    "~/scripts/plugin/jquery-touch/jquery.ui.touch-punch.min.js",
@@ -177,7 +177,7 @@ namespace WebApp
 
 
 
-            BundleTable.EnableOptimizations = true;
+            BundleTable.EnableOptimizations = false;
 
         }
     }

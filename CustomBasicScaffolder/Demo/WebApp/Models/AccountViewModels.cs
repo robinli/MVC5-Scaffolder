@@ -224,6 +224,7 @@ namespace WebApp.Models
         public string CompanyName { get; set; }
         public int AccountType { get; set; }
         public bool EnabledChat { get; set; }
+        public int Gender { get; set; }
     }
 
     public class UserChangeViewModel
