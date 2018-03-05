@@ -241,7 +241,7 @@ $("#smart-styles > a")
             var $this = $(this);
 
             localStorage.setItem("smart-style", $this.attr("id"));
-            localStorage.setItem("smart-logo", "/" + $this.data("skinlogo"));
+            localStorage.setItem("smart-logo", "/content/" + $this.data("skinlogo"));
 
             initApp.applyTheme();
         });

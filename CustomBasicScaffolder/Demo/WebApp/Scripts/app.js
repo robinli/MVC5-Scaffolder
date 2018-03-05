@@ -543,7 +543,7 @@ var calc_navbar_height = function () {
             }
 
             if (selectedLogo) {
-                $("#logo img").attr("src", "/content" + selectedLogo);
+                $("#logo img").attr("src",  selectedLogo);
             }
         };
 

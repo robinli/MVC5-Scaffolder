@@ -39,7 +39,7 @@ $.navAsAjax = false;
 /*
  * GLOBAL: Sound Config (define sound path, enable or disable all sounds)
  */
-$.sound_path = "/sound/";
+$.sound_path = "/content/sound/";
 $.sound_on = true;
 /*
  * SAVE INSTANCE REFERENCE (DO NOT CHANGE)
