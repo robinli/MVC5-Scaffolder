@@ -50,7 +50,8 @@ var chatboxManager = function() {
     };
 
     // caller should guarantee the uniqueness of id
-    var addBox = function(id, user, name) {
+    var addBox = function (id, options) {
+       
         var idx1 = showList.indexOf(id);
         var idx2 = boxList.indexOf(id);
         if (idx1 != -1) {
@@ -67,37 +68,65 @@ var chatboxManager = function() {
             el.setAttribute("id", id);
             $(el).chatbox({
                 id: id,
-                user: user,
-                title: '<i title="' + user.status + '"></i>' + user.first_name + " " + user.last_name,
+                fromid:options.fromid,
+                user: options,
+                title: '<i title="' + options.status + '"></i>' + options.first_name + " " + options.last_name,
                 hidden: false,
                 offset: getNextOffset(),
                 width: chatbox_config.width,
-                status: user.status,
-                alertmsg: user.alertmsg,
-                alertshow: user.alertshow,
+                status: options.status,
+                alertmsg: options.alertmsg,
+                alertshow: options.alertshow,
                 messageSent: dispatch,
                 boxClosed: boxClosedCallback
             });
             boxList.push(id);
             showList.push(id);
-            nameList.push(user.first_name);
+            nameList.push(options.first_name);
         }
     };
 
-    var messageSentCallback = function(id, user, msg) {
+    var messageSentCallback = function(id, user, msg,fromid) {
         var idx = boxList.indexOf(id);
-        chatbox_config.messageSent(nameList[idx], msg);
+        chatbox_config.messageSent(nameList[idx], msg,fromid);
     };
 
     // not used in demo
-    var dispatch = function(id, user, msg) {
-        //$("#log").append("<i>" + moment().calendar() + "</i> you said to <b>" + user.first_name + " " + user.last_name + ":</b> " + msg + "<br/>");
-        if ($("#chatlog").doesExist()) {
-            $("#chatlog").append("You said to <b>" + user.first_name + " " + user.last_name + ":</b> " + msg + "<br/>")
-                .effect("highlight", {}, 500);;
-        }
+    var dispatch = function (id, user, msg,fromid) {
+        //if ($("#chatlog").doesExist()) {
+        //    $("#chatlog").append("You said to <b>" + user.first_name + " " + user.last_name + ":</b> " + msg + "<br/>")
+        //        .effect("highlight", {}, 500);;
+        //}
+        var userid = $('#hdId').val(),
+            username = $('#hdUserName').val();
+        var currentuser = { id: userid, username: username };
         $("#" + id).chatbox("option", "boxManager").addMsg("Me", msg);
+        //send private message to server side signlar chat.client.js subscribe this event
+     
+        $(document).trigger('dispatchprivatemessage', [id,user, msg])
+       
     };
+    //subscribe for chat.client.js receiving private message to me
+    $(document).on('receivingprivatemessage', function (e, msg) {
+        //console.log('subscribe receivingprivatemessage', e, msg);
+        var userid = $('#hdId').val(),
+            username = $('#hdUserName').val();
+        if (userid != msg.fromUserId) {
+            addBox(msg.fromUserId, {
+
+                id: msg.fromUserId,
+                fromid: msg.toUserId,
+                title: "username" + msg.fromUserId,
+                first_name: msg.fromUserName,
+                last_name: '',
+                status: 'online',
+                alertmsg: '',
+                alertshow: false
+                //you can add your own options too
+            });
+            $("#" + msg.fromUserId).chatbox("option", "boxManager").addMsg(msg.fromUserName, msg.message);
+        }
+    })
 
     return {
         init: init,
@@ -116,13 +145,17 @@ $("a[data-chat-id]:not(.offline)").click(function(event, ui) {
         lname = $this.attr("data-chat-lname"),
         status = $this.attr("data-chat-status") || "online",
         alertmsg = $this.attr("data-chat-alertmsg"),
-        alertshow = $this.attr("data-chat-alertshow") || false;
+        alertshow = $this.attr("data-chat-alertshow") || false,
+        fromid = $('#hdId').val();
+        
 
 
     chatboxManager.addBox(temp_chat_id,
         {
             // dest:"dest" + counter, 
             // not used in demo
+            id: temp_chat_id,
+            fromid: fromid,
             title: "username" + temp_chat_id,
             first_name: fname,
             last_name: lname,

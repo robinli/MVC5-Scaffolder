@@ -218,7 +218,7 @@
     <Compile Include="App_Helpers\ApplicationRoleManager.cs" />
     <Compile Include="App_Helpers\Auth.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
-    <Compile Include="SignalR\ChatHub.cs" />
+    <Compile Include="SmartChatHub\ChatHub.cs" />
     <Compile Include="App_Start\CustomModelBinders.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Helpers\HangfireBootstrapper.cs" />
@@ -517,10 +517,14 @@
     <Content Include="Content\ajax\notify\notifications.html" />
     <Content Include="Content\ajax\notify\tasks.html" />
     <Content Include="Content\ajax\website-template.html" />
+    <Content Include="Content\css\animate.css" />
+    <Content Include="Content\css\animate.min.css" />
     <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\demo.css" />
     <Content Include="Content\css\demo.min.css" />
+    <Content Include="Content\css\emojionearea.css" />
+    <Content Include="Content\css\emojionearea.min.css" />
     <Content Include="Content\css\font-awesome.css" />
     <Content Include="Content\css\font-awesome.min.css" />
     <Content Include="Content\css\invoice.css" />
@@ -2302,13 +2306,12 @@
     <Content Include="Scripts\easyui\themes\metro\validatebox.css" />
     <Content Include="Scripts\easyui\themes\metro\window.css" />
     <Content Include="Scripts\easyui\themes\mobile.css" />
+    <Content Include="Scripts\emojionearea.js" />
+    <Content Include="Scripts\emojionearea.min.js" />
     <Content Include="Scripts\FileSaver.js" />
     <Content Include="Content\fonts\summernote.eot" />
     <Content Include="Content\fonts\summernote.ttf" />
     <Content Include="Content\fonts\summernote.woff" />
-    <None Include="Scripts\jquery-2.2.4.intellisense.js" />
-    <Content Include="Scripts\jquery-2.2.4.js" />
-    <Content Include="Scripts\jquery-2.2.4.min.js" />
     <Content Include="Scripts\jquery.extend.formatter.js" />
     <Content Include="Scripts\jquery.easyui.extend.js" />
     <Content Include="Scripts\jquery.extend.formatter1.js">
@@ -2317,7 +2320,6 @@
       <DependentUpon>jquery.extend.formatter.tmp</DependentUpon>
     </Content>
     <Content Include="Content\fonts\fontawesome-webfont.woff2" />
-    <Content Include="Scripts\jquery-2.2.4.min.map" />
     <None Include="Scripts\jquery.extend.formatter.tmp">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>jquery.extend.formatter1.js</LastGenOutput>
@@ -2327,6 +2329,7 @@
     <Content Include="Scripts\jquery.fileDownload.js" />
     <Content Include="Scripts\jquery.signalR-2.2.2.js" />
     <Content Include="Scripts\jquery.signalR-2.2.2.min.js" />
+    <Content Include="Scripts\jquery.slimscroll.js" />
     <Content Include="Scripts\libs\jquery-2.1.1.min.js" />
     <Content Include="Scripts\libs\jquery-3.2.1.js" />
     <Content Include="Scripts\libs\jquery-3.2.1.min.js" />
@@ -2336,12 +2339,9 @@
     <Content Include="Scripts\libs\jquery-ui-1.12.1.noConflict.js" />
     <Content Include="Scripts\libs\jquery-ui-1.12.1.noConflict.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Scripts\moment-with-locales.js" />
-    <Content Include="Scripts\moment-with-locales.min.js" />
-    <Content Include="Scripts\moment.js" />
-    <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\notification\SmartNotification.js" />
     <Content Include="Scripts\notification\SmartNotification.min.js" />
+    <Content Include="Scripts\plugin\animation\animate.js" />
     <Content Include="Scripts\plugin\bootstrap-duallistbox\jquery.bootstrap-duallistbox.js" />
     <Content Include="Scripts\plugin\bootstrap-duallistbox\jquery.bootstrap-duallistbox.min.js" />
     <Content Include="Scripts\plugin\bootstrap-progressbar\bootstrap-progressbar.js" />
@@ -2910,10 +2910,7 @@
     <Content Include="Scripts\plugin\x-editable\moment.min.js" />
     <Content Include="Scripts\plugin\x-editable\x-editable.js" />
     <Content Include="Scripts\plugin\x-editable\x-editable.min.js" />
-    <Content Include="Scripts\respond.js" />
-    <Content Include="Scripts\respond.matchmedia.addListener.js" />
-    <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
-    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\smart-chat-ui\signalr.chat.client.js" />
     <Content Include="Scripts\smart-chat-ui\smart.chat.manager.js" />
     <Content Include="Scripts\smart-chat-ui\smart.chat.manager.min.js" />
     <Content Include="Scripts\smart-chat-ui\smart.chat.ui.js" />

@@ -11,6 +11,7 @@
         {
             options: {
                 id: null, //id for the DOM element
+                fromid: null,// from user id
                 title: null, // title of the chatbox
                 user: null, // can be anything associated with this chatbox
                 hidden: false,
@@ -19,9 +20,10 @@
                 status: "online", //
                 alertmsg: null,
                 alertshow: null,
-                messageSent: function(id, user, msg) {
+               
+                messageSent: function(id, user, msg,fromid) {
                     // override this
-                    this.boxManager.addMsg(user.first_name, msg);
+                    this.boxManager.addMsg(user.first_name, msg,fromid);
                 },
                 boxClosed: function(id) {
                 }, // called when the close icon is clicked
@@ -31,7 +33,8 @@
                     init: function(elem) {
                         this.elem = elem;
                     },
-                    addMsg: function(peer, msg) {
+                    addMsg: function (peer, msg) {
+                        //console.log('addmsg', peer, msg);
                         var self = this;
                         var box = self.elem.uiChatboxLog;
                         var e = document.createElement("div");
@@ -93,7 +96,8 @@
             widget: function() {
                 return this.uiChatbox;
             },
-            _create: function() {
+            _create: function () {
+               
                 var self = this,
                     options = self.options,
                     title = options.title || "No Title",
@@ -105,6 +109,7 @@
                             "ui-chatbox"
                         )
                         .attr("outline", 0)
+                        .attr("fromid", options.fromid)
                         .focusin(function() {
                             // ui-state-highlight is not really helpful here
                             //self.uiChatbox.removeClass('ui-state-highlight');
@@ -196,7 +201,7 @@
                             if (event.keyCode && event.keyCode == $.ui.keyCode.ENTER) {
                                 msg = $.trim($(this).val());
                                 if (msg.length > 0) {
-                                    self.options.messageSent(self.options.id, self.options.user, msg);
+                                    self.options.messageSent(self.options.id, self.options.user, msg, self.options.fromid);
                                 }
                                 $(this).val("");
                                 return false;

@@ -341,6 +341,9 @@
                                     </li>
                                 </ul>
                             </div>
+                            <a href="javascript:void(0);" id="btnClearChat" class="btn btn-primary btn-xs">
+                                <i class="fa fa-trash"></i>
+                            </a>
                         </div>
                     </header>
 
@@ -431,10 +434,15 @@
                                     <li class="message">
                                         <img src="~/content/img/avatars/sunny.png" class="online" alt="">
                                         <div class="message-text">
+
                                             <time>
                                                 2014-01-13
-                                            </time> <a href="javascript:void(0);" class="username">John Doe</a> Haha! Yeah I know what you mean. Thanks for the file Sadi! <i class="fa fa-smile-o txt-color-orange"></i>
+                                            </time>
+                                            <a href="javascript:void(0);" class="username">John Doe</a>
+                                            Haha! Yeah I know what you mean. Thanks for the file Sadi!
+                                            <i class="fa fa-smile-o txt-color-orange"></i>
                                         </div>
+
                                     </li>
                                 </ul>
 
@@ -454,14 +462,14 @@
 
                                 <!-- CHAT REPLY/SEND -->
                                 <span class="textarea-controls">
-                                    <button class="btn btn-sm btn-primary pull-right">
+                                    <button id="btnSendMsg" class="btn btn-sm btn-primary pull-right">
                                         Reply
                                     </button> <span class="pull-right smart-form" style="margin-top: 3px; margin-right: 10px;">
                                         <label class="checkbox pull-right">
                                             <input type="checkbox" name="subscription" id="subscription">
                                             <i></i>Press <strong> ENTER </strong> to send
                                         </label>
-                                    </span> <a href="javascript:void(0);" class="pull-left"><i class="fa fa-camera fa-fw fa-lg"></i></a>
+                                    </span> <a id="uploadfilebutton" href="javascript:void(0);" class="pull-left"><i class="fa fa-camera fa-fw fa-lg"></i></a>
                                 </span>
 
                             </div>
@@ -850,8 +858,9 @@
 </div>
 <!-- END MAIN CONTENT -->
 @section pagespecific {
- 
+ <script src="~/Scripts/smart-chat-ui/signalr.chat.client.js"></script>
     <script>
+
         $(document).ready(function () {
             $(".js-status-update a").click(function () {
                 var selText = $(this).text();

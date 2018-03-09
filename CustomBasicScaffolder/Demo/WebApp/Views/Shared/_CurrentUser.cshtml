@@ -1,9 +1,11 @@
 ﻿<div class="login-info dropdown">
     <span class="project-selector dropdown-toggle" data-toggle="dropdown" >
-        <a  href="javascript:void(0);" id="show-shortcut"    >
+        <a href="javascript:void(0);" id="show-shortcut">
             <img src="~/content/img/avatars/sunny.png" alt="me" class="online" />
             <span>@User.Identity.Name.ToLower()</span>
             <i class="fa fa-angle-down"></i>
+            <input type="hidden" id="hdId" />
+            <input type="hidden" id="hdUserName" />
         </a>
     </span>
     <!-- Suggestion: populate this list with fetch and push technique -->

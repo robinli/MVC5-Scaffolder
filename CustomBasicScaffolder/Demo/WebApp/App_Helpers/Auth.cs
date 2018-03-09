@@ -26,5 +26,20 @@ namespace WebApp
                 return fullName;
             }
         }
+
+        public static string GetUserIdByName(string username) {
+          var db=  SqlHelper2.DatabaseFactory.CreateDatabase();
+            var userid = db.ExecuteScalar<string>("select [id] from [dbo].[AspNetUsers] where [username]=@username", new { username });
+            return userid;
+        }
+        public static string GetAvatarsByName(string username, int size = 50) {
+            var db = SqlHelper2.DatabaseFactory.CreateDatabase();
+            var photopath = "";
+            if (size==50)
+                photopath = db.ExecuteScalar<string>("select [AvatarsX50] from [dbo].[AspNetUsers] where [username]=@username", new { username });
+            else
+                photopath = db.ExecuteScalar<string>("select [AvatarsX120] from [dbo].[AspNetUsers] where [username]=@username", new { username });
+            return photopath;
+        }
     }
 }

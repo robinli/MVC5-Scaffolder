@@ -7,7 +7,7 @@
     <meta name="description" content="SmartAdmin for ASP.NET MVC 5" />
     <meta name="author" content="SmartAdmin.Neo.Zhu" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    
+
     <!-- Basic Styles -->
     @Styles.Render("~/content/smartadmin")
     <!-- easyui  Styles -->
@@ -16,7 +16,8 @@
     @Styles.Render("~/plugins/jqueryfilerStyles")
     <!-- daterangepicker  Styles -->
     @Styles.Render("~/plugins/daterangepickerStyles")
- 
+    <!-- cssAnimate  Styles -->
+    <link href="~/Content/css/animate.css" rel="stylesheet" />
     <!-- FAVICONS -->
     <link rel="shortcut icon" href="~/img/favicon/favicon.ico" type="image/x-icon" />
     <link rel="icon" href="~/img/favicon/favicon.ico" type="image/x-icon" />
@@ -37,10 +38,14 @@
     <link rel="apple-touch-startup-image" href="~/img/splash/iphone.png" media="screen and (max-device-width: 320px)" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-   
+
     <!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
     <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script> if (!window.jQuery) { document.write('<script src="/scripts/libs/jquery-3.2.1.min.js"><\/script>'); } </script>
+    <script>    if (!window.jQuery) { document.write('<script src="/scripts/libs/jquery-3.2.1.min.js"><\/script>'); }</script>
+
+
+
+
     <script src="~/Scripts/libs/jquery-ui-1.12.1.noConflict.min.js"></script>
     <!--jquery easyui  -->
     <script src="~/Scripts/easyui/jquery.easyui.min.js"></script>

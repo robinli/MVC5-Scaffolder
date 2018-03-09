@@ -99,8 +99,8 @@ namespace WebApp
                 ));
 
             bundles.Add(new ScriptBundle("~/scripts/smart-chat").Include(
-                "~/scripts/smart-chat-ui/smart.chat.ui.min.js",
-                "~/scripts/smart-chat-ui/smart.chat.manager.min.js"
+                "~/scripts/smart-chat-ui/smart.chat.ui.js",
+                "~/scripts/smart-chat-ui/smart.chat.manager.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/scripts/vector-map").Include(
