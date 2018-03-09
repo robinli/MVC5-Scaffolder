@@ -16,12 +16,7 @@
 
             });
 
-            // Reset Message Counter on Hover
-            $("#divChatWindow").mouseover(function () {
-
-                $("#MsgCountMain").html('0');
-                $("#MsgCountMain").attr("title", '0 New Messages');
-            });
+            
 
             // Diplay Image Preview on File Upload 
             $(document).on('change', '#uploadfilebutton', function (e) {
@@ -35,30 +30,35 @@
                 //send private message server
                 
                 chatHub.server.sendPrivateMessage(id, msg);
-
+              
             });
 
 
             // Stop Title Alert
-            window.onfocus = function (event) {
-                if (event.explicitOriginalTarget === window) {
+            //window.onfocus = function (event) {
+            //    if (event.explicitOriginalTarget === window) {
 
-                    clearInterval(IntervalVal);
-                    document.title = 'SignalR Chat App';
-                }
-            }
+            //        clearInterval(IntervalVal);
+            //        document.title = 'SignalR Chat App';
+            //    }
+            //}
 
 
         });
 
-        // Show Title Alert
-        function ShowTitleAlert(newMessageTitle, pageTitle) {
-            if (document.title == pageTitle) {
-                document.title = newMessageTitle;
+        // Show new message Alert li.chat-users top-menu-invisible > a
+        function ShowNewMessageAlert( ) {
+            var tag = $('li.chat-users > a > i')
+            $(tag).append('<em class="bg-color-pink flash animated">!</em>');
+            //console.log(tag);
+        }
+        // hide new message Alert li.chat-users top-menu-invisible > a
+        function HideNewMessageAlert() {
+            var tag = $('li.chat-users > a > i > em')
+            if (tag.length > 0) {
+                $(tag).remove();
             }
-            else {
-                document.title = pageTitle;
-            }
+            //console.log(tag);
         }
 
         function registerEvents(chatHub) {
@@ -146,7 +146,7 @@
 
             // On User Disconnected
             chatHub.client.onUserDisconnected = function (id, userName) {
-                console.log('onUserDisconnected', id, userName);
+                //console.log('onUserDisconnected', id, userName);
                 var dt = $('.display-users dl').find('a[data-chat-id="' + id + '"]').parent();
 
                 $(dt).animate({ opacity: '0' }, 200, function () {
@@ -194,10 +194,11 @@
                     fromUserName: fromUserName,
                     toUserId: toUserId,
                     toUserName: toUserName,
-                    message:message,
-                    UserImg:UserImg,
-                    CurrentDateTime:CurrentDateTime
-                }])
+                    message: message,
+                    UserImg: UserImg,
+                    CurrentDateTime: CurrentDateTime
+                }]);
+                //ShowNewMessageAlert();
             }
 
         }

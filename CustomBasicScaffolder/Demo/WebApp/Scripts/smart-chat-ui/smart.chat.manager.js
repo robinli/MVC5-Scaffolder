@@ -104,7 +104,7 @@ var chatboxManager = function() {
         //send private message to server side signlar chat.client.js subscribe this event
      
         $(document).trigger('dispatchprivatemessage', [id,user, msg])
-       
+        HideNewMessageAlert();
     };
     //subscribe for chat.client.js receiving private message to me
     $(document).on('receivingprivatemessage', function (e, msg) {
@@ -112,8 +112,8 @@ var chatboxManager = function() {
         var userid = $('#hdId').val(),
             username = $('#hdUserName').val();
         if (userid != msg.fromUserId) {
+            
             addBox(msg.fromUserId, {
-
                 id: msg.fromUserId,
                 fromid: msg.toUserId,
                 title: "username" + msg.fromUserId,
@@ -124,9 +124,25 @@ var chatboxManager = function() {
                 alertshow: false
                 //you can add your own options too
             });
+            ShowNewMessageAlert();
             $("#" + msg.fromUserId).chatbox("option", "boxManager").addMsg(msg.fromUserName, msg.message);
         }
     })
+
+    // Show new message Alert li.chat-users top-menu-invisible > a
+    function ShowNewMessageAlert() {
+        var tag = $('li.chat-users > a > i')
+        $(tag).append('<em class="bg-color-pink flash animated">!</em>');
+        //console.log(tag);
+    }
+    // hide new message Alert li.chat-users top-menu-invisible > a
+    function HideNewMessageAlert() {
+        var tag = $('li.chat-users > a > i > em')
+        if (tag.length > 0) {
+            $(tag).remove();
+        }
+        //console.log(tag);
+    }
 
     return {
         init: init,
