@@ -487,7 +487,6 @@ D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\MVC
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\bin\Debug\Templates\MvcScaffolder\Shared\_Layout.cs.t4
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\bin\Debug\Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\sb-admin.cs.t4
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\bin\Debug\LICENSE.txt
-D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\bin\Debug\Happy.Scaffolding.MVC5.vsix
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\bin\Debug\extension.vsixmanifest
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\bin\Debug\MVC5Scaffolding.dll
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\bin\Debug\Newtonsoft.Json.dll
@@ -495,8 +494,6 @@ D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\MVC
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\bin\Debug\Newtonsoft.Json.xml
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\bin\Debug\fr-FR\MVC5Scaffolding.resources.dll
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\obj\Debug\MVC5Scaffolding.vsix.csprojResolveAssemblyReference.cache
-D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\obj\Debug\Happy.Scaffolding.MVC5.dll
-D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\obj\Debug\Happy.Scaffolding.MVC5.pdb
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\obj\Debug\extension.vsixmanifest
 D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\bin\Debug\Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\BaseCode\Views\Edit.cs.t4
 D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\bin\Debug\Templates\MvcScaffolder\MvcFullDependencyCodeGenerator\MenuItem\FileUploadController.cs.t4
@@ -570,3 +567,6 @@ D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\MVC
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\bin\Debug\Microsoft.VisualStudio.Text.UI.Wpf.xml
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\obj\Debug\MVC5Scaffolding.vsix.csproj.CoreCompileInputs.cache
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\bin\Debug\Templates\MvcScaffolder\MvcView\_PopupDetailFormView.cs.t4
+D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\bin\Debug\SmartCodeEngine.MVC5.vsix
+D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\obj\Debug\SmartCodeEngine.MVC5.dll
+D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\obj\Debug\SmartCodeEngine.MVC5.pdb

@@ -246,7 +246,8 @@ foreach (PropertyMetadata property in properties) {
                                         </div>
                             <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-cloud-download fa-fw',plain:true" onclick="exportexcel()">导出至Excel</a>
 							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-refresh fa-fw',plain:true" onclick="reload()">刷新</a>
-				</div>
+				            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-question-circle-o fa-fw',plain:true" onclick="dohelp()">帮助</a>
+                </div>
 		
 		
 		</div>
@@ -310,6 +311,10 @@ foreach (PropertyMetadata property in properties) {
 
 						})
 					}
+        //显示帮助信息
+        function dohelp() {
+
+        }
 		 //datagrid 增删改查操作
 		 var $dg = $("#<#= modelVariable #>_datagrid");
 		 var editIndex = undefined;
