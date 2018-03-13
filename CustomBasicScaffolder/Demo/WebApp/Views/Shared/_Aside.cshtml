@@ -305,6 +305,9 @@
                     <li class="@Html.RouteIf("hangfire", "active")">
                         <a href="@Url.Action("index", "hangfire")"><i class="fa fa-lg fa-fw fa-tasks"></i> <span class="menu-item-parent">执行任务</span></a>
                     </li>
+                    <li class="@Html.RouteIf("efmigrationsmanager", "active")">
+                        <a href="@Url.Action("publish", "efmigrationsmanager")"><i class="fa fa-lg fa-fw fa-database"></i> <span class="menu-item-parent">更新数据库</span></a>
+                    </li>
                 </ul>
             </li>
              

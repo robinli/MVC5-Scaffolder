@@ -247,7 +247,18 @@ namespace WebApp.Controllers
             if (Request.IsAuthenticated)
                 Logout();
         }
+        public ActionResult Error404()
+        {
+            EnsureLoggedOut();
+            return View();
+        }
 
+        // GET: /misc/error500
+        public ActionResult Error500()
+        {
+            EnsureLoggedOut();
+            return View();
+        }
         //private async Task SignInAsync(IdentityUser user, bool isPersistent)
         //{
         //    // Clear any lingering authencation data

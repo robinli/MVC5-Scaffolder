@@ -10,10 +10,11 @@ namespace WebApp.Controllers
 {
     public class HomeController : Controller
     {
-       
+        
         public ActionResult Index()
         {
-            
+           
+
 
             //  var parameters = new List<object>();
             //  var sql = "INSERT INTO [dbo].[Tb1]([f1]) VALUES (@f1)";
@@ -38,7 +39,7 @@ namespace WebApp.Controllers
             //  });
 
 
-            DateTime.Now.ToString("G");
+             
             var list = CodeListSet.CLS["AccountType"].EnumRecords();
             var val = CodeListSet.CLS["AccountType"].Code2Value("1");
             return View();
@@ -75,5 +76,6 @@ namespace WebApp.Controllers
         {
             return View();
         }
+       
     }
 }
