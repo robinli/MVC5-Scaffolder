@@ -27,10 +27,10 @@ namespace WebApp.Controllers
         public ActionResult Publish(bool isRollback = false)
         {
             var _service = new EFMigrationService();
-            if(!_service.IsAuthorizedUser())
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
-            }
+            //if(!_service.IsAuthorizedUser())
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+            //}
             var vm = _service.LoadMigrationDetails(isRollback);
             return View(vm);
         }
@@ -40,10 +40,10 @@ namespace WebApp.Controllers
         public ActionResult Publish(EFMigrationDetails entity)
         {
             var _service = new EFMigrationService();
-            if (!_service.IsAuthorizedUser())
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
-            }
+            //if (!_service.IsAuthorizedUser())
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+            //}
             if (entity == null || string.IsNullOrWhiteSpace(entity.TargetMigration))
                 throw new System.ArgumentException("Invalid Parameters...");
 

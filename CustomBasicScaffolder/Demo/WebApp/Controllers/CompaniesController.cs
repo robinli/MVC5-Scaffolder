@@ -45,7 +45,7 @@ namespace WebApp.Controllers
 		}
 		// Get :Companies/PageList
 		// For Index View Boostrap-Table load  data 
-		[HttpGet]
+		[HttpPost]
 				 public async Task<ActionResult> GetData(int page = 1, int rows = 10, string sort = "Id", string order = "asc", string filterRules = "")
 				{
 			var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);

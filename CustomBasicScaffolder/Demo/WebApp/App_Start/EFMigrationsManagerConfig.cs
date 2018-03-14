@@ -25,7 +25,8 @@ namespace WebApp
 
         private static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
-            filters.Add(new VerifyIsEFMigrationUpToDateAttribute());
+            //filters.Add(new VerifyIsEFMigrationUpToDateAttribute());
+            filters.Add(new AjaxHandleErrorAttribute());
         }
 
          internal static bool HandleEFMigrationException(Exception ex, HttpServerUtility server, HttpResponse response, HttpContext context)
@@ -59,5 +60,44 @@ namespace WebApp
             return false;
         }
         #endregion
+    }
+
+    public class AjaxHandleErrorAttribute : HandleErrorAttribute {
+        public override void OnException(ExceptionContext filterContext)
+        {
+            if (filterContext.ExceptionHandled || !filterContext.HttpContext.IsCustomErrorEnabled)
+            {
+                return;
+            }
+
+            if (new HttpException(null, filterContext.Exception).GetHttpCode() != 500)
+            {
+                return;
+            }
+
+            if (!ExceptionType.IsInstanceOfType(filterContext.Exception))
+            {
+                return;
+            }
+            if (filterContext.HttpContext.Request.IsAjaxRequest())
+            {
+                filterContext.Result = new JsonResult
+                {  
+                   Data=new
+                    {
+                        success = false,
+                        message = filterContext.Exception.Message,
+                    },
+                    JsonRequestBehavior = JsonRequestBehavior.AllowGet
+                };
+                filterContext.ExceptionHandled = true;
+                filterContext.HttpContext.Response.Clear();
+                filterContext.HttpContext.Response.StatusCode = 500;
+                filterContext.HttpContext.Response.TrySkipIisCustomErrors = true;
+            }
+             
+           
+
+        }
     }
 }

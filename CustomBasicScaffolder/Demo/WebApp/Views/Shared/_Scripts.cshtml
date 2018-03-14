@@ -85,13 +85,28 @@
             trackMethods: ['GET', 'POST', 'DELETE', 'PUT', 'PATCH']
         }
     }
+    $(document).ajaxError(function (event, request, settings) {
+        //console.log(event, request, settings);
+        $.bigBox({
+            title: "ajax请求异常!",
+            content: "" + request.responseJSON.message + " " + settings.url ,
+            color: "#C46A69",
+            icon: "fa fa-warning shake animated",
+            number: "1",
+            timeout: 6000
+        });
+        //$.post('/Messages/SaveErrorLog', { tags:'ajax', content: rquest.responseJSON.message, url: settings.url },
+        //    function (data, status, xhr) {
 
+        //    });
+    });
 
     window.onerror = function (msg, url, line, col, error) {
-        //console.log(msg);
-        $.post('/Messages/SaveErrorLog', { content: msg, url: url, line: line, col: col }, function (data, status, xhr) {
+        console.log(msg);
+        //$.post('/Messages/SaveErrorLog', { tags:'javascript',content: msg, url: url, line: line, col: col },
+        //    function (data, status, xhr) {
 
-        });
+        //});
 
     }
 

@@ -281,16 +281,16 @@ namespace WebApp.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> SaveErrorLog(string content, string url, string line, string col)
+        public async Task<ActionResult> SaveErrorLog(string tags,string content, string url="", string line="", string col="")
         {
             var message = new Message()
             {
                 Group = (int)MessageGroup.Operator,
-                Content = $"at line:{line} col:{col},{content}",
+                Content = $"{content} at line:{line} col:{col}.",
                 Type = (int)MessageType.Error,
                 Method = SubUrlString(url),
-                Tags = "Javascript",
-                ExtensionKey1 = "script",
+                Tags = tags,
+                ExtensionKey1 = "js",
                 User = Auth.CurrentUserName
 
 

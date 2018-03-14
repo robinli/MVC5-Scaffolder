@@ -13,7 +13,7 @@ namespace WebApp.Controllers
         
         public ActionResult Index()
         {
-           
+            //throw new Exception();
 
 
             //  var parameters = new List<object>();
