@@ -95,37 +95,10 @@ namespace SqlHelper2
                 return dr.HasRows;
             }
         }
+ 
 
-        public DataSet ExecuteDataSet(string sql, object parameters)
-        {
-            PrepareCommand(sql, parameters);
 
-            dataAdapter.SelectCommand = command;
-
-            var ds = new DataSet();
-            dataAdapter.Fill(ds);
-            return ds;
-        }
-
-        public DataTable ExecuteDataTable(string sql, object parameters = null)
-        {
-            PrepareCommand(sql, parameters);
-            dataAdapter.SelectCommand = command;
-            var ds = new DataSet();
-            dataAdapter.Fill(ds);
-            return (ds.Tables.Count >= 0 ? ds.Tables[0] : null);
-        }
-
-        public DataSet ExecuteSpDataSet(string procedureName, object parameters)
-        {
-            PrepareCommand(procedureName, parameters);
-            command.CommandText = procedureName;
-            command.CommandType = CommandType.StoredProcedure;
-            dataAdapter.SelectCommand = command;
-            var ds = new DataSet();
-            dataAdapter.Fill(ds);
-            return ds;
-        }
+   
 
         public int ExecuteSPNonQuery(string procedureName, object parameters = null)
         {
@@ -134,40 +107,10 @@ namespace SqlHelper2
             return command.ExecuteNonQuery();
         }
 
-        public int ExecuteSPNonQuery(string procedureName, IEnumerable<object> parameters = null)
-        {
-            var result = 0;
-            foreach (var parameter in parameters)
-            {
-                PrepareCommand(procedureName, parameter);
-                command.CommandType = CommandType.StoredProcedure;
-                result += command.ExecuteNonQuery();
-            }
-            return result;
-        }
 
-        public int ExecuteNonQuery(string sql, IEnumerable<object> parameters = null)
-        {
-            var result = 0;
-            foreach (var parameter in parameters)
-            {
-                PrepareCommand(sql, parameter);
-                command.CommandText = sql;
-                result += command.ExecuteNonQuery();
-            }
-            return result;
-        }
+       
 
-        public int ExecuteNonQuery(IEnumerable<string> sqllist)
-        {
-            var result = 0;
-            foreach (var sql in sqllist)
-            {
-                command.CommandText = sql;
-                result += command.ExecuteNonQuery();
-            }
-            return result;
-        }
+        
 
         public void ExecuteDataSet(string sql, object parameters, Action<DataSet> action)
         {
@@ -178,14 +121,6 @@ namespace SqlHelper2
             action.Invoke(ds);
         }
 
-        public void ExecuteDataTable(string sql, object parameters, Action<DataTable> action)
-        {
-            PrepareCommand(sql, parameters);
-            dataAdapter.SelectCommand = command;
-            var ds = new DataSet();
-            dataAdapter.Fill(ds);
-            action.Invoke(ds.Tables.Count >= 0 ? ds.Tables[0] : null);
-        }
 
         public void ExecuteSpDataSet(string procedureName, object parameters, Action<DataSet> action)
         {

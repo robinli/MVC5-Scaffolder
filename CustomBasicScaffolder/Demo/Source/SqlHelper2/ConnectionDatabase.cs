@@ -78,27 +78,8 @@ namespace SqlHelper2
             }
         }
 
-        public DataSet ExecuteDataSet(string sql, object parameters)
-        {
-            using (var connection = CreateConnection())
-            {
-                using (var cmd = connection.CreateCommand())
-                {
-                    using (var adapter = CreateDataAdapter())
-                    {
-                        var db = new CommandDatabase(cmd, adapter);
-                        return db.ExecuteDataSet(sql,parameters);
+        
 
-                    }
-                }
-            }
-        }
-
-        public DataTable ExecuteDataTable(string sql, object parameters)
-        {
-            var ds = ExecuteDataSet(sql, parameters);
-            return (ds.Tables.Count >= 0 ? ds.Tables[0] : null);
-        }
 
         public void ExecuteTransaction(Action<IDatabase> action)
         {
@@ -168,22 +149,7 @@ namespace SqlHelper2
             return _ConnectionString;
         }
 
-        public DataSet ExecuteSpDataSet(string procedureName, object parameters)
-        {
-            using (var connection = CreateConnection())
-            {
-                using (var cmd = connection.CreateCommand())
-                {
-                    using (var adapter = CreateDataAdapter())
-                    {
-                        var db = new CommandDatabase(cmd, adapter);
 
-                        return db.ExecuteSpDataSet(procedureName, parameters);
-
-                    }
-                }
-            }
-        }
 
         public int ExecuteSPNonQuery(string procedureName, object parameters = null)
         {
@@ -195,90 +161,8 @@ namespace SqlHelper2
                 }
             }
         }
-        public int ExecuteSPNonQuery(string procedureName, IEnumerable<object> parameters = null)
-        {
-            var result = 0;
-            using (var connection = CreateConnection())
-            {
-                using (var transaction = connection.BeginTransaction())
-                {
-                    try
-                    {
-                        using (var cmd = connection.CreateCommand())
-                        {
-                            cmd.Transaction = transaction;
-                            var db = new CommandDatabase(cmd);
-                            result += db.ExecuteSPNonQuery(procedureName, parameters);
-                            transaction.Commit();
-                            return result;
-                        }
-                    }
-                    catch {
-                        transaction.Rollback();
-                        throw;
-                    }
-                }
-            }
-        }
-
-        public int ExecuteNonQuery(string sql, IEnumerable<object> parameters = null)
-        {
-            var result = 0;
-            using (var connection = CreateConnection())
-            {
-                using (var transaction = connection.BeginTransaction())
-                {
-                    try
-                    {
-                        using (var cmd = connection.CreateCommand())
-                        {
-                            cmd.Transaction = transaction;
-
-                            var db = new CommandDatabase(cmd);
-                            result = db.ExecuteNonQuery(sql, parameters);
-                        }
-
-                        transaction.Commit();
-                        return result;
-                    }
-                    catch
-                    {
-                        transaction.Rollback();
-                        throw;
-                    }
-                }
-            }
-        }
-
-        public int ExecuteNonQuery(IEnumerable<string> sqllist)
-        {
-            var result = 0;
-            using (var connection = CreateConnection())
-            {
-                using (var transaction = connection.BeginTransaction())
-                {
-                    try
-                    {
-                        using (var cmd = connection.CreateCommand())
-                        {
-                            cmd.Transaction = transaction;
-
-                            var db = new CommandDatabase(cmd);
-                            result = db.ExecuteNonQuery(sqllist);
-                        }
-
-                        transaction.Commit();
-                        return result;
-                    }
-                    catch
-                    {
-                        transaction.Rollback();
-                        throw;
-                    }
-                }
-            }
-        }
-
+      
+ 
         public void ExecuteDataSet(string sql, object parameters, Action<DataSet> action)
         {
             using (var connection = CreateConnection())
@@ -295,21 +179,7 @@ namespace SqlHelper2
             }
         }
 
-        public void ExecuteDataTable(string sql, object parameters, Action<DataTable> action)
-        {
-            using (var connection = CreateConnection())
-            {
-                using (var cmd = connection.CreateCommand())
-                {
-                    using (var adapter = CreateDataAdapter())
-                    {
-                        var db = new CommandDatabase(cmd, adapter);
-                        db.ExecuteDataTable(sql, parameters, action);
-
-                    }
-                }
-            }
-        }
+   
 
         public void ExecuteSpDataSet(string procedureName, object parameters, Action<DataSet> action)
         {
