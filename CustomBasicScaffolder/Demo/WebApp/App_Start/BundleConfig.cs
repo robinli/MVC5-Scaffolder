@@ -24,9 +24,9 @@ namespace WebApp
                     "~/Content/css/demo.css",
                     "~/Content/css/site.css",
                     "~/Content/css/smartadmin-rtl.css",
-                    "~/Content/css/invoice.min.css",
-                    "~/Content/css/lockscreen.min.css",
-                    "~/Content/css/your_style.min.css" ));
+                    "~/Content/css/invoice.css",
+                    "~/Content/css/lockscreen.css",
+                    "~/Content/css/your_style.css" ));
 
             bundles.Add(new ScriptBundle("~/scripts/smartadmin").Include(
                 "~/scripts/app.config.js",
@@ -161,9 +161,9 @@ namespace WebApp
                       "~/Scripts/FileSaver.js",
                       "~/Scripts/jquery.fileDownload.js"
                       ));
-            //signalR 2.2.2 Script
+            //signalR 2.2.3 Script
             bundles.Add(new ScriptBundle("~/plugins/signalrjs").Include(
-                      "~/Scripts/jquery.signalR-2.2.2.js"
+                      "~/Scripts/jquery.signalR-2.2.3.js"
                       ));
 
 
@@ -256,6 +256,10 @@ namespace WebApp
                 {
                     baseUrl = baseUrl + "/";
                 }
+                if(url.StartsWith("../"))
+                {
+                    Console.WriteLine(baseUrl, url);
+                }
                 return VirtualPathUtility.ToAbsolute(baseUrl + url);
             }
 
@@ -265,6 +269,8 @@ namespace WebApp
                 {
                     return content;
                 }
+                //url\\((?!['\"]?(?:data|http):)['\"]?([^'\"\\)]*)['\"]?\\)
+                //url\\(['\"]?(?<url>[^)]+?)['\"]?\\)
                 return new Regex("url\\(['\"]?(?<url>[^)]+?)['\"]?\\)")
                     .Replace(content, (match =>
                                        "url(" + RebaseUrlToAbsolute(baseUrl, match.Groups["url"].Value) + ")"));

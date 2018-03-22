@@ -72,11 +72,11 @@
     <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNet.SignalR.Core.2.2.2\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.SignalR.Core.2.2.3\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.2.2\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.2.3\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Owin, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -1985,8 +1985,6 @@
     <Content Include="Scripts\easyui\themes\metro\validatebox.css" />
     <Content Include="Scripts\easyui\themes\metro\window.css" />
     <Content Include="Scripts\easyui\themes\mobile.css" />
-    <Content Include="Scripts\emojionearea.js" />
-    <Content Include="Scripts\emojionearea.min.js" />
     <Content Include="Scripts\FileSaver.js" />
     <Content Include="Content\fonts\summernote.eot" />
     <Content Include="Content\fonts\summernote.ttf" />
@@ -2006,8 +2004,8 @@
     <Content Include="Scripts\jquery.extend.js" />
     <Content Include="Scripts\jquery.filerupload.js" />
     <Content Include="Scripts\jquery.fileDownload.js" />
-    <Content Include="Scripts\jquery.signalR-2.2.2.js" />
-    <Content Include="Scripts\jquery.signalR-2.2.2.min.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.3.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.3.min.js" />
     <Content Include="Scripts\jquery.slimscroll.js" />
     <Content Include="Scripts\libs\jquery-2.1.1.min.js" />
     <Content Include="Scripts\libs\jquery-3.2.1.js" />
@@ -2610,7 +2608,6 @@
     <Content Include="Scripts\plugin\inputpicker\example-regions.json" />
     <Content Include="Views\Features\TeamMember.cshtml" />
     <Content Include="Views\Features\General.cshtml" />
-    <Content Include="Views\Account\Error.cshtml" />
     <Content Include="Views\Account\Lock.cshtml" />
     <Content Include="Views\Features\Templates.cshtml" />
     <Content Include="Views\Categories\_PopupDetailFormView.cshtml" />
@@ -2630,10 +2627,10 @@
     <Content Include="Views\Home\Chat.cshtml" />
     <Content Include="Views\Features\Widgets.cshtml" />
     <Content Include="Views\Shared\_ChangePasswordPartial.cshtml" />
-    <Content Include="Views\Account\Error404.cshtml" />
-    <Content Include="Views\Account\Error500.cshtml" />
     <Content Include="Views\EFMigrationsManager\Publish.cshtml" />
     <Content Include="Views\EFMigrationsManager\DbMaintenance.cshtml" />
+    <Content Include="Views\Account\_TermsAndConditions.cshtml" />
+    <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
     <None Include="Views\Notifications\_notifications.cshtml" />
     <None Include="Views\Messages\_notifications.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Int.cshtml">
@@ -2652,18 +2649,8 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
-    <Content Include="Views\Account\_RemoveAccountPartial.cshtml" />
-    <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
-    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />
-    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
-    <Content Include="Views\Account\ResetPassword.cshtml" />
-    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
-    <Content Include="Views\Account\SendCode.cshtml" />
-    <Content Include="Views\Account\VerifyCode.cshtml" />
     <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
     <Content Include="Views\Manage\ChangePassword.cshtml" />
     <Content Include="Views\Manage\Index.cshtml" />
@@ -2811,7 +2798,6 @@
     <Content Include="Views\Shared\_Footer.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_Navigation.cshtml" />
-    <Content Include="Views\Shared\_SkinConfig.cshtml" />
     <Content Include="Views\MenuItems\Index.cshtml" />
     <Content Include="Views\MenuItems\Create.cshtml" />
     <Content Include="Views\MenuItems\Edit.cshtml" />
@@ -2882,7 +2868,6 @@
     <Content Include="Views\Shared\_Header.cshtml" />
     <Content Include="Views\Shared\_Ribbon.cshtml" />
     <Content Include="Views\Shared\_Scripts.cshtml" />
-    <Content Include="Views\Shared\_TermsAndConditions.cshtml" />
     <Content Include="Views\Shared\_Tiles.cshtml" />
     <Content Include="Views\Shared\_TopRight.cshtml" />
     <Content Include="Views\Misc\Blank.cshtml" />

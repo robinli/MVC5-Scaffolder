@@ -10,13 +10,13 @@
 */
 
 /*滚动条样式，仅支持webkit内核浏览器*/
-*{margin:0; padding:0}
+/**{margin:0; padding:0}
 *::-webkit-scrollbar{width:10px;height:10px;}
 *::-webkit-scrollbar-button{width:0px; height:0px;}
 *::-webkit-scrollbar-track{background:#f7f7f7;}
 *::-webkit-scrollbar-thumb{background:#cfcfd1;}
 *::-webkit-scrollbar-track,*::-webkit-scrollbar-thumb{border-radius:5px;}
-*::-webkit-scrollbar-corner,*::-webkit-scrollbar-resizer,*::-webkit-scrollbar-button{background:#fff;}
+*::-webkit-scrollbar-corner,*::-webkit-scrollbar-resizer,*::-webkit-scrollbar-button{background:#fff;}*/
 
 .window-mask,.datagrid-mask,.datagrid-body .datagrid-editable table ,.calendar table,.filebox-label{
   width: 100%;
