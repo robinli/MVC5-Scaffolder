@@ -570,3 +570,4 @@ D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\MVC
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\bin\Debug\SmartCodeEngine.MVC5.vsix
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\obj\Debug\SmartCodeEngine.MVC5.dll
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\obj\Debug\SmartCodeEngine.MVC5.pdb
+D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\MVC5Scaffolding.vsix\obj\Debug\MVC5Scaffolding.vsix.csproj.CopyComplete

@@ -2616,7 +2616,7 @@
     <Content Include="Views\Employees\Edit.cshtml" />
     <Content Include="Views\Employees\EditForm.cshtml" />
     <Content Include="Views\Employees\_PopupDetailFormView.cshtml" />
-    <Content Include="Views\Companies\Index.cshtml" />
+    <Content Include="Views\Companies\Index1.cshtml" />
     <Content Include="Views\Companies\Create.cshtml" />
     <Content Include="Views\Companies\Edit.cshtml" />
     <Content Include="Views\Companies\EditForm.cshtml" />
@@ -2631,6 +2631,7 @@
     <Content Include="Views\EFMigrationsManager\DbMaintenance.cshtml" />
     <Content Include="Views\Account\_TermsAndConditions.cshtml" />
     <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
+    <Content Include="Views\Companies\Index.cshtml" />
     <None Include="Views\Notifications\_notifications.cshtml" />
     <None Include="Views\Messages\_notifications.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Int.cshtml">
