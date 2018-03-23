@@ -60,88 +60,10 @@
                             @{
                                 //TODO:fix datagrid view alert-warning messages
                             }
-                            <div class="alert alert-warning no-margin fade in">
-                                <button class="close" data-dismiss="alert">
-                                    ×
-                                </button>
-                                <i class="fa-fw fa fa-info"></i>
-                                A combined table effect with all classes mentioned above added to
-                            </div>
-
-
-                            <!--begin datagrid-content -->
+                             <!--begin datagrid-content -->
                             <div class="table-responsive">
-                                <table id="companies_datagrid" class="easyui-datagrid" style="width:auto;height:auto"
-                                       data-options="
-                        rownumbers:true,
-				        checkOnSelect:true,
-				        selectOnCheck:true,
-				        idField:'Id',
-				        sortName:'Id',
-				        sortOrder:'desc',
-				        remoteFilter: true,
-				        singleSelect: true,
-				        toolbar: '#companies_toolbar',
-				        url: '/Companies/GetData',
-				        method: 'post',
-				        onClickCell: onClickCell,
-				        pagination: true,
-                        striped:true
-				   ">
-                                    <thead>
-                                        <tr>
-                                            @*<th data-options="field:'ck',checkbox:true"></th>*@
-                                            <th data-options="field:'_operate1',width:100 ,sortable:false,resizable:true,formatter:showdetailsformatter ">操作</th>
-                                            @*<th data-options="field:'Id',width:80 ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Id)</th>*@
-
-                                            <th data-options="field:'Name' ,width:140,editor:{type:'textbox',options:{prompt:'名称' ,required:false ,validType:'length[0,50]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Name)</th>
-
-
-                                            <th data-options="field:'Address' ,width:140,editor:{type:'textbox',options:{prompt:'地址' ,required:false ,validType:'length[0,50]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Address)</th>
-
-
-                                            <th data-options="field:'City' ,width:140,editor:{type:'textbox',options:{prompt:'城市' ,required:false ,validType:'length[0,50]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.City)</th>
-
-
-                                            <th data-options="field:'Province' ,width:140,editor:{type:'textbox',options:{prompt:'省份' ,required:false ,validType:'length[0,50]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Province)</th>
-
-
-                                            <th data-options="field:'RegisterDate',width:160,align:'right',editor:{type:'datebox',options:{prompt:'注册日期' ,required:true    }  },sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.RegisterDate)</th>
-
-
-                                            <th data-options="field:'Employees' ,width:100,align:'right',editor:{type:'numberbox',options:{prompt:'员工数' ,required:true  ,precision:0 } } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Employees)</th>
-
-
-                                        </tr>
-                                    </thead>
-                                </table>
+                                <table id="companies_datagrid"></table>
                                 <div id="companies_toolbar" style="height:auto">
-                                    @{
-        //TODO: enable authorization
-                                    }
-                                    @*@if (Html.IsAuthorize("Create"))
-        {
-            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-plus',plain:true" onclick="append()">新增</a>
-        }
-        @if (Html.IsAuthorize("Delete"))
-        {
-        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-trash-o',plain:true" onclick="removeit()">删除</a>
-        }
-        @if (Html.IsAuthorize("Edit"))
-        {
-            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-floppy-o',plain:true" onclick="accept()">保存</a>
-            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-undo',plain:true" onclick="reject()">取消</a>
-        }
-        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-refresh',plain:true" onclick="reload()">刷新</a>
-        @if (Html.IsAuthorize("Import"))
-        {
-             <a href="javascript:void(0)" class="easyui-menubutton" data-options="menu:'#importmenu',iconCls:'fa fa-upload' " onclick="importexcel()">导入数据</a>
-                   <div id="importmenu" style="width:150px;">
-                            <div data-options="iconCls:'fa fa-file-excel-o'" onclick="importexcel()">导入数据</div>
-                            <div data-options="iconCls:'fa fa-cloud-download '" onclick="downloadtemplate()" >下载用于导入的模板</div>
-                    </div>
-             <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-file-excel-o',plain:true" onclick="exportexcel()">导出至Excel</a>
-        }*@
                                     <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-plus fa-fw',plain:true" onclick="append()">新增</a>
                                     <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-trash-o fa-fw',plain:true" onclick="removeit()">删除</a>
                                     <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-floppy-o fa-fw',plain:true" onclick="accept()">保存</a>
@@ -190,6 +112,33 @@
 
 
     <script type="text/javascript">
+            var $dg = $('#companies_datagrid').datagrid({
+                rownumbers: true,
+                checkOnSelect: true,
+                selectOnCheck: true,
+                idField: 'Id',
+                sortName: 'Id',
+                sortOrder: 'desc',
+                remoteFilter: true,
+                singleSelect: true,
+               
+                url: '/Companies/GetData',
+                method: 'post',
+                onClickCell: onClickCell,
+                pagination: true,
+                striped: true,
+                columns: [[
+                    { field: '_operate1', title:'操作', width: 100, sortable: false, resizable: true, formatter: showdetailsformatter },
+                    { field: 'Name', title: '@Html.DisplayNameFor(model => model.Name)',width: 140, editor: { type: 'textbox', options: { prompt: '名称', required: false, validType: 'length[0,50]' } }, sortable: true, resizable: true},
+                    { field: 'Address', title: '@Html.DisplayNameFor(model => model.Address)', width: 140, editor: { type: 'textbox', options: { prompt: '地址', required: false, validType: 'length[0,50]' } }, sortable: true, resizable: true },
+                    { field: 'City',title: '@Html.DisplayNameFor(model => model.City)', width: 140, editor: { type: 'textbox', options: { prompt: '城市', required: false, validType: 'length[0,50]' } }, sortable: true, resizable: true },
+                    { field: 'Province',title: '@Html.DisplayNameFor(model => model.Province)', width: 140, editor: { type: 'textbox', options: { prompt: '省份', required: false, validType: 'length[0,50]' } }, sortable: true, resizable: true },
+                    { field: 'RegisterDate',title: '@Html.DisplayNameFor(model => model.RegisterDate)', width: 160, align: 'right', editor: { type: 'datebox', options: { prompt: '注册日期', required: true } }, sortable: true, resizable: true, formatter: dateformatter},
+                    { field: 'Employees', title: '@Html.DisplayNameFor(model => model.Employees)',width: 100, align: 'right', editor: { type: 'numberbox', options: { prompt: '员工数', required: true, precision: 0 } }, sortable: true, resizable: true}
+                ]]
+
+            });
+ 
 
         var entityname = "Company";
         //下载Excel导入模板
@@ -224,7 +173,7 @@
 
         }
         //datagrid 增删改查操作
-        var $dg = $("#companies_datagrid");
+        
         var editIndex = undefined;
         function reload() {
             if (endEditing()) {
@@ -264,7 +213,8 @@
                 }
             }
         }
-        function append() {
+            function append() {
+                debugger;
             if (endEditing()) {
                 //$dg.datagrid("appendRow", { Status: 0 });
                 //editIndex = $dg.datagrid("getRows").length - 1;

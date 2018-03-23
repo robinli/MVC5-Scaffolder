@@ -41,7 +41,7 @@
 
     <!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
     <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script>    if (!window.jQuery) { document.write('<script src="/scripts/libs/jquery-3.2.1.min.js"><\/script>'); }</script>
+    <script>if (!window.jQuery) { document.write('<script src="/scripts/libs/jquery-3.2.1.min.js"><\/script>'); }</script>
 
 
 
@@ -53,13 +53,13 @@
     <script src="~/Scripts/easyui/locale/easyui-lang-zh_CN.js"></script>
 </head>
 <body class="@ViewBag.PageClass @Settings.CurrentTheme">
-    
+   
 
     @{ Html.RenderPartial("_Header", RenderSection("topright", false)); }
     @*@if (Request.IsAuthenticated)
-    {
-           Html.RenderAction("RenderMenus", "RoleMenus");
-    }*@
+        {
+               Html.RenderAction("RenderMenus", "RoleMenus");
+        }*@
 
     @{ Html.RenderPartialIf("_Aside", Request.IsAuthenticated); }
     <div id="main" role="main">
