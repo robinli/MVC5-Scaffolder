@@ -21,11 +21,11 @@
 @{
     if (Request.IsAuthenticated)
     {
-
-
         <!-- SmartChat UI : plugin -->
-        <script src="~/Scripts/smart-chat-ui/signalr.chat.client.js"></script>
-        Scripts.Render("~/scripts/smart-chat");
+        @Scripts.Render("~/scripts/smart-chat");
+
+ 
+
     }
 }
 

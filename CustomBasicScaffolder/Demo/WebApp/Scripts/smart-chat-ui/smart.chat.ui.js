@@ -420,3 +420,4 @@
 
     $.fn.emoticonize.defaults = { animate: true, delay: 500, exclude: "pre,code,.no-emoticons" };
 })(jQuery);
+ 

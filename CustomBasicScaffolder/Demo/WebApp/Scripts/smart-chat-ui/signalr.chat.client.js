@@ -34,15 +34,7 @@
             });
 
 
-            // Stop Title Alert
-            //window.onfocus = function (event) {
-            //    if (event.explicitOriginalTarget === window) {
-
-            //        clearInterval(IntervalVal);
-            //        document.title = 'SignalR Chat App';
-            //    }
-            //}
-
+       
 
         });
 
@@ -167,13 +159,17 @@
                 // Display Message Count and Notification
                 var CurrUser1 = $('#hdUserName').val();
                 if (CurrUser1 != userName) {
-
-                    var msgcount = $('#MsgCountMain').html();
-                    msgcount++;
-                    $("#MsgCountMain").html(msgcount);
-                    $("#MsgCountMain").attr("title", msgcount + ' New Messages');
-                    var Notification = 'New Message From ' + userName;
-                    IntervalVal = setInterval("ShowTitleAlert('SignalR Chat App', '" + Notification + "')", 800);
+                    var diff = Math.round( moment().diff(moment(time, "YYYY-MM-DD HH:mm:ss")) / 1000);
+                    console.log('Display Message Count and Notification',time,diff);
+                    $.smallBox({
+                        title: "有新消息",
+                        content: "" + message + " 来至 【" + userName + "】 <i class='fa fa-clock-o'></i> <i>" + diff + " 秒前 .</i>",
+                        color: "#739E73",
+                        iconSmall: "fa fa-bell shake animated",
+                        number: "1",
+                        timeout: 6000
+                    });
+                     
 
                 }
             }
@@ -357,14 +353,14 @@
                 scrollTo : height
             });
 
-            ParseEmoji('#chat-body');
+            ParseEmoji($('#chat-body'));
 
         }
 
          
 
-        function ParseEmoji(div) {
-            $(div).emoticonize({});
+function ParseEmoji(div) {
+       $(div).emoticonize();
            
         }
 
