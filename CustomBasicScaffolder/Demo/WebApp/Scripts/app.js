@@ -178,11 +178,11 @@ var calc_navbar_height = function () {
                     // ask verification
                     $.SmartMessageBox({
                         title:
-                        "<i class='fa fa-sign-out txt-color-orangeDark'></i> Logout <span class='txt-color-orangeDark'><strong>" +
-                        $("#show-shortcut").text() +
-                        "</strong></span> ?",
+                            "<i class='fa fa-sign-out txt-color-orangeDark'></i> Logout <span class='txt-color-orangeDark'><strong>" +
+                            $("#show-shortcut").text() +
+                            "</strong></span> ?",
                         content: $this.data("logout-msg") ||
-                        "You can improve your security further after logging out by closing this opened browser",
+                            "You can improve your security further after logging out by closing this opened browser",
                         buttons: "[No][Yes]"
 
                     },
@@ -205,7 +205,7 @@ var calc_navbar_height = function () {
                     $.SmartMessageBox({
                         title: "<i class='fa fa-refresh' style='color:green'></i> Clear Local Storage",
                         content: $this.data("reset-msg") ||
-                        "Would you like to RESET all your saved widgets and clear LocalStorage?",
+                            "Would you like to RESET all your saved widgets and clear LocalStorage?",
                         buttons: "[No][Yes]"
                     },
                         function (ButtonPressed) {
@@ -531,8 +531,7 @@ var calc_navbar_height = function () {
         app.applyTheme = function () {
             var selectedTheme = localStorage && localStorage.getItem("smart-style");
             var selectedLogo = localStorage && localStorage.getItem("smart-logo");
-            //console.log(selectedTheme, selectedLogo);
-         
+
             if (selectedTheme) {
                 $.root_.removeClassPrefix("smart-style")
                     .addClass(selectedTheme);
@@ -543,7 +542,7 @@ var calc_navbar_height = function () {
             }
 
             if (selectedLogo) {
-                $("#logo img").attr("src",  selectedLogo);
+                $("#logo img").attr("src", selectedLogo);
             }
         };
 

@@ -2819,7 +2819,7 @@
 
 .tooltip {
   position: absolute;
-  display: none;
+  /*display: none;*/
   z-index: 9900000;
   outline: none;
   opacity: 1;

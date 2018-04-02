@@ -9,9 +9,9 @@ $.extend($.fn.datebox.defaults, {
         } 
     },
     parser: function (value) {
-        
-        if (value !='1/1/0001 12:00:00 AM' && moment(value).isValid()) {
-            //console.log(moment(value).toDate(), 'parser');
+         
+        if (value != '1/1/0001 12:00:00 AM' && moment(value).isValid()) {
+           
             return moment(value).toDate();
         } else {
             return moment().toDate();
@@ -28,8 +28,8 @@ $.extend($.fn.datetimebox.defaults, {
     },
     parser: function (value) {
 
-        if (moment(value).isValid()) {
-            //console.log(moment(value).toDate(), 'parser');
+        if (value != '1/1/0001 12:00:00 AM' && moment(value).isValid()) {
+           
             return moment(value).toDate();
         } else {
             return moment().toDate();
@@ -186,13 +186,13 @@ $.extend($.fn.datagrid.defaults.editors, {
 
 
 function dateformatter(value, row, index) {
-    //console.log(value);
+   
     if (value == typeof (undefined))
         return null;
     if (value == null)
         return null;
 
-
+  
     if (moment(value).isValid()) {
 
         return moment(value).format('MM/DD/YYYY');

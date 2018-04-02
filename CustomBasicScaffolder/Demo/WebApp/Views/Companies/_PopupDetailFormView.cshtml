@@ -6,178 +6,176 @@
                     closed:true,
                     iconcls:'icon-menu',
                     onOpen:resize" style="width:960px;height:520px">
-    <form id="company_form" class="easyui-form form-horizontal" method="post" data-options="novalidate:true">
+    <form id="company_form" class="smart-form" method="post" novalidate="novalidate">
      
         
      
         <table class="table table-bordered">
-            <caption>
-                <!--form toolbar-->
-                <div id="form_toolbar" style="height:auto" class="datagrid-toolbar">
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-floppy-o',plain:true" onclick="saveitem()">保存</a>
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-undo',plain:true" onclick="cancelitem()">取消</a>
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-refresh',plain:true" onclick="refreshitem()">刷新</a>
-                </div>
-                <!--form toolbar-->
-            </caption>
+            <thead>
+                <tr>
+                    <td colspan="4">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default" onclick="saveitem()">
+                                <i class="fa fa-floppy-o"></i>
+                                保存
+                            </button>
+                            <button type="button" class="btn btn-default">
+                                <i class="fa fa-pencil-square-o"></i>
+                                操作1
+                            </button>
+                            <button type="button" class="btn btn-default">
+                                <i class="fa fa-pencil-square-o"></i>
+                                操作2
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="cancelitem()">
+                                <i class="fa fa-refresh"></i>
+                                取消
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="refreshitem()">
+                                <i class="fa fa-refresh"></i>
+                                刷新
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </thead>
             <tr>
                 <td class="control-label">   @Html.DisplayNameFor(model => model.Id)  </td>
                 <td>
-                    <input id="@Html.IdFor(model => model.Id)"
-                           name="@Html.NameFor(model => model.Id)"
-                           value="@Html.ValueFor(model => model.Id)"
-                           tabindex="0"
-                           class="easyui-numberbox" type="text"
-                           data-options="prompt:'Id',
-                                 readonly:true,
-                                width:200,
-                                 label:'',required:true ,precision:0" />
+                    <label class="input">
+                        <input type="text" 
+                               id="@Html.IdFor(model => model.Id)"
+                               name="@Html.NameFor(model => model.Id)"
+                               value="@Html.ValueFor(model => model.Id)" 
+                               placeholder="Id"
+                               readonly
+                               >
+                        <b class="tooltip tooltip-bottom-right">Id</b>
+                    </label>
+                     
+
+                    
                 </td>
                 <td class="control-label">   @Html.DisplayNameFor(model => model.Name)  </td>
                 <td>
-                    <input id="@Html.IdFor(model => model.Name)"
-                           name="@Html.NameFor(model => model.Name)"
-                           value="@Html.ValueFor(model => model.Name)"
-                           tabindex="1"
-                           class="easyui-textbox"
-                           type="text"
-                           data-options="prompt:'名称',
-								 label:'',
-                                width:200,
-								 required:false ,validType:'length[0,50]'" />
+                    <label class="input">
+                        <input id="@Html.IdFor(model => model.Name)"
+                               name="@Html.NameFor(model => model.Name)"
+                               value="@Html.ValueFor(model => model.Name)"
+                               type="text"
+                               tabindex="1"
+                               placeholder="名称" />
+                    </label>
                 </td>
             </tr>
             <tr>
                 <td class="control-label">   @Html.DisplayNameFor(model => model.Address)  </td>
                 <td>
-                    <input id="@Html.IdFor(model => model.Address)"
-                           name="@Html.NameFor(model => model.Address)"
-                           value="@Html.ValueFor(model => model.Address)"
-                           tabindex="2"
-                           class="easyui-textbox"
-                           type="text"
-                           data-options="prompt:'地址',
-								 label:'',
-                                width:200,
-								 required:false ,validType:'length[0,50]'" />
+                    <label class="input">
+                        <input id="@Html.IdFor(model => model.Address)"
+                               name="@Html.NameFor(model => model.Address)"
+                               value="@Html.ValueFor(model => model.Address)"
+                               tabindex="2"
+                               type="text"
+                               placeholder="地址" />
+                    </label>
                 </td>
                 <td class="control-label">   @Html.DisplayNameFor(model => model.City)  </td>
                 <td>
-           
-                    <input id="@Html.IdFor(model => model.City)"
-                           name="@Html.NameFor(model => model.City)"
-                           value="@Html.ValueFor(model => model.City)"
-                           tabindex="2"
-                           class="easyui-textbox"
-                           type="text"
-                           data-options="prompt:'所在城市',
-								 label:'',
-                                width:200,
-								 required:false ,validType:'length[0,50]'" />
-                     
-                    
+                    <label class="input">
+                        <input id="@Html.IdFor(model => model.City)"
+                               name="@Html.NameFor(model => model.City)"
+                               value="@Html.ValueFor(model => model.City)"
+                               tabindex="2"
+                               type="text"
+                               placeholder="所在城市" />
+
+                        </label>
                 </td>
             </tr>
             <tr>
                 <td class="control-label">   @Html.DisplayNameFor(model => model.Province)  </td>
                 <td>
-                    <input id="@Html.IdFor(model => model.Province)"
-                           name="@Html.NameFor(model => model.Province)"
-                           value="@Html.ValueFor(model => model.Province)"
-                           tabindex="4"
-                           class="easyui-textbox"
-                           type="text"
-                           data-options="prompt:'省份',
-								 label:'',
-                                width:200,
-								 required:false ,validType:'length[0,50]'" />
+                    <label class="input">
+                        <input id="@Html.IdFor(model => model.Province)"
+                               name="@Html.NameFor(model => model.Province)"
+                               value="@Html.ValueFor(model => model.Province)"
+                               tabindex="4"
+                               type="text"
+                               placeholder="省份" />
+                        </label>
                 </td>
                 <td class="control-label">   @Html.DisplayNameFor(model => model.RegisterDate)  </td>
                 <td>
-                    <input id="@Html.IdFor(model => model.RegisterDate)"
-                           name="@Html.NameFor(model => model.RegisterDate)"
-                           tabindex="5"
-                           class="easyui-datebox"
-                           type="text"
-                           value="@Html.ValueFor(model => model.RegisterDate)"
-                           data-options="prompt:'注册日期',
-								 label:'',
-                                width:200,
-								 required:true,
-								 formatter:dateformatter" />
+                    <label class="input">
+                        <input id="@Html.IdFor(model => model.RegisterDate)"
+                               name="@Html.NameFor(model => model.RegisterDate)"
+                               tabindex="5"
+                               type="text"
+                               value="@Html.ValueFor(model => model.RegisterDate)"
+                               placeholder="注册日期" />
+                        </label>
                 </td>
             </tr>
             <tr>
                 <td class="control-label">   @Html.DisplayNameFor(model => model.Employees)  </td>
                 <td>
-                    <input id="@Html.IdFor(model => model.Employees)"
-                           name="@Html.NameFor(model => model.Employees)"
-                           value="@Html.ValueFor(model => model.Employees)"
-                           tabindex="6"
-                           class="easyui-numberbox"
-                           type="text"
-                           data-options="prompt:'员工数',
-								 label:'',
-                                width:200,
-								 required:true ,precision:0" />
+                    <label class="input">
+                        <input id="@Html.IdFor(model => model.Employees)"
+                               name="@Html.NameFor(model => model.Employees)"
+                               value="@Html.ValueFor(model => model.Employees)"
+                               tabindex="6"
+                               type="text"
+                               placeholder="员工数" />
+                        </label>
                 </td>
                 <td class="control-label">   @Html.DisplayNameFor(model => model.CreatedDate)  </td>
                 <td>
-                    <input id="@Html.IdFor(model => model.CreatedDate)"
-                           name="@Html.NameFor(model => model.CreatedDate)"
-                           tabindex="7"
-                           class="easyui-datetimebox"
-                           type="text"
-                           value="@Html.ValueFor(model => model.CreatedDate)"
-                           data-options="prompt:'创建时间',
-								 label:'',
-                                width:200,
-								 required:false,
-								 formatter:datetimeformatter" />
+                    <label class="input">
+                        <input id="@Html.IdFor(model => model.CreatedDate)"
+                               name="@Html.NameFor(model => model.CreatedDate)"
+                               tabindex="7"
+                               type="text"
+                               value="@Html.ValueFor(model => model.CreatedDate)"
+                               placeholder="创建时间" />
+                        </label>
                 </td>
             </tr>
             <tr>
                 <td class="control-label">   @Html.DisplayNameFor(model => model.CreatedBy)  </td>
                 <td>
-                    <input id="@Html.IdFor(model => model.CreatedBy)"
-                           name="@Html.NameFor(model => model.CreatedBy)"
-                           value="@Html.ValueFor(model => model.CreatedBy)"
-                           tabindex="8"
-                           class="easyui-textbox"
-                           type="text"
-                           data-options="prompt:'创建用户',
-								 label:'',
-                                width:200,
-								 required:false ,validType:'length[0,20]'" />
+                    <label class="input">
+                        <input id="@Html.IdFor(model => model.CreatedBy)"
+                               name="@Html.NameFor(model => model.CreatedBy)"
+                               value="@Html.ValueFor(model => model.CreatedBy)"
+                               tabindex="8"
+                               type="text"
+                               placeholder="创建用户" />
+                        </label>
                 </td>
                 <td class="control-label">   @Html.DisplayNameFor(model => model.LastModifiedDate)  </td>
                 <td>
-                    <input id="@Html.IdFor(model => model.LastModifiedDate)"
-                           name="@Html.NameFor(model => model.LastModifiedDate)"
-                           tabindex="9"
-                           class="easyui-datetimebox"
-                           type="text"
-                           value="@Html.ValueFor(model => model.LastModifiedDate)"
-                           data-options="prompt:'最后更新时间',
-								 label:'',
-                                width:200,
-								 required:false,
-								 formatter:datetimeformatter" />
+                    <label class="input">
+                        <input id="@Html.IdFor(model => model.LastModifiedDate)"
+                               name="@Html.NameFor(model => model.LastModifiedDate)"
+                               tabindex="9"
+                               type="text"
+                               value="@Html.ValueFor(model => model.LastModifiedDate)"
+                               placeholder="最后更新时间" />
+                        </label>
                 </td>
             </tr>
             <tr>
                 <td class="control-label">   @Html.DisplayNameFor(model => model.LastModifiedBy)  </td>
                 <td>
-                    <input id="@Html.IdFor(model => model.LastModifiedBy)"
-                           name="@Html.NameFor(model => model.LastModifiedBy)"
-                           value="@Html.ValueFor(model => model.LastModifiedBy)"
-                           tabindex="10"
-                           class="easyui-textbox"
-                           type="text"
-                           data-options="prompt:'最后更新用户',
-								 label:'',
-                                width:200,
-								 required:false ,validType:'length[0,20]'" />
+                    <label class="input">
+                        <input id="@Html.IdFor(model => model.LastModifiedBy)"
+                               name="@Html.NameFor(model => model.LastModifiedBy)"
+                               value="@Html.ValueFor(model => model.LastModifiedBy)"
+                               tabindex="10"
+                               type="text"
+                               placeholder="最后更新用户" />
+                        </label>
                 </td>
                 <td></td>
                 <td></td>

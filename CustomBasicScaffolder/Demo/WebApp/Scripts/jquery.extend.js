@@ -2,6 +2,11 @@
     datetimeNow: function () {
         //console.log(new Date());
         return moment(new Date()).format('MM/DD/YYYY');
+    },
+    isDateVaild: function (value) {
+       
+        var regex = new RegExp("^\\d{1,2}\\/\\d{1,2}\\/\\d{4}$");
+        return regex.test(value);
     }
 });
 

@@ -283,20 +283,20 @@ namespace <#= Namespace #>
 					  if(!isexist){
 		#>
 		<# if (UseAsync) { #>
-        [OutputCache(Duration = 360, VaryByParam = "none")]
-		public async Task<ActionResult> Get<#= relModelName #>()
+        //[OutputCache(Duration = 360, VaryByParam = "none")]
+		public async Task<ActionResult> Get<#= relModelName #>(string q="")
 		{
 			var <#= relModelType.ToLower() #>Repository = _unitOfWork.RepositoryAsync<<#= relModelType #>>();
-			var data = await <#= relModelType.ToLower() #>Repository.Queryable().ToListAsync();
+			var data = await <#= relModelType.ToLower() #>Repository.Queryable().Where(n=>n.<#= relModelDisplayName #>.Contains(q)).ToListAsync();
 			var rows = data.Select(n => new { <#= relModelPk #> = n.<#= relModelPk #>, <#= relModelDisplayName #> = n.<#= relModelDisplayName #> });
 			return Json(rows, JsonRequestBehavior.AllowGet);
 		}
 		<# } else { #>
-        [OutputCache(Duration = 360, VaryByParam = "none")]
-		public ActionResult Get<#= relModelName #>()
+        //[OutputCache(Duration = 360, VaryByParam = "none")]
+		public ActionResult Get<#= relModelName #>(string q="")
 		{
 			var <#= relModelType.ToLower() #>Repository = _unitOfWork.RepositoryAsync<<#= relModelType #>>();
-			var data = <#= relModelType.ToLower() #>Repository.Queryable().ToList();
+			var data = <#= relModelType.ToLower() #>Repository.Queryable().Where(n=>n.<#= relModelDisplayName #>.Contains(q)).ToList();
 			var rows = data.Select(n => new { <#= relModelPk #> = n.<#= relModelPk #>, <#= relModelDisplayName #> = n.<#= relModelDisplayName #> });
 			return Json(rows, JsonRequestBehavior.AllowGet);
 		}

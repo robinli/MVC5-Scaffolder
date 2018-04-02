@@ -16,15 +16,34 @@
                     onOpen:resize" style="width:960px;height:520px">
     <form id="<#=entityName.ToLower()#>_form" class="easyui-form form-horizontal" method="post" data-options="novalidate:true">
  <table class="table table-bordered">
-     <caption>
-         <!--form toolbar-->
-                <div id="form_toolbar" style="height:auto" class="datagrid-toolbar">
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-floppy-o fa-fw',plain:true" onclick="saveitem()">保存</a>
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-undo fa-fw',plain:true" onclick="cancelitem()">取消</a>
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-refresh fa-fw',plain:true" onclick="refreshitem()">刷新</a>
-                </div>
-         <!--form toolbar-->
-     </caption>
+    <thead>
+                <tr>
+                    <td colspan="<#= FromLayoutCols*2 #>">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default" onclick="saveitem()">
+                                <i class="fa fa-floppy-o"></i>
+                                保存
+                            </button>
+                            <button type="button" class="btn btn-default">
+                                <i class="fa fa-pencil-square-o"></i>
+                                操作1
+                            </button>
+                            <button type="button" class="btn btn-default">
+                                <i class="fa fa-pencil-square-o"></i>
+                                操作2
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="cancelitem()">
+                                <i class="fa fa-refresh"></i>
+                                取消
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="refreshitem()">
+                                <i class="fa fa-refresh"></i>
+                                刷新
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </thead>
 <#
     int cols = FromLayoutCols;
 	int colindex= -1;

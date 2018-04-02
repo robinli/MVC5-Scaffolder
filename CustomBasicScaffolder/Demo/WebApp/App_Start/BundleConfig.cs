@@ -95,7 +95,12 @@ namespace WebApp
                 ));
 
             bundles.Add(new ScriptBundle("~/scripts/forms").Include(
-                "~/scripts/plugin/jquery-form/jquery-form.min.js"
+                "~/scripts/plugin/jquery-form/jquery-form.js",
+                "~/scripts/plugin/jquery-validate/jquery.validate.js",
+                "~/scripts/plugin/jquery-validate/additional-methods.js",
+                "~/scripts/plugin/jquery-validate/jquery.validate.unobtrusive.js",
+                "~/scripts/plugin/jquery-form/jquery-form.js"
+                
                 ));
 
             bundles.Add(new ScriptBundle("~/scripts/smart-chat").Include(

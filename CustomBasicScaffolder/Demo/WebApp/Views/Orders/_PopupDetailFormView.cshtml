@@ -152,41 +152,8 @@
             <div id="tab-orderdetails" class="tab-pane active">
                 <div class="panel-body">
                     <div class="table-responsive">
-                        <table id="orderdetails_datagrid" class="easyui-datagrid"
-                               style="width:auto;height:300px"
-                               data-options="
-                            rownumbers:true,
-                            iconCls: 'fa fa-list',
-                            remoteFilter: false,
-                            singleSelect: true,
-                            toolbar: '#orderdetails_toolbar',
-                            method: 'get',
-                            onClickCell: orderdetails_onClickCell,
-                            pagination: 'true'
-                    ">
-                            <thead>
-                                <tr>
-                                    @*<th data-options="field:'ck',checkbox:true"></th>*@
-                                    @*<th data-options="field:'Id',width:80"> Id </th>*@
-                                    <th data-options="field:'ProductId',width:100,
-												formatter:function(value,row){
-													return row.ProductName;
-												},
-												editor:{
-													type:'combobox',
-													options:{
-														valueField:'Id',
-														textField:'Name',
-														method:'get',
-														url:'/Orders/GetProducts',
-														required:true ,precision:0
-														}
-												}">产品</th>
-                                    <th data-options="field:'Qty',width:100,align:'right',editor:{type:'numberbox',options:{required:true ,precision:0} } ,sortable:true,resizable:true ">数量</th>
-                                    <th data-options="field:'Price',width:100,align:'right',editor:{type:'numberbox',options:{required:true ,precision:2} } ,sortable:true,resizable:true ">单价</th>
-                                    <th data-options="field:'Amount',width:100,align:'right',editor:{type:'numberbox',options:{required:true ,precision:2} } ,sortable:true,resizable:true ">金额</th>
-                                </tr>
-                            </thead>
+                        <table id="orderdetails_datagrid">
+                           
                         </table>
                         <div id="orderdetails_toolbar" style="height:auto">
                             <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-plus',plain:true" onclick="orderdetails_createitem()">新增</a>
@@ -207,8 +174,90 @@
     //load data by foreign key
     function loadData(id, data) {
         $('#order_form').form('load', data);
-        $orderdetailsdg.datagrid('reload', '/OrderDetails/GetDataByOrderId?orderid=' + id);
-        $orderdetailsdg.datagrid('resize');
+        $orderdetailsdg.datagrid({
+            rownumbers: true,
+            iconCls: 'fa fa-list',
+            idField: 'Id',
+            sortName: 'Id',
+            sortOrder: 'asc',
+            remoteFilter: true,
+            singleSelect: true,
+            toolbar: '#orderdetails_toolbar',
+            method: 'get',
+            onClickCell: orderdetails_onClickCell,
+            pagination: 'true',
+            url: '/OrderDetails/GetDataByOrderId?orderid=' + id,
+            striped: true,
+            columns: [[
+                {
+                    field: 'ProductId', width: 100,
+                    title:'产品名称',
+                    formatter: function (value, row) {
+                        return row.ProductName;
+                    },
+                    editor: {
+                        type: 'combobox',
+                        options: {
+                            mode: 'remote',
+                            valueField: 'Id',
+                            textField: 'Name',
+                            method: 'get',
+                            url: '/Orders/GetProducts',
+                            required: true, precision: 0
+                        }
+                    }
+                },
+                {
+                    field: 'Qty',
+                    title:'数量',
+                    width: 100,
+                    align: 'right',
+                    editor: {
+                        type: 'numberbox',
+                        options: {
+                            required: true,
+                            precision: 0
+                        }
+                    },
+                    sortable: true,
+                    resizable: true 
+                }, {
+                    field: 'Price',
+                    title:'单价',
+                    width: 100,
+                    align: 'right',
+                    editor: {
+                        type: 'numberbox',
+                        options: {
+                            required: true,
+                            precision: 2
+                        }
+                    },
+                    sortable: true,
+                    resizable: true 
+                },
+                {
+                    field: 'Amount',
+                    title:'金额',
+                    width: 100,
+                    align: 'right',
+                    editor: {
+                        type: 'numberbox',
+                        options: {
+                            required: true,
+                            precision: 2
+                        }
+                    },
+                    sortable: true,
+                    resizable: true 
+                }
+            ]]
+
+        });
+        $orderdetailsdg.datagrid("enableFilter", [
+        ]);
+        //$orderdetailsdg.datagrid('reload', '/OrderDetails/GetDataByOrderId?orderid=' + id);
+        //$orderdetailsdg.datagrid('resize');
 
     }
     //save item
@@ -246,21 +295,7 @@
     }
 
 
-    //-----------------------------------------------------------------------
-    // details datagrid functions
-    //-----------------------------------------------------------------------
-    function filterByOrderId(orderid) {
-        var value = orderid;
-
-        $orderdetailsdg.datagrid("removeFilterRule", "OrderId");
-        $orderdetailsdg.datagrid("addFilterRule", {
-            field: "OrderId",
-            op: "equal",
-            value: value
-        });
-        $orderdetailsdg.datagrid("doFilter");
-
-    }
+     
 
     //--------------------------------------------------------------------
     // #orderdetails_datagrid functions
@@ -366,14 +401,7 @@
             //$orderdetailsdg.datagrid("acceptChanges");
         }
     }
-
-    $(function () {
-
-        $orderdetailsdg.datagrid("enableFilter", [
-        ]);
-
-        //filterByOrderId(-1);
-    })
+ 
 
 
 
