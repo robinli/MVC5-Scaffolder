@@ -320,9 +320,9 @@
                     sortOrder: 'asc',
                     remoteFilter: true,
                     singleSelect: true,
-                    toolbar: '#orderdetails_toolbar',
+                    toolbar: '#<#= ModelTypeName.ToLower() #>_toolbar',
                     method: 'get',
-                    onClickCell: orderdetails_onClickCell,
+                    onClickCell: <#= ModelTypeName.ToLower() #>_onClickCell,
                     pagination: 'true',
                     url: '/<#= entitySetName #>/GetDataBy<#= foreignKey #>?<#= foreignKeyVar #>='+ id,
                     striped: true,
@@ -457,10 +457,6 @@
                     ]]
           });
                 
-               
-
-         
-
                 <#= datagridvar #>.datagrid("enableFilter", [
 									]);
          <# } } #>

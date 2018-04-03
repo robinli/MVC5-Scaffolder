@@ -1,14 +1,14 @@
 ﻿﻿@model WebApp.Models.Order
- <!-- 输出form表单界面 -->
- <div id="detailswindow" hidden="hidden" class="easyui-window" 
-      title="明细数据" 
-      data-options="modal:true,
+<!-- 输出form表单界面 -->
+<div id="detailswindow" hidden="hidden" class="easyui-window"
+     title="明细数据"
+     data-options="modal:true,
                     closed:true,
                     iconcls:'icon-menu'
                     " style="width:960px;height:520px">
     <form id="order_form" class="easyui-form form-horizontal" method="post" data-options="novalidate:true">
- <table class="table table-bordered">
-    <thead>
+        <table class="table table-bordered">
+            <thead>
                 <tr>
                     <td colspan="4">
                         <div class="btn-group">
@@ -36,156 +36,155 @@
                     </td>
                 </tr>
             </thead>
-	    <tr>
-      	   <td class="control-label">   @Html.DisplayNameFor(model => model.Id)  </td>
-	   <td> 
-			   			   			<input id="@Html.IdFor(model => model.Id)" 
-                   name="@Html.NameFor(model => model.Id)" 
-                   value="@Html.ValueFor(model => model.Id)"
-                   tabindex="0"   
-                   class="easyui-numberbox" type="text" 
-                   data-options="prompt:'Id',
+            <tr>
+                <td class="control-label">   @Html.DisplayNameFor(model => model.Id)  </td>
+                <td>
+                    <input id="@Html.IdFor(model => model.Id)"
+                           name="@Html.NameFor(model => model.Id)"
+                           value="@Html.ValueFor(model => model.Id)"
+                           tabindex="0"
+                           class="easyui-numberbox" type="text"
+                           data-options="prompt:'Id',
                                  readonly:true,
                                 width:200,
                                  label:'',required:true ,precision:0" />
-			  				   </td>
-	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.Customer)  </td>
-	   <td> 
-			   			  			<input id="@Html.IdFor(model => model.Customer)" 
-				   name="@Html.NameFor(model => model.Customer)" 
-				   value="@Html.ValueFor(model => model.Customer)"
-				   tabindex="1" 
-				   class="easyui-textbox" 
-				   type="text" 
-				   data-options="prompt:'客户',
+                </td>
+                <td class="control-label">   @Html.DisplayNameFor(model => model.Customer)  </td>
+                <td>
+                    <input id="@Html.IdFor(model => model.Customer)"
+                           name="@Html.NameFor(model => model.Customer)"
+                           value="@Html.ValueFor(model => model.Customer)"
+                           tabindex="1"
+                           class="easyui-textbox"
+                           type="text"
+                           data-options="prompt:'客户',
 								 label:'',
                                 width:200,
 								 required:true ,validType:'length[0,20]'" />
-			  				   </td>
-	   	   </tr>
-	   	    <tr>
-      	   <td class="control-label">   @Html.DisplayNameFor(model => model.ShippingAddress)  </td>
-	   <td> 
-			   			  			<input id="@Html.IdFor(model => model.ShippingAddress)" 
-				   name="@Html.NameFor(model => model.ShippingAddress)" 
-				   value="@Html.ValueFor(model => model.ShippingAddress)"
-				   tabindex="2" 
-				   class="easyui-textbox" 
-				   type="text" 
-				   data-options="prompt:'发货地址',
+                </td>
+            </tr>
+            <tr>
+                <td class="control-label">   @Html.DisplayNameFor(model => model.ShippingAddress)  </td>
+                <td>
+                    <input id="@Html.IdFor(model => model.ShippingAddress)"
+                           name="@Html.NameFor(model => model.ShippingAddress)"
+                           value="@Html.ValueFor(model => model.ShippingAddress)"
+                           tabindex="2"
+                           class="easyui-textbox"
+                           type="text"
+                           data-options="prompt:'发货地址',
 								 label:'',
                                 width:200,
 								 required:true ,validType:'length[0,50]'" />
-			  				   </td>
-	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.OrderDate)  </td>
-	   <td> 
-			   			  			<input id="@Html.IdFor(model => model.OrderDate)" 
-			       name="@Html.NameFor(model => model.OrderDate)" 
-				   tabindex="3" 
-				   class="easyui-datebox" 
-				   type="text" 
-				   value="@Html.ValueFor(model => model.OrderDate)"
-				   data-options="prompt:'订单日期',
+                </td>
+                <td class="control-label">   @Html.DisplayNameFor(model => model.OrderDate)  </td>
+                <td>
+                    <input id="@Html.IdFor(model => model.OrderDate)"
+                           name="@Html.NameFor(model => model.OrderDate)"
+                           tabindex="3"
+                           class="easyui-datebox"
+                           type="text"
+                           value="@Html.ValueFor(model => model.OrderDate)"
+                           data-options="prompt:'订单日期',
 								 label:'',
                                 width:200,
 								 required:true,
 								 formatter:dateformatter" />
-			  				   </td>
-	   	   </tr>
-	   	    <tr>
-      	   <td class="control-label">   @Html.DisplayNameFor(model => model.CreatedDate)  </td>
-	   <td> 
-			   			  			<input id="@Html.IdFor(model => model.CreatedDate)" 
-			       name="@Html.NameFor(model => model.CreatedDate)" 
-				   tabindex="4" 
-				   class="easyui-datebox" 
-				   type="text" 
-				   value="@Html.ValueFor(model => model.CreatedDate)"
-				   data-options="prompt:'创建时间',
+                </td>
+            </tr>
+            <tr>
+                <td class="control-label">   @Html.DisplayNameFor(model => model.CreatedDate)  </td>
+                <td>
+                    <input id="@Html.IdFor(model => model.CreatedDate)"
+                           name="@Html.NameFor(model => model.CreatedDate)"
+                           tabindex="4"
+                           class="easyui-datebox"
+                           type="text"
+                           value="@Html.ValueFor(model => model.CreatedDate)"
+                           data-options="prompt:'创建时间',
 								 label:'',
                                 width:200,
 								 required:false,
 								 formatter:dateformatter" />
-			  				   </td>
-	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.CreatedBy)  </td>
-	   <td> 
-			   			  			<input id="@Html.IdFor(model => model.CreatedBy)" 
-				   name="@Html.NameFor(model => model.CreatedBy)" 
-				   value="@Html.ValueFor(model => model.CreatedBy)"
-				   tabindex="5" 
-				   class="easyui-textbox" 
-				   type="text" 
-				   data-options="prompt:'创建用户',
+                </td>
+                <td class="control-label">   @Html.DisplayNameFor(model => model.CreatedBy)  </td>
+                <td>
+                    <input id="@Html.IdFor(model => model.CreatedBy)"
+                           name="@Html.NameFor(model => model.CreatedBy)"
+                           value="@Html.ValueFor(model => model.CreatedBy)"
+                           tabindex="5"
+                           class="easyui-textbox"
+                           type="text"
+                           data-options="prompt:'创建用户',
 								 label:'',
                                 width:200,
 								 required:false ,validType:'length[0,20]'" />
-			  				   </td>
-	   	   </tr>
-	   	    <tr>
-      	   <td class="control-label">   @Html.DisplayNameFor(model => model.LastModifiedDate)  </td>
-	   <td> 
-			   			  			<input id="@Html.IdFor(model => model.LastModifiedDate)" 
-			       name="@Html.NameFor(model => model.LastModifiedDate)" 
-				   tabindex="6" 
-				   class="easyui-datebox" 
-				   type="text" 
-				   value="@Html.ValueFor(model => model.LastModifiedDate)"
-				   data-options="prompt:'最后更新时间',
+                </td>
+            </tr>
+            <tr>
+                <td class="control-label">   @Html.DisplayNameFor(model => model.LastModifiedDate)  </td>
+                <td>
+                    <input id="@Html.IdFor(model => model.LastModifiedDate)"
+                           name="@Html.NameFor(model => model.LastModifiedDate)"
+                           tabindex="6"
+                           class="easyui-datebox"
+                           type="text"
+                           value="@Html.ValueFor(model => model.LastModifiedDate)"
+                           data-options="prompt:'最后更新时间',
 								 label:'',
                                 width:200,
 								 required:false,
 								 formatter:dateformatter" />
-			  				   </td>
-	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.LastModifiedBy)  </td>
-	   <td> 
-			   			  			<input id="@Html.IdFor(model => model.LastModifiedBy)" 
-				   name="@Html.NameFor(model => model.LastModifiedBy)" 
-				   value="@Html.ValueFor(model => model.LastModifiedBy)"
-				   tabindex="7" 
-				   class="easyui-textbox" 
-				   type="text" 
-				   data-options="prompt:'最后更新用户',
+                </td>
+                <td class="control-label">   @Html.DisplayNameFor(model => model.LastModifiedBy)  </td>
+                <td>
+                    <input id="@Html.IdFor(model => model.LastModifiedBy)"
+                           name="@Html.NameFor(model => model.LastModifiedBy)"
+                           value="@Html.ValueFor(model => model.LastModifiedBy)"
+                           tabindex="7"
+                           class="easyui-textbox"
+                           type="text"
+                           data-options="prompt:'最后更新用户',
 								 label:'',
                                 width:200,
 								 required:false ,validType:'length[0,20]'" />
-			  				   </td>
-	   	   </tr>
-	   	        <tfoot>
-        <tr>
-        <tr>
-    </tfoot>
-</table>
-</form>
+                </td>
+            </tr>
+            <tfoot>
+                <tr>
+                <tr>
+            </tfoot>
+        </table>
+    </form>
 
-<!--输出form表单界面-->
-<!--========================================================================================-->
-     <!-- details tabs -->
+    <!--输出form表单界面-->
+    <!--========================================================================================-->
+    <!-- details tabs -->
     <div class="tabs-container">
         <!-- Nav tabs -->
         <ul class="nav nav-tabs bordered">
-								<li class="active"><a data-toggle="tab" href="#tab-orderdetails"> OrderDetails</a></li>
-				   
-		 </ul>
-		 <!-- Tab panes -->
-         <div class="tab-content padding-10">
-		  		  <div id="tab-orderdetails" class="tab-pane active">
-            <div class="panel-body">
-                <div class="table-responsive">
-				<table id="orderdetails_datagrid" >
-                </table>
-				<div id="orderdetails_toolbar" style="height:auto">
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-plus fa-fw',plain:true" onclick="orderdetails_createitem()">新增</a>
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-trash-o fa-fw',plain:true" onclick="orderdetails_removeitem()">删除</a>
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-floppy-o fa-fw',plain:true" onclick="orderdetails_saveitem()">保存</a>
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-undo fa-fw',plain:true" onclick="orderdetails_reject()">取消</a>
-                </div>
+            <li class="active"><a data-toggle="tab" href="#tab-orderdetails"> OrderDetails</a></li>
+
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content padding-10">
+            <div id="tab-orderdetails" class="tab-pane active">
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table id="orderdetails_datagrid"></table>
+                        <div id="orderdetails_toolbar" style="height:auto">
+                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-plus fa-fw',plain:true" onclick="orderdetails_createitem()">新增</a>
+                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-trash-o fa-fw',plain:true" onclick="orderdetails_removeitem()">删除</a>
+                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-floppy-o fa-fw',plain:true" onclick="orderdetails_saveitem()">保存</a>
+                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-undo fa-fw',plain:true" onclick="orderdetails_reject()">取消</a>
+                        </div>
+                    </div>
                 </div>
             </div>
-            </div>
-		  	</div>
-	</div>
-	 
-<!--end details tabs -->
+        </div>
+    </div>
+
+    <!--end details tabs -->
 </div>
 
 
@@ -193,7 +192,7 @@
     //load data by foreign key
     function loadData(id,data){
          $('#order_form').form('load', data);
-         
+
           $orderdetailsdg.datagrid({
                     rownumbers: true,
                     iconCls: 'fa fa-list',
@@ -239,7 +238,7 @@
                                            options:{
                                                    prompt:'数量',
                                                    required:true ,precision:0
-                                             } 
+                                             }
                                            } ,
                                    sortable:true,
                                    resizable:true },
@@ -252,7 +251,7 @@
                                            options:{
                                                    prompt:'单价',
                                                    required:true ,precision:2
-                                             } 
+                                             }
                                            } ,
                                    sortable:true,
                                    resizable:true },
@@ -265,19 +264,19 @@
                                            options:{
                                                    prompt:'金额',
                                                    required:true ,precision:2
-                                             } 
+                                             }
                                            } ,
                                    sortable:true,
                                    resizable:true },
-																													                    
-                    
-                    
+
+
+
                     ]]
           });
-                
-               
 
-         
+
+
+
 
                 $orderdetailsdg.datagrid("enableFilter", [
 									]);
@@ -288,7 +287,7 @@
             var item = $('#order_form').serializeObject();
 
             $.post("/Orders/Edit", item, function (response) {
-                //console.log(response);						
+                //console.log(response);
                 if (response.success) {
                     $.messager.alert("提示", "保存成功！");
                     $('#detailswindow').window('close');
@@ -297,9 +296,9 @@
                     $.messager.alert("错误", "保存失败！" + response.err, "error");
                 }
             }, "json").fail(function (response) {
-                //console.log(response);						
+                //console.log(response);
                 $.messager.alert("错误", "保存失败！", "error");
-                //$dg.datagrid("reload");						
+                //$dg.datagrid("reload");
             });
         }
     }
@@ -311,11 +310,11 @@
     function refreshitem() {
         $('#detailswindow').window('close');
     }
-    
 
 
-              
-		 
+
+
+
 								//--------------------------------------------------------------------
 				// #orderdetails_datagrid functions
 				//--------------------------------------------------------------------
@@ -331,11 +330,11 @@
 						var ed = $orderdetailsdg.datagrid("getEditor", { index: orderdetails_editIndex, field: "ProductId" });
 			var ProductName = $(ed.target).combobox("getText");
 			var ProductId = $(ed.target).combobox("getValue");
-		  
+
 			$orderdetailsdg.datagrid("getRows")[orderdetails_editIndex]["ProductName"] = ProductName;
 			$orderdetailsdg.datagrid("getRows")[orderdetails_editIndex]["ProductId"] = ProductId;
-			
-			
+
+
 						$orderdetailsdg.datagrid("endEdit", orderdetails_editIndex);
 			orderdetails_editIndex = undefined;
 
@@ -355,7 +354,7 @@
 				if (ed) {
 					($(ed.target).data("textbox") ? $(ed.target).textbox("textbox") : $(ed.target)).focus();
 				}
-				
+
 			} else {
 				$orderdetailsdg.datagrid("selectRow", orderdetails_editIndex);
 			}
@@ -377,7 +376,7 @@
 				.datagrid("deleteRow", orderdetails_editIndex );
 		orderdetailseditIndex = undefined;
 	}
-   
+
 	function orderdetails_reject() {
 		$orderdetailsdg.datagrid("rejectChanges");
 		orderdetails_editIndex  = undefined;
@@ -413,22 +412,22 @@
 					}, "json").fail(function (response) {
 						//console.log(response);
 						$.messager.alert("错误", "提交错误了！","error");
-					  
+
 					});
-			  
+
 				}
 
 				//$orderdetailsdg.datagrid("acceptChanges");
 			}
 		}
 
-	 
 
 
 
 
-				
-		 
+
+
+
 
 </script>
 
