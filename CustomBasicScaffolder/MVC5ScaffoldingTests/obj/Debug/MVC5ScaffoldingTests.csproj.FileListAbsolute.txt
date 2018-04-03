@@ -163,3 +163,4 @@ D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\MVC
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\MVC5ScaffoldingTests\bin\Debug\Microsoft.VisualStudio.Text.UI.xml
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\MVC5ScaffoldingTests\bin\Debug\Microsoft.VisualStudio.Text.UI.Wpf.xml
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\MVC5ScaffoldingTests\obj\Debug\MVC5ScaffoldingTests.csproj.CoreCompileInputs.cache
+D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\MVC5ScaffoldingTests\obj\Debug\MVC5ScaffoldingTests.csproj.CopyComplete

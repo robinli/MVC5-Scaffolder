@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using PublicPara.CodeText.Data;
@@ -14,22 +15,9 @@ namespace WebApp.Controllers
         public ActionResult Index()
         {
             //throw new Exception();
-
-
-             var parameters = new List<object>();
-            var sql = "INSERT INTO [dbo].[Tb1]([f1]) VALUES (@f1)";
-            parameters.Add(new { f1 = "a" });
-            parameters.Add(new { f1 = "b" });
-            parameters.Add(new { f1 = "c" });
-            parameters.Add(new { f1 = "d" });
-            parameters.Add(new { f1 = "e" });
-            SqlHelper2.DatabaseFactory.CreateDatabase().ExecuteTransaction((db) =>
-            {
-                foreach (var p in parameters)
-                {
-                    db.ExecuteNonQuery(sql, p);
-                }
-            });
+            string subjectString = "validType:'length[0,50]'";
+            var match = Regex.Split(subjectString, @"\D+", RegexOptions.IgnorePatternWhitespace).Where(x=>!string.IsNullOrEmpty(x)).ToArray();
+          
             //  SqlHelper2.DatabaseFactory.CreateDatabase().ExecuteNonQuery(sql, parameters);
 
             //  var sqllist = new List<string>();
@@ -47,8 +35,8 @@ namespace WebApp.Controllers
 
 
 
-            var list = CodeListSet.CLS["AccountType"].EnumRecords();
-            var val = CodeListSet.CLS["AccountType"].Code2Value("1");
+            //var list = CodeListSet.CLS["AccountType"].EnumRecords();
+            //var val = CodeListSet.CLS["AccountType"].Code2Value("1");
             return View();
         }
 

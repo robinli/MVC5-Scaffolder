@@ -82,171 +82,48 @@
                             </div>
 	 <!--begin datagrid-content -->
 	 <div class="table-responsive">
-		<table id="<#= modelVariable #>_datagrid" class="easyui-datagrid"   style="width:auto;height:auto"
-				   data-options="
-                        rownumbers:true,
-				        checkOnSelect:true,
-				        selectOnCheck:true,
-				        idField:'<#= primaryKeyName #>',
-				        sortName:'<#= primaryKeyName #>',
-				        sortOrder:'desc',
-				        remoteFilter: true,
-				        singleSelect: true,
-				        toolbar: '#<#= modelVariable  #>_toolbar',
-				        url: '/<#= ControllerRootName #>/GetData',
-				        method: 'get',
-				        onClickCell: onClickCell,
-				        pagination: true,
-                        striped:true
-				   ">
-				<thead>
-					<tr>
-						@*<th data-options="field:'ck',checkbox:true"></th>*@
-                        <th data-options="field:'_operate1',width:100 ,sortable:false,resizable:true,formatter:showdetailsformatter ">操作</th>
-<#
-IEnumerable<PropertyMetadata> properties = ModelMetadata.Properties;
-foreach (PropertyMetadata property in properties) {
-		var tdalign=property.ShortTypeName=="string"?"left":"right";
-		var fieldtypename = property.ShortTypeName;
-		var fieldDisplayAttribute = FieldDisplayAttribute.Where(x=>x.EntityTypeName == ModelTypeName && x.FieldName==property.PropertyName).FirstOrDefault();
-		string prompt="";
-		if(fieldDisplayAttribute!=null){
-			 prompt = fieldDisplayAttribute.Prompt;
-		}
-		var isRequired = false;
-	
-		fieldRequired.TryGetValue(property.PropertyName, out isRequired);
-		var maxLength =string.Empty;
-		fieldMaxLength.TryGetValue(property.PropertyName,out maxLength);
-	if (property.Scaffold && !property.IsAssociation) {
-#>
-<#
-		// We do not want to show any association properties for which there is
-		// no associated foreign key.
-		//if (property.IsAssociation && GetRelatedModelMetadata(property) == null) {
-		//    continue;
-		//}
-#>
-		<# if ( property.IsPrimaryKey || property.IsReadOnly) { #>
-			@*<th data-options="field:'<#= property.PropertyName  #>',width:80 ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.<#=  property.PropertyName #>)</th>*@
-		<# } else if (property.IsForeignKey) { 
-			   string foreignKeyPropertyName = property.PropertyName;
-			   RelatedModelMetadata relatedModel = GetRelatedModelMetadata(foreignKeyPropertyName,ModelMetadata);
-		#>
-			<th data-options="field:'<#= foreignKeyPropertyName  #>' ,width:100,sortable:true,resizable:true, 
-						formatter:function(value,row){
-							return row.<#= GetRelatedDisplayNameExpression(foreignKeyPropertyName,ModelMetadata)  #>;
-						},
-						editor:{
-							type:'combobox',
-							options:{
-								prompt:'<#= prompt #>' ,
-								valueField:'<#= relatedModel.PrimaryKeyNames[0]  #>',
-								textField:'<#= relatedModel.DisplayPropertyName   #>',
-								method:'get',
-								url:'/<#= ControllerRootName #>/Get<#=  relatedModel.EntitySetName  #>',
-								required:<#= isRequired.ToString().ToLower() #>
-							}
-						}">@Html.DisplayNameFor(model => model.<#= foreignKeyPropertyName #>)</th>
-
-		   
-		<# } else { #>
-
-		<#
-			if(fieldtypename=="string") {
-		#>
-			 <th data-options="field:'<#= property.PropertyName #>' ,width:140,editor:{type:'textbox',options:{prompt:'<#= prompt #>' ,required:<#= isRequired.ToString().ToLower() #> <#= maxLength #>  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
-		<# } else if(fieldtypename=="int" || fieldtypename=="float"|| fieldtypename=="decimal") {
-			 if(property.PropertyName=="Status") {
-		#>
-			 <th data-options="field:'<#= property.PropertyName #>' ,width:100,align:'right',
-												editor:{ type:'combobox',
-												 options:{
-													prompt:'<#= prompt #>' ,
-													panelHeight: 'auto',
-													data: [ { value: 0, text: '启用' },
-															{ value: 1, text: '禁用' } ],
-													required:<#= isRequired.ToString().ToLower() #>} 
-												 },
-												 formatter: function(value,row,index){
-														 switch (value) {
-																case 0:
-																   return '启用';
-																   break;
-																case 1:
-																   return '禁用';
-																   break;
-																default: 
-																	return value ;
-														}
-												 }">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
-		<#   } else {  #>
-			 <th data-options="field:'<#=  property.PropertyName  #>' ,width:100,align:'right',editor:{type:'numberbox',options:{prompt:'<#= prompt #>' ,required:<#= isRequired.ToString().ToLower() #>  <#= maxLength #> } } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
-		<#   }   } else if(fieldtypename=="DateTime" ) {
-		#>
-			 <th data-options="field:'<#=  property.PropertyName  #>',width:160,align:'right',editor:{type:'datebox',options:{prompt:'<#= prompt #>' ,required:<#= isRequired.ToString().ToLower() #>    }  },sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
-		<# } else if(fieldtypename=="bool" || fieldtypename=="Boolean" ){ #>
-			 <th data-options="field:'<#= property.PropertyName #>' ,width:120,align:'center',editor:{type:'checkbox',options:{prompt:'<#= prompt #>',on:'true',off:'false',required:<#= isRequired.ToString().ToLower() #>} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
-		
-		<# }  else  if ( fieldtypename=="bool" ) { #>
-			 <th data-options="field:'<#= property.PropertyName #>',width:120,editor: {type:'combobox'
-												,options:{
-												prompt:'<#= prompt #>' ,
-												panelHeight: 'auto',
-												data: [ { value: 'true', text: 'true' },{ value: 'false', text: 'false' } ],
-												required:<#= isRequired.ToString().ToLower() #>}}">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
-		<# } else { #>
-			<th data-options="field:'<#= property.PropertyName #>' ,width:120,editor:{type:'textbox',options:{prompt:'<#= prompt #>' , required:<#= isRequired.ToString().ToLower() #>   <#= maxLength #>} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)</th>
-		<# } #>
-
-		<#            } #>
-<#
-	}
-}
-#>
-	   
-						</tr>
-				</thead>
-				</table>
+		<table id="<#= modelVariable #>_datagrid">  
+		</table>
 				<div id="<#= modelVariable  #>_toolbar" style="height:auto">
                             @{
                             //TODO: enable authorization 
                             }
 							@*@if (Html.IsAuthorize("Create"))
 							{
-								<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="append()">新增</a>
+								<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-plus fa-fw',plain:true" onclick="append()">新增</a>
 							}
 							@if (Html.IsAuthorize("Delete"))
 							{
-							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-trash-o fa-fw',plain:true" onclick="removeit()">删除</a>
 							}
 							@if (Html.IsAuthorize("Edit"))
 							{
-								<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">保存</a>
-								<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">取消</a>
+								<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-floppy-o fa-fw',plain:true" onclick="accept()">保存</a>
+								<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-undo fa-fw',plain:true" onclick="reject()">取消</a>
 							}
-							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="reload()">刷新</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-refresh fa-fw',plain:true" onclick="reload()">刷新</a>
 							@if (Html.IsAuthorize("Import"))
 							{
-								 <a href="javascript:void(0)" class="easyui-menubutton" data-options="menu:'#importmenu',iconCls:'icon-paperclip' " onclick="importexcel()">导入数据</a>
+								 <a href="javascript:void(0)" class="easyui-menubutton" data-options="menu:'#importmenu',iconCls:'fa fa-upload fa-fw' " onclick="importexcel()">导入数据</a>
                                        <div id="importmenu" style="width:150px;">
-                                                <div data-options="iconCls:'icon-cloud-upload'" onclick="importexcel()">导入数据</div>
-                                                <div data-options="iconCls:'icon-download-alt'" onclick="downloadtemplate()" >下载用于导入的模板</div>
+                                                <div data-options="iconCls:'fa fa-file-excel-o fa-fw'" onclick="importexcel()">导入数据</div>
+                                                <div data-options="iconCls:'fa fa-cloud-download fa-fw'" onclick="downloadtemplate()" >下载用于导入的模板</div>
                                         </div>
-                                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-download-alt',plain:true" onclick="exportexcel()">导出至Excel</a>
+                                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-cloud-download fa-fw',plain:true" onclick="exportexcel()">导出至Excel</a>
 							}*@
-						    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="append()">新增</a>
-							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
-							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">保存</a>
-							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">取消</a>
-							<a href="javascript:void(0)" class="easyui-menubutton" data-options="menu:'#importmenu',iconCls:'icon-paperclip' " onclick="importexcel()">导入数据</a>
+						    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-plus fa-fw',plain:true" onclick="append()">新增</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-trash-o fa-fw',plain:true" onclick="removeit()">删除</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-floppy-o fa-fw',plain:true" onclick="accept()">保存</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-undo fa-fw',plain:true" onclick="reject()">取消</a>
+							<a href="javascript:void(0)" class="easyui-menubutton" data-options="menu:'#importmenu',iconCls:'fa fa-upload fa-fw' " onclick="importexcel()">导入数据</a>
                                        <div id="importmenu" style="width:150px;">
-                                                <div data-options="iconCls:'icon-cloud-upload'" onclick="importexcel()">导入数据</div>
-                                                <div data-options="iconCls:'icon-download-alt'" onclick="downloadtemplate()" >下载用于导入的模板</div>
+                                                <div data-options="iconCls:'fa fa-file-excel-o fa-fw'" onclick="importexcel()">导入数据</div>
+                                                <div data-options="iconCls:'fa fa-cloud-download fa-fw'" onclick="downloadtemplate()" >下载用于导入的模板</div>
                                         </div>
-                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-download-alt',plain:true" onclick="exportexcel()">导出至Excel</a>
-							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="reload()">刷新</a>
-				</div>
+                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-cloud-download fa-fw',plain:true" onclick="exportexcel()">导出至Excel</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-refresh fa-fw',plain:true" onclick="reload()">刷新</a>
+				            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-question-circle-o fa-fw',plain:true" onclick="dohelp()">帮助</a>
+                </div>
 		
 		
 		</div>
@@ -283,6 +160,8 @@ foreach (PropertyMetadata property in properties) {
 @section Scripts {
 	<script type="text/javascript">
         var entityname = "<#= ModelTypeName #>";
+
+
 			        //下载Excel导入模板
                     function downloadtemplate() {
                             //TODO: 修改下载模板的路径
@@ -310,10 +189,194 @@ foreach (PropertyMetadata property in properties) {
 
 						})
 					}
+        //显示帮助信息
+        function dohelp() {
+
+        }
 		 //datagrid 增删改查操作
-		 var $dg = $("#<#= modelVariable #>_datagrid");
+          var $dg = $("#<#= modelVariable #>_datagrid").datagrid({
+                        rownumbers:true,
+				        checkOnSelect:true,
+				        selectOnCheck:true,
+				        idField:'<#= primaryKeyName #>',
+				        sortName:'<#= primaryKeyName #>',
+				        sortOrder:'desc',
+				        remoteFilter: true,
+				        singleSelect: true,
+				        toolbar: '#<#= modelVariable  #>_toolbar',
+				        url: '/<#= ControllerRootName #>/GetData',
+				        method: 'get',
+				        onClickCell: onClickCell,
+				        pagination: true,
+                        striped:true,   
+                         columns: [[
+                         /*{ field: 'ck', checkbox: true },*/
+                         { field: '_operate1', title:'操作', width: 120, sortable: false, resizable: true, formatter: showdetailsformatter},
+                        <#
+IEnumerable<PropertyMetadata> properties = ModelMetadata.Properties;
+foreach (PropertyMetadata property in properties) {
+		var tdalign=property.ShortTypeName=="string"?"left":"right";
+		var fieldtypename = property.ShortTypeName;
+		var fieldDisplayAttribute = FieldDisplayAttribute.Where(x=>x.EntityTypeName == ModelTypeName && x.FieldName==property.PropertyName).FirstOrDefault();
+		string prompt="";
+		if(fieldDisplayAttribute!=null){
+			 prompt = fieldDisplayAttribute.Prompt;
+		}
+		var isRequired = false;
+	
+		fieldRequired.TryGetValue(property.PropertyName, out isRequired);
+		var maxLength =string.Empty;
+		fieldMaxLength.TryGetValue(property.PropertyName,out maxLength);
+	if (property.Scaffold && !property.IsAssociation) {
+#>
+<#
+		// We do not want to show any association properties for which there is
+		// no associated foreign key.
+		//if (property.IsAssociation && GetRelatedModelMetadata(property) == null) {
+		//    continue;
+		//}
+#>
+		<# if ( property.IsPrimaryKey || property.IsReadOnly) { #>
+			/*{field:'<#= property.PropertyName  #>',width:80 ,sortable:true,resizable:true }*/
+		<# } else if (property.IsForeignKey) { 
+			   string foreignKeyPropertyName = property.PropertyName;
+			   RelatedModelMetadata relatedModel = GetRelatedModelMetadata(foreignKeyPropertyName,ModelMetadata);
+		#>
+			{field:'<#= foreignKeyPropertyName  #>',
+             title:'@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)',
+             width:160, 
+             sortable:true, 
+             resizable:true,
+             formatter:function(value,row) {
+							return row.<#= GetRelatedDisplayNameExpression(foreignKeyPropertyName,ModelMetadata)  #>;
+						},
+			 editor:{
+					 type:'combobox',
+					 options:{
+								prompt:'<#= prompt #>' ,
+								valueField:'<#= relatedModel.PrimaryKeyNames[0]  #>',
+								textField:'<#= relatedModel.DisplayPropertyName   #>',
+								method:'get',
+								url:'/<#= ControllerRootName #>/Get<#=  relatedModel.EntitySetName  #>',
+								required:<#= isRequired.ToString().ToLower() #>
+							}
+						}},
+		<# } else { #>
+		<#
+			if(fieldtypename=="string") {
+		#>
+			 {field:'<#= property.PropertyName #>', 
+              title:'@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)', 
+              width:140,
+              editor:{
+                      type:'textbox',
+                      options:{ prompt:'<#= prompt #>',required:<#= isRequired.ToString().ToLower() #> <#= maxLength #>  }  
+                     },
+              sortable:true,
+              resizable:true },
+		<# } else if(fieldtypename=="int" || fieldtypename=="float"|| fieldtypename=="decimal") {
+			 if(property.PropertyName=="Status") {
+		#>
+			 {field:'<#= property.PropertyName #>',
+              title:'@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)', 
+              width:100,
+              align:'right',
+			  editor:{ 
+                       type:'combobox',
+					   options:{
+						     	prompt:'<#= prompt #>' ,
+								panelHeight: 'auto',
+								data: [ { value: 0, text: '启用' },
+										{ value: 1, text: '禁用' } ],
+								required:<#= isRequired.ToString().ToLower() #>
+                                } 
+					  },
+			   formatter: function(value,row,index){
+					               	 switch (value) {
+									       case 0:
+											 return '启用';
+										   case 1:
+										     return '禁用';
+										   default: 
+											 return value ;
+										 }
+			  }},
+		<#   } else {  #>
+			 {field:'<#=  property.PropertyName  #>', 
+              title:'@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)', 
+              width:100, 
+              align:'right',
+              editor:{
+                      type:'numberbox',
+                      options:{prompt:'<#= prompt #>', required:<#= isRequired.ToString().ToLower() #>  <#= maxLength #> } 
+                     },
+              sortable:true,
+              resizable:true },
+		<#   }   } else if(fieldtypename=="DateTime" ) {
+		#>
+			 {field:'<#=  property.PropertyName  #>', 
+              title:'@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)', 
+              width:160, 
+              align:'right', 
+              editor:{
+                      type:'datebox',
+                      options:{prompt:'<#= prompt #>',required:<#= isRequired.ToString().ToLower() #>}  
+                      },
+              sortable:true, 
+              resizable:true, 
+              formatter:dateformatter },
+		<# } else if(fieldtypename=="bool" || fieldtypename=="Boolean" ){ #>
+			 {field:'<#= property.PropertyName #>', 
+              title:'@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)', 
+              width:120, 
+              align:'center',
+              editor:{
+                      type:'checkbox',
+                      options:{prompt:'<#= prompt #>', 
+                                     on:'true',
+                                     off:'false',
+                                     required:<#= isRequired.ToString().ToLower() #>
+                               } 
+                      },
+              sortable:true, 
+              resizable:true },
+		<# }  else  if ( fieldtypename=="bool" ) { #>
+			 {field:'<#= property.PropertyName #>',  
+              title:'@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)', width:120, 
+              editor: {
+                        type:'combobox',
+						options:{
+								    prompt:'<#= prompt #>' ,
+									panelHeight: 'auto',
+									data: [ { value: 'true', text: 'true' },{ value: 'false', text: 'false' } ],
+									required:<#= isRequired.ToString().ToLower() #>
+                                 }
+                       }},
+		<# } else { #>
+			{field:'<#= property.PropertyName #>', 
+             title:'@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)', 
+             width:120, 
+             editor:{
+                    type:'textbox', 
+                    options:{
+                             prompt:'<#= prompt #>', 
+                             required:<#= isRequired.ToString().ToLower() #> <#= maxLength #>
+                            } 
+                     }, 
+              sortable:true, 
+              resizable:true },
+		<# } #>
+		<#            } #>
+<#
+	}
+}
+#>
+
+                         ]]
+          
+          });
 		 var editIndex = undefined;
-		function reload() {
+		 function reload() {
 				 if (endEditing()) {
 						$dg.datagrid("reload");
 				 }
@@ -356,11 +419,12 @@ foreach (PropertyMetadata property in properties) {
 				if (endEditing()) {
 					$dg.datagrid("selectRow", index)
 							.datagrid("beginEdit", index);
+                    editIndex = index;
 					var ed = $dg.datagrid("getEditor", { index: index, field: field });
 					if (ed) {
 						($(ed.target).data("textbox") ? $(ed.target).textbox("textbox") : $(ed.target)).focus();
 					}
-					editIndex = index;
+					
 				} else {
 					$dg.datagrid("selectRow", editIndex);
 				}

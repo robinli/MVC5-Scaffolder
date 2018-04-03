@@ -72,19 +72,52 @@ bool isControlHtmlAttributesSupported = MvcVersion >= requiredMvcVersion;
 
                 <!-- widget content -->
                 <div class="widget-body no-padding ">
-                            <!--form toolbar-->
-                            <div id="form_toolbar" style="height:auto" class="datagrid-toolbar">
-                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="createitem()">新增</a>
-                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeitem()">删除</a>
-                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="saveitem()">保存</a>
-                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">取消</a>
-                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-paperclip',plain:true" onclick="importexcel()">EXCEL 导入</a>
-                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-download-alt',plain:true" onclick="exportexcel()">导出 Excel</a>
-                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="refresh()">刷新</a>
+                    
+                        <form id="<#= ModelTypeName.ToLower() #>_form" class="smart-form" method="post" data-options="novalidate:true">
+                              <header>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default" onclick="saveitem()">
+                                    <i class="fa fa-floppy-o"></i>
+                                    保存
+                                </button>
+                                <button type="button" class="btn btn-default">
+                                    <i class="fa fa-pencil-square-o"></i>
+                                    操作1
+                                </button>
+                                <button type="button" class="btn btn-default">
+                                    <i class="fa fa-pencil-square-o"></i>
+                                    操作2
+                                </button>
+                                <button type="button" class="btn btn-default" onclick="exportexcel()">
+                                    <i class="fa fa-file-excel-o"></i>
+                                    导出Excel
+                                </button>
+                                <button type="button" class="btn btn-default" onclick="printitem()">
+                                    <i class="fa fa-print"></i>
+                                    打印
+                                </button>
+                                <button type="button" class="btn btn-default" onclick="cancelitem()">
+                                    <i class="fa fa-refresh"></i>
+                                    取消
+                                </button>
+                                <button type="button" class="btn btn-default" onclick="refreshitem()">
+                                    <i class="fa fa-refresh"></i>
+                                    刷新
+                                </button>
                             </div>
-                            <!--form toolbar-->
-                        <form id="<#= ModelTypeName.ToLower() #>_form" class="smart-form easyui-form" method="post" data-options="novalidate:true">
+                            
+                        </header>
+                             
                              @Html.Partial("<#= ViewPrefix #>EditForm")
+                              <footer>
+                            <button type="submit" class="btn btn-primary">
+                                保存
+                            </button>
+                            <button type="reset" class="btn btn-default">
+                                取消
+                            </button>
+                        </footer>
+
                         </form>		 
 
                  </div>
@@ -106,14 +139,7 @@ bool isControlHtmlAttributesSupported = MvcVersion >= requiredMvcVersion;
 @section Scripts {
    
     <script type="text/javascript">
-	    //create new item
-        function createitem() {
-
-        }
-        //delete item
-        function deleteitem() {
-
-        }
+	   
         //save item
         function saveitem() {
             if ($('#<#= ModelTypeName.ToLower() #>_form').form('enableValidation').form('validate')) {
@@ -151,12 +177,13 @@ bool isControlHtmlAttributesSupported = MvcVersion >= requiredMvcVersion;
                 });
             }
         }
-        // cancel
-        function reject() {
-
+        function cancelitem() {
         }
-        // reload
-        function refresh() { 
+         function printitem() {
+        }
+        function exportexcel() {
+        }
+         function refreshitem() {
         }
 
 
@@ -287,12 +314,13 @@ bool isControlHtmlAttributesSupported = MvcVersion >= requiredMvcVersion;
         if (<#= editindex #> != index) {
             if (<#= detailnamevar #>_endEditing()) {
                 <#= boostraptablevar #>.datagrid("selectRow", index)
-                        .datagrid("beginEdit", index);
+                                       .datagrid("beginEdit", index);
+                <#= editindex #>  = index;
                 var ed = <#= boostraptablevar #>.datagrid("getEditor", { index: index, field: field });
                 if (ed) {
                     ($(ed.target).data("textbox") ? $(ed.target).textbox("textbox") : $(ed.target)).focus();
                 }
-                <#= editindex #>  = index;
+                
             } else {
                 <#= boostraptablevar #>.datagrid("selectRow", <#= editindex #>);
             }

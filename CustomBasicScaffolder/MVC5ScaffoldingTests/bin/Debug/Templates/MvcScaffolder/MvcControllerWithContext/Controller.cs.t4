@@ -63,6 +63,7 @@ using System.Web;
 using System.Web.Mvc;
 using Repository.Pattern.UnitOfWork;
 using Repository.Pattern.Infrastructure;
+using Z.EntityFramework.Plus;
 <# foreach (var namespaceName in RequiredNamespaces) { #>
 using <#= namespaceName #>;
 <# } #>
@@ -107,6 +108,7 @@ namespace <#= Namespace #>
         includeExpressions = String.Join("", relatedProperties.Values.Select(property => String.Format(".Include({0} => {0}.{1})", lambdaVar, property.AssociationPropertyName)));
         #>
 		// GET: <#= routePrefix #>/<#= ViewPrefix #>Index
+        [OutputCache(Duration = 360, VaryByParam = "none")]
 		public ActionResult <#= ViewPrefix #>Index()
 		{
 			 return View();
@@ -244,18 +246,20 @@ namespace <#= Namespace #>
 					  string relModelDisplayName=relatedModel.DisplayPropertyName;
 		#>
 		<# if (UseAsync) { #>
-		public async Task<ActionResult> Get<#= relModelName #>()
+        //[OutputCache(Duration = 360, VaryByParam = "none")]
+		public async Task<ActionResult> Get<#= relModelName #>(string q="")
 		{
 			var <#= relModelType.ToLower() #>Repository = _unitOfWork.RepositoryAsync<<#= relModelType #>>();
-			var data = await <#= relModelType.ToLower() #>Repository.Queryable().ToListAsync();
+			var data = await <#= relModelType.ToLower() #>Repository.Queryable().Where(n=>n.<#= relModelDisplayName #>.Contains(q)).ToListAsync();
 			var rows = data.Select(n => new { <#= relModelPk #> = n.<#= relModelPk #>, <#= relModelDisplayName #> = n.<#= relModelDisplayName #> });
 			return Json(rows, JsonRequestBehavior.AllowGet);
 		}
 		<# } else { #>
-		public ActionResult Get<#= relModelName #>()
+        //[OutputCache(Duration = 360, VaryByParam = "none")]
+		public ActionResult Get<#= relModelName #>(string q="")
 		{
 			var <#= relModelType.ToLower() #>Repository = _unitOfWork.RepositoryAsync<<#= relModelType #>>();
-			var data = <#= relModelType.ToLower() #>Repository.Queryable().ToList();
+			var data = <#= relModelType.ToLower() #>Repository.Queryable().Where(n=>n.<#= relModelDisplayName #>.Contains(q)).ToList();
 			var rows = data.Select(n => new { <#= relModelPk #> = n.<#= relModelPk #>, <#= relModelDisplayName #> = n.<#= relModelDisplayName #> });
 			return Json(rows, JsonRequestBehavior.AllowGet);
 		}
@@ -279,18 +283,20 @@ namespace <#= Namespace #>
 					  if(!isexist){
 		#>
 		<# if (UseAsync) { #>
-		public async Task<ActionResult> Get<#= relModelName #>()
+        //[OutputCache(Duration = 360, VaryByParam = "none")]
+		public async Task<ActionResult> Get<#= relModelName #>(string q="")
 		{
 			var <#= relModelType.ToLower() #>Repository = _unitOfWork.RepositoryAsync<<#= relModelType #>>();
-			var data = await <#= relModelType.ToLower() #>Repository.Queryable().ToListAsync();
+			var data = await <#= relModelType.ToLower() #>Repository.Queryable().Where(n=>n.<#= relModelDisplayName #>.Contains(q)).ToListAsync();
 			var rows = data.Select(n => new { <#= relModelPk #> = n.<#= relModelPk #>, <#= relModelDisplayName #> = n.<#= relModelDisplayName #> });
 			return Json(rows, JsonRequestBehavior.AllowGet);
 		}
 		<# } else { #>
-		public ActionResult Get<#= relModelName #>()
+        //[OutputCache(Duration = 360, VaryByParam = "none")]
+		public ActionResult Get<#= relModelName #>(string q="")
 		{
 			var <#= relModelType.ToLower() #>Repository = _unitOfWork.RepositoryAsync<<#= relModelType #>>();
-			var data = <#= relModelType.ToLower() #>Repository.Queryable().ToList();
+			var data = <#= relModelType.ToLower() #>Repository.Queryable().Where(n=>n.<#= relModelDisplayName #>.Contains(q)).ToList();
 			var rows = data.Select(n => new { <#= relModelPk #> = n.<#= relModelPk #>, <#= relModelDisplayName #> = n.<#= relModelDisplayName #> });
 			return Json(rows, JsonRequestBehavior.AllowGet);
 		}
@@ -324,7 +330,7 @@ namespace <#= Namespace #>
 			return View(<#= ModelVariable #>);
 		}
 		// GET: <#= routePrefix #>/<#= ViewPrefix #>Create
-		<# if (false) { #>
+        <# if (false) { #>
 		public async Task<ActionResult> <#= ViewPrefix #>Create()
 		<# } else { #>
 		public ActionResult <#= ViewPrefix #>Create()
@@ -412,6 +418,7 @@ namespace <#= Namespace #>
 			return View(<#= ModelVariable #>);
 		}
         // GET: <#= routePrefix #>/<#= ViewPrefix #>PopupEdit/5
+        [OutputCache(Duration = 360, VaryByParam = "id")]
 <# if (UseAsync) { #>
 		public async Task<ActionResult> <#= ViewPrefix #>PopupEdit(<#= primaryKeyNullableTypeName #> id)
 <# } else { #>

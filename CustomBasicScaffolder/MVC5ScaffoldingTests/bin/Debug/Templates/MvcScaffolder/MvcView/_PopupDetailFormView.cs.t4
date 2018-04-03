@@ -12,19 +12,38 @@
       title="明细数据" 
       data-options="modal:true,
                     closed:true,
-                    iconcls:'icon-menu',
-                    onOpen:resize" style="width:960px;height:520px">
-    <form id="<#=entityName.ToLower()#>_form" class="smart-form easyui-form" method="post" data-options="novalidate:true">
+                    iconcls:'icon-menu'
+                    " style="width:960px;height:520px">
+    <form id="<#=entityName.ToLower()#>_form" class="easyui-form form-horizontal" method="post" data-options="novalidate:true">
  <table class="table table-bordered">
-     <caption>
-         <!--form toolbar-->
-                <div id="form_toolbar" style="height:auto" class="datagrid-toolbar">
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="saveitem()">保存</a>
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="cancelitem()">取消</a>
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="refreshitem()">刷新</a>
-                </div>
-         <!--form toolbar-->
-     </caption>
+    <thead>
+                <tr>
+                    <td colspan="<#= FromLayoutCols*2 #>">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default" onclick="saveitem()">
+                                <i class="fa fa-floppy-o"></i>
+                                保存
+                            </button>
+                            <button type="button" class="btn btn-default">
+                                <i class="fa fa-pencil-square-o"></i>
+                                操作1
+                            </button>
+                            <button type="button" class="btn btn-default">
+                                <i class="fa fa-pencil-square-o"></i>
+                                操作2
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="cancelitem()">
+                                <i class="fa fa-refresh"></i>
+                                取消
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="refreshitem()">
+                                <i class="fa fa-refresh"></i>
+                                刷新
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </thead>
 <#
     int cols = FromLayoutCols;
 	int colindex= -1;
@@ -250,105 +269,23 @@
 		  <div id="tab-<#= subpropertyName.ToLower()   #>" class="tab-pane <#= idx>0?"":"active"  #>">
             <div class="panel-body">
                 <div class="table-responsive">
-				<table id="<#= subpropertyName.ToLower()  #>_datagrid" class="easyui-datagrid" 
-                       style="width:auto;height:300px"
-                       data-options="
-                            rownumbers:true,
-                            iconCls: 'fa fa-list',
-                            remoteFilter: false,
-                            singleSelect: true,
-                            toolbar: '#<#= subpropertyName.ToLower() #>_toolbar',
-                            method: 'get',
-                            onClickCell: <#= subpropertyName.ToLower() #>_onClickCell,
-                            pagination: 'true'
-                    " >
-                    <thead>
-                        <tr>
-						@*<th data-options="field:'ck',checkbox:true"></th>*@
-				        <#
-							IEnumerable<PropertyMetadata> subproperties = childrenmodelmeta.Properties;
-							foreach (PropertyMetadata subproperty in subproperties) {
-									var tdalign=subproperty.ShortTypeName=="string"?"left":"right";
-									var fieldtypename = subproperty.ShortTypeName;
-									var isRequired = false;
-									fieldRequired.TryGetValue(subproperty.PropertyName, out isRequired);
-									string required = isRequired.ToString().ToLower();
-									string maxLength = string.Empty;
-									fieldMaxLength.TryGetValue(subproperty.PropertyName,out maxLength);
-									if (subproperty.Scaffold && !subproperty.IsAssociation) {
-						#>
-						<# if ( subproperty.IsPrimaryKey || subproperty.IsReadOnly) { #>
-								@*<th data-options="field:'<#= subproperty.PropertyName  #>',width:80"> <#=  GetDisplayName(subproperty.PropertyName) #> </th>*@
-						<# } else if (subproperty.IsForeignKey) { 
-								string foreignKeyPropertyName = subproperty.PropertyName;
-								RelatedModelMetadata relatedModel = childrenmodelmeta.RelatedEntities.Where(x=>x.ForeignKeyPropertyNames[0]==foreignKeyPropertyName).First();
-								string relatedtypeName = relatedModel.ShortTypeName;
-								if(relatedtypeName != ModelTypeName ) {
-						#>
-								<th data-options="field:'<#= foreignKeyPropertyName  #>',width:100,
-												formatter:function(value,row){
-													return row.<#= GetRelatedDisplayNameExpression(foreignKeyPropertyName,childrenmodelmeta)  #>;
-												},
-												editor:{
-													type:'combobox',
-													options:{
-														valueField:'<#= relatedModel.PrimaryKeyNames[0]  #>',
-														textField:'<#= relatedModel.DisplayPropertyName   #>',
-														method:'get',
-														url:'/<#= ControllerRootName #>/Get<#=  relatedModel.EntitySetName  #>',
-														required:<#= required  #> <#= maxLength #>
-														}
-												}"> <#= GetDisplayName(foreignKeyPropertyName) #> </th>
-						<# } } else { #>
-							<#
-								if(fieldtypename=="string") {
-							#>
-								<th data-options="field:'<#= subproperty.PropertyName #>',width:140,editor:{type:'textbox',options:{required:<#= required  #> <#= maxLength #>} } "> <#= GetDisplayName(subproperty.PropertyName) #></th>
-							<# } else if(fieldtypename=="int" || fieldtypename=="float"|| fieldtypename=="decimal") {
-									if(subproperty.PropertyName=="Status") {
-						    #>
-								<th data-options="field:'<#= subproperty.PropertyName #>',width:100,align:'right',
-                                                 editor:{ type:'combobox',
-                                                 options:{
-                                                    panelHeight: 'auto',
-                                                    data: [ { value: '0', text: '启用' },{ value: '1', text: '禁用' } ],
-                                                    required:true } }  ,formatter:statusformatter"><#= GetDisplayName(subproperty.PropertyName) #></th>
-							<#   } else {  #>
-									<th data-options="field:'<#=  subproperty.PropertyName  #>',width:100,align:'right',editor:{type:'numberbox',options:{required:<#= required  #> <#= maxLength #>} } ,sortable:true,resizable:true "><#= GetDisplayName(subproperty.PropertyName) #></th>
-							<#   }   } else if(fieldtypename=="DateTime" ) { #>
-								<th data-options="field:'<#=  subproperty.PropertyName  #>',width:160,align:'right',editor:{type:'datebox',options:{required:<#= required  #>}} ,formatter:dateformatter"> <#= GetDisplayName(subproperty.PropertyName) #></th>
-							<# } else if(fieldtypename=="bool" || fieldtypename=="Boolean" ){ #>
-								<th data-options="field:'<#= subproperty.PropertyName #>',width:120,editor: {type:'combobox'
-                                                ,options:{
-                                                panelHeight: 'auto',
-                                                data: [ { value: 'true', text: 'true' },{ value: 'false', text: 'false' }],
-                                                required:true}}"><#= GetDisplayName(subproperty.PropertyName) #></th>
-							<# } else { #>
-								<th data-options="field:'<#= subproperty.PropertyName #>',width:120,editor:'textbox' "> <#= GetDisplayName(subproperty.PropertyName) #></th>
-							<# } #>
-						<#     } #>
-					<#
-							}
-					    //foreach (PropertyMetadata subproperty in subproperties) {
-						}
-					#>
-                        </tr>
-                    </thead>
+				<table id="<#= subpropertyName.ToLower()  #>_datagrid" >
                 </table>
 				<div id="<#= subpropertyName.ToLower() #>_toolbar" style="height:auto">
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="<#= subpropertyName.ToLower() #>_createitem()">新增</a>
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="<#= subpropertyName.ToLower() #>_removeitem()">删除</a>
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="<#= subpropertyName.ToLower() #>_saveitem()">保存</a>
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="<#= subpropertyName.ToLower() #>_reject()">取消</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-plus fa-fw',plain:true" onclick="<#= subpropertyName.ToLower() #>_createitem()">新增</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-trash-o fa-fw',plain:true" onclick="<#= subpropertyName.ToLower() #>_removeitem()">删除</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-floppy-o fa-fw',plain:true" onclick="<#= subpropertyName.ToLower() #>_saveitem()">保存</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-undo fa-fw',plain:true" onclick="<#= subpropertyName.ToLower() #>_reject()">取消</a>
                 </div>
                 </div>
+            </div>
             </div>
 		  <# idx++;
            }
 		  #>
 	</div>
 	</div>
-	</div>
+	 
 <!--end details tabs -->
 <#  } #>
 </div>
@@ -374,9 +311,158 @@
 					var subforeignKey = submetadata.RelatedEntities.Where(x=>x.ShortTypeName == ModelTypeName).First().ForeignKeyPropertyNames[0];
 			 
          #>
-                 <#= datagridvar #>.datagrid('reload', '/<#= entitySetName #>/GetDataBy<#= foreignKey #>?<#= foreignKeyVar #>='+ id);
-                 <#= datagridvar #>.datagrid('resize');
 
+          <#= datagridvar #>.datagrid({
+                    rownumbers: true,
+                    iconCls: 'fa fa-list',
+                    idField: 'Id',
+                    sortName: 'Id',
+                    sortOrder: 'asc',
+                    remoteFilter: true,
+                    singleSelect: true,
+                    toolbar: '#orderdetails_toolbar',
+                    method: 'get',
+                    onClickCell: orderdetails_onClickCell,
+                    pagination: 'true',
+                    url: '/<#= entitySetName #>/GetDataBy<#= foreignKey #>?<#= foreignKeyVar #>='+ id,
+                    striped: true,
+                    columns: [[
+                    <#
+							IEnumerable<PropertyMetadata> subproperties = submetadata.Properties;
+							foreach (PropertyMetadata subproperty in subproperties) {
+									var tdalign=subproperty.ShortTypeName=="string"?"left":"right";
+									var fieldtypename = subproperty.ShortTypeName;
+									var isRequired = false;
+									fieldRequired.TryGetValue(subproperty.PropertyName, out isRequired);
+									string required = isRequired.ToString().ToLower();
+									string maxLength = string.Empty;
+									fieldMaxLength.TryGetValue(subproperty.PropertyName,out maxLength);
+									if (subproperty.Scaffold && !subproperty.IsAssociation) {
+						#>
+						<# if ( subproperty.IsPrimaryKey || subproperty.IsReadOnly) { #>
+								@*{field:'<#= subproperty.PropertyName  #>',
+                                   title:'<#= GetDisplayName(subproperty.PropertyName) #>',
+                                   width:80 },*@
+						<# } else if (subproperty.IsForeignKey) { 
+								string foreignKeyPropertyName = subproperty.PropertyName;
+								RelatedModelMetadata relatedModel = submetadata.RelatedEntities.Where(x=>x.ForeignKeyPropertyNames[0]==foreignKeyPropertyName).First();
+								string relatedtypeName = relatedModel.ShortTypeName;
+								if(relatedtypeName != ModelTypeName ) {
+						#>
+							    {field:'<#= foreignKeyPropertyName  #>',
+                                 title:'<#= GetDisplayName(subproperty.PropertyName) #>',
+                                 width:100,
+								 formatter:function(value,row){
+												return row.<#= GetRelatedDisplayNameExpression(foreignKeyPropertyName,submetadata)  #>;
+											},
+								 editor:{
+                                         type:'combobox',
+										 options:{
+                                                prompt:'<#= GetDisplayName(subproperty.PropertyName) #>',
+												mode: 'remote',
+                                                valueField:'<#= relatedModel.PrimaryKeyNames[0]  #>',
+											    textField:'<#= relatedModel.DisplayPropertyName   #>',
+												method:'get',
+												url:'/<#= ControllerRootName #>/Get<#=  relatedModel.EntitySetName  #>',
+												required:<#= required  #> <#= maxLength #>
+												}
+								 }},
+						<# } } else { #>
+						<#	if(fieldtypename=="string") {	#>
+								{ field:'<#= subproperty.PropertyName #>',
+                                  title:'<#= GetDisplayName(subproperty.PropertyName) #>',
+                                  width:140,
+                                  editor:{
+                                          type:'textbox',
+                                          options:{
+                                                prompt:'<#= GetDisplayName(subproperty.PropertyName) #>',
+                                                required:<#= required  #> <#= maxLength #>
+                                                 }
+                                           } },
+							<# } else if(fieldtypename=="int" || fieldtypename=="float"|| fieldtypename=="decimal") {
+									if(subproperty.PropertyName=="Status") {
+						    #>
+							{ field:'<#= subproperty.PropertyName #>',
+                                  title:'<#= GetDisplayName(subproperty.PropertyName) #>',
+                                  width:100,
+                                  align:'right',
+                                  editor:{ 
+                                        type:'combobox',
+                                            options:{
+                                                    prompt:'<#= GetDisplayName(subproperty.PropertyName) #>',
+                                                    panelHeight: 'auto',
+                                                    data: [ { value: '0', text: '启用' },{ value: '1', text: '禁用' } ],
+                                                    required:true 
+                                                    } 
+                                            }  ,formatter:statusformatter
+                                  },
+							<#   } else {  #>
+						     { field:'<#=  subproperty.PropertyName  #>',
+                                   title:'<#= GetDisplayName(subproperty.PropertyName) #>',
+                                   width:100,
+                                   align:'right',
+                                   editor:{
+                                           type:'numberbox',
+                                           options:{
+                                                   prompt:'<#= GetDisplayName(subproperty.PropertyName) #>',
+                                                   required:<#= required  #> <#= maxLength #>
+                                             } 
+                                           } ,
+                                   sortable:true,
+                                   resizable:true },
+							<#   }   } else if(fieldtypename=="DateTime" ) { #>
+								{ field:'<#=  subproperty.PropertyName  #>',
+                                  title:'<#= GetDisplayName(subproperty.PropertyName) #>',
+                                  width:160,
+                                  align:'right',
+                                  editor:{
+                                          type:'datebox',
+                                          options:{
+                                             prompt:'<#= GetDisplayName(subproperty.PropertyName) #>',
+                                             required:<#= required  #>
+                                           }
+                                          },
+                                   formatter:dateformatter},
+							<# } else if(fieldtypename=="bool" || fieldtypename=="Boolean" ){ #>
+								{field:'<#= subproperty.PropertyName #>',
+                                 title:'<#= GetDisplayName(subproperty.PropertyName) #>',
+                                 width:120,
+                                 editor: {type:'combobox',
+                                            options:{
+                                                prompt:'<#= GetDisplayName(subproperty.PropertyName) #>',
+                                                panelHeight: 'auto',
+                                                data: [ { value: 'true', text: 'true' },{ value: 'false', text: 'false' }],
+                                                required:true}}"><#= GetDisplayName(subproperty.PropertyName) #></th>
+							<# } else { #>
+								{ field:'<#= subproperty.PropertyName #>',
+                                  title:'<#= GetDisplayName(subproperty.PropertyName) #>',
+                                  width:120,
+                                  editor:{
+                                          type:'textbox',
+                                          options:{
+                                            prompt:'<#= GetDisplayName(subproperty.PropertyName) #>',
+                                          }
+                                          }
+                                 }
+							<# } #>
+						<#     } #>
+					<#
+							}
+					    //foreach (PropertyMetadata subproperty in subproperties) {
+						}
+					#>
+                    
+                    
+                    
+                    ]]
+          });
+                
+               
+
+         
+
+                <#= datagridvar #>.datagrid("enableFilter", [
+									]);
          <# } } #>
     }
     //save item
@@ -408,44 +494,13 @@
     function refreshitem() {
         $('#detailswindow').window('close');
     }
-    //easyui window resize function
-    function resize() {
-         
-    }
+    
 
 
     <#  if(GenerateMasterDetailRelationship  && OneToManyModelMetadata.Count >0) 
 			 { 
 	 #>
-         //-----------------------------------------------------------------------
-		 // details datagrid functions
-		 //-----------------------------------------------------------------------
-			function filterBy<#= foreignKey  #>(<#= foreignKeyVar #>) {
-			var value = <#= foreignKeyVar #>;
-
-			   <# 
-				foreach (var prop in ModelMetadata.Properties.Where(x=>x.AssociationDirection == AssociationDirection.OneToMany)) 
-				{
-					var submetadata =  OneToManyModelMetadata[prop.PropertyName];
-					var entitySetName = submetadata.EntitySetName;
-					var entitySetNameToLower = submetadata.EntitySetName.ToLower();
-					var subModeType = prop.ShortTypeName;
-					var datagridelement = entitySetNameToLower + "_datagrid";
-					var datagridvar = "$"+ entitySetNameToLower +  "dg";
-					var editindex = entitySetNameToLower + "_editIndex";
-					var detailnamevar = entitySetNameToLower;
-					var subforeignKey = submetadata.RelatedEntities.Where(x=>x.ShortTypeName == ModelTypeName).First().ForeignKeyPropertyNames[0];
-				#>
-			   <#= datagridvar #>.datagrid("removeFilterRule", "<#= subforeignKey #>");
-			   <#= datagridvar #>.datagrid("addFilterRule", {
-					field: "<#= subforeignKey #>",
-					op: "equal",
-					value: value
-				});
-			   <#= datagridvar #>.datagrid("doFilter");
-			   <# } #>
-
-		}
+          
 		 
 				<# 
 				foreach (var prop in ModelMetadata.Properties.Where(x=>x.AssociationDirection == AssociationDirection.OneToMany)) 
@@ -505,11 +560,12 @@
 			if (<#= detailnamevar #>_endEditing()) {
 				<#= datagridvar #>.datagrid("selectRow", index)
 						.datagrid("beginEdit", index);
+                <#= editindex #>  = index;
 				var ed = <#= datagridvar #>.datagrid("getEditor", { index: index, field: field });
 				if (ed) {
 					($(ed.target).data("textbox") ? $(ed.target).textbox("textbox") : $(ed.target)).focus();
 				}
-				<#= editindex #>  = index;
+				
 			} else {
 				<#= datagridvar #>.datagrid("selectRow", <#= editindex #>);
 			}
@@ -576,13 +632,7 @@
 			}
 		}
 
-		$(function () {
-
-			<#= datagridvar #>.datagrid("enableFilter", [
-									]);
-
-			//filterBy<#= foreignKey  #>(-1);
-		})
+	 
 
 
 

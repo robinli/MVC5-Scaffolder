@@ -1,5 +1,5 @@
 ﻿@model WebApp.Models.Order
-@{  ViewBag.Title = "订单管理 | Edit";} 
+@{  ViewBag.Title = "订单信息 | Edit";} 
 <!-- MAIN CONTENT -->
 <div id="content">
      <!-- quick navigation bar -->
@@ -13,7 +13,7 @@
                 路径
                 <span>
                     >
-                    订单管理
+                    订单信息
                 </span>
             </h1>
         </div>
@@ -41,7 +41,7 @@
             -->
             <header>
                 <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
-                <h2> 订单管理 </h2>
+                <h2> 订单信息 </h2>
 
             </header>
 
@@ -218,88 +218,93 @@
                 });
             });
       
-      </script>
-
-  <script type="text/javascript">
-	
-	    
-	//==============$("#orderdetails_datagrid")=================// 
-    var $orderdetailsdatagrid = $("#orderdetails_datagrid")
-	var orderdetailseditIndex = undefined;
-    function orderdetails_endEditing() {
-        if ( orderdetailseditIndex == undefined) { return true }
-        if ($orderdetailsdatagrid.datagrid("validateRow", orderdetailseditIndex)) {
-			            var ed = $orderdetailsdatagrid.datagrid("getEditor", { index: orderdetailseditIndex, field: "ProductId" });
-            var ProductName = $(ed.target).combobox("getText");
-            var ProductId = $(ed.target).combobox("getValue");
-          
-            $orderdetailsdatagrid.datagrid("getRows")[orderdetailseditIndex]["ProductName"] = ProductName;
-            $orderdetailsdatagrid.datagrid("getRows")[orderdetailseditIndex]["ProductId"] = ProductId;
-            
-            
-						$orderdetailsdatagrid.datagrid("endEdit", orderdetailseditIndex);
-            orderdetailseditIndex = undefined;
+    
 
 
-            return true;
-        } else {
-            return false;
-        }
-    }
-    function orderdetails_onClickCell(index, field) {
-        if (orderdetailseditIndex != index) {
-            if (orderdetails_endEditing()) {
-                $orderdetailsdatagrid.datagrid("selectRow", index)
-                                       .datagrid("beginEdit", index);
-                orderdetailseditIndex  = index;
-                var ed = $orderdetailsdatagrid.datagrid("getEditor", { index: index, field: field });
-                if (ed) {
-                    ($(ed.target).data("textbox") ? $(ed.target).textbox("textbox") : $(ed.target)).focus();
+
+
+
+
+     /********************************
+     *
+     * pageSetUp() is needed whenever you load a page.
+     * It initializes and checks for all basic elements of the page
+     * and makes rendering easier.
+     *
+     */
+     pageSetUp();
+      var pagefunction = function () {
+
+         
+            var errorClass = 'invalid';
+            var errorElement = 'em';
+
+            var $editform = $('#order_form').validate({
+                 errorClass: errorClass,
+                 errorElement: errorElement,
+                 highlight: function (element) {
+                    $(element).parent().removeClass('state-success').addClass("state-error");
+                    $(element).removeClass('valid');
+                 },
+                 unhighlight: function (element) {
+                    $(element).parent().removeClass("state-error").addClass('state-success');
+                    $(element).addClass('valid');
+                 },
+                // Rules for form validation
+                rules: {
+                                    Id:{
+                            required:true,
+                                                        digits: true,
+                                                                                                        },
+                                    Customer:{
+                            required:true,
+                                                                                    rangelength: [0, 20],
+                                                                            },
+                                    ShippingAddress:{
+                            required:true,
+                                                                                    rangelength: [0, 50],
+                                                                            },
+                                    OrderDate:{
+                            required:true,
+                                                                                                                date: true,
+                                                },
+                                    CreatedDate:{
+                            required:false,
+                                                                                                                date: true,
+                                                },
+                                    CreatedBy:{
+                            required:false,
+                                                                                    rangelength: [0, 20],
+                                                                            },
+                                    LastModifiedDate:{
+                            required:false,
+                                                                                                                date: true,
+                                                },
+                                    LastModifiedBy:{
+                            required:false,
+                                                                                    rangelength: [0, 20],
+                                                                            },
+                                },
+                submitHandler: function (form) {
+                    $(form).ajaxSubmit({
+                        success: function () {
+                            console.log('ajaxSubmit success');
+                        }
+                    });
+                },
+                // Do not change code below
+                errorPlacement: function (error, element) {
+                    error.insertAfter(element.parent());
                 }
-                
-            } else {
-                $orderdetailsdatagrid.datagrid("selectRow", orderdetailseditIndex);
-            }
+
+            });
         }
-    }
-    function orderdetails_append() {
-        if (orderdetails_endEditing()) {
-            $orderdetailsdatagrid.datagrid("appendRow", { Status:0   });
-            orderdetailseditIndex = $orderdetailsdatagrid.datagrid("getRows").length - 1;
-            $orderdetailsdatagrid.datagrid("selectRow", orderdetailseditIndex )
-                    .datagrid("beginEdit", orderdetailseditIndex);
-        }
-    }
-    function orderdetails_removeit() {
-        if (orderdetailseditIndex  == undefined) { return }
-        $orderdetailsdatagrid.datagrid("cancelEdit", orderdetailseditIndex )
-                .datagrid("deleteRow", orderdetailseditIndex );
-        orderdetailseditIndex = undefined;
-    }
-   
-    function orderdetails_reject() {
-        $orderdetailsdatagrid.datagrid("rejectChanges");
-        orderdetailseditIndex  = undefined;
-    }
-    function orderdetails_getChanges() {
-        var rows = $orderdetailsdatagrid.datagrid("getChanges");
-        alert(rows.length + " rows are changed!");
-    }
+        pagefunction();
 
 
-	  
-	$(function () {
-	
-		$.get("/Orders/GetOrderDetailsByOrderId/" + @Model.Id,function(data){
-            //console.log(data);
-            $orderdetailsdatagrid.datagrid("loadData",data);
-        
-        })
 
+  </script>
 
-	
-	});
-</script>
 
 
 }

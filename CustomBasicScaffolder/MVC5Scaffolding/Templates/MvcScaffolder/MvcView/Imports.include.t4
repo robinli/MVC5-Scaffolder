@@ -5,6 +5,7 @@
 <#@ import namespace="System" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="System.Data.Linq.Mapping" #>
+<#@ import namespace="System.Text.RegularExpressions" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="Microsoft.AspNet.Scaffolding.Core.Metadata" #>
 <#@ import namespace="Happy.Scaffolding.MVC.Models" #>
