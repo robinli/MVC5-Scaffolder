@@ -64,19 +64,48 @@ bool isControlHtmlAttributesSupported = MvcVersion >= requiredMvcVersion;
                 <!-- end widget edit box -->
                 <!-- widget content -->
                 <div class="widget-body no-padding">
-                     <!-- form toolbar -->
-                        <div id="form_toolbar" style="height:auto" class="datagrid-toolbar">
-                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-plus fa-fw',plain:true" onclick="createitem()">新增</a>
-                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-trash-o fa-fw',plain:true" onclick="removeitem()">删除</a>
-                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-floppy-o fa-fw',plain:true" onclick="saveitem()">保存</a>
-                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-undo fa-fw',plain:true" onclick="reject()">取消</a>
-                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-upload fa-fw',plain:true" onclick="importexcel()">EXCEL 导入</a>
-                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-cloud-download fa-fw',plain:true" onclick="exportexcel()">导出 Excel</a>
-                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-refresh fa-fw',plain:true" onclick="refresh()">刷新</a>
-                         </div>
-                        <!--end form toolbar-->
-                    <form id="<#= ModelTypeName.ToLower() #>_form" class="smart-form  easyui-form" method="post" data-options="novalidate:true">
-                                @Html.Partial("<#= ViewPrefix #>EditForm")
+                       <form id="<#= ModelTypeName.ToLower() #>_form" class="smart-form" method="post" data-options="novalidate:true">
+                             <header>
+                                <div class="btn-group">
+                                <button type="button" class="btn btn-default" onclick="saveitem()">
+                                    <i class="fa fa-floppy-o"></i>
+                                    保存
+                                </button>
+                                <button type="button" class="btn btn-default">
+                                    <i class="fa fa-pencil-square-o"></i>
+                                    操作1
+                                </button>
+                                <button type="button" class="btn btn-default">
+                                    <i class="fa fa-pencil-square-o"></i>
+                                    操作2
+                                </button>
+                                <button type="button" class="btn btn-default" onclick="exportexcel()">
+                                    <i class="fa fa-file-excel-o"></i>
+                                    导出Excel
+                                </button>
+                                <button type="button" class="btn btn-default" onclick="printitem()">
+                                    <i class="fa fa-print"></i>
+                                    打印
+                                </button>
+                                <button type="button" class="btn btn-default" onclick="cancelitem()">
+                                    <i class="fa fa-refresh"></i>
+                                    取消
+                                </button>
+                                <button type="button" class="btn btn-default" onclick="refreshitem()">
+                                    <i class="fa fa-refresh"></i>
+                                    刷新
+                                </button>
+                            </div>
+                               </header>
+                               @Html.Partial("<#= ViewPrefix #>EditForm")
+                            <footer>
+                            <button type="submit" class="btn btn-primary">
+                                保存
+                            </button>
+                            <button type="reset" class="btn btn-default">
+                                取消
+                            </button>
+                        </footer>
                         </form>		 
                  </div>
                  <!-- end widget content -->
@@ -90,14 +119,7 @@ bool isControlHtmlAttributesSupported = MvcVersion >= requiredMvcVersion;
 <!-- END MAIN CONTENT -->
 @section Scripts {
      <script type="text/javascript">
-	   //create new item
-        function createitem() {
-
-        }
-        //delete item
-        function deleteitem() {
-
-        }
+	    
         //save item
         function saveitem() {
 			   if ($("#<#= ModelTypeName.ToLower() #>_form").form("enableValidation").form("validate")) {						
@@ -133,19 +155,19 @@ bool isControlHtmlAttributesSupported = MvcVersion >= requiredMvcVersion;
                  });						
              }						
         }
-        function reject() {
+        function cancelitem() {
         }
-        function importexcel() {
+         function printitem() {
         }
         function exportexcel() {
         }
-        function refresh() {
+         function refreshitem() {
         }
-        </script>
+
 <#  if(GenerateMasterDetailRelationship  && OneToManyModelMetadata.Count >0) { 
 	var primaryKeyVar = ModelTypeName.ToLower() + primaryKey.ToLower();
 #>
-<script type="text/javascript">
+
 	  <# foreach(var item in OneToManyModelMetadata) {
                 var boostraptablevar = "$" + item.Key.ToLower()  + "datagrid";
                 var detailnamevar=item.Key.ToLower();
@@ -245,9 +267,10 @@ bool isControlHtmlAttributesSupported = MvcVersion >= requiredMvcVersion;
     }
 	#>
 	});
-</script>
+
 <# 
      }
  #>
+ </script>
 }
 <#@ include file="ModelMetadataFunctions.cs.include.t4" #>

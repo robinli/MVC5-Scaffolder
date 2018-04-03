@@ -2821,14 +2821,15 @@
     <Content Include="Views\Works\Edit.cshtml" />
     <Content Include="Views\Works\EditForm.cshtml" />
     <Content Include="Views\Works\_PopupDetailFormView.cshtml" />
-    <Content Include="Views\Orders\Create.cshtml" />
-    <Content Include="Views\Orders\Edit.cshtml" />
-    <Content Include="Views\Orders\EditForm.cshtml" />
+    <Content Include="Views\Orders\EditForm1.cshtml" />
     <Content Include="Views\Shared\_StylesheetsPartial.cshtml" />
     <Content Include="Views\Orders\_OrderDetailEditForm.cshtml" />
     <Content Include="Views\Orders\Index.cshtml" />
     <Content Include="Views\Orders\_PopupDetailFormView.cshtml" />
     <Content Include="Views\OrderDetails\_PopupDetailFormView.cshtml" />
+    <Content Include="Views\Orders\Create.cshtml" />
+    <Content Include="Views\Orders\Edit.cshtml" />
+    <Content Include="Views\Orders\EditForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

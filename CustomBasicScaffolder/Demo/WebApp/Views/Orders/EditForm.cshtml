@@ -1,140 +1,149 @@
 ﻿﻿@model WebApp.Models.Order
  <!-- 输出form表单界面 -->
- <table class="table table-bordered">
-     <caption>
-        @{
-        //TODO: fix edit form commonent!
-        }
-        <div class="alert alert-warning no-margin fade in">
-            <button class="close" data-dismiss="alert">
-                ×
-            </button>
-            <i class="fa-fw fa fa-info"></i>
-            A combined table effect with all classes mentioned above added to
-        </div>
-     </caption>
-	    <tr>
-      	   <td class="control-label">   @Html.DisplayNameFor(model => model.Id)  </td>
-	   <td> 
-			   			   			<input id="@Html.IdFor(model => model.Id)" 
+<fieldset>
+    <div class="row">
+        	    			<section class="col col-6">
+           <label class="label">@Html.DisplayNameFor(model => model.Id) </label>
+           <label class="input">
+            <input id="@Html.IdFor(model => model.Id)" 
                    name="@Html.NameFor(model => model.Id)" 
+                   placeholder="@Html.DisplayNameFor(model => model.Id)" 
                    value="@Html.ValueFor(model => model.Id)"
                    tabindex="0"   
-                   class="easyui-numberbox" type="text" 
-                   data-options="prompt:'Id',
-                                 readonly:true,
-                                 width:300,
-                                 label:'',required:true ,precision:0" />
-			  				   </td>
-	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.Customer)  </td>
-	   <td> 
-			   			  			<input id="@Html.IdFor(model => model.Customer)" 
+                   type="text" 
+                   />
+                 <b class="tooltip tooltip-bottom-right">Id</b>
+			    </label>
+            </section>
+              				 
+	  
+	    
+	        			              <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.Customer) </label>
+            <label class="input">
+			<input id="@Html.IdFor(model => model.Customer)" 
 				   name="@Html.NameFor(model => model.Customer)" 
+                   placeholder="@Html.DisplayNameFor(model => model.Customer)" 
 				   value="@Html.ValueFor(model => model.Customer)"
 				   tabindex="1" 
-				   class="easyui-textbox" 
-				   type="text" 
-				   data-options="prompt:'客户',
-								 label:'',
-                                 width:300,
-								 required:true ,validType:'length[0,20]'" />
-			  				   </td>
-	   	   </tr>
-	   	    <tr>
-      	   <td class="control-label">   @Html.DisplayNameFor(model => model.ShippingAddress)  </td>
-	   <td> 
-			   			  			<input id="@Html.IdFor(model => model.ShippingAddress)" 
+				    type="text" 
+				   />
+             <b class="tooltip tooltip-bottom-right">客户</b>
+			    </label>
+            </section>
+			  				 
+	  
+	    
+	        			              <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.ShippingAddress) </label>
+            <label class="input">
+			<input id="@Html.IdFor(model => model.ShippingAddress)" 
 				   name="@Html.NameFor(model => model.ShippingAddress)" 
+                   placeholder="@Html.DisplayNameFor(model => model.ShippingAddress)" 
 				   value="@Html.ValueFor(model => model.ShippingAddress)"
 				   tabindex="2" 
-				   class="easyui-textbox" 
-				   type="text" 
-				   data-options="prompt:'发货地址',
-								 label:'',
-                                 width:300,
-								 required:true ,validType:'length[0,50]'" />
-			  				   </td>
-	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.OrderDate)  </td>
-	   <td> 
-			   			  			<input id="@Html.IdFor(model => model.OrderDate)" 
+				    type="text" 
+				   />
+             <b class="tooltip tooltip-bottom-right">发货地址</b>
+			    </label>
+            </section>
+			  				 
+	  
+	    
+	        			              <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.OrderDate) </label>
+            <label class="input">
+            <i class="icon-append fa fa-calendar"></i>
+			<input id="@Html.IdFor(model => model.OrderDate)" 
 			       name="@Html.NameFor(model => model.OrderDate)" 
+                   placeholder="@Html.DisplayNameFor(model => model.OrderDate)" 
 				   tabindex="3" 
-				   class="easyui-datebox" 
+				   class="datepicker" data-dateformat="dd/mm/yy"
 				   type="text" 
 				   value="@Html.ValueFor(model => model.OrderDate)"
-				   data-options="prompt:'订单日期',
-								 label:'',
-                                 width:300,
-								 required:true,
-								 formatter:dateformatter" />
-			  				   </td>
-	   	   </tr>
-	   	    <tr>
-      	   <td class="control-label">   @Html.DisplayNameFor(model => model.CreatedDate)  </td>
-	   <td> 
-			   			  			<input id="@Html.IdFor(model => model.CreatedDate)" 
+				    />
+             <b class="tooltip tooltip-bottom-right">订单日期</b>
+			    </label>
+            </section>
+			  				 
+	  
+	    
+	        			              <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.CreatedDate) </label>
+            <label class="input">
+            <i class="icon-append fa fa-calendar"></i>
+			<input id="@Html.IdFor(model => model.CreatedDate)" 
 			       name="@Html.NameFor(model => model.CreatedDate)" 
+                   placeholder="@Html.DisplayNameFor(model => model.CreatedDate)" 
 				   tabindex="4" 
-				   class="easyui-datebox" 
+				   class="datepicker" data-dateformat="dd/mm/yy"
 				   type="text" 
 				   value="@Html.ValueFor(model => model.CreatedDate)"
-				   data-options="prompt:'创建时间',
-								 label:'',
-                                 width:300,
-								 required:false,
-								 formatter:dateformatter" />
-			  				   </td>
-	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.CreatedBy)  </td>
-	   <td> 
-			   			  			<input id="@Html.IdFor(model => model.CreatedBy)" 
+				    />
+             <b class="tooltip tooltip-bottom-right">创建时间</b>
+			    </label>
+            </section>
+			  				 
+	  
+	    
+	        			              <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.CreatedBy) </label>
+            <label class="input">
+			<input id="@Html.IdFor(model => model.CreatedBy)" 
 				   name="@Html.NameFor(model => model.CreatedBy)" 
+                   placeholder="@Html.DisplayNameFor(model => model.CreatedBy)" 
 				   value="@Html.ValueFor(model => model.CreatedBy)"
 				   tabindex="5" 
-				   class="easyui-textbox" 
-				   type="text" 
-				   data-options="prompt:'创建用户',
-								 label:'',
-                                 width:300,
-								 required:false ,validType:'length[0,20]'" />
-			  				   </td>
-	   	   </tr>
-	   	    <tr>
-      	   <td class="control-label">   @Html.DisplayNameFor(model => model.LastModifiedDate)  </td>
-	   <td> 
-			   			  			<input id="@Html.IdFor(model => model.LastModifiedDate)" 
+				    type="text" 
+				   />
+             <b class="tooltip tooltip-bottom-right">创建用户</b>
+			    </label>
+            </section>
+			  				 
+	  
+	    
+	        			              <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.LastModifiedDate) </label>
+            <label class="input">
+            <i class="icon-append fa fa-calendar"></i>
+			<input id="@Html.IdFor(model => model.LastModifiedDate)" 
 			       name="@Html.NameFor(model => model.LastModifiedDate)" 
+                   placeholder="@Html.DisplayNameFor(model => model.LastModifiedDate)" 
 				   tabindex="6" 
-				   class="easyui-datebox" 
+				   class="datepicker" data-dateformat="dd/mm/yy"
 				   type="text" 
 				   value="@Html.ValueFor(model => model.LastModifiedDate)"
-				   data-options="prompt:'最后更新时间',
-								 label:'',
-                                 width:300,
-								 required:false,
-								 formatter:dateformatter" />
-			  				   </td>
-	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.LastModifiedBy)  </td>
-	   <td> 
-			   			  			<input id="@Html.IdFor(model => model.LastModifiedBy)" 
+				    />
+             <b class="tooltip tooltip-bottom-right">最后更新时间</b>
+			    </label>
+            </section>
+			  				 
+	  
+	    
+	        			              <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.LastModifiedBy) </label>
+            <label class="input">
+			<input id="@Html.IdFor(model => model.LastModifiedBy)" 
 				   name="@Html.NameFor(model => model.LastModifiedBy)" 
+                   placeholder="@Html.DisplayNameFor(model => model.LastModifiedBy)" 
 				   value="@Html.ValueFor(model => model.LastModifiedBy)"
 				   tabindex="7" 
-				   class="easyui-textbox" 
-				   type="text" 
-				   data-options="prompt:'最后更新用户',
-								 label:'',
-                                 width:300,
-								 required:false ,validType:'length[0,20]'" />
-			  				   </td>
-	   	   </tr>
-	   	        <tfoot>
-        <tr>
-        <tr>
-    </tfoot>
-</table>
-  <!--输出form表单界面-->
+				    type="text" 
+				   />
+             <b class="tooltip tooltip-bottom-right">最后更新用户</b>
+			    </label>
+            </section>
+			  				 
+	  
+	    
+	    </div>
+</fieldset>
+
 <!--========================================================================================-->
-     <!-- details tabs -->
+ <fieldset>
+    <div class="row">
+        <section class="col col-md-12 col-lg-12">
+    <!-- details tabs -->
     <div class="tabs-container">
         <!-- Nav tabs -->
         <ul class="nav nav-tabs">
@@ -143,7 +152,7 @@
 		 </ul>
 		 <!-- Tab panes -->
          <div class="tab-content">
-		  		  <div id="tab-orderdetails" class="tab-pane active">
+		 		  <div id="tab-orderdetails" class="tab-pane active">
             <div class="panel-body">
                 <div class="table-responsive">
 				<table id="orderdetails_datagrid" class="easyui-datagrid" title="OrderDetails DataGrid" style="width:auto;height:400px"
@@ -182,15 +191,19 @@
                     </thead>
                 </table>
 				<div id="orderdetails_toolbar" style="height:auto">
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-plus',plain:true" onclick="orderdetails_createitem()">新增</a>
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-trash-o',plain:true" onclick="orderdetails_removeitem()">删除</a>
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-floppy-o',plain:true" onclick="orderdetails_saveitem()">保存</a>
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-undo',plain:true" onclick="orderdetails_reject()">取消</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-plus fa-fw',plain:true" onclick="orderdetails_createitem()">新增</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-trash-o fa-fw',plain:true" onclick="orderdetails_removeitem()">删除</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-floppy-o fa-fw',plain:true" onclick="orderdetails_saveitem()">保存</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-undo fa-fw',plain:true" onclick="orderdetails_reject()">取消</a>
                 </div>
                 </div>
             </div>
+        </div>
 		  	</div>
 	</div>
-	</div>
+ 
 <!--end details tabs -->
+        </section>
+    </div>
+</fieldset>
 
