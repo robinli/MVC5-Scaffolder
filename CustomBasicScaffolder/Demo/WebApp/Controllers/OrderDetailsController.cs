@@ -1,4 +1,15 @@
-﻿using System;
+﻿// <copyright file="OrderDetailsController.cs" company="neozhu/MVC5-Scaffolder">
+// Copyright (c) 2018 All Rights Reserved
+// </copyright>
+// <author>neo.zhu</author>
+// <date>4/3/2018 8:32:38 AM </date>
+// <summary>
+// Create By Custom MVC5 Scaffolder for Visual Studio
+// TODO: RegisterType UnityConfig.cs
+// container.RegisterType<IRepositoryAsync<OrderDetail>, Repository<OrderDetail>>();
+// container.RegisterType<IOrderDetailService, OrderDetailService>();
+// </summary>
+using System;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Data;
@@ -10,42 +21,28 @@ using System.Web;
 using System.Web.Mvc;
 using Repository.Pattern.UnitOfWork;
 using Repository.Pattern.Infrastructure;
+using Z.EntityFramework.Plus;
 using WebApp.Models;
 using WebApp.Services;
 using WebApp.Repositories;
- 
-
-
 namespace WebApp.Controllers
 {
     public class OrderDetailsController : Controller
     {
-
-        //Please RegisterType UnityConfig.cs
-        //container.RegisterType<IRepositoryAsync<OrderDetail>, Repository<OrderDetail>>();
-        //container.RegisterType<IOrderDetailService, OrderDetailService>();
-
         //private StoreContext db = new StoreContext();
         private readonly IOrderDetailService _orderDetailService;
         private readonly IUnitOfWorkAsync _unitOfWork;
-
         public OrderDetailsController(IOrderDetailService orderDetailService, IUnitOfWorkAsync unitOfWork)
         {
             _orderDetailService = orderDetailService;
             _unitOfWork = unitOfWork;
         }
-
         // GET: OrderDetails/Index
-        public async Task<ActionResult> Index()
+        [OutputCache(Duration = 360, VaryByParam = "none")]
+        public ActionResult Index()
         {
-
-            var orderdetails = _orderDetailService.Queryable().Include(o => o.Order).Include(o => o.Product);
-
-
-            return View(await orderdetails.ToListAsync());
-
+            return View();
         }
-
         // Get :OrderDetails/PageList
         // For Index View Boostrap-Table load  data 
         [HttpGet]
@@ -55,15 +52,13 @@ namespace WebApp.Controllers
             var totalCount = 0;
             //int pagenum = offset / limit +1;
             var orderdetails = await _orderDetailService
-                    .Query(new OrderDetailQuery().Withfilter(filters)).Include(o => o.Order).Include(o => o.Product)
-                    .OrderBy(n => n.OrderBy(sort, order))
-                    .SelectPageAsync(page, rows, out totalCount);
-
+       .Query(new OrderDetailQuery().Withfilter(filters)).Include(o => o.Order).Include(o => o.Product)
+       .OrderBy(n => n.OrderBy(sort, order))
+       .SelectPageAsync(page, rows, out totalCount);
             var datarows = orderdetails.Select(n => new { OrderCustomer = (n.Order == null ? "" : n.Order.Customer), ProductName = (n.Product == null ? "" : n.Product.Name), Id = n.Id, ProductId = n.ProductId, Qty = n.Qty, Price = n.Price, Amount = n.Amount, OrderId = n.OrderId }).ToList();
             var pagelist = new { total = totalCount, rows = datarows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
-
         [HttpGet]
         public async Task<ActionResult> GetDataByProductId(int productid, int page = 1, int rows = 10, string sort = "Id", string order = "asc", string filterRules = "")
         {
@@ -78,21 +73,18 @@ namespace WebApp.Controllers
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
         [HttpGet]
-        public ActionResult GetDataByOrderId(int orderid, int page = 1, int rows = 10, string sort = "Id", string order = "asc", string filterRules = "")
+        public async Task<ActionResult> GetDataByOrderId(int orderid, int page = 1, int rows = 10, string sort = "Id", string order = "asc", string filterRules = "")
         {
             var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
             var totalCount = 0;
-            var orderdetails = _orderDetailService
+            var orderdetails = await _orderDetailService
                        .Query(new OrderDetailQuery().ByOrderIdWithfilter(orderid, filters)).Include(o => o.Order).Include(o => o.Product)
                        .OrderBy(n => n.OrderBy(sort, order))
-                       .SelectPage(page, rows, out totalCount);
+                       .SelectPageAsync(page, rows, out totalCount);
             var datarows = orderdetails.Select(n => new { OrderCustomer = (n.Order == null ? "" : n.Order.Customer), ProductName = (n.Product == null ? "" : n.Product.Name), Id = n.Id, ProductId = n.ProductId, Qty = n.Qty, Price = n.Price, Amount = n.Amount, OrderId = n.OrderId }).ToList();
             var pagelist = new { total = totalCount, rows = datarows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
-
-
-
         [HttpPost]
         public async Task<ActionResult> SaveData(OrderDetailChangeViewModel orderdetails)
         {
@@ -118,27 +110,24 @@ namespace WebApp.Controllers
                 }
             }
             await _unitOfWork.SaveChangesAsync();
-
             return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
         }
-
-        public async Task<ActionResult> GetOrders()
+        //[OutputCache(Duration = 360, VaryByParam = "none")]
+        public async Task<ActionResult> GetOrders(string q = "")
         {
             var orderRepository = _unitOfWork.RepositoryAsync<Order>();
-            var data = await orderRepository.Queryable().ToListAsync();
+            var data = await orderRepository.Queryable().Where(n => n.Customer.Contains(q)).ToListAsync();
             var rows = data.Select(n => new { Id = n.Id, Customer = n.Customer });
             return Json(rows, JsonRequestBehavior.AllowGet);
         }
-        public async Task<ActionResult> GetProducts()
+        //[OutputCache(Duration = 360, VaryByParam = "none")]
+        public async Task<ActionResult> GetProducts(string q = "")
         {
             var productRepository = _unitOfWork.RepositoryAsync<Product>();
-            var data = await productRepository.Queryable().ToListAsync();
+            var data = await productRepository.Queryable().Where(n => n.Name.Contains(q)).ToListAsync();
             var rows = data.Select(n => new { Id = n.Id, Name = n.Name });
             return Json(rows, JsonRequestBehavior.AllowGet);
         }
-
-
-
         // GET: OrderDetails/Details/5
         public async Task<ActionResult> Details(int? id)
         {
@@ -146,17 +135,13 @@ namespace WebApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
             var orderDetail = await _orderDetailService.FindAsync(id);
-
             if (orderDetail == null)
             {
                 return HttpNotFound();
             }
             return View(orderDetail);
         }
-
-
         // GET: OrderDetails/Create
         public ActionResult Create()
         {
@@ -168,12 +153,11 @@ namespace WebApp.Controllers
             ViewBag.ProductId = new SelectList(productRepository.Queryable(), "Id", "Name");
             return View(orderDetail);
         }
-
         // POST: OrderDetails/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Order,Product,Id,ProductId,Qty,Price,Amount,OrderId")] OrderDetail orderDetail)
+        public async Task<ActionResult> Create([Bind(Include = "Order,Product,Id,ProductId,Qty,Price,Amount,OrderId,CreatedDate,CreatedBy,LastModifiedDate,LastModifiedBy")] OrderDetail orderDetail)
         {
             if (ModelState.IsValid)
             {
@@ -199,8 +183,18 @@ namespace WebApp.Controllers
             ViewBag.OrderId = new SelectList(await orderRepository.Queryable().ToListAsync(), "Id", "Customer", orderDetail.OrderId);
             var productRepository = _unitOfWork.RepositoryAsync<Product>();
             ViewBag.ProductId = new SelectList(await productRepository.Queryable().ToListAsync(), "Id", "Name", orderDetail.ProductId);
-
             return View(orderDetail);
+        }
+        // GET: OrderDetails/PopupEdit/5
+        [OutputCache(Duration = 360, VaryByParam = "id")]
+        public async Task<ActionResult> PopupEdit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var orderDetail = await _orderDetailService.FindAsync(id);
+            return Json(orderDetail, JsonRequestBehavior.AllowGet);
         }
 
         // GET: OrderDetails/Edit/5
@@ -221,18 +215,16 @@ namespace WebApp.Controllers
             ViewBag.ProductId = new SelectList(productRepository.Queryable(), "Id", "Name", orderDetail.ProductId);
             return View(orderDetail);
         }
-
         // POST: OrderDetails/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Order,Product,Id,ProductId,Qty,Price,Amount,OrderId")] OrderDetail orderDetail)
+        public async Task<ActionResult> Edit([Bind(Include = "Order,Product,Id,ProductId,Qty,Price,Amount,OrderId,CreatedDate,CreatedBy,LastModifiedDate,LastModifiedBy")] OrderDetail orderDetail)
         {
             if (ModelState.IsValid)
             {
                 orderDetail.ObjectState = ObjectState.Modified;
                 _orderDetailService.Update(orderDetail);
-
                 await _unitOfWork.SaveChangesAsync();
                 if (Request.IsAjaxRequest())
                 {
@@ -254,10 +246,8 @@ namespace WebApp.Controllers
             ViewBag.OrderId = new SelectList(await orderRepository.Queryable().ToListAsync(), "Id", "Customer", orderDetail.OrderId);
             var productRepository = _unitOfWork.RepositoryAsync<Product>();
             ViewBag.ProductId = new SelectList(await productRepository.Queryable().ToListAsync(), "Id", "Name", orderDetail.ProductId);
-
             return View(orderDetail);
         }
-
         // GET: OrderDetails/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
@@ -272,7 +262,6 @@ namespace WebApp.Controllers
             }
             return View(orderDetail);
         }
-
         // POST: OrderDetails/Delete/5
         [HttpPost, ActionName("Delete")]
         //[ValidateAntiForgeryToken]
@@ -290,10 +279,6 @@ namespace WebApp.Controllers
         }
 
 
-
-
-
-
         //导出Excel
         [HttpPost]
         public ActionResult ExportExcel(string filterRules = "", string sort = "Id", string order = "asc")
@@ -301,21 +286,15 @@ namespace WebApp.Controllers
             var fileName = "orderdetails_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xlsx";
             var stream = _orderDetailService.ExportExcel(filterRules, sort, order);
             return File(stream, "application/vnd.ms-excel", fileName);
-
         }
-
-
-
         private void DisplaySuccessMessage(string msgText)
         {
             TempData["SuccessMessage"] = msgText;
         }
-
         private void DisplayErrorMessage(string msgText)
         {
             TempData["ErrorMessage"] = msgText;
         }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)

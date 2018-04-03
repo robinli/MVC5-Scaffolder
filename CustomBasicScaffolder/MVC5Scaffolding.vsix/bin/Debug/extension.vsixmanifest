@@ -1,7 +1,7 @@
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011">
   <Metadata>
-    <Identity Id="CustomBasicScaffolderExtension..40e7bb7e-f72d-44cf-8439-2567be2590c6" Version="3.8.9.1" Language="en-US" Publisher="Neo.Zhu" />
-    <DisplayName>SmartCode MVC5 Engine  ver 3.8.9.1</DisplayName>
+    <Identity Id="CustomBasicScaffolderExtension..40e7bb7e-f72d-44cf-8439-2567be2590c6" Version="3.8.9.5" Language="en-US" Publisher="Neo.Zhu" />
+    <DisplayName>SmartCode MVC5 Engine  ver 3.8.9.5</DisplayName>
     <Description xml:space="preserve">Generates ASP.NET MVC 5 with EasyUI and Entity Framework 6.x SmartAdmin web application.</Description>
     <MoreInfo>https://github.com/neozhu/MVC5-Scaffolder/</MoreInfo>
     <License>LICENSE.txt</License>

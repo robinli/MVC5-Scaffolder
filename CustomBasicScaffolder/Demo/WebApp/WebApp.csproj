@@ -224,7 +224,13 @@
     <Compile Include="App_Helpers\Auth.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\EFMigrationsManagerConfig.cs" />
+    <Compile Include="Controllers\ButtonAttribute.cs" />
+    <Compile Include="Controllers\CategoriesController.cs" />
+    <Compile Include="Controllers\CodeItemsController.cs" />
+    <Compile Include="Controllers\CompaniesController.cs" />
     <Compile Include="Controllers\EFMigrationsManagerController.cs" />
+    <Compile Include="Controllers\OrderDetailsController.cs" />
+    <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Migrations\201803120846216_addtitle.cs" />
     <Compile Include="Migrations\201803120846216_addtitle.Designer.cs">
       <DependentUpon>201803120846216_addtitle.cs</DependentUpon>
@@ -249,10 +255,6 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AccountManageController.cs" />
     <Compile Include="Controllers\BaseCodesController.cs" />
-    <Compile Include="Controllers\ButtonAttribute.cs" />
-    <Compile Include="Controllers\CategoriesController.cs" />
-    <Compile Include="Controllers\CodeItemsController.cs" />
-    <Compile Include="Controllers\CompaniesController.cs" />
     <Compile Include="Controllers\DataTableImportMappingsController.cs" />
     <Compile Include="Controllers\DepartmentsController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
@@ -265,8 +267,8 @@
     <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Controllers\MiscController.cs" />
     <Compile Include="Controllers\NotificationsController.cs" />
-    <Compile Include="Controllers\OrderDetailsController.cs" />
-    <Compile Include="Controllers\OrdersController.cs" />
+    <Compile Include="Controllers\OrderDetailsController1.cs" />
+    <Compile Include="Controllers\OrdersController1.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\RoleMenusController.cs" />
     <Compile Include="Controllers\WorksController.cs" />
@@ -2819,13 +2821,14 @@
     <Content Include="Views\Works\Edit.cshtml" />
     <Content Include="Views\Works\EditForm.cshtml" />
     <Content Include="Views\Works\_PopupDetailFormView.cshtml" />
-    <Content Include="Views\Orders\Index.cshtml" />
     <Content Include="Views\Orders\Create.cshtml" />
     <Content Include="Views\Orders\Edit.cshtml" />
     <Content Include="Views\Orders\EditForm.cshtml" />
-    <Content Include="Views\Orders\_PopupDetailFormView.cshtml" />
-    <Content Include="Views\Orders\_OrderDetailEditForm.cshtml" />
     <Content Include="Views\Shared\_StylesheetsPartial.cshtml" />
+    <Content Include="Views\Orders\_OrderDetailEditForm.cshtml" />
+    <Content Include="Views\Orders\Index.cshtml" />
+    <Content Include="Views\Orders\_PopupDetailFormView.cshtml" />
+    <Content Include="Views\OrderDetails\_PopupDetailFormView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

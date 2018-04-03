@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<WebApp.Models.Order>
 @{
-	ViewBag.Title = "订单管理";
+	ViewBag.Title = "订单信息";
 }
 <!-- MAIN CONTENT -->
 <div id="content">
@@ -15,7 +15,7 @@
                 路径
                 <span>
                     >
-                  订单管理
+                  订单信息
                 </span>
             </h1>
         </div>
@@ -47,7 +47,7 @@
                     -->
                     <header>
                         <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-                        <h2>订单管理</h2>
+                        <h2>订单信息</h2>
                     </header>
 
                      <!-- widget div-->
@@ -71,80 +71,48 @@
                             </div>
 	 <!--begin datagrid-content -->
 	 <div class="table-responsive">
-		<table id="orders_datagrid" class="easyui-datagrid"   style="width:auto;height:auto"
-				   data-options="
-                        rownumbers:true,
-				        checkOnSelect:true,
-				        selectOnCheck:true,
-				        idField:'Id',
-				        sortName:'Id',
-				        sortOrder:'desc',
-				        remoteFilter: true,
-				        singleSelect: true,
-				        toolbar: '#orders_toolbar',
-				        url: '/Orders/GetData',
-				        method: 'get',
-				        onClickCell: onClickCell,
-				        pagination: true,
-                        striped:true
-				   ">
-				<thead>
-					<tr>
-						@*<th data-options="field:'ck',checkbox:true"></th>*@
-                        <th data-options="field:'_operate1',width:100 ,sortable:false,resizable:true,formatter:showdetailsformatter ">操作</th>
-					@*<th data-options="field:'Id',width:80 ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Id)</th>*@
-				
-					 <th data-options="field:'Customer' ,width:140,editor:{type:'textbox',options:{prompt:'客户' ,required:true ,validType:'length[0,20]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Customer)</th>
-		
-				
-					 <th data-options="field:'ShippingAddress' ,width:140,editor:{type:'textbox',options:{prompt:'发货地址' ,required:true ,validType:'length[0,50]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.ShippingAddress)</th>
-		
-				
-					 <th data-options="field:'OrderDate',width:160,align:'right',editor:{type:'datebox',options:{prompt:'订单日期' ,required:true    }  },sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.OrderDate)</th>
-		
-			   
-						</tr>
-				</thead>
-				</table>
+		<table id="orders_datagrid">  
+		</table>
 				<div id="orders_toolbar" style="height:auto">
                             @{
                             //TODO: enable authorization 
                             }
 							@*@if (Html.IsAuthorize("Create"))
 							{
-								<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-plus',plain:true" onclick="append()">新增</a>
+								<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-plus fa-fw',plain:true" onclick="append()">新增</a>
 							}
 							@if (Html.IsAuthorize("Delete"))
 							{
-							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-trash-o',plain:true" onclick="removeit()">删除</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-trash-o fa-fw',plain:true" onclick="removeit()">删除</a>
 							}
 							@if (Html.IsAuthorize("Edit"))
 							{
-								<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-floppy-o',plain:true" onclick="accept()">保存</a>
-								<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-undo',plain:true" onclick="reject()">取消</a>
+								<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-floppy-o fa-fw',plain:true" onclick="accept()">保存</a>
+								<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-undo fa-fw',plain:true" onclick="reject()">取消</a>
 							}
-							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-refresh',plain:true" onclick="reload()">刷新</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-refresh fa-fw',plain:true" onclick="reload()">刷新</a>
 							@if (Html.IsAuthorize("Import"))
 							{
-								 <a href="javascript:void(0)" class="easyui-menubutton" data-options="menu:'#importmenu',iconCls:'fa fa-upload' " onclick="importexcel()">导入数据</a>
+								 <a href="javascript:void(0)" class="easyui-menubutton" data-options="menu:'#importmenu',iconCls:'fa fa-upload fa-fw' " onclick="importexcel()">导入数据</a>
                                        <div id="importmenu" style="width:150px;">
-                                                <div data-options="iconCls:'fa fa-file-excel-o'" onclick="importexcel()">导入数据</div>
-                                                <div data-options="iconCls:'fa fa-cloud-download '" onclick="downloadtemplate()" >下载用于导入的模板</div>
+                                                <div data-options="iconCls:'fa fa-file-excel-o fa-fw'" onclick="importexcel()">导入数据</div>
+                                                <div data-options="iconCls:'fa fa-cloud-download fa-fw'" onclick="downloadtemplate()" >下载用于导入的模板</div>
                                         </div>
-                                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-file-excel-o',plain:true" onclick="exportexcel()">导出至Excel</a>
+                                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-cloud-download fa-fw',plain:true" onclick="exportexcel()">导出至Excel</a>
 							}*@
-						    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-plus',plain:true" onclick="append()">新增</a>
-							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-trash-o',plain:true" onclick="removeit()">删除</a>
-							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-floppy-o',plain:true" onclick="accept()">保存</a>
-							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-undo',plain:true" onclick="reject()">取消</a>
-							<a href="javascript:void(0)" class="easyui-menubutton" data-options="menu:'#importmenu',iconCls:'fa fa-upload' " onclick="importexcel()">导入数据</a>
+						    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-plus fa-fw',plain:true" onclick="append()">新增</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-trash-o fa-fw',plain:true" onclick="removeit()">删除</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-floppy-o fa-fw',plain:true" onclick="accept()">保存</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-undo fa-fw',plain:true" onclick="reject()">取消</a>
+							<a href="javascript:void(0)" class="easyui-menubutton" data-options="menu:'#importmenu',iconCls:'fa fa-upload fa-fw' " onclick="importexcel()">导入数据</a>
                                        <div id="importmenu" style="width:150px;">
-                                                <div data-options="iconCls:'fa fa-file-excel-o'" onclick="importexcel()">导入数据</div>
-                                                <div data-options="iconCls:'fa fa-cloud-download '" onclick="downloadtemplate()" >下载用于导入的模板</div>
+                                                <div data-options="iconCls:'fa fa-file-excel-o fa-fw'" onclick="importexcel()">导入数据</div>
+                                                <div data-options="iconCls:'fa fa-cloud-download fa-fw'" onclick="downloadtemplate()" >下载用于导入的模板</div>
                                         </div>
-                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-file-excel-o',plain:true" onclick="exportexcel()">导出至Excel</a>
-							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-refresh',plain:true" onclick="reload()">刷新</a>
-				</div>
+                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-cloud-download fa-fw',plain:true" onclick="exportexcel()">导出至Excel</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-refresh fa-fw',plain:true" onclick="reload()">刷新</a>
+				            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-question-circle-o fa-fw',plain:true" onclick="dohelp()">帮助</a>
+                </div>
 		
 		
 		</div>
@@ -181,6 +149,8 @@
 @section Scripts {
 	<script type="text/javascript">
         var entityname = "Order";
+
+
 			        //下载Excel导入模板
                     function downloadtemplate() {
                             //TODO: 修改下载模板的路径
@@ -208,10 +178,65 @@
 
 						})
 					}
+        //显示帮助信息
+        function dohelp() {
+
+        }
 		 //datagrid 增删改查操作
-		 var $dg = $("#orders_datagrid");
+          var $dg = $("#orders_datagrid").datagrid({
+                        rownumbers:true,
+				        checkOnSelect:true,
+				        selectOnCheck:true,
+				        idField:'Id',
+				        sortName:'Id',
+				        sortOrder:'desc',
+				        remoteFilter: true,
+				        singleSelect: true,
+				        toolbar: '#orders_toolbar',
+				        url: '/Orders/GetData',
+				        method: 'get',
+				        onClickCell: onClickCell,
+				        pagination: true,
+                        striped:true,   
+                         columns: [[
+                         /*{ field: 'ck', checkbox: true },*/
+                         { field: '_operate1', title:'操作', width: 120, sortable: false, resizable: true, formatter: showdetailsformatter},
+                        					/*{field:'Id',width:80 ,sortable:true,resizable:true }*/
+									 {field:'Customer', 
+              title:'@Html.DisplayNameFor(model => model.Customer)', 
+              width:140,
+              editor:{
+                      type:'textbox',
+                      options:{ prompt:'客户',required:true ,validType:'length[0,20]'  }  
+                     },
+              sortable:true,
+              resizable:true },
+											 {field:'ShippingAddress', 
+              title:'@Html.DisplayNameFor(model => model.ShippingAddress)', 
+              width:140,
+              editor:{
+                      type:'textbox',
+                      options:{ prompt:'发货地址',required:true ,validType:'length[0,50]'  }  
+                     },
+              sortable:true,
+              resizable:true },
+											 {field:'OrderDate', 
+              title:'@Html.DisplayNameFor(model => model.OrderDate)', 
+              width:160, 
+              align:'right', 
+              editor:{
+                      type:'datebox',
+                      options:{prompt:'订单日期',required:true}  
+                      },
+              sortable:true, 
+              resizable:true, 
+              formatter:dateformatter },
+				
+                         ]]
+          
+          });
 		 var editIndex = undefined;
-		function reload() {
+		 function reload() {
 				 if (endEditing()) {
 						$dg.datagrid("reload");
 				 }
@@ -238,11 +263,12 @@
 				if (endEditing()) {
 					$dg.datagrid("selectRow", index)
 							.datagrid("beginEdit", index);
+                    editIndex = index;
 					var ed = $dg.datagrid("getEditor", { index: index, field: field });
 					if (ed) {
 						($(ed.target).data("textbox") ? $(ed.target).textbox("textbox") : $(ed.target)).focus();
 					}
-					editIndex = index;
+					
 				} else {
 					$dg.datagrid("selectRow", editIndex);
 				}
