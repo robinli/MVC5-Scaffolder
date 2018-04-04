@@ -243,6 +243,7 @@ bool isControlHtmlAttributesSupported = MvcVersion >= requiredMvcVersion;
                 submitHandler: function (form) {
                     //调用保存方法
                       saveitem();
+                      return false;
                     //$(form).ajaxSubmit({
                     //    success: function () {
                     //        console.log('ajaxSubmit success');

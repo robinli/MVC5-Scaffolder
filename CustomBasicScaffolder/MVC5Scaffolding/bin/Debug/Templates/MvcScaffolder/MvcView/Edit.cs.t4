@@ -166,7 +166,7 @@ bool isControlHtmlAttributesSupported = MvcVersion >= requiredMvcVersion;
                 var token = $('input[name="__RequestVerificationToken"]', $editform).val();
                  $.ajax({
                     type: "POST",
-                    url: "/<#= ControllerRootName #>/Create",
+                    url: "/<#= ControllerRootName #>/Edit",
                     data: {
                         __RequestVerificationToken: token,
                         <#= ModelTypeName.ToLower() #>:<#= ModelTypeName.ToLower() #>
@@ -263,6 +263,7 @@ bool isControlHtmlAttributesSupported = MvcVersion >= requiredMvcVersion;
                 submitHandler: function (form) {
                     //调用保存方法
                       saveitem();
+                      return false;
                     //$(form).ajaxSubmit({
                     //    success: function () {
                     //        console.log('ajaxSubmit success');

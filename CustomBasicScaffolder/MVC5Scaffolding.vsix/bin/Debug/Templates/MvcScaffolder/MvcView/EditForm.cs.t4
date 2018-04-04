@@ -476,7 +476,7 @@
 						#>
 							    {field:'<#= foreignKeyPropertyName  #>',
                                  title:'<#= GetDisplayName(subproperty.PropertyName) #>',
-                                 width:100,
+                                 width:160,
 								 formatter:function(value,row){
 												return row.<#= GetRelatedDisplayNameExpression(foreignKeyPropertyName,submetadata)  #>;
 											},
@@ -509,7 +509,7 @@
 						    #>
 							{ field:'<#= subproperty.PropertyName #>',
                                   title:'<#= GetDisplayName(subproperty.PropertyName) #>',
-                                  width:100,
+                                  width:120,
                                   align:'right',
                                   editor:{ 
                                         type:'combobox',
@@ -524,7 +524,7 @@
 							<#   } else {  #>
 						     { field:'<#=  subproperty.PropertyName  #>',
                                    title:'<#= GetDisplayName(subproperty.PropertyName) #>',
-                                   width:100,
+                                   width:120,
                                    align:'right',
                                    editor:{
                                            type:'numberbox',

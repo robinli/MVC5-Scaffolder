@@ -9734,8 +9734,10 @@ textarea.clone {
 .smart-form *,
 .smart-form *:after,
 .smart-form *:before {
-    -moz-box-sizing: content-box;
-    box-sizing: content-box;
+    /*-moz-box-sizing: content-box;
+    box-sizing: content-box;*/
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
     margin: 0;
     /*padding: 0;*/
 }
