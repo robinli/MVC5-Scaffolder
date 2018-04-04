@@ -569,7 +569,7 @@
 	}
 	function <#= detailnamevar #>_createitem() {
 		if (<#= detailnamevar #>_endEditing()) {
-			 var <#=  ModelTypeName.ToLower() #> = $dg.datagrid("getSelected");
+			 var <#=  ModelTypeName.ToLower() #> = <#= datagridvar #>.datagrid("getSelected");
 
 			<#= datagridvar #>.datagrid("appendRow", { <#= subforeignKey #>:<#=  ModelTypeName.ToLower() #>.<#= primaryKey #>   });
 			<#= detailnamevar #>editIndex = <#= datagridvar #>.datagrid("getRows").length - 1;

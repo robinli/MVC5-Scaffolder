@@ -355,7 +355,7 @@ namespace <#= Namespace #>
 		// <#= line #>
 <# } } #>
 		[HttpPost]
-		//[ValidateAntiForgeryToken]
+		[ValidateAntiForgeryToken]
 <# if (UseAsync) { #>
 		public async Task<ActionResult> <#= ViewPrefix #>Create(<#= bindAttribute #><#= ModelTypeName #> <#= ModelVariable #>)
 <# } else { #>
@@ -470,7 +470,7 @@ namespace <#= Namespace #>
 		// <#= line #>
 <# } } #>
 		[HttpPost]
-		//[ValidateAntiForgeryToken]
+		[ValidateAntiForgeryToken]
 <# if (UseAsync) { #>
 		public async Task<ActionResult> <#= ViewPrefix #>Edit(<#= bindAttribute #><#= ModelTypeName #> <#= ModelVariable #>)
 <# } else { #>

@@ -65,7 +65,8 @@ bool isControlHtmlAttributesSupported = MvcVersion >= requiredMvcVersion;
                 <!-- widget content -->
                 <div class="widget-body no-padding">
                        <form id="<#= ModelTypeName.ToLower() #>_form" class="smart-form" method="post" data-options="novalidate:true">
-                             <header>
+                            @Html.AntiForgeryToken()
+                            <header>
                                 <div class="btn-group">
                                 <button type="button" class="btn btn-default" onclick="saveitem()">
                                     <i class="fa fa-floppy-o"></i>
@@ -120,39 +121,51 @@ bool isControlHtmlAttributesSupported = MvcVersion >= requiredMvcVersion;
 @section Scripts {
      <script type="text/javascript">
 	    
+        var $editform = $('#<#= ModelTypeName.ToLower() #>_form');
         //save item
         function saveitem() {
-			   if ($("#<#= ModelTypeName.ToLower() #>_form").form("enableValidation").form("validate")) {						
-                 var item = $("#<#= ModelTypeName.ToLower() #>_form").serializeObject();
+			  if ($editform.valid()) {
+                 var <#= ModelTypeName.ToLower() #> = $("#<#= ModelTypeName.ToLower() #>_form").serializeObject();
 				  <#  if(GenerateMasterDetailRelationship  && OneToManyModelMetadata.Count >0) { 
 						var primaryKeyVar = ModelTypeName.ToLower() + primaryKey.ToLower();
 				  #>
 				  //获取明细表数据
 				  <# foreach(var item in OneToManyModelMetadata) {
-                        var boostraptablevar = "$" + item.Key.ToLower()  + "datagrid";
+                        var boostraptablevar = "$" + item.Key.ToLower()  + "dg";
 						var fieldpropertyname = item.Key;
                         var detailnamevar=item.Key.ToLower();
                   #> 
 						if (!<#= detailnamevar #>_endEditing())
 								return false;                    
                         var <#= detailnamevar #> = <#= boostraptablevar #>.datagrid("getChanges");
-						data.<#=  fieldpropertyname #> = <#= detailnamevar #> ;
+						<#= ModelTypeName.ToLower() #>.<#=  fieldpropertyname #> = <#= detailnamevar #> ;
 				  <# } #>
 				  <#
 				    }
 				  #>
-                 $.post("/<#= ControllerRootName #>/Create", item, function (response) {						
-                     //console.log(response);						
-                     if (response.success) {						
-                         $.messager.alert("提示", "保存成功！");						
-                     } else {						
-                         $.messager.alert("错误", "保存失败！" + response.err, "error");						
-                     }						
-                 }, "json").fail(function (response) {						
-                     //console.log(response);						
-                     $.messager.alert("错误", "保存失败！", "error");						
-                     //$dg.datagrid("reload");						
-                 });						
+
+                 var token = $('input[name="__RequestVerificationToken"]', $editform).val();
+                 $.ajax({
+                    type: "POST",
+                    url: "/<#= ControllerRootName #>/Create",
+                    data: {
+                        __RequestVerificationToken: token,
+                        <#= ModelTypeName.ToLower() #>:<#= ModelTypeName.ToLower() #>
+                    },
+                    dataType: 'json',
+                    contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+                })
+                .done(function (response) {
+                    if (response.success) {
+                        $.messager.alert("提示", "保存成功！");
+                    } else {
+                        $.messager.alert("错误", "保存失败！" + response.err, "error");
+                    }
+                    })
+                .fail(function (response) {
+                        $.messager.alert("错误", "保存失败！", "error");
+                    });
+                  
              }						
         }
         function cancelitem() {
@@ -172,13 +185,15 @@ bool isControlHtmlAttributesSupported = MvcVersion >= requiredMvcVersion;
      *
      */
      pageSetUp();
-      var pagefunction = function () {
-
-         
+     /********************************
+     *
+     * pagefunction() $editform 校验规则
+     *
+     */
+     var pagefunction = function () {
             var errorClass = 'invalid';
             var errorElement = 'em';
-
-            var $editform = $('#<#= ModelTypeName.ToLower() #>_form').validate({
+            $editform.validate({
                  errorClass: errorClass,
                  errorElement: errorElement,
                  highlight: function (element) {
@@ -226,11 +241,13 @@ bool isControlHtmlAttributesSupported = MvcVersion >= requiredMvcVersion;
                 <# } #>
                 },
                 submitHandler: function (form) {
-                    $(form).ajaxSubmit({
-                        success: function () {
-                            console.log('ajaxSubmit success');
-                        }
-                    });
+                    //调用保存方法
+                      saveitem();
+                    //$(form).ajaxSubmit({
+                    //    success: function () {
+                    //        console.log('ajaxSubmit success');
+                    //   }
+                    //});
                 },
                 // Do not change code below
                 errorPlacement: function (error, element) {

@@ -62,7 +62,7 @@ namespace WebApp.Models
             {
                 if (auditableEntity.State == EntityState.Added || auditableEntity.State == EntityState.Modified)
                 {
-                    auditableEntity.Entity.LastModifiedDate = currentDateTime;
+                    //auditableEntity.Entity.LastModifiedDate = currentDateTime;
                     switch (auditableEntity.State)
                     {
                         case EntityState.Added:

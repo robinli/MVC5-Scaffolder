@@ -59,7 +59,8 @@
                 <div class="widget-body no-padding ">
                     
                         <form id="order_form" class="smart-form" method="post" data-options="novalidate:true">
-                              <header>
+                              @Html.AntiForgeryToken()
+                             <header>
                             <div class="btn-group">
                                 <button type="button" class="btn btn-default" onclick="saveitem()">
                                     <i class="fa fa-floppy-o"></i>
@@ -124,31 +125,39 @@
 @section Scripts {
    
     <script type="text/javascript">
-	   
+	    var $editform = $('#order_form');
         //save item
         function saveitem() {
-            if ($('#order_form').form('enableValidation').form('validate')) {
-                var item = $('#order_form').serializeObject();
+            if ($editform.valid()) {
+                var order = $('#order_form').serializeObject();
                   				  //获取明细表数据
 				   
 						if (!orderdetails_endEditing())
 								return false;                    
-                        var orderdetails = $orderdetailsdatagrid.datagrid("getChanges");
-						item.OrderDetails = orderdetails ;
+                        var orderdetails = $orderdetailsdg.datagrid("getChanges");
+						order.OrderDetails = orderdetails ;
 				  				  
-                $.post("/Orders/Edit", item, function (response) {
-                    //console.log(response);						
+                var token = $('input[name="__RequestVerificationToken"]', $editform).val();
+                 $.ajax({
+                    type: "POST",
+                    url: "/Orders/Edit",
+                    data: {
+                        __RequestVerificationToken: token,
+                        order:order
+                    },
+                    dataType: 'json',
+                    contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+                })
+                .done(function (response) {
                     if (response.success) {
                         $.messager.alert("提示", "保存成功！");
-
                     } else {
                         $.messager.alert("错误", "保存失败！" + response.err, "error");
                     }
-                }, "json").fail(function (response) {
-                    //console.log(response);						
-                    $.messager.alert("错误", "保存失败！", "error");
-                    //$dg.datagrid("reload");						
-                });
+                    })
+                .fail(function (response) {
+                        $.messager.alert("错误", "保存失败！", "error");
+                    });
             }
         }
         function cancelitem() {
@@ -170,13 +179,15 @@
      *
      */
      pageSetUp();
-      var pagefunction = function () {
-
-         
+     /********************************
+     *
+     * pagefunction() $editform 校验规则
+     *
+     */
+     var pagefunction = function () {
             var errorClass = 'invalid';
             var errorElement = 'em';
-
-            var $editform = $('#order_form').validate({
+            $editform.validate({
                  errorClass: errorClass,
                  errorElement: errorElement,
                  highlight: function (element) {
@@ -223,11 +234,14 @@
                                                                             },
                                 },
                 submitHandler: function (form) {
-                    $(form).ajaxSubmit({
-                        success: function () {
-                            console.log('ajaxSubmit success');
-                        }
-                    });
+                    //调用保存方法
+                    saveitem();
+                    return false;
+                    //$(form).ajaxSubmit({
+                    //    success: function () {
+                    //        console.log('ajaxSubmit success');
+                    //   }
+                    //});
                 },
                 // Do not change code below
                 errorPlacement: function (error, element) {

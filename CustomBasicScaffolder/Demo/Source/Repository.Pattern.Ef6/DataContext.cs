@@ -139,19 +139,19 @@ namespace Repository.Pattern.Ef6
             {
                 if (auditableEntity.State == EntityState.Added || auditableEntity.State == EntityState.Modified)
                 {
-                    auditableEntity.Entity.LastModifiedDate = currentDateTime;
+                    //auditableEntity.Entity.LastModifiedDate = currentDateTime;
                     switch (auditableEntity.State)
                     {
                         case EntityState.Added:
                             auditableEntity.Entity.CreatedDate = currentDateTime;
-                            //auditableEntity.Entity.CreatedBy = HttpContext.Current.User.Identity.Name;
+                            //auditableEntity.Entity.CreatedBy = AppDomain.CurrentDomain.ApplicationIdentity.FullName;
                             break;
                         case EntityState.Modified:
                           
                             auditableEntity.Property("CreatedDate").IsModified = false;
                             auditableEntity.Property("CreatedBy").IsModified = false;
                             auditableEntity.Entity.LastModifiedDate = currentDateTime;
-                            //auditableEntity.Entity.LastModifiedBy = HttpContext.Current.User.Identity.Name;
+                            //auditableEntity.Entity.LastModifiedBy = AppDomain.CurrentDomain.ApplicationIdentity.FullName;
                             //if (auditableEntity.Property(p => p.Created).IsModified || auditableEntity.Property(p => p.CreatedBy).IsModified)
                             //{
                             //    throw new DbEntityValidationException(string.Format("Attempt to change created audit trails on a modified {0}", auditableEntity.Entity.GetType().FullName));
