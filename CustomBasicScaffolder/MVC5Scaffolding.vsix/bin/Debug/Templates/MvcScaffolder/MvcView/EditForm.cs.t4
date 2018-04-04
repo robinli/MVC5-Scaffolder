@@ -108,11 +108,7 @@
              <section class="col col-<#= col #>">
             <label class="label">@Html.DisplayNameFor(model => model.<#= property.PropertyName #>) </label>
             <label class="input">
-			<input id="@Html.IdFor(model => model.<#= property.PropertyName #>)"
-			       name="@Html.NameFor(model => model.<#= property.PropertyName #>)"
-                   placeholder="@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)" 
-				   value="@Html.ValueFor(model => model.<#= property.PropertyName #>)"
-				     />
+			      @Html.DropDownListFor(model => model.<#= property.PropertyName #>, ViewBag.<#= property.PropertyName #> as List<SelectListItem>, htmlAttributes: new { @class = "select2" }) 
                  <b class="tooltip tooltip-bottom-right"><#= prompt  #></b>
 			    </label>
             </section>

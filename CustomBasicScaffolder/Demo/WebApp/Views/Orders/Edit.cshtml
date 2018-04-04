@@ -1,5 +1,5 @@
 ﻿@model WebApp.Models.Order
-@{  ViewBag.Title = "Order | Edit";} 
+@{  ViewBag.Title = "订单信息 | Edit";} 
 <!-- MAIN CONTENT -->
 <div id="content">
      <!-- quick navigation bar -->
@@ -13,7 +13,7 @@
                 路径
                 <span>
                     >
-                    Order
+                    订单信息
                 </span>
             </h1>
         </div>
@@ -41,7 +41,7 @@
             -->
             <header>
                 <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
-                <h2> Order </h2>
+                <h2> 订单信息 </h2>
 
             </header>
 
@@ -235,8 +235,8 @@
                                 },
                 submitHandler: function (form) {
                     //调用保存方法
-                    saveitem();
-                    return false;
+                      saveitem();
+                      return false;
                     //$(form).ajaxSubmit({
                     //    success: function () {
                     //        console.log('ajaxSubmit success');

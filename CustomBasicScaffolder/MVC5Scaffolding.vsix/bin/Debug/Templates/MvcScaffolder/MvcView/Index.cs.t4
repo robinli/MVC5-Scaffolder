@@ -254,6 +254,7 @@ foreach (PropertyMetadata property in properties) {
 					 type:'combobox',
 					 options:{
 								prompt:'<#= prompt #>' ,
+                                mode: 'remote',
 								valueField:'<#= relatedModel.PrimaryKeyNames[0]  #>',
 								textField:'<#= relatedModel.DisplayPropertyName   #>',
 								method:'get',

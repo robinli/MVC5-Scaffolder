@@ -55,8 +55,8 @@
     @Scripts.Render("~/plugins/easyuipluginsjs")
 </head>
 <body class="@ViewBag.PageClass @Settings.CurrentTheme">
-   
 
+    @{ Html.RenderPartial("_Scripts", RenderSection("pagespecific", false)); }
     @{ Html.RenderPartial("_Header", RenderSection("topright", false)); }
     @*@if (Request.IsAuthenticated)
         {
@@ -75,7 +75,7 @@
     }
 
     @{Html.RenderPartialIf("_ChangePasswordPartial", Request.IsAuthenticated); }
-    @{ Html.RenderPartial("_Scripts", RenderSection("pagespecific", false)); }
+
     @RenderSection("scripts", required: false)
 </body>
 </html>
