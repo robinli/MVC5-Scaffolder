@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<WebApp.Models.OrderDetail>
 @{
-	ViewBag.Title = "订单明细信息";
+	ViewBag.Title = "订单明细";
 }
 <!-- MAIN CONTENT -->
 <div id="content">
@@ -15,7 +15,7 @@
                 路径
                 <span>
                     >
-                  订单明细信息
+                  订单明细
                 </span>
             </h1>
         </div>
@@ -47,7 +47,7 @@
                     -->
                     <header>
                         <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-                        <h2>订单明细信息</h2>
+                        <h2>订单明细</h2>
                     </header>
 
                      <!-- widget div-->
@@ -212,9 +212,9 @@
 						},
 			 editor:{
 					 type:'combobox',
-                 options: {
+					 options:{
+								prompt:'商品' ,
                                 mode: 'remote',
-								prompt:'产品' ,
 								valueField:'Id',
 								textField:'Name',
 								method:'get',
@@ -263,7 +263,8 @@
 			 editor:{
 					 type:'combobox',
 					 options:{
-								prompt:'订单' ,
+								prompt:'订单号' ,
+                                mode: 'remote',
 								valueField:'Id',
 								textField:'Customer',
 								method:'get',
@@ -400,7 +401,6 @@
 					  type: "numberbox",
 					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
 				  },
-		   				
 		   				{
 					  field: "Qty",
 					  type: "numberbox",
@@ -413,11 +413,6 @@
 				  },
 		   				{
 					  field: "Amount",
-					  type: "numberbox",
-					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
-				  },
-		   				{
-					  field: "OrderId",
 					  type: "numberbox",
 					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
 				  },
