@@ -38,16 +38,16 @@ else
 <#@ parameter type="System.Collections.Generic.Dictionary<string, string>" name="OneToManyAnonymousObjText" #>
 <#@ parameter type="System.String" name ="SelectLambdaText" #>
 <#@ parameter type="System.Boolean" name ="GenerateMasterDetailRelationship" #>
-// <copyright file="<#= ControllerName #>.cs" company="neozhu/MVC5-Scaffolder">
-// Copyright (c) <#= DateTime.Now.Year #> All Rights Reserved
-// </copyright>
-// <author>neo.zhu</author>
-// <date><#= DateTime.Now.ToString("G") #> </date>
 // <summary>
-// Create By Custom MVC5 Scaffolder for Visual Studio
+// <date> <#= DateTime.Now.ToString("G") #> </date>
+// Create By SmartCode MVC5 Scaffolder for Visual Studio
 // TODO: RegisterType UnityConfig.cs
 // container.RegisterType<IRepositoryAsync<<#=ModelTypeName #>>, Repository<<#=ModelTypeName #>>>();
 // container.RegisterType<I<#=ModelTypeName #>Service, <#=ModelTypeName #>Service>();
+//
+// Copyright (c) 2012-2018 neo.zhu
+// Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php)
+// and GPL (http://www.opensource.org/licenses/gpl-license.php) licenses.
 // </summary>
 using System;
 using Newtonsoft.Json;
