@@ -1,205 +1,235 @@
 ﻿﻿@model WebApp.Models.Work
  <!-- 输出form表单界面 -->
- <table class="table table-bordered">
-     <caption>
-        @{
-        //TODO: fix edit form commonent!
-        }
-        <div class="alert alert-warning no-margin fade in">
-            <button class="close" data-dismiss="alert">
-                ×
-            </button>
-            <i class="fa-fw fa fa-info"></i>
-            A combined table effect with all classes mentioned above added to
-        </div>
-     </caption>
-	    <tr>
-      	   <td class="control-label">   @Html.DisplayNameFor(model => model.Id)  </td>
-	   <td> 
-			   			   			<input id="@Html.IdFor(model => model.Id)" 
+<fieldset>
+    <div class="row">
+        	    			<section class="col col-6">
+           <label class="label">@Html.DisplayNameFor(model => model.Id) </label>
+           <label class="input">
+            <input id="@Html.IdFor(model => model.Id)" 
                    name="@Html.NameFor(model => model.Id)" 
+                   placeholder="@Html.DisplayNameFor(model => model.Id)" 
                    value="@Html.ValueFor(model => model.Id)"
                    tabindex="0"   
-                   class="easyui-numberbox" type="text" 
-                   data-options="prompt:'Id',
-                                 readonly:true,
-                                 width:300,
-                                 label:'',required:true ,precision:0" />
-			  				   </td>
-	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.Name)  </td>
-	   <td> 
-			   			  			<input id="@Html.IdFor(model => model.Name)" 
+                   type="text" 
+                   />
+                 <b class="tooltip tooltip-bottom-right">Id</b>
+			    </label>
+            </section>
+              				 
+	  
+	    
+	        			              <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.Name) </label>
+            <label class="input">
+			<input id="@Html.IdFor(model => model.Name)" 
 				   name="@Html.NameFor(model => model.Name)" 
+                   placeholder="@Html.DisplayNameFor(model => model.Name)" 
 				   value="@Html.ValueFor(model => model.Name)"
 				   tabindex="1" 
-				   class="easyui-textbox" 
-				   type="text" 
-				   data-options="prompt:'Name',
-								 label:'',
-                                 width:300,
-								 required:false ,validType:'length[0,50]'" />
-			  				   </td>
-	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.Status)  </td>
-	   <td> 
-			   			  			<input id="@Html.IdFor(model => model.Status)" 
+				    type="text" 
+				   />
+             <b class="tooltip tooltip-bottom-right">Name</b>
+			    </label>
+            </section>
+			  				 
+	  
+	    
+	        			              <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.Status) </label>
+            <label class="input">
+			<input id="@Html.IdFor(model => model.Status)" 
 				   name="@Html.NameFor(model => model.Status)" 
+                   placeholder="@Html.DisplayNameFor(model => model.Status)" 
 				   value="@Html.ValueFor(model => model.Status)"
 				   tabindex="2" 
-				   class="easyui-textbox" 
-				   type="text" 
-				   data-options="prompt:'Status',
-								 label:'',
-                                 width:300,
-								 required:false ,validType:'length[0,50]'" />
-			  				   </td>
-	   	   </tr>
-	   	    <tr>
-      	   <td class="control-label">   @Html.DisplayNameFor(model => model.StartDate)  </td>
-	   <td> 
-			   			  			<input id="@Html.IdFor(model => model.StartDate)" 
+				    type="text" 
+				   />
+             <b class="tooltip tooltip-bottom-right">Status</b>
+			    </label>
+            </section>
+			  				 
+	  
+	    
+	        			              <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.StartDate) </label>
+            <label class="input">
+            <i class="icon-append fa fa-calendar"></i>
+			<input id="@Html.IdFor(model => model.StartDate)" 
 			       name="@Html.NameFor(model => model.StartDate)" 
+                   placeholder="@Html.DisplayNameFor(model => model.StartDate)" 
 				   tabindex="3" 
-				   class="easyui-datebox" 
+				   class="datepicker" data-dateformat="dd/mm/yy"
 				   type="text" 
 				   value="@Html.ValueFor(model => model.StartDate)"
-				   data-options="prompt:'StartDate',
-								 label:'',
-                                 width:300,
-								 required:true,
-								 formatter:dateformatter" />
-			  				   </td>
-	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.EndDate)  </td>
-	   <td> 
-			   			  			<input id="@Html.IdFor(model => model.EndDate)" 
+				    />
+             <b class="tooltip tooltip-bottom-right">StartDate</b>
+			    </label>
+            </section>
+			  				 
+	  
+	    
+	        			              <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.EndDate) </label>
+            <label class="input">
+            <i class="icon-append fa fa-calendar"></i>
+			<input id="@Html.IdFor(model => model.EndDate)" 
 			       name="@Html.NameFor(model => model.EndDate)" 
+                   placeholder="@Html.DisplayNameFor(model => model.EndDate)" 
 				   tabindex="4" 
-				   class="easyui-datebox" 
+				   class="datepicker" data-dateformat="dd/mm/yy"
 				   type="text" 
 				   value="@Html.ValueFor(model => model.EndDate)"
-				   data-options="prompt:'EndDate',
-								 label:'',
-                                 width:300,
-								 required:true,
-								 formatter:dateformatter" />
-			  				   </td>
-	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.Enableed)  </td>
-	   <td> 
-			   			  			   <label class="checkbox">
+				    />
+             <b class="tooltip tooltip-bottom-right">EndDate</b>
+			    </label>
+            </section>
+			  				 
+	  
+	    
+	        			  			  <section class="col col-6">
+              <label class="label">@Html.DisplayNameFor(model => model.Enableed) </label>
+              <label class="checkbox">
                  <input id="@Html.IdFor(model => model.Enableed)"
                        name="@Html.NameFor(model => model.Enableed)"
                        value="true" @(Model.Enableed ? "checked=\"checked\"" : "")
                        tabindex="6"
                        type="checkbox" />
                 <i></i>
+                <b class="tooltip tooltip-bottom-right">Enableed</b>
             </label>
-              				   </td>
-	   	   </tr>
-	   	    <tr>
-      	   <td class="control-label">   @Html.DisplayNameFor(model => model.Hour)  </td>
-	   <td> 
-			   			  			<input id="@Html.IdFor(model => model.Hour)"
+            </section>
+              				 
+	  
+	    
+	        			  			<section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.Hour) </label>
+            <label class="input">
+            <input id="@Html.IdFor(model => model.Hour)"
 				   name="@Html.NameFor(model => model.Hour)" 
+                   placeholder="@Html.DisplayNameFor(model => model.Hour)" 
 				   value="@Html.ValueFor(model => model.Hour)"
 				   tabindex="6" 
-				   class="easyui-numberbox" 
 				   type="text" 
-				   data-options="prompt:'Hour',
-								 label:'',
-                                 width:300,
-								 required:true ,precision:0" />
-              				   </td>
-	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.Priority)  </td>
-	   <td> 
-			   			  			<input id="@Html.IdFor(model => model.Priority)"
+				   />
+                 <b class="tooltip tooltip-bottom-right">Hour</b>
+			    </label>
+            </section>
+              				 
+	  
+	    
+	        			  			<section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.Priority) </label>
+            <label class="input">
+            <input id="@Html.IdFor(model => model.Priority)"
 				   name="@Html.NameFor(model => model.Priority)" 
+                   placeholder="@Html.DisplayNameFor(model => model.Priority)" 
 				   value="@Html.ValueFor(model => model.Priority)"
 				   tabindex="7" 
-				   class="easyui-numberbox" 
 				   type="text" 
-				   data-options="prompt:'Priority',
-								 label:'',
-                                 width:300,
-								 required:true ,precision:0" />
-              				   </td>
-	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.Score)  </td>
-	   <td> 
-			   			  			<input id="@Html.IdFor(model => model.Score)"
+				   />
+                 <b class="tooltip tooltip-bottom-right">Priority</b>
+			    </label>
+            </section>
+              				 
+	  
+	    
+	        			  			<section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.Score) </label>
+            <label class="input">
+            <input id="@Html.IdFor(model => model.Score)"
 				   name="@Html.NameFor(model => model.Score)" 
+                   placeholder="@Html.DisplayNameFor(model => model.Score)" 
 				   value="@Html.ValueFor(model => model.Score)"
 				   tabindex="8" 
-				   class="easyui-numberbox" 
 				   type="text" 
-				   data-options="prompt:'Score',
-								 label:'',
-                                 width:300,
-								 required:true ,precision:2" />
-              				   </td>
-	   	   </tr>
-	   	    <tr>
-      	   <td class="control-label">   @Html.DisplayNameFor(model => model.CreatedDate)  </td>
-	   <td> 
-			   			  			<input id="@Html.IdFor(model => model.CreatedDate)" 
+				   />
+                 <b class="tooltip tooltip-bottom-right">Score</b>
+			    </label>
+            </section>
+              				 
+	  
+	    
+	        			              <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.CreatedDate) </label>
+            <label class="input">
+            <i class="icon-append fa fa-calendar"></i>
+			<input id="@Html.IdFor(model => model.CreatedDate)" 
 			       name="@Html.NameFor(model => model.CreatedDate)" 
+                   placeholder="@Html.DisplayNameFor(model => model.CreatedDate)" 
 				   tabindex="9" 
-				   class="easyui-datebox" 
+				   class="datepicker" data-dateformat="dd/mm/yy"
 				   type="text" 
 				   value="@Html.ValueFor(model => model.CreatedDate)"
-				   data-options="prompt:'创建时间',
-								 label:'',
-                                 width:300,
-								 required:false,
-								 formatter:dateformatter" />
-			  				   </td>
-	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.CreatedBy)  </td>
-	   <td> 
-			   			  			<input id="@Html.IdFor(model => model.CreatedBy)" 
+				    />
+             <b class="tooltip tooltip-bottom-right">创建时间</b>
+			    </label>
+            </section>
+			  				 
+	  
+	    
+	        			              <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.CreatedBy) </label>
+            <label class="input">
+			<input id="@Html.IdFor(model => model.CreatedBy)" 
 				   name="@Html.NameFor(model => model.CreatedBy)" 
+                   placeholder="@Html.DisplayNameFor(model => model.CreatedBy)" 
 				   value="@Html.ValueFor(model => model.CreatedBy)"
 				   tabindex="10" 
-				   class="easyui-textbox" 
-				   type="text" 
-				   data-options="prompt:'创建用户',
-								 label:'',
-                                 width:300,
-								 required:false ,validType:'length[0,20]'" />
-			  				   </td>
-	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.LastModifiedDate)  </td>
-	   <td> 
-			   			  			<input id="@Html.IdFor(model => model.LastModifiedDate)" 
+				    type="text" 
+				   />
+             <b class="tooltip tooltip-bottom-right">创建用户</b>
+			    </label>
+            </section>
+			  				 
+	  
+	    
+	        			              <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.LastModifiedDate) </label>
+            <label class="input">
+            <i class="icon-append fa fa-calendar"></i>
+			<input id="@Html.IdFor(model => model.LastModifiedDate)" 
 			       name="@Html.NameFor(model => model.LastModifiedDate)" 
+                   placeholder="@Html.DisplayNameFor(model => model.LastModifiedDate)" 
 				   tabindex="11" 
-				   class="easyui-datebox" 
+				   class="datepicker" data-dateformat="dd/mm/yy"
 				   type="text" 
 				   value="@Html.ValueFor(model => model.LastModifiedDate)"
-				   data-options="prompt:'最后更新时间',
-								 label:'',
-                                 width:300,
-								 required:false,
-								 formatter:dateformatter" />
-			  				   </td>
-	   	   </tr>
-	   	    <tr>
-      	   <td class="control-label">   @Html.DisplayNameFor(model => model.LastModifiedBy)  </td>
-	   <td> 
-			   			  			<input id="@Html.IdFor(model => model.LastModifiedBy)" 
+				    />
+             <b class="tooltip tooltip-bottom-right">最后更新时间</b>
+			    </label>
+            </section>
+			  				 
+	  
+	    
+	        			              <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.LastModifiedBy) </label>
+            <label class="input">
+			<input id="@Html.IdFor(model => model.LastModifiedBy)" 
 				   name="@Html.NameFor(model => model.LastModifiedBy)" 
+                   placeholder="@Html.DisplayNameFor(model => model.LastModifiedBy)" 
 				   value="@Html.ValueFor(model => model.LastModifiedBy)"
 				   tabindex="12" 
-				   class="easyui-textbox" 
-				   type="text" 
-				   data-options="prompt:'最后更新用户',
-								 label:'',
-                                 width:300,
-								 required:false ,validType:'length[0,20]'" />
-			  				   </td>
-	   	    		<td></td> <td></td>
-			<td></td> <td></td>
-		     </tr>
-	    <tfoot>
-        <tr>
-        <tr>
-    </tfoot>
-</table>
-  <!--输出form表单界面-->
+				    type="text" 
+				   />
+             <b class="tooltip tooltip-bottom-right">最后更新用户</b>
+			    </label>
+            </section>
+			  				 
+	  
+	    
+	    </div>
+</fieldset>
+
 <!--========================================================================================-->
  
+
+
+ <script type="text/javascript">
+   var id=@Model.Id;
+   
+
+      
+  
+
+ </script>
+

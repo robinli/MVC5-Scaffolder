@@ -38,17 +38,18 @@ else
 <#@ parameter type="System.Collections.Generic.Dictionary<string, string>" name="OneToManyAnonymousObjText" #>
 <#@ parameter type="System.String" name ="SelectLambdaText" #>
 <#@ parameter type="System.Boolean" name ="GenerateMasterDetailRelationship" #>
-// <summary>
-// <date> <#= DateTime.Now.ToString("G") #> </date>
-// Create By SmartCode MVC5 Scaffolder for Visual Studio
-// TODO: RegisterType UnityConfig.cs
-// container.RegisterType<IRepositoryAsync<<#=ModelTypeName #>>, Repository<<#=ModelTypeName #>>>();
-// container.RegisterType<I<#=ModelTypeName #>Service, <#=ModelTypeName #>Service>();
-//
-// Copyright (c) 2012-2018 neo.zhu
-// Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php)
-// and GPL (http://www.opensource.org/licenses/gpl-license.php) licenses.
-// </summary>
+/// <summary>
+/// Provides functionality to the /<#= ModelTypeName #>/ route.
+/// <date> <#= DateTime.Now.ToString("G") #> </date>
+/// Create By SmartCode MVC5 Scaffolder for Visual Studio
+/// TODO: RegisterType UnityConfig.cs
+/// container.RegisterType<IRepositoryAsync<<#=ModelTypeName #>>, Repository<<#=ModelTypeName #>>>();
+/// container.RegisterType<I<#=ModelTypeName #>Service, <#=ModelTypeName #>Service>();
+///
+/// Copyright (c) 2012-2018 neo.zhu
+/// Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php)
+/// and GPL (http://www.opensource.org/licenses/gpl-license.php) licenses.
+/// </summary>
 using System;
 using Newtonsoft.Json;
 using System.Collections.Generic;

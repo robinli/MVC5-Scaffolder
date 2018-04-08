@@ -228,9 +228,11 @@
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\CodeItemsController.cs" />
     <Compile Include="Controllers\CompaniesController.cs" />
+    <Compile Include="Controllers\DepartmentsController.cs" />
     <Compile Include="Controllers\EFMigrationsManagerController.cs" />
     <Compile Include="Controllers\OrderDetailsController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
+    <Compile Include="Controllers\WorksController.cs" />
     <Compile Include="Migrations\201803120846216_addtitle.cs" />
     <Compile Include="Migrations\201803120846216_addtitle.Designer.cs">
       <DependentUpon>201803120846216_addtitle.cs</DependentUpon>
@@ -260,7 +262,6 @@
     <Compile Include="Controllers\AccountManageController.cs" />
     <Compile Include="Controllers\BaseCodesController.cs" />
     <Compile Include="Controllers\DataTableImportMappingsController.cs" />
-    <Compile Include="Controllers\DepartmentsController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\FeaturesController.cs" />
     <Compile Include="Controllers\FileUploadController.cs" />
@@ -274,7 +275,6 @@
     <Compile Include="Controllers\OrdersController1.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\RoleMenusController.cs" />
-    <Compile Include="Controllers\WorksController.cs" />
     <Compile Include="App_Helpers\AttributeHelper.cs" />
     <Compile Include="App_Helpers\ExcelHelper.cs" />
     <Compile Include="App_Helpers\filterRule.cs" />
@@ -2735,10 +2735,6 @@
     <Content Include="Scripts\speech\voicecommand.js" />
     <Content Include="Scripts\speech\voicecommand.min.js" />
     <Content Include="SqlScripts\sp_insertmessages.sql" />
-    <Content Include="Views\Departments\Index.cshtml" />
-    <Content Include="Views\Departments\Create.cshtml" />
-    <Content Include="Views\Departments\Edit.cshtml" />
-    <Content Include="Views\Departments\EditForm.cshtml" />
     <Content Include="Views\Home\BlankPage.cshtml" />
     <Content Include="Views\Features\AgileBoard.cshtml" />
     <Content Include="Scripts\plugin\inputpicker\example-districts.json" />
@@ -2768,6 +2764,11 @@
     <Content Include="Views\Companies\_PopupDetailFormView.cshtml" />
     <Content Include="Views\Companies\_DepartmentEditForm.cshtml" />
     <Content Include="Views\Companies\_EmployeeEditForm.cshtml" />
+    <Content Include="Views\Departments\Index.cshtml" />
+    <Content Include="Views\Departments\Create.cshtml" />
+    <Content Include="Views\Departments\Edit.cshtml" />
+    <Content Include="Views\Departments\EditForm.cshtml" />
+    <Content Include="Views\Departments\_PopupDetailFormView.cshtml" />
     <None Include="Views\Notifications\_notifications.cshtml" />
     <None Include="Views\Messages\_notifications.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Int.cshtml">
@@ -2820,11 +2821,6 @@
     <Content Include="Views\Products\EditForm.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\Products\_PopupDetailFormView.cshtml" />
-    <Content Include="Views\Works\Index.cshtml" />
-    <Content Include="Views\Works\Create.cshtml" />
-    <Content Include="Views\Works\Edit.cshtml" />
-    <Content Include="Views\Works\EditForm.cshtml" />
-    <Content Include="Views\Works\_PopupDetailFormView.cshtml" />
     <Content Include="Views\Shared\_StylesheetsPartial.cshtml" />
     <Content Include="Views\Orders\Index.cshtml" />
     <Content Include="Views\Orders\Create.cshtml" />
@@ -2837,6 +2833,11 @@
     <Content Include="Views\OrderDetails\Edit.cshtml" />
     <Content Include="Views\OrderDetails\EditForm.cshtml" />
     <Content Include="Views\OrderDetails\_PopupDetailFormView.cshtml" />
+    <Content Include="Views\Works\Index.cshtml" />
+    <Content Include="Views\Works\Create.cshtml" />
+    <Content Include="Views\Works\Edit.cshtml" />
+    <Content Include="Views\Works\EditForm.cshtml" />
+    <Content Include="Views\Works\_PopupDetailFormView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2845,7 +2846,9 @@
     <Folder Include="Extensions\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Content\plugins\footable\fonts\footable.eot" />
     <Content Include="Content\plugins\footable\fonts\footable.ttf" />
     <Content Include="Content\plugins\footable\fonts\footable.woff" />
