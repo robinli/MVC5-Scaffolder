@@ -189,7 +189,7 @@
 <!--end details tabs -->
 </form>
 </div>
- 
+
 
 <script type="text/javascript">
     //load data by foreign key
@@ -278,18 +278,82 @@
           });
                 
                 $orderdetailsdg.datagrid("enableFilter", [
-									]);
-             }
-    //save item
-    var $editform = $('#order_form');
-    function saveitem() {
-        if ($editform.form('enableValidation').form('validate')) {
-            var order =$editform.serializeJSON();
-            console.log(order);
+                
+           				{
+					  field: "Id",
+					  type: "numberbox",
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+		   				{
+					  field: "Qty",
+					  type: "numberbox",
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+		   				{
+					  field: "Price",
+					  type: "numberbox",
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+		   				{
+					  field: "Amount",
+					  type: "numberbox",
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+		   
 
-            order = $editform.serializeJSON();
-            console.log(order);
-            debugger;
+		   		   
+		   		   {
+				 field: "ProductId",
+				 type:"combobox",
+				 options:{
+								valueField:"Id",
+								textField:"Name",
+								method:"get",
+								url:"/Orders/GetProducts",
+								onChange: function (value) {
+								if (value == "") {
+									$orderdetailsdg.datagrid("removeFilterRule", "ProductId");
+								} else {
+									$orderdetailsdg.datagrid("addFilterRule", {
+										field: "ProductId",
+										op: "equal",
+										value: value
+								});
+							}
+							$orderdetailsdg.datagrid("doFilter");
+						}
+					}
+		   },
+		   		   {
+				 field: "OrderId",
+				 type:"combobox",
+				 options:{
+								valueField:"Id",
+								textField:"Customer",
+								method:"get",
+								url:"/Orders/GetOrders",
+								onChange: function (value) {
+								if (value == "") {
+									$orderdetailsdg.datagrid("removeFilterRule", "OrderId");
+								} else {
+									$orderdetailsdg.datagrid("addFilterRule", {
+										field: "OrderId",
+										op: "equal",
+										value: value
+								});
+							}
+							$orderdetailsdg.datagrid("doFilter");
+						}
+					}
+		   },
+		   									]);
+             }
+    var $editform = $('#order_form');
+    //save item
+    function saveitem() {
+         
+        if ($editform.form('enableValidation').form('validate')) {
+            var order = $editform.serializeJSON();
             var token = $('input[name="__RequestVerificationToken"]', $editform).val();
 
             $.ajax({
@@ -374,7 +438,7 @@
 	}
 	function orderdetails_createitem() {
 		if (orderdetails_endEditing()) {
-            var order = $editform.serializeJSON();
+			 var order = $editform.serializeJSON();
 
 			$orderdetailsdg.datagrid("appendRow", { OrderId:order.Id   });
 			orderdetailseditIndex = $orderdetailsdg.datagrid("getRows").length - 1;

@@ -379,7 +379,75 @@
           });
                 
                 $orderdetailsdg.datagrid("enableFilter", [
-									]);
+                
+           				{
+					  field: "Id",
+					  type: "numberbox",
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+		   				{
+					  field: "Qty",
+					  type: "numberbox",
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+		   				{
+					  field: "Price",
+					  type: "numberbox",
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+		   				{
+					  field: "Amount",
+					  type: "numberbox",
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+		   
+
+		   		   
+		   		   {
+				 field: "ProductId",
+				 type:"combobox",
+				 options:{
+								valueField:"Id",
+								textField:"Name",
+								method:"get",
+								url:"/Orders/GetProducts",
+								onChange: function (value) {
+								if (value == "") {
+									$orderdetailsdg.datagrid("removeFilterRule", "ProductId");
+								} else {
+									$orderdetailsdg.datagrid("addFilterRule", {
+										field: "ProductId",
+										op: "equal",
+										value: value
+								});
+							}
+							$orderdetailsdg.datagrid("doFilter");
+						}
+					}
+		   },
+		   		   {
+				 field: "OrderId",
+				 type:"combobox",
+				 options:{
+								valueField:"Id",
+								textField:"Customer",
+								method:"get",
+								url:"/Orders/GetOrders",
+								onChange: function (value) {
+								if (value == "") {
+									$orderdetailsdg.datagrid("removeFilterRule", "OrderId");
+								} else {
+									$orderdetailsdg.datagrid("addFilterRule", {
+										field: "OrderId",
+										op: "equal",
+										value: value
+								});
+							}
+							$orderdetailsdg.datagrid("doFilter");
+						}
+					}
+		   },
+		   									]);
                   }
          /* 初始化datagrid */
          initdatagrid();

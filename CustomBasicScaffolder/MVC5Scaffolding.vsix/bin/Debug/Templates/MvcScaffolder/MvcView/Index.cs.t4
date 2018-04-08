@@ -525,7 +525,7 @@ foreach (PropertyMetadata property in properties) {
 		   #>
 
            <# 
-				foreach(var property in  ModelMetadata.Properties.Where(x=>(x.ShortTypeName=="float" || x.ShortTypeName=="decimal" || x.ShortTypeName=="double" || x.ShortTypeName=="int") && x.Scaffold==true))
+				foreach(var property in  ModelMetadata.Properties.Where(x=> x.IsForeignKey==false && (x.ShortTypeName=="float" || x.ShortTypeName=="decimal" || x.ShortTypeName=="double" || x.ShortTypeName=="int") && x.Scaffold==true))
 				{
 
 		   #>

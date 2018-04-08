@@ -2,7 +2,7 @@
 // Copyright (c) 2018 All Rights Reserved
 // </copyright>
 // <author>neo.zhu</author>
-// <date>4/8/2018 10:27:00 AM </date>
+// <date>4/8/2018 12:36:45 PM </date>
 // <summary>
 // Create By Custom MVC5 Scaffolder for Visual Studio
 // TODO: RegisterType UnityConfig.cs

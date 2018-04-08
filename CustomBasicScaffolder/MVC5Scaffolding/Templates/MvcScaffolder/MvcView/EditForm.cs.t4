@@ -579,6 +579,105 @@
           });
                 
                 <#= datagridvar #>.datagrid("enableFilter", [
+                <# 
+				foreach(var subproperty in  submetadata.Properties.Where(x=>x.PropertyName=="Status" && x.Scaffold==true))
+				{
+
+		   #>
+				{
+					  field: "<#= subproperty.PropertyName #>",
+					  type: "combobox",
+					  options: {
+						   panelHeight: "auto",
+						   data: [{ value: "", text: "All" }, { value: 0, text: "启用" }, { value: 1, text: "禁用" }],
+						   onChange: function (value) {
+							  if (value == "") {
+								  <#= datagridvar #>.datagrid("removeFilterRule", "<#= subproperty.PropertyName #>");
+							  } else {
+								  <#= datagridvar #>.datagrid("addFilterRule", {
+									  field: "<#= subproperty.PropertyName #>",
+									  op: "equal",
+									  value: value
+								  });
+							  }
+							  $dg.datagrid("doFilter");
+						  }
+					  }
+				  },
+		   <# 
+				}
+		   #>
+
+           <# 
+				foreach(var subproperty in  submetadata.Properties.Where(x=> x.IsForeignKey==false && (x.ShortTypeName=="float" || x.ShortTypeName=="decimal" || x.ShortTypeName=="double" || x.ShortTypeName=="int") && x.Scaffold==true))
+				{
+
+		   #>
+				{
+					  field: "<#= subproperty.PropertyName #>",
+					  type: "numberbox",
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+		   <# 
+				}
+		   #>
+
+
+		   <# 
+				foreach(var subproperty in  submetadata.Properties.Where(x=>x.ShortTypeName=="DateTime" && x.Scaffold==true))
+				{
+
+		   #>
+				{
+					  field: "<#= subproperty.PropertyName #>",
+					  type: "dateRange",
+					  options: {
+						  onChange: function (value) {
+							    <#= datagridvar #>.datagrid("addFilterRule", {
+									  field: "<#= subproperty.PropertyName #>",
+									  op: "between",
+									  value: value
+								  });
+							   
+							    <#= datagridvar #>.datagrid("doFilter");
+						  }
+					  }
+				  },
+		   <# 
+				}
+		   #>
+		   
+		   <# 
+			foreach(var subproperty in  submetadata.Properties.Where(x=>x.IsForeignKey==true && x.Scaffold==true))
+			{
+			   string foreignKeyPropertyName = subproperty.PropertyName;
+			   RelatedModelMetadata relatedModel = GetRelatedModelMetadata(foreignKeyPropertyName,submetadata);
+		   #>
+		   {
+				 field: "<#= foreignKeyPropertyName #>",
+				 type:"combobox",
+				 options:{
+								valueField:"<#= relatedModel.PrimaryKeyNames[0]  #>",
+								textField:"<#= relatedModel.DisplayPropertyName   #>",
+								method:"get",
+								url:"/<#= ControllerRootName #>/Get<#=  relatedModel.EntitySetName  #>",
+								onChange: function (value) {
+								if (value == "") {
+									<#= datagridvar #>.datagrid("removeFilterRule", "<#=  foreignKeyPropertyName #>");
+								} else {
+									<#= datagridvar #>.datagrid("addFilterRule", {
+										field: "<#=  foreignKeyPropertyName #>",
+										op: "equal",
+										value: value
+								});
+							}
+							<#= datagridvar #>.datagrid("doFilter");
+						}
+					}
+		   },
+		   <# 
+			} 
+		   #>
 									]);
          <# }  #>
          }
