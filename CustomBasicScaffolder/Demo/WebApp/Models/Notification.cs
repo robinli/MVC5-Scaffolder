@@ -16,7 +16,7 @@ namespace WebApp.Models
         [Key]
         public int Id { get; set; }
         [Display( Name ="主题")]
-         [Required]
+        [Required]
         [MaxLength(50)]
         public string Title { get; set; }
         [Display(Name = "消息")]

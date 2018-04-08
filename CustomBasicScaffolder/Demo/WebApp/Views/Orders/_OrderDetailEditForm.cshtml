@@ -11,7 +11,7 @@
      	  
   <td class="control-label">   @Html.DisplayNameFor(model => model.Id)  </td>
 	   <td> 
-			   											<input  disabled  id="@Html.IdFor(model => model.Id)" name="@Html.NameFor(model => model.Id)" tabindex="0" style="width:100%" class="easyui-numberbox" type="text" data-options="prompt:'Id',label:'Id:',required:true ,precision:0" />
+			   											<input  disabled  id="@Html.IdFor(model => model.Id)" name="@Html.NameFor(model => model.Id)" tabindex="0" style="width:100%" class="easyui-numberbox" type="text" data-options="prompt:'Id',label:'Id:',required:true " />
 								  
 	  
   <td class="control-label">   @Html.DisplayNameFor(model => model.ProductId)  </td>
@@ -21,8 +21,8 @@
 			       name="@Html.NameFor(model => model.ProductId)"
 				   value="@Html.ValueFor(model => model.ProductId)"
 				   class="easyui-combobox" data-options="
-						prompt:'产品' ,
-						label:'产品:' ,
+						prompt:'商品' ,
+						label:'商品:' ,
 						required:true ,
 						valueField: 'Id',
 						textField: 'Name' ,
@@ -90,8 +90,8 @@
 			       name="@Html.NameFor(model => model.OrderId)"
 				   value="@Html.ValueFor(model => model.OrderId)"
 				   class="easyui-combobox" data-options="
-						prompt:'订单' ,
-						label:'订单:' ,
+						prompt:'订单号' ,
+						label:'订单号:' ,
 						required:true ,
 						valueField: 'Id',
 						textField: 'Customer' ,

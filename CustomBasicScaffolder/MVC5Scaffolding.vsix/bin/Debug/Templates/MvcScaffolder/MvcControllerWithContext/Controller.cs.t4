@@ -94,6 +94,7 @@ namespace <#= Namespace #>
 		bindAttribute = String.Empty;
 	}
 #>
+    //[Authorize]
 	public class <#= ControllerName #> : Controller
 	{
 		//private <#= ContextTypeName #> db = new <#= ContextTypeName #>();
@@ -117,9 +118,9 @@ namespace <#= Namespace #>
 		// For Index View Boostrap-Table load  data 
 		[HttpGet]
 		<# if (UseAsync) { #>
-		 public async Task<ActionResult> GetData(int page = 1, int rows = 10, string sort = "<#= primaryKeyName #>", string order = "asc", string filterRules = "")
+		 public async Task<JsonResult> GetData(int page = 1, int rows = 10, string sort = "<#= primaryKeyName #>", string order = "asc", string filterRules = "")
 		<# } else {#>
-		 public ActionResult GetData(int page = 1, int rows = 10, string sort = "<#= primaryKeyName #>", string order = "asc", string filterRules = "")
+		 public JsonResult GetData(int page = 1, int rows = 10, string sort = "<#= primaryKeyName #>", string order = "asc", string filterRules = "")
 		<# }  #>
 		{
 			var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
@@ -181,7 +182,7 @@ namespace <#= Namespace #>
         #>
 		[HttpPost]
 		<# if (UseAsync) { #>
-		public async Task<ActionResult> SaveData(<#= ModelTypeName #>ChangeViewModel <#= modelVariablePlural #>)
+		public async Task<JsonResult> SaveData(<#= ModelTypeName #>ChangeViewModel <#= modelVariablePlural #>)
 		{
 			if (<#= modelVariablePlural #>.updated != null)
 			{
@@ -208,7 +209,7 @@ namespace <#= Namespace #>
 			return Json(new {Success=true}, JsonRequestBehavior.AllowGet);
 		}
 		<# } else {  #>
-		public ActionResult SaveData(<#= ModelTypeName #>ChangeViewModel <#= modelVariablePlural #>)
+		public JsonResult SaveData(<#= ModelTypeName #>ChangeViewModel <#= modelVariablePlural #>)
 		{
 			if (<#= modelVariablePlural #>.updated != null)
 			{
@@ -247,7 +248,7 @@ namespace <#= Namespace #>
 		#>
 		<# if (UseAsync) { #>
         //[OutputCache(Duration = 360, VaryByParam = "none")]
-		public async Task<ActionResult> Get<#= relModelName #>(string q="")
+		public async Task<JsonResult> Get<#= relModelName #>(string q="")
 		{
 			var <#= relModelType.ToLower() #>Repository = _unitOfWork.RepositoryAsync<<#= relModelType #>>();
 			var data = await <#= relModelType.ToLower() #>Repository.Queryable().Where(n=>n.<#= relModelDisplayName #>.Contains(q)).ToListAsync();
@@ -256,7 +257,7 @@ namespace <#= Namespace #>
 		}
 		<# } else { #>
         //[OutputCache(Duration = 360, VaryByParam = "none")]
-		public ActionResult Get<#= relModelName #>(string q="")
+		public JsonResult Get<#= relModelName #>(string q="")
 		{
 			var <#= relModelType.ToLower() #>Repository = _unitOfWork.RepositoryAsync<<#= relModelType #>>();
 			var data = <#= relModelType.ToLower() #>Repository.Queryable().Where(n=>n.<#= relModelDisplayName #>.Contains(q)).ToList();
@@ -284,7 +285,7 @@ namespace <#= Namespace #>
 		#>
 		<# if (UseAsync) { #>
         //[OutputCache(Duration = 360, VaryByParam = "none")]
-		public async Task<ActionResult> Get<#= relModelName #>(string q="")
+		public async Task<JsonResult> Get<#= relModelName #>(string q="")
 		{
 			var <#= relModelType.ToLower() #>Repository = _unitOfWork.RepositoryAsync<<#= relModelType #>>();
 			var data = await <#= relModelType.ToLower() #>Repository.Queryable().Where(n=>n.<#= relModelDisplayName #>.Contains(q)).ToListAsync();
@@ -293,7 +294,7 @@ namespace <#= Namespace #>
 		}
 		<# } else { #>
         //[OutputCache(Duration = 360, VaryByParam = "none")]
-		public ActionResult Get<#= relModelName #>(string q="")
+		public JsonResult Get<#= relModelName #>(string q="")
 		{
 			var <#= relModelType.ToLower() #>Repository = _unitOfWork.RepositoryAsync<<#= relModelType #>>();
 			var data = <#= relModelType.ToLower() #>Repository.Queryable().Where(n=>n.<#= relModelDisplayName #>.Contains(q)).ToList();
@@ -420,9 +421,9 @@ namespace <#= Namespace #>
         // GET: <#= routePrefix #>/<#= ViewPrefix #>PopupEdit/5
         [OutputCache(Duration = 360, VaryByParam = "id")]
 <# if (UseAsync) { #>
-		public async Task<ActionResult> <#= ViewPrefix #>PopupEdit(<#= primaryKeyNullableTypeName #> id)
+		public async Task<JsonResult> <#= ViewPrefix #>PopupEdit(<#= primaryKeyNullableTypeName #> id)
 <# } else { #>
-		public ActionResult <#= ViewPrefix #>Edit(<#= primaryKeyNullableTypeName #> id)
+		public JsonResult <#= ViewPrefix #>Edit(<#= primaryKeyNullableTypeName #> id)
 <# } #>
 		{
 			if (id == null)
@@ -707,9 +708,9 @@ namespace <#= Namespace #>
 		// Get : <#= routePrefix #>/Get<#=   property.PropertyName #>By<#= foreignKeyName #>/:id
 		[HttpGet]
 		<# if (UseAsync) { #>
-		public async Task<ActionResult> Get<#= property.PropertyName #>By<#= foreignKeyName #>(<#=  primaryKeyShortTypeName #> id)
+		public async Task<JsonResult> Get<#= property.PropertyName #>By<#= foreignKeyName #>(<#=  primaryKeyShortTypeName #> id)
 		<# } else { #>
-		public ActionResult Get<#= property.PropertyName #>By<#= foreignKeyName #>(<#=  primaryKeyShortTypeName #> id)
+		public JsonResult Get<#= property.PropertyName #>By<#= foreignKeyName #>(<#=  primaryKeyShortTypeName #> id)
 		<# } #>
 		{
 			var <#= property.PropertyName.ToLower() #> = <#= modelServiceVar #>.Get<#= property.PropertyName #>By<#= foreignKeyName #>(id);

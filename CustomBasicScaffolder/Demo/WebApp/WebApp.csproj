@@ -239,6 +239,10 @@
     <Compile Include="Migrations\201803120921238_deltitle.Designer.cs">
       <DependentUpon>201803120921238_deltitle.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804040700509_desc.cs" />
+    <Compile Include="Migrations\201804040700509_desc.Designer.cs">
+      <DependentUpon>201804040700509_desc.cs</DependentUpon>
+    </Compile>
     <Compile Include="SmartChatHub\ChatHub.cs" />
     <Compile Include="App_Start\CustomModelBinders.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -2822,17 +2826,17 @@
     <Content Include="Views\Works\EditForm.cshtml" />
     <Content Include="Views\Works\_PopupDetailFormView.cshtml" />
     <Content Include="Views\Shared\_StylesheetsPartial.cshtml" />
+    <Content Include="Views\OrderDetails\Index.cshtml" />
+    <Content Include="Views\OrderDetails\_PopupDetailFormView.cshtml" />
+    <Content Include="Views\OrderDetails\Create.cshtml" />
+    <Content Include="Views\OrderDetails\Edit.cshtml" />
+    <Content Include="Views\OrderDetails\EditForm.cshtml" />
     <Content Include="Views\Orders\Index.cshtml" />
     <Content Include="Views\Orders\Create.cshtml" />
     <Content Include="Views\Orders\Edit.cshtml" />
     <Content Include="Views\Orders\EditForm.cshtml" />
     <Content Include="Views\Orders\_PopupDetailFormView.cshtml" />
     <Content Include="Views\Orders\_OrderDetailEditForm.cshtml" />
-    <Content Include="Views\OrderDetails\Index.cshtml" />
-    <Content Include="Views\OrderDetails\_PopupDetailFormView.cshtml" />
-    <Content Include="Views\OrderDetails\Create.cshtml" />
-    <Content Include="Views\OrderDetails\Edit.cshtml" />
-    <Content Include="Views\OrderDetails\EditForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -3104,6 +3108,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201803120921238_deltitle.resx">
       <DependentUpon>201803120921238_deltitle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804040700509_desc.resx">
+      <DependentUpon>201804040700509_desc.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

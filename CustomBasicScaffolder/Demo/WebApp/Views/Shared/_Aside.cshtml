@@ -32,14 +32,14 @@
                     </li>
                 </ul>
             </li>
-            <li class="@Html.IsSelected(controller: "Wroks")">
+            <li class="@Html.IsSelected(controller: "Wroks,Orders")">
                 <a href="#" title="业务操作"><i class="fa fa-lg fa-fw fa-folder-o"></i> <span class="menu-item-parent">业务操作</span></a>
                 <ul>
                     <li class="@Html.IsSelected(action: "Index", controller: "Works")">
-                        <a href="@Url.Action("index", "works")" title="工作单"><span class="menu-item-parent">工作单</span></a>
+                        <a href="@Url.Action("index", "Works")" title="工作单"><span class="menu-item-parent">工作单</span></a>
                     </li>
                     <li class="@Html.IsSelected(action: "Index", controller: "Orders")">
-                        <a href="@Url.Action("index", "orders")" title="订单信息"><span class="menu-item-parent">订单信息</span></a>
+                        <a href="@Url.Action("index", "Orders")" title="订单信息"><span class="menu-item-parent">订单信息</span></a>
                     </li>
 
                 </ul>

@@ -2,7 +2,7 @@
 // Copyright (c) 2018 All Rights Reserved
 // </copyright>
 // <author>neo.zhu</author>
-// <date>4/3/2018 8:34:20 AM </date>
+// <date>4/4/2018 3:10:19 PM </date>
 // <summary>
 // Create By Custom MVC5 Scaffolder for Visual Studio
 // TODO: RegisterType UnityConfig.cs
@@ -27,6 +27,7 @@ using WebApp.Services;
 using WebApp.Repositories;
 namespace WebApp.Controllers
 {
+    //[Authorize]
     public class OrdersController : Controller
     {
         //private StoreContext db = new StoreContext();
@@ -46,7 +47,7 @@ namespace WebApp.Controllers
         // Get :Orders/PageList
         // For Index View Boostrap-Table load  data 
         [HttpGet]
-        public async Task<ActionResult> GetData(int page = 1, int rows = 10, string sort = "Id", string order = "asc", string filterRules = "")
+        public async Task<JsonResult> GetData(int page = 1, int rows = 10, string sort = "Id", string order = "asc", string filterRules = "")
         {
             var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
             var totalCount = 0;
@@ -60,7 +61,7 @@ namespace WebApp.Controllers
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
-        public async Task<ActionResult> SaveData(OrderChangeViewModel orders)
+        public async Task<JsonResult> SaveData(OrderChangeViewModel orders)
         {
             if (orders.updated != null)
             {
@@ -87,7 +88,7 @@ namespace WebApp.Controllers
             return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
         }
         //[OutputCache(Duration = 360, VaryByParam = "none")]
-        public async Task<ActionResult> GetOrders(string q = "")
+        public async Task<JsonResult> GetOrders(string q = "")
         {
             var orderRepository = _unitOfWork.RepositoryAsync<Order>();
             var data = await orderRepository.Queryable().Where(n => n.Customer.Contains(q)).ToListAsync();
@@ -95,7 +96,7 @@ namespace WebApp.Controllers
             return Json(rows, JsonRequestBehavior.AllowGet);
         }
         //[OutputCache(Duration = 360, VaryByParam = "none")]
-        public async Task<ActionResult> GetProducts(string q = "")
+        public async Task<JsonResult> GetProducts(string q = "")
         {
             var productRepository = _unitOfWork.RepositoryAsync<Product>();
             var data = await productRepository.Queryable().Where(n => n.Name.Contains(q)).ToListAsync();
@@ -120,7 +121,6 @@ namespace WebApp.Controllers
         public ActionResult Create()
         {
             var order = new Order();
-            order.OrderDate = DateTime.Now;
             //set default value
             return View(order);
         }
@@ -160,7 +160,7 @@ namespace WebApp.Controllers
         }
         // GET: Orders/PopupEdit/5
         [OutputCache(Duration = 360, VaryByParam = "id")]
-        public async Task<ActionResult> PopupEdit(int? id)
+        public async Task<JsonResult> PopupEdit(int? id)
         {
             if (id == null)
             {
@@ -187,7 +187,7 @@ namespace WebApp.Controllers
         // POST: Orders/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        //[ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "OrderDetails,Id,Customer,ShippingAddress,OrderDate,CreatedDate,CreatedBy,LastModifiedDate,LastModifiedBy")] Order order)
         {
             if (ModelState.IsValid)

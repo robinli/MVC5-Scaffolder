@@ -47,7 +47,7 @@
                    data-options="prompt:'Id',
                                  readonly:true,
                                 width:200,
-                                 label:'',required:true ,precision:0" />
+                                 label:'',required:true " />
 			  				   </td>
 	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.Customer)  </td>
 	   <td> 
@@ -57,10 +57,10 @@
 				   tabindex="1" 
 				   class="easyui-textbox" 
 				   type="text" 
-				   data-options="prompt:'客户',
+				   data-options="prompt:'客户名称',
 								 label:'',
                                 width:200,
-								 required:true ,validType:'length[0,20]'" />
+								 required:true ,validType:'length[0,30]'" />
 			  				   </td>
 	   	   </tr>
 	   	    <tr>
@@ -75,7 +75,7 @@
 				   data-options="prompt:'发货地址',
 								 label:'',
                                 width:200,
-								 required:true ,validType:'length[0,50]'" />
+								 required:true ,validType:'length[0,200]'" />
 			  				   </td>
 	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.OrderDate)  </td>
 	   <td> 
@@ -202,9 +202,9 @@
                     sortOrder: 'asc',
                     remoteFilter: true,
                     singleSelect: true,
-                    toolbar: '#order_toolbar',
+              toolbar: '#orderdetails_toolbar',
                     method: 'get',
-                    onClickCell: order_onClickCell,
+              onClickCell: orderdetails_onClickCell,
                     pagination: 'true',
                     url: '/OrderDetails/GetDataByOrderId?orderid='+ id,
                     striped: true,
@@ -213,7 +213,7 @@
                                    title:'Id',
                                    width:80 },*@
 																								    {field:'ProductId',
-                                 title:'产品',
+                                 title:'商品',
                                  width:100,
 								 formatter:function(value,row){
 												return row.ProductName;
@@ -221,7 +221,7 @@
 								 editor:{
                                          type:'combobox',
 										 options:{
-                                                prompt:'产品',
+                                                prompt:'商品',
 												mode: 'remote',
                                                 valueField:'Id',
 											    textField:'Name',

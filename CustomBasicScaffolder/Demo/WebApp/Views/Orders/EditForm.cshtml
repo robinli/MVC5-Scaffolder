@@ -28,7 +28,7 @@
 				   tabindex="1" 
 				    type="text" 
 				   />
-             <b class="tooltip tooltip-bottom-right">客户</b>
+             <b class="tooltip tooltip-bottom-right">客户名称</b>
 			    </label>
             </section>
 			  				 
@@ -316,7 +316,7 @@
                                    title:'Id',
                                    width:80 },*@
 																								    {field:'ProductId',
-                                 title:'产品',
+                                 title:'商品',
                                  width:160,
 								 formatter:function(value,row){
 												return row.ProductName;
@@ -324,7 +324,7 @@
 								 editor:{
                                          type:'combobox',
 										 options:{
-                                                prompt:'产品',
+                                                prompt:'商品',
 												mode: 'remote',
                                                 valueField:'Id',
 											    textField:'Name',

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WebApp.Models
 {
-    [MetadataType(typeof(OrderMetadata))]
+    //[MetadataType(typeof(OrderMetadata))]
     public partial class Order
     {
     }
