@@ -717,6 +717,7 @@ Views\Orders\EditForm.cshtml /* 订单信息编辑表单  */
 
 #### 运行生成的代码功能
 ![Animation2.gif](https://upload-images.jianshu.io/upload_images/11347576-94598c3ca7526e06.gif?imageMogr2/auto-orient/strip)
+
 ![Animation3.gif](https://upload-images.jianshu.io/upload_images/11347576-f1c4b88ae8ef1a8a.gif?imageMogr2/auto-orient/strip)
 以上功能一键生成，包括必填，长度等输入校验规则
 
