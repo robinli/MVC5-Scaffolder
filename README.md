@@ -17,8 +17,8 @@ SmartCode Scaffolding是自定义扩展Visual Studio.Net ASP.NET Scaffolding并�
 ![Animation7.gif](https://upload-images.jianshu.io/upload_images/11347576-34058b57299789f1.gif?imageMogr2/auto-orient/strip)
 
 
-#代码生成的过程
-####定义实体对象(Entity class)和属性
+# 代码生成的过程
+#### 定义实体对象(Entity class)和属性
 > 参考EntityFramewrok Code-First规范定义，定义的越规范，信息越多对后面的生成的代码就越完善。
 下面代码定义一个Order，OrderDetail,一对多的关系，在创建Order类的Controller时会在controller，View，会根据关联的实体生成相应的代码，比如EditView，会同时生成对表头Order form表单的操作和明细表OrderDetail的datagrid操作。
 定义OrderDetail中引用了Product，多对一的关系。会在View部分生成Combox控件或DropdownList的控件和Controller层的查询方法。
@@ -74,7 +74,7 @@ SmartCode Scaffolding是自定义扩展Visual Studio.Net ASP.NET Scaffolding并�
         public Order Order { get; set; }
     }
 ```
-####生成代码
+#### 生成代码
 + 添加controller
 ![Animation.gif](https://upload-images.jianshu.io/upload_images/11347576-dfa57c1edbebb435.gif?imageMogr2/auto-orient/strip)
 + 生成以下代码
@@ -90,7 +90,7 @@ Views\Orders\Create.cshtml /* 订单信息新增操作页面  */
 Views\Orders\Edit.cshtml /* 订单信息编辑操作页面 */
 Views\Orders\EditForm.cshtml /* 订单信息编辑表单  */
 ```
-######index.html javascript代码片段
+###### index.html javascript代码片段
 ```
  var entityname = "Order";
 
@@ -378,7 +378,7 @@ Views\Orders\EditForm.cshtml /* 订单信息编辑表单  */
 
  }
 ```
-######OrderController.cs 代码片段
+###### OrderController.cs 代码片段
 
 ```
  public class OrdersController : Controller
@@ -699,7 +699,7 @@ Views\Orders\EditForm.cshtml /* 订单信息编辑表单  */
         }
     }
 ```
-####注册UnityConfig.cs
+#### 注册UnityConfig.cs
 ```
         /// <summary>Registers the type mappings with the Unity container.</summary>
         /// <param name="container">The unity container to configure.</param>
@@ -715,11 +715,11 @@ Views\Orders\EditForm.cshtml /* 订单信息编辑表单  */
         }
 ```
 
-####运行生成的代码功能
+#### 运行生成的代码功能
 ![Animation2.gif](https://upload-images.jianshu.io/upload_images/11347576-94598c3ca7526e06.gif?imageMogr2/auto-orient/strip)![Animation3.gif](https://upload-images.jianshu.io/upload_images/11347576-f1c4b88ae8ef1a8a.gif?imageMogr2/auto-orient/strip)
 以上功能一键生成，包括必填，长度等输入校验规则
 
-####整个项目的系统架构和功能
+#### 整个项目的系统架构和功能
 主要组件
 
 *  ”Microsoft.AspNet.Mvc” version="5.2.4"
@@ -731,7 +731,7 @@ Views\Orders\EditForm.cshtml /* 订单信息编辑表单  */
 *  SmartAdmin - Responsive WebApp v1.9.1
 * "EntityFramework" version="6.2.0" 支持Oracle,MySql,Sql Server,PostgreSQL,SQLite,Sybase等
 ![image.png](https://upload-images.jianshu.io/upload_images/11347576-76f41ad3f31a229c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-###实战项目
+### 实战项目
 [x-TMS](https://neozhu.github.io/WebSite/x-tms.html)
 ![Animation4.gif](https://upload-images.jianshu.io/upload_images/11347576-26ebf707db8023fb.gif?imageMogr2/auto-orient/strip)
 供应链协同平台
@@ -741,20 +741,20 @@ MES系统
 
 
 
-###我们还能做
+### 我们还能做
 承接企业内部业务系统开发，组建企业私有云，虚拟化集群服务器部署。
 承接BizTalk  B2B/EAI/EDI/AS/RosettaNet 开发工作
 
 
-###联系方式
+### 联系方式
 ![image.png](https://upload-images.jianshu.io/upload_images/11347576-efee6f04cb478991.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 ###
 
-###捐助
+### 捐助
 如果这个项目对您有用，我们欢迎各方任何形式的捐助，也包括参与到项目代码更新或意见反馈中来。谢谢！
 资金捐助：![image.png](https://upload-images.jianshu.io/upload_images/11347576-d884bcb748f8f6ea.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600)
 
-###License
+### License
 Apache License Version 2.0
 
 Copyright 2017 Neo.Zhu  
