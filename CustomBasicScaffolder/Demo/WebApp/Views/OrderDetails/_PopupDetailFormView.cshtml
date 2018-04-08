@@ -205,7 +205,7 @@
     //save item
     function saveitem() {
         if ($('#orderdetail_form').form('enableValidation').form('validate')) {
-            var item = $('#orderdetail_form').serializeObject();
+            var item = $('#orderdetail_form').serializeJSON();
 
             $.post("/OrderDetails/Edit", item, function (response) {
                 //console.log(response);						

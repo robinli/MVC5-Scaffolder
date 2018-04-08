@@ -15,6 +15,7 @@
                     iconcls:'icon-menu'
                     " style="width:960px;height:520px">
     <form id="<#=entityName.ToLower()#>_form" class="easyui-form form-horizontal" method="post" data-options="novalidate:true">
+  @Html.AntiForgeryToken()
  <table class="table table-bordered">
     <thead>
                 <tr>
@@ -228,7 +229,7 @@
         <tr>
     </tfoot>
 </table>
-</form>
+
 
 <!--输出form表单界面-->
 <!--========================================================================================-->
@@ -288,6 +289,7 @@
 	 
 <!--end details tabs -->
 <#  } #>
+</form>
 </div>
 
 
@@ -320,9 +322,9 @@
                     sortOrder: 'asc',
                     remoteFilter: true,
                     singleSelect: true,
-                    toolbar: '#<#= ModelTypeName.ToLower() #>_toolbar',
+                    toolbar: '#<#= entitySetName.ToLower() #>_toolbar',
                     method: 'get',
-                    onClickCell: <#= ModelTypeName.ToLower() #>_onClickCell,
+                    onClickCell: <#= entitySetName.ToLower() #>_onClickCell,
                     pagination: 'true',
                     url: '/<#= entitySetName #>/GetDataBy<#= foreignKey #>?<#= foreignKeyVar #>='+ id,
                     striped: true,
@@ -461,25 +463,34 @@
 									]);
          <# } } #>
     }
+    var $editform = $('#<#= entityName.ToLower() #>_form');
     //save item
     function saveitem() {
-        if ($('#<#=entityName.ToLower()#>_form').form('enableValidation').form('validate')) {
-            var item = $('#<#=entityName.ToLower()#>_form').serializeObject();
+         
+        if ($editform.form('enableValidation').form('validate')) {
+            var <#= entityName.ToLower() #> = $editform.serializeJSON();
+            var token = $('input[name="__RequestVerificationToken"]', $editform).val();
 
-            $.post("/<#= ControllerRootName #>/Edit", item, function (response) {
-                //console.log(response);						
-                if (response.success) {
-                    $.messager.alert("提示", "保存成功！");
-                    $('#detailswindow').window('close');
-
-                } else {
-                    $.messager.alert("错误", "保存失败！" + response.err, "error");
-                }
-            }, "json").fail(function (response) {
-                //console.log(response);						
-                $.messager.alert("错误", "保存失败！", "error");
-                //$dg.datagrid("reload");						
-            });
+            $.ajax({
+                    type: "POST",
+                    url: "/<#= ControllerRootName #>/Edit",
+                    data: {
+                        __RequestVerificationToken: token,
+                        <#= ModelTypeName.ToLower() #>:<#= ModelTypeName.ToLower() #>
+                    },
+                    dataType: 'json',
+                    contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+                })
+                .done(function (response) {
+                    if (response.success) {
+                        $.messager.alert("提示", "保存成功！");
+                    } else {
+                        $.messager.alert("错误", "保存失败！" + response.err, "error");
+                    }
+                    })
+                .fail(function (response) {
+                        $.messager.alert("错误", "保存失败！", "error");
+                    });
         }
     }
     // cancel
@@ -569,7 +580,7 @@
 	}
 	function <#= detailnamevar #>_createitem() {
 		if (<#= detailnamevar #>_endEditing()) {
-			 var <#=  ModelTypeName.ToLower() #> = <#= datagridvar #>.datagrid("getSelected");
+			 var <#=  ModelTypeName.ToLower() #> = $editform.serializeJSON();
 
 			<#= datagridvar #>.datagrid("appendRow", { <#= subforeignKey #>:<#=  ModelTypeName.ToLower() #>.<#= primaryKey #>   });
 			<#= detailnamevar #>editIndex = <#= datagridvar #>.datagrid("getRows").length - 1;

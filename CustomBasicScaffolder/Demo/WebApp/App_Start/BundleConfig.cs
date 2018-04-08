@@ -34,6 +34,7 @@ namespace WebApp
                 "~/scripts/bootstrap/bootstrap.js",
                 "~/scripts/notification/SmartNotification.js",
                 "~/scripts/smartwidgets/jarvis.widget.js",
+                "~/scripts/plugin/jquery-form/jquery-form.js",
                 "~/scripts/plugin/jquery-validate/jquery.validate.js",
                 "~/scripts/plugin/masked-input/jquery.maskedinput.js",
                 "~/scripts/plugin/select2/select2.js",
@@ -41,6 +42,7 @@ namespace WebApp
                 "~/scripts/plugin/bootstrap-progressbar/bootstrap-progressbar.js",
                 "~/scripts/plugin/msie-fix/jquery.mb.browser.js",
                 "~/scripts/plugin/fastclick/fastclick.js",
+                "~/Scripts/plugin/jquery.serializejson/jquery.serializejson.js",
                 "~/scripts/app.js"));
             //bundles.Add(new ScriptBundle("~/scripts/smartadmin").Include(
             //    "~/scripts/app.config.js",
@@ -121,9 +123,8 @@ namespace WebApp
 
             //EasyUI style
             bundles.Add(new ProperStyleBundle("~/plugins/easyuiStyles").Include(
-                        "~/Scripts/easyui/themes/insdep/easyui.css",
-                        "~/Scripts/easyui/themes/insdep/easyui_animation.css",
-                        "~/Scripts/easyui/themes/insdep/easyui_plus.css"
+                        "~/Scripts/easyui/themes/insdep/easyui.css"
+                         
                       ));
             //EasyUI Script
             //bundles.Add(new ScriptBundle("~/plugins/easyuijs").Include(

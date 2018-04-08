@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<WebApp.Models.Company>
 @{
-    ViewBag.Title = "Company";
+	ViewBag.Title = "公司信息";
 }
 <!-- MAIN CONTENT -->
 <div id="content">
@@ -9,23 +9,25 @@
         <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
             <h1 class="page-title txt-color-blueDark">
                 <i class="fa fa-table fa-fw "></i>
-                @{
-                    //TODO:fix quick navigation path
-                }
+                @{ 
+                  //TODO:fix quick navigation path
+                 }
                 路径
                 <span>
                     >
-                    Company
+                  公司信息
                 </span>
             </h1>
         </div>
         <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
-
+            
         </div>
     </div>
     <!-- end quick navigation bar -->
-    <!-- widget grid -->
-    <section id="widget-grid" class="">
+
+
+     <!-- widget grid -->
+     <section id="widget-grid" class="">
         <!-- row -->
         <div class="row">
             <!-- NEW WIDGET START -->
@@ -45,10 +47,10 @@
                     -->
                     <header>
                         <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-                        <h2>Company</h2>
+                        <h2>公司信息</h2>
                     </header>
 
-                    <!-- widget div-->
+                     <!-- widget div-->
                     <div>
                         <!-- widget edit box -->
                         <div class="jarviswidget-editbox">
@@ -57,65 +59,66 @@
                         <!-- end widget edit box -->
                         <!-- widget content -->
                         <div class="widget-body no-padding">
-                            @{
+                             @{ 
                                 //TODO:fix datagrid view alert-warning messages
-                            }
+                              }
                             <div class="alert alert-warning no-margin fade in">
                                 <button class="close" data-dismiss="alert">
                                     ×
                                 </button>
                                 <i class="fa-fw fa fa-info"></i>
-                                A combined table effect with all classes mentioned above added to
+                                A combined table effect with all classes mentioned above added to  
                             </div>
-                            <!--begin datagrid-content -->
-                            <div class="table-responsive">
-                                <table id="companies_datagrid"></table>
-                                <div id="companies_toolbar" style="height:auto">
-                                    @{
-                                        //TODO: enable authorization
-                                    }
-                                    @*@if (Html.IsAuthorize("Create"))
-                                        {
-                                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-plus fa-fw',plain:true" onclick="append()">新增</a>
-                                        }
-                                        @if (Html.IsAuthorize("Delete"))
-                                        {
-                                        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-trash-o fa-fw',plain:true" onclick="removeit()">删除</a>
-                                        }
-                                        @if (Html.IsAuthorize("Edit"))
-                                        {
-                                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-floppy-o fa-fw',plain:true" onclick="accept()">保存</a>
-                                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-undo fa-fw',plain:true" onclick="reject()">取消</a>
-                                        }
-                                        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-refresh fa-fw',plain:true" onclick="reload()">刷新</a>
-                                        @if (Html.IsAuthorize("Import"))
-                                        {
-                                             <a href="javascript:void(0)" class="easyui-menubutton" data-options="menu:'#importmenu',iconCls:'fa fa-upload fa-fw' " onclick="importexcel()">导入数据</a>
-                                                   <div id="importmenu" style="width:150px;">
-                                                            <div data-options="iconCls:'fa fa-file-excel-o fa-fw'" onclick="importexcel()">导入数据</div>
-                                                            <div data-options="iconCls:'fa fa-cloud-download fa-fw'" onclick="downloadtemplate()" >下载用于导入的模板</div>
-                                                    </div>
-                                             <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-cloud-download fa-fw',plain:true" onclick="exportexcel()">导出至Excel</a>
-                                        }*@
-                                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-plus fa-fw',plain:true" onclick="append()">新增</a>
-                                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-trash-o fa-fw',plain:true" onclick="removeit()">删除</a>
-                                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-floppy-o fa-fw',plain:true" onclick="accept()">保存</a>
-                                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-undo fa-fw',plain:true" onclick="reject()">取消</a>
-                                    <a href="javascript:void(0)" class="easyui-menubutton" data-options="menu:'#importmenu',iconCls:'fa fa-upload fa-fw' " onclick="importexcel()">导入数据</a>
-                                    <div id="importmenu" style="width:150px;">
-                                        <div data-options="iconCls:'fa fa-file-excel-o fa-fw'" onclick="importexcel()">导入数据</div>
-                                        <div data-options="iconCls:'fa fa-cloud-download fa-fw'" onclick="downloadtemplate()">下载用于导入的模板</div>
-                                    </div>
-                                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-cloud-download fa-fw',plain:true" onclick="exportexcel()">导出至Excel</a>
-                                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-refresh fa-fw',plain:true" onclick="reload()">刷新</a>
-                                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-question-circle-o fa-fw',plain:true" onclick="dohelp()">帮助</a>
-                                </div>
-
-
-                            </div>
-                            <!--end datagrid-content -->
-
-                        </div>
+	 <!--begin datagrid-content -->
+	 <div class="table-responsive">
+		<table id="companies_datagrid">  
+		</table>
+				<div id="companies_toolbar" style="height:auto">
+                            @{
+                            //TODO: enable authorization 
+                            }
+							@*@if (Html.IsAuthorize("Create"))
+							{
+								<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-plus fa-fw',plain:true" onclick="append()">新增</a>
+							}
+							@if (Html.IsAuthorize("Delete"))
+							{
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-trash-o fa-fw',plain:true" onclick="removeit()">删除</a>
+							}
+							@if (Html.IsAuthorize("Edit"))
+							{
+								<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-floppy-o fa-fw',plain:true" onclick="accept()">保存</a>
+								<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-undo fa-fw',plain:true" onclick="reject()">取消</a>
+							}
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-refresh fa-fw',plain:true" onclick="reload()">刷新</a>
+							@if (Html.IsAuthorize("Import"))
+							{
+								 <a href="javascript:void(0)" class="easyui-menubutton" data-options="menu:'#importmenu',iconCls:'fa fa-upload fa-fw' " onclick="importexcel()">导入数据</a>
+                                       <div id="importmenu" style="width:150px;">
+                                                <div data-options="iconCls:'fa fa-file-excel-o fa-fw'" onclick="importexcel()">导入数据</div>
+                                                <div data-options="iconCls:'fa fa-cloud-download fa-fw'" onclick="downloadtemplate()" >下载用于导入的模板</div>
+                                        </div>
+                                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-cloud-download fa-fw',plain:true" onclick="exportexcel()">导出至Excel</a>
+							}*@
+						    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-plus fa-fw',plain:true" onclick="append()">新增</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-trash-o fa-fw',plain:true" onclick="removeit()">删除</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-floppy-o fa-fw',plain:true" onclick="accept()">保存</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-undo fa-fw',plain:true" onclick="reject()">取消</a>
+							<a href="javascript:void(0)" class="easyui-menubutton" data-options="menu:'#importmenu',iconCls:'fa fa-upload fa-fw' " onclick="importexcel()">导入数据</a>
+                                       <div id="importmenu" style="width:150px;">
+                                                <div data-options="iconCls:'fa fa-file-excel-o fa-fw'" onclick="importexcel()">导入数据</div>
+                                                <div data-options="iconCls:'fa fa-cloud-download fa-fw'" onclick="downloadtemplate()" >下载用于导入的模板</div>
+                                        </div>
+                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-cloud-download fa-fw',plain:true" onclick="exportexcel()">导出至Excel</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-refresh fa-fw',plain:true" onclick="reload()">刷新</a>
+				            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-question-circle-o fa-fw',plain:true" onclick="dohelp()">帮助</a>
+                </div>
+		
+		
+		</div>
+		<!--end datagrid-content -->
+                        
+                         </div>
                         <!-- end widget content -->
                     </div>
                     <!-- end widget div -->
@@ -131,18 +134,20 @@
         <!-- end row -->
     </section>
     <!-- end widget grid -->
-    <!-- file upload partial view -->
-    @Html.Partial("_ImportWindow", new ViewDataDictionary { { "EntityName", "Company" } })
-    <!-- end file upload partial view -->
-    <!-- detail popup window -->
-    @Html.Partial("_PopupDetailFormView", new WebApp.Models.Company())
-    <!-- end detail popup window -->
 
+	<!-- file upload partial view -->
+	@Html.Partial("_ImportWindow",new  ViewDataDictionary { { "EntityName","Company" }})		 
+	<!-- end file upload partial view -->
+        
+    <!-- detail popup window -->
+    @Html.Partial("_PopupDetailFormView",new WebApp.Models.Company() )
+    <!-- end detail popup window -->
+            
 </div>
 <!-- END MAIN CONTENT -->
 
 @section Scripts {
-    <script type="text/javascript">
+	<script type="text/javascript">
         var entityname = "Company";
 
 
@@ -152,7 +157,7 @@
                             var url = "/ExcelTemplate/Company.xlsx";
                             $.fileDownload(url)
                              .fail(function () { $.messager.alert("错误","没有找到模板文件! {" + url + "}"); });
-
+                                                
                     }
 					//打开Excel上传导入
 					function importexcel() {
@@ -189,75 +194,74 @@
 				        singleSelect: true,
 				        toolbar: '#companies_toolbar',
 				        url: '/Companies/GetData',
-				        method: 'post',
+				        method: 'get',
 				        onClickCell: onClickCell,
 				        pagination: true,
-                        striped:true,
+                        striped:true,   
                          columns: [[
                          /*{ field: 'ck', checkbox: true },*/
                          { field: '_operate1', title:'操作', width: 120, sortable: false, resizable: true, formatter: showdetailsformatter},
                         					/*{field:'Id',width:80 ,sortable:true,resizable:true }*/
-									 {field:'Name',
-              title:'@Html.DisplayNameFor(model => model.Name)',
+									 {field:'Name', 
+              title:'@Html.DisplayNameFor(model => model.Name)', 
               width:140,
               editor:{
                       type:'textbox',
-                      options:{ prompt:'名称',required:false ,validType:'length[0,50]'  }
+                      options:{ prompt:'名称',required:false ,validType:'length[0,50]'  }  
                      },
               sortable:true,
               resizable:true },
-
-									 {field:'Address',
-              title:'@Html.DisplayNameFor(model => model.Address)',
+											 {field:'Address', 
+              title:'@Html.DisplayNameFor(model => model.Address)', 
               width:140,
               editor:{
                       type:'textbox',
-                      options:{ prompt:'地址',required:false ,validType:'length[0,50]'  }
+                      options:{ prompt:'地址',required:false ,validType:'length[0,50]'  }  
                      },
               sortable:true,
               resizable:true },
-									 {field:'City',
-              title:'@Html.DisplayNameFor(model => model.City)',
+											 {field:'City', 
+              title:'@Html.DisplayNameFor(model => model.City)', 
               width:140,
               editor:{
                       type:'textbox',
-                      options:{ prompt:'城市',required:false ,validType:'length[0,50]'  }
+                      options:{ prompt:'城市',required:false ,validType:'length[0,50]'  }  
                      },
               sortable:true,
               resizable:true },
-									 {field:'Province',
-              title:'@Html.DisplayNameFor(model => model.Province)',
+											 {field:'Province', 
+              title:'@Html.DisplayNameFor(model => model.Province)', 
               width:140,
               editor:{
                       type:'textbox',
-                      options:{ prompt:'省份',required:false ,validType:'length[0,50]'  }
+                      options:{ prompt:'省份',required:false ,validType:'length[0,50]'  }  
                      },
               sortable:true,
               resizable:true },
-									 {field:'RegisterDate',
-              title:'@Html.DisplayNameFor(model => model.RegisterDate)',
-              width:160,
-              align:'right',
+											 {field:'RegisterDate', 
+              title:'@Html.DisplayNameFor(model => model.RegisterDate)', 
+              width:160, 
+              align:'right', 
               editor:{
                       type:'datebox',
-                      options:{prompt:'注册日期',required:true}
+                      options:{prompt:'注册日期',required:true}  
                       },
-              sortable:true,
-              resizable:true,
+              sortable:true, 
+              resizable:true, 
               formatter:dateformatter },
-									 {field:'Employees',
-              title:'@Html.DisplayNameFor(model => model.Employees)',
-              width:100,
+											 {field:'Employees', 
+              title:'@Html.DisplayNameFor(model => model.Employees)', 
+              width:100, 
               align:'right',
               editor:{
                       type:'numberbox',
-                      options:{prompt:'员工数', required:true  ,precision:0 }
+                      options:{prompt:'员工数', required:true  ,precision:0 } 
                      },
               sortable:true,
               resizable:true },
-
-                        ]]
-
+				
+                         ]]
+          
           });
 		 var editIndex = undefined;
 		 function reload() {
@@ -272,7 +276,7 @@
 								$dg.datagrid("endEdit", editIndex);
 				editIndex = undefined;
 
-
+				
 				return true;
 			} else {
 				return false;
@@ -292,7 +296,7 @@
 					if (ed) {
 						($(ed.target).data("textbox") ? $(ed.target).textbox("textbox") : $(ed.target)).focus();
 					}
-
+					
 				} else {
 					$dg.datagrid("selectRow", editIndex);
 				}
@@ -343,7 +347,7 @@
 						$.messager.alert("错误", "提交错误了！","error");
 						//$dg.datagrid("reload");
 					});
-
+			  
 				}
 
 				//$dg.datagrid("acceptChanges");
@@ -360,9 +364,9 @@
 
 		//datagrid 开启筛选功能
 		 $(function () {
-
+		  
 		   $dg.datagrid("enableFilter",[
-
+		   
            				{
 					  field: "Id",
 					  type: "numberbox",
@@ -373,7 +377,7 @@
 					  type: "numberbox",
 					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
 				  },
-
+		   
 
 		   				{
 					  field: "RegisterDate",
@@ -385,13 +389,13 @@
 									  op: "between",
 									  value: value
 								  });
-
+							   
 							    $dg.datagrid("doFilter");
 						  }
 					  }
 				  },
-
-
+		   		   
+		   		   
 		   ]);
 		})
 				//-----------------------------------------------------
@@ -409,18 +413,18 @@
                 //console.log(data);
                 $('#detailswindow').window('open');
                 loadData(id,data);
-
+                
 
             });
-
+          
 		}
+ 
+		
+		
+		 
 
-
-
-
-
-    </script>
-    <script src="~/Scripts/jquery.filerupload.js"></script>
+	 </script>
+     <script src="~/Scripts/jquery.filerupload.js"></script>
 }
 
-
+ 

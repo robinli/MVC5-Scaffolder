@@ -110,7 +110,7 @@
         //save item
         function saveitem() {
 			  if ($editform.valid()) {
-                 var order = $("#order_form").serializeObject();
+                 var order = $("#order_form").serializeJSON();
 				  				  //获取明细表数据
 				   
 						if (!orderdetails_endEditing())

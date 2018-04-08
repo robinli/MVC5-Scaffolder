@@ -109,7 +109,7 @@ namespace <#= Namespace #>
         includeExpressions = String.Join("", relatedProperties.Values.Select(property => String.Format(".Include({0} => {0}.{1})", lambdaVar, property.AssociationPropertyName)));
         #>
 		// GET: <#= routePrefix #>/<#= ViewPrefix #>Index
-        [OutputCache(Duration = 360, VaryByParam = "none")]
+        //[OutputCache(Duration = 360, VaryByParam = "none")]
 		public ActionResult <#= ViewPrefix #>Index()
 		{
 			 return View();
@@ -419,17 +419,14 @@ namespace <#= Namespace #>
 			return View(<#= ModelVariable #>);
 		}
         // GET: <#= routePrefix #>/<#= ViewPrefix #>PopupEdit/5
-        [OutputCache(Duration = 360, VaryByParam = "id")]
+        //[OutputCache(Duration = 360, VaryByParam = "id")]
 <# if (UseAsync) { #>
 		public async Task<JsonResult> <#= ViewPrefix #>PopupEdit(<#= primaryKeyNullableTypeName #> id)
 <# } else { #>
 		public JsonResult <#= ViewPrefix #>Edit(<#= primaryKeyNullableTypeName #> id)
 <# } #>
 		{
-			if (id == null)
-			{
-				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-			}
+			
 <# if (UseAsync) { #>
 			var <#= ModelVariable #> = await <#= modelServiceVar #>.FindAsync(id);
 <# } else { #>
@@ -708,9 +705,9 @@ namespace <#= Namespace #>
 		// Get : <#= routePrefix #>/Get<#=   property.PropertyName #>By<#= foreignKeyName #>/:id
 		[HttpGet]
 		<# if (UseAsync) { #>
-		public async Task<JsonResult> Get<#= property.PropertyName #>By<#= foreignKeyName #>(<#=  primaryKeyShortTypeName #> id)
+		public async Task<ActionResult> Get<#= property.PropertyName #>By<#= foreignKeyName #>(<#=  primaryKeyShortTypeName #> id)
 		<# } else { #>
-		public JsonResult Get<#= property.PropertyName #>By<#= foreignKeyName #>(<#=  primaryKeyShortTypeName #> id)
+		public ActionResult Get<#= property.PropertyName #>By<#= foreignKeyName #>(<#=  primaryKeyShortTypeName #> id)
 		<# } #>
 		{
 			var <#= property.PropertyName.ToLower() #> = <#= modelServiceVar #>.Get<#= property.PropertyName #>By<#= foreignKeyName #>(id);

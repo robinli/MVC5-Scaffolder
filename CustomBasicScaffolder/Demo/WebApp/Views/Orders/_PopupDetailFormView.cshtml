@@ -7,6 +7,7 @@
                     iconcls:'icon-menu'
                     " style="width:960px;height:520px">
     <form id="order_form" class="easyui-form form-horizontal" method="post" data-options="novalidate:true">
+  @Html.AntiForgeryToken()
  <table class="table table-bordered">
     <thead>
                 <tr>
@@ -155,7 +156,7 @@
         <tr>
     </tfoot>
 </table>
-</form>
+
 
 <!--输出form表单界面-->
 <!--========================================================================================-->
@@ -186,8 +187,9 @@
 	</div>
 	 
 <!--end details tabs -->
+</form>
 </div>
-
+ 
 
 <script type="text/javascript">
     //load data by foreign key
@@ -202,9 +204,9 @@
                     sortOrder: 'asc',
                     remoteFilter: true,
                     singleSelect: true,
-              toolbar: '#orderdetails_toolbar',
+                    toolbar: '#orderdetails_toolbar',
                     method: 'get',
-              onClickCell: orderdetails_onClickCell,
+                    onClickCell: orderdetails_onClickCell,
                     pagination: 'true',
                     url: '/OrderDetails/GetDataByOrderId?orderid='+ id,
                     striped: true,
@@ -279,24 +281,37 @@
 									]);
              }
     //save item
+    var $editform = $('#order_form');
     function saveitem() {
-        if ($('#order_form').form('enableValidation').form('validate')) {
-            var item = $('#order_form').serializeObject();
+        if ($editform.form('enableValidation').form('validate')) {
+            var order =$editform.serializeJSON();
+            console.log(order);
 
-            $.post("/Orders/Edit", item, function (response) {
-                //console.log(response);						
-                if (response.success) {
-                    $.messager.alert("提示", "保存成功！");
-                    $('#detailswindow').window('close');
+            order = $editform.serializeJSON();
+            console.log(order);
+            debugger;
+            var token = $('input[name="__RequestVerificationToken"]', $editform).val();
 
-                } else {
-                    $.messager.alert("错误", "保存失败！" + response.err, "error");
-                }
-            }, "json").fail(function (response) {
-                //console.log(response);						
-                $.messager.alert("错误", "保存失败！", "error");
-                //$dg.datagrid("reload");						
-            });
+            $.ajax({
+                    type: "POST",
+                    url: "/Orders/Edit",
+                    data: {
+                        __RequestVerificationToken: token,
+                        order:order
+                    },
+                    dataType: 'json',
+                    contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+                })
+                .done(function (response) {
+                    if (response.success) {
+                        $.messager.alert("提示", "保存成功！");
+                    } else {
+                        $.messager.alert("错误", "保存失败！" + response.err, "error");
+                    }
+                    })
+                .fail(function (response) {
+                        $.messager.alert("错误", "保存失败！", "error");
+                    });
         }
     }
     // cancel
@@ -359,7 +374,7 @@
 	}
 	function orderdetails_createitem() {
 		if (orderdetails_endEditing()) {
-			 var order = $orderdetailsdg.datagrid("getSelected");
+            var order = $editform.serializeJSON();
 
 			$orderdetailsdg.datagrid("appendRow", { OrderId:order.Id   });
 			orderdetailseditIndex = $orderdetailsdg.datagrid("getRows").length - 1;

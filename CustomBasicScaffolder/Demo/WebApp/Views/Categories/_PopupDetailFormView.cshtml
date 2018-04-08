@@ -179,7 +179,7 @@
     //save item
     function saveitem() {
         if ($('#category_form').form('enableValidation').form('validate')) {
-            var item = $('#category_form').serializeObject();
+            var item = $('#category_form').serializeJSON();
 
             $.post("/Categories/Edit", item, function (response) {
                 //console.log(response);						

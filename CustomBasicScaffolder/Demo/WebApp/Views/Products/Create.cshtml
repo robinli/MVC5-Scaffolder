@@ -86,7 +86,7 @@
         //save item
         function saveitem() {
 			   if ($("#product_form").form("enableValidation").form("validate")) {						
-                 var item = $("#product_form").serializeObject();
+                 var item = $("#product_form").serializeJSON();
 				                   $.post("/Products/Create", item, function (response) {						
                      //console.log(response);						
                      if (response.success) {						

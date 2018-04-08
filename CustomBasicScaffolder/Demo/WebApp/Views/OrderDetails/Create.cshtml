@@ -110,7 +110,7 @@
         //save item
         function saveitem() {
 			  if ($editform.valid()) {
-                 var orderdetail = $("#orderdetail_form").serializeObject();
+                 var orderdetail = $("#orderdetail_form").serializeJSON();
 				  
                  var token = $('input[name="__RequestVerificationToken"]', $editform).val();
                  $.ajax({

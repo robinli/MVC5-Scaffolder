@@ -49,19 +49,49 @@
                 <!-- end widget edit box -->
                 <!-- widget content -->
                 <div class="widget-body no-padding">
-                     <!-- form toolbar -->
-                        <div id="form_toolbar" style="height:auto" class="datagrid-toolbar">
-                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-plus',plain:true" onclick="createitem()">新增</a>
-                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-trash-o',plain:true" onclick="removeitem()">删除</a>
-                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-floppy-o',plain:true" onclick="saveitem()">保存</a>
-                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-undo',plain:true" onclick="reject()">取消</a>
-                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-upload fa-fw',plain:true" onclick="importexcel()">EXCEL 导入</a>
-                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-file-excel-o',plain:true" onclick="exportexcel()">导出 Excel</a>
-                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-refresh',plain:true" onclick="refresh()">刷新</a>
-                         </div>
-                        <!--end form toolbar-->
-                    <form id="company_form" class="smart-form  easyui-form" method="post" data-options="novalidate:true">
-                                @Html.Partial("EditForm")
+                       <form id="company_form" class="smart-form" method="post" data-options="novalidate:true">
+                            @Html.AntiForgeryToken()
+                            <header>
+                                <div class="btn-group">
+                                <button type="button" class="btn btn-default" onclick="saveitem()">
+                                    <i class="fa fa-floppy-o"></i>
+                                    保存
+                                </button>
+                                <button type="button" class="btn btn-default">
+                                    <i class="fa fa-pencil-square-o"></i>
+                                    操作1
+                                </button>
+                                <button type="button" class="btn btn-default">
+                                    <i class="fa fa-pencil-square-o"></i>
+                                    操作2
+                                </button>
+                                <button type="button" class="btn btn-default" onclick="exportexcel()">
+                                    <i class="fa fa-file-excel-o"></i>
+                                    导出Excel
+                                </button>
+                                <button type="button" class="btn btn-default" onclick="printitem()">
+                                    <i class="fa fa-print"></i>
+                                    打印
+                                </button>
+                                <button type="button" class="btn btn-default" onclick="cancelitem()">
+                                    <i class="fa fa-refresh"></i>
+                                    取消
+                                </button>
+                                <button type="button" class="btn btn-default" onclick="refreshitem()">
+                                    <i class="fa fa-refresh"></i>
+                                    刷新
+                                </button>
+                            </div>
+                               </header>
+                               @Html.Partial("EditForm")
+                            <footer>
+                            <button type="submit" class="btn btn-primary">
+                                保存
+                            </button>
+                            <button type="reset" class="btn btn-default">
+                                取消
+                            </button>
+                        </footer>
                         </form>		 
                  </div>
                  <!-- end widget content -->
@@ -75,39 +105,148 @@
 <!-- END MAIN CONTENT -->
 @section Scripts {
      <script type="text/javascript">
-	   //create new item
-        function createitem() {
-
-        }
-        //delete item
-        function deleteitem() {
-
-        }
+	    
+        var $editform = $('#company_form');
         //save item
         function saveitem() {
-			   if ($("#company_form").form("enableValidation").form("validate")) {						
-                 var item = $("#company_form").serializeObject();
-				                   $.post("/Companies/Create", item, function (response) {						
-                     //console.log(response);						
-                     if (response.success) {						
-                         $.messager.alert("提示", "保存成功！");						
-                     } else {						
-                         $.messager.alert("错误", "保存失败！" + response.err, "error");						
-                     }						
-                 }, "json").fail(function (response) {						
-                     //console.log(response);						
-                     $.messager.alert("错误", "保存失败！", "error");						
-                     //$dg.datagrid("reload");						
-                 });						
+			  if ($editform.valid()) {
+                 var company = $("#company_form").serializeObject();
+				  				  //获取明细表数据
+				   
+						if (!departments_endEditing())
+								return false;                    
+                        var departments = $departmentsdg.datagrid("getChanges");
+						company.Departments = departments ;
+				   
+						if (!employee_endEditing())
+								return false;                    
+                        var employee = $employeedg.datagrid("getChanges");
+						company.Employee = employee ;
+				  				  
+                 var token = $('input[name="__RequestVerificationToken"]', $editform).val();
+                 $.ajax({
+                    type: "POST",
+                    url: "/Companies/Create",
+                    data: {
+                        __RequestVerificationToken: token,
+                        company:company
+                    },
+                    dataType: 'json',
+                    contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+                })
+                .done(function (response) {
+                    if (response.success) {
+                        $.messager.alert("提示", "保存成功！");
+                    } else {
+                        $.messager.alert("错误", "保存失败！" + response.err, "error");
+                    }
+                    })
+                .fail(function (response) {
+                        $.messager.alert("错误", "保存失败！", "error");
+                    });
+                  
              }						
         }
-        function reject() {
+        function cancelitem() {
         }
-        function importexcel() {
+         function printitem() {
         }
         function exportexcel() {
         }
-        function refresh() {
+        function refreshitem() {
         }
-        </script>
+
+     /********************************
+     *
+     * pageSetUp() is needed whenever you load a page.
+     * It initializes and checks for all basic elements of the page
+     * and makes rendering easier.
+     *
+     */
+     pageSetUp();
+     /********************************
+     *
+     * pagefunction() $editform 校验规则
+     *
+     */
+     var pagefunction = function () {
+            var errorClass = 'invalid';
+            var errorElement = 'em';
+            $editform.validate({
+                 errorClass: errorClass,
+                 errorElement: errorElement,
+                 highlight: function (element) {
+                    $(element).parent().removeClass('state-success').addClass("state-error");
+                    $(element).removeClass('valid');
+                 },
+                 unhighlight: function (element) {
+                    $(element).parent().removeClass("state-error").addClass('state-success');
+                    $(element).addClass('valid');
+                 },
+                // Rules for form validation
+                rules: {
+                                    Id:{
+                            required:true,
+                                                        digits: true,
+                                                                                                        },
+                                    Name:{
+                            required:false,
+                                                                                    rangelength: [0, 50],
+                                                                            },
+                                    Address:{
+                            required:false,
+                                                                                    rangelength: [0, 50],
+                                                                            },
+                                    City:{
+                            required:false,
+                                                                                    rangelength: [0, 50],
+                                                                            },
+                                    Province:{
+                            required:false,
+                                                                                    rangelength: [0, 50],
+                                                                            },
+                                    RegisterDate:{
+                            required:true,
+                                                                                                                date: true,
+                                                },
+                                    Employees:{
+                            required:true,
+                                                        digits: true,
+                                                                                                        },
+                                    CreatedDate:{
+                            required:false,
+                                                                                                                date: true,
+                                                },
+                                    CreatedBy:{
+                            required:false,
+                                                                                    rangelength: [0, 20],
+                                                                            },
+                                    LastModifiedDate:{
+                            required:false,
+                                                                                                                date: true,
+                                                },
+                                    LastModifiedBy:{
+                            required:false,
+                                                                                    rangelength: [0, 20],
+                                                                            },
+                                },
+                submitHandler: function (form) {
+                    //调用保存方法
+                      saveitem();
+                      return false;
+                    //$(form).ajaxSubmit({
+                    //    success: function () {
+                    //        console.log('ajaxSubmit success');
+                    //   }
+                    //});
+                },
+                // Do not change code below
+                errorPlacement: function (error, element) {
+                    error.insertAfter(element.parent());
+                }
+
+            });
+        }
+        pagefunction();
+ </script>
 }

@@ -217,7 +217,7 @@
     //save item
     function saveitem() {
         if ($('#work_form').form('enableValidation').form('validate')) {
-            var item = $('#work_form').serializeObject();
+            var item = $('#work_form').serializeJSON();
 
             $.post("/Works/Edit", item, function (response) {
                 //console.log(response);

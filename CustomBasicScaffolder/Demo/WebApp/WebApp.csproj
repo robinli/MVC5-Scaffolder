@@ -2664,6 +2664,8 @@
     <Content Include="Scripts\plugin\jquery.fileuploader\jquery.fileuploader-theme-dragdrop.css" />
     <Content Include="Scripts\plugin\jquery.fileuploader\jquery.fileuploader.min.css" />
     <Content Include="Scripts\plugin\jquery.fileuploader\jquery.fileuploader.min.js" />
+    <Content Include="Scripts\plugin\jquery.serializejson\jquery.serializejson.js" />
+    <Content Include="Scripts\plugin\jquery.serializejson\jquery.serializejson.min.js" />
     <Content Include="Scripts\plugin\js-migrate\jquery-migrate-1.2.1.js" />
     <Content Include="Scripts\plugin\js-migrate\jquery-migrate-1.2.1.min.js" />
     <Content Include="Scripts\plugin\knob\jquery.knob.js" />
@@ -2752,13 +2754,6 @@
     <Content Include="Views\Employees\Edit.cshtml" />
     <Content Include="Views\Employees\EditForm.cshtml" />
     <Content Include="Views\Employees\_PopupDetailFormView.cshtml" />
-    <Content Include="Views\Companies\Index1.cshtml" />
-    <Content Include="Views\Companies\Create.cshtml" />
-    <Content Include="Views\Companies\Edit.cshtml" />
-    <Content Include="Views\Companies\EditForm.cshtml" />
-    <Content Include="Views\Companies\_PopupDetailFormView.cshtml" />
-    <Content Include="Views\Companies\_DepartmentEditForm.cshtml" />
-    <Content Include="Views\Companies\_EmployeeEditForm.cshtml" />
     <Content Include="Views\Features\Bootstrap.cshtml" />
     <Content Include="Views\Home\Chat.cshtml" />
     <Content Include="Views\Features\Widgets.cshtml" />
@@ -2768,6 +2763,12 @@
     <Content Include="Views\Account\_TermsAndConditions.cshtml" />
     <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
     <Content Include="Views\Companies\Index.cshtml" />
+    <Content Include="Views\Companies\Create.cshtml" />
+    <Content Include="Views\Companies\Edit.cshtml" />
+    <Content Include="Views\Companies\EditForm.cshtml" />
+    <Content Include="Views\Companies\_PopupDetailFormView.cshtml" />
+    <Content Include="Views\Companies\_DepartmentEditForm.cshtml" />
+    <Content Include="Views\Companies\_EmployeeEditForm.cshtml" />
     <None Include="Views\Notifications\_notifications.cshtml" />
     <None Include="Views\Messages\_notifications.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Int.cshtml">

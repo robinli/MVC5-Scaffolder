@@ -125,7 +125,7 @@ bool isControlHtmlAttributesSupported = MvcVersion >= requiredMvcVersion;
         //save item
         function saveitem() {
 			  if ($editform.valid()) {
-                 var <#= ModelTypeName.ToLower() #> = $("#<#= ModelTypeName.ToLower() #>_form").serializeObject();
+                 var <#= ModelTypeName.ToLower() #> = $editform.serializeJSON();
 				  <#  if(GenerateMasterDetailRelationship  && OneToManyModelMetadata.Count >0) { 
 						var primaryKeyVar = ModelTypeName.ToLower() + primaryKey.ToLower();
 				  #>
