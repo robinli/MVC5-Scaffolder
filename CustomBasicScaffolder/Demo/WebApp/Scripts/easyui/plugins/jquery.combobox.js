@@ -1,5 +1,5 @@
 /**
- * EasyUI for jQuery 1.5.4.2
+ * EasyUI for jQuery 1.5.4.5
  * 
  * Copyright (c) 2009-2018 www.jeasyui.com. All rights reserved.
  *
@@ -534,6 +534,7 @@ _41(this);
 },query:function(q,e){
 _36(this,q);
 }},inputEvents:$.extend({},$.fn.combo.defaults.inputEvents,{blur:function(e){
+$.fn.combo.defaults.inputEvents.blur(e);
 var _7c=e.data.target;
 var _7d=$(_7c).combobox("options");
 if(_7d.reversed||_7d.limitToList){

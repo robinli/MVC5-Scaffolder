@@ -1,5 +1,5 @@
 /**
- * EasyUI for jQuery 1.5.4.2
+ * EasyUI for jQuery 1.5.4.5
  * 
  * Copyright (c) 2009-2018 www.jeasyui.com. All rights reserved.
  *
@@ -381,22 +381,27 @@
 		}
 	}
 	
-	function findItem(target, text){
+	function findItem(target, param){
 		var result = null;
-		var tmp = $('<div></div>');
+		var fn = $.isFunction(param) ? param : function(item){
+			for(var p in param){
+				if (item[p] != param[p]){
+					return false;;
+				}
+			}
+			return true;
+		}
 		function find(menu){
 			menu.children('div.menu-item').each(function(){
-				var item = $(target).menu('getItem', this);
-				var s = tmp.empty().html(item.text).text();
-				if (text == $.trim(s)) {
-					result = item;
+				var opts = $(this).data('menuitem').options;
+				if (fn.call(target, opts) == true){
+					result = $(target).menu('getItem', this);
 				} else if (this.submenu && !result){
 					find(this.submenu);
 				}
 			});
 		}
 		find($(target));
-		tmp.remove();
 		return result;
 	}
 	
@@ -555,7 +560,13 @@
 			});
 		},
 		findItem: function(jq, text){
-			return findItem(jq[0], text);
+			if (typeof text == 'string'){
+				return findItem(jq[0], function(item){
+					return $('<div>'+item.text+'</div>').text() == text;
+				});
+			} else {
+				return findItem(jq[0], text);
+			}
 		},
 		/**
 		 * append menu item, the param contains following properties:

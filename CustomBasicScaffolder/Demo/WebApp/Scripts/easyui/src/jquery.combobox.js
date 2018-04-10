@@ -1,5 +1,5 @@
 /**
- * EasyUI for jQuery 1.5.4.2
+ * EasyUI for jQuery 1.5.4.5
  * 
  * Copyright (c) 2009-2018 www.jeasyui.com. All rights reserved.
  *
@@ -642,6 +642,7 @@
 		},
 		inputEvents: $.extend({}, $.fn.combo.defaults.inputEvents, {
 			blur: function(e){
+				$.fn.combo.defaults.inputEvents.blur(e);
 				var target = e.data.target;
 				var opts = $(target).combobox('options');
 				if (opts.reversed || opts.limitToList){
