@@ -9,7 +9,7 @@ using WebApp.Models;
 using Hangfire;
 using Hangfire.Dashboard;
 using Hangfire.SqlServer;
-
+//[assembly: OwinStartup(typeof(WebApp.Startup))]
 namespace WebApp
 {
     public partial class Startup
