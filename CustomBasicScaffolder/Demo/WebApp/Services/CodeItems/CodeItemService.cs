@@ -121,7 +121,7 @@ namespace WebApp.Services
 
                 sw.WriteLine($"//for datagrid   {item.CodeType}  field filter ");
                 sw.WriteLine($"$.extend($.fn.datagrid.defaults.filters, {{");
-                sw.WriteLine($"{item.CodeType.ToLower() }combobox: {{");
+                sw.WriteLine($"{item.CodeType.ToLower() }filter: {{");
                 sw.WriteLine($"     init: function(container, options) {{");
                 sw.WriteLine($"        var input = $('<input type=\"text\">').appendTo(container);");
                 sw.WriteLine($"        var myoptions = {{");
@@ -149,7 +149,7 @@ namespace WebApp.Services
 
                 sw.WriteLine($"//for datagrid   { item.CodeType }   field  editor ");
                 sw.WriteLine($"$.extend($.fn.datagrid.defaults.editors, {{");
-                sw.WriteLine($"{item.CodeType.ToLower()}combobox: {{");
+                sw.WriteLine($"{item.CodeType.ToLower()}editor: {{");
                 sw.WriteLine($"     init: function(container, options) {{");
                 sw.WriteLine($"        var input = $('<input type=\"text\">').appendTo(container);");
                 sw.WriteLine($"        var myoptions = {{");
