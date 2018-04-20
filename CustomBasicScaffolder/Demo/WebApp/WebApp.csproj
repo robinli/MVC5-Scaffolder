@@ -2776,6 +2776,7 @@
     <Content Include="Views\Departments\Edit.cshtml" />
     <Content Include="Views\Departments\EditForm.cshtml" />
     <Content Include="Views\Departments\_PopupDetailFormView.cshtml" />
+    <Content Include="Views\AccountManage\_ResetPasswordPartial.cshtml" />
     <None Include="Views\Notifications\_notifications.cshtml" />
     <None Include="Views\Messages\_notifications.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Int.cshtml">

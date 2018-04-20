@@ -36,8 +36,8 @@ namespace WebApp.Controllers
                                
                                    )
         {
-            UserManager = userManager;
-            SignInManager = signInManager;
+            //UserManager = userManager;
+            //SignInManager = signInManager;
             _companyService = companyService;
             
         }
@@ -66,14 +66,19 @@ namespace WebApp.Controllers
         {
             return View();
         }
-     
+        [HttpGet]
+        public ActionResult ResetPassword(string id,string newPassword) {
+           var code =  this.UserManager.GeneratePasswordResetToken(id);
+           var result= this.UserManager.ResetPassword(id, code, newPassword);
+           return Json(result, JsonRequestBehavior.AllowGet); 
+        }
         [HttpGet]
         public ActionResult GetData(int page = 1, int rows = 10, string sort = "Id", string order = "desc", string filterRules = "")
         {
             var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
             int totalCount = 0;
 
-            var users = _userManager.Users.OrderByName(sort, order);
+            var users = this.UserManager.Users.OrderByName(sort, order);
             if (filters != null)
             {
                 foreach (var filter in filters)

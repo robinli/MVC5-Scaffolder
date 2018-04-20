@@ -87,11 +87,13 @@
                                             method: 'get',
                                             onClickCell: onClickCell,
                                             pagination: 'true',
-                                            striped:true
+                                            striped:true,
+                                       checkOnSelect:true,
+                                       selectOnCheck:true
                                                ">
                                     <thead>
                                         <tr>
-                                            @*<th data-options="field:'ck',checkbox:true"></th>*@
+                                            <th data-options="field:'ck',checkbox:true"></th>
                                             @*<th data-options="field:'Id',width:80">@Html.DisplayNameFor(model => model.Id)</th>*@
 
                                             <th data-options="field:'UserName',width:140 ,editor:{type:'textbox',options:{required:true} } ">用户名</th>
@@ -148,14 +150,14 @@
 
 
         </table>
-        <div id="users_toolbar" style="height:auto">
-            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-plus',plain:true" onclick="append()">新增</a>
-            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-trash-o',plain:true" onclick="removeit()">删除</a>
-            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-floppy-o',plain:true" onclick="accept()">保存</a>
-            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-undo',plain:true" onclick="reject()">取消</a>
-
-            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-refresh',plain:true" onclick="reload()">刷新</a>
-        </div>
+                                <div id="users_toolbar" style="height:auto">
+                                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-plus',plain:true" onclick="append()">新增</a>
+                                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-trash-o',plain:true" onclick="removeit()">删除</a>
+                                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-floppy-o',plain:true" onclick="accept()">保存</a>
+                                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-undo',plain:true" onclick="reject()">取消</a>
+                                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-key',plain:true" onclick="resetpassword()">重置密码</a>
+                                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-refresh',plain:true" onclick="reload()">刷新</a>
+                                </div>
     </div>
     <!--end datagrid-content -->
 
@@ -176,12 +178,23 @@
 </section>
 <!-- end widget grid -->
 
-
+    @Html.Partial("_ResetPasswordPartial")
 </div>
 <!-- END MAIN CONTENT -->
 
 @section Scripts {
     <script type="text/javascript">
+
+        function resetpassword() {
+            var row = $dg.datagrid('getChecked');
+            if (row.length == 0) {
+                $.messager.alert("提示","请选中需要重置密码的记录!");
+            } else {
+                console.log(row);
+                showresetform(row[0].Id, row[0].UserName);
+            }
+        }
+
         var $dg = $('#users_datagrid');
         var editIndex = undefined;
         function endEditing() {
