@@ -61,8 +61,7 @@ namespace WebApp
             //    "~/scripts/app.min.js"));
 
             bundles.Add(new ScriptBundle("~/scripts/full-calendar").Include(
-                "~/scripts/plugin/moment/moment.js",
-                 "~/scripts/plugin/fullcalendar/fullcalendar.js"
+                    "~/scripts/plugin/fullcalendar/fullcalendar.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/scripts/charts").Include(
@@ -176,6 +175,7 @@ namespace WebApp
 
             //format enum json
             bundles.Add(new ScriptBundle("~/plugins/jqueryeasyuiextendjs").Include(
+                      "~/scripts/plugin/moment/moment.js",
                       "~/Scripts/jquery.extend.js",
                       "~/Scripts/jquery.easyui.extend.js",
                       "~/Scripts/jquery.extend.formatter.js"));

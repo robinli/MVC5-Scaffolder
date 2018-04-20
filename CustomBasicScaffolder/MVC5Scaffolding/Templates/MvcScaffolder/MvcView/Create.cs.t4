@@ -64,7 +64,7 @@ bool isControlHtmlAttributesSupported = MvcVersion >= requiredMvcVersion;
                 <!-- end widget edit box -->
                 <!-- widget content -->
                 <div class="widget-body no-padding">
-                       <form id="<#= ModelTypeName.ToLower() #>_form" class="smart-form" method="post" data-options="novalidate:true">
+                       <form id="<#= ModelTypeName.ToLower() #>_form" class="smart-form" method="post" novalidate >
                             @Html.AntiForgeryToken()
                             <header>
                                 <div class="btn-group">
@@ -131,11 +131,14 @@ bool isControlHtmlAttributesSupported = MvcVersion >= requiredMvcVersion;
 				  #>
 				  //获取明细表数据
 				  <# foreach(var item in OneToManyModelMetadata) {
-                        var boostraptablevar = "$" + item.Key.ToLower()  + "dg";
+                         var submetadata =  item.Value;
+                         var entitySetNameToLower = submetadata.EntitySetName.ToLower();
+			             string subpropertyName = item.Key;
+                        var boostraptablevar = "$" + entitySetNameToLower + "dg";
 						var fieldpropertyname = item.Key;
-                        var detailnamevar=item.Key.ToLower();
+                        var detailnamevar = fieldpropertyname.ToLower();
                   #> 
-						if (!<#= detailnamevar #>_endEditing())
+						if (!<#= entitySetNameToLower #>_endEditing())
 								return false;                    
                         var <#= detailnamevar #> = <#= boostraptablevar #>.datagrid("getChanges");
 						<#= ModelTypeName.ToLower() #>.<#=  fieldpropertyname #> = <#= detailnamevar #> ;

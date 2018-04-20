@@ -300,7 +300,38 @@
           });
                 
                 $departmentsdg.datagrid("enableFilter", [
-									]);
+                
+           				{
+					  field: "Id",
+					  type: "numberbox",
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+		   
+
+		   		   
+		   		   {
+				 field: "CompanyId",
+				 type:"combobox",
+				 options:{
+								valueField:"Id",
+								textField:"Name",
+								method:"get",
+								url:"/Companies/GetCompanies",
+								onChange: function (value) {
+								if (value == "") {
+									$departmentsdg.datagrid("removeFilterRule", "CompanyId");
+								} else {
+									$departmentsdg.datagrid("addFilterRule", {
+										field: "CompanyId",
+										op: "equal",
+										value: value
+								});
+							}
+							$departmentsdg.datagrid("doFilter");
+						}
+					}
+		   },
+		   									]);
          
           $employeesdg.datagrid({
                     rownumbers: true,
@@ -395,13 +426,70 @@
           });
                 
                 $employeesdg.datagrid("enableFilter", [
-									]);
+                
+           				{
+					  field: "Id",
+					  type: "numberbox",
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+		   				{
+					  field: "Age",
+					  type: "numberbox",
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+		   				{
+					  field: "IsDeleted",
+					  type: "numberbox",
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+		   
+
+		   				{
+					  field: "Brithday",
+					  type: "dateRange",
+					  options: {
+						  onChange: function (value) {
+							    $employeesdg.datagrid("addFilterRule", {
+									  field: "Brithday",
+									  op: "between",
+									  value: value
+								  });
+							   
+							    $employeesdg.datagrid("doFilter");
+						  }
+					  }
+				  },
+		   		   
+		   		   {
+				 field: "CompanyId",
+				 type:"combobox",
+				 options:{
+								valueField:"Id",
+								textField:"Name",
+								method:"get",
+								url:"/Companies/GetCompanies",
+								onChange: function (value) {
+								if (value == "") {
+									$employeesdg.datagrid("removeFilterRule", "CompanyId");
+								} else {
+									$employeesdg.datagrid("addFilterRule", {
+										field: "CompanyId",
+										op: "equal",
+										value: value
+								});
+							}
+							$employeesdg.datagrid("doFilter");
+						}
+					}
+		   },
+		   									]);
              }
+    var $editform = $('#company_form');
     //save item
     function saveitem() {
-         var $editform = $('#company_form');
+         
         if ($editform.form('enableValidation').form('validate')) {
-            var company = $editform.serializeObject();
+            var company = $editform.serializeJSON();
             var token = $('input[name="__RequestVerificationToken"]', $editform).val();
 
             $.ajax({
@@ -478,7 +566,7 @@
 	}
 	function departments_createitem() {
 		if (departments_endEditing()) {
-			 var company = $departmentsdg.datagrid("getSelected");
+			 var company = $editform.serializeJSON();
 
 			$departmentsdg.datagrid("appendRow", { CompanyId:company.Id   });
 			departmentseditIndex = $departmentsdg.datagrid("getRows").length - 1;
@@ -581,7 +669,7 @@
 	}
 	function employees_createitem() {
 		if (employees_endEditing()) {
-			 var company = $employeesdg.datagrid("getSelected");
+			 var company = $editform.serializeJSON();
 
 			$employeesdg.datagrid("appendRow", { CompanyId:company.Id   });
 			employeeseditIndex = $employeesdg.datagrid("getRows").length - 1;

@@ -49,7 +49,7 @@
                 <!-- end widget edit box -->
                 <!-- widget content -->
                 <div class="widget-body no-padding">
-                       <form id="company_form" class="smart-form" method="post" data-options="novalidate:true">
+                       <form id="company_form" class="smart-form" method="post" novalidate >
                             @Html.AntiForgeryToken()
                             <header>
                                 <div class="btn-group">
@@ -110,7 +110,7 @@
         //save item
         function saveitem() {
 			  if ($editform.valid()) {
-                 var company = $("#company_form").serializeObject();
+                 var company = $editform.serializeJSON();
 				  				  //获取明细表数据
 				   
 						if (!departments_endEditing())
@@ -118,9 +118,9 @@
                         var departments = $departmentsdg.datagrid("getChanges");
 						company.Departments = departments ;
 				   
-						if (!employee_endEditing())
+						if (!employees_endEditing())
 								return false;                    
-                        var employee = $employeedg.datagrid("getChanges");
+                        var employee = $employeesdg.datagrid("getChanges");
 						company.Employee = employee ;
 				  				  
                  var token = $('input[name="__RequestVerificationToken"]', $editform).val();

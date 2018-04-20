@@ -196,7 +196,7 @@
         <!-- Nav tabs -->
         <ul class="nav nav-tabs">
 								<li class="active"><a data-toggle="tab" href="#tab-departments"> Departments</a></li>
-												<li class=""><a data-toggle="tab" href="#tab-employee"> Employee</a></li>	 		 
+												<li class=""><a data-toggle="tab" href="#tab-employees"> Employee</a></li>	 		 
 				   
 		 </ul>
 		 <!-- Tab panes -->
@@ -215,12 +215,12 @@
                 </div>
             </div>
         </div>
-		  		  <div id="tab-employee" class="tab-pane ">
+		  		  <div id="tab-employees" class="tab-pane ">
             <div class="panel-body">
                 <div class="table-responsive">
-				<table id="employee_datagrid" >
+				<table id="employees_datagrid" >
                 </table>
-				<div id="employee_toolbar" style="height:auto">
+				<div id="employees_toolbar" style="height:auto">
                     <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-plus fa-fw',plain:true" onclick="employee_createitem()">新增</a>
                     <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-trash-o fa-fw',plain:true" onclick="employee_removeitem()">删除</a>
                     <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-floppy-o fa-fw',plain:true" onclick="employee_saveitem()">保存</a>
@@ -241,7 +241,14 @@
 
  <script type="text/javascript">
    var id=@Model.Id;
-             
+       $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        var target = $(e.target).attr("href") // activated tab
+                if(target=="#tab-departments")
+             $departmentsdg.datagrid("resize");
+                if(target=="#tab-employees")
+             $employeesdg.datagrid("resize");
+        
+    });
 		 
 								//--------------------------------------------------------------------
 				// #departments_datagrid functions
@@ -500,7 +507,38 @@
           });
                 
                 $departmentsdg.datagrid("enableFilter", [
-									]);
+                
+           				{
+					  field: "Id",
+					  type: "numberbox",
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+		   
+
+		   		   
+		   		   {
+				 field: "CompanyId",
+				 type:"combobox",
+				 options:{
+								valueField:"Id",
+								textField:"Name",
+								method:"get",
+								url:"/Companies/GetCompanies",
+								onChange: function (value) {
+								if (value == "") {
+									$departmentsdg.datagrid("removeFilterRule", "CompanyId");
+								} else {
+									$departmentsdg.datagrid("addFilterRule", {
+										field: "CompanyId",
+										op: "equal",
+										value: value
+								});
+							}
+							$departmentsdg.datagrid("doFilter");
+						}
+					}
+		   },
+		   									]);
                    
           $employeesdg.datagrid({
                     rownumbers: true,
@@ -595,7 +633,63 @@
           });
                 
                 $employeesdg.datagrid("enableFilter", [
-									]);
+                
+           				{
+					  field: "Id",
+					  type: "numberbox",
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+		   				{
+					  field: "Age",
+					  type: "numberbox",
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+		   				{
+					  field: "IsDeleted",
+					  type: "numberbox",
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+		   
+
+		   				{
+					  field: "Brithday",
+					  type: "dateRange",
+					  options: {
+						  onChange: function (value) {
+							    $employeesdg.datagrid("addFilterRule", {
+									  field: "Brithday",
+									  op: "between",
+									  value: value
+								  });
+							   
+							    $employeesdg.datagrid("doFilter");
+						  }
+					  }
+				  },
+		   		   
+		   		   {
+				 field: "CompanyId",
+				 type:"combobox",
+				 options:{
+								valueField:"Id",
+								textField:"Name",
+								method:"get",
+								url:"/Companies/GetCompanies",
+								onChange: function (value) {
+								if (value == "") {
+									$employeesdg.datagrid("removeFilterRule", "CompanyId");
+								} else {
+									$employeesdg.datagrid("addFilterRule", {
+										field: "CompanyId",
+										op: "equal",
+										value: value
+								});
+							}
+							$employeesdg.datagrid("doFilter");
+						}
+					}
+		   },
+		   									]);
                   }
          /* 初始化datagrid */
          initdatagrid();

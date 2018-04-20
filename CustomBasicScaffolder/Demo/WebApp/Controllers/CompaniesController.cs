@@ -1,14 +1,15 @@
-﻿// <copyright file="CompaniesController.cs" company="neozhu/MVC5-Scaffolder">
-// Copyright (c) 2018 All Rights Reserved
-// </copyright>
-// <author>neo.zhu</author>
-// <date>4/8/2018 11:14:03 AM </date>
-// <summary>
-// Create By Custom MVC5 Scaffolder for Visual Studio
-// TODO: RegisterType UnityConfig.cs
-// container.RegisterType<IRepositoryAsync<Company>, Repository<Company>>();
-// container.RegisterType<ICompanyService, CompanyService>();
-// </summary>
+﻿/// <summary>
+/// Provides functionality to the /Company/ route.
+/// <date> 4/20/2018 1:22:04 PM </date>
+/// Create By SmartCode MVC5 Scaffolder for Visual Studio
+/// TODO: RegisterType UnityConfig.cs
+/// container.RegisterType<IRepositoryAsync<Company>, Repository<Company>>();
+/// container.RegisterType<ICompanyService, CompanyService>();
+///
+/// Copyright (c) 2012-2018 neo.zhu
+/// Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php)
+/// and GPL (http://www.opensource.org/licenses/gpl-license.php) licenses.
+/// </summary>
 using System;
 using Newtonsoft.Json;
 using System.Collections.Generic;
@@ -46,7 +47,7 @@ namespace WebApp.Controllers
 		}
 		// Get :Companies/PageList
 		// For Index View Boostrap-Table load  data 
-		[HttpPost]
+		[HttpGet]
 				 public async Task<JsonResult> GetData(int page = 1, int rows = 10, string sort = "Id", string order = "asc", string filterRules = "")
 				{
 			var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
@@ -96,13 +97,7 @@ namespace WebApp.Controllers
 			return Json(rows, JsonRequestBehavior.AllowGet);
 		}
 						        //[OutputCache(Duration = 360, VaryByParam = "none")]
-		//public async Task<JsonResult> GetCompanies(string q="")
-		//{
-		//	var companyRepository = _unitOfWork.RepositoryAsync<Company>();
-		//	var data = await companyRepository.Queryable().Where(n=>n.Name.Contains(q)).ToListAsync();
-		//	var rows = data.Select(n => new { Id = n.Id, Name = n.Name });
-		//	return Json(rows, JsonRequestBehavior.AllowGet);
-		//}
+		 
 						// GET: Companies/Details/5
 		public async Task<ActionResult> Details(int? id)
 		{

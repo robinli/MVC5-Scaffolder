@@ -58,7 +58,7 @@
                 <!-- widget content -->
                 <div class="widget-body no-padding ">
                     
-                        <form id="company_form" class="smart-form" method="post" data-options="novalidate:true">
+                        <form id="company_form" class="smart-form" method="post"  novalidate>
                               @Html.AntiForgeryToken()
                              <header>
                             <div class="btn-group">
@@ -129,7 +129,7 @@
         //save item
         function saveitem() {
             if ($editform.valid()) {
-                var company = $('#company_form').serializeObject();
+                var company = $editform.serializeJSON();
                   				  //获取明细表数据
 				   
 						if (!departments_endEditing())

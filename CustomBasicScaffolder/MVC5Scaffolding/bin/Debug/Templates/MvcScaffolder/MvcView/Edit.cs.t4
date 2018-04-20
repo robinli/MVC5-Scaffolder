@@ -73,7 +73,7 @@ bool isControlHtmlAttributesSupported = MvcVersion >= requiredMvcVersion;
                 <!-- widget content -->
                 <div class="widget-body no-padding ">
                     
-                        <form id="<#= ModelTypeName.ToLower() #>_form" class="smart-form" method="post" data-options="novalidate:true">
+                        <form id="<#= ModelTypeName.ToLower() #>_form" class="smart-form" method="post"  novalidate>
                               @Html.AntiForgeryToken()
                              <header>
                             <div class="btn-group">
