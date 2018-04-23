@@ -170,17 +170,15 @@
                     $.map(data.rows, function (row) {
                         if (isMatch(row, row[opts.idField])) {
                             rr[row[opts.idField]] = row;
-                            var prow = getRow(data.rows, row._parentId);  
+                            var prow = getRow(data.rows, row._parentId);
                             while (prow) {
                                 rr[prow[opts.idField]] = prow;
                                 prow = getRow(data.rows, prow._parentId);
-
                             }
                             if (opts.filterIncludingChild) {
                                 var cc = getAllChildRows(data.rows, row[opts.idField]);
                                 $.map(cc, function (row) {
                                     rr[row[opts.idField]] = row;
-
                                 });
                             }
                         }
@@ -252,10 +250,8 @@
                     var c2 = getChildRows(rows, row[opts.idField]);
                     cc = cc.concat(c2);
                     stack = stack.concat(c2);
-
                 }
                 return cc;
-
             }
             function getChildRows(rows, id) {
                 var cc = [];
@@ -263,12 +259,9 @@
                     var row = rows[i];
                     if (row._parentId == id) {
                         cc.push(row);
-
                     }
-
                 }
                 return cc;
-
             }
         },
         defaultFilterType: 'text',
@@ -282,8 +275,6 @@
                 if (input.data('textbox')) {
                     input = input.textbox('textbox');
                 }
-                //console.log(input.get(0));
-                //console.log(field);
                 input.unbind('.filter').bind('keydown.filter', function (e) {
                     var t = $(this);
                     if (this.timer) {
@@ -485,7 +476,6 @@
                 $(target)._outerWidth(width)._outerHeight(22);
             }
         }
-
     });
     $.fn.treegrid.defaults.filters = $.fn.datagrid.defaults.filters;
 
@@ -650,17 +640,13 @@
                 }
             }
             var menu = input[0].menu;
-
             if (menu) {
-                console.log(opts.operators);
                 if (opts.operators[param.op]) {
                     param.op = 'equal';
                 }
                 menu.find('.' + opts.filterMenuIconCls).removeClass(opts.filterMenuIconCls);
                 var item = menu.menu('findItem', opts.operators[param.op]['text']);
-
                 menu.menu('setIcon', {
-
                     target: item.target,
                     iconCls: opts.filterMenuIconCls
                 });
@@ -788,7 +774,8 @@
             }
             data = opts.filterMatcher.call(target, {
                 total: state.filterSource.total,
-                rows: state.filterSource.rows
+                rows: state.filterSource.rows,
+                footer: state.filterSource.footer || []
             });
 
             if (opts.pagination) {
@@ -925,6 +912,12 @@
             var d = opts.oldLoadFilter.call(this, data, parentId);
             return myLoadFilter.call(this, d, parentId);
         };
+        state.dc.view2.children('.datagrid-header').unbind('.filter').bind('focusin.filter', function (e) {
+            var header = $(this);
+            setTimeout(function () {
+                state.dc.body2._scrollLeft(header._scrollLeft());
+            }, 0);
+        });
 
         initCss();
         createFilter(true);
@@ -943,7 +936,7 @@
             if (!$('#datagrid-filter-style').length) {
                 $('head').append(
                     '<style id="datagrid-filter-style">' +
-                    'a.datagrid-filter-btn{display:inline-block;width:22px;height:22px;margin:0;vertical-align:top;cursor:pointer;opacity:0.6;filter:alpha(opacity=60);}' +
+                    'a.datagrid-filter-btn{display:inline-block;width:22px;height:100%;margin:0;vertical-align:middle;cursor:pointer;opacity:0.6;filter:alpha(opacity=60);}' +
                     'a:hover.datagrid-filter-btn{opacity:1;filter:alpha(opacity=100);}' +
                     '.datagrid-filter-row .textbox,.datagrid-filter-row .textbox .textbox-text{-moz-border-radius:0;-webkit-border-radius:0;border-radius:0;}' +
                     '.datagrid-filter-row input{margin:0;-moz-border-radius:0;-webkit-border-radius:0;border-radius:0;}' +
@@ -1015,17 +1008,14 @@
                 if (!div) {
                     div = $('<div class="datagrid-filter-c"></div>').appendTo(td);
                     var filter = opts.filters[fopts.type];
-                    var input = filter.init(div, $.extend({ height: 24 }, fopts.options || {}));
+                    var input = filter.init(div, $.extend({ height: opts.editorHeight }, fopts.options || {}));
                     input.addClass('datagrid-filter').attr('name', field);
                     input[0].filter = filter;
                     input[0].menu = createFilterButton(div, fopts.op);
-
                     if (fopts.options) {
-
                         if (fopts.options.onInit) {
                             fopts.options.onInit.call(input[0], target);
-                        }
-                        else {//°ó¶¨onInit
+                        } else {
                             opts.defaultFilterOptions.onInit.call(input[0], target);
 
                         }
@@ -1044,6 +1034,7 @@
             if (!operators) { return null; }
 
             var btn = $('<a class="datagrid-filter-btn">&nbsp;</a>').addClass(opts.filterBtnIconCls);
+            btn.css('height', opts.editorHeight);
             if (opts.filterBtnPosition == 'right') {
                 btn.appendTo(container);
             } else {

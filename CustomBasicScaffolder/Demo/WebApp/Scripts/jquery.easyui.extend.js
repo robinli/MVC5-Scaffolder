@@ -41,8 +41,8 @@ $.extend($.fn.datetimebox.defaults, {
 $.extend($.fn.datagrid.defaults.filters, {
     dateRange: {
         init: function (container, options) {
-            var cc = $('<span class="textbox combo datebox"><span class="textbox-addon textbox-addon-right" style="right: 0px; top: 1px;"><a href="javascript:" class="textbox-icon combo-arrow" icon-index="0" tabindex="-1" style="width: 18px; height: 22px;"></a></span></span>').appendTo(container);
-            var input = $('<input type="text" style="border:0px">').appendTo(cc);
+            var cc = $('<span class="textbox combo datebox"><span class="textbox-addon textbox-addon-right" style="right: 0px; top: 0px;"><a href="javascript:" class="textbox-icon combo-arrow" icon-index="0" tabindex="-1" style="width: 18px; height: 31px;"></a></span></span>').appendTo(container);
+            var input = $('<input type="text" style="border:0px ;height: 31px;">').appendTo(cc);
             var myoptions = {
                 applyClass: 'btn-sm btn-success',
                 cancelClass: 'btn-sm btn-default',
@@ -109,7 +109,7 @@ $.extend($.fn.datagrid.defaults.filters, {
 
         },
         resize: function (target, width) {
-            $(target)._outerWidth(width)._outerHeight(24);
+            $(target)._outerWidth(width)._outerHeight(29);
             // $(target).daterangepicker('resize', width / 2);
         }
     }
