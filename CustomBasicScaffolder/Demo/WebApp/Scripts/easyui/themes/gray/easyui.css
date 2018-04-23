@@ -123,14 +123,14 @@
 .panel-body {
   background-color: #ffffff;
   color: #000000;
-  font-size: 12px;
+  font-size: 14px;
 }
 .panel-title {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: bold;
   color: #575765;
-  height: 16px;
-  line-height: 16px;
+  height: 20px;
+  line-height: 20px;
 }
 .panel-footer {
   border: 1px solid #D3D3D3;
@@ -206,12 +206,14 @@
 .panel-hright>.panel-header .panel-icon {
   margin-top: 0;
   top: 5px;
+  left: 50%;
+  margin-left: -8px;
 }
 .panel-hleft>.panel-header .panel-title,
 .panel-hright>.panel-header .panel-title {
   position: absolute;
   min-width: 16px;
-  left: 21px;
+  left: 25px;
   top: 5px;
   bottom: auto;
   white-space: nowrap;
@@ -231,7 +233,7 @@
   min-width: 16px;
   left: 21px;
   top: auto;
-  bottom: 5px;
+  bottom: 0px;
   text-align: right;
   white-space: nowrap;
   word-wrap: normal;
@@ -615,10 +617,10 @@
   display: inline-block;
   vertical-align: top;
   width: auto;
-  line-height: 24px;
-  font-size: 12px;
+  line-height: 28px;
+  font-size: 14px;
   padding: 0;
-  margin: 0 4px;
+  margin: 0 6px;
 }
 .l-btn-icon {
   display: inline-block;
@@ -647,16 +649,16 @@
   background-position: right center;
 }
 .l-btn-icon-left .l-btn-text {
-  margin: 0 4px 0 24px;
+  margin: 0 6px 0 26px;
 }
 .l-btn-icon-left .l-btn-icon {
-  left: 4px;
+  left: 6px;
 }
 .l-btn-icon-right .l-btn-text {
-  margin: 0 24px 0 4px;
+  margin: 0 26px 0 6px;
 }
 .l-btn-icon-right .l-btn-icon {
-  right: 4px;
+  right: 6px;
 }
 .l-btn-icon-top .l-btn-text {
   margin: 20px 4px 0 4px;
@@ -676,7 +678,7 @@
   margin: 0 0 0 -8px;
 }
 .l-btn-left .l-btn-empty {
-  margin: 0 4px;
+  margin: 0 6px;
   width: 16px;
 }
 .l-btn-plain:hover {
@@ -686,7 +688,7 @@
   outline: #0000FF dotted thin;
 }
 .l-btn-large .l-btn-text {
-  line-height: 40px;
+  line-height: 44px;
 }
 .l-btn-large .l-btn-icon {
   width: 32px;
@@ -717,7 +719,7 @@
   margin: 0 0 0 -16px;
 }
 .l-btn-large .l-btn-left .l-btn-empty {
-  margin: 0 4px;
+  margin: 0 6px;
   width: 32px;
 }
 .l-btn {
@@ -805,10 +807,10 @@
   border-radius: 5px 5px 5px 5px;
 }
 .textbox .textbox-text {
-  font-size: 12px;
+  font-size: 14px;
   border: 0;
   margin: 0;
-  padding: 4px;
+  padding: 0 4px;
   white-space: normal;
   vertical-align: top;
   outline-style: none;
@@ -816,6 +818,11 @@
   -moz-border-radius: 5px 5px 5px 5px;
   -webkit-border-radius: 5px 5px 5px 5px;
   border-radius: 5px 5px 5px 5px;
+  height: 28px;
+  line-height: 28px;
+}
+.textbox textarea.textbox-text {
+  line-height: normal;
 }
 .textbox .textbox-text::-ms-clear,
 .textbox .textbox-text::-ms-reveal {
@@ -825,7 +832,7 @@
   white-space: pre-wrap;
 }
 .textbox .textbox-prompt {
-  font-size: 12px;
+  font-size: 14px;
   color: #aaa;
 }
 .textbox .textbox-bgicon {
@@ -871,8 +878,8 @@
 .textbox-label {
   display: inline-block;
   width: 80px;
-  height: 22px;
-  line-height: 22px;
+  height: 30px;
+  line-height: 30px;
   vertical-align: middle;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -993,8 +1000,9 @@
 .combobox-item,
 .combobox-group,
 .combobox-stick {
-  font-size: 12px;
-  padding: 3px;
+  font-size: 14px;
+  padding: 6px 4px;
+  line-height: 20px;
 }
 .combobox-item-disabled {
   opacity: 0.5;
@@ -1369,7 +1377,7 @@
   margin-top: -8px;
 }
 .tabs-title {
-  font-size: 12px;
+  font-size: 14px;
 }
 .tabs-closable {
   padding-right: 8px;
@@ -1724,7 +1732,7 @@
 }
 .datagrid-header-row,
 .datagrid-row {
-  height: 25px;
+  height: 32px;
 }
 .datagrid-header td,
 .datagrid-body td,
@@ -1745,13 +1753,13 @@
   overflow: hidden;
   height: 18px;
   line-height: 18px;
-  font-size: 12px;
+  font-size: 14px;
 }
 .datagrid-header .datagrid-cell {
   height: auto;
 }
 .datagrid-header .datagrid-cell span {
-  font-size: 12px;
+  font-size: 14px;
 }
 .datagrid-cell-group {
   text-align: center;
@@ -1829,7 +1837,7 @@
   margin: 0;
   padding: 2px 4px;
   border: 1px solid #D3D3D3;
-  font-size: 12px;
+  font-size: 14px;
   outline-style: none;
   -moz-border-radius: 0 0 0 0;
   -webkit-border-radius: 0 0 0 0;
@@ -1924,12 +1932,14 @@
   -webkit-border-radius: 0 0 0 0;
   border-radius: 0 0 0 0;
 }
+.datagrid-header .datagrid-filter-row td.datagrid-header-over {
+  background: inherit;
+}
 .propertygrid .datagrid-view1 .datagrid-body td {
   padding-bottom: 1px;
   border-width: 0 1px 0 0;
 }
 .propertygrid .datagrid-group {
-  height: 21px;
   overflow: hidden;
   border-width: 0 0 1px 0;
   border-style: solid;
@@ -2049,6 +2059,7 @@
 }
 .pagination {
   zoom: 1;
+  padding: 2px;
 }
 .pagination table {
   float: left;
@@ -2069,8 +2080,10 @@
   border-style: solid;
   margin: 0 2px;
   padding: 2px;
-  width: 2em;
+  width: 3em;
   height: auto;
+  text-align: center;
+  font-size: 14px;
 }
 .pagination-page-list {
   margin: 0px 6px;
@@ -2086,15 +2099,18 @@
   padding: 0;
   height: 30px;
   line-height: 30px;
-  font-size: 12px;
+  font-size: 14px;
 }
 .pagination span {
-  font-size: 12px;
+  font-size: 14px;
 }
 .pagination-link .l-btn-text {
-  width: 24px;
+  box-sizing: border-box;
   text-align: center;
   margin: 0;
+  padding: 0 .5em;
+  width: auto;
+  min-width: 28px;
 }
 .pagination-first {
   background: url('images/pagination_icons.png') no-repeat 0 center;
@@ -2127,33 +2143,33 @@
 .calendar table {
   table-layout: fixed;
   border-collapse: separate;
-  font-size: 12px;
+  font-size: 14px;
   width: 100%;
   height: 100%;
 }
 .calendar table td,
 .calendar table th {
-  font-size: 12px;
+  font-size: 14px;
 }
 .calendar-noborder {
   border: 0;
 }
 .calendar-header {
   position: relative;
-  height: 22px;
+  height: 28px;
 }
 .calendar-title {
   text-align: center;
-  height: 22px;
+  height: 28px;
 }
 .calendar-title span {
   position: relative;
   display: inline-block;
-  top: 2px;
+  top: 0px;
   padding: 0 3px;
-  height: 18px;
-  line-height: 18px;
-  font-size: 12px;
+  height: 28px;
+  line-height: 28px;
+  font-size: 14px;
   cursor: pointer;
   -moz-border-radius: 5px 5px 5px 5px;
   -webkit-border-radius: 5px 5px 5px 5px;
@@ -2165,9 +2181,9 @@
 .calendar-nextyear {
   position: absolute;
   top: 50%;
-  margin-top: -7px;
-  width: 14px;
-  height: 14px;
+  margin-top: -8px;
+  width: 16px;
+  height: 16px;
   cursor: pointer;
   font-size: 1px;
   -moz-border-radius: 5px 5px 5px 5px;
@@ -2176,19 +2192,19 @@
 }
 .calendar-prevmonth {
   left: 20px;
-  background: url('images/calendar_arrows.png') no-repeat -18px -2px;
+  background: url('images/calendar_arrows.png') no-repeat -16px 0;
 }
 .calendar-nextmonth {
   right: 20px;
-  background: url('images/calendar_arrows.png') no-repeat -34px -2px;
+  background: url('images/calendar_arrows.png') no-repeat -32px 0;
 }
 .calendar-prevyear {
   left: 3px;
-  background: url('images/calendar_arrows.png') no-repeat -1px -2px;
+  background: url('images/calendar_arrows.png') no-repeat 0px 0;
 }
 .calendar-nextyear {
   right: 3px;
-  background: url('images/calendar_arrows.png') no-repeat -49px -2px;
+  background: url('images/calendar_arrows.png') no-repeat -48px 0;
 }
 .calendar-body {
   position: relative;
@@ -2221,7 +2237,7 @@
   width: 180px;
   height: 150px;
   padding: 5px;
-  font-size: 12px;
+  font-size: 14px;
   display: none;
   overflow: hidden;
 }
@@ -2230,16 +2246,17 @@
   padding-bottom: 5px;
 }
 .calendar-menu-year {
-  width: 50px;
+  width: 80px;
+  line-height: 26px;
   text-align: center;
   border-width: 1px;
   border-style: solid;
   outline-style: none;
   resize: none;
   margin: 0;
-  padding: 2px;
+  padding: 0;
   font-weight: bold;
-  font-size: 12px;
+  font-size: 14px;
   -moz-border-radius: 5px 5px 5px 5px;
   -webkit-border-radius: 5px 5px 5px 5px;
   border-radius: 5px 5px 5px 5px;
@@ -2247,8 +2264,8 @@
 .calendar-menu-prev,
 .calendar-menu-next {
   display: inline-block;
-  width: 21px;
-  height: 21px;
+  width: 25px;
+  height: 28px;
   vertical-align: top;
   cursor: pointer;
   -moz-border-radius: 5px 5px 5px 5px;
@@ -2257,11 +2274,11 @@
 }
 .calendar-menu-prev {
   margin-right: 10px;
-  background: url('images/calendar_arrows.png') no-repeat 2px 2px;
+  background: url('images/calendar_arrows.png') no-repeat 5px center;
 }
 .calendar-menu-next {
   margin-left: 10px;
-  background: url('images/calendar_arrows.png') no-repeat -45px 2px;
+  background: url('images/calendar_arrows.png') no-repeat -44px center;
 }
 .calendar-menu-month {
   text-align: center;
@@ -2302,7 +2319,7 @@
 }
 .calendar-body th {
   background: #fafafa;
-  padding: 2px 0;
+  padding: 4px 0;
 }
 .calendar-hover,
 .calendar-nav-hover,
@@ -2321,15 +2338,15 @@
   padding: 0;
 }
 .datebox-calendar-inner {
-  height: 180px;
+  height: 250px;
 }
 .datebox-button {
-  padding: 0 5px;
+  padding: 4px 0;
   text-align: center;
 }
 .datebox-button a {
   line-height: 22px;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: bold;
   text-decoration: none;
   opacity: 0.6;
@@ -2385,6 +2402,46 @@
   color: #444;
   outline-style: none;
   background-color: #f3f3f3;
+}
+.spinner-button-updown {
+  opacity: 1.0;
+}
+.spinner-button-updown .spinner-button-top,
+.spinner-button-updown .spinner-button-bottom {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 50%;
+}
+.spinner-button-updown .spinner-arrow-up,
+.spinner-button-updown .spinner-arrow-down {
+  opacity: 1.0;
+  filter: alpha(opacity=100);
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+  top: 50%;
+  left: 50%;
+  margin-top: -8px;
+  margin-left: -8px;
+  position: absolute;
+}
+.spinner-button-updown .spinner-button-top,
+.spinner-button-updown .spinner-button-bottom {
+  cursor: pointer;
+  opacity: 0.6;
+  filter: alpha(opacity=60);
+}
+.spinner-button-updown .spinner-button-top:hover,
+.spinner-button-updown .spinner-button-bottom:hover {
+  opacity: 1.0;
+  filter: alpha(opacity=100);
+}
+.spinner-button-updown .spinner-arrow-up,
+.spinner-button-updown .spinner-arrow-down,
+.spinner-button-updown .spinner-arrow-up:hover,
+.spinner-button-updown .spinner-arrow-down:hover {
+  background-color: transparent;
 }
 .spinner-arrow-hover {
   background-color: #e2e2e2;
@@ -2456,7 +2513,7 @@
 }
 .progressbar-text {
   color: #000000;
-  font-size: 12px;
+  font-size: 14px;
 }
 .progressbar-value,
 .progressbar-value .progressbar-text {
@@ -2556,7 +2613,7 @@
   position: absolute;
   display: inline-block;
   line-height: 12px;
-  font-size: 12px;
+  font-size: 14px;
   white-space: nowrap;
   top: -22px;
 }
@@ -2579,7 +2636,7 @@
 .slider-rulelabel span {
   position: absolute;
   display: inline-block;
-  font-size: 12px;
+  font-size: 14px;
 }
 .slider-v .slider-inner {
   width: 6px;
@@ -2698,7 +2755,7 @@
 }
 .menu-text,
 .menu-text span {
-  font-size: 12px;
+  font-size: 14px;
 }
 .menu-shadow {
   position: absolute;
@@ -2908,7 +2965,7 @@
   padding: 0;
 }
 .tree-node {
-  height: 18px;
+  height: 26px;
   white-space: nowrap;
   cursor: pointer;
 }
@@ -2924,7 +2981,8 @@
   display: inline-block;
   width: 16px;
   height: 18px;
-  vertical-align: top;
+  margin: 4px 0;
+  vertical-align: middle;
   overflow: hidden;
 }
 .tree-expanded {
@@ -2986,17 +3044,18 @@
   background: url('images/tree_icons.png') no-repeat -240px -18px;
 }
 .tree-title {
-  font-size: 12px;
+  font-size: 14px;
   display: inline-block;
   text-decoration: none;
-  vertical-align: top;
+  vertical-align: middle;
   white-space: nowrap;
   padding: 0 2px;
+  margin: 4px 0;
   height: 18px;
   line-height: 18px;
 }
 .tree-node-proxy {
-  font-size: 12px;
+  font-size: 14px;
   line-height: 20px;
   padding: 0 2px 0 20px;
   border-width: 1px;
@@ -3029,13 +3088,14 @@
 }
 .tree-editor {
   border: 1px solid #D3D3D3;
-  font-size: 12px;
-  line-height: 16px;
+  font-size: 14px;
+  height: 26px;
+  line-height: 26px;
   padding: 0 4px;
   margin: 0;
   width: 80px;
   outline-style: none;
-  vertical-align: top;
+  vertical-align: middle;
   position: absolute;
   top: 0;
 }
@@ -3076,7 +3136,7 @@
   border-radius: 5px 5px 5px 5px;
 }
 .tooltip-content {
-  font-size: 12px;
+  font-size: 14px;
 }
 .tooltip-arrow-outer,
 .tooltip-arrow {
@@ -3191,7 +3251,7 @@
   text-align: center;
   height: 100%;
   float: left;
-  font-size: 12px;
+  font-size: 14px;
   -moz-border-radius: 5px 5px 5px 5px;
   -webkit-border-radius: 5px 5px 5px 5px;
   border-radius: 5px 5px 5px 5px;

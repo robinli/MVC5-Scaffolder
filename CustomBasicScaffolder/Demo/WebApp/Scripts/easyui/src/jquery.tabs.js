@@ -1,5 +1,5 @@
 /**
- * EasyUI for jQuery 1.5.4.5
+ * EasyUI for jQuery 1.5.5
  * 
  * Copyright (c) 2009-2018 www.jeasyui.com. All rights reserved.
  *
@@ -883,7 +883,8 @@
 		height: 'auto',
 		headerWidth: 150,	// the tab header width, it is valid only when tabPosition set to 'left' or 'right' 
 		tabWidth: 'auto',	// the tab width
-		tabHeight: 27,		// the tab height
+		// tabHeight: 27,		// the tab height
+		tabHeight: 32,		// the tab height
 		selected: 0,		// the initialized selected tab index
 		showHeader: true,
 		plain: false,

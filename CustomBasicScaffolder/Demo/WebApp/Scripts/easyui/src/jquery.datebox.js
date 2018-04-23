@@ -1,5 +1,5 @@
 /**
- * EasyUI for jQuery 1.5.4.5
+ * EasyUI for jQuery 1.5.5
  * 
  * Copyright (c) 2009-2018 www.jeasyui.com. All rights reserved.
  *
@@ -226,7 +226,7 @@
 	};
 	
 	$.fn.datebox.defaults = $.extend({}, $.fn.combo.defaults, {
-		panelWidth:180,
+		panelWidth:250,
 		panelHeight:'auto',
 		sharedCalendar:null,
 		

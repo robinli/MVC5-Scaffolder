@@ -1,5 +1,5 @@
 /**
- * EasyUI for jQuery 1.5.4.5
+ * EasyUI for jQuery 1.5.5
  * 
  * Copyright (c) 2009-2018 www.jeasyui.com. All rights reserved.
  *
@@ -15,7 +15,7 @@ var _5=$.extend(true,[],_4.icons);
 if(_4.spinAlign=="left"||_4.spinAlign=="right"){
 _4.spinArrow=true;
 _4.iconAlign=_4.spinAlign;
-var _6={iconCls:"spinner-arrow",handler:function(e){
+var _6={iconCls:"spinner-button-updown",handler:function(e){
 var _7=$(e.target).closest(".spinner-arrow-up,.spinner-arrow-down");
 _13(e.data.target,_7.hasClass("spinner-arrow-down"));
 }};
@@ -67,9 +67,8 @@ $(_2).attr("spinnerName",$(_2).attr("textboxName"));
 _3.spinner=$(_2).next();
 _3.spinner.addClass("spinner");
 if(_4.spinArrow){
-var _10=_3.spinner.find(".spinner-arrow");
-_10.append("<a href=\"javascript:;\" class=\"spinner-arrow-up\" tabindex=\"-1\"></a>");
-_10.append("<a href=\"javascript:;\" class=\"spinner-arrow-down\" tabindex=\"-1\"></a>");
+var _10=_3.spinner.find(".spinner-button-updown");
+_10.append("<span class=\"spinner-arrow spinner-button-top\">"+"<span class=\"spinner-arrow-up\"></span>"+"</span>"+"<span class=\"spinner-arrow spinner-button-bottom\">"+"<span class=\"spinner-arrow-down\"></span>"+"</span>");
 }else{
 var _11=$("<a href=\"javascript:;\" class=\"textbox-button spinner-button\"></a>").addClass(_4.clsLeft).appendTo(_3.spinner);
 var _12=$("<a href=\"javascript:;\" class=\"textbox-button spinner-button\"></a>").addClass(_4.clsRight).appendTo(_3.spinner);

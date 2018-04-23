@@ -1,5 +1,5 @@
 /**
- * EasyUI for jQuery 1.5.4.5
+ * EasyUI for jQuery 1.5.5
  * 
  * Copyright (c) 2009-2018 www.jeasyui.com. All rights reserved.
  *
@@ -623,8 +623,9 @@
 		top: 0,
 		alignTo: null,
 		align: 'left',
-		minWidth: 120,
-		itemHeight: 22,
+		minWidth: 150,
+		// itemHeight: 22,
+		itemHeight: 32,
 		duration: 100,	// Defines duration time in milliseconds to hide when the mouse leaves the menu.
 		hideOnUnhover: true,	// Automatically hides the menu when mouse exits it
 		inline: false,	// true to stay inside its parent, false to go on top of all elements

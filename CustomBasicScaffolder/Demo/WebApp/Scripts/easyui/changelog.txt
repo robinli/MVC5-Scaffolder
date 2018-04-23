@@ -1,15 +1,18 @@
-Version 1.5.4.x
----------------
+Version 1.5.5
+-------------
 * Bug
  * tabs: The selecting history has wrong order when the title contains complex elements. fixed.
  * combo: The drop-down panel may not be hidden if a bigger 'delay' value is set. fixed.
  * layout: The expanding panel does not collapse when move mouse quickly away from it. fixed.
+ * tagbox: The tagbox and the label don't stay in the same line. fixed.
 * Improvement
  * combo: The 'blur' event handler is attached to the 'inputEvents' property.
  * numberbox: The 'cloneFrom' method is available.
  * slider: The 'step' property can be set with a floating number.
  * menu: The 'findItem' method allows the user to find menu item by any parameters.
  * menubutton: Add 'showEvent' and 'hideEvent' properties.
+* New Plugins
+ * maskedbox: The maskedbox enforces its structure as the user types.
 
 Version 1.5.4
 -------------

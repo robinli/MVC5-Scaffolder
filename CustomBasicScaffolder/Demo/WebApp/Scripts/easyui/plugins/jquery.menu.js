@@ -1,5 +1,5 @@
 /**
- * EasyUI for jQuery 1.5.4.5
+ * EasyUI for jQuery 1.5.5
  * 
  * Copyright (c) 2009-2018 www.jeasyui.com. All rights reserved.
  *
@@ -492,7 +492,7 @@ _10(this,_75?$(_75):$(this));
 $.fn.menu.parseOptions=function(_76){
 return $.extend({},$.parser.parseOptions(_76,[{minWidth:"number",itemHeight:"number",duration:"number",hideOnUnhover:"boolean"},{fit:"boolean",inline:"boolean",noline:"boolean"}]));
 };
-$.fn.menu.defaults={zIndex:110000,left:0,top:0,alignTo:null,align:"left",minWidth:120,itemHeight:22,duration:100,hideOnUnhover:true,inline:false,fit:false,noline:false,events:{mouseenter:_25,mouseleave:_28,mouseover:_2c,mouseout:_30,click:_33},position:function(_77,_78,top){
+$.fn.menu.defaults={zIndex:110000,left:0,top:0,alignTo:null,align:"left",minWidth:150,itemHeight:32,duration:100,hideOnUnhover:true,inline:false,fit:false,noline:false,events:{mouseenter:_25,mouseleave:_28,mouseover:_2c,mouseout:_30,click:_33},position:function(_77,_78,top){
 return {left:_78,top:top};
 },onShow:function(){
 },onHide:function(){

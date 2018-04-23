@@ -1,5 +1,5 @@
 /**
- * EasyUI for jQuery 1.5.4.5
+ * EasyUI for jQuery 1.5.5
  * 
  * Copyright (c) 2009-2018 www.jeasyui.com. All rights reserved.
  *
@@ -1010,6 +1010,9 @@ if(col.checkbox){
 cc.push("class=\"datagrid-cell-check ");
 }else{
 cc.push("class=\"datagrid-cell "+col.cellClass);
+}
+if(_103==opts.treeField){
+cc.push(" tree-node");
 }
 cc.push("\">");
 if(col.checkbox){

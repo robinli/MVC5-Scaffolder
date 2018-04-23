@@ -1,5 +1,5 @@
 /**
- * EasyUI for jQuery 1.5.4.5
+ * EasyUI for jQuery 1.5.5
  * 
  * Copyright (c) 2009-2018 www.jeasyui.com. All rights reserved.
  *
@@ -18,34 +18,35 @@ _4.onChange.call(_2,_5,_6);
 },onResizing:function(_8,_9){
 var _a=$(this).combobox("textbox");
 var tb=$(this).data("textbox").textbox;
+var _b=tb.outerWidth();
 tb.css({height:"",paddingLeft:_a.css("marginLeft"),paddingRight:_a.css("marginRight")});
 _a.css("margin",0);
-tb._size({width:_4.width},$(this).parent());
+tb._outerWidth(_b);
 _23(_2);
 _12(this);
 _4.onResizing.call(_2,_8,_9);
-},onLoadSuccess:function(_b){
+},onLoadSuccess:function(_c){
 _7();
-_4.onLoadSuccess.call(_2,_b);
+_4.onLoadSuccess.call(_2,_c);
 }}));
 _7();
 _23(_2);
 function _7(){
 $(_2).next().find(".tagbox-label").remove();
-var _c=$(_2).tagbox("textbox");
+var _d=$(_2).tagbox("textbox");
 var ss=[];
-$.map($(_2).tagbox("getValues"),function(_d,_e){
-var _f=_4.finder.getRow(_2,_d);
-var _10=_4.tagFormatter.call(_2,_d,_f);
+$.map($(_2).tagbox("getValues"),function(_e,_f){
+var row=_4.finder.getRow(_2,_e);
+var _10=_4.tagFormatter.call(_2,_e,row);
 var cs={};
-var css=_4.tagStyler.call(_2,_d,_f)||"";
+var css=_4.tagStyler.call(_2,_e,row)||"";
 if(typeof css=="string"){
 cs={s:css};
 }else{
 cs={c:css["class"]||"",s:css["style"]||""};
 }
-var _11=$("<span class=\"tagbox-label\"></span>").insertBefore(_c).html(_10);
-_11.attr("tagbox-index",_e);
+var _11=$("<span class=\"tagbox-label\"></span>").insertBefore(_d).html(_10);
+_11.attr("tagbox-index",_f);
 _11.attr("style",cs.s).addClass(cs.c);
 $("<a href=\"javascript:;\" class=\"tagbox-remove\"></a>").appendTo(_11);
 });

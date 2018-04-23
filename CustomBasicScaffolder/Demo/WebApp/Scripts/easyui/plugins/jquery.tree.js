@@ -1,5 +1,5 @@
 /**
- * EasyUI for jQuery 1.5.4.5
+ * EasyUI for jQuery 1.5.5
  * 
  * Copyright (c) 2009-2018 www.jeasyui.com. All rights reserved.
  *
@@ -862,7 +862,7 @@ nt.empty();
 var _e6=$("<input class=\"tree-editor\">").appendTo(nt);
 _e6.val(_e4.text).focus();
 _e6.width(_e5+20);
-_e6._outerHeight(18);
+_e6._outerHeight(_e3.editorHeight);
 _e6.bind("click",function(e){
 return false;
 }).bind("mousedown",function(e){
@@ -1188,7 +1188,7 @@ return true;
 }
 return false;
 }};
-$.fn.tree.defaults={url:null,method:"post",animate:false,checkbox:false,cascadeCheck:true,onlyLeafCheck:false,lines:false,dnd:false,data:null,queryParams:{},formatter:function(node){
+$.fn.tree.defaults={url:null,method:"post",animate:false,checkbox:false,cascadeCheck:true,onlyLeafCheck:false,lines:false,dnd:false,editorHeight:26,data:null,queryParams:{},formatter:function(node){
 return node.text;
 },filter:function(q,node){
 var qq=[];

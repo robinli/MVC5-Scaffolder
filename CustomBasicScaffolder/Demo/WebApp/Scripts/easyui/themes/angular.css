@@ -113,7 +113,13 @@
 	height: 18px;
 }
 
+.spinner .textbox-text{
+	height: auto;
+}
 .spinner-button-left,.spinner-button-right{
+	width: 26px;
+}
+.spinner-button-updown{
 	width: 26px;
 }
 .spinner-button-top,.spinner-button-bottom{
@@ -127,11 +133,6 @@
 .spinner-button-bottom{
 	top: auto;
 	bottom: 0;
-}
-.spinner-button-updown .spinner-button-top,
-.spinner-button-updown .spinner-button-bottom{
-	height: 50%;
-	left: 0;
 }
 .spinner-button{
 	display: inline-block;
@@ -147,31 +148,7 @@
 	cursor: pointer;
 	opacity: 0.6;
 }
-.spinner-button-updown{
-	width: 26px;
-}
-.spinner-arrow:hover{
-	opacity: 1.0;
-}
-.spinner-button-updown .spinner-button-top:hover,
-.spinner-button-updown .spinner-button-bottom:hover{
-	opacity: 1.0;
-}
-.spinner-arrow-up,.spinner-arrow-down{
-	cursor: pointer;
-	width: 16px;
-	height: 16px;
-	top: 50%;
-	left: 50%;
-	margin-top: -8px;
-	margin-left: -8px;
-	position: absolute;
-	opacity: 1.0;
-}
-.spinner-arrow-up,.spinner-arrow-down,
-.spinner-arrow-up:hover,.spinner-arrow-down:hover{
-	background-color: transparent;
-}
+
 .textbox-disabled .spinner-arrow:hover,
 .textbox-readonly .spinner-arrow:hover
 {
@@ -190,7 +167,7 @@
 	width: 100%;
 }
 .l-btn-empty{
-	height: 24px;
+	height: 28px;
 }
 .l-btn-left{
 	overflow: visible;
@@ -361,7 +338,7 @@ eui-button-group eui-linkbutton:last-child .l-btn{
 }
 .combobox-item{
 	padding: 6px 4px;
-	line-height: 18px;
+	line-height: 20px;
 }
 .tagbox-labels{
 	padding-bottom: 4px;
@@ -420,7 +397,7 @@ eui-treegrid-view,eui-treegrid-body{
 	overflow: hidden;
 }
 .datagrid-header-row, .datagrid-row{
-	height: 28px;
+	height: 32px;
 }
 .datagrid-cell{
 	text-align: left;
@@ -475,9 +452,10 @@ eui-treegrid-view,eui-treegrid-body{
 	word-break: normal;
 	position: relative;
 }
+.datagrid-editable> .f-field,
 .datagrid-editable> *{
 	width: 100%;
-	height: 27px;
+	height: 31px;
 }
 .datagrid-editable .textbox, .datagrid-editable .textbox-text{
 	border-radius: 0;
@@ -487,15 +465,19 @@ eui-treegrid-view,eui-treegrid-body{
 }
 .datagrid-filter-c{
 	padding: 4px;
-	height: 35px;
+	height: 38px;
 }
+.datagrid-filter-c> .f-field,
 .datagrid-filter-c> *{
-	height: 27px;
+	height: 30px;
 }
 .datagrid-filter-c .datagrid-editable-input{
 	width: 100%;
 }
 .datagrid-filter-btn{
+	width: 30px;
+}
+.datagrid-filter-btn .textbox-icon{
 	width: 28px;
 }
 .datagrid-filter-btn .textbox{
@@ -506,11 +488,6 @@ eui-treegrid-view,eui-treegrid-body{
 }
 .datagrid-filter-btn-right{
 	margin-left: 4px;
-}
-
-.tree-node{
-	height: 22px;
-	padding: 2px 0;
 }
 
 eui-menu.menu-inline{
@@ -526,7 +503,7 @@ eui-menu> .menu-container{
 	position: absolute;
 	left: 0;
 	top: 0;
-	min-width: 150px;
+	min-width: 200px;
 }
 .menu{
 	overflow: visible;
@@ -541,8 +518,8 @@ eui-menu> .menu-container{
 	overflow: visible;
 }
 .menu-text{
-	height: 24px;
-	line-height: 24px;
+	height: 32px;
+	line-height: 32px;
 	float: none;
 }
 .menu-line{
@@ -578,13 +555,10 @@ eui-menu> .menu-container{
 	position: relative;
 }
 .calendar-title span{
-	position: static;
+	position1: static;
 }
 
-
-eui-textbox,eui-passwordbox,eui-combobox,eui-combotree,eui-combogrid,
-eui-numberbox,eui-searchbox,
-eui-datebox,eui-timespinner,eui-datetimespinner{
+.f-field{
 	width: 12em;
 	height: 30px;
 }
@@ -609,14 +583,9 @@ eui-progressbar{
 	height: 24px;
 }
 eui-pagination{
-	height: 30px;
+	height: 34px;
+	padding: 2px;
 }
-.pagination-link .l-btn-text{
-	padding: 0 .5em;
-	width: auto;
-	min-width: 24px;
-}
-
 eui-layout{
 	display: block;
 }
