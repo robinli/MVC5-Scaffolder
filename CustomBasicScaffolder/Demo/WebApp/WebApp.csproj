@@ -252,6 +252,10 @@
     <Compile Include="Migrations\201804040700509_desc.Designer.cs">
       <DependentUpon>201804040700509_desc.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804230623560_addressmaxlength.cs" />
+    <Compile Include="Migrations\201804230623560_addressmaxlength.Designer.cs">
+      <DependentUpon>201804230623560_addressmaxlength.cs</DependentUpon>
+    </Compile>
     <Compile Include="SmartChatHub\ChatHub.cs" />
     <Compile Include="App_Start\CustomModelBinders.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -807,30 +811,6 @@
     <Content Include="Content\patterns\congruent_pentagon.png" />
     <Content Include="Content\patterns\otis_redding.png" />
     <Content Include="Content\patterns\triangular.png" />
-    <Content Include="Content\plugins\bootstrap-markdown\bootstrap-markdown.min.css" />
-    <Content Include="Content\plugins\bootstrap-rtl\bootstrap-rtl.css" />
-    <Content Include="Content\plugins\bootstrap-rtl\bootstrap-rtl.min.css" />
-    <Content Include="Content\plugins\bootstrap-tagsinput\bootstrap-tagsinput.css" />
-    <Content Include="Content\plugins\bootstrapSocial\bootstrap-social.css" />
-    <Content Include="Content\plugins\bootstrapTour\bootstrap-tour.min.css" />
-    <Content Include="Content\plugins\c3\c3.min.css" />
-    <Content Include="Content\plugins\chosen\bootstrap-chosen.css" />
-    <Content Include="Content\plugins\dataTables\datatables.min.css" />
-    <Content Include="Content\plugins\images\sort.png" />
-    <Content Include="Content\plugins\images\sort_asc.png" />
-    <Content Include="Content\plugins\images\sort_desc.png" />
-    <Content Include="Content\plugins\images\sprite-skin-flat2.png" />
-    <Content Include="Content\plugins\images\sprite-skin-nice.png" />
-    <Content Include="Content\plugins\images\sprite-skin-simple.png" />
-    <Content Include="Content\plugins\ionRangeSlider\ion.rangeSlider.skinNice.css" />
-    <Content Include="Content\plugins\ionRangeSlider\ion.rangeSlider.skinSimple.css" />
-    <Content Include="Content\plugins\jsTree\39px.png" />
-    <Content Include="Content\plugins\jsTree\style.css" />
-    <Content Include="Content\plugins\ladda\ladda-themeless.min.css" />
-    <Content Include="Content\plugins\ladda\ladda.min.css" />
-    <Content Include="Content\plugins\social-buttons\social-buttons.css" />
-    <Content Include="Content\plugins\textSpinners\spinners.css" />
-    <Content Include="Content\plugins\touchspin\jquery.bootstrap-touchspin.min.css" />
     <Content Include="Content\sound\bigbox.mp3" />
     <Content Include="Content\sound\license.txt" />
     <Content Include="Content\sound\messagebox.mp3" />
@@ -882,81 +862,6 @@
     <Content Include="Content\patterns\header-profile-skin-3.png" />
     <Content Include="Content\patterns\header-profile.png" />
     <Content Include="Content\patterns\shattered.png" />
-    <Content Include="Content\plugins\awesome-bootstrap-checkbox\awesome-bootstrap-checkbox.css" />
-    <Content Include="Content\plugins\blueimp\css\blueimp-gallery.min.css" />
-    <Content Include="Content\plugins\blueimp\img\error.png" />
-    <Content Include="Content\plugins\blueimp\img\error.svg" />
-    <Content Include="Content\plugins\blueimp\img\loading.gif" />
-    <Content Include="Content\plugins\blueimp\img\play-pause.png" />
-    <Content Include="Content\plugins\blueimp\img\play-pause.svg" />
-    <Content Include="Content\plugins\blueimp\img\video-play.png" />
-    <Content Include="Content\plugins\blueimp\img\video-play.svg" />
-    <Content Include="Content\plugins\chartist\chartist.min.css" />
-    <Content Include="Content\plugins\chosen\chosen-sprite%402x.png" />
-    <Content Include="Content\plugins\chosen\chosen-sprite.png" />
-    <Content Include="Content\plugins\chosen\chosen.css" />
-    <Content Include="Content\plugins\clockpicker\clockpicker.css" />
-    <Content Include="Content\plugins\codemirror\ambiance.css" />
-    <Content Include="Content\plugins\codemirror\codemirror.css" />
-    <Content Include="Content\plugins\colorpicker\bootstrap-colorpicker.min.css" />
-    <Content Include="Content\plugins\cropper\cropper.min.css" />
-    <Content Include="Content\plugins\datapicker\datepicker3.css" />
-    <Content Include="Content\plugins\dataTables\dataTables.bootstrap.css" />
-    <Content Include="Content\plugins\dataTables\dataTables.responsive.css" />
-    <Content Include="Content\plugins\dataTables\dataTables.tableTools.min.css" />
-    <Content Include="Content\plugins\daterangepicker\daterangepicker-bs3.css" />
-    <Content Include="Content\plugins\dropzone\basic.css" />
-    <Content Include="Content\plugins\dropzone\dropzone.css" />
-    <Content Include="Content\plugins\footable\fonts\footable.svg" />
-    <Content Include="Content\plugins\footable\footable.core.css" />
-    <Content Include="Content\plugins\fullcalendar\fullcalendar.css" />
-    <Content Include="Content\plugins\fullcalendar\fullcalendar.print.css" />
-    <Content Include="Content\plugins\iCheck\custom.css" />
-    <Content Include="Content\plugins\iCheck\green%402x.png" />
-    <Content Include="Content\plugins\iCheck\green.png" />
-    <Content Include="Content\plugins\images\bootstrap-colorpicker\alpha-horizontal.png" />
-    <Content Include="Content\plugins\images\bootstrap-colorpicker\alpha.png" />
-    <Content Include="Content\plugins\images\bootstrap-colorpicker\hue-horizontal.png" />
-    <Content Include="Content\plugins\images\bootstrap-colorpicker\hue.png" />
-    <Content Include="Content\plugins\images\bootstrap-colorpicker\saturation.png" />
-    <Content Include="Content\plugins\images\sprite-skin-flat.png" />
-    <Content Include="Content\plugins\images\spritemap%402x.png" />
-    <Content Include="Content\plugins\images\spritemap.png" />
-    <Content Include="Content\plugins\ionRangeSlider\ion.rangeSlider.css" />
-    <Content Include="Content\plugins\ionRangeSlider\ion.rangeSlider.skinFlat.css" />
-    <Content Include="Content\plugins\jasny\jasny-bootstrap.min.css" />
-    <Content Include="Content\plugins\jqGrid\ui.jqgrid.css" />
-    <Content Include="Content\plugins\jQueryUI\images\ui-bg_flat_0_aaaaaa_40x100.png" />
-    <Content Include="Content\plugins\jQueryUI\images\ui-bg_flat_75_ffffff_40x100.png" />
-    <Content Include="Content\plugins\jQueryUI\images\ui-bg_glass_55_fbf9ee_1x400.png" />
-    <Content Include="Content\plugins\jQueryUI\images\ui-bg_glass_65_ffffff_1x400.png" />
-    <Content Include="Content\plugins\jQueryUI\images\ui-bg_glass_75_dadada_1x400.png" />
-    <Content Include="Content\plugins\jQueryUI\images\ui-bg_glass_75_e6e6e6_1x400.png" />
-    <Content Include="Content\plugins\jQueryUI\images\ui-bg_glass_95_fef1ec_1x400.png" />
-    <Content Include="Content\plugins\jQueryUI\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
-    <Content Include="Content\plugins\jQueryUI\images\ui-icons_222222_256x240.png" />
-    <Content Include="Content\plugins\jQueryUI\images\ui-icons_2e83ff_256x240.png" />
-    <Content Include="Content\plugins\jQueryUI\images\ui-icons_454545_256x240.png" />
-    <Content Include="Content\plugins\jQueryUI\images\ui-icons_888888_256x240.png" />
-    <Content Include="Content\plugins\jQueryUI\images\ui-icons_cd0a0a_256x240.png" />
-    <Content Include="Content\plugins\jQueryUI\jquery-ui-1.10.4.custom.min.css" />
-    <Content Include="Content\plugins\jsTree\32px.png" />
-    <Content Include="Content\plugins\jsTree\40px.png" />
-    <Content Include="Content\plugins\jsTree\style.min.css" />
-    <Content Include="Content\plugins\jsTree\throbber.gif" />
-    <Content Include="Content\plugins\morris\morris-0.4.3.min.css" />
-    <Content Include="Content\plugins\nouslider\jquery.nouislider.css" />
-    <Content Include="Content\plugins\select2\select2.min.css" />
-    <Content Include="Content\plugins\slick\ajax-loader.gif" />
-    <Content Include="Content\plugins\slick\fonts\slick.svg" />
-    <Content Include="Content\plugins\slick\slick-theme.css" />
-    <Content Include="Content\plugins\slick\slick.css" />
-    <Content Include="Content\plugins\steps\jquery.steps.css" />
-    <Content Include="Content\plugins\summernote\summernote-bs3.css" />
-    <Content Include="Content\plugins\summernote\summernote.css" />
-    <Content Include="Content\plugins\sweetalert\sweetalert.css" />
-    <Content Include="Content\plugins\switchery\switchery.css" />
-    <Content Include="Content\plugins\toastr\toastr.min.css" />
     <Content Include="email_templates\action.html" />
     <Content Include="email_templates\alert.html" />
     <Content Include="email_templates\billing.html" />
@@ -2073,6 +1978,8 @@
     </Content>
     <Content Include="Content\fonts\fontawesome-webfont.woff2" />
     <Content Include="Scripts\easyui\themes\material-teal\images\Thumbs.db" />
+    <None Include="Properties\PublishProfiles\smartadmin - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\smartadmin - Web Deploy.pubxml" />
     <None Include="Scripts\jquery.extend.formatter.tmp">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>jquery.extend.formatter1.js</LastGenOutput>
@@ -2800,6 +2707,7 @@
     <Content Include="Scripts\speech\voicecommand.js" />
     <Content Include="Scripts\speech\voicecommand.min.js" />
     <Content Include="SqlScripts\sp_insertmessages.sql" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Home\BlankPage.cshtml" />
     <Content Include="Views\Features\AgileBoard.cshtml" />
     <Content Include="Scripts\plugin\inputpicker\example-districts.json" />
@@ -2853,7 +2761,6 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />
     <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
     <Content Include="Views\Manage\ChangePassword.cshtml" />
@@ -2915,12 +2822,6 @@
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Content\plugins\footable\fonts\footable.eot" />
-    <Content Include="Content\plugins\footable\fonts\footable.ttf" />
-    <Content Include="Content\plugins\footable\fonts\footable.woff" />
-    <Content Include="Content\plugins\slick\fonts\slick.eot" />
-    <Content Include="Content\plugins\slick\fonts\slick.ttf" />
-    <Content Include="Content\plugins\slick\fonts\slick.woff" />
     <Content Include="Properties\Angular\font-awesome\fonts\fontawesome-webfont.eot" />
     <Content Include="Properties\Angular\font-awesome\fonts\fontawesome-webfont.ttf" />
     <Content Include="Properties\Angular\font-awesome\fonts\fontawesome-webfont.woff" />
@@ -2929,10 +2830,6 @@
     <Content Include="Properties\Angular\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Properties\Angular\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Properties\Angular\fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="Content\plugins\bootstrap-rtl\bootstrap-rtl.css.map" />
-    <Content Include="Content\plugins\summernote\font\summernote.eot" />
-    <Content Include="Content\plugins\summernote\font\summernote.ttf" />
-    <Content Include="Content\plugins\summernote\font\summernote.woff" />
     <Content Include=".editorconfig" />
     <Content Include="Content\css\your_style.less" />
     <Content Include="Content\data\dataList.json" />
@@ -3180,6 +3077,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804040700509_desc.resx">
       <DependentUpon>201804040700509_desc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804230623560_addressmaxlength.resx">
+      <DependentUpon>201804230623560_addressmaxlength.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

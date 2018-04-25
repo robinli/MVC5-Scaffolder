@@ -1,0 +1,220 @@
+﻿﻿@model WebApp.Models.Department
+ <!-- 输出form表单界面 -->
+ <div id="detailswindow" hidden="hidden" class="easyui-window" 
+      title="明细数据" 
+      data-options="modal:true,
+                    closed:true,
+                    iconcls:'icon-menu'
+                    " style="width:960px;height:520px">
+    <form id="department_form" class="easyui-form form-horizontal" method="post" data-options="novalidate:true">
+  @Html.AntiForgeryToken()
+ <table class="table table-bordered">
+    <thead>
+                <tr>
+                    <td colspan="4">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default" onclick="saveitem()">
+                                <i class="fa fa-floppy-o"></i>
+                                保存
+                            </button>
+                            <button type="button" class="btn btn-default">
+                                <i class="fa fa-pencil-square-o"></i>
+                                操作1
+                            </button>
+                            <button type="button" class="btn btn-default">
+                                <i class="fa fa-pencil-square-o"></i>
+                                操作2
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="cancelitem()">
+                                <i class="fa fa-refresh"></i>
+                                取消
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="refreshitem()">
+                                <i class="fa fa-refresh"></i>
+                                刷新
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </thead>
+	    <tr>
+      	   <td class="control-label">   @Html.DisplayNameFor(model => model.Id)  </td>
+	   <td> 
+			   			   			<input id="@Html.IdFor(model => model.Id)" 
+                   name="@Html.NameFor(model => model.Id)" 
+                   value="@Html.ValueFor(model => model.Id)"
+                   tabindex="0"   
+                   class="easyui-numberbox" type="text" 
+                   data-options="prompt:'Id',
+                                 readonly:true,
+                                width:200,
+                                 label:'',required:true ,precision:0" />
+			  				   </td>
+	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.Name)  </td>
+	   <td> 
+			   			  			<input id="@Html.IdFor(model => model.Name)" 
+				   name="@Html.NameFor(model => model.Name)" 
+				   value="@Html.ValueFor(model => model.Name)"
+				   tabindex="1" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'部门名称',
+								 label:'',
+                                width:200,
+								 required:true ,validType:'length[0,50]'" />
+			  				   </td>
+	   	   </tr>
+	   	    <tr>
+      	   <td class="control-label">   @Html.DisplayNameFor(model => model.Manager)  </td>
+	   <td> 
+			   			  			<input id="@Html.IdFor(model => model.Manager)" 
+				   name="@Html.NameFor(model => model.Manager)" 
+				   value="@Html.ValueFor(model => model.Manager)"
+				   tabindex="2" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'部门经理',
+								 label:'',
+                                width:200,
+								 required:false ,validType:'length[0,20]'" />
+			  				   </td>
+	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.CompanyId)  </td>
+	   <td> 
+			   			<input id="@Html.IdFor(model => model.CompanyId)"
+			       name="@Html.NameFor(model => model.CompanyId)"
+				   value="@Html.ValueFor(model => model.CompanyId)"
+				   class="easyui-combobox" data-options="
+						prompt:'所在公司' ,
+						label:'' ,
+                       width:200,
+						required:true ,
+						valueField: 'Id',
+						textField: 'Name' ,
+						url: '/Departments/GetCompanies' ,
+						onSelect: function(item){
+						//console.log(item);
+				}">
+				   </td>
+	   	   </tr>
+	   	    <tr>
+      	   <td class="control-label">   @Html.DisplayNameFor(model => model.CreatedDate)  </td>
+	   <td> 
+			   			  			<input id="@Html.IdFor(model => model.CreatedDate)" 
+			       name="@Html.NameFor(model => model.CreatedDate)" 
+				   tabindex="4" 
+				   class="easyui-datebox" 
+				   type="text" 
+				   value="@Html.ValueFor(model => model.CreatedDate)"
+				   data-options="prompt:'创建时间',
+								 label:'',
+                                width:200,
+								 required:false,
+								 formatter:dateformatter" />
+			  				   </td>
+	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.CreatedBy)  </td>
+	   <td> 
+			   			  			<input id="@Html.IdFor(model => model.CreatedBy)" 
+				   name="@Html.NameFor(model => model.CreatedBy)" 
+				   value="@Html.ValueFor(model => model.CreatedBy)"
+				   tabindex="5" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'创建用户',
+								 label:'',
+                                width:200,
+								 required:false ,validType:'length[0,20]'" />
+			  				   </td>
+	   	   </tr>
+	   	    <tr>
+      	   <td class="control-label">   @Html.DisplayNameFor(model => model.LastModifiedDate)  </td>
+	   <td> 
+			   			  			<input id="@Html.IdFor(model => model.LastModifiedDate)" 
+			       name="@Html.NameFor(model => model.LastModifiedDate)" 
+				   tabindex="6" 
+				   class="easyui-datebox" 
+				   type="text" 
+				   value="@Html.ValueFor(model => model.LastModifiedDate)"
+				   data-options="prompt:'最后更新时间',
+								 label:'',
+                                width:200,
+								 required:false,
+								 formatter:dateformatter" />
+			  				   </td>
+	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.LastModifiedBy)  </td>
+	   <td> 
+			   			  			<input id="@Html.IdFor(model => model.LastModifiedBy)" 
+				   name="@Html.NameFor(model => model.LastModifiedBy)" 
+				   value="@Html.ValueFor(model => model.LastModifiedBy)"
+				   tabindex="7" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'最后更新用户',
+								 label:'',
+                                width:200,
+								 required:false ,validType:'length[0,20]'" />
+			  				   </td>
+	   	   </tr>
+	   	        <tfoot>
+        <tr>
+        <tr>
+    </tfoot>
+</table>
+
+
+<!--输出form表单界面-->
+<!--========================================================================================-->
+ </form>
+</div>
+
+
+<script type="text/javascript">
+    //load data by foreign key
+    function loadData(id,data){
+         $('#department_form').form('load', data);
+             }
+    var $editform = $('#department_form');
+    //save item
+    function saveitem() {
+         
+        if ($editform.form('enableValidation').form('validate')) {
+            var department = $editform.serializeJSON();
+            var token = $('input[name="__RequestVerificationToken"]', $editform).val();
+
+            $.ajax({
+                    type: "POST",
+                    url: "/Departments/Edit",
+                    data: {
+                        __RequestVerificationToken: token,
+                        department:department
+                    },
+                    dataType: 'json',
+                    contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+                })
+                .done(function (response) {
+                    if (response.success) {
+                        $.messager.alert("提示", "保存成功！");
+                    } else {
+                        $.messager.alert("错误", "保存失败！" + response.err, "error");
+                    }
+                    })
+                .fail(function (response) {
+                        $.messager.alert("错误", "保存失败！", "error");
+                    });
+        }
+    }
+    // cancel
+    function cancelitem() {
+        $('#detailswindow').window('close');
+    }
+    // reload
+    function refreshitem() {
+        $('#detailswindow').window('close');
+    }
+    
+
+
+    
+
+</script>
+
+

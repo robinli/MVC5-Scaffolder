@@ -607,7 +607,7 @@ foreach (PropertyMetadata property in properties) {
 		//-----------------------------------------------------
         function showdetailsformatter(value, row, index) {
 
-            return '<a onclick="showDetailsWindow(' + row.Id + ')" class="easyui-linkbutton" href="javascript:void(0)">查看明细</a>';
+            return '<a onclick="showDetailsWindow(' + row.Id + ')" class="btn btn-default btn-sm" href="javascript:void(0)"><i class="fa fa-list"></i> 查看明细</a>';
 
         }
         //弹出明细信息

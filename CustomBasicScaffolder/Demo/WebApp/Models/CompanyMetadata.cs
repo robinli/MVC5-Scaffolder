@@ -25,6 +25,7 @@ namespace WebApp.Models
         public string Name { get; set; }
 
         [Display(Name = "地址")]
+        [MaxLength(60)]
         public string Address { get; set; }
 
         [Display(Name = "城市")]

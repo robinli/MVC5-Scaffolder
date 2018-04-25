@@ -9,3 +9,4 @@ D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Dem
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Service.Pattern\obj\Release\Service.Pattern.csproj.CoreCompileInputs.cache
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Service.Pattern\obj\Release\Service.Pattern.dll
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Service.Pattern\obj\Release\Service.Pattern.pdb
+D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Service.Pattern\obj\Release\Service.Pattern.csproj.CopyComplete

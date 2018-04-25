@@ -1,0 +1,443 @@
+﻿@model IEnumerable<WebApp.Models.Employee>
+@{
+	ViewBag.Title = "员工信息";
+}
+<!-- MAIN CONTENT -->
+<div id="content">
+    <!-- quick navigation bar -->
+    <div class="row">
+        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+            <h1 class="page-title txt-color-blueDark">
+                <i class="fa fa-table fa-fw "></i>
+                @{ 
+                  //TODO:fix quick navigation path
+                 }
+                路径
+                <span>
+                    >
+                  员工信息
+                </span>
+            </h1>
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+            
+        </div>
+    </div>
+    <!-- end quick navigation bar -->
+
+
+     <!-- widget grid -->
+     <section id="widget-grid" class="">
+        <!-- row -->
+        <div class="row">
+            <!-- NEW WIDGET START -->
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <!-- Widget ID (each widget will need unique ID)-->
+                <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+                    <!-- widget options:
+                    usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+                    data-widget-colorbutton="false"
+                    data-widget-editbutton="false"
+                    data-widget-togglebutton="false"
+                    data-widget-deletebutton="false"
+                    data-widget-fullscreenbutton="false"
+                    data-widget-custombutton="false"
+                    data-widget-collapsed="true"
+                    data-widget-sortable="false"
+                    -->
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+                        <h2>员工信息</h2>
+                    </header>
+
+                     <!-- widget div-->
+                    <div>
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body no-padding">
+                             @{ 
+                                //TODO:fix datagrid view alert-warning messages
+                              }
+                            <div class="alert alert-warning no-margin fade in">
+                                <button class="close" data-dismiss="alert">
+                                    ×
+                                </button>
+                                <i class="fa-fw fa fa-info"></i>
+                                A combined table effect with all classes mentioned above added to  
+                            </div>
+	 <!--begin datagrid-content -->
+	 <div class="table-responsive">
+		<table id="employees_datagrid" class="easyui-datagrid"   style="width:auto;height:auto"
+				   data-options="
+                        rownumbers:true,
+				        checkOnSelect:true,
+				        selectOnCheck:true,
+				        idField:'Id',
+				        sortName:'Id',
+				        sortOrder:'desc',
+				        remoteFilter: true,
+				        singleSelect: true,
+				        toolbar: '#employees_toolbar',
+				        url: '/Employees/GetData',
+				        method: 'get',
+				        onClickCell: onClickCell,
+				        pagination: true,
+                        striped:true
+				   ">
+				<thead>
+					<tr>
+						@*<th data-options="field:'ck',checkbox:true"></th>*@
+                        <th data-options="field:'_operate1',width:100 ,sortable:false,resizable:true,formatter:showdetailsformatter ">操作</th>
+					@*<th data-options="field:'Id',width:80 ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Id)</th>*@
+				
+					 <th data-options="field:'Name' ,width:140,editor:{type:'textbox',options:{prompt:'姓名' ,required:false ,validType:'length[0,20]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Name)</th>
+		
+				
+					 <th data-options="field:'Title' ,width:140,editor:{type:'textbox',options:{prompt:'职称' ,required:false ,validType:'length[0,30]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Title)</th>
+		
+				
+					 <th data-options="field:'Sex' ,width:140,editor:{type:'textbox',options:{prompt:'性别' ,required:false ,validType:'length[0,10]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Sex)</th>
+		
+				
+					 <th data-options="field:'Age' ,width:100,align:'right',editor:{type:'numberbox',options:{prompt:'年龄' ,required:true  ,precision:0 } } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Age)</th>
+		
+				
+					 <th data-options="field:'Brithday',width:160,align:'right',editor:{type:'datebox',options:{prompt:'生日' ,required:true    }  },sortable:true,resizable:true  ,formatter:dateformatter">@Html.DisplayNameFor(model => model.Brithday)</th>
+		
+				
+					 <th data-options="field:'IsDeleted' ,width:100,align:'right',editor:{type:'numberbox',options:{prompt:'是否已删除' ,required:true  ,precision:0 } } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.IsDeleted)</th>
+		
+							<th data-options="field:'CompanyId' ,width:100,sortable:true,resizable:true, 
+						formatter:function(value,row){
+							return row.CompanyName;
+						},
+						editor:{
+							type:'combobox',
+							options:{
+								prompt:'所在公司' ,
+								valueField:'Id',
+								textField:'Name',
+								method:'get',
+								url:'/Employees/GetCompanies',
+								required:true
+							}
+						}">@Html.DisplayNameFor(model => model.CompanyId)</th>
+
+		   
+			   
+						</tr>
+				</thead>
+				</table>
+				<div id="employees_toolbar" style="height:auto">
+                            @{
+                            //TODO: enable authorization 
+                            }
+							@*@if (Html.IsAuthorize("Create"))
+							{
+								<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-plus',plain:true" onclick="append()">新增</a>
+							}
+							@if (Html.IsAuthorize("Delete"))
+							{
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-trash-o',plain:true" onclick="removeit()">删除</a>
+							}
+							@if (Html.IsAuthorize("Edit"))
+							{
+								<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-floppy-o',plain:true" onclick="accept()">保存</a>
+								<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-undo',plain:true" onclick="reject()">取消</a>
+							}
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-refresh',plain:true" onclick="reload()">刷新</a>
+							@if (Html.IsAuthorize("Import"))
+							{
+								 <a href="javascript:void(0)" class="easyui-menubutton" data-options="menu:'#importmenu',iconCls:'fa fa-upload' " onclick="importexcel()">导入数据</a>
+                                       <div id="importmenu" style="width:150px;">
+                                                <div data-options="iconCls:'fa fa-file-excel-o'" onclick="importexcel()">导入数据</div>
+                                                <div data-options="iconCls:'fa fa-cloud-download '" onclick="downloadtemplate()" >下载用于导入的模板</div>
+                                        </div>
+                                 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-file-excel-o',plain:true" onclick="exportexcel()">导出至Excel</a>
+							}*@
+						    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-plus',plain:true" onclick="append()">新增</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-trash-o',plain:true" onclick="removeit()">删除</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-floppy-o',plain:true" onclick="accept()">保存</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-undo',plain:true" onclick="reject()">取消</a>
+							<a href="javascript:void(0)" class="easyui-menubutton" data-options="menu:'#importmenu',iconCls:'fa fa-upload' " onclick="importexcel()">导入数据</a>
+                                       <div id="importmenu" style="width:150px;">
+                                                <div data-options="iconCls:'fa fa-file-excel-o'" onclick="importexcel()">导入数据</div>
+                                                <div data-options="iconCls:'fa fa-cloud-download '" onclick="downloadtemplate()" >下载用于导入的模板</div>
+                                        </div>
+                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-file-excel-o',plain:true" onclick="exportexcel()">导出至Excel</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-refresh',plain:true" onclick="reload()">刷新</a>
+				</div>
+		
+		
+		</div>
+		<!--end datagrid-content -->
+                        
+                         </div>
+                        <!-- end widget content -->
+                    </div>
+                    <!-- end widget div -->
+
+                </div>
+                <!-- end widget -->
+
+            </article>
+            <!-- WIDGET END -->
+
+        </div>
+
+        <!-- end row -->
+    </section>
+    <!-- end widget grid -->
+
+	<!-- file upload partial view -->
+	@Html.Partial("_ImportWindow",new  ViewDataDictionary { { "EntityName","Employee" }})		 
+	<!-- end file upload partial view -->
+        
+    <!-- detail popup window -->
+    @Html.Partial("_PopupDetailFormView",new WebApp.Models.Employee() )
+    <!-- end detail popup window -->
+            
+</div>
+<!-- END MAIN CONTENT -->
+
+@section Scripts {
+	<script type="text/javascript">
+        var entityname = "Employee";
+			        //下载Excel导入模板
+                    function downloadtemplate() {
+                            //TODO: 修改下载模板的路径
+                            var url = "/ExcelTemplate/Employee.xlsx";
+                            $.fileDownload(url)
+                             .fail(function () { $.messager.alert("错误","没有找到模板文件! {" + url + "}"); });
+                                                
+                    }
+					//打开Excel上传导入
+					function importexcel() {
+						$("#importwindow").window("open");
+					}
+					 //执行Excel到处下载
+					function exportexcel() {
+						var filterRules = JSON.stringify($dg.datagrid("options").filterRules);
+						//console.log(filterRules);
+						$.messager.progress({ title: "正在执行导出！" });
+						var formData = new FormData();
+						formData.append("filterRules", filterRules);
+						formData.append("sort", "Id");
+						formData.append("order", "asc");
+						$.postDownload("/Employees/ExportExcel", formData, function (fileName) {
+							$.messager.progress("close");
+							console.log(fileName);
+
+						})
+					}
+		 //datagrid 增删改查操作
+		 var $dg = $("#employees_datagrid");
+		 var editIndex = undefined;
+		function reload() {
+				 if (endEditing()) {
+						$dg.datagrid("reload");
+				 }
+			}
+		function endEditing() {
+			if (editIndex == undefined) { return true }
+			if ($dg.datagrid("validateRow", editIndex)) {
+
+								var ed = $dg.datagrid("getEditor", { index: editIndex, field: "CompanyId" });
+				var companyname = $(ed.target).combobox("getText");
+				var companyid = $(ed.target).combobox("getValue");
+			   
+				$dg.datagrid("getRows")[editIndex]["CompanyName"] =  companyname;
+				$dg.datagrid("getRows")[editIndex]["CompanyId"] = companyid;
+ 
+
+								$dg.datagrid("endEdit", editIndex);
+				editIndex = undefined;
+
+				
+				return true;
+			} else {
+				return false;
+			}
+		}
+		function onClickCell(index, field) {
+			var _operates = ["_operate1", "_operate2", "_operate3", "ck"]
+			if ($.inArray(field, _operates) >= 0) {
+				return;
+			}
+			if (editIndex != index) {
+				if (endEditing()) {
+					$dg.datagrid("selectRow", index)
+							.datagrid("beginEdit", index);
+                    editIndex = index;
+					var ed = $dg.datagrid("getEditor", { index: index, field: field });
+					if (ed) {
+						($(ed.target).data("textbox") ? $(ed.target).textbox("textbox") : $(ed.target)).focus();
+					}
+					
+				} else {
+					$dg.datagrid("selectRow", editIndex);
+				}
+			}
+		}
+		function append() {
+			if (endEditing()) {
+				//$dg.datagrid("appendRow", { Status: 0 });
+				//editIndex = $dg.datagrid("getRows").length - 1;
+				$dg.datagrid("insertRow", { index: 0, row: {  } });
+				editIndex = 0 ;
+				$dg.datagrid("selectRow", editIndex)
+						.datagrid("beginEdit", editIndex);
+			}
+		}
+		function removeit() {
+			if (editIndex == undefined) { return }
+			$dg.datagrid("cancelEdit", editIndex)
+					.datagrid("deleteRow", editIndex);
+			editIndex = undefined;
+		}
+		function accept() {
+			if (endEditing()) {
+				if ($dg.datagrid("getChanges").length) {
+					var inserted = $dg.datagrid("getChanges", "inserted");
+					var deleted = $dg.datagrid("getChanges", "deleted");
+					var updated = $dg.datagrid("getChanges", "updated");
+					var effectRow = new Object();
+					if (inserted.length) {
+						effectRow.inserted = inserted;
+					}
+					if (deleted.length) {
+						effectRow.deleted = deleted;
+					}
+					if (updated.length) {
+						effectRow.updated = updated;
+					}
+					//console.log(JSON.stringify(effectRow));
+					$.post("/Employees/SaveData", effectRow, function (response) {
+						//console.log(response);
+						if (response.Success) {
+							$.messager.alert("提示", "提交成功！");
+							$dg.datagrid("acceptChanges");
+							$dg.datagrid("reload");
+						}
+					}, "json").fail(function (response) {
+						//console.log(response);
+						$.messager.alert("错误", "提交错误了！","error");
+						//$dg.datagrid("reload");
+					});
+			  
+				}
+
+				//$dg.datagrid("acceptChanges");
+			}
+		}
+		function reject() {
+			$dg.datagrid("rejectChanges");
+			editIndex = undefined;
+		}
+		function getChanges() {
+			var rows = $dg.datagrid("getChanges");
+			alert(rows.length + " rows are changed!");
+		}
+
+		//datagrid 开启筛选功能
+		 $(function () {
+		  
+		   $dg.datagrid("enableFilter",[
+		   
+           				{
+					  field: "Id",
+					  type: "numberbox",
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+		   				{
+					  field: "Age",
+					  type: "numberbox",
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+		   				{
+					  field: "IsDeleted",
+					  type: "numberbox",
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+		   				{
+					  field: "CompanyId",
+					  type: "numberbox",
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+		   
+
+		   				{
+					  field: "Brithday",
+					  type: "dateRange",
+					  options: {
+						  onChange: function (value) {
+							    $dg.datagrid("addFilterRule", {
+									  field: "Brithday",
+									  op: "between",
+									  value: value
+								  });
+							   
+							    $dg.datagrid("doFilter");
+						  }
+					  }
+				  },
+		   		   
+		   		   {
+				 field: "CompanyId",
+				 type:"combobox",
+				 options:{
+								valueField:"Id",
+								textField:"Name",
+								method:"get",
+								url:"/Employees/GetCompanies",
+								onChange: function (value) {
+								if (value == "") {
+									$dg.datagrid("removeFilterRule", "CompanyId");
+								} else {
+									$dg.datagrid("addFilterRule", {
+										field: "CompanyId",
+										op: "equal",
+										value: value
+								});
+							}
+							$dg.datagrid("doFilter");
+						}
+					}
+		   },
+		   		   
+		   ]);
+		})
+				//-----------------------------------------------------
+		//datagrid onSelect
+		//-----------------------------------------------------
+        function showdetailsformatter(value, row, index) {
+
+            return '<a onclick="showDetailsWindow(' + row.Id + ')" class="easyui-linkbutton" href="javascript:void(0)">查看明细</a>';
+
+        }
+        //弹出明细信息
+		function showDetailsWindow(id) {
+			//console.log(index, row);
+            $.getJSON('/Employees/PopupEdit/' + id, function (data, status, xhr) {
+                //console.log(data);
+                $('#detailswindow').window('open');
+                loadData(id,data);
+                
+
+            });
+          
+		}
+ 
+		
+		
+		 
+
+	 </script>
+     <script src="~/Scripts/jquery.filerupload.js"></script>
+}
+
+ 
