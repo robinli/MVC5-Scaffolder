@@ -7,12 +7,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Repository.Pattern.UnitOfWork;
+
 namespace WebApp.Controllers
 {
     public class ManagementController : Controller
     {
         private ApplicationUserManager userManager;
         private ApplicationRoleManager roleManager;
+        private readonly IUnitOfWorkAsync _unitOfWork;
         public ApplicationUserManager UserManager
         {
             get
@@ -35,9 +38,12 @@ namespace WebApp.Controllers
                 roleManager = value;
             }
         }
-        public ManagementController() { }
-        public ManagementController(ApplicationUserManager userManager, ApplicationRoleManager roleManager)
+        
+        public ManagementController(
+            IUnitOfWorkAsync _unitOfWork,
+        ApplicationUserManager userManager, ApplicationRoleManager roleManager)
         {
+            this._unitOfWork = _unitOfWork;
             this.userManager = userManager;
             this.roleManager = roleManager;
         }
@@ -57,6 +63,10 @@ namespace WebApp.Controllers
         }
         private ActionResult _Index()
         {
+            //set default value
+            var companyRepository = _unitOfWork.RepositoryAsync<Company>();
+            ViewBag.CompanySelectList = companyRepository.Queryable().Select(r => new SelectListItem { Text = r.Name, Value = r.Id.ToString() }).ToArray();
+
             ViewBag.RoleSelectList = RoleManager.Roles.Select(r => new SelectListItem { Text = r.Name, Value = r.Name }).ToArray();
             try
             {
@@ -80,6 +90,7 @@ namespace WebApp.Controllers
                 RoleManager.Create(new ApplicationRole() { Name = "admin" });
 
             }
+            
             return _Index();
         }
 
@@ -159,7 +170,10 @@ namespace WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser() { UserName = model.UserName, Email = model.Email };
+                var companyRepository = _unitOfWork.RepositoryAsync<Company>();
+                var companyid =Convert.ToInt32( model.CompanyCode);
+                var companyName = companyRepository.Queryable().Where(x => x.Id == companyid).First().Name;
+                var user = new ApplicationUser() { UserName = model.UserName, Email = model.Email,CompanyCode=model.CompanyCode,CompanyName= companyName };
                 IdentityResult result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

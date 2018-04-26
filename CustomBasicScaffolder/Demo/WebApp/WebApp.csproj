@@ -2707,7 +2707,6 @@
     <Content Include="Scripts\speech\voicecommand.js" />
     <Content Include="Scripts\speech\voicecommand.min.js" />
     <Content Include="SqlScripts\sp_insertmessages.sql" />
-    <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Home\BlankPage.cshtml" />
     <Content Include="Views\Features\AgileBoard.cshtml" />
     <Content Include="Scripts\plugin\inputpicker\example-districts.json" />

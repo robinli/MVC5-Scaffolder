@@ -46,5 +46,7 @@ namespace WebApp.Models
         [DataType(DataType.Password)]
         [Display(Name = "密码")]
         public string Password { get; set; }
+        public string CompanyCode { get; set; }
+        public string CompanyName { get; set; }
     }
 }

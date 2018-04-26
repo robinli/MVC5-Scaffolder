@@ -1,0 +1,89 @@
+﻿
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav metismenu" id="side-menu">
+            <li class="nav-header">
+                <div class="dropdown profile-element">
+                    <span>
+                        <img alt="image" class="img-circle" src="~/Images/profile_small.jpg" />
+                    </span>
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="empty_page.html#">
+                        <span class="clear">
+                            <span class="block m-t-xs">
+                                <strong class="font-bold">David Williams</strong>
+                            </span> <span class="text-muted text-xs block">Art Director <b class="caret"></b></span>
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                        <li><a href="profile.html">Profile</a></li>
+                        <li><a href="contacts.html">Contacts</a></li>
+                        <li><a href="mailbox.html">Mailbox</a></li>
+                        <li class="divider"></li>
+                        <li><a href="login.html">Logout</a></li>
+                    </ul>
+                </div>
+                <div class="logo-element">
+                    IN+
+                </div>
+            </li>
+            <li class="@Html.IsSelected(controller: "Companies,Departments,Employees")">
+                <a href="#"><i class="fa fa-sitemap"></i> <span class="nav-label">组织架构</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Companies", cssClass: "in")">
+                  
+                    <li class="@Html.IsSelected(action: "Index", controller: "Companies")"><a href="@Url.Action("Index", "Companies")">公司信息</a></li>
+                    <li class="@Html.IsSelected(action: "Index", controller: "Departments")"><a href="@Url.Action("Index", "Departments")">部门信息</a></li> 
+                    <li class="@Html.IsSelected(action: "Index", controller: "Employees")"><a href="@Url.Action("Index", "Employees")">员工信息</a></li> 
+                  
+ 
+                </ul>
+            </li>
+
+            <li>
+                <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">业务系统</span><span class="fa arrow"></span><span class="label label-warning pull-right">16/24</span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li>
+                        @Html.ActionLink("Category", "Index", "Categories")
+                    </li>
+                    <li>
+                        @Html.ActionLink("Product", "Index", "Products")
+                    </li>
+                    <li>
+                        @Html.ActionLink("Order", "Index", "Orders")
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-database"></i> <span class="nav-label">系统管理 </span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li>
+                        <a href="/AccountManage"><i class="fa fa-fw fa-user"></i>用户管理</a>
+                    </li>
+
+                    <li>
+                        <a href="/Management"><i class="fa fa-fw fa-lock"></i>授权管理</a>
+                    </li>
+                    <li>
+                        <a href="/CodeItems"><i class="fa fa-fw fa-adjust"></i>基础代码管理</a>
+                    </li>
+                    <li>
+                        <a href="/MenuItems"><i class="fa fa-fw fa-align-center"></i>菜单管理管理</a>
+                    </li>
+                    <li>
+                        <a href="/RoleMenus"><i class="fa fa-fw fa-lock"></i>权限管理</a>
+                    </li>
+                    <li>
+                        <a href="/DataTableImportMappings"><i class="fa fa-fw fa-file-excel-o"></i>Excel导入配置</a>
+                    </li>
+                    <li>
+                        <a href="/Messages"><i class="fa fa-fw fa-mail-forward"></i>系统日志</a>
+                    </li>
+                    <li>
+                        <a href="/Notifications"><i class="fa fa-fw fa-bell-o"></i>通知</a>
+                    </li>
+                </ul>
+            </li>
+
+        </ul>
+
+    </div>
+</nav>

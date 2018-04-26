@@ -1,0 +1,26 @@
+﻿
+@using WebApp.Models
+@model AccountRecordViewModel
+
+<tr>
+    <td>@Model.User.UserName</td>
+    @for (int i = 0, max = (int)ViewBag.MaxRolesCount; i < max; i++)
+    {
+        if (i < Model.User.Roles.Count)
+        {
+            var role = Model.User.Roles.ElementAt(i);
+            <td>@Model.Roles.Single(r => r.Id == role.RoleId).Name</td>
+        }
+        else
+        {
+            <td></td>
+        }
+    }
+    <td>
+        @Html.Partial("_AttachRolePartial", new AttachRoleViewModel { UserId = Model.User.Id })
+    </td>
+    <td>
+        @Html.Partial("_DeleteAccountPartial", Model.User)
+    </td>
+</tr>
+

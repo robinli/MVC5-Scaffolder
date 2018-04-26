@@ -1,0 +1,399 @@
+﻿@model IEnumerable<WebApp.Models.Message>
+@{
+    ViewBag.Title = "日志信息";
+  
+}
+<!-- MAIN CONTENT -->
+<div id="content">
+    <div class="row">
+        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+            <h1 class="page-title txt-color-blueDark">
+                <i class="fa fa-list-alt fa-fw "></i>
+                系统管理
+                <span>
+                    >
+                    日志消息
+                </span>
+            </h1>
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+
+        </div>
+    </div>
+
+    <!-- widget grid -->
+    <section id="widget-grid" class="">
+
+        <!-- row -->
+        <div class="row">
+            <article class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+
+                <!-- Widget ID (each widget will need unique ID)-->
+                <div class="jarviswidget jarviswidget-color-red" id="wid-id-0" data-widget-editbutton="false"   data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+                    <!-- widget options:
+                        usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+                        data-widget-colorbutton="false"
+                        data-widget-editbutton="false"
+                        data-widget-togglebutton="false"
+                        data-widget-deletebutton="false"
+                        data-widget-fullscreenbutton="false"
+                        data-widget-custombutton="false"
+                        data-widget-collapsed="true"
+                        data-widget-sortable="false"
+
+                    -->
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-warning"></i> </span>
+                        <h2 class="font-md"><strong>新增异常</strong> <i>new</i></h2>
+
+                    </header>
+
+                    <!-- widget div-->
+                    <div>
+
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body">
+
+                            <h1 class=" "> @ViewBag.TotalNewError.ToString("N0") </h1>
+                            <small>新增异常</small>
+
+                        </div>
+                        <!-- end widget content -->
+
+                    </div>
+                    <!-- end widget div -->
+
+                </div>
+
+
+
+            </article>
+            <article class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+                <!-- Widget ID (each widget will need unique ID)-->
+                <div class="jarviswidget jarviswidget-color-red" id="wid-id-1" data-widget-editbutton="false"  data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+                    <!-- widget options:
+                        usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+                        data-widget-colorbutton="false"
+                        data-widget-editbutton="false"
+                        data-widget-togglebutton="false"
+                        data-widget-deletebutton="false"
+                        data-widget-fullscreenbutton="false"
+                        data-widget-custombutton="false"
+                        data-widget-collapsed="true"
+                        data-widget-sortable="false"
+
+                    -->
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-warning"></i> </span>
+                        <h2 class="font-md"><strong>系统异常</strong> <i>all</i></h2>
+
+                    </header>
+
+                    <!-- widget div-->
+                    <div>
+
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body">
+
+                            <h1 class=" "> @ViewBag.TotalSysError.ToString("N0")</h1>
+                            <small>系统异常</small>
+
+                        </div>
+                        <!-- end widget content -->
+
+                    </div>
+                    <!-- end widget div -->
+
+                </div>
+
+
+            </article>
+
+            <article class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+                <!-- Widget ID (each widget will need unique ID)-->
+                <div class="jarviswidget jarviswidget-color-red" id="wid-id-2" data-widget-editbutton="false"   data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+                    <!-- widget options:
+                        usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+                        data-widget-colorbutton="false"
+                        data-widget-editbutton="false"
+                        data-widget-togglebutton="false"
+                        data-widget-deletebutton="false"
+                        data-widget-fullscreenbutton="false"
+                        data-widget-custombutton="false"
+                        data-widget-collapsed="true"
+                        data-widget-sortable="false"
+
+                    -->
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-warning"></i> </span>
+                        <h2 class="font-md"><strong>操作异常</strong> <i>all</i></h2>
+
+                    </header>
+
+                    <!-- widget div-->
+                    <div>
+
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body">
+
+                            <h1 class=" "> @ViewBag.TotalOpError.ToString("N0")</h1>
+                            <small>操作异常</small>
+
+                        </div>
+                        <!-- end widget content -->
+
+                    </div>
+                    <!-- end widget div -->
+
+                </div>
+
+
+            </article>
+
+            <article class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+                <!-- Widget ID (each widget will need unique ID)-->
+                <div class="jarviswidget jarviswidget-color-red" id="wid-id-3" data-widget-editbutton="false"  data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+                    <!-- widget options:
+                        usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+                        data-widget-colorbutton="false"
+                        data-widget-editbutton="false"
+                        data-widget-togglebutton="false"
+                        data-widget-deletebutton="false"
+                        data-widget-fullscreenbutton="false"
+                        data-widget-custombutton="false"
+                        data-widget-collapsed="true"
+                        data-widget-sortable="false"
+
+                    -->
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-warning"></i> </span>
+                        <h2 class="font-md"><strong>接口异常</strong> <i>all</i></h2>
+
+                    </header>
+
+                    <!-- widget div-->
+                    <div>
+
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body">
+
+                            <h1 class=" "> @ViewBag.TotalInterfaceError.ToString("N0")</h1>
+                            <small>接口异常</small>
+
+                        </div>
+                        <!-- end widget content -->
+
+                    </div>
+                    <!-- end widget div -->
+
+                </div>
+
+
+            </article>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-sm-12">
+                <div class="well">
+                    <h1>系统日志</h1>
+                    <div class="table-responsive">
+                        <table id="messages_datagrid" class="easyui-datagrid" style="width:auto;height:auto"
+                               data-options="
+				 rownumbers:true,
+				 checkOnSelect:true,
+				 selectOnCheck:true,
+				 idField:'Id',
+				 sortName:'Id',
+				 sortOrder:'desc',
+				 remoteFilter: true,
+				 singleSelect: true,
+		     	 url: '/Messages/GetData',
+				 method: 'get',
+				 onClickRow: onClickCell,
+				 onSelect:onSelect,
+				 pagination: 'true'
+				   ">
+                            <thead>
+                                <tr>
+                                    @*<th data-options="field:'ck',checkbox:true"></th>*@
+                                    @*<th data-options="field:'Id',width:80 ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Id)</th>*@
+                                    <th data-options="field:'Group' ,width:100,align:'right' ,sortable:true,resizable:true,formatter:messagegroupformatter ">@Html.DisplayNameFor(model => model.Group)</th>
+                                    <th data-options="field:'ExtensionKey1' ,width:140 ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.ExtensionKey1)</th>
+                                    <th data-options="field:'Type' ,width:100,align:'right' ,sortable:true,resizable:true ,formatter:messagetypeformatter ">@Html.DisplayNameFor(model => model.Type)</th>
+                                    <th data-options="field:'Code' ,width:140,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Code)</th>
+                                    <th data-options="field:'Content' ,width:360 ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Content)</th>
+                                    <th data-options="field:'User' ,width:140 ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.User)</th>
+                                    <th data-options="field:'Tags' ,width:140,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Tags)</th>
+                                    <th data-options="field:'Method' ,width:120 ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Method)</th>
+                                    <th data-options="field:'Created',width:160,align:'right',sortable:true,resizable:true  ,formatter:datetimeformatter">@Html.DisplayNameFor(model => model.Created)</th>
+                                    <th data-options="field:'ExtensionKey2' ,width:140,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.ExtensionKey2)</th>
+                                    <th data-options="field:'IsNew' ,width:100,align:'right',sortable:true,resizable:true,formatter:isnewformatter ">@Html.DisplayNameFor(model => model.IsNew)</th>
+                                    <th data-options="field:'IsNotification' ,width:100,align:'right',sortable:true,resizable:true ,formatter:isnoticeformatter">@Html.DisplayNameFor(model => model.IsNotification)</th>
+                                </tr>
+                            </thead>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+                     
+    </section>
+
+
+
+
+
+
+    <div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog  modal-lg">
+            <div class="modal-content animated bounceInRight">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h5 class="modal-title">日志</h5>
+
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<!-- END MAIN CONTENT -->
+    <!-- end file upload partial view -->
+    @section Scripts {
+        <script type="text/javascript">
+
+
+
+
+            //打开Excel上传导入
+            function importexcel() {
+                $("#importwindow").window("open");
+            }
+            //执行Excel到处下载
+            function exportexcel() {
+                var filterRules = JSON.stringify($dg.datagrid("options").filterRules);
+                //console.log(filterRules);
+                $.messager.progress({ title: "正在执行导出！" });
+                var formData = new FormData();
+                formData.append("filterRules", filterRules);
+                formData.append("sort", "Id");
+                formData.append("order", "asc");
+                $.postDownload("/Messages/ExportExcel", formData, function (fileName) {
+                    $.messager.progress("close");
+                    console.log(fileName);
+                })
+            }
+            //datagrid 增删改查操作
+            var $dg = $("#messages_datagrid");
+            var editIndex = undefined;
+            function reload() {
+                $dg.datagrid("reload");
+            }
+            function onClickCell(index, row) {
+                //console.log(row);
+
+                $.get('Messages/Details/' + row.Id, function (data, status, xhr) {
+                    //console.log(data);
+                    $('.modal-body').html(data);
+                    $('#myModal').modal();
+                });
+
+
+            }
+            //datagrid 开启行赛选功能
+            $(function () {
+                $dg.datagrid("enableFilter", [
+                    {
+                        field: 'Group',
+                        type: 'messagegroupcombobox',
+                         
+                    },
+                    {
+                        field: 'Type',
+                        type: 'messagetypecombobox',
+                         
+                    },
+                    {
+                        field: 'IsNew',
+                        type: 'isnewcombobox',
+                        
+                    },
+                    {
+                        field: 'IsNotification',
+                        type: 'isnoticecombobox',
+                        
+                    },
+                    {
+                        field: "Created",
+                        type: "datebox",
+                        options: {
+                            onChange: function (value) {
+                                if (value == "") {
+                                    $dg.datagrid("removeFilterRule", "Created");
+                                } else {
+                                    $dg.datagrid("addFilterRule", {
+                                        field: "Created",
+                                        op: "equal",
+                                        value: value
+                                    });
+                                }
+                                $dg.datagrid("doFilter");
+                            }
+                        }
+                    }
+                ]);
+
+                $dg.datagrid('removeFilterRule', 'IsNew');
+                $dg.datagrid('addFilterRule', {
+                    field: 'IsNew',
+                    op: 'equal',
+                    value: '0'
+                });
+            })
+            //-----------------------------------------------------
+            //datagrid onSelect
+            //-----------------------------------------------------
+            function onSelect(index, row) {
+                //console.log(index, row);
+            }
+        </script>
+    }
