@@ -64,10 +64,13 @@
                         <a href="@Url.Action("general", "features")"><i class="fa fa-lg fa-fw fa-th-list"></i> <span class="menu-item-parent">UI Elements</span> </a>
                     </li>
                     <li class="@Html.RouteIf("templates", "active")">
-                        <a href="@Url.Action("templates", "features")"><i class="fa fa-lg fa-fw  fa-pencil-square-o"></i> <span class="menu-item-parent">Form Layouts</span> </a>
+                        <a href="@Url.Action("templates", "features")"><i class="fa fa-lg fa-fw  fa-pencil-square-o"></i> <span class="menu-item-parent">Smart Form</span> </a>
                     </li>
-                    <li class="@Html.RouteIf("Bootstrap", "active")">
-                        <a href="@Url.Action("Bootstrap", "features")"><i class="fa fa-lg fa-fw  fa-pencil-square-o"></i> <span class="menu-item-parent">Bootstrap Form</span></a>
+                    <li class="@Html.RouteIf("bootstrap", "active")">
+                        <a href="@Url.Action("bootstrap", "features")"><i class="fa fa-lg fa-fw  fa-pencil-square-o"></i> <span class="menu-item-parent">Bootstrap Form</span></a>
+                    </li>
+                    <li class="@Html.RouteIf("validator", "active")">
+                        <a href="@Url.Action("validator", "features")"><i class="fa fa-lg fa-fw  fa-pencil-square-o"></i> <span class="menu-item-parent">Bootstrap Validator</span></a>
                     </li>
                     <li class="@Html.RouteIf("widgets", "active")">
                         <a href="@Url.Action("widgets", "features")"><i class="fa fa-lg fa-fw fa-list-alt"></i> <span class="menu-item-parent">Smart Widgets</span></a>

@@ -40,5 +40,8 @@ namespace WebApp.Controllers
         public ActionResult Widgets() {
             return View();
         }
+        public ActionResult Validator() {
+            return View();
+        }
     }
 }
