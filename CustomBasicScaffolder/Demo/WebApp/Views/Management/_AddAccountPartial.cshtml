@@ -10,15 +10,18 @@
 
     <div class="input-group">
         <span class="input-group-addon"><i class="fa fa-users"></i></span>
-        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "角色" })
+        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "账号" })
     </div>
     <div class="input-group">
         <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "角色" })
+        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "email" })
     </div>
     <div class="input-group">
         <span class="input-group-addon"><i class="fa fa-key"></i></span>
         @Html.TextBoxFor(m => m.Password, new { @class = "form-control", placeholder = "密码" })
+    </div>
+    <div class="input-group">
+        @Html.DropDownListFor(m => m.Role, (SelectListItem[])ViewBag.RoleSelectList, null, new { @class = "form-control" })
     </div>
     <div class="input-group">
         @Html.DropDownListFor(m => m.CompanyCode, (SelectListItem[])ViewBag.CompanySelectList, null, new { @class = "form-control" })
