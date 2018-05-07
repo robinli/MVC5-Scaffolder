@@ -426,7 +426,7 @@
                                           },
                                    formatter:dateformatter},
 							<# } else if(fieldtypename=="bool" || fieldtypename=="Boolean" ){ #>
-								{field:'<#= subproperty.PropertyName #>',
+							{    field:'<#= subproperty.PropertyName #>',
                                  title:'<#= GetDisplayName(subproperty.PropertyName) #>',
                                  width:120,
                                  editor: {type:'combobox',
@@ -434,7 +434,10 @@
                                                 prompt:'<#= GetDisplayName(subproperty.PropertyName) #>',
                                                 panelHeight: 'auto',
                                                 data: [ { value: 'true', text: 'true' },{ value: 'false', text: 'false' }],
-                                                required:true}}"><#= GetDisplayName(subproperty.PropertyName) #></th>
+                                                required:true
+                                                }
+                                            }
+                               },
 							<# } else { #>
 								{ field:'<#= subproperty.PropertyName #>',
                                   title:'<#= GetDisplayName(subproperty.PropertyName) #>',
