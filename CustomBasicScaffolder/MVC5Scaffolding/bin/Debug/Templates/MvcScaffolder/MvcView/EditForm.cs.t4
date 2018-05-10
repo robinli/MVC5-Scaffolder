@@ -279,7 +279,6 @@
         if(target=="#tab-<#= entitySetNameToLower  #>")
              $<#= entitySetNameToLower #>dg.datagrid("resize");
         <# } #>
-
     });
 		 
 				<# 

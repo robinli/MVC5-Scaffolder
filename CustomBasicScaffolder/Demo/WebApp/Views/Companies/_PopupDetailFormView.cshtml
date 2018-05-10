@@ -11,7 +11,7 @@
  <table class="table table-bordered">
     <thead>
                 <tr>
-                    <td colspan="4">
+                    <td colspan="6">
                         <div class="btn-group">
                             <button type="button" class="btn btn-default" onclick="saveitem()">
                                 <i class="fa fa-floppy-o"></i>
@@ -63,9 +63,7 @@
                                 width:200,
 								 required:false ,validType:'length[0,50]'" />
 			  				   </td>
-	   	   </tr>
-	   	    <tr>
-      	   <td class="control-label">   @Html.DisplayNameFor(model => model.Address)  </td>
+	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.Address)  </td>
 	   <td> 
 			   			  			<input id="@Html.IdFor(model => model.Address)" 
 				   name="@Html.NameFor(model => model.Address)" 
@@ -76,9 +74,11 @@
 				   data-options="prompt:'地址',
 								 label:'',
                                 width:200,
-								 required:false ,validType:'length[0,50]'" />
+								 required:false ,validType:'length[0,60]'" />
 			  				   </td>
-	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.City)  </td>
+	   	   </tr>
+	   	    <tr>
+      	   <td class="control-label">   @Html.DisplayNameFor(model => model.City)  </td>
 	   <td> 
 			   			  			<input id="@Html.IdFor(model => model.City)" 
 				   name="@Html.NameFor(model => model.City)" 
@@ -91,9 +91,7 @@
                                 width:200,
 								 required:false ,validType:'length[0,50]'" />
 			  				   </td>
-	   	   </tr>
-	   	    <tr>
-      	   <td class="control-label">   @Html.DisplayNameFor(model => model.Province)  </td>
+	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.Province)  </td>
 	   <td> 
 			   			  			<input id="@Html.IdFor(model => model.Province)" 
 				   name="@Html.NameFor(model => model.Province)" 
@@ -149,9 +147,7 @@
 								 required:false,
 								 formatter:dateformatter" />
 			  				   </td>
-	   	   </tr>
-	   	    <tr>
-      	   <td class="control-label">   @Html.DisplayNameFor(model => model.CreatedBy)  </td>
+	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.CreatedBy)  </td>
 	   <td> 
 			   			  			<input id="@Html.IdFor(model => model.CreatedBy)" 
 				   name="@Html.NameFor(model => model.CreatedBy)" 
@@ -164,7 +160,9 @@
                                 width:200,
 								 required:false ,validType:'length[0,20]'" />
 			  				   </td>
-	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.LastModifiedDate)  </td>
+	   	   </tr>
+	   	    <tr>
+      	   <td class="control-label">   @Html.DisplayNameFor(model => model.LastModifiedDate)  </td>
 	   <td> 
 			   			  			<input id="@Html.IdFor(model => model.LastModifiedDate)" 
 			       name="@Html.NameFor(model => model.LastModifiedDate)" 
@@ -178,9 +176,7 @@
 								 required:false,
 								 formatter:dateformatter" />
 			  				   </td>
-	   	   </tr>
-	   	    <tr>
-      	   <td class="control-label">   @Html.DisplayNameFor(model => model.LastModifiedBy)  </td>
+	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.LastModifiedBy)  </td>
 	   <td> 
 			   			  			<input id="@Html.IdFor(model => model.LastModifiedBy)" 
 				   name="@Html.NameFor(model => model.LastModifiedBy)" 
@@ -209,7 +205,7 @@
         <!-- Nav tabs -->
         <ul class="nav nav-tabs bordered">
 								<li class="active"><a data-toggle="tab" href="#tab-departments"> Departments</a></li>
-												<li class=""><a data-toggle="tab" href="#tab-employee"> Employee</a></li>	 		 
+												<li class=""><a data-toggle="tab" href="#tab-employees"> Employee</a></li>	 		 
 				   
 		 </ul>
 		 <!-- Tab panes -->
@@ -228,12 +224,12 @@
                 </div>
             </div>
             </div>
-		  		  <div id="tab-employee" class="tab-pane ">
+		  		  <div id="tab-employees" class="tab-pane ">
             <div class="panel-body">
                 <div class="table-responsive">
-				<table id="employee_datagrid" >
+				<table id="employees_datagrid" >
                 </table>
-				<div id="employee_toolbar" style="height:auto">
+				<div id="employees_toolbar" style="height:auto">
                     <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-plus fa-fw',plain:true" onclick="employee_createitem()">新增</a>
                     <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-trash-o fa-fw',plain:true" onclick="employee_removeitem()">删除</a>
                     <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-floppy-o fa-fw',plain:true" onclick="employee_saveitem()">保存</a>
@@ -525,7 +521,13 @@
     
 
 
-              
+          $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        var target = $(e.target).attr("href") // activated tab
+                if(target=="#tab-departments")
+             $departmentsdg.datagrid("resize");
+                if(target=="#tab-employees")
+             $employeesdg.datagrid("resize");
+            });
 		 
 								//--------------------------------------------------------------------
 				// #departments_datagrid functions

@@ -1930,9 +1930,17 @@ table th[class*="col-"] {
     min-height: 0.01%;
     overflow-x: auto;
 }
+    .table-responsive *,
+    .table-responsive *:after,
+    .table-responsive *:before {
+        -moz-box-sizing: border-box !important;
+        box-sizing: border-box !important;
+     
+    }
 
-@media screen and (max-width: 767px) {
-    .table-responsive {
+
+    @media screen and (max-width: 767px) {
+        .table-responsive {
         -ms-overflow-style: -ms-autohiding-scrollbar;
         border: 1px solid #dddddd;
         margin-bottom: 13.5px;

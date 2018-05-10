@@ -68,7 +68,7 @@ namespace <#=DefaultNamespace #>.Repositories
                   <#
 					IEnumerable<PropertyMetadata> properties = ModelMetadata.Properties;
 				    foreach (PropertyMetadata property in properties) {
-						 if (property.Scaffold && !property.IsAssociation) {
+						 if ( !property.IsAssociation) {
 				  #>
 
 					<# 

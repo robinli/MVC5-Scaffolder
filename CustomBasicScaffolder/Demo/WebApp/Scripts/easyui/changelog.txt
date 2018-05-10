@@ -1,3 +1,8 @@
+Version 1.5.5.x
+---------------
+* Bug
+ * maskedbox: The component does not accept numeric keypad. fixed.
+
 Version 1.5.5
 -------------
 * Bug

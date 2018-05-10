@@ -247,11 +247,12 @@
         {
 			string subpropertyName = dic.Key;
 			var submetadata =  dic.Value;
+            var entitySetNameToLower = submetadata.EntitySetName.ToLower();
 #>
 				<#  if(idx==0)  {#>
-				<li class="active"><a data-toggle="tab" href="#tab-<#= subpropertyName.ToLower()  #>"> <#= subpropertyName #></a></li>
+				<li class="active"><a data-toggle="tab" href="#tab-<#= entitySetNameToLower  #>"> <#= subpropertyName #></a></li>
 				<# } else { #>
-				<li class=""><a data-toggle="tab" href="#tab-<#= subpropertyName.ToLower()  #>"> <#= subpropertyName #></a></li>	 		 
+				<li class=""><a data-toggle="tab" href="#tab-<#= entitySetNameToLower  #>"> <#= subpropertyName #></a></li>	 		 
 				<# } #>
 <# 
 	    idx ++;
@@ -265,14 +266,15 @@
         foreach (var dic in OneToManyModelMetadata) 
         {
                 var childrenmodelmeta = dic.Value;
+                var entitySetNameToLower = childrenmodelmeta.EntitySetName.ToLower();
 				var subpropertyName = dic.Key;
           #>
-		  <div id="tab-<#= subpropertyName.ToLower()   #>" class="tab-pane <#= idx>0?"":"active"  #>">
+		  <div id="tab-<#= entitySetNameToLower   #>" class="tab-pane <#= idx>0?"":"active"  #>">
             <div class="panel-body">
                 <div class="table-responsive">
-				<table id="<#= subpropertyName.ToLower()  #>_datagrid" >
+				<table id="<#= entitySetNameToLower  #>_datagrid" >
                 </table>
-				<div id="<#= subpropertyName.ToLower() #>_toolbar" style="height:auto">
+				<div id="<#= entitySetNameToLower #>_toolbar" style="height:auto">
                     <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-plus fa-fw',plain:true" onclick="<#= subpropertyName.ToLower() #>_createitem()">新增</a>
                     <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-trash-o fa-fw',plain:true" onclick="<#= subpropertyName.ToLower() #>_removeitem()">删除</a>
                     <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-floppy-o fa-fw',plain:true" onclick="<#= subpropertyName.ToLower() #>_saveitem()">保存</a>
@@ -609,7 +611,19 @@
     <#  if(GenerateMasterDetailRelationship  && OneToManyModelMetadata.Count >0) 
 			 { 
 	 #>
-          
+      $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        var target = $(e.target).attr("href") // activated tab
+        <#
+        foreach (var dic in OneToManyModelMetadata) 
+        {
+            var submetadata =  dic.Value;
+            var entitySetNameToLower = submetadata.EntitySetName.ToLower();
+			string subpropertyName = dic.Key;
+        #>
+        if(target=="#tab-<#= entitySetNameToLower  #>")
+             $<#= entitySetNameToLower #>dg.datagrid("resize");
+        <# } #>
+    });
 		 
 				<# 
 				foreach (var prop in ModelMetadata.Properties.Where(x=>x.AssociationDirection == AssociationDirection.OneToMany)) 
