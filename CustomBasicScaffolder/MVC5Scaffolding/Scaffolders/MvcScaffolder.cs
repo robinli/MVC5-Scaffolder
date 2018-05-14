@@ -657,8 +657,8 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             string linqtxt1 = "";
             string linqtxt2 = "";
             linqtxt1 = String.Join("", efMetadata.Properties.Where(n => n.IsAssociation == true && n.AssociationDirection == AssociationDirection.ManyToOne )
-                            .Select(n => String.Format(",{0}{1} = (n.{2}==null?\"\": n.{2}.{3}) \r\n ", n.PropertyName, n.RelatedModel.DisplayPropertyName, n.PropertyName, n.RelatedModel.DisplayPropertyName)));
-            linqtxt2 = String.Join("", efMetadata.Properties.Where(n => n.IsAssociation == false ).Select(n => String.Format(", {0} = n.{1} \r\n", n.PropertyName, n.PropertyName)));
+                            .Select(n => String.Format(",\r\n    {0}{1} = (n.{2}==null?\"\": n.{2}.{3}) ", n.PropertyName, n.RelatedModel.DisplayPropertyName, n.PropertyName, n.RelatedModel.DisplayPropertyName)));
+            linqtxt2 = String.Join("", efMetadata.Properties.Where(n => n.IsAssociation == false ).Select(n => String.Format(",\r\n    {0} = n.{1}", n.PropertyName, n.PropertyName)));
 
             linqtxt = linqtxt1 + linqtxt2;
             return " n => new { \r\n" + linqtxt.Substring(1) + "\r\n}";
