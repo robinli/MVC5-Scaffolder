@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace SqlHelper2
 {
-    public class CommandDatabase : IDatabase
+
+    public class CommandDatabase : IDatabaseAsync
     {
         public readonly DbCommand command;
 
@@ -131,6 +134,27 @@ namespace SqlHelper2
             var ds = new DataSet();
             dataAdapter.Fill(ds);
             action.Invoke(ds);
+        }
+
+        public async Task<IEnumerable<T>> ExecuteDataReaderAsync<T>(string sql, object parameters, Func<DbDataReader, T> action)
+        {
+            PrepareCommand(sql, parameters);
+
+            using (var dr = await command.ExecuteReaderAsync())
+            {
+                return dr.Select(r => action(r)).ToList();
+            }
+        }
+
+        public async Task ExecuteDataReaderAsync(string sql, object parameters, Action<DbDataReader> action)
+        {
+            PrepareCommand(sql, parameters);
+
+            using (var dr = await command.ExecuteReaderAsync())
+            {
+                while (await dr.ReadAsync())
+                    action.Invoke(dr);
+            }
         }
     }
 }

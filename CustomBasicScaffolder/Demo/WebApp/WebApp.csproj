@@ -3766,7 +3766,6 @@
     <Content Include="Views\DataTableImportMappings\Index.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Shared\_Navigation.cshtml" />
     <Content Include="Views\MenuItems\Index.cshtml" />
     <Content Include="Views\MenuItems\Create.cshtml" />
     <Content Include="Views\MenuItems\Edit.cshtml" />

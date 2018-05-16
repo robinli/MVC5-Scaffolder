@@ -16006,6 +16006,7 @@ img.away {
 }
 
 .chart-large {
+    max-width: none;
     height: 235px;
     width: 100%;
 }

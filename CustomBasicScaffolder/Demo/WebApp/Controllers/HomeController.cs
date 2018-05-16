@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using PublicPara.CodeText.Data;
@@ -12,12 +13,12 @@ namespace WebApp.Controllers
     public class HomeController : Controller
     {
         
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             //throw new Exception();
-            string subjectString = "validType:'length[0,50]'";
-            var match = Regex.Split(subjectString, @"\D+", RegexOptions.IgnorePatternWhitespace).Where(x=>!string.IsNullOrEmpty(x)).ToArray();
-          
+            //string subjectString = "validType:'length[0,50]'";
+            //var match = Regex.Split(subjectString, @"\D+", RegexOptions.IgnorePatternWhitespace).Where(x=>!string.IsNullOrEmpty(x)).ToArray();
+
             //  SqlHelper2.DatabaseFactory.CreateDatabase().ExecuteNonQuery(sql, parameters);
 
             //  var sqllist = new List<string>();
@@ -33,8 +34,17 @@ namespace WebApp.Controllers
             //      Console.Write(dt);
             //  });
 
-
-
+            await SqlHelper2.DatabaseFactory.CreateDatabase().ExecuteDataReaderAsync("select * from tb1",null, dr =>
+            {
+                Console.WriteLine(dr[0]);
+            });
+            var data= await SqlHelper2.DatabaseFactory.CreateDatabase().ExecuteDataReaderAsync<string>("select * from tb1", null, dr =>
+            {
+                return dr[0].ToString(); ;
+            });
+            foreach (var item in data) {
+                Console.WriteLine(item);
+            }
             //var list = CodeListSet.CLS["AccountType"].EnumRecords();
             //var val = CodeListSet.CLS["AccountType"].Code2Value("1");
             return View();

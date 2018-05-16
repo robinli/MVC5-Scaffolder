@@ -4,10 +4,11 @@ using System.Data;
 using System.Data.Common;
 using System.Configuration;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace SqlHelper2
 {
-    public class ConnectionDatabase : IDatabase
+    public class ConnectionDatabase : IDatabaseAsync
     {
         private readonly string _ConnectionString;
         private readonly DbProviderFactory _ProviderFactory;
@@ -28,11 +29,22 @@ namespace SqlHelper2
             _ProviderFactory = DbProviderFactories.GetFactory(providerName);
         }
 
+        public ConnectionDatabase()
+        {
+        }
+
         private DbConnection CreateConnection()
         {
             var connection = _ProviderFactory.CreateConnection();
             connection.ConnectionString = _ConnectionString;
             connection.Open();
+            return connection;
+        }
+        private async Task<DbConnection> CreateConnectionAsync()
+        {
+            var connection = _ProviderFactory.CreateConnection();
+            connection.ConnectionString = _ConnectionString;
+            await connection.OpenAsync();
             return connection;
         }
 
@@ -193,6 +205,32 @@ namespace SqlHelper2
                         db.ExecuteSpDataSet(procedureName, parameters, action);
 
                     }
+                }
+            }
+        }
+
+        public async Task<IEnumerable<T>> ExecuteDataReaderAsync<T>(string sql, object parameters, Func<DbDataReader, T> action)
+        {
+            using (var connection = await CreateConnectionAsync())
+            {
+                using (var cmd = connection.CreateCommand())
+                {
+                    var db = new CommandDatabase(cmd);
+                    // 这里一定要用yield，这样可以延迟执行，直接用return db.ExecuteDataReader(sql, parameters, action)在执行dr.Read()的时候，cmd对象早就释放掉了
+                    return await db.ExecuteDataReaderAsync(sql, parameters, action);
+                     
+                }
+            }
+        }
+
+        public async Task ExecuteDataReaderAsync(string sql, object parameters, Action<DbDataReader> action)
+        {
+            using (var connection = await CreateConnectionAsync())
+            {
+                using (var cmd = connection.CreateCommand())
+                {
+                    var db = new CommandDatabase(cmd);
+                    await db.ExecuteDataReaderAsync(sql, parameters, action);
                 }
             }
         }

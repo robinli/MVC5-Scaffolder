@@ -2,6 +2,8 @@ Version 1.5.5.x
 ---------------
 * Bug
  * maskedbox: The component does not accept numeric keypad. fixed.
+* Improvement
+ * tabs: The 'toolPosition' property can accept 'top' and 'bottom' values.
 
 Version 1.5.5
 -------------
