@@ -51,7 +51,7 @@ namespace WebApp
             {
                 TokenEndpointPath = new PathString("/token"),
                 Provider = new ApplicationOAuthProvider("sefl"),
-                AuthorizeEndpointPath = new PathString("/account/login"),
+                //AuthorizeEndpointPath = new PathString("/account/login"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(14),
                 // In production mode set AllowInsecureHttp = false
                 AllowInsecureHttp = true

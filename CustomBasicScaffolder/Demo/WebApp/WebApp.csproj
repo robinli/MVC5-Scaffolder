@@ -241,6 +241,7 @@
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\CodeItemsController.cs" />
     <Compile Include="Controllers\CompaniesController.cs" />
+    <Compile Include="Controllers\GraphsController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\DepartmentsController.cs" />
     <Compile Include="Controllers\EFMigrationsManagerController.cs" />
@@ -3600,6 +3601,14 @@
     <Content Include="Views\Companies\_PopupDetailFormView.cshtml" />
     <Content Include="Views\Companies\_DepartmentEditForm.cshtml" />
     <Content Include="Views\Companies\_EmployeeEditForm.cshtml" />
+    <Content Include="Views\Graphs\ChartJS.cshtml" />
+    <Content Include="Views\Graphs\Dygraphs.cshtml" />
+    <Content Include="Views\Graphs\EasyPieCharts.cshtml" />
+    <Content Include="Views\Graphs\FlotChart.cshtml" />
+    <Content Include="Views\Graphs\HighChartTable.cshtml" />
+    <Content Include="Views\Graphs\MorrisCharts.cshtml" />
+    <Content Include="Views\Graphs\Sparklines.cshtml" />
+    <Content Include="Views\Graphs\DashboardMarketing.cshtml" />
     <None Include="Views\Notifications\_notifications.cshtml" />
     <None Include="Views\Messages\_notifications.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Int.cshtml">
