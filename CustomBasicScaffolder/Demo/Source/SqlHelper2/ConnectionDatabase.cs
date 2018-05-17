@@ -241,7 +241,7 @@ namespace SqlHelper2
             {
                 using (var cmd = connection.CreateCommand())
                 {
-                    return new CommandDatabase(cmd).ExecuteNonQueryAsync(sql, parameters);
+                    return await new CommandDatabase(cmd).ExecuteNonQueryAsync(sql, parameters);
                 }
             }
         }
@@ -252,7 +252,7 @@ namespace SqlHelper2
             {
                 using (var cmd = connection.CreateCommand())
                 {
-                    return new CommandDatabase(cmd).ExecuteSPNonQueryAsync(procedureName, parameters);
+                    return await new CommandDatabase(cmd).ExecuteSPNonQueryAsync(procedureName, parameters);
                 }
             }
         }
