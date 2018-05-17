@@ -1,11 +1,11 @@
 using System.Linq;
 using System.Web.Mvc;
+using Microsoft.Owin;
 using Unity.AspNet.Mvc;
  
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(WebApp.UnityMvcActivator), nameof(WebApp.UnityMvcActivator.Start))]
 [assembly: WebActivatorEx.ApplicationShutdownMethod(typeof(WebApp.UnityMvcActivator), nameof(WebApp.UnityMvcActivator.Shutdown))]
-
 namespace WebApp
 {
     /// <summary>
@@ -20,9 +20,7 @@ namespace WebApp
         {
             FilterProviders.Providers.Remove(FilterProviders.Providers.OfType<FilterAttributeFilterProvider>().First());
             FilterProviders.Providers.Add(new UnityFilterAttributeFilterProvider(UnityConfig.Container));
-
             DependencyResolver.SetResolver(new UnityDependencyResolver(UnityConfig.Container));
-
             // TODO: Uncomment if you want to use PerRequestLifetimeManager
             // Microsoft.Web.Infrastructure.DynamicModuleHelper.DynamicModuleUtility.RegisterModule(typeof(UnityPerRequestHttpModule));
         }
