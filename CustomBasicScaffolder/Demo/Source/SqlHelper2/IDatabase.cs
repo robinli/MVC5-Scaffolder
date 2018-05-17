@@ -34,5 +34,9 @@ namespace SqlHelper2 {
         Task<IEnumerable<T>> ExecuteDataReaderAsync<T>(string sql, object parameters, Func<DbDataReader, T> action);
 
         Task ExecuteDataReaderAsync(string sql, object parameters, Action<DbDataReader> action);
+
+        Task<int> ExecuteNonQueryAsync(string sql, object parameters = null);
+
+        Task<int> ExecuteSPNonQueryAsync(string procedureName, object parameters = null);
     }
 }

@@ -156,5 +156,19 @@ namespace SqlHelper2
                     action.Invoke(dr);
             }
         }
+
+        public async Task<int> ExecuteNonQueryAsync(string sql, object parameters = null)
+        {
+            PrepareCommand(sql, parameters);
+
+            return await command.ExecuteNonQueryAsync();
+        }
+
+        public async Task<int> ExecuteSPNonQueryAsync(string procedureName, object parameters = null)
+        {
+            PrepareCommand(procedureName, parameters);
+            command.CommandType = CommandType.StoredProcedure;
+            return await command.ExecuteNonQueryAsync();
+        }
     }
 }

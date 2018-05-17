@@ -234,5 +234,27 @@ namespace SqlHelper2
                 }
             }
         }
+
+        public async Task<int> ExecuteNonQueryAsync(string sql, object parameters = null)
+        {
+            using (var connection = await CreateConnectionAsync())
+            {
+                using (var cmd = connection.CreateCommand())
+                {
+                    return new CommandDatabase(cmd).ExecuteNonQueryAsync(sql, parameters);
+                }
+            }
+        }
+
+        public async Task<int> ExecuteSPNonQueryAsync(string procedureName, object parameters = null)
+        {
+            using (var connection = await CreateConnectionAsync())
+            {
+                using (var cmd = connection.CreateCommand())
+                {
+                    return new CommandDatabase(cmd).ExecuteSPNonQueryAsync(procedureName, parameters);
+                }
+            }
+        }
     }
 }
