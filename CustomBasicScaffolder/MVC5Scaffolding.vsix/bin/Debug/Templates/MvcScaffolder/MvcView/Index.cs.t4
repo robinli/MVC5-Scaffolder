@@ -193,8 +193,131 @@
         function dohelp() {
 
         }
-		 //datagrid 增删改查操作
-          var $dg = $("#<#= modelVariable #>_datagrid").datagrid({
+        var editIndex = undefined;
+    //重新加载数据
+	function reload() {
+				 if (endEditing()) {
+						$dg.datagrid("reload");
+				 }
+			}
+    //关闭编辑状态
+	function endEditing() {
+			if (editIndex == undefined) { return true }
+			if ($dg.datagrid("validateRow", editIndex)) {
+
+				<# 
+				  foreach(RelatedModelMetadata relatedModel in 	ModelMetadata.RelatedEntities)
+				  {
+					  string relForeignKey = relatedModel.ForeignKeyPropertyNames[0];
+					  string reldisplayname = GetRelatedDisplayNameExpression(relForeignKey,ModelMetadata); 
+				#>
+				var ed = $dg.datagrid("getEditor", { index: editIndex, field: "<#= relForeignKey #>" });
+				var <#= reldisplayname.ToLower() #> = $(ed.target).combobox("getText");
+				var <#= relForeignKey.ToLower() #> = $(ed.target).combobox("getValue");
+				$dg.datagrid("getRows")[editIndex]["<#= reldisplayname #>"] =  <#= reldisplayname.ToLower() #>;
+				$dg.datagrid("getRows")[editIndex]["<#=  relForeignKey #>"] = <#= relForeignKey.ToLower() #>;
+				<# } #>
+				$dg.datagrid("endEdit", editIndex);
+				editIndex = undefined;
+                return true;
+			} else {
+				return false;
+			}
+		}
+    //单击列开启编辑功能
+	function onClickCell(index, field) {
+			var _operates = ["_operate1", "_operate2", "_operate3", "ck"]
+			if ($.inArray(field, _operates) >= 0) {
+				return;
+			}
+			if (editIndex != index) {
+				if (endEditing()) {
+					$dg.datagrid("selectRow", index)
+							.datagrid("beginEdit", index);
+                    editIndex = index;
+					var ed = $dg.datagrid("getEditor", { index: index, field: field });
+					if (ed) {
+						($(ed.target).data("textbox") ? $(ed.target).textbox("textbox") : $(ed.target)).focus();
+					}
+				} else {
+					$dg.datagrid("selectRow", editIndex);
+				}
+			}
+		}
+    //新增记录
+	function append() {
+			if (endEditing()) {
+				//$dg.datagrid("appendRow", { Status: 0 });
+				//editIndex = $dg.datagrid("getRows").length - 1;
+				$dg.datagrid("insertRow", { index: 0, row: { <#= FieldDefaultValueExpression #> } });
+				editIndex = 0 ;
+				$dg.datagrid("selectRow", editIndex)
+						.datagrid("beginEdit", editIndex);
+			}
+		}
+    //删除编辑的行
+	function removeit() {
+			if (editIndex == undefined) { return }
+			$dg.datagrid("cancelEdit", editIndex)
+					.datagrid("deleteRow", editIndex);
+			editIndex = undefined;
+	}
+    //提交保存后台数据库
+	function accept() {
+			if (endEditing()) {
+				if ($dg.datagrid("getChanges").length) {
+					var inserted = $dg.datagrid("getChanges", "inserted");
+					var deleted = $dg.datagrid("getChanges", "deleted");
+					var updated = $dg.datagrid("getChanges", "updated");
+					var effectRow = new Object();
+					if (inserted.length) {
+						effectRow.inserted = inserted;
+					}
+					if (deleted.length) {
+						effectRow.deleted = deleted;
+					}
+					if (updated.length) {
+						effectRow.updated = updated;
+					}
+					//console.log(JSON.stringify(effectRow));
+					$.post("/<#= ControllerRootName #>/SaveData", effectRow, function (response) {
+						//console.log(response);
+						if (response.Success) {
+							$.messager.alert("提示", "提交成功！");
+							$dg.datagrid("acceptChanges");
+							$dg.datagrid("reload");
+						}
+					}, "json").fail(function (response) {
+						//console.log(response);
+						$.messager.alert("错误", "提交错误了！","error");
+						//$dg.datagrid("reload");
+					});
+				}
+			}
+		}
+		function reject() {
+			$dg.datagrid("rejectChanges");
+			editIndex = undefined;
+		}
+		function getChanges() {
+			var rows = $dg.datagrid("getChanges");
+			alert(rows.length + " rows are changed!");
+		}
+        //弹出明细信息
+		function showDetailsWindow(id) {
+			//console.log(index, row);
+            $.getJSON('/<#= ControllerRootName #>/PopupEdit/' + id, function (data, status, xhr) {
+                //console.log(data);
+                $('#detailswindow').window('open');
+                loadData(id,data);
+            });
+		}
+
+        //初始化定义datagrid
+        var $dg = $("#<#= modelVariable #>_datagrid");
+        $(function () {
+		 //定义datagrid结构
+         $dg.datagrid({
                         rownumbers:true,
 				        checkOnSelect:true,
 				        selectOnCheck:true,
@@ -211,7 +334,16 @@
                         striped:true,   
                          columns: [[
                          /*{ field: 'ck', checkbox: true },*/
-                         { field: '_operate1', title:'操作', width: 120, sortable: false, resizable: true, formatter: showdetailsformatter},
+                         { 
+                            field: '_operate1',
+                            title:'操作',
+                            width: 120,
+                            sortable: false,
+                            resizable: true,
+                            formatter: function showdetailsformatter(value, row, index) {
+                                        return '<a onclick="showDetailsWindow(' + row.Id + ')" class="btn btn-default btn-sm" href="javascript:void(0)"><i class="fa fa-list"></i> 查看明细</a>';
+                                    }
+                          },
                         <#
 IEnumerable<PropertyMetadata> properties = ModelMetadata.Properties;
 foreach (PropertyMetadata property in properties) {
@@ -242,7 +374,8 @@ foreach (PropertyMetadata property in properties) {
 			   string foreignKeyPropertyName = property.PropertyName;
 			   RelatedModelMetadata relatedModel = GetRelatedModelMetadata(foreignKeyPropertyName,ModelMetadata);
 		#>
-			{field:'<#= foreignKeyPropertyName  #>',
+			{
+             field:'<#= foreignKeyPropertyName  #>',
              title:'@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)',
              width:160, 
              sortable:true, 
@@ -261,12 +394,14 @@ foreach (PropertyMetadata property in properties) {
 								url:'/<#= ControllerRootName #>/Get<#=  relatedModel.EntitySetName  #>',
 								required:<#= isRequired.ToString().ToLower() #>
 							}
-						}},
+						}
+             },
 		<# } else { #>
 		<#
 			if(fieldtypename=="string") {
 		#>
-			 {field:'<#= property.PropertyName #>', 
+			 {
+              field:'<#= property.PropertyName #>', 
               title:'@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)', 
               width:140,
               editor:{
@@ -274,11 +409,13 @@ foreach (PropertyMetadata property in properties) {
                       options:{ prompt:'<#= prompt #>',required:<#= isRequired.ToString().ToLower() #> <#= maxLength #>  }  
                      },
               sortable:true,
-              resizable:true },
+              resizable:true 
+              },
 		<# } else if(fieldtypename=="int" || fieldtypename=="float"|| fieldtypename=="decimal") {
 			 if(property.PropertyName=="Status") {
 		#>
-			 {field:'<#= property.PropertyName #>',
+			 {
+              field:'<#= property.PropertyName #>',
               title:'@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)', 
               width:100,
               align:'right',
@@ -301,9 +438,11 @@ foreach (PropertyMetadata property in properties) {
 										   default: 
 											 return value ;
 										 }
-			  }},
+			      }
+              },
 		<#   } else {  #>
-			 {field:'<#=  property.PropertyName  #>', 
+			 {
+              field:'<#=  property.PropertyName  #>', 
               title:'@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)', 
               width:100, 
               align:'right',
@@ -312,10 +451,12 @@ foreach (PropertyMetadata property in properties) {
                       options:{prompt:'<#= prompt #>', required:<#= isRequired.ToString().ToLower() #>  <#= maxLength #> } 
                      },
               sortable:true,
-              resizable:true },
+              resizable:true 
+             },
 		<#   }   } else if(fieldtypename=="DateTime" ) {
 		#>
-			 {field:'<#=  property.PropertyName  #>', 
+		    {
+              field:'<#=  property.PropertyName  #>', 
               title:'@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)', 
               width:160, 
               align:'right', 
@@ -325,13 +466,15 @@ foreach (PropertyMetadata property in properties) {
                       },
               sortable:true, 
               resizable:true, 
-              formatter:dateformatter },
+              formatter:dateformatter 
+             },
 		<# } else if(fieldtypename=="bool" || fieldtypename=="Boolean" ){ #>
-			 {field:'<#= property.PropertyName #>', 
-              title:'@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)', 
-              width:120, 
-              align:'center',
-              editor:{
+			 {
+               field:'<#= property.PropertyName #>', 
+               title:'@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)', 
+               width:120, 
+               align:'center',
+               editor:{
                       type:'checkbox',
                       options:{prompt:'<#= prompt #>', 
                                      on:'true',
@@ -339,12 +482,14 @@ foreach (PropertyMetadata property in properties) {
                                      required:<#= isRequired.ToString().ToLower() #>
                                } 
                       },
-              sortable:true, 
-              resizable:true },
+                sortable:true, 
+                resizable:true 
+              },
 		<# }  else  if ( fieldtypename=="bool" ) { #>
-			 {field:'<#= property.PropertyName #>',  
-              title:'@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)', width:120, 
-              editor: {
+			 {
+                field:'<#= property.PropertyName #>',  
+                title:'@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)', width:120, 
+                editor: {
                         type:'combobox',
 						options:{
 								    prompt:'<#= prompt #>' ,
@@ -352,153 +497,37 @@ foreach (PropertyMetadata property in properties) {
 									data: [ { value: 'true', text: 'true' },{ value: 'false', text: 'false' } ],
 									required:<#= isRequired.ToString().ToLower() #>
                                  }
-                       }},
-		<# } else { #>
-			{field:'<#= property.PropertyName #>', 
-             title:'@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)', 
-             width:120, 
-             editor:{
+                       }
+               },
+		    <# } else { #>
+			{
+               field:'<#= property.PropertyName #>', 
+               title:'@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)', 
+               width:120, 
+               editor:{
                     type:'textbox', 
                     options:{
                              prompt:'<#= prompt #>', 
                              required:<#= isRequired.ToString().ToLower() #> <#= maxLength #>
                             } 
                      }, 
-              sortable:true, 
-              resizable:true },
+                sortable:true, 
+                resizable:true 
+              },
 		<# } #>
 		<#            } #>
-<#
-	}
-}
-#>
-
+                    <#
+	                      }
+                        }
+                        #>
                          ]]
           
           });
-		 var editIndex = undefined;
-		 function reload() {
-				 if (endEditing()) {
-						$dg.datagrid("reload");
-				 }
-			}
-		function endEditing() {
-			if (editIndex == undefined) { return true }
-			if ($dg.datagrid("validateRow", editIndex)) {
 
-				<# 
-				  foreach(RelatedModelMetadata relatedModel in 	ModelMetadata.RelatedEntities)
-				  {
-					  string relForeignKey = relatedModel.ForeignKeyPropertyNames[0];
-					  string reldisplayname = GetRelatedDisplayNameExpression(relForeignKey,ModelMetadata);
-					  
-				#>
-				var ed = $dg.datagrid("getEditor", { index: editIndex, field: "<#= relForeignKey #>" });
-				var <#= reldisplayname.ToLower() #> = $(ed.target).combobox("getText");
-				var <#= relForeignKey.ToLower() #> = $(ed.target).combobox("getValue");
-			   
-				$dg.datagrid("getRows")[editIndex]["<#= reldisplayname #>"] =  <#= reldisplayname.ToLower() #>;
-				$dg.datagrid("getRows")[editIndex]["<#=  relForeignKey #>"] = <#= relForeignKey.ToLower() #>;
- 
-
-				<# } #>
-				$dg.datagrid("endEdit", editIndex);
-				editIndex = undefined;
-
-				
-				return true;
-			} else {
-				return false;
-			}
-		}
-		function onClickCell(index, field) {
-			var _operates = ["_operate1", "_operate2", "_operate3", "ck"]
-			if ($.inArray(field, _operates) >= 0) {
-				return;
-			}
-			if (editIndex != index) {
-				if (endEditing()) {
-					$dg.datagrid("selectRow", index)
-							.datagrid("beginEdit", index);
-                    editIndex = index;
-					var ed = $dg.datagrid("getEditor", { index: index, field: field });
-					if (ed) {
-						($(ed.target).data("textbox") ? $(ed.target).textbox("textbox") : $(ed.target)).focus();
-					}
-					
-				} else {
-					$dg.datagrid("selectRow", editIndex);
-				}
-			}
-		}
-		function append() {
-			if (endEditing()) {
-				//$dg.datagrid("appendRow", { Status: 0 });
-				//editIndex = $dg.datagrid("getRows").length - 1;
-				$dg.datagrid("insertRow", { index: 0, row: { <#= FieldDefaultValueExpression #> } });
-				editIndex = 0 ;
-				$dg.datagrid("selectRow", editIndex)
-						.datagrid("beginEdit", editIndex);
-			}
-		}
-		function removeit() {
-			if (editIndex == undefined) { return }
-			$dg.datagrid("cancelEdit", editIndex)
-					.datagrid("deleteRow", editIndex);
-			editIndex = undefined;
-		}
-		function accept() {
-			if (endEditing()) {
-				if ($dg.datagrid("getChanges").length) {
-					var inserted = $dg.datagrid("getChanges", "inserted");
-					var deleted = $dg.datagrid("getChanges", "deleted");
-					var updated = $dg.datagrid("getChanges", "updated");
-					var effectRow = new Object();
-					if (inserted.length) {
-						effectRow.inserted = inserted;
-					}
-					if (deleted.length) {
-						effectRow.deleted = deleted;
-					}
-					if (updated.length) {
-						effectRow.updated = updated;
-					}
-					//console.log(JSON.stringify(effectRow));
-					$.post("/<#= ControllerRootName #>/SaveData", effectRow, function (response) {
-						//console.log(response);
-						if (response.Success) {
-							$.messager.alert("提示", "提交成功！");
-							$dg.datagrid("acceptChanges");
-							$dg.datagrid("reload");
-						}
-					}, "json").fail(function (response) {
-						//console.log(response);
-						$.messager.alert("错误", "提交错误了！","error");
-						//$dg.datagrid("reload");
-					});
-			  
-				}
-
-				//$dg.datagrid("acceptChanges");
-			}
-		}
-		function reject() {
-			$dg.datagrid("rejectChanges");
-			editIndex = undefined;
-		}
-		function getChanges() {
-			var rows = $dg.datagrid("getChanges");
-			alert(rows.length + " rows are changed!");
-		}
-
-		//datagrid 开启筛选功能
-		 $(function () {
-		  
-		   $dg.datagrid("enableFilter",[
+           $dg.datagrid("enableFilter",[
 		   <# 
 				foreach(var property in  ModelMetadata.Properties.Where(x=>x.PropertyName=="Status" && x.Scaffold==true))
 				{
-
 		   #>
 				{
 					  field: "<#= property.PropertyName #>",
@@ -523,11 +552,9 @@ foreach (PropertyMetadata property in properties) {
 		   <# 
 				}
 		   #>
-
            <# 
 				foreach(var property in  ModelMetadata.Properties.Where(x=> x.IsForeignKey==false && (x.ShortTypeName=="float" || x.ShortTypeName=="decimal" || x.ShortTypeName=="double" || x.ShortTypeName=="int") && x.Scaffold==true))
 				{
-
 		   #>
 				{
 					  field: "<#= property.PropertyName #>",
@@ -537,12 +564,9 @@ foreach (PropertyMetadata property in properties) {
 		   <# 
 				}
 		   #>
-
-
 		   <# 
 				foreach(var property in  ModelMetadata.Properties.Where(x=>x.ShortTypeName=="DateTime" && x.Scaffold==true))
 				{
-
 		   #>
 				{
 					  field: "<#= property.PropertyName #>",
@@ -562,7 +586,6 @@ foreach (PropertyMetadata property in properties) {
 		   <# 
 				}
 		   #>
-		   
 		   <# 
 			foreach(var property in  ModelMetadata.Properties.Where(x=>x.IsForeignKey==true && x.Scaffold==true))
 			{
@@ -594,34 +617,20 @@ foreach (PropertyMetadata property in properties) {
 		   <# 
 			} 
 		   #>
-		   
 		   ]);
-		})
+	 });
+
+	
+		
+		  
+		  
 		<# 
 			var primaryKey = ModelMetadata.PrimaryKeys[0].PropertyName;
 			var foreignKeyVar = ModelTypeName.ToLower() + primaryKey.ToLower();
 			var foreignKey = ModelTypeName+ primaryKey;
 		#>
-		//-----------------------------------------------------
-		//datagrid onSelect
-		//-----------------------------------------------------
-        function showdetailsformatter(value, row, index) {
-
-            return '<a onclick="showDetailsWindow(' + row.Id + ')" class="btn btn-default btn-sm" href="javascript:void(0)"><i class="fa fa-list"></i> 查看明细</a>';
-
-        }
-        //弹出明细信息
-		function showDetailsWindow(id) {
-			//console.log(index, row);
-            $.getJSON('/<#= ControllerRootName #>/PopupEdit/' + id, function (data, status, xhr) {
-                //console.log(data);
-                $('#detailswindow').window('open');
-                loadData(id,data);
-                
-
-            });
-          
-		}
+		
+        
  
 		
 		

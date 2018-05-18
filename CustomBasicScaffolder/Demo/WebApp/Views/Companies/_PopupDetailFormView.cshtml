@@ -1,15 +1,15 @@
 ﻿﻿@model WebApp.Models.Company
- <!-- 输出form表单界面 -->
- <div id="detailswindow" hidden="hidden" class="easyui-window" 
-      title="明细数据" 
-      data-options="modal:true,
+<!-- 输出form表单界面 -->
+<div id="detailswindow" hidden="hidden" class="easyui-window"
+     title="明细数据"
+     data-options="modal:true,
                     closed:true,
                     iconcls:'icon-menu'
                     " style="width:960px;height:520px">
     <form id="company_form" class="easyui-form form-horizontal" method="post" data-options="novalidate:true">
-  @Html.AntiForgeryToken()
- <table class="table table-bordered">
-    <thead>
+        @Html.AntiForgeryToken()
+        <table class="table table-bordered">
+            <thead>
                 <tr>
                     <td colspan="6">
                         <div class="btn-group">
@@ -37,212 +37,211 @@
                     </td>
                 </tr>
             </thead>
-	    <tr>
-      	   <td class="control-label">   @Html.DisplayNameFor(model => model.Id)  </td>
-	   <td> 
-			   			   			<input id="@Html.IdFor(model => model.Id)" 
-                   name="@Html.NameFor(model => model.Id)" 
-                   value="@Html.ValueFor(model => model.Id)"
-                   tabindex="0"   
-                   class="easyui-numberbox" type="text" 
-                   data-options="prompt:'Id',
+            <tr>
+                <td class="control-label">   @Html.DisplayNameFor(model => model.Id)  </td>
+                <td>
+                    <input id="@Html.IdFor(model => model.Id)"
+                           name="@Html.NameFor(model => model.Id)"
+                           value="@Html.ValueFor(model => model.Id)"
+                           tabindex="0"
+                           class="easyui-numberbox" type="text"
+                           data-options="prompt:'Id',
                                  readonly:true,
                                 width:200,
                                  label:'',required:true ,precision:0" />
-			  				   </td>
-	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.Name)  </td>
-	   <td> 
-			   			  			<input id="@Html.IdFor(model => model.Name)" 
-				   name="@Html.NameFor(model => model.Name)" 
-				   value="@Html.ValueFor(model => model.Name)"
-				   tabindex="1" 
-				   class="easyui-textbox" 
-				   type="text" 
-				   data-options="prompt:'名称',
+                </td>
+                <td class="control-label">   @Html.DisplayNameFor(model => model.Name)  </td>
+                <td>
+                    <input id="@Html.IdFor(model => model.Name)"
+                           name="@Html.NameFor(model => model.Name)"
+                           value="@Html.ValueFor(model => model.Name)"
+                           tabindex="1"
+                           class="easyui-textbox"
+                           type="text"
+                           data-options="prompt:'名称',
 								 label:'',
                                 width:200,
 								 required:false ,validType:'length[0,50]'" />
-			  				   </td>
-	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.Address)  </td>
-	   <td> 
-			   			  			<input id="@Html.IdFor(model => model.Address)" 
-				   name="@Html.NameFor(model => model.Address)" 
-				   value="@Html.ValueFor(model => model.Address)"
-				   tabindex="2" 
-				   class="easyui-textbox" 
-				   type="text" 
-				   data-options="prompt:'地址',
+                </td>
+                <td class="control-label">   @Html.DisplayNameFor(model => model.Address)  </td>
+                <td>
+                    <input id="@Html.IdFor(model => model.Address)"
+                           name="@Html.NameFor(model => model.Address)"
+                           value="@Html.ValueFor(model => model.Address)"
+                           tabindex="2"
+                           class="easyui-textbox"
+                           type="text"
+                           data-options="prompt:'地址',
 								 label:'',
                                 width:200,
 								 required:false ,validType:'length[0,60]'" />
-			  				   </td>
-	   	   </tr>
-	   	    <tr>
-      	   <td class="control-label">   @Html.DisplayNameFor(model => model.City)  </td>
-	   <td> 
-			   			  			<input id="@Html.IdFor(model => model.City)" 
-				   name="@Html.NameFor(model => model.City)" 
-				   value="@Html.ValueFor(model => model.City)"
-				   tabindex="3" 
-				   class="easyui-textbox" 
-				   type="text" 
-				   data-options="prompt:'城市',
+                </td>
+            </tr>
+            <tr>
+                <td class="control-label">   @Html.DisplayNameFor(model => model.City)  </td>
+                <td>
+                    <input id="@Html.IdFor(model => model.City)"
+                           name="@Html.NameFor(model => model.City)"
+                           value="@Html.ValueFor(model => model.City)"
+                           tabindex="3"
+                           class="easyui-textbox"
+                           type="text"
+                           data-options="prompt:'城市',
 								 label:'',
                                 width:200,
 								 required:false ,validType:'length[0,50]'" />
-			  				   </td>
-	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.Province)  </td>
-	   <td> 
-			   			  			<input id="@Html.IdFor(model => model.Province)" 
-				   name="@Html.NameFor(model => model.Province)" 
-				   value="@Html.ValueFor(model => model.Province)"
-				   tabindex="4" 
-				   class="easyui-textbox" 
-				   type="text" 
-				   data-options="prompt:'省份',
+                </td>
+                <td class="control-label">   @Html.DisplayNameFor(model => model.Province)  </td>
+                <td>
+                    <input id="@Html.IdFor(model => model.Province)"
+                           name="@Html.NameFor(model => model.Province)"
+                           value="@Html.ValueFor(model => model.Province)"
+                           tabindex="4"
+                           class="easyui-textbox"
+                           type="text"
+                           data-options="prompt:'省份',
 								 label:'',
                                 width:200,
 								 required:false ,validType:'length[0,50]'" />
-			  				   </td>
-	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.RegisterDate)  </td>
-	   <td> 
-			   			  			<input id="@Html.IdFor(model => model.RegisterDate)" 
-			       name="@Html.NameFor(model => model.RegisterDate)" 
-				   tabindex="5" 
-				   class="easyui-datebox" 
-				   type="text" 
-				   value="@Html.ValueFor(model => model.RegisterDate)"
-				   data-options="prompt:'注册日期',
+                </td>
+                <td class="control-label">   @Html.DisplayNameFor(model => model.RegisterDate)  </td>
+                <td>
+                    <input id="@Html.IdFor(model => model.RegisterDate)"
+                           name="@Html.NameFor(model => model.RegisterDate)"
+                           tabindex="5"
+                           class="easyui-datebox"
+                           type="text"
+                           value="@Html.ValueFor(model => model.RegisterDate)"
+                           data-options="prompt:'注册日期',
 								 label:'',
                                 width:200,
 								 required:true,
 								 formatter:dateformatter" />
-			  				   </td>
-	   	   </tr>
-	   	    <tr>
-      	   <td class="control-label">   @Html.DisplayNameFor(model => model.Employees)  </td>
-	   <td> 
-			   			  			<input id="@Html.IdFor(model => model.Employees)"
-				   name="@Html.NameFor(model => model.Employees)" 
-				   value="@Html.ValueFor(model => model.Employees)"
-				   tabindex="6" 
-				   class="easyui-numberbox" 
-				   type="text" 
-				   data-options="prompt:'员工数',
+                </td>
+            </tr>
+            <tr>
+                <td class="control-label">   @Html.DisplayNameFor(model => model.Employees)  </td>
+                <td>
+                    <input id="@Html.IdFor(model => model.Employees)"
+                           name="@Html.NameFor(model => model.Employees)"
+                           value="@Html.ValueFor(model => model.Employees)"
+                           tabindex="6"
+                           class="easyui-numberbox"
+                           type="text"
+                           data-options="prompt:'员工数',
 								 label:'',
                                 width:200,
 								 required:true ,precision:0" />
-              				   </td>
-	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.CreatedDate)  </td>
-	   <td> 
-			   			  			<input id="@Html.IdFor(model => model.CreatedDate)" 
-			       name="@Html.NameFor(model => model.CreatedDate)" 
-				   tabindex="7" 
-				   class="easyui-datebox" 
-				   type="text" 
-				   value="@Html.ValueFor(model => model.CreatedDate)"
-				   data-options="prompt:'创建时间',
+                </td>
+                <td class="control-label">   @Html.DisplayNameFor(model => model.CreatedDate)  </td>
+                <td>
+                    <input id="@Html.IdFor(model => model.CreatedDate)"
+                           name="@Html.NameFor(model => model.CreatedDate)"
+                           tabindex="7"
+                           class="easyui-datebox"
+                           type="text"
+                           value="@Html.ValueFor(model => model.CreatedDate)"
+                           data-options="prompt:'创建时间',
 								 label:'',
                                 width:200,
 								 required:false,
 								 formatter:dateformatter" />
-			  				   </td>
-	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.CreatedBy)  </td>
-	   <td> 
-			   			  			<input id="@Html.IdFor(model => model.CreatedBy)" 
-				   name="@Html.NameFor(model => model.CreatedBy)" 
-				   value="@Html.ValueFor(model => model.CreatedBy)"
-				   tabindex="8" 
-				   class="easyui-textbox" 
-				   type="text" 
-				   data-options="prompt:'创建用户',
+                </td>
+                <td class="control-label">   @Html.DisplayNameFor(model => model.CreatedBy)  </td>
+                <td>
+                    <input id="@Html.IdFor(model => model.CreatedBy)"
+                           name="@Html.NameFor(model => model.CreatedBy)"
+                           value="@Html.ValueFor(model => model.CreatedBy)"
+                           tabindex="8"
+                           class="easyui-textbox"
+                           type="text"
+                           data-options="prompt:'创建用户',
 								 label:'',
                                 width:200,
 								 required:false ,validType:'length[0,20]'" />
-			  				   </td>
-	   	   </tr>
-	   	    <tr>
-      	   <td class="control-label">   @Html.DisplayNameFor(model => model.LastModifiedDate)  </td>
-	   <td> 
-			   			  			<input id="@Html.IdFor(model => model.LastModifiedDate)" 
-			       name="@Html.NameFor(model => model.LastModifiedDate)" 
-				   tabindex="9" 
-				   class="easyui-datebox" 
-				   type="text" 
-				   value="@Html.ValueFor(model => model.LastModifiedDate)"
-				   data-options="prompt:'最后更新时间',
+                </td>
+            </tr>
+            <tr>
+                <td class="control-label">   @Html.DisplayNameFor(model => model.LastModifiedDate)  </td>
+                <td>
+                    <input id="@Html.IdFor(model => model.LastModifiedDate)"
+                           name="@Html.NameFor(model => model.LastModifiedDate)"
+                           tabindex="9"
+                           class="easyui-datebox"
+                           type="text"
+                           value="@Html.ValueFor(model => model.LastModifiedDate)"
+                           data-options="prompt:'最后更新时间',
 								 label:'',
                                 width:200,
 								 required:false,
 								 formatter:dateformatter" />
-			  				   </td>
-	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.LastModifiedBy)  </td>
-	   <td> 
-			   			  			<input id="@Html.IdFor(model => model.LastModifiedBy)" 
-				   name="@Html.NameFor(model => model.LastModifiedBy)" 
-				   value="@Html.ValueFor(model => model.LastModifiedBy)"
-				   tabindex="10" 
-				   class="easyui-textbox" 
-				   type="text" 
-				   data-options="prompt:'最后更新用户',
+                </td>
+                <td class="control-label">   @Html.DisplayNameFor(model => model.LastModifiedBy)  </td>
+                <td>
+                    <input id="@Html.IdFor(model => model.LastModifiedBy)"
+                           name="@Html.NameFor(model => model.LastModifiedBy)"
+                           value="@Html.ValueFor(model => model.LastModifiedBy)"
+                           tabindex="10"
+                           class="easyui-textbox"
+                           type="text"
+                           data-options="prompt:'最后更新用户',
 								 label:'',
                                 width:200,
 								 required:false ,validType:'length[0,20]'" />
-			  				   </td>
-	   	    		<td></td> <td></td>
-		     </tr>
-	    <tfoot>
-        <tr>
-        <tr>
-    </tfoot>
-</table>
+                </td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tfoot>
+                <tr>
+                <tr>
+            </tfoot>
+        </table>
 
 
-<!--输出form表单界面-->
-<!--========================================================================================-->
-     <!-- details tabs -->
-    <div class="tabs-container">
-        <!-- Nav tabs -->
-        <ul class="nav nav-tabs bordered">
-								<li class="active"><a data-toggle="tab" href="#tab-departments"> Departments</a></li>
-												<li class=""><a data-toggle="tab" href="#tab-employees"> Employee</a></li>	 		 
-				   
-		 </ul>
-		 <!-- Tab panes -->
-         <div class="tab-content padding-10">
-		  		  <div id="tab-departments" class="tab-pane active">
-            <div class="panel-body">
-                <div class="table-responsive">
-				<table id="departments_datagrid" >
-                </table>
-				<div id="departments_toolbar" style="height:auto">
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-plus fa-fw',plain:true" onclick="departments_createitem()">新增</a>
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-trash-o fa-fw',plain:true" onclick="departments_removeitem()">删除</a>
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-floppy-o fa-fw',plain:true" onclick="departments_saveitem()">保存</a>
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-undo fa-fw',plain:true" onclick="departments_reject()">取消</a>
+        <!--输出form表单界面-->
+        <!--========================================================================================-->
+        <!-- details tabs -->
+        <div class="tabs-container">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs bordered">
+                <li class="active"><a data-toggle="tab" href="#tab-departments"> Departments</a></li>
+                <li class=""><a data-toggle="tab" href="#tab-employees"> Employee</a></li>
+
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content padding-10">
+                <div id="tab-departments" class="tab-pane active">
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table id="departments_datagrid"></table>
+                            <div id="departments_toolbar" style="height:auto">
+                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-plus fa-fw',plain:true" onclick="departments_createitem()">新增</a>
+                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-trash-o fa-fw',plain:true" onclick="departments_removeitem()">删除</a>
+                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-floppy-o fa-fw',plain:true" onclick="departments_saveitem()">保存</a>
+                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-undo fa-fw',plain:true" onclick="departments_reject()">取消</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <div id="tab-employees" class="tab-pane ">
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table id="employees_datagrid"></table>
+                            <div id="employees_toolbar" style="height:auto">
+                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-plus fa-fw',plain:true" onclick="employee_createitem()">新增</a>
+                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-trash-o fa-fw',plain:true" onclick="employee_removeitem()">删除</a>
+                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-floppy-o fa-fw',plain:true" onclick="employee_saveitem()">保存</a>
+                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-undo fa-fw',plain:true" onclick="employee_reject()">取消</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            </div>
-		  		  <div id="tab-employees" class="tab-pane ">
-            <div class="panel-body">
-                <div class="table-responsive">
-				<table id="employees_datagrid" >
-                </table>
-				<div id="employees_toolbar" style="height:auto">
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-plus fa-fw',plain:true" onclick="employee_createitem()">新增</a>
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-trash-o fa-fw',plain:true" onclick="employee_removeitem()">删除</a>
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-floppy-o fa-fw',plain:true" onclick="employee_saveitem()">保存</a>
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-undo fa-fw',plain:true" onclick="employee_reject()">取消</a>
-                </div>
-                </div>
-            </div>
-            </div>
-		  	</div>
-	</div>
-	 
-<!--end details tabs -->
-</form>
+        </div>
+
+        <!--end details tabs -->
+    </form>
 </div>
 
 
@@ -250,7 +249,7 @@
     //load data by foreign key
     function loadData(id,data){
          $('#company_form').form('load', data);
-         
+
           $departmentsdg.datagrid({
                     rownumbers: true,
                     iconCls: 'fa fa-list',
@@ -289,22 +288,22 @@
                                                 required:false ,validType:'length[0,20]'
                                                  }
                                            } },
-																													                    
-                    
-                    
+
+
+
                     ]]
           });
-                
+
                 $departmentsdg.datagrid("enableFilter", [
-                
+
            				{
 					  field: "Id",
 					  type: "numberbox",
 					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
 				  },
-		   
 
-		   		   
+
+
 		   		   {
 				 field: "CompanyId",
 				 type:"combobox",
@@ -328,7 +327,7 @@
 					}
 		   },
 		   									]);
-         
+
           $employeesdg.datagrid({
                     rownumbers: true,
                     iconCls: 'fa fa-list',
@@ -386,7 +385,7 @@
                                            options:{
                                                    prompt:'年龄',
                                                    required:true ,precision:0
-                                             } 
+                                             }
                                            } ,
                                    sortable:true,
                                    resizable:true },
@@ -411,18 +410,18 @@
                                            options:{
                                                    prompt:'是否已删除',
                                                    required:true ,precision:0
-                                             } 
+                                             }
                                            } ,
                                    sortable:true,
                                    resizable:true },
-																													                    
-                    
-                    
+
+
+
                     ]]
           });
-                
+
                 $employeesdg.datagrid("enableFilter", [
-                
+
            				{
 					  field: "Id",
 					  type: "numberbox",
@@ -438,7 +437,7 @@
 					  type: "numberbox",
 					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
 				  },
-		   
+
 
 		   				{
 					  field: "Brithday",
@@ -450,12 +449,12 @@
 									  op: "between",
 									  value: value
 								  });
-							   
+
 							    $employeesdg.datagrid("doFilter");
 						  }
 					  }
 				  },
-		   		   
+
 		   		   {
 				 field: "CompanyId",
 				 type:"combobox",
@@ -483,7 +482,7 @@
     var $editform = $('#company_form');
     //save item
     function saveitem() {
-         
+
         if ($editform.form('enableValidation').form('validate')) {
             var company = $editform.serializeJSON();
             var token = $('input[name="__RequestVerificationToken"]', $editform).val();
@@ -518,7 +517,7 @@
     function refreshitem() {
         $('#detailswindow').window('close');
     }
-    
+
 
 
           $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
@@ -528,7 +527,7 @@
                 if(target=="#tab-employees")
              $employeesdg.datagrid("resize");
             });
-		 
+
 								//--------------------------------------------------------------------
 				// #departments_datagrid functions
 				//--------------------------------------------------------------------
@@ -560,7 +559,7 @@
 				if (ed) {
 					($(ed.target).data("textbox") ? $(ed.target).textbox("textbox") : $(ed.target)).focus();
 				}
-				
+
 			} else {
 				$departmentsdg.datagrid("selectRow", departments_editIndex);
 			}
@@ -582,7 +581,7 @@
 				.datagrid("deleteRow", departments_editIndex );
 		departmentseditIndex = undefined;
 	}
-   
+
 	function departments_reject() {
 		$departmentsdg.datagrid("rejectChanges");
 		departments_editIndex  = undefined;
@@ -618,16 +617,16 @@
 					}, "json").fail(function (response) {
 						//console.log(response);
 						$.messager.alert("错误", "提交错误了！","error");
-					  
+
 					});
-			  
+
 				}
 
 				//$departmentsdg.datagrid("acceptChanges");
 			}
 		}
 
-	 
+
 
 
 
@@ -663,7 +662,7 @@
 				if (ed) {
 					($(ed.target).data("textbox") ? $(ed.target).textbox("textbox") : $(ed.target)).focus();
 				}
-				
+
 			} else {
 				$employeesdg.datagrid("selectRow", employees_editIndex);
 			}
@@ -685,7 +684,7 @@
 				.datagrid("deleteRow", employees_editIndex );
 		employeeseditIndex = undefined;
 	}
-   
+
 	function employees_reject() {
 		$employeesdg.datagrid("rejectChanges");
 		employees_editIndex  = undefined;
@@ -721,22 +720,22 @@
 					}, "json").fail(function (response) {
 						//console.log(response);
 						$.messager.alert("错误", "提交错误了！","error");
-					  
+
 					});
-			  
+
 				}
 
 				//$employeesdg.datagrid("acceptChanges");
 			}
 		}
 
-	 
 
 
 
 
-				
-		 
+
+
+
 
 </script>
 

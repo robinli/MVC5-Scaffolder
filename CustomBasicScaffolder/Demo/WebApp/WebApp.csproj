@@ -3594,7 +3594,6 @@
     <Content Include="Views\Departments\_PopupDetailFormView.cshtml" />
     <Content Include="Views\AccountManage\_ResetPasswordPartial.cshtml" />
     <Content Include="Views\Features\Validator.cshtml" />
-    <Content Include="Views\Companies\Index.cshtml" />
     <Content Include="Views\Companies\Create.cshtml" />
     <Content Include="Views\Companies\Edit.cshtml" />
     <Content Include="Views\Companies\EditForm.cshtml" />
@@ -3609,6 +3608,7 @@
     <Content Include="Views\Graphs\MorrisCharts.cshtml" />
     <Content Include="Views\Graphs\Sparklines.cshtml" />
     <Content Include="Views\Graphs\DashboardMarketing.cshtml" />
+    <Content Include="Views\Companies\Index.cshtml" />
     <None Include="Views\Notifications\_notifications.cshtml" />
     <None Include="Views\Messages\_notifications.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Int.cshtml">

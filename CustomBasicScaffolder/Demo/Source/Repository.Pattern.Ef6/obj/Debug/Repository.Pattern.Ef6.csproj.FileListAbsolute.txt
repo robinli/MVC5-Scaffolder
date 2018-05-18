@@ -30,9 +30,9 @@ D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Dem
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern.Ef6\bin\Debug\EntityFramework.xml
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern.Ef6\bin\Debug\EntityFramework.SqlServer.xml
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern.Ef6\bin\Debug\LinqKit.xml
-D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern.Ef6\obj\Debug\Repository.Pattern.Ef6.csprojResolveAssemblyReference.cache
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern.Ef6\obj\Debug\Repository.Pattern.Ef6.csproj.CoreCompileInputs.cache
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern.Ef6\obj\Debug\Repository.Pattern.Ef6.dll
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern.Ef6\obj\Debug\Repository.Pattern.Ef6.pdb
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern.Ef6\bin\Debug\Z.EntityFramework.Extensions.xml
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern.Ef6\obj\Debug\Repository.Pattern.Ef6.csproj.CopyComplete
+D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern.Ef6\obj\Debug\Repository.Pattern.Ef6.csprojAssemblyReference.cache
