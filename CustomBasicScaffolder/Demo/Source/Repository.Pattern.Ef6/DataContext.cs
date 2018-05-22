@@ -22,7 +22,7 @@ namespace Repository.Pattern.Ef6
         public DataContext(string nameOrConnectionString) : base(nameOrConnectionString)
         {
             _instanceId = Guid.NewGuid();
-            Configuration.LazyLoadingEnabled = false;
+            Configuration.LazyLoadingEnabled = true;
             Configuration.ProxyCreationEnabled = false;
         }
 

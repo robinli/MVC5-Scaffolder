@@ -42,6 +42,8 @@ namespace Repository.Pattern.Ef6
 
             _context = context;
             Repositories = new Dictionary<string, dynamic>();
+            _context.Configuration.LazyLoadingEnabled = true;
+            _context.Configuration.ProxyCreationEnabled = false;
         }
         #endregion
         public void SetAutoDetectChangesEnabled(bool enabled)

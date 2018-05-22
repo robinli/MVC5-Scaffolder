@@ -51,10 +51,10 @@ namespace WebApp.Controllers
             private set { _signInManager = value; }
         }
         private readonly ICompanyService _companyService;
-        public AccountController(ICompanyService companyService,ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        public AccountController(ICompanyService companyService )
         {
-            UserManager = userManager;
-            SignInManager = signInManager;
+            //UserManager = userManager;
+            //SignInManager = signInManager;
             _companyService = companyService;
         }
 
@@ -93,7 +93,7 @@ namespace WebApp.Controllers
                 return View(viewModel);
 
             // Verify if a user exists with the provided identity information
-            var user = await _userManager.FindByEmailAsync(viewModel.Email);
+            var user = await UserManager.FindByEmailAsync(viewModel.Email);
 
             // If a user was found
             if (user != null)

@@ -9744,7 +9744,103 @@ textarea.clone {
 .smart-form .btn {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
 }
+    .smart-form  .btn-default {
+        background-color: #ffffff;
+        border-color: #cccccc;  
+        color: #333333;
+    }
+
+.smart-form .btn-danger {
+    background-color: #a90329;
+    border-color: #900323;
+    color: #ffffff;
+}
+    .smart-form .btn-danger:focus,
+    .smart-form .btn-danger.focus {
+        background-color: #77021d;
+        border-color: #130005;
+        color: #ffffff;
+    }
+
+    .smart-form .btn-danger:hover {
+        background-color: #77021d;
+        border-color: #540114;
+        color: #ffffff;
+    }
+
+.smart-form .btn-success {
+    background-color: #739e73;
+    border-color: #659265;
+    color: #ffffff;
+}
+    .smart-form .btn-success:focus,
+    .smart-form .btn-success.focus {
+        background-color: #5b835b;
+        border-color: #314731;
+        color: #ffffff;
+    }
+
+    .smart-form .btn-success:hover {
+        background-color: #5b835b;
+        border-color: #4c6e4c;
+        color: #ffffff;
+    }
+
+.smart-form .btn-info {
+    background-color: #57889c;
+    border-color: #4e7a8c;
+    color: #ffffff;
+}
+    .smart-form .btn-info:focus,
+    .smart-form  .btn-info.focus {
+        background-color: #456b7b;
+        border-color: #20323a;
+        color: #ffffff;
+    }
+
+    .smart-form  .btn-info:hover {
+        background-color: #456b7b;
+        border-color: #385764;
+        color: #ffffff;
+    }
+
+.smart-form .btn-warning {
+    background-color: #c79121;
+    border-color: #b1811d;
+    color: #ffffff;
+}
+    .smart-form .btn-warning:focus,
+    .smart-form .btn-warning.focus {
+        background-color: #9b711a;
+        border-color: #44310b;
+        color: #ffffff;
+    }
+
+    .smart-form .btn-warning:hover {
+        background-color: #9b711a;
+        border-color: #7d5b15;
+        color: #ffffff;
+    }
 
 .smart-form .radio + .radio,
 .smart-form .checkbox + .checkbox {
