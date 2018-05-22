@@ -71,7 +71,7 @@ namespace WebApp
             container.RegisterType<IAuthenticationManager>(new InjectionFactory(o => HttpContext.Current.GetOwinContext().Authentication));
             //container.RegisterType<IAuthenticationManager>(new InjectionFactory(o => HttpContext.Current.GetOwinContext().Authentication));
             container.RegisterType<IUnitOfWorkAsync, UnitOfWork>(new PerRequestLifetimeManager(),null);
-            container.RegisterType<IDataContextAsync, StoreContext>(new PerRequestLifetimeManager(), null);
+            container.RegisterType<DbContext, StoreContext>(new PerRequestLifetimeManager(), null);
 
 
             container.RegisterType<IRepositoryAsync<DataTableImportMapping>, Repository<DataTableImportMapping>>();

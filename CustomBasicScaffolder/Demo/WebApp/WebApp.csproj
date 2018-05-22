@@ -180,6 +180,9 @@
     <Reference Include="System.Web.Optimization">
       <HintPath>..\..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
     </Reference>
+    <Reference Include="TrackableEntities.Common, Version=2.5.0.0, Culture=neutral, PublicKeyToken=b10b51e7b9be6a2e, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\TrackableEntities.Common.2.5.7\lib\portable40-net40+sl5+win8+wp8+wpa81\TrackableEntities.Common.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Abstractions, Version=3.3.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Unity.5.8.6\lib\net46\Unity.Abstractions.dll</HintPath>
     </Reference>
@@ -264,6 +267,14 @@
     <Compile Include="Migrations\201804230623560_addressmaxlength.Designer.cs">
       <DependentUpon>201804230623560_addressmaxlength.cs</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\Companies\CompanyQuery.cs" />
+    <Compile Include="Repositories\Companies\CompanyRepository.cs" />
+    <Compile Include="Repositories\Works\WorkQuery.cs" />
+    <Compile Include="Repositories\Works\WorkRepository.cs" />
+    <Compile Include="Services\Companies\CompanyService.cs" />
+    <Compile Include="Services\Companies\ICompanyService.cs" />
+    <Compile Include="Services\Works\IWorkService.cs" />
+    <Compile Include="Services\Works\WorkService.cs" />
     <Compile Include="SmartChatHub\ChatHub.cs" />
     <Compile Include="App_Start\CustomModelBinders.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -298,7 +309,6 @@
     <Compile Include="App_Helpers\ExcelHelper.cs" />
     <Compile Include="App_Helpers\filterRule.cs" />
     <Compile Include="App_Helpers\CacheExtensions.cs" />
-    <Compile Include="App_Helpers\LinqOrderByColumnsNameExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -411,8 +421,6 @@
     <Compile Include="Repositories\Categories\CategoryRepository.cs" />
     <Compile Include="Repositories\CodeItems\CodeItemQuery.cs" />
     <Compile Include="Repositories\CodeItems\CodeItemRepository.cs" />
-    <Compile Include="Repositories\Companies\CompanyQuery.cs" />
-    <Compile Include="Repositories\Companies\CompanyRepository.cs" />
     <Compile Include="Repositories\DataTableImportMappings\MappingQuery.cs" />
     <Compile Include="Repositories\DataTableImportMappings\MappingRepository.cs" />
     <Compile Include="Repositories\Departments\DepartmentQuery.cs" />
@@ -433,16 +441,12 @@
     <Compile Include="Repositories\Products\ProductRepository.cs" />
     <Compile Include="Repositories\RoleMenus\RoleMenuQuery.cs" />
     <Compile Include="Repositories\RoleMenus\RoleMenuRepository.cs" />
-    <Compile Include="Repositories\Works\WorkQuery.cs" />
-    <Compile Include="Repositories\Works\WorkRepository.cs" />
     <Compile Include="Services\BaseCodes\BaseCodeService.cs" />
     <Compile Include="Services\BaseCodes\IBaseCodeService.cs" />
     <Compile Include="Services\Categories\CategoryService.cs" />
     <Compile Include="Services\Categories\ICategoryService.cs" />
     <Compile Include="Services\CodeItems\CodeItemService.cs" />
     <Compile Include="Services\CodeItems\ICodeItemService.cs" />
-    <Compile Include="Services\Companies\CompanyService.cs" />
-    <Compile Include="Services\Companies\ICompanyService.cs" />
     <Compile Include="Services\DataTableImportMappings\IMappingService.cs" />
     <Compile Include="Services\DataTableImportMappings\MappingService.cs" />
     <Compile Include="Services\Departments\DepartmentService.cs" />
@@ -463,8 +467,6 @@
     <Compile Include="Services\Products\ProductService.cs" />
     <Compile Include="Services\RoleMenus\IRoleMenuService.cs" />
     <Compile Include="Services\RoleMenus\RoleMenuService.cs" />
-    <Compile Include="Services\Works\IWorkService.cs" />
-    <Compile Include="Services\Works\WorkService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -3594,12 +3596,6 @@
     <Content Include="Views\Departments\_PopupDetailFormView.cshtml" />
     <Content Include="Views\AccountManage\_ResetPasswordPartial.cshtml" />
     <Content Include="Views\Features\Validator.cshtml" />
-    <Content Include="Views\Companies\Create.cshtml" />
-    <Content Include="Views\Companies\Edit.cshtml" />
-    <Content Include="Views\Companies\EditForm.cshtml" />
-    <Content Include="Views\Companies\_PopupDetailFormView.cshtml" />
-    <Content Include="Views\Companies\_DepartmentEditForm.cshtml" />
-    <Content Include="Views\Companies\_EmployeeEditForm.cshtml" />
     <Content Include="Views\Graphs\ChartJS.cshtml" />
     <Content Include="Views\Graphs\Dygraphs.cshtml" />
     <Content Include="Views\Graphs\EasyPieCharts.cshtml" />
@@ -3609,6 +3605,12 @@
     <Content Include="Views\Graphs\Sparklines.cshtml" />
     <Content Include="Views\Graphs\DashboardMarketing.cshtml" />
     <Content Include="Views\Companies\Index.cshtml" />
+    <Content Include="Views\Companies\Create.cshtml" />
+    <Content Include="Views\Companies\Edit.cshtml" />
+    <Content Include="Views\Companies\EditForm.cshtml" />
+    <Content Include="Views\Companies\_PopupDetailFormView.cshtml" />
+    <Content Include="Views\Companies\_DepartmentEditForm.cshtml" />
+    <Content Include="Views\Companies\_EmployeeEditForm.cshtml" />
     <None Include="Views\Notifications\_notifications.cshtml" />
     <None Include="Views\Messages\_notifications.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Int.cshtml">

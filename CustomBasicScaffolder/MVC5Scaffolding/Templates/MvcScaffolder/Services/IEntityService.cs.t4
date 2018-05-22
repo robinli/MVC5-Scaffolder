@@ -29,7 +29,7 @@
 // <author>neo.zhu</author>
 // <date><#= DateTime.Now.ToString("G") #> </date>
 // <summary>
-//  定义具体的业务逻辑接口
+//  根据业务需求定义具体的业务逻辑接口
 //   
 //  
 //  

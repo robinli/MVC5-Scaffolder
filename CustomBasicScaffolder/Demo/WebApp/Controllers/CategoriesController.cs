@@ -25,6 +25,7 @@ using Z.EntityFramework.Plus;
 using WebApp.Models;
 using WebApp.Services;
 using WebApp.Repositories;
+using TrackableEntities;
 
 namespace WebApp.Controllers
 {
@@ -124,13 +125,13 @@ namespace WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                category.ObjectState = ObjectState.Added;
+                category.TrackingState = TrackingState.Added;
                 foreach (var item in category.Products)
                 {
                     item.CategoryId = category.Id;
-                    item.ObjectState = ObjectState.Added;
+                    item.TrackingState = TrackingState.Added;
                 }
-                _categoryService.InsertOrUpdateGraph(category);
+                _categoryService.ApplyChanges(category);
                 await _unitOfWork.SaveChangesAsync();
                 if (Request.IsAjaxRequest())
                 {
@@ -184,18 +185,18 @@ namespace WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                category.ObjectState = ObjectState.Modified;
+                category.TrackingState = TrackingState.Modified;
                 foreach (var item in category.Products)
                 {
                     item.CategoryId = category.Id;
                     //set ObjectState with conditions
                     if (item.Id <= 0)
-                        item.ObjectState = ObjectState.Added;
+                        item.TrackingState = TrackingState.Added;
                     else
-                        item.ObjectState = ObjectState.Modified;
+                        item.TrackingState = TrackingState.Modified;
                 }
 
-                _categoryService.InsertOrUpdateGraph(category);
+                _categoryService.ApplyChanges(category);
                 await _unitOfWork.SaveChangesAsync();
                 if (Request.IsAjaxRequest())
                 {
@@ -323,13 +324,6 @@ namespace WebApp.Controllers
         {
             TempData["ErrorMessage"] = msgText;
         }
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _unitOfWork.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+         
     }
 }

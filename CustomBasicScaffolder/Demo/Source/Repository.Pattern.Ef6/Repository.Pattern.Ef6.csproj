@@ -34,18 +34,21 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CommonServiceLocator, Version=2.0.3.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\CommonServiceLocator.2.0.3\lib\net45\CommonServiceLocator.dll</HintPath>
+      <HintPath>..\..\packages\CommonServiceLocator.2.0.3\lib\net45\CommonServiceLocator.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="LinqKit, Version=1.1.15.0, Culture=neutral, PublicKeyToken=bc217f8844052a91, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\LinqKit.1.1.15\lib\net45\LinqKit.dll</HintPath>
+      <HintPath>..\..\packages\LinqKit.1.1.15\lib\net45\LinqKit.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -57,15 +60,19 @@
       <HintPath>..\..\Sample\packages\Microsoft.AspNet.WebApi.Client.5.1.2\lib\net45\System.Net.Http.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Z.EntityFramework.Extensions, Version=3.14.9.0, Culture=neutral, PublicKeyToken=59b66d028979105b, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Z.EntityFramework.Extensions.3.14.9\lib\net45\Z.EntityFramework.Extensions.dll</HintPath>
+    <Reference Include="TrackableEntities.Common, Version=2.5.0.0, Culture=neutral, PublicKeyToken=b10b51e7b9be6a2e, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\TrackableEntities.Common.2.5.7\lib\portable40-net40+sl5+win8+wp8+wpa81\TrackableEntities.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="TrackableEntities.EF.6, Version=2.5.0.0, Culture=neutral, PublicKeyToken=b10b51e7b9be6a2e, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\TrackableEntities.EF.6.2.5.7\lib\net45\TrackableEntities.EF.6.dll</HintPath>
+    </Reference>
+    <Reference Include="Z.EntityFramework.Extensions, Version=3.14.26.0, Culture=neutral, PublicKeyToken=59b66d028979105b, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Z.EntityFramework.Extensions.3.14.26\lib\net45\Z.EntityFramework.Extensions.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataContext.cs" />
     <Compile Include="Entity.cs" />
-    <Compile Include="FakeDbContext.cs" />
-    <Compile Include="FakeDbSet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryFluent.cs" />
     <Compile Include="QueryObject.cs" />

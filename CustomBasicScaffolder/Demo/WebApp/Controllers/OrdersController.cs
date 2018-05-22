@@ -25,6 +25,8 @@ using Z.EntityFramework.Plus;
 using WebApp.Models;
 using WebApp.Services;
 using WebApp.Repositories;
+using TrackableEntities;
+
 namespace WebApp.Controllers
 {
     //[Authorize]
@@ -132,13 +134,13 @@ namespace WebApp.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-			 				order.ObjectState = ObjectState.Added;   
+			 				order.TrackingState = TrackingState.Added;   
 								foreach (var item in order.OrderDetails)
 				{
 					item.OrderId = order.Id ;
-					item.ObjectState = ObjectState.Added;
+					item.TrackingState = TrackingState.Added;
 				}
-								_orderService.InsertOrUpdateGraph(order);
+								_orderService.ApplyChanges(order);
 							await _unitOfWork.SaveChangesAsync();
 				if (Request.IsAjaxRequest())
 				{
@@ -188,18 +190,18 @@ namespace WebApp.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				order.ObjectState = ObjectState.Modified;
+				order.TrackingState = TrackingState.Modified;
 												foreach (var item in order.OrderDetails)
 				{
 					item.OrderId = order.Id ;
 					//set ObjectState with conditions
 					if(item.Id <= 0)
-						item.ObjectState = ObjectState.Added;
+						item.TrackingState = TrackingState.Added;
 					else
-						item.ObjectState = ObjectState.Modified;
+						item.TrackingState = TrackingState.Modified;
 				}
 				      
-				_orderService.InsertOrUpdateGraph(order);
+				_orderService.ApplyChanges(order);
 								await   _unitOfWork.SaveChangesAsync();
 				if (Request.IsAjaxRequest())
 				{
@@ -331,13 +333,6 @@ namespace WebApp.Controllers
 		{
 			TempData["ErrorMessage"] = msgText;
 		}
-		protected override void Dispose(bool disposing)
-		{
-			if (disposing)
-			{
-				_unitOfWork.Dispose();
-			}
-			base.Dispose(disposing);
-		}
+		 
 	}
 }

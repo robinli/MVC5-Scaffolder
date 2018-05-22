@@ -1,21 +1,21 @@
-﻿// <copyright file="CompanyService.cs" company="neozhu/MVC5-Scaffolder">
+﻿// <copyright file="CompanyService.cs" company="neozhu/SmartCode-Scaffolder">
 // Copyright (c) 2018 All Rights Reserved
 // </copyright>
 // <author>neo.zhu</author>
-// <date>2/8/2018 2:19:13 PM </date>
+// <date>5/22/2018 8:33:10 AM </date>
 // <summary>
-//  实现定义的业务逻辑,通过依赖注入降低模块之间的耦合度
+//  根据需求定义实现具体的业务逻辑,通过依赖注入降低模块之间的耦合度
 //   
 //  
 //  
 // </summary>
-
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using Repository.Pattern.Repositories;
+using Repository.Pattern.Infrastructure;
 using Service.Pattern;
 using WebApp.Models;
 using WebApp.Repositories;
@@ -93,7 +93,20 @@ namespace WebApp.Services
         {
             var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
                                    var companies  = this.Query(new CompanyQuery().Withfilter(filters)).OrderBy(n=>n.OrderBy(sort,order)).Select().ToList();
-                        var datarows = companies .Select(  n => new {  Id = n.Id , Name = n.Name , Address = n.Address , City = n.City , Province = n.Province , RegisterDate = n.RegisterDate , Employees = n.Employees }).ToList();
+                        var datarows = companies .Select(  n => new { 
+
+    Id = n.Id,
+    Name = n.Name,
+    Address = n.Address,
+    City = n.City,
+    Province = n.Province,
+    RegisterDate = n.RegisterDate,
+    Employees = n.Employees,
+    CreatedDate = n.CreatedDate,
+    CreatedBy = n.CreatedBy,
+    LastModifiedDate = n.LastModifiedDate,
+    LastModifiedBy = n.LastModifiedBy
+}).ToList();
            
             return ExcelHelper.ExportExcel(typeof(Company), datarows);
 

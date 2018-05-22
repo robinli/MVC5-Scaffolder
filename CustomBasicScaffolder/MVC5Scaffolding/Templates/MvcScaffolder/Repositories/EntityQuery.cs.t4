@@ -30,7 +30,7 @@
 // <date><#= DateTime.Now.ToString("G") #> </date>
 // <summary>
 // 配合 easyui datagrid filter 组件使用,实现对datagrid 所有字段筛选功能
-// 也可以对特定的查询进行封装使用 
+// 也可以对特定的业务逻辑查询进行封装
 //  
 //  
 // </summary>

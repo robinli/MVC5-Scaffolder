@@ -24,7 +24,8 @@ using Repository.Pattern.Infrastructure;
 using WebApp.Models;
 using WebApp.Services;
 using WebApp.Repositories;
- 
+using TrackableEntities;
+
 namespace WebApp.Controllers
 {
     public class ProductsController : Controller
@@ -194,7 +195,7 @@ namespace WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                product.ObjectState = ObjectState.Modified;
+                product.TrackingState = TrackingState.Modified;
                 _productService.Update(product);
                 await _unitOfWork.SaveChangesAsync();
                 if (Request.IsAjaxRequest())
@@ -264,13 +265,6 @@ namespace WebApp.Controllers
         {
             TempData["ErrorMessage"] = msgText;
         }
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _unitOfWork.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+         
     }
 }

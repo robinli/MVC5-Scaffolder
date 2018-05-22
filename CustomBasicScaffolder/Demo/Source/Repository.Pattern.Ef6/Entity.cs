@@ -2,13 +2,17 @@
 using Repository.Pattern.Infrastructure;
 using System;
 using System.ComponentModel.DataAnnotations;
+using TrackableEntities;
+using System.Collections.Generic;
 
 namespace Repository.Pattern.Ef6
 {
-    public abstract class Entity : IObjectState,IAuditable
+    public abstract class Entity : ITrackable, IAuditable
     {
         [NotMapped]
-        public ObjectState ObjectState { get; set; }
+        public TrackingState TrackingState { get; set; }
+        [NotMapped]
+        public ICollection<string> ModifiedProperties { get; set; }
         [Display(Name = "创建时间")]
         [ScaffoldColumn(false)]
         public DateTime? CreatedDate { get; set ; }

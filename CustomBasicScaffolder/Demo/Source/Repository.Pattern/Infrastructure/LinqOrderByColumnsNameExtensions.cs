@@ -4,9 +4,9 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
 
-namespace WebApp
+namespace Repository.Pattern.Infrastructure
 {
-    public static  class LinqOrderByColumnsNameExtensions
+    public static  class LinqOrderByExtensions
     {
         private static IOrderedQueryable<T> OrderingHelper<T>(IQueryable<T> source, string propertyName, bool descending, bool anotherLevel)
         {
@@ -81,17 +81,7 @@ namespace WebApp
 
     }
 
-    public static class ObjectExtensions
-    {
-
-        public static bool IsNumeric(this object x) { return (x == null ? false : IsNumeric(x.GetType())); }
-
-        // Method where you know the type of the object
-        public static bool IsNumeric(Type type) { return IsNumeric(type, Type.GetTypeCode(type)); }
-
-        // Method where you know the type and the type code of the object
-        public static bool IsNumeric(Type type, TypeCode typeCode) { return (typeCode == TypeCode.Decimal || (type.IsPrimitive && typeCode != TypeCode.Object && typeCode != TypeCode.Boolean && typeCode != TypeCode.Char)); }
-    }
+    
 
     
 

@@ -16,6 +16,7 @@ using WebApp.Repositories;
  
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using TrackableEntities;
 
 namespace WebApp.Controllers
 {
@@ -218,7 +219,7 @@ namespace WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                roleMenu.ObjectState = ObjectState.Modified;
+                roleMenu.TrackingState = TrackingState.Modified;
                 _roleMenuService.Update(roleMenu);
 
                 _unitOfWork.SaveChanges();
@@ -286,14 +287,7 @@ namespace WebApp.Controllers
             TempData["ErrorMessage"] = "Save changes was unsuccessful.";
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _unitOfWork.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+         
 
 
 

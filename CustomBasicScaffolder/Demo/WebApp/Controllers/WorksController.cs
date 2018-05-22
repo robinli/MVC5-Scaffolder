@@ -1,11 +1,11 @@
 ﻿/// <summary>
 /// Provides functionality to the /Work/ route.
-/// <date> 4/8/2018 5:11:48 PM </date>
+/// <date> 5/22/2018 8:27:49 AM </date>
 /// Create By SmartCode MVC5 Scaffolder for Visual Studio
 /// TODO: RegisterType UnityConfig.cs
 /// container.RegisterType<IRepositoryAsync<Work>, Repository<Work>>();
 /// container.RegisterType<IWorkService, WorkService>();
-///
+/// 
 /// Copyright (c) 2012-2018 neo.zhu
 /// Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php)
 /// and GPL (http://www.opensource.org/licenses/gpl-license.php) licenses.
@@ -26,6 +26,8 @@ using Z.EntityFramework.Plus;
 using WebApp.Models;
 using WebApp.Services;
 using WebApp.Repositories;
+using TrackableEntities;
+
 namespace WebApp.Controllers
 {
     //[Authorize]
@@ -57,7 +59,22 @@ namespace WebApp.Controllers
 						               .Query(new WorkQuery().Withfilter(filters))
 							           .OrderBy(n=>n.OrderBy(sort,order))
 							           .SelectPageAsync(page, rows, out totalCount);
-      									var datarows = works .Select(  n => new {  Id = n.Id , Name = n.Name , Status = n.Status , StartDate = n.StartDate , EndDate = n.EndDate , Enableed = n.Enableed , Hour = n.Hour , Priority = n.Priority , Score = n.Score }).ToList();
+      									var datarows = works .Select(  n => new { 
+
+    Id = n.Id,
+    Name = n.Name,
+    Status = n.Status,
+    StartDate = n.StartDate,
+    EndDate = n.EndDate,
+    Enableed = n.Enableed,
+    Hour = n.Hour,
+    Priority = n.Priority,
+    Score = n.Score,
+    CreatedDate = n.CreatedDate,
+    CreatedBy = n.CreatedBy,
+    LastModifiedDate = n.LastModifiedDate,
+    LastModifiedBy = n.LastModifiedBy
+}).ToList();
 			var pagelist = new { total = totalCount, rows = datarows };
 			return Json(pagelist, JsonRequestBehavior.AllowGet);
 		}
@@ -167,7 +184,7 @@ namespace WebApp.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				work.ObjectState = ObjectState.Modified;
+				work.TrackingState = TrackingState.Modified;
 								_workService.Update(work);
 								await   _unitOfWork.SaveChangesAsync();
 				if (Request.IsAjaxRequest())
@@ -234,13 +251,6 @@ namespace WebApp.Controllers
 		{
 			TempData["ErrorMessage"] = msgText;
 		}
-		protected override void Dispose(bool disposing)
-		{
-			if (disposing)
-			{
-				_unitOfWork.Dispose();
-			}
-			base.Dispose(disposing);
-		}
+		 
 	}
 }

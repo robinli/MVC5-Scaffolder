@@ -17,7 +17,7 @@ using System.Data.Entity.ModelConfiguration.Configuration;
 
 namespace WebApp.Models
 {
-    public class StoreContext : DataContext
+    public class StoreContext : DbContext
     {
         
 

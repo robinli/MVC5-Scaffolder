@@ -49,14 +49,6 @@
             <param name="cancellationToken">The cancellation token.</param>
             <returns>A Task.</returns>
         </member>
-        <member name="M:DbContextExtensions.BulkInsert``1(System.Data.Entity.DbContext,System.Collections.Generic.IEnumerable{``0},System.Action{Z.EntityFramework.Extensions.EntityBulkOperation{``0}},System.Collections.Generic.List{System.Object})">
-            <summary>A DbContext extension method that bulk insert.</summary>
-            <typeparam name="T">Generic type parameter.</typeparam>
-            <param name="this">The @this to act on.</param>
-            <param name="entities">The entities.</param>
-            <param name="bulkOperationFactory">The bulk operation factory.</param>
-            <param name="entitiesToUpdate">The entities to update.</param>
-        </member>
         <member name="M:DbContextExtensions.BulkInsert``1(System.Data.Entity.DbContext,System.Collections.Generic.IEnumerable{``0},System.Action{Z.EntityFramework.Extensions.EntityBulkOperation{``0}})">
             <summary>A DbContext extension method that bulk insert.</summary>
             <typeparam name="T">Generic type parameter.</typeparam>
@@ -253,16 +245,6 @@
             <param name="query">The query to act on.</param>
             <param name="bulkOperationFactory">The bulk operation factory.</param>
         </member>
-        <member name="M:DbContextExtensions.DeleteFromQuery``1(System.Linq.IQueryable{``0},System.Action{Z.BulkOperations.BulkOperation},System.Threading.CancellationToken)">
-            <summary>
-                An IQueryable&lt;TEntity&gt; extension method that deletes from query described by
-                query.
-            </summary>
-            <exception cref="T:System.Exception">Thrown when an exception error condition occurs.</exception>
-            <typeparam name="TEntity">Type of the entity.</typeparam>
-            <param name="query">The query to act on.</param>
-            <param name="bulkOperationFactory">The bulk operation factory.</param>
-        </member>
         <member name="M:DbContextExtensions.DeleteFromQueryAsync``1(System.Linq.IQueryable{``0})">
             <summary>
                 An IQueryable&lt;TEntity&gt; extension method that deletes from query described by
@@ -354,12 +336,6 @@
             <exception cref="T:System.Exception">Thrown when an exception error condition occurs.</exception>
             <param name="this">The @this to act on.</param>
             <param name="bulkOperationFactory">The bulk operation factory.</param>
-        </member>
-        <member name="M:DbContextExtensions.ValidateChange(System.Data.Entity.DbContext)">
-            <summary>Validates the change described by @this.</summary>
-            <exception cref="T:System.Exception">Thrown when an exception error condition occurs.</exception>
-            <exception cref="!:InnerException">Thrown when an Inner error condition occurs.</exception>
-            <param name="this">this.</param>
         </member>
         <member name="M:DbContextExtensions.BulkSaveChangesAsync(System.Data.Entity.DbContext)">
             <summary>A DbContext extension method that bulk save changes.</summary>
@@ -470,34 +446,6 @@
             <param name="type">The type.</param>
             <returns>The given data converted to a DataTable.</returns>
         </member>
-        <member name="M:DbContextExtensions.ToDataReader``1(System.Data.Entity.DbContext,System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.List{System.Object},System.Boolean)">
-            <summary>A DbContext extension method that converts this object to a data table.</summary>
-            <typeparam name="T">Generic type parameter.</typeparam>
-            <param name="this">The @this to act on.</param>
-            <param name="list">The list.</param>
-            <param name="entitiesToUpdate">(Optional) the entities to update.</param>
-            <returns>The given data converted to a DataTable.</returns>
-        </member>
-        <member name="M:DbContextExtensions.ToDataReader``1(System.Data.Entity.DbContext,System.Collections.Generic.IEnumerable{``0},System.Type,System.Collections.Generic.List{System.Object},System.Boolean,System.Boolean)">
-            <summary>A DbContext extension method that converts this object to a data table.</summary>
-            <exception cref="T:System.Exception">Thrown when an exception error condition occurs.</exception>
-            <typeparam name="T">Generic type parameter.</typeparam>
-            <param name="this">The @this to act on.</param>
-            <param name="items">The items.</param>
-            <param name="type">The type.</param>
-            <param name="entitiesToUpdate">the entities to update.</param>
-            <returns>The given data converted to a DataTable.</returns>
-        </member>
-        <member name="M:DbContextExtensions.ToDataReader``1(System.Data.Entity.DbContext,System.Collections.Generic.IEnumerable{``0},System.String,System.Collections.Generic.List{System.Object},System.Boolean,System.Boolean)">
-            <summary>A DbContext extension method that converts this object to a data table.</summary>
-            <exception cref="T:System.Exception">Thrown when an exception error condition occurs.</exception>
-            <typeparam name="T">Generic type parameter.</typeparam>
-            <param name="this">The @this to act on.</param>
-            <param name="items">The items.</param>
-            <param name="typeName">Name of the type.</param>
-            <param name="entitiesToUpdate">the entities to update.</param>
-            <returns>The given data converted to a DataTable.</returns>
-        </member>
         <member name="M:DbContextExtensions.ToDataSet``1(System.Data.Entity.DbContext,System.Collections.Generic.IEnumerable{``0})">
             <summary>A DbContext extension method that converts this object to a data set.</summary>
             <typeparam name="T">Generic type parameter.</typeparam>
@@ -545,34 +493,6 @@
             <param name="type">The type.</param>
             <returns>The given data converted to a DataTable.</returns>
         </member>
-        <member name="M:DbContextExtensions.ToDataTable``1(System.Data.Entity.DbContext,System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.List{System.Object},System.Boolean)">
-            <summary>A DbContext extension method that converts this object to a data table.</summary>
-            <typeparam name="T">Generic type parameter.</typeparam>
-            <param name="this">The @this to act on.</param>
-            <param name="list">The list.</param>
-            <param name="entitiesToUpdate">(Optional) the entities to update.</param>
-            <returns>The given data converted to a DataTable.</returns>
-        </member>
-        <member name="M:DbContextExtensions.ToDataTable``1(System.Data.Entity.DbContext,System.Collections.Generic.IEnumerable{``0},System.Type,System.Collections.Generic.List{System.Object},System.Boolean,System.Boolean)">
-            <summary>A DbContext extension method that converts this object to a data table.</summary>
-            <exception cref="T:System.Exception">Thrown when an exception error condition occurs.</exception>
-            <typeparam name="T">Generic type parameter.</typeparam>
-            <param name="this">The @this to act on.</param>
-            <param name="items">The items.</param>
-            <param name="type">The type.</param>
-            <param name="entitiesToUpdate">the entities to update.</param>
-            <returns>The given data converted to a DataTable.</returns>
-        </member>
-        <member name="M:DbContextExtensions.ToDataTable``1(System.Data.Entity.DbContext,System.Collections.Generic.IEnumerable{``0},System.String,System.Collections.Generic.List{System.Object},System.Boolean,System.Boolean)">
-            <summary>A DbContext extension method that converts this object to a data table.</summary>
-            <exception cref="T:System.Exception">Thrown when an exception error condition occurs.</exception>
-            <typeparam name="T">Generic type parameter.</typeparam>
-            <param name="this">The @this to act on.</param>
-            <param name="items">The items.</param>
-            <param name="typeName">Name of the type.</param>
-            <param name="entitiesToUpdate">the entities to update.</param>
-            <returns>The given data converted to a DataTable.</returns>
-        </member>
         <member name="M:DbContextExtensions.GetContext``1(System.Linq.IQueryable{``0})">
             <summary>An IQueryable&lt;TEntity&gt; extension method that gets a context.</summary>
             <typeparam name="TEntity">Type of the entity.</typeparam>
@@ -584,11 +504,16 @@
             <param name="this">The @this to act on.</param>
             <returns>The model.</returns>
         </member>
-        <member name="M:DbContextExtensions.GetDbContext(System.Data.Entity.Core.Objects.ObjectContext,System.Data.Entity.DbContext@)">
-            <summary>A DbContext extension method that gets a model.</summary>
+        <member name="M:DbContextExtensions.ExecuteFutureAction``1(``0)">
+            <summary>A T extension method that executes the future action.</summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
             <param name="this">The @this to act on.</param>
-            <param name="context">[out] The context.</param>
-            <returns>The model.</returns>
+        </member>
+        <member name="M:DbContextExtensions.FutureAction``1(``0,System.Action{``0})">
+            <summary>A T extension method that future action.</summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="this">The @this to act on.</param>
+            <param name="action">The action.</param>
         </member>
         <member name="M:DbContextExtensions.BulkDelete``1(System.Data.Entity.Core.Objects.ObjectContext,System.Collections.Generic.IEnumerable{``0},System.Action{Z.EntityFramework.Extensions.EntityBulkOperation{``0}})">
             <summary>A DbContext extension method that bulk delete.</summary>
@@ -876,35 +801,6 @@
             <param name="cancellationToken">The cancellation token.</param>
             <returns>A Task.</returns>
         </member>
-        <member name="M:DbContextExtensions.CreateBulkOperation``1(System.Data.Entity.DbContext)">
-            <summary>A DbContext extension method that creates SQL bulk operation.</summary>
-            <typeparam name="T">Generic type parameter.</typeparam>
-            <param name="context">The context to act on.</param>
-            <returns>The new SQL bulk operation.</returns>
-        </member>
-        <member name="M:DbContextExtensions.CreateBulkOperation``1(System.Data.Entity.DbContext,System.Action{Z.EntityFramework.Extensions.EntityBulkOperation{``0}})">
-            <summary>A DbContext extension method that creates SQL bulk operation.</summary>
-            <typeparam name="T">Generic type parameter.</typeparam>
-            <param name="context">The context to act on.</param>
-            <param name="bulkOperationFactory">The bulk operation factory.</param>
-            <returns>The new SQL bulk operation.</returns>
-        </member>
-        <member name="M:DbContextExtensions.CreateBulkOperation``1(System.Data.Entity.DbContext,System.Collections.Generic.IEnumerable{``0})">
-            <summary>A DbContext extension method that creates SQL bulk operation.</summary>
-            <exception cref="T:System.Exception">Thrown when an exception error condition occurs.</exception>
-            <typeparam name="T">Generic type parameter.</typeparam>
-            <param name="context">The context to act on.</param>
-            <param name="entities">The entities.</param>
-            <returns>The new SQL bulk operation.</returns>
-        </member>
-        <member name="M:DbContextExtensions.CreateBulkOperation``1(System.Data.Entity.DbContext,System.Action{Z.BulkOperations.BulkOperation{``0}},System.Collections.Generic.IEnumerable{``0})">
-            <summary>A DbContext extension method that creates SQL bulk operation.</summary>
-            <typeparam name="T">Generic type parameter.</typeparam>
-            <param name="context">The context to act on.</param>
-            <param name="bulkOperationFactory">The bulk operation factory.</param>
-            <param name="entities">The entities.</param>
-            <returns>The new SQL bulk operation.</returns>
-        </member>
         <member name="M:DbContextExtensions.GetOrCreateDbContext(System.Data.Entity.Core.Objects.ObjectContext)">
             <summary>A DbContext extension method that gets a model.</summary>
             <param name="this">The @this to act on.</param>
@@ -926,12 +822,6 @@
         <member name="P:Z.EntityFramework.Extensions.EntityBulkOperation`1.DataTableBatchSize">
             <summary>Gets or sets the size of the data table in the batch.</summary>
             <value>The size of the data table in the batch.</value>
-        </member>
-        <member name="F:Z.EntityFramework.Extensions.EntityBulkOperation`1.Context">
-            <summary>The context.</summary>
-        </member>
-        <member name="F:Z.EntityFramework.Extensions.EntityBulkOperation`1.IsInternalConnection">
-            <summary>true if this object is internal connection.</summary>
         </member>
         <member name="M:Z.EntityFramework.Extensions.EntityBulkOperation`1.#ctor(System.Data.Entity.DbContext)">
             <summary>Constructor.</summary>
@@ -1049,56 +939,6 @@
             <summary>Gets or sets the context beyond the database.</summary>
             <value>The context.</value>
         </member>
-        <member name="M:Z.EntityFramework.Extensions.EntityDatabase.CreateBulkOperation``1">
-            <summary>Creates bulk operation.</summary>
-            <typeparam name="T">Generic type parameter.</typeparam>
-            <returns>The new bulk operation.</returns>
-        </member>
-        <member name="M:Z.EntityFramework.Extensions.EntityDatabase.CreateBulkOperation``1(System.Action{Z.BulkOperations.BulkOperation{``0}})">
-            <summary>Creates bulk operation.</summary>
-            <typeparam name="T">Generic type parameter.</typeparam>
-            <returns>The new bulk operation.</returns>
-        </member>
-        <member name="M:Z.EntityFramework.Extensions.EntityDatabase.CreateBulkOperation``1(System.Collections.Generic.IEnumerable{``0})">
-            <summary>Creates bulk operation.</summary>
-            <typeparam name="T">Generic type parameter.</typeparam>
-            <param name="entities">The entities.</param>
-            <returns>The new bulk operation.</returns>
-        </member>
-        <member name="M:Z.EntityFramework.Extensions.EntityDatabase.CreateBulkOperation``1(System.Action{Z.BulkOperations.BulkOperation{``0}},System.Collections.Generic.IEnumerable{``0})">
-            <summary>Creates bulk operation.</summary>
-            <typeparam name="T">Generic type parameter.</typeparam>
-            <param name="entities">The entities.</param>
-            <returns>The new bulk operation.</returns>
-        </member>
-        <member name="M:Z.EntityFramework.Extensions.InternalBulkOperationManager.BulkInsert``1(Z.BulkOperations.BulkOperation{``0},System.Data.Entity.DbContext,System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.List{System.Object})">
-            <summary>A SqlBulkOperation extension method that bulk insert.</summary>
-            <typeparam name="T">Generic type parameter.</typeparam>
-            <param name="this">The @this to act on.</param>
-            <param name="context">The context.</param>
-            <param name="entities">The entities.</param>
-        </member>
-        <member name="M:Z.EntityFramework.Extensions.InternalBulkOperationManager.BulkMerge``1(Z.BulkOperations.BulkOperation{``0},System.Data.Entity.DbContext,System.Collections.Generic.IEnumerable{``0})">
-            <summary>A SqlBulkOperation extension method that bulk merge.</summary>
-            <typeparam name="T">Generic type parameter.</typeparam>
-            <param name="this">The @this to act on.</param>
-            <param name="context">The context.</param>
-            <param name="entities">The entities.</param>
-        </member>
-        <member name="M:Z.EntityFramework.Extensions.InternalBulkOperationManager.BulkSynchronize``1(Z.BulkOperations.BulkOperation{``0},System.Data.Entity.DbContext,System.Collections.Generic.IEnumerable{``0})">
-            <summary>A SqlBulkOperation extension method that bulk synchronize.</summary>
-            <typeparam name="T">Generic type parameter.</typeparam>
-            <param name="this">The @this to act on.</param>
-            <param name="context">The context.</param>
-            <param name="entities">The entities.</param>
-        </member>
-        <member name="M:Z.EntityFramework.Extensions.InternalBulkOperationManager.BulkUpdate``1(Z.BulkOperations.BulkOperation{``0},System.Data.Entity.DbContext,System.Collections.Generic.IEnumerable{``0})">
-            <summary>A SqlBulkOperation extension method that bulk merge.</summary>
-            <typeparam name="T">Generic type parameter.</typeparam>
-            <param name="this">The @this to act on.</param>
-            <param name="context">The context.</param>
-            <param name="entities">The entities.</param>
-        </member>
         <member name="T:Z.EntityFramework.Extensions.Core.Infrastructure.DbModel">
             <summary>A data Model for the database.</summary>
         </member>
@@ -1113,10 +953,6 @@
         <member name="P:Z.EntityFramework.Extensions.Core.Infrastructure.DbModel.MappingModel">
             <summary>Gets or sets the mapping model.</summary>
             <value>The mapping model.</value>
-        </member>
-        <member name="P:Z.EntityFramework.Extensions.Core.Infrastructure.DbModel.SaveManager">
-            <summary>Gets or sets the manager for save.</summary>
-            <value>The save manager.</value>
         </member>
         <member name="M:Z.EntityFramework.Extensions.Core.Infrastructure.DbModel.Entity``1">
             <summary>Gets the entity.</summary>
@@ -1351,14 +1187,6 @@
         <member name="M:Z.EntityFramework.Extensions.Core.Mapping.EntitySetMapping.#ctor">
             <summary>Default constructor.</summary>
         </member>
-        <member name="P:Z.EntityFramework.Extensions.Core.Mapping.EntitySetMapping.SaveStragegyEntityTypes">
-            <summary>Gets or sets a list of types of the save stragegy entities.</summary>
-            <value>A list of types of the save stragegy entities.</value>
-        </member>
-        <member name="P:Z.EntityFramework.Extensions.Core.Mapping.EntitySetMapping.IsBaseTypeSaved">
-            <summary>Gets or sets a value indicating whether this object is base type saved.</summary>
-            <value>true if this object is base type saved, false if not.</value>
-        </member>
         <member name="P:Z.EntityFramework.Extensions.Core.Mapping.EntitySetMapping.ConceptualSet">
             <summary>Gets or sets the set the conceptual belongs to.</summary>
             <value>The conceptual set.</value>
@@ -1507,13 +1335,6 @@
         <member name="T:Z.EntityFramework.Extensions.Core.Mapping.ScalarAccessorMapping">
             <summary>A scalar accessor mapping.</summary>
         </member>
-        <member name="F:Z.EntityFramework.Extensions.Core.Mapping.ScalarAccessorMapping.GetValueFastGets">
-            <summary>The get value fast gets.</summary>
-        </member>
-        <member name="P:Z.EntityFramework.Extensions.Core.Mapping.ScalarAccessorMapping.IsFromAssociation">
-            <summary>Gets or sets a value indicating whether this object is from association.</summary>
-            <value>true if this object is from association, false if not.</value>
-        </member>
         <member name="P:Z.EntityFramework.Extensions.Core.Mapping.ScalarAccessorMapping.IsComputed">
             <summary>Gets or sets a value indicating whether this object is computed.</summary>
             <value>true if this object is computed, false if not.</value>
@@ -1546,20 +1367,10 @@
             <summary>Gets or sets the constant value.</summary>
             <value>The constant value.</value>
         </member>
-        <member name="M:Z.EntityFramework.Extensions.Core.Mapping.ScalarAccessorMapping.GetValue(System.Object)">
-            <summary>Gets a value.</summary>
-            <param name="obj">The object.</param>
-            <returns>The value.</returns>
-        </member>
         <member name="M:Z.EntityFramework.Extensions.Core.Mapping.ScalarAccessorMapping.SetValue(System.Object,System.Object)">
             <summary>Sets a value.</summary>
             <param name="obj">The object.</param>
             <param name="valueItem">The value item.</param>
-        </member>
-        <member name="M:Z.EntityFramework.Extensions.Core.Mapping.ScalarAccessorMapping.GetValueFastGet(System.Object)">
-            <summary>Gets value fast get.</summary>
-            <param name="obj">The object.</param>
-            <returns>The value fast get.</returns>
         </member>
         <member name="T:Z.EntityFramework.Extensions.Core.Mapping.ScalarPropertyMapping">
             <summary>A scalar property mapping.</summary>
@@ -1632,14 +1443,6 @@
                 for more detail.
             </summary>
         </member>
-        <member name="P:Z.EntityFramework.Extensions.Core.SchemaObjectModel.EntityContainer.Index_EntitySets_Name">
-            <summary>Gets or sets the name of the index entity sets.</summary>
-            <value>The name of the index entity sets.</value>
-        </member>
-        <member name="P:Z.EntityFramework.Extensions.Core.SchemaObjectModel.EntityContainer.Index_AssociationSets_Name">
-            <summary>Gets or sets the name of the index association sets.</summary>
-            <value>The name of the index association sets.</value>
-        </member>
         <member name="F:Z.EntityFramework.Extensions.Core.SchemaObjectModel.EntityContainer.Name">
             <summary>
                 Please visit the
@@ -1688,30 +1491,6 @@
                 </see>
                 for more detail.
             </summary>
-        </member>
-        <member name="P:Z.EntityFramework.Extensions.Core.SchemaObjectModel.EntityContainerAssociationSet.OnDeleteDoDelete">
-            <summary>Gets or sets a value indicating whether the on delete do delete.</summary>
-            <value>true if on delete do delete, false if not.</value>
-        </member>
-        <member name="P:Z.EntityFramework.Extensions.Core.SchemaObjectModel.EntityContainerAssociationSet.OnDeleteDoUpdate">
-            <summary>Gets or sets a value indicating whether the on delete do update.</summary>
-            <value>true if on delete do update, false if not.</value>
-        </member>
-        <member name="P:Z.EntityFramework.Extensions.Core.SchemaObjectModel.EntityContainerAssociationSet.OnDeleteFlagModified">
-            <summary>Gets or sets a value indicating whether the on delete flag was modified.</summary>
-            <value>true if on delete flag modified, false if not.</value>
-        </member>
-        <member name="P:Z.EntityFramework.Extensions.Core.SchemaObjectModel.EntityContainerAssociationSet.OnAddDoAdd">
-            <summary>Gets or sets a value indicating whether the on add do add.</summary>
-            <value>true if on add do add, false if not.</value>
-        </member>
-        <member name="P:Z.EntityFramework.Extensions.Core.SchemaObjectModel.EntityContainerAssociationSet.OnAddDoUpdate">
-            <summary>Gets or sets a value indicating whether the on add do update.</summary>
-            <value>true if on add do update, false if not.</value>
-        </member>
-        <member name="P:Z.EntityFramework.Extensions.Core.SchemaObjectModel.EntityContainerAssociationSet.OnAddFlagModified">
-            <summary>Gets or sets a value indicating whether the on add flag was modified.</summary>
-            <value>true if on add flag modified, false if not.</value>
         </member>
         <member name="P:Z.EntityFramework.Extensions.Core.SchemaObjectModel.EntityContainerAssociationSet.AssociationSetMapping">
             <summary>Gets or sets the association set mapping.</summary>
@@ -2335,22 +2114,6 @@
         <member name="T:Z.EntityFramework.Extensions.Core.SchemaObjectModel.Schema">
             <summary>A schema.</summary>
         </member>
-        <member name="P:Z.EntityFramework.Extensions.Core.SchemaObjectModel.Schema.Index_Associations_Name">
-            <summary>Gets or sets the name of the index associations.</summary>
-            <value>The name of the index associations.</value>
-        </member>
-        <member name="P:Z.EntityFramework.Extensions.Core.SchemaObjectModel.Schema.Index_ComplexTypes_Name">
-            <summary>Gets or sets the name of the index complex types.</summary>
-            <value>The name of the index complex types.</value>
-        </member>
-        <member name="P:Z.EntityFramework.Extensions.Core.SchemaObjectModel.Schema.Index_EntityTypes_Name">
-            <summary>Gets or sets the name of the index entity types.</summary>
-            <value>The name of the index entity types.</value>
-        </member>
-        <member name="P:Z.EntityFramework.Extensions.Core.SchemaObjectModel.Schema.Index_EnumTypes_Name">
-            <summary>Gets or sets the name of the index enum types.</summary>
-            <value>The name of the index enum types.</value>
-        </member>
         <member name="P:Z.EntityFramework.Extensions.Core.SchemaObjectModel.Schema.Alias">
             <summary>
                 Please visit the
@@ -2461,14 +2224,6 @@
         <member name="P:Z.EntityFramework.Extensions.Core.SchemaObjectModel.SchemaEntityType.IsTPH">
             <summary>Gets or sets a value indicating whether this object is tph.</summary>
             <value>true if this object is tph, false if not.</value>
-        </member>
-        <member name="P:Z.EntityFramework.Extensions.Core.SchemaObjectModel.SchemaEntityType.Index_NavigationProperties_Name">
-            <summary>Gets or sets the name of the index navigation properties.</summary>
-            <value>The name of the index navigation properties.</value>
-        </member>
-        <member name="P:Z.EntityFramework.Extensions.Core.SchemaObjectModel.SchemaEntityType.Index_Properties_Name">
-            <summary>Gets or sets the name of the index properties.</summary>
-            <value>The name of the index properties.</value>
         </member>
         <member name="P:Z.EntityFramework.Extensions.Core.SchemaObjectModel.SchemaEntityType.EntityTypeMapping">
             <summary>Gets or sets the entity type mapping.</summary>
@@ -2746,179 +2501,6 @@
             <summary>Create a new database connection.</summary>
             <returns>The new connection.</returns>
         </member>
-        <member name="T:Z.EntityFramework.Extensions.Internal.BatchDelete">
-            <summary>Class to batch delete.</summary>
-        </member>
-        <member name="F:Z.EntityFramework.Extensions.Internal.BatchDelete.CommandTextTemplate">
-            <summary>The command text template.</summary>
-        </member>
-        <member name="F:Z.EntityFramework.Extensions.Internal.BatchDelete.CommandTextPostgreSQLTemplate">
-            <summary>The command text postgre SQL template.</summary>
-        </member>
-        <member name="F:Z.EntityFramework.Extensions.Internal.BatchDelete.CommandTextTemplate_MySql">
-            <summary>The command text postgre SQL template.</summary>
-        </member>
-        <member name="F:Z.EntityFramework.Extensions.Internal.BatchDelete.CommandTextWhileTemplate">
-            <summary>The command text template with WHILE loop.</summary>
-        </member>
-        <member name="F:Z.EntityFramework.Extensions.Internal.BatchDelete.CommandTextWhileDelayTemplate">
-            <summary>The command text template with DELAY and WHILE loop</summary>
-        </member>
-        <member name="M:Z.EntityFramework.Extensions.Internal.BatchDelete.#ctor">
-            <summary>Default constructor.</summary>
-        </member>
-        <member name="P:Z.EntityFramework.Extensions.Internal.BatchDelete.BatchSize">
-            <summary>Gets or sets the size of the batch.</summary>
-            <value>The size of the batch.</value>
-        </member>
-        <member name="P:Z.EntityFramework.Extensions.Internal.BatchDelete.BatchDelayInterval">
-            <summary>Gets or sets the batch delay interval in milliseconds (The wait time between batch).</summary>
-            <value>The batch delay interval in milliseconds (The wait time between batch).</value>
-        </member>
-        <member name="P:Z.EntityFramework.Extensions.Internal.BatchDelete.UseTableLock">
-            <summary>Gets or sets a value indicating whether the query use table lock.</summary>
-            <value>True if use table lock, false if not.</value>
-        </member>
-        <member name="P:Z.EntityFramework.Extensions.Internal.BatchDelete.Executing">
-            <summary>Gets or sets the DbCommand before being executed.</summary>
-            <value>The DbCommand before being executed.</value>
-        </member>
-        <member name="M:Z.EntityFramework.Extensions.Internal.BatchDelete.Execute``1(System.Linq.IQueryable{``0})">
-            <summary>Executes the batch delete operation.</summary>
-            <typeparam name="T">The type of elements of the query.</typeparam>
-            <param name="query">The query used to execute the batch operation.</param>
-            <returns>The number of rows affected.</returns>
-        </member>
-        <member name="M:Z.EntityFramework.Extensions.Internal.BatchDelete.CreateCommand``1(System.Data.Entity.Core.Objects.ObjectQuery,Z.EntityFramework.Extensions.Core.SchemaObjectModel.SchemaEntityType{``0})">
-            <summary>Creates a command to execute the batch operation.</summary>
-            <exception cref="T:System.Exception">Thrown when an exception error condition occurs.</exception>
-            <typeparam name="T">Generic type parameter.</typeparam>
-            <param name="query">The query.</param>
-            <param name="entity">The schema entity.</param>
-            <param name="visitor">The visitor.</param>
-            <returns>The new command to execute the batch operation.</returns>
-        </member>
-        <member name="T:Z.EntityFramework.Extensions.Internal.BatchDeleteManager">
-            <summary>Manage EF+ Batch Delete Configuration.</summary>
-        </member>
-        <member name="P:Z.EntityFramework.Extensions.Internal.BatchDeleteManager.BatchDeleteBuilder">
-            <summary>Gets or sets the batch delete builder to change default configuration.</summary>
-            <value>The batch delete builder to change default configuration.</value>
-        </member>
-        <member name="T:Z.EntityFramework.Extensions.Internal.BatchDeleteVisitor">
-            <summary>A batch delete visitor.</summary>
-        </member>
-        <member name="P:Z.EntityFramework.Extensions.Internal.BatchDeleteVisitor.HasOrderBy">
-            <summary>Gets or sets a value indicating whether the expression contains an OrderBy method.</summary>
-            <value>true if the expression contains an OrderBy metho has order by, false if not.</value>
-        </member>
-        <member name="P:Z.EntityFramework.Extensions.Internal.BatchDeleteVisitor.HasSkip">
-            <summary>Gets or sets a value indicating whether the expression contains an Skip method.</summary>
-            <value>true if the expression contains an Skip metho has order by, false if not.</value>
-        </member>
-        <member name="P:Z.EntityFramework.Extensions.Internal.BatchDeleteVisitor.HasTake">
-            <summary>Gets or sets a value indicating whether the expression contains an Take method.</summary>
-            <value>true if the expression contains an Take metho has order by, false if not.</value>
-        </member>
-        <member name="M:Z.EntityFramework.Extensions.Internal.BatchDeleteVisitor.VisitMethodCall(System.Linq.Expressions.MethodCallExpression)">
-            <summary>
-                Visits the children of the <see cref="T:System.Linq.Expressions.MethodCallExpression" />.
-            </summary>
-            <param name="node">The expression to visit.</param>
-            <returns>
-                The modified expression, if it or any subexpression was modified; otherwise, returns the
-                original expression.
-            </returns>
-        </member>
-        <member name="T:Z.EntityFramework.Extensions.Internal.BatchUpdate">
-            <summary>Class to batch delete.</summary>
-        </member>
-        <member name="F:Z.EntityFramework.Extensions.Internal.BatchUpdate.CommandTextTemplate">
-            <summary>The command text template.</summary>
-        </member>
-        <member name="P:Z.EntityFramework.Extensions.Internal.BatchUpdate.Executing">
-            <summary>Gets or sets the DbCommand before being executed.</summary>
-            <value>The DbCommand before being executed.</value>
-        </member>
-        <member name="P:Z.EntityFramework.Extensions.Internal.BatchUpdate.UseTableLock">
-            <summary>Gets or sets a value indicating whether the query use table lock.</summary>
-            <value>True if use table lock, false if not.</value>
-        </member>
-        <member name="M:Z.EntityFramework.Extensions.Internal.BatchUpdate.Execute``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,``0}})">
-            <summary>Executes the batch delete operation.</summary>
-            <typeparam name="T">The type of elements of the query.</typeparam>
-            <param name="query">The query used to execute the batch operation.</param>
-            <param name="updateFactory">The update factory.</param>
-            <returns>The number of rows affected.</returns>
-        </member>
-        <member name="M:Z.EntityFramework.Extensions.Internal.BatchUpdate.CreateCommand``1(System.Data.Entity.Core.Objects.ObjectQuery,Z.EntityFramework.Extensions.Core.SchemaObjectModel.SchemaEntityType{``0},System.Collections.Generic.List{System.Tuple{System.String,System.Object}})">
-            <summary>Creates a command to execute the batch operation.</summary>
-            <param name="query">The query.</param>
-            <param name="entity">The schema entity.</param>
-            <returns>The new command to execute the batch operation.</returns>
-        </member>
-        <member name="T:Z.EntityFramework.Extensions.Internal.BatchUpdateManager">
-            <summary>Manage EF+ Batch Update Configuration.</summary>
-        </member>
-        <member name="P:Z.EntityFramework.Extensions.Internal.BatchUpdateManager.BatchUpdateBuilder">
-            <summary>Gets or sets the batch update builder to change default configuration.</summary>
-            <value>The batch update builder to change default configuration.</value>
-        </member>
-        <member name="T:Z.EntityFramework.Extensions.Internal.BatchUpdateVisitor">
-            <summary>A batch update visitor.</summary>
-        </member>
-        <member name="P:Z.EntityFramework.Extensions.Internal.BatchUpdateVisitor.HasOrderBy">
-            <summary>Gets or sets a value indicating whether the expression contains an OrderBy method.</summary>
-            <value>true if the expression contains an OrderBy metho has order by, false if not.</value>
-        </member>
-        <member name="M:Z.EntityFramework.Extensions.Internal.BatchUpdateVisitor.VisitMethodCall(System.Linq.Expressions.MethodCallExpression)">
-            <summary>
-                Visits the children of the <see cref="T:System.Linq.Expressions.MethodCallExpression" />.
-            </summary>
-            <param name="node">The expression to visit.</param>
-            <returns>
-                The modified expression, if it or any subexpression was modified; otherwise, returns the
-                original expression.
-            </returns>
-        </member>
-        <member name="M:Z.EntityFramework.Extensions.Internal.InternalExtensions.CreateStoreCommand(System.Data.Entity.Core.Objects.ObjectContext)">
-            <summary>An ObjectContext extension method that creates store command .</summary>
-            <param name="context">The context to act on.</param>
-            <returns>The new store command from the context.</returns>
-        </member>
-        <member name="M:Z.EntityFramework.Extensions.Internal.InternalExtensions.GetEntityTransaction(System.Data.Entity.Core.EntityClient.EntityConnection)">
-            <summary>An EntityConnection extension method that gets the entity transaction.</summary>
-            <param name="entityConnection">The entity connection to act on.</param>
-            <returns>The entity transaction from the entity connection.</returns>
-        </member>
-        <member name="M:Z.EntityFramework.Extensions.Internal.InternalExtensions.GetInterceptionContext(System.Data.Entity.Core.Objects.ObjectContext)">
-            <summary>An ObjectContext extension method that gets interception context.</summary>
-            <param name="context">The context to act on.</param>
-            <returns>The interception context from the ObjectContext.</returns>
-        </member>
-        <member name="M:Z.EntityFramework.Extensions.Internal.InternalExtensions.GetStoreTransaction(System.Data.Entity.Core.EntityClient.EntityConnection)">
-            <summary>An EntityConnection extension method that gets the store transaction.</summary>
-            <param name="entityConnection">The entity connection to act on.</param>
-            <returns>The store transaction from the entity connection.</returns>
-        </member>
-        <member name="M:Z.EntityFramework.Extensions.Internal.InternalExtensions.GetObjectQuery(System.Linq.IQueryable)">
-            <summary>An IQueryable&lt;TEntity&gt; extension method that get the ObjectQuery from the query.</summary>
-            <param name="query">The query to get the ObjectQuery from.</param>
-            <returns>The ObjectQuery from the query.</returns>
-        </member>
-        <member name="M:Z.EntityFramework.Extensions.Internal.InternalExtensions.SelectByName``1(System.Linq.IQueryable{``0},System.Collections.Generic.List{System.String})">
-            <summary>Select from the query all names.</summary>
-            <typeparam name="T">Generic type parameter.</typeparam>
-            <param name="query">The query to select name from.</param>
-            <param name="names">The name to select.</param>
-            <returns>An IQueryable with the name selected.</returns>
-        </member>
-        <member name="M:Z.EntityFramework.Extensions.Internal.InternalExtensions.GetObjectQuery``1(System.Linq.IQueryable{``0})">
-            <summary>An IQueryable&lt;TEntity&gt; extension method that get the ObjectQuery from the query.</summary>
-            <typeparam name="T">The type of elements of the query.</typeparam>
-            <param name="query">The query to get the ObjectQuery from.</param>
-            <returns>The ObjectQuery from the query.</returns>
-        </member>
         <member name="T:Z.EntityFramework.Extensions.EntityFrameworkManager">
             <summary>Manager for entity frameworks.</summary>
         </member>
@@ -2927,6 +2509,12 @@
         </member>
         <member name="F:Z.EntityFramework.Extensions.EntityFrameworkManager.UseOldBulkSaveChanges">
             <summary>true to use old bulk save changes.</summary>
+        </member>
+        <member name="P:Z.EntityFramework.Extensions.EntityFrameworkManager.ForceDatabaseFirst">
+            <summary>
+            Gets or sets a value indicating whether the current context should be forced to read as database first.
+            </summary>
+            <value>true if the current context should be forced to read as database first.</value>
         </member>
         <member name="P:Z.EntityFramework.Extensions.EntityFrameworkManager.ForceSelectOutput">
             <summary>
@@ -2946,6 +2534,30 @@
         <member name="F:Z.EntityFramework.Extensions.EntityFrameworkManager.SetDataSourceBulkInsertAction">
             <summary>The set data source for bulk insert action.</summary>
         </member>
+        <member name="P:Z.EntityFramework.Extensions.EntityFrameworkManager.PreBulkSaveChanges">
+            <summary>Gets or sets an action to perform before the BulkSaveChanges is executed.</summary>
+            <value>The action to perform before the BulkSaveChanges is executed.</value>
+        </member>
+        <member name="P:Z.EntityFramework.Extensions.EntityFrameworkManager.PreBulkInsert">
+            <summary>Gets or sets an action to perform before the BulkInsert is executed.</summary>
+            <value>The action to perform before the BulkInsert is executed.</value>
+        </member>
+        <member name="P:Z.EntityFramework.Extensions.EntityFrameworkManager.PreBulkUpdate">
+            <summary>Gets or sets an action to perform before the BulkUpdate is executed.</summary>
+            <value>The action to perform before the BulkUpdate is executed.</value>
+        </member>
+        <member name="P:Z.EntityFramework.Extensions.EntityFrameworkManager.PreBulkMerge">
+            <summary>Gets or sets an action to perform before the BulkMerge is executed.</summary>
+            <value>The action to perform before the BulkMerge is executed.</value>
+        </member>
+        <member name="P:Z.EntityFramework.Extensions.EntityFrameworkManager.PreBulkDelete">
+            <summary>Gets or sets an action to perform before the BulkDelete is executed.</summary>
+            <value>The action to perform before the BulkDelete is executed.</value>
+        </member>
+        <member name="P:Z.EntityFramework.Extensions.EntityFrameworkManager.PreBulkSynchronize">
+            <summary>Gets or sets an action to perform before the BulkSynchronize is executed.</summary>
+            <value>The action to perform before the BulkSynchronize is executed.</value>
+        </member>
         <member name="P:Z.EntityFramework.Extensions.EntityFrameworkManager.ForceTriggerResolution">
             <summary>
             Gets or sets a value indicating whether the trigger resolution should be forced.
@@ -2964,72 +2576,6 @@
             <summary>Validates if license added is valid.</summary>
             <param name="provider">The provider specific for the license.</param>
             <returns>true if it's valid, false if it's invalid.</returns>
-        </member>
-        <member name="M:Z.EntityFramework.Extensions.Utility.CreateGetFunc(System.Type,System.String)">
-            <summary>
-                Creates get function.
-            </summary>
-            <param name="type">The type.</param>
-            <param name="propertyName">Name of the property.</param>
-            <returns>The new get function.</returns>
-        </member>
-        <member name="M:Z.Internal.EntityFramework.Extensions.BLL.GetModel.GetCodeFirstModel(System.Data.Entity.DbContext)">
-            <summary>
-                A DbContext extension method that gets database first model.
-            </summary>
-            <param name="context">The @this to act on.</param>
-            <returns>The database first model.</returns>
-        </member>
-        <member name="M:Z.Internal.EntityFramework.Extensions.BLL.GetModel.GetDatabaseFirst(System.Data.Entity.DbContext)">
-            <summary>
-                A DbContext extension method that gets database first model.
-            </summary>
-            <param name="context">The @this to act on.</param>
-            <returns>The database first model.</returns>
-        </member>
-        <member name="M:Z.Internal.EntityFramework.Extensions.PropertyOrFieldAccessor.#ctor(System.Collections.ObjectModel.ReadOnlyCollection{System.Reflection.MemberInfo})">
-            <summary>Constructor.</summary>
-            <param name="propertyOrFieldPaths">The FieldPaths.</param>
-        </member>
-        <member name="M:Z.Internal.EntityFramework.Extensions.PropertyOrFieldAccessor.#ctor(System.Reflection.MemberInfo)">
-            <summary>Constructor.</summary>
-            <param name="property">The property.</param>
-        </member>
-        <member name="P:Z.Internal.EntityFramework.Extensions.PropertyOrFieldAccessor.PropertyOrFieldPaths">
-            <summary>Gets or sets the FieldPaths.</summary>
-            <value>The FieldPaths.</value>
-        </member>
-        <member name="P:Z.Internal.EntityFramework.Extensions.PropertyOrFieldAccessor.PropertyOrField">
-            <summary>Gets or sets the property.</summary>
-            <value>The property.</value>
-        </member>
-        <member name="M:Z.Internal.EntityFramework.Extensions.PropertyOrFieldAccessor.GetValue(System.Object)">
-            <summary>
-                Gets a value.
-            </summary>
-            <param name="obj">The object.</param>
-            <returns>The value.</returns>
-        </member>
-        <member name="M:Z.Internal.EntityFramework.Extensions.PropertyOrFieldAccessor.GetValue``1(System.Object)">
-            <summary>
-                Gets a value.
-            </summary>
-            <typeparam name="T">Generic type parameter.</typeparam>
-            <param name="obj">The object.</param>
-            <returns>The value.</returns>
-        </member>
-        <member name="M:Z.Internal.EntityFramework.Extensions.PropertyOrFieldAccessor.SetValue(System.Object,System.Object)">
-            <summary>
-                Sets a value.
-            </summary>
-            <param name="obj">The object.</param>
-            <param name="value">The value.</param>
-        </member>
-        <member name="M:Z.Internal.EntityFramework.Extensions.PropertyOrFieldAccessor.ToString">
-            <summary>
-                Returns a string that represents the current object.
-            </summary>
-            <returns>A string that represents the current object.</returns>
         </member>
         <member name="T:Z.BulkOperations.AuditModeType">
             <summary>Values that represent AuditModeType.</summary>
@@ -3694,9 +3240,6 @@
         <member name="F:Z.BulkOperations.BulkOperationManager.ColumnMappingBuilder">
             <summary>The column mapping builder.</summary>
         </member>
-        <member name="F:Z.BulkOperations.BulkOperationManager.DeniedPermissionConnectionString">
-            <summary>A list containing all connection string with denied permission.</summary>
-        </member>
         <member name="F:Z.BulkOperations.BulkOperationManager.UseOracleArray">
             <summary>Array of use oracles.</summary>
         </member>
@@ -3754,8 +3297,7 @@
             <summary>Bulk insert.</summary>
             <example>
                 text
-                <code>var x = 1+2</code>
-            </example>
+                <code>var x = 1+2</code></example>
         </member>
         <member name="M:Z.BulkOperations.BulkOperation.BulkInsert(System.Object)">
             <summary>Bulk insert.</summary>
@@ -3764,8 +3306,7 @@
                 text
                 <code>var x = 1+2</code>
                 text2
-                <code>var x = 1+3</code>
-            </example>
+                <code>var x = 1+3</code></example>
         </member>
         <member name="M:Z.BulkOperations.BulkOperation.BulkInsert(System.Data.DataTable,System.Data.DataRowState)">
             <summary>Bulk insert.</summary>
@@ -3773,8 +3314,7 @@
             <param name="dataRowState">State of the data row.</param>
             <example>
                 text
-                <code>var x = 1+2</code>
-                <code>var x = 1+4</code>
+                <code>var x = 1+2</code><code>var x = 1+4</code>
                 text2
                 <code>var x = 1+3</code>
                 text 4
@@ -3941,6 +3481,14 @@
             <summary>Gets or sets the column synchronize delete key subset expression.</summary>
             <value>The column synchronize delete key subset expression.</value>
         </member>
+        <member name="P:Z.BulkOperations.BulkOperation.IgnoreOnInsertExpression">
+            <summary>Gets or sets the ignore on insert expression.</summary>
+            <value>The ignore on insert expression.</value>
+        </member>
+        <member name="P:Z.BulkOperations.BulkOperation.IgnoreOnUpdateExpression">
+            <summary>Gets or sets the ignore on update expression.</summary>
+            <value>The ignore on update expression.</value>
+        </member>
         <member name="P:Z.BulkOperations.BulkOperation.IgnoreOnMergeInsertExpression">
             <summary>Gets or sets the ignore on merge insert expression.</summary>
             <value>The ignore on merge insert expression.</value>
@@ -4013,6 +3561,9 @@
             <summary>Gets or sets the name of the destination table.</summary>
             <value>The name of the destination table.</value>
         </member>
+        <member name="F:Z.BulkOperations.BulkOperation.ContextFactory">
+            <summary>Gets or sets the context factory function to use when a working context is requested.</summary>
+        </member>
         <member name="P:Z.BulkOperations.BulkOperation.StreamSize">
             <summary>Gets or sets the size of the stream.</summary>
             <value>The size of the stream.</value>
@@ -4032,6 +3583,14 @@
         <member name="P:Z.BulkOperations.BulkOperation.MergeMatchedAndFormula">
             <summary>Gets or sets the formula to add after the "AND" in the merge statement.</summary>
             <value>The formula to add after the "AND" in the merge statement.</value>
+        </member>
+        <member name="P:Z.BulkOperations.BulkOperation.UpdateMatchedAndFormula">
+            <summary>Gets or sets the formula to add after the "AND" in the update statement (in the merge part).</summary>
+            <value>The formula to add after the "AND" in the update statement (in the merge part).</value>
+        </member>
+        <member name="P:Z.BulkOperations.BulkOperation.UpdatePrimaryKeyAndFormula">
+            <summary>Gets or sets the formula to add after the "AND" in the update statement when joining with the key.</summary>
+            <value>The formula to add after the "AND" in the update statement  when joining with the key.</value>
         </member>
         <member name="P:Z.BulkOperations.BulkOperation.Log">
             <summary>Gets or sets the log.</summary>
@@ -4242,16 +3801,6 @@
             <param name="query">The query.</param>
             <param name="cancellationToken">The cancellation token.</param>
         </member>
-        <member name="M:Z.BulkOperations.BulkOperation`1.GetQuery(Z.BulkOperations.BulkOperationContext)">
-            <summary>Gets a query.</summary>
-            <param name="context">The context.</param>
-            <returns>The query.</returns>
-        </member>
-        <member name="M:Z.BulkOperations.BulkOperation`1.GetQuerySelect(Z.BulkOperations.BulkOperationContext,System.Type[],System.Linq.Expressions.LambdaExpression)">
-            <summary>Gets a query.</summary>
-            <param name="context">The context.</param>
-            <returns>The query.</returns>
-        </member>
         <member name="M:Z.BulkOperations.BulkOperation`1.UpdateFromQueryAsync(System.Linq.IQueryable,System.Linq.IQueryable,System.Linq.Expressions.Expression{System.Func{`0,`0}},System.Threading.CancellationToken)">
             <summary>Updates from query asynchronous.</summary>
             <param name="originalQuery">The original query.</param>
@@ -4292,6 +3841,14 @@
         <member name="P:Z.BulkOperations.BulkOperation`1.ColumnSynchronizeDeleteKeySubsetExpression">
             <summary>Gets or sets the column primary key expression.</summary>
             <value>The column primary key expression.</value>
+        </member>
+        <member name="P:Z.BulkOperations.BulkOperation`1.IgnoreOnInsertExpression">
+            <summary>Gets or sets the ignore on insert expression.</summary>
+            <value>The ignore on insert expression.</value>
+        </member>
+        <member name="P:Z.BulkOperations.BulkOperation`1.IgnoreOnUpdateExpression">
+            <summary>Gets or sets the ignore on update expression.</summary>
+            <value>The ignore on update expression.</value>
         </member>
         <member name="P:Z.BulkOperations.BulkOperation`1.IgnoreOnMergeInsertExpression">
             <summary>Gets or sets the ignore on merge insert expression.</summary>
@@ -4681,38 +4238,6 @@
         <member name="P:Z.BulkOperations.CustomProvider.SetArrayBindCount">
             <summary>Gets or sets the number of set array binds.</summary>
             <value>The number of set array binds.</value>
-        </member>
-        <member name="M:Z.BulkOperations.FirebirdActionExecutor.SetOutputValue(Z.BulkOperations.ExecuteAction,System.Data.DataSet)">
-            <summary>Set output value from the output DataTable.</summary>
-            <param name="dt">The dt.</param>
-        </member>
-        <member name="M:Z.BulkOperations.MySqlActionExecutor.SetOutputValue(Z.BulkOperations.ExecuteAction,System.Data.DataSet)">
-            <summary>Set output value from the output DataTable.</summary>
-            <param name="dt">The dt.</param>
-        </member>
-        <member name="M:Z.BulkOperations.OracleArrayActionExecutor.SetOutputValue(Z.BulkOperations.ExecuteAction,System.Data.DataTable)">
-            <summary>Set output value from the output DataTable.</summary>
-            <param name="dt">The dt.</param>
-        </member>
-        <member name="M:Z.BulkOperations.OracleActionExecutor.SetOutputValue(Z.BulkOperations.ExecuteAction,System.Data.DataTable)">
-            <summary>Set output value from the output DataTable.</summary>
-            <param name="dt">The dt.</param>
-        </member>
-        <member name="M:Z.BulkOperations.PostgreSqlActionExecutor.SetOutputValue(Z.BulkOperations.ExecuteAction,System.Data.DataTable)">
-            <summary>Set output value from the output DataTable.</summary>
-            <param name="dt">The dt.</param>
-        </member>
-        <member name="M:Z.BulkOperations.SQLiteActionExecutor.SetOutputValue(Z.BulkOperations.ExecuteAction,System.Data.DataSet,System.String,System.Boolean)">
-            <summary>Set output value from the output DataTable.</summary>
-            <param name="dt">The dt.</param>
-        </member>
-        <member name="M:Z.BulkOperations.SqlCeActionExecutor.SetOutputValue(Z.BulkOperations.ExecuteAction,System.Data.DataTable)">
-            <summary>Set output value from the output DataTable.</summary>
-            <param name="dt">The dt.</param>
-        </member>
-        <member name="M:Z.BulkOperations.SqlActionExecutor.SetOutputValue(Z.BulkOperations.ExecuteAction,System.Data.DataTable)">
-            <summary>Set output value from the output DataTable.</summary>
-            <param name="dt">The dt.</param>
         </member>
         <member name="M:Z.BulkOperations.ColumnMappingExtensions.Add(System.Collections.Generic.List{Z.BulkOperations.BasicColumnMapping},System.String)">
             <summary>A List&lt;ColumnMapping&gt; extension method that adds list.</summary>
@@ -5284,37 +4809,6 @@
             <param name="isPrimaryKey">true if this object is primary key.</param>
             <param name="direction">The direction.</param>
         </member>
-        <member name="T:Z.BulkOperations.InterceptorContext">
-            <summary>An interceptor context.</summary>
-        </member>
-        <member name="P:Z.BulkOperations.InterceptorContext.IsHandled">
-            <summary>Gets or sets a value indicating whether this object is handlded.</summary>
-            <value>true if this object is handlded, false if not.</value>
-        </member>
-        <member name="P:Z.BulkOperations.InterceptorContext.Action">
-            <summary>Gets or sets the type.</summary>
-            <value>The type.</value>
-        </member>
-        <member name="P:Z.BulkOperations.InterceptorContext.StartDate">
-            <summary>Gets or sets the start date.</summary>
-            <value>The start date.</value>
-        </member>
-        <member name="P:Z.BulkOperations.InterceptorContext.EndDate">
-            <summary>Gets or sets the end date.</summary>
-            <value>The end date.</value>
-        </member>
-        <member name="T:Z.BulkOperations.InterceptorContext`1">
-            <summary>An interceptor context.</summary>
-            <typeparam name="TResult">Type of the result.</typeparam>
-        </member>
-        <member name="P:Z.BulkOperations.InterceptorContext`1.Result">
-            <summary>Gets or sets the result.</summary>
-            <value>The result.</value>
-        </member>
-        <member name="P:Z.BulkOperations.InterceptorContext`1.OriginalResult">
-            <summary>Gets or sets the original result.</summary>
-            <value>The original result.</value>
-        </member>
         <member name="T:Z.BulkOperations.InternalTransactionType">
             <summary>Values that represent InternalTransactionType.</summary>
         </member>
@@ -5326,7 +4820,7 @@
             <param name="provider">The provider.</param>
             <returns>true if it succeeds, false if it fails.</returns>
         </member>
-        <member name="M:Z.BulkOperations.LicenseManager.ValidateLicense(System.String@,Z.BulkOperations.ProviderType,System.Boolean,System.Boolean)">
+        <member name="M:Z.BulkOperations.LicenseManager.ValidateLicense(System.String@,Z.BulkOperations.ProviderType,System.Boolean,System.Boolean,System.Boolean)">
             <summary>Validates the license.</summary>
             <param name="provider">The provider.</param>
             <param name="isEntityFramework">true if this object is entity framework.</param>
@@ -5343,28 +4837,6 @@
         </member>
         <member name="T:Z.BulkOperations.ResolutionType">
             <summary>Values that represent ResolutionType.</summary>
-        </member>
-        <member name="M:Z.Linq.Expressions.Extensions.ExpressionExtensions.RemoveConvert(System.Linq.Expressions.Expression)">
-            <summary>An Expression extension method that removes the convert described by @this.</summary>
-            <param name="this">The @this to act on.</param>
-            <returns>An Expression.</returns>
-        </member>
-        <member name="M:Z.Linq.Expressions.Extensions.ExpressionExtensions.GetMember(System.Linq.Expressions.Expression,System.Linq.Expressions.ParameterExpression)">
-            <summary>An Expression extension method that gets a member.</summary>
-            <exception cref="T:System.Exception">Thrown when an exception error condition occurs.</exception>
-            <param name="this">The @this to act on.</param>
-            <param name="parameterExpression">The parameter @this.</param>
-            <returns>The member.</returns>
-        </member>
-        <member name="M:Z.Linq.Expressions.Extensions.ExpressionExtensions.GetMembers(System.Linq.Expressions.Expression,System.Linq.Expressions.ParameterExpression)">
-            <summary>Gets the members in this collection.</summary>
-            <exception cref="T:System.Exception">Thrown when an exception error condition occurs.</exception>
-            <param name="this">The @this to act on.</param>
-            <param name="parameterExpression">The parameter @this.</param>
-            <returns>
-                An enumerator that allows foreach to be used to process the members in this
-                collection.
-            </returns>
         </member>
         <member name="M:DatabaseExtensions.MySqlDatabase(System.Data.Entity.Database)">
             <summary>Create a specialized database instance for this context.</summary>
@@ -6347,10 +5819,8 @@
             <typeparam name="T">Generic type parameter.</typeparam>
             <param name="cmdText">The command text.</param>
             <param name="parameters">The command parameters.</param>
-            m>
-            <param name="commandType">Type of the command.</param>
-            <returns>An object cast as a Generic Type.</returns>
-        </member>
+            m&gt;
+            <param name="commandType">Type of the command.</param><returns>An object cast as a Generic Type.</returns></member>
         <member name="M:DatabaseExtensions.ExecuteScalarTo``1(System.Data.Entity.Database,System.Action{System.Data.Common.DbCommand})">
             <summary>
                 A Database extension method that executes a SQL statement and convert the scalar result to a Generic Type.
@@ -6601,469 +6071,6 @@
                 whether an Add or Update operation should be performed.
             </param>
             <param name="entities">The entities to add or update.</param>
-        </member>
-        <member name="M:IDataReaderExtension.ToEntities``1(System.Data.IDataReader)">
-            <summary>
-                Enumerates to entities in this collection.
-            </summary>
-            <typeparam name="T">Generic type parameter.</typeparam>
-            <param name="this">The @this to act on.</param>
-            <returns>The given data converted to an IEnumerable&lt;T&gt;</returns>
-        </member>
-        <member name="M:IDataReaderExtension.ToEntities``1(System.Data.IDataReader,System.Collections.Generic.IEnumerable{System.Tuple{System.String,System.String}})">
-            <summary>
-                Enumerates to entities in this collection.
-            </summary>
-            <typeparam name="T">Generic type parameter.</typeparam>
-            <param name="this">The @this to act on.</param>
-            <param name="mappings">The mappings.</param>
-            <returns>The given data converted to an IEnumerable&lt;T&gt;</returns>
-        </member>
-        <member name="M:IDataReaderExtension.ToEntities``1(System.Data.IDataReader,Z.EntityFramework.Extensions.Core.SchemaObjectModel.SchemaEntityType)">
-            <summary>
-                Enumerates to entities in this collection.
-            </summary>
-            <typeparam name="T">Generic type parameter.</typeparam>
-            <param name="this">The @this to act on.</param>
-            <param name="conceptualEntity">The conceptual entity.</param>
-            <returns>The given data converted to an IEnumerable&lt;T&gt;</returns>
-        </member>
-        <member name="M:IDataReaderExtension.ToEntities_AddEntities``1(``0,System.Data.IDataReader,Z.EntityFramework.Extensions.Core.SchemaObjectModel.SchemaEntityType)">
-            <summary>
-                Converts this object to the entities add entities.
-            </summary>
-            <typeparam name="T">Generic type parameter.</typeparam>
-            <param name="item">The item.</param>
-            <param name="dr">The dr.</param>
-            <param name="entity">The entity.</param>
-        </member>
-        <member name="M:IDataReaderExtension.ToEntity``1(System.Data.IDataReader)">
-            <summary>
-                An IDataReader extension method that converts this object to an entity.
-            </summary>
-            <typeparam name="T">Generic type parameter.</typeparam>
-            <param name="this">The @this to act on.</param>
-            <returns>The given data converted to a T.</returns>
-        </member>
-        <member name="M:IDataReaderExtension.ToEntity``1(System.Data.IDataReader,System.Collections.Generic.IEnumerable{System.Tuple{System.String,System.String}})">
-            <summary>
-                An IDataReader extension method that converts this object to an entity.
-            </summary>
-            <typeparam name="T">Generic type parameter.</typeparam>
-            <param name="this">The @this to act on.</param>
-            <param name="mappings">The mappings.</param>
-            <returns>The given data converted to a T.</returns>
-        </member>
-        <member name="M:IDataReaderExtension.ToEntity``1(System.Data.IDataReader,Z.EntityFramework.Extensions.Core.SchemaObjectModel.SchemaEntityType)">
-            <summary>
-                An IDataReader extension method that converts this object to an entity.
-            </summary>
-            <typeparam name="T">Generic type parameter.</typeparam>
-            <param name="this">The @this to act on.</param>
-            <param name="conceptualEntity">The conceptual entity.</param>
-            <returns>The given data converted to a T.</returns>
-        </member>
-        <member name="M:IDataReaderExtension.ToExpandoObject(System.Data.IDataReader)">
-            <summary>
-                An IDataReader extension method that converts the @this to an expando object.
-            </summary>
-            <param name="this">The @this to act on.</param>
-            <returns>@this as a dynamic.</returns>
-        </member>
-        <member name="M:IDataReaderExtension.ToExpandoObjects(System.Data.IDataReader)">
-            <summary>
-                Enumerates to expando objects in this collection.
-            </summary>
-            <param name="this">The @this to act on.</param>
-            <returns>@this as an IEnumerable&lt;dynamic&gt;</returns>
-        </member>
-        <member name="M:ObjectExtension.As``1(System.Object)">
-            <summary>
-                An object extension method that cast anonymous type to the specified type.
-            </summary>
-            <typeparam name="T">Generic type parameter. The specified type.</typeparam>
-            <param name="this">The @this to act on.</param>
-            <returns>The object as the specified type.</returns>
-            <example>
-                <code>
-                      using Microsoft.VisualStudio.TestTools.UnitTesting;
-                      using Z.ExtensionMethods.Object;
-                      
-                      namespace ExtensionMethods.Examples
-                      {
-                          [TestClass]
-                          public class System_Object_As
-                          {
-                              [TestMethod]
-                              public void As()
-                              {
-                                  // TypeName
-                                  var intObject = (object) 13;
-                                  var stringObject = (object) &quot;FizzBuzz&quot;;
-                                  var arrayObject = (object) new[] {&quot;Fizz&quot;, &quot;Buzz&quot;};
-                      
-                                  // Exemples
-                                  var intValue = intObject.As&lt;int&gt;(); // return 13;
-                                  var stringValue = stringObject.As&lt;string&gt;(); // return &quot;FizzBuzz&quot;;
-                                  int arrayCount = arrayObject.As&lt;string[]&gt;().Length; // return 2;
-                      
-                                  // Unit Test
-                                  Assert.AreEqual(13, intValue);
-                                  Assert.AreEqual(&quot;FizzBuzz&quot;, stringValue);
-                                  Assert.AreEqual(2, arrayCount);
-                              }
-                          }
-                      }
-                </code>
-            </example>
-        </member>
-        <member name="M:ObjectExtension.To``1(System.Object)">
-            <summary>
-                A System.Object extension method that toes the given this.
-            </summary>
-            <typeparam name="T">Generic type parameter.</typeparam>
-            <param name="this">this.</param>
-            <returns>A T.</returns>
-        </member>
-        <member name="M:ObjectExtension.To(System.Object,System.Type)">
-            <summary>
-                A System.Object extension method that toes the given this.
-            </summary>
-            <param name="this">this.</param>
-            <param name="type">The type.</param>
-            <returns>An object.</returns>
-            <example>
-                <code>
-            using System;
-            using Microsoft.VisualStudio.TestTools.UnitTesting;
-            
-            
-            namespace ExtensionMethods.Examples
-            {
-            [TestClass]
-            public class System_Object_To
-            {
-            [TestMethod]
-            public void To()
-            {
-            string nullValue = null;
-            string value = &quot;1&quot;;
-            object dbNullValue = DBNull.Value;
-            
-            // Exemples
-            var result1 = value.To&lt;int&gt;(); // return 1;
-            var result2 = value.To&lt;int?&gt;(); // return 1;
-            var result3 = nullValue.To&lt;int?&gt;(); // return null;
-            var result4 = dbNullValue.To&lt;int?&gt;(); // return null;
-            
-            // Unit Test
-            Assert.AreEqual(1, result1);
-            Assert.AreEqual(1, result2.Value);
-            Assert.IsFalse(result3.HasValue);
-            Assert.IsFalse(result4.HasValue);
-            }
-            }
-            }
-            </code>
-            </example>
-            <example>
-                <code>
-            using System;
-            using Microsoft.VisualStudio.TestTools.UnitTesting;
-            
-            
-            namespace ExtensionMethods.Examples
-            {
-            [TestClass]
-            public class System_Object_To
-            {
-            [TestMethod]
-            public void To()
-            {
-            string nullValue = null;
-            string value = &quot;1&quot;;
-            object dbNullValue = DBNull.Value;
-            
-            // Exemples
-            var result1 = value.To&lt;int&gt;(); // return 1;
-            var result2 = value.To&lt;int?&gt;(); // return 1;
-            var result3 = nullValue.To&lt;int?&gt;(); // return null;
-            var result4 = dbNullValue.To&lt;int?&gt;(); // return null;
-            
-            // Unit Test
-            Assert.AreEqual(1, result1);
-            Assert.AreEqual(1, result2.Value);
-            Assert.IsFalse(result3.HasValue);
-            Assert.IsFalse(result4.HasValue);
-            }
-            }
-            }
-            </code>
-            </example>
-        </member>
-        <member name="M:StringExtension.DeserializeXml``1(System.String)">
-            <summary>
-                A string extension method that deserialize XML.
-            </summary>
-            <typeparam name="T">Generic type parameter.</typeparam>
-            <param name="this">The @this to act on.</param>
-            <returns>A T.</returns>
-        </member>
-        <member name="M:LambdaExpressionExtensions.GetPropertiesOrFields(System.Linq.Expressions.LambdaExpression)">
-            <summary>
-                A LambdaExpression extension method that gets the properties or fields.
-            </summary>
-            <param name="this">The @this to act on.</param>
-            <returns>An array of property or field information.</returns>
-        </member>
-        <member name="M:LambdaExpressionExtensions.GetPropertyOrField(System.Linq.Expressions.LambdaExpression)">
-            <summary>
-                A LambdaExpression extension method that gets a property or field.
-            </summary>
-            <exception cref="T:System.Exception">Thrown when an exception error condition occurs.</exception>
-            <param name="this">The @this to act on.</param>
-            <returns>The property or field.</returns>
-        </member>
-        <member name="M:LambdaExpressionExtensions.GetPropertyOrFieldAccessor(System.Linq.Expressions.LambdaExpression)">
-            <summary>
-                A LambdaExpression extension method that gets property or field accessor.
-            </summary>
-            <exception cref="T:System.Exception">Thrown when an exception error condition occurs.</exception>
-            <param name="this">The @this to act on.</param>
-            <returns>The property or field accessor.</returns>
-        </member>
-        <member name="M:LambdaExpressionExtensions.GetPropertyOrFieldAccessors(System.Linq.Expressions.LambdaExpression)">
-            <summary>
-                Gets the property or field accessors in this collection.
-            </summary>
-            <param name="this">The @this to act on.</param>
-            <returns>An array of property or field accessor.</returns>
-        </member>
-        <member name="M:LambdaExpressionExtensions.GetAccessor(System.Linq.Expressions.LambdaExpression)">
-            <summary>A LambdaExpression extension method that gets an accessor.</summary>
-            <exception cref="T:System.Exception">Thrown when an exception error condition occurs.</exception>
-            <param name="this">The @this to act on.</param>
-            <returns>The accessor.</returns>
-        </member>
-        <member name="M:LambdaExpressionExtensions.GetAccessors(System.Linq.Expressions.LambdaExpression)">
-            <summary>Gets the accessors in this collection.</summary>
-            <param name="this">The @this to act on.</param>
-            <returns>
-                An enumerator that allows foreach to be used to process the accessors in this
-                collection.
-            </returns>
-        </member>
-        <member name="M:ExpressionExtensions.RemoveConvert(System.Linq.Expressions.Expression)">
-            <summary>
-                An Expression extension method that removes all convert expression from the expression.
-            </summary>
-            <param name="this">The @this to act on.</param>
-            <returns>An Expression without convert expression.</returns>
-        </member>
-        <member name="M:ExpressionExtensions.GetPropertyOrField(System.Linq.Expressions.Expression,System.Linq.Expressions.ParameterExpression)">
-            <summary>
-                An Expression extension method that gets a property or field from an expression.
-            </summary>
-            <exception cref="T:System.Exception">Thrown when an exception error condition occurs.</exception>
-            <param name="this">The @this to act on.</param>
-            <param name="parameterExpression">The parameter @this.</param>
-            <returns>The property or field from the expression.</returns>
-        </member>
-        <member name="M:ExpressionExtensions.GetPropertyOrFieldAccess(System.Linq.Expressions.Expression,System.Linq.Expressions.ParameterExpression)">
-            <summary>
-                An Expression extension method that gets a property or field access from an expression.
-            </summary>
-            <exception cref="T:System.Exception">Thrown when an exception error condition occurs.</exception>
-            <param name="this">The @this to act on.</param>
-            <param name="parameterExpression">The parameter @this.</param>
-            <returns>The property or field access from the expression.</returns>
-        </member>
-        <member name="M:DbContextExtensionsInternal.GetCodeFirstModel(System.Data.Entity.DbContext)">
-            <summary>
-                A DbContext extension method that gets database first model.
-            </summary>
-            <param name="this">The @this to act on.</param>
-            <returns>The database first model.</returns>
-        </member>
-        <member name="M:DbContextExtensionsInternal.GetConceptualModelName(System.Data.Entity.DbContext)">
-            <summary>
-                A DbContext extension method that gets conceptual model name.
-            </summary>
-            <param name="this">The @this to act on.</param>
-            <returns>The conceptual model name.</returns>
-        </member>
-        <member name="M:DbContextExtensionsInternal.GetConceptualModelStream(System.Data.Entity.DbContext)">
-            <summary>
-                A DbContext extension method that gets conceptual model stream.
-            </summary>
-            <param name="this">The @this to act on.</param>
-            <returns>The conceptual model stream.</returns>
-        </member>
-        <member name="M:DbContextExtensionsInternal.GetConceptualModelString(System.Data.Entity.DbContext,System.String)">
-            <summary>
-                A DbContext extension method that gets conceptual model string.
-            </summary>
-            <exception cref="T:System.Exception">Thrown when an exception error condition occurs.</exception>
-            <param name="this">The @this to act on.</param>
-            <returns>The conceptual model string.</returns>
-        </member>
-        <member name="M:DbContextExtensionsInternal.DatabaseFirstBuildConceptual(System.Data.Entity.DbContext,Z.EntityFramework.Extensions.Core.Infrastructure.DbModel,System.Xml.Linq.XDocument)">
-            <summary>
-                Sets conceptual model.
-            </summary>
-            <exception cref="T:System.Exception">Thrown when an exception error condition occurs.</exception>
-            <param name="context">The context.</param>
-            <param name="dbModel">The model.</param>
-        </member>
-        <member name="M:DbContextExtensionsInternal.DatabaseFirstBuildMapping(System.Data.Entity.DbContext,Z.EntityFramework.Extensions.Core.Infrastructure.DbModel,System.Xml.Linq.XDocument)">
-            <summary>
-                Sets mapping model.
-            </summary>
-            <param name="context">The context.</param>
-            <param name="dbModel">The model.</param>
-        </member>
-        <member name="M:DbContextExtensionsInternal.DatabaseFirstBuildStorage(System.Data.Entity.DbContext,Z.EntityFramework.Extensions.Core.Infrastructure.DbModel,System.Xml.Linq.XDocument)">
-            <summary>
-                Sets storage model.
-            </summary>
-            <param name="context">The context.</param>
-            <param name="dbModel">The model.</param>
-        </member>
-        <member name="M:DbContextExtensionsInternal.GetDatabaseFirstModel(System.Data.Entity.DbContext)">
-            <summary>
-                A DbContext extension method that gets database first model.
-            </summary>
-            <param name="this">The @this to act on.</param>
-            <returns>The database first model.</returns>
-        </member>
-        <member name="M:DbContextExtensionsInternal.GetMappingModelName(System.Data.Entity.DbContext)">
-            <summary>
-                A DbContext extension method that gets mapping model name.
-            </summary>
-            <param name="this">The @this to act on.</param>
-            <returns>The mapping model name.</returns>
-        </member>
-        <member name="M:DbContextExtensionsInternal.GetMappingModelStream(System.Data.Entity.DbContext)">
-            <summary>
-                A DbContext extension method that gets mapping model stream.
-            </summary>
-            <param name="this">The @this to act on.</param>
-            <returns>The mapping model stream.</returns>
-        </member>
-        <member name="M:DbContextExtensionsInternal.GetMappingModelString(System.Data.Entity.DbContext,System.String)">
-            <summary>
-                A DbContext extension method that gets mapping model string.
-            </summary>
-            <exception cref="T:System.Exception">Thrown when an exception error condition occurs.</exception>
-            <param name="this">The @this to act on.</param>
-            <returns>The mapping model string.</returns>
-        </member>
-        <member name="M:DbContextExtensionsInternal.GetModelName(System.Data.Entity.DbContext)">
-            <summary>
-                A DbContext extension method that gets model name.
-            </summary>
-            <param name="this">The @this to act on.</param>
-            <returns>The model name.</returns>
-        </member>
-        <member name="M:DbContextExtensionsInternal.GetModelNames(System.Data.Entity.DbContext)">
-            <summary>
-                A DbContext extension method that gets model name.
-            </summary>
-            <param name="this">The @this to act on.</param>
-            <returns>The model name.</returns>
-        </member>
-        <member name="M:DbContextExtensionsInternal.GetStorageModelName(System.Data.Entity.DbContext)">
-            <summary>
-                A DbContext extension method that gets storage model name.
-            </summary>
-            <param name="this">The @this to act on.</param>
-            <returns>The storage model name.</returns>
-        </member>
-        <member name="M:DbContextExtensionsInternal.GetStorageModelStream(System.Data.Entity.DbContext)">
-            <summary>
-                A DbContext extension method that gets storage model stream.
-            </summary>
-            <param name="this">The @this to act on.</param>
-            <returns>The storage model stream.</returns>
-        </member>
-        <member name="M:DbContextExtensionsInternal.GetStorageModelString(System.Data.Entity.DbContext,System.String)">
-            <summary>
-                A DbContext extension method that gets storage model string.
-            </summary>
-            <exception cref="T:System.Exception">Thrown when an exception error condition occurs.</exception>
-            <param name="this">The @this to act on.</param>
-            <returns>The storage model string.</returns>
-        </member>
-        <member name="M:DbContextExtensionsInternal.TryModelString(System.Data.Entity.DbContext,System.String)">
-            <summary>
-                A DbContext extension method that gets conceptual model name.
-            </summary>
-            <param name="this">The @this to act on.</param>
-            <returns>The conceptual model name.</returns>
-        </member>
-        <member name="M:Extension.GetModelXDocument(System.Data.Entity.DbContext)">
-            <summary>
-                A DbContext extension method that gets model x coordinate document.
-            </summary>
-            <param name="db">The db to act on.</param>
-            <returns>The model x coordinate document.</returns>
-        </member>
-        <member name="M:Extension.GetSqlBulkColumnMapping(System.Data.Entity.DbContext,System.String)">
-            <summary>
-                Gets the SQL bulk column mappings in this collection.
-            </summary>
-            <param name="context">The context to act on.</param>
-            <param name="type">The type.</param>
-            <returns>
-                An enumerator that allows foreach to be used to get the SQL bulk column mappings in this collection.
-            </returns>
-        </member>
-        <member name="M:SqlCommandExtensions.ExecuteDataSet(System.Data.SqlClient.SqlCommand)">
-            <summary>
-                Executes the query, and returns the result set as DataSet.
-            </summary>
-            <param name="this">The @this to act on.</param>
-            <returns>A DataSet that is equivalent to the result set.</returns>
-            <example>
-                <code>
-                      using System.Data;
-                      using System.Data.SqlClient;
-                      using Microsoft.VisualStudio.TestTools.UnitTesting;
-                      using Z.ExtensionMethods;
-                      
-                      namespace ExtensionMethods.Examples
-                      {
-                          [TestClass]
-                          public class System_Data_SqlClient_SqlCommand_ExecuteDataSet
-                          {
-                              [TestMethod]
-                              public void ExecuteDataSet()
-                              {
-                                  DataSet result;
-                                  const string sql = @&quot;
-                      SELECT 1
-                      SELECT 2
-                      SELECT 3
-                      &quot;;
-                      
-                                  // Examples
-                                  using (var conn = new SqlConnection(My.Config.ConnectionString.UnitTest.ConnectionString))
-                                  {
-                                      using (SqlCommand @this = conn.CreateCommand())
-                                      {
-                                          conn.Open();
-                                          @this.CommandText = sql;
-                                          result = @this.ExecuteDataSet(); // return DataSet (3 tables).
-                                      }
-                                  }
-                      
-                                  // Unit Test
-                                  Assert.AreEqual(3, result.Tables.Count);
-                              }
-                          }
-                      }
-                </code>
-            </example>
         </member>
     </members>
 </doc>

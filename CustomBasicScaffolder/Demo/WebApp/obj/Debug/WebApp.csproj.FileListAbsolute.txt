@@ -136,3 +136,6 @@ D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Dem
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\WebApp\bin\Microsoft.Owin.Cors.xml
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\WebApp\bin\System.Web.Http.Owin.xml
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\WebApp\obj\Debug\WebApp.csprojAssemblyReference.cache
+D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\WebApp\bin\TrackableEntities.Common.dll
+D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\WebApp\bin\TrackableEntities.EF.6.dll
+D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\WebApp\bin\TrackableEntities.Common.xml

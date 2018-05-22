@@ -133,11 +133,11 @@ namespace <#= DefaultNamespace #>.Controllers
         {
             if (ModelState.IsValid)
             {
-                baseCode.ObjectState = ObjectState.Added;
+                baseCode.TrackingState = TrackingState.Added;
                 foreach (var item in baseCode.CodeItems)
                 {
                     item.BaseCodeId = baseCode.Id;
-                    item.ObjectState = ObjectState.Added;
+                    item.TrackingState = TrackingState.Added;
                 }
                 _baseCodeService.InsertOrUpdateGraph(baseCode);
                 _unitOfWork.SaveChanges();
@@ -181,15 +181,15 @@ namespace <#= DefaultNamespace #>.Controllers
         {
             if (ModelState.IsValid)
             {
-                baseCode.ObjectState = ObjectState.Modified;
+                baseCode.TrackingState = TrackingState.Modified;
                 foreach (var item in baseCode.CodeItems)
                 {
                     item.BaseCodeId = baseCode.Id;
                     //set ObjectState with conditions
                     if (item.Id <= 0)
-                        item.ObjectState = ObjectState.Added;
+                        item.TrackingState = TrackingState.Added;
                     else
-                        item.ObjectState = ObjectState.Modified;
+                        item.TrackingState = TrackingState.Modified;
                 }
 
                 _baseCodeService.InsertOrUpdateGraph(baseCode);

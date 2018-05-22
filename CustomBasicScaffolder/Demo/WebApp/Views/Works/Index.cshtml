@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<WebApp.Models.Work>
 @{
-	ViewBag.Title = "工单信息";
+	ViewBag.Title = "工单任务";
 }
 <!-- MAIN CONTENT -->
 <div id="content">
@@ -15,7 +15,7 @@
                 路径
                 <span>
                     >
-                  工单信息
+                  工单任务
                 </span>
             </h1>
         </div>
@@ -47,7 +47,7 @@
                     -->
                     <header>
                         <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-                        <h2>工单信息</h2>
+                        <h2>工单任务</h2>
                     </header>
 
                      <!-- widget div-->
@@ -182,134 +182,27 @@
         function dohelp() {
 
         }
-		 //datagrid 增删改查操作
-          var $dg = $("#works_datagrid").datagrid({
-                        rownumbers:true,
-				        checkOnSelect:true,
-				        selectOnCheck:true,
-				        idField:'Id',
-				        sortName:'Id',
-				        sortOrder:'desc',
-				        remoteFilter: true,
-				        singleSelect: true,
-				        toolbar: '#works_toolbar',
-				        url: '/Works/GetData',
-				        method: 'get',
-				        onClickCell: onClickCell,
-				        pagination: true,
-                        striped:true,   
-                         columns: [[
-                         /*{ field: 'ck', checkbox: true },*/
-                         { field: '_operate1', title:'操作', width: 120, sortable: false, resizable: true, formatter: showdetailsformatter},
-                        					/*{field:'Id',width:80 ,sortable:true,resizable:true }*/
-									 {field:'Name', 
-              title:'@Html.DisplayNameFor(model => model.Name)', 
-              width:140,
-              editor:{
-                      type:'textbox',
-                      options:{ prompt:'Name',required:false ,validType:'length[0,50]'  }  
-                     },
-              sortable:true,
-              resizable:true },
-											 {field:'Status', 
-              title:'@Html.DisplayNameFor(model => model.Status)', 
-              width:140,
-              editor:{
-                      type:'textbox',
-                      options:{ prompt:'Status',required:false ,validType:'length[0,50]'  }  
-                     },
-              sortable:true,
-              resizable:true },
-											 {field:'StartDate', 
-              title:'@Html.DisplayNameFor(model => model.StartDate)', 
-              width:160, 
-              align:'right', 
-              editor:{
-                      type:'datebox',
-                      options:{prompt:'StartDate',required:true}  
-                      },
-              sortable:true, 
-              resizable:true, 
-              formatter:dateformatter },
-											 {field:'EndDate', 
-              title:'@Html.DisplayNameFor(model => model.EndDate)', 
-              width:160, 
-              align:'right', 
-              editor:{
-                      type:'datebox',
-                      options:{prompt:'EndDate',required:true}  
-                      },
-              sortable:true, 
-              resizable:true, 
-              formatter:dateformatter },
-											 {field:'Enableed', 
-              title:'@Html.DisplayNameFor(model => model.Enableed)', 
-              width:120, 
-              align:'center',
-              editor:{
-                      type:'checkbox',
-                      options:{prompt:'Enableed', 
-                                     on:'true',
-                                     off:'false',
-                                     required:false
-                               } 
-                      },
-              sortable:true, 
-              resizable:true },
-											 {field:'Hour', 
-              title:'@Html.DisplayNameFor(model => model.Hour)', 
-              width:100, 
-              align:'right',
-              editor:{
-                      type:'numberbox',
-                      options:{prompt:'Hour', required:true  ,precision:0 } 
-                     },
-              sortable:true,
-              resizable:true },
-											 {field:'Priority', 
-              title:'@Html.DisplayNameFor(model => model.Priority)', 
-              width:100, 
-              align:'right',
-              editor:{
-                      type:'numberbox',
-                      options:{prompt:'Priority', required:true  ,precision:0 } 
-                     },
-              sortable:true,
-              resizable:true },
-											 {field:'Score', 
-              title:'@Html.DisplayNameFor(model => model.Score)', 
-              width:100, 
-              align:'right',
-              editor:{
-                      type:'numberbox',
-                      options:{prompt:'Score', required:true  ,precision:2 } 
-                     },
-              sortable:true,
-              resizable:true },
-				
-                         ]]
-          
-          });
-		 var editIndex = undefined;
-		 function reload() {
+        var editIndex = undefined;
+    //重新加载数据
+	function reload() {
 				 if (endEditing()) {
 						$dg.datagrid("reload");
 				 }
 			}
-		function endEditing() {
+    //关闭编辑状态
+	function endEditing() {
 			if (editIndex == undefined) { return true }
 			if ($dg.datagrid("validateRow", editIndex)) {
 
 								$dg.datagrid("endEdit", editIndex);
 				editIndex = undefined;
-
-				
-				return true;
+                return true;
 			} else {
 				return false;
 			}
 		}
-		function onClickCell(index, field) {
+    //单击列开启编辑功能
+	function onClickCell(index, field) {
 			var _operates = ["_operate1", "_operate2", "_operate3", "ck"]
 			if ($.inArray(field, _operates) >= 0) {
 				return;
@@ -323,13 +216,13 @@
 					if (ed) {
 						($(ed.target).data("textbox") ? $(ed.target).textbox("textbox") : $(ed.target)).focus();
 					}
-					
 				} else {
 					$dg.datagrid("selectRow", editIndex);
 				}
 			}
 		}
-		function append() {
+    //新增记录
+	function append() {
 			if (endEditing()) {
 				//$dg.datagrid("appendRow", { Status: 0 });
 				//editIndex = $dg.datagrid("getRows").length - 1;
@@ -339,13 +232,15 @@
 						.datagrid("beginEdit", editIndex);
 			}
 		}
-		function removeit() {
+    //删除编辑的行
+	function removeit() {
 			if (editIndex == undefined) { return }
 			$dg.datagrid("cancelEdit", editIndex)
 					.datagrid("deleteRow", editIndex);
 			editIndex = undefined;
-		}
-		function accept() {
+	}
+    //提交保存后台数据库
+	function accept() {
 			if (endEditing()) {
 				if ($dg.datagrid("getChanges").length) {
 					var inserted = $dg.datagrid("getChanges", "inserted");
@@ -374,10 +269,7 @@
 						$.messager.alert("错误", "提交错误了！","error");
 						//$dg.datagrid("reload");
 					});
-			  
 				}
-
-				//$dg.datagrid("acceptChanges");
 			}
 		}
 		function reject() {
@@ -388,11 +280,153 @@
 			var rows = $dg.datagrid("getChanges");
 			alert(rows.length + " rows are changed!");
 		}
+        //弹出明细信息
+		function showDetailsWindow(id) {
+			//console.log(index, row);
+            $.getJSON('/Works/PopupEdit/' + id, function (data, status, xhr) {
+                //console.log(data);
+                $('#detailswindow').window('open');
+                loadData(id,data);
+            });
+		}
 
-		//datagrid 开启筛选功能
-		 $(function () {
-		  
-		   $dg.datagrid("enableFilter",[
+        //初始化定义datagrid
+        var $dg = $("#works_datagrid");
+        $(function () {
+		 //定义datagrid结构
+         $dg.datagrid({
+                        rownumbers:true,
+				        checkOnSelect:true,
+				        selectOnCheck:true,
+				        idField:'Id',
+				        sortName:'Id',
+				        sortOrder:'desc',
+				        remoteFilter: true,
+				        singleSelect: true,
+				        toolbar: '#works_toolbar',
+				        url: '/Works/GetData',
+				        method: 'get',
+				        onClickCell: onClickCell,
+				        pagination: true,
+                        striped:true,   
+                        columns: [[
+                         /*{ field: 'ck', checkbox: true },*/
+                         { 
+                            field: '_operate1',
+                            title:'操作',
+                            width: 120,
+                            sortable: false,
+                            resizable: true,
+                            formatter: function showdetailsformatter(value, row, index) {
+                                        return '<a onclick="showDetailsWindow(' + row.Id + ')" class="btn btn-default btn-sm" href="javascript:void(0)"><i class="fa fa-list"></i> 查看明细</a>';
+                                    }
+                          },
+                        					/*{field:'Id',width:80 ,sortable:true,resizable:true }*/
+		                    							 {
+              field:'Name', 
+              title:'@Html.DisplayNameFor(model => model.Name)', 
+              width:140,
+              editor:{
+                      type:'textbox',
+                      options:{ prompt:'Name',required:false ,validType:'length[0,50]'  }  
+                     },
+              sortable:true,
+              resizable:true 
+              },
+				                    							 {
+              field:'Status', 
+              title:'@Html.DisplayNameFor(model => model.Status)', 
+              width:140,
+              editor:{
+                      type:'textbox',
+                      options:{ prompt:'Status',required:false ,validType:'length[0,50]'  }  
+                     },
+              sortable:true,
+              resizable:true 
+              },
+				                    						    {
+              field:'StartDate', 
+              title:'@Html.DisplayNameFor(model => model.StartDate)', 
+              width:160, 
+              align:'right', 
+              editor:{
+                      type:'datebox',
+                      options:{prompt:'StartDate',required:true}  
+                      },
+              sortable:true, 
+              resizable:true, 
+              formatter:dateformatter 
+             },
+				                    						    {
+              field:'EndDate', 
+              title:'@Html.DisplayNameFor(model => model.EndDate)', 
+              width:160, 
+              align:'right', 
+              editor:{
+                      type:'datebox',
+                      options:{prompt:'EndDate',required:true}  
+                      },
+              sortable:true, 
+              resizable:true, 
+              formatter:dateformatter 
+             },
+				                    							 {
+               field:'Enableed', 
+               title:'@Html.DisplayNameFor(model => model.Enableed)', 
+               width:120, 
+               align:'center',
+               editor:{
+                      type:'checkbox',
+                      options:{prompt:'Enableed', 
+                                     on:'true',
+                                     off:'false',
+                                     required:false
+                               } 
+                      },
+                sortable:true, 
+                resizable:true 
+              },
+				                    							 {
+              field:'Hour', 
+              title:'@Html.DisplayNameFor(model => model.Hour)', 
+              width:100, 
+              align:'right',
+              editor:{
+                      type:'numberbox',
+                      options:{prompt:'Hour', required:true  ,precision:0 } 
+                     },
+              sortable:true,
+              resizable:true 
+             },
+				                    							 {
+              field:'Priority', 
+              title:'@Html.DisplayNameFor(model => model.Priority)', 
+              width:100, 
+              align:'right',
+              editor:{
+                      type:'numberbox',
+                      options:{prompt:'Priority', required:true  ,precision:0 } 
+                     },
+              sortable:true,
+              resizable:true 
+             },
+				                    							 {
+              field:'Score', 
+              title:'@Html.DisplayNameFor(model => model.Score)', 
+              width:100, 
+              align:'right',
+              editor:{
+                      type:'numberbox',
+                      options:{prompt:'Score', required:true  ,precision:2 } 
+                     },
+              sortable:true,
+              resizable:true 
+             },
+				                                             ]]
+          
+          });
+
+           $dg.datagrid("enableFilter",[
 		   				{
 					  field: "Status",
 					  type: "combobox",
@@ -413,8 +447,7 @@
 						  }
 					  }
 				  },
-		   
-           				{
+		              				{
 					  field: "Id",
 					  type: "numberbox",
 					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
@@ -434,9 +467,7 @@
 					  type: "numberbox",
 					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
 				  },
-		   
-
-		   				{
+		   		   				{
 					  field: "StartDate",
 					  type: "dateRange",
 					  options: {
@@ -466,30 +497,15 @@
 						  }
 					  }
 				  },
-		   		   
-		   		   
-		   ]);
-		})
-				//-----------------------------------------------------
-		//datagrid onSelect
-		//-----------------------------------------------------
-        function showdetailsformatter(value, row, index) {
+		   		   		   ]);
+	 });
 
-            return '<a onclick="showDetailsWindow(' + row.Id + ')" class="easyui-linkbutton" href="javascript:void(0)">查看明细</a>';
-
-        }
-        //弹出明细信息
-		function showDetailsWindow(id) {
-			//console.log(index, row);
-            $.getJSON('/Works/PopupEdit/' + id, function (data, status, xhr) {
-                //console.log(data);
-                $('#detailswindow').window('open');
-                loadData(id,data);
-                
-
-            });
-          
-		}
+	
+		
+		  
+		  
+				
+        
  
 		
 		

@@ -1,24 +1,28 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Repository.Pattern.DataContext;
 using Repository.Pattern.Infrastructure;
+using TrackableEntities;
+using TrackableEntities.EF6;
 
 namespace Repository.Pattern.Ef6
 {
+    [Obsolete("DataContext has been deprecated. Instead use UnitOfWork which uses DbContext.")]
     public class DataContext : DbContext, IDataContextAsync
     {
         #region Private Fields
         private readonly Guid _instanceId;
-        bool _disposed;
+   
         #endregion Private Fields
 
         public DataContext(string nameOrConnectionString) : base(nameOrConnectionString)
         {
             _instanceId = Guid.NewGuid();
-            Configuration.LazyLoadingEnabled = true;
+            Configuration.LazyLoadingEnabled = false;
             Configuration.ProxyCreationEnabled = false;
         }
 
@@ -166,45 +170,24 @@ namespace Repository.Pattern.Ef6
             return changesAsync;
         }
 
-        public void SyncObjectState<TEntity>(TEntity entity) where TEntity : class, IObjectState
+        public void SyncObjectState<TEntity>(TEntity entity) where TEntity : class, ITrackable
         {
-            Entry(entity).State = StateHelper.ConvertState(entity.ObjectState);
+            this.ApplyChanges(entity);
         }
 
         private void SyncObjectsStatePreCommit()
         {
-            foreach (var dbEntityEntry in ChangeTracker.Entries())
-            {
-                dbEntityEntry.State = StateHelper.ConvertState(((IObjectState)dbEntityEntry.Entity).ObjectState);
-            }
+            var entities = ChangeTracker.Entries().Select(x => x.Entity).OfType<ITrackable>();
+            this.ApplyChanges(entities);
         }
 
         public void SyncObjectsStatePostCommit()
         {
-            foreach (var dbEntityEntry in ChangeTracker.Entries())
-            {
-                ((IObjectState)dbEntityEntry.Entity).ObjectState = StateHelper.ConvertState(dbEntityEntry.State);
-            }
+            var entities = ChangeTracker.Entries().Select(x => x.Entity).OfType<ITrackable>();
+            this.ApplyChanges(entities);
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (!_disposed)
-            {
-                if (disposing)
-                {
-                    // free other managed objects that implement
-                    // IDisposable only
-                }
-
-                // release any unmanaged objects
-                // set object references to null
-
-                _disposed = true;
-            }
-
-            base.Dispose(disposing);
-        }
+        
 
         public void SetAutoDetectChangesEnabled(bool enabled)
         {

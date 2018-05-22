@@ -1,19 +1,27 @@
-﻿             
-           
- 
+﻿// <copyright file="WorkService.cs" company="neozhu/SmartCode-Scaffolder">
+// Copyright (c) 2018 All Rights Reserved
+// </copyright>
+// <author>neo.zhu</author>
+// <date>5/22/2018 8:27:48 AM </date>
+// <summary>
+//  根据需求定义实现具体的业务逻辑,通过依赖注入降低模块之间的耦合度
+//   
+//  
+//  
+// </summary>
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using Repository.Pattern.Repositories;
+using Repository.Pattern.Infrastructure;
 using Service.Pattern;
 using WebApp.Models;
 using WebApp.Repositories;
 using System.Data;
 using System.Reflection;
 using Newtonsoft.Json;
- 
 using System.IO;
 
 namespace WebApp.Services
@@ -77,7 +85,22 @@ namespace WebApp.Services
         {
             var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
                                    var works  = this.Query(new WorkQuery().Withfilter(filters)).OrderBy(n=>n.OrderBy(sort,order)).Select().ToList();
-                        var datarows = works .Select(  n => new {  Id = n.Id , Name = n.Name , Status = n.Status , StartDate = n.StartDate , EndDate = n.EndDate , Enableed = n.Enableed , Hour = n.Hour , Priority = n.Priority , Score = n.Score }).ToList();
+                        var datarows = works .Select(  n => new { 
+
+    Id = n.Id,
+    Name = n.Name,
+    Status = n.Status,
+    StartDate = n.StartDate,
+    EndDate = n.EndDate,
+    Enableed = n.Enableed,
+    Hour = n.Hour,
+    Priority = n.Priority,
+    Score = n.Score,
+    CreatedDate = n.CreatedDate,
+    CreatedBy = n.CreatedBy,
+    LastModifiedDate = n.LastModifiedDate,
+    LastModifiedBy = n.LastModifiedBy
+}).ToList();
            
             return ExcelHelper.ExportExcel(typeof(Work), datarows);
 

@@ -15,6 +15,7 @@ using WebApp.Models;
 using WebApp.Services;
 using WebApp.Repositories;
 using Z.EntityFramework.Plus;
+using TrackableEntities;
 
 namespace WebApp.Controllers
 {
@@ -191,7 +192,7 @@ namespace WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                dataTableImportMapping.ObjectState = ObjectState.Modified;
+                dataTableImportMapping.TrackingState = TrackingState.Modified;
                 				_dataTableImportMappingService.Update(dataTableImportMapping);
                                 
                 _unitOfWork.SaveChanges();
@@ -257,13 +258,6 @@ namespace WebApp.Controllers
             TempData["ErrorMessage"] = "Save changes was unsuccessful.";
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _unitOfWork.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+         
     }
 }

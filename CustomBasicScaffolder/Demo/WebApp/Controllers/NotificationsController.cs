@@ -13,8 +13,7 @@ using Repository.Pattern.Infrastructure;
 using WebApp.Models;
 using WebApp.Services;
 using WebApp.Repositories;
- 
-
+using TrackableEntities;
 
 namespace WebApp.Controllers
 {
@@ -195,7 +194,7 @@ namespace WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                notification.ObjectState = ObjectState.Modified;
+                notification.TrackingState = TrackingState.Modified;
                 _notificationService.Update(notification);
 
                 await _unitOfWork.SaveChangesAsync();

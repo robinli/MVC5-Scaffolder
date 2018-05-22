@@ -203,7 +203,7 @@ namespace <#= DefaultNamespace #>.Controllers
         {
             if (ModelState.IsValid)
             {
-                roleMenu.ObjectState = ObjectState.Modified;
+                roleMenu.TrackingState = TrackingState.Modified;
                 _roleMenuService.Update(roleMenu);
 
                 _unitOfWork.SaveChanges();

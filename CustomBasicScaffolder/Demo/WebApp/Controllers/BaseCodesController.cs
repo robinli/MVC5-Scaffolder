@@ -13,8 +13,7 @@ using Repository.Pattern.Infrastructure;
 using WebApp.Models;
 using WebApp.Services;
 using WebApp.Repositories;
- 
-
+using TrackableEntities;
 
 namespace WebApp.Controllers
 {
@@ -175,7 +174,7 @@ namespace WebApp.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				baseCode.ObjectState = ObjectState.Modified;
+				baseCode.TrackingState = TrackingState.Modified;
 								_baseCodeService.Update(baseCode);
 								
 				await   _unitOfWork.SaveChangesAsync();
@@ -255,14 +254,6 @@ namespace WebApp.Controllers
 		{
 			TempData["ErrorMessage"] = msgText;
 		}
-
-		protected override void Dispose(bool disposing)
-		{
-			if (disposing)
-			{
-				_unitOfWork.Dispose();
-			}
-			base.Dispose(disposing);
-		}
+ 
 	}
 }

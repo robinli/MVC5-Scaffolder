@@ -332,7 +332,7 @@
 				        onClickCell: onClickCell,
 				        pagination: true,
                         striped:true,   
-                         columns: [[
+                        columns: [[
                          /*{ field: 'ck', checkbox: true },*/
                          { 
                             field: '_operate1',

@@ -181,7 +181,7 @@ namespace <#= DefaultNamespace #>.Controllers
         {
             if (ModelState.IsValid)
             {
-                dataTableImportMapping.ObjectState = ObjectState.Modified;
+                dataTableImportMapping.TrackingState = TrackingState.Modified;
                 				_dataTableImportMappingService.Update(dataTableImportMapping);
                                 
                 _unitOfWork.SaveChanges();

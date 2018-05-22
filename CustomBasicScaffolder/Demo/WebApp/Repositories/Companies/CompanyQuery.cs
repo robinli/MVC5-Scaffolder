@@ -2,10 +2,10 @@
 // Copyright (c) 2018 All Rights Reserved
 // </copyright>
 // <author>neo.zhu</author>
-// <date>2/8/2018 2:19:12 PM </date>
+// <date>5/22/2018 8:33:08 AM </date>
 // <summary>
 // 配合 easyui datagrid filter 组件使用,实现对datagrid 所有字段筛选功能
-// 也可以对特定的查询进行封装使用 
+// 也可以对特定的业务逻辑查询进行封装
 //  
 //  
 // </summary>
@@ -154,6 +154,58 @@ namespace WebApp.Repositories
                                 break;
                         }
 						}
+				    
+					
+					
+				    				
+					
+				    
+					
+											if (rule.field == "CreatedDate" && !string.IsNullOrEmpty(rule.value) )
+						{	
+							if (rule.op == "between")
+                            {
+                                var datearray = rule.value.Split(new char[] { '-' });
+                                var start = Convert.ToDateTime(datearray[0]);
+                                var end = Convert.ToDateTime(datearray[1]);
+ 
+							    And(x => SqlFunctions.DateDiff("d", start, x.CreatedDate) >= 0);
+                                And(x => SqlFunctions.DateDiff("d", end, x.CreatedDate) <= 0);
+						    }
+						}
+				   
+				    				
+											if (rule.field == "CreatedBy"  && !string.IsNullOrEmpty(rule.value))
+						{
+							And(x => x.CreatedBy.Contains(rule.value));
+						}
+				    
+				    
+					
+					
+				    				
+					
+				    
+					
+											if (rule.field == "LastModifiedDate" && !string.IsNullOrEmpty(rule.value) )
+						{	
+							if (rule.op == "between")
+                            {
+                                var datearray = rule.value.Split(new char[] { '-' });
+                                var start = Convert.ToDateTime(datearray[0]);
+                                var end = Convert.ToDateTime(datearray[1]);
+ 
+							    And(x => SqlFunctions.DateDiff("d", start, x.LastModifiedDate) >= 0);
+                                And(x => SqlFunctions.DateDiff("d", end, x.LastModifiedDate) <= 0);
+						    }
+						}
+				   
+				    				
+											if (rule.field == "LastModifiedBy"  && !string.IsNullOrEmpty(rule.value))
+						{
+							And(x => x.LastModifiedBy.Contains(rule.value));
+						}
+				    
 				    
 					
 					

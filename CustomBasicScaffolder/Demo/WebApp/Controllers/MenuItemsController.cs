@@ -15,8 +15,7 @@ using Repository.Pattern.Infrastructure;
 using WebApp.Models;
 using WebApp.Services;
 using WebApp.Repositories;
- 
-
+using TrackableEntities;
 
 namespace WebApp.Controllers
 {
@@ -207,7 +206,7 @@ namespace WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                menuItem.ObjectState = ObjectState.Modified;
+                menuItem.TrackingState = TrackingState.Modified;
                 _menuItemService.Update(menuItem);
 
                 _unitOfWork.SaveChanges();
@@ -275,13 +274,6 @@ namespace WebApp.Controllers
             TempData["ErrorMessage"] = "Save changes was unsuccessful.";
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _unitOfWork.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+         
     }
 }

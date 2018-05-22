@@ -6,16 +6,20 @@ using System.Threading;
 using System.Threading.Tasks;
 using Repository.Pattern.Infrastructure;
 using Repository.Pattern.Repositories;
+using TrackableEntities;
 
 namespace Service.Pattern
 {
-    public interface IService<TEntity> where TEntity : IObjectState
+    public interface IService<TEntity> where TEntity : ITrackable
     {
         TEntity Find(params object[] keyValues);
         IQueryable<TEntity> SelectQuery(string query, params object[] parameters);
         void Insert(TEntity entity);
         void InsertRange(IEnumerable<TEntity> entities);
+        void ApplyChanges(TEntity entity);
+        [Obsolete("InsertOrUpdateGraph has been deprecated.  Instead set TrackingState to Added or Modified and call ApplyChanges.")]
         void InsertOrUpdateGraph(TEntity entity);
+        [Obsolete("InsertGraphRange has been deprecated. Instead call Insert to set TrackingState on enttites in a graph.")]
         void InsertGraphRange(IEnumerable<TEntity> entities);
         void Update(TEntity entity);
         void Delete(object id);

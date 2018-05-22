@@ -2,9 +2,9 @@
 // Copyright (c) 2018 All Rights Reserved
 // </copyright>
 // <author>neo.zhu</author>
-// <date>2/8/2018 2:19:12 PM </date>
+// <date>5/22/2018 8:33:07 AM </date>
 // <summary>
-//  Repository封装了对业务模型数据查询和存储逻辑(CRUD数据操作)
+//  Repository封装了对业务实体数据的查询和存储逻辑(CRUD数据操作)
 //   
 //  
 //  

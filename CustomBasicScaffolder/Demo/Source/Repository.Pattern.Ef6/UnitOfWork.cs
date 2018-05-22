@@ -15,6 +15,8 @@ using Repository.Pattern.Infrastructure;
 using Repository.Pattern.Repositories;
 using Repository.Pattern.UnitOfWork;
 using CommonServiceLocator;
+using System.Data.Entity;
+using TrackableEntities;
 
 #endregion
 
@@ -24,101 +26,40 @@ namespace Repository.Pattern.Ef6
     {
         #region Private Fields
 
-        private IDataContextAsync _dataContext;
-        private bool _disposed;
-        private ObjectContext _objectContext;
-        private DbTransaction _transaction;
-        private Dictionary<string, dynamic> _repositories;
+        private readonly DbContext _context;
+        protected DbTransaction Transaction;
+        protected Dictionary<string, dynamic> Repositories;
 
         #endregion Private Fields
 
         #region Constuctor
 
-        public UnitOfWork(IDataContextAsync dataContext)
+        public UnitOfWork(DbContext context)
         {
             string licenseName = "13;100-TEST";//... PRO license name
             string licenseKey = "0D0E8959891B87975F829CA4DDBA76B1";//... PRO license key
             Z.EntityFramework.Extensions.LicenseManager.AddLicense(licenseName, licenseKey);
 
-            _dataContext = dataContext;
-            
-            _repositories = new Dictionary<string, dynamic>();
+            _context = context;
+            Repositories = new Dictionary<string, dynamic>();
         }
-
+        #endregion
         public void SetAutoDetectChangesEnabled(bool enabled)
         {
-            this._dataContext.SetAutoDetectChangesEnabled(enabled);
+            this._context.Configuration.AutoDetectChangesEnabled = enabled;
         }
 
-
-        #endregion Constuctor/Dispose
-
-        #region Dispose
-        //https://msdn.microsoft.com/library/ms244737.aspx
-
-        // Dispose() calls Dispose(true)
-        public void Dispose()
+        public int? CommandTimeout
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-        // NOTE: Leave out the finalizer altogether if this class doesn't 
-        // own unmanaged resources itself, but leave the other methods
-        // exactly as they are. 
-        ~UnitOfWork()
-        {
-            // Finalizer calls Dispose(false)
-            Dispose(false);
-        }
-        // The bulk of the clean-up code is implemented in Dispose(bool)
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!_disposed)
-            {
-                if (disposing)
-                {
-                    // free other managed objects that implement
-                    // IDisposable only
-
-                    try
-                    {
-                        if (_objectContext != null)
-                        {
-                            if (_objectContext.Connection.State == ConnectionState.Open)
-                                _objectContext.Connection.Close();
-
-                            _objectContext.Dispose();
-                            _objectContext = null;
-                        }
-                        if (_dataContext != null)
-                        {
-                            _dataContext.Dispose();
-                            _dataContext = null;
-                        }
-                    }
-                    catch (ObjectDisposedException)
-                    {
-                        // do nothing, the objectContext has already been disposed
-                    }
-
-                    if (_repositories != null)
-                        _repositories = null;
-                }
-
-                _disposed = true;
-            }            
+            get => _context.Database.CommandTimeout;
+            set => _context.Database.CommandTimeout = value;
         }
 
-        #endregion
-
-        public int SaveChanges()
-        {
-            return _dataContext.SaveChanges();
-        }
+        public virtual int SaveChanges() => _context.SaveChanges();
 
 
-      
-        public IRepository<TEntity> Repository<TEntity>() where TEntity : class, IObjectState
+
+        public IRepository<TEntity> Repository<TEntity>() where TEntity : class, ITrackable
         {
             if (ServiceLocator.IsLocationProviderSet)
             {
@@ -130,93 +71,111 @@ namespace Repository.Pattern.Ef6
 
         public Task<int> SaveChangesAsync()
         {
-            return _dataContext.SaveChangesAsync();
+            return _context.SaveChangesAsync();
         }
 
         public Task<int> SaveChangesAsync(CancellationToken cancellationToken)
         {
-            return _dataContext.SaveChangesAsync(cancellationToken);
+            return _context.SaveChangesAsync(cancellationToken);
         }
 
-        public IRepositoryAsync<TEntity> RepositoryAsync<TEntity>() where TEntity : class, IObjectState
+        public virtual IRepositoryAsync<TEntity> RepositoryAsync<TEntity>() where TEntity : class, ITrackable
         {
             if (ServiceLocator.IsLocationProviderSet)
             {
                 return ServiceLocator.Current.GetInstance<IRepositoryAsync<TEntity>>();
             }
 
-            if (_repositories == null)
+            if (Repositories == null)
             {
-                _repositories = new Dictionary<string, dynamic>();
+                Repositories = new Dictionary<string, dynamic>();
             }
 
             var type = typeof(TEntity).Name;
 
-            if (_repositories.ContainsKey(type))
+            if (Repositories.ContainsKey(type))
             {
-                return (IRepositoryAsync<TEntity>)_repositories[type];
+                return (IRepositoryAsync<TEntity>)Repositories[type];
             }
 
             var repositoryType = typeof(Repository<>);
 
-            _repositories.Add(type, Activator.CreateInstance(repositoryType.MakeGenericType(typeof(TEntity)), _dataContext, this));
+            Repositories.Add(type, Activator.CreateInstance(repositoryType.MakeGenericType(typeof(TEntity)), _context, this));
 
-            return _repositories[type];
+            return Repositories[type];
         }
+        public virtual int ExecuteSqlCommand(string sql, params object[] parameters)
+        {
+            return _context.Database.ExecuteSqlCommand(sql, parameters);
+        }
+
+        public virtual async Task<int> ExecuteSqlCommandAsync(string sql, params object[] parameters)
+        {
+            return await _context.Database.ExecuteSqlCommandAsync(sql, parameters);
+        }
+
+        public virtual async Task<int> ExecuteSqlCommandAsync(string sql, CancellationToken cancellationToken, params object[] parameters)
+        {
+            return await _context.Database.ExecuteSqlCommandAsync(sql, cancellationToken, parameters);
+        }
+
 
         #region Unit of Work Transactions
 
-        public void BeginTransaction(IsolationLevel isolationLevel = IsolationLevel.Unspecified)
+        public virtual void BeginTransaction(IsolationLevel isolationLevel = IsolationLevel.Unspecified)
         {
-            _objectContext = ((IObjectContextAdapter) _dataContext).ObjectContext;
-            if (_objectContext.Connection.State != ConnectionState.Open)
+            var objectContext = ((IObjectContextAdapter)_context).ObjectContext;
+            if (objectContext.Connection.State != ConnectionState.Open)
             {
-                _objectContext.Connection.Open();
+                objectContext.Connection.Open();
             }
-
-            _transaction = _objectContext.Connection.BeginTransaction(isolationLevel);
+            Transaction = objectContext.Connection.BeginTransaction(isolationLevel);
         }
 
-        public bool Commit()
+        public virtual bool Commit()
         {
-            _transaction.Commit();
+            Transaction.Commit();
             return true;
         }
 
-        public void Rollback()
+        public virtual void Rollback()
         {
-            _transaction.Rollback();
-            _dataContext.SyncObjectsStatePostCommit();
+            Transaction.Rollback();
         }
- 
+        #endregion
+
+        #region entityframework-extensions
+
         public void BulkSaveChanges()
         {
-            this._dataContext.BulkSaveChanges();
+            this._context.BulkSaveChanges();
         }
         public Task BulkSaveChangesAsync()
         {
-            return this._dataContext.BulkSaveChangesAsync();
+            return this._context.BulkSaveChangesAsync();
         }
 
         void IUnitOfWork.BulkInsert<TEntity>(IEnumerable<TEntity> entities)
         {
-            this._dataContext.BulkInsert(entities);
+            this._context.BulkInsert(entities);
         }
 
         void IUnitOfWork.BulkUpdate<TEntity>(IEnumerable<TEntity> entities)
         {
-            this._dataContext.BulkUpdate(entities);
+            this._context.BulkUpdate(entities);
         }
 
         void IUnitOfWork.BulkDelete<TEntity>(IEnumerable<TEntity> entities)
         {
-            this._dataContext.BulkDelete(entities);
+            this._context.BulkDelete(entities);
         }
 
         void IUnitOfWork.BulkMerge<TEntity>(IEnumerable<TEntity> entities)
         {
-            this._dataContext.BulkMerge(entities);
+            this._context.BulkMerge(entities);
         }
+
+     
 
         #endregion
     }

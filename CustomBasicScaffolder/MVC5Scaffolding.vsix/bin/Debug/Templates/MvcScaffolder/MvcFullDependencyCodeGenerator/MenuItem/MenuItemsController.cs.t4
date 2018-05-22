@@ -209,7 +209,7 @@ namespace <#= DefaultNamespace #>.Controllers
         {
             if (ModelState.IsValid)
             {
-                menuItem.ObjectState = ObjectState.Modified;
+                menuItem.TrackingState = TrackingState.Modified;
                 _menuItemService.Update(menuItem);
 
                 _unitOfWork.SaveChanges();

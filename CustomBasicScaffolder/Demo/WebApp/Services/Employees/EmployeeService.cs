@@ -22,7 +22,7 @@ using WebApp.Repositories;
 using System.Data;
 using System.Reflection;
 using Newtonsoft.Json;
- 
+using Repository.Pattern.Infrastructure;
 using System.IO;
 
 namespace WebApp.Services

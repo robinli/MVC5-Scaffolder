@@ -15,132 +15,111 @@ using Repository.Pattern.DataContext;
 using Repository.Pattern.Infrastructure;
 using Repository.Pattern.Repositories;
 using Repository.Pattern.UnitOfWork;
+using TrackableEntities;
+using TrackableEntities.EF6;
 
 #endregion
 
 namespace Repository.Pattern.Ef6
 {
-    public class Repository<TEntity> : IRepositoryAsync<TEntity> where TEntity : class, IObjectState
+    public class Repository<TEntity> : IRepositoryAsync<TEntity> where TEntity : class, ITrackable
     {
         #region Private Fields
 
-        private readonly IDataContextAsync _context;
-        private readonly DbSet<TEntity> _dbSet;
-        private readonly IUnitOfWorkAsync _unitOfWork;
+        protected readonly DbContext Context;
+        protected readonly DbSet<TEntity> Set;
+        protected readonly IUnitOfWorkAsync UnitOfWork;
 
         #endregion Private Fields
 
-        public Repository(IDataContextAsync context, IUnitOfWorkAsync unitOfWork)
+        public Repository(DbContext context, IUnitOfWorkAsync unitOfWork)
         {
-            _context = context;
-            _unitOfWork = unitOfWork;
-
-            // Temporarily for FakeDbContext, Unit Test and Fakes
-            var dbContext = context as DbContext;
-
-            if (dbContext != null)
-            {
-                _dbSet = dbContext.Set<TEntity>();
-            }
-            else
-            {
-                var fakeContext = context as FakeDbContext;
-
-                if (fakeContext != null)
-                {
-                    _dbSet = fakeContext.Set<TEntity>();
-                }
-            }
+            UnitOfWork = unitOfWork;
+            Context = context;
+            Set = context.Set<TEntity>();
         }
 
         public virtual TEntity Find(params object[] keyValues)
         {
-            return _dbSet.Find(keyValues);
+            return Set.Find(keyValues);
         }
 
         public virtual IQueryable<TEntity> SelectQuery(string query, params object[] parameters)
         {
-            return _dbSet.SqlQuery(query, parameters).AsQueryable();
+            return Set.SqlQuery(query, parameters).AsQueryable();
         }
 
-        public virtual void Insert(TEntity entity)
+        public virtual void Insert(TEntity entity, bool traverseGraph = true)
         {
-            entity.ObjectState = ObjectState.Added;;
-            _dbSet.Attach(entity);
-            _context.SyncObjectState(entity);
+            entity.TrackingState = TrackingState.Added;
+
+            if (traverseGraph)
+                Context.ApplyChanges(entity);
+            else
+                Context.Entry(entity).State = EntityState.Added;
+        }
+        public void ApplyChanges(TEntity entity)
+        {
+            Context.ApplyChanges(entity);
         }
 
-        public virtual void InsertRange(IEnumerable<TEntity> entities)
+        public virtual void InsertRange(IEnumerable<TEntity> entities, bool traverseGraph = true)
         {
             foreach (var entity in entities)
             {
-                Insert(entity);
+                Insert(entity, traverseGraph);
             }
         }
 
-        public virtual void InsertGraphRange(IEnumerable<TEntity> entities)
+        [Obsolete("InsertGraphRange has been deprecated. Instead call Insert to set TrackingState on enttites in a graph.")]
+        public virtual void InsertGraphRange(IEnumerable<TEntity> entities) => InsertRange(entities);
+
+        public virtual void Update(TEntity entity, bool traverseGraph = true)
         {
-            _dbSet.AddRange(entities);
+            entity.TrackingState = TrackingState.Modified;
+
+            if (traverseGraph)
+                Context.ApplyChanges(entity);
+            else
+                Context.Entry(entity).State = EntityState.Modified;
         }
 
-        public virtual void Update(TEntity entity)
+        public void Delete(params object[] keyValues)
         {
-            entity.ObjectState = ObjectState.Modified;
-            _dbSet.Attach(entity);
-            _context.SyncObjectState(entity);
-        }
-
-        public virtual void Delete(object id)
-        {
-            var entity = _dbSet.Find(id);
+            var entity = Set.Find(keyValues);
             Delete(entity);
         }
 
         public virtual void Delete(TEntity entity)
         {
-            entity.ObjectState = ObjectState.Deleted;
-            _dbSet.Attach(entity);
-            _context.SyncObjectState(entity);
+            entity.TrackingState = TrackingState.Deleted;
+            Context.ApplyChanges(entity);
         }
 
-        public IQueryFluent<TEntity> Query()
+        public virtual void Delete(object id)
         {
-            return new QueryFluent<TEntity>(this);
+            var entity = Set.Find(id);
+            Delete(entity);
         }
 
-        public virtual IQueryFluent<TEntity> Query(IQueryObject<TEntity> queryObject)
-        {
-            return new QueryFluent<TEntity>(this, queryObject);
-        }
+        public IQueryFluent<TEntity> Query() => new QueryFluent<TEntity>(this);
 
-        public virtual IQueryFluent<TEntity> Query(Expression<Func<TEntity, bool>> query)
-        {
-            return new QueryFluent<TEntity>(this, query);
-        }
+        public virtual IQueryFluent<TEntity> Query(IQueryObject<TEntity> queryObject) => new QueryFluent<TEntity>(this, queryObject);
 
-        public IQueryable<TEntity> Queryable()
-        {
-            return _dbSet;
-        }
+        public virtual IQueryFluent<TEntity> Query(Expression<Func<TEntity, bool>> query) => new QueryFluent<TEntity>(this, query);
 
-        public IRepository<T> GetRepository<T>() where T : class, IObjectState
-        {
-            return _unitOfWork.Repository<T>();
-        }
+        public IQueryable<TEntity> Queryable() => Set;
 
-        public virtual async Task<TEntity> FindAsync(params object[] keyValues)
-        {
-            return await _dbSet.FindAsync(keyValues);
-        }
+        public IRepository<T> GetRepository<T>() where T : class, ITrackable => UnitOfWork.Repository<T>();
 
-        public virtual async Task<TEntity> FindAsync(CancellationToken cancellationToken, params object[] keyValues)
-        {
-            return await _dbSet.FindAsync(cancellationToken, keyValues);
-        }
+        public virtual async Task<TEntity> FindAsync(params object[] keyValues) => await Set.FindAsync(keyValues);
+
+        public virtual async Task<TEntity> FindAsync(CancellationToken cancellationToken, params object[] keyValues) => await Set.FindAsync(cancellationToken, keyValues);
 
         public virtual async Task<bool> DeleteAsync(params object[] keyValues)
         {
-            return await DeleteAsync(CancellationToken.None, keyValues);
+            if (await DeleteAsync(CancellationToken.None, keyValues)) return true;
+            return false;
         }
 
         public virtual async Task<bool> DeleteAsync(CancellationToken cancellationToken, params object[] keyValues)
@@ -152,9 +131,8 @@ namespace Repository.Pattern.Ef6
                 return false;
             }
 
-            entity.ObjectState = ObjectState.Deleted;
-            _dbSet.Attach(entity);
-
+            entity.TrackingState = TrackingState.Deleted;
+            Context.ApplyChanges(entity);
             return true;
         }
 
@@ -165,7 +143,7 @@ namespace Repository.Pattern.Ef6
             int? page = null,
             int? pageSize = null)
         {
-            IQueryable<TEntity> query = _dbSet;
+            IQueryable<TEntity> query = Set;
 
             if (includes != null)
             {
@@ -177,13 +155,23 @@ namespace Repository.Pattern.Ef6
             }
             if (filter != null)
             {
-                query = query.Where(filter) ;
+                query = query.AsExpandable().Where(filter) ;
             }
             if (page != null && pageSize != null)
             {
                 query = query.Skip((page.Value - 1)*pageSize.Value).Take(pageSize.Value);
             }
             return query;
+        }
+
+        public virtual async Task<IEnumerable<TEntity>> SelectQueryAsync(string query, params object[] parameters)
+        {
+            return await Set.SqlQuery(query, parameters).ToArrayAsync();
+        }
+
+        public virtual async Task<IEnumerable<TEntity>> SelectQueryAsync(string query, CancellationToken cancellationToken, params object[] parameters)
+        {
+            return await Set.SqlQuery(query, parameters).ToArrayAsync(cancellationToken);
         }
 
         internal async Task<IEnumerable<TEntity>> SelectAsync(
@@ -198,62 +186,13 @@ namespace Repository.Pattern.Ef6
             
         }
 
-        // Insert or Updating an object graph
-        [Obsolete("Will be renamed to UpsertGraph(TEntity entity) in next version.")]
+        [Obsolete("InsertOrUpdateGraph has been deprecated.  Instead set TrackingState to Added or Modified and call ApplyChanges.")]
         public virtual void InsertOrUpdateGraph(TEntity entity)
         {
-            SyncObjectGraph(entity);
-            _entitesChecked = null;
-            _dbSet.Attach(entity);
+            ApplyChanges(entity);
         }
 
-        // tracking of all processed entities in the object graph when calling SyncObjectGraph
-        HashSet<object> _entitesChecked; 
+        
 
-        private void SyncObjectGraph(object entity) // scan object graph for all 
-        {
-            // instantiating _entitesChecked so we can keep track of all entities we have scanned, avoid any cyclical issues
-            if(_entitesChecked == null) 
-                _entitesChecked = new HashSet<object>(); 
-
-            // if already processed skip
-            if (_entitesChecked.Contains(entity))
-                return;
-
-            // add entity to alreadyChecked collection
-            _entitesChecked.Add(entity);
-
-            var objectState = entity as IObjectState;
-
-            // discovered entity with ObjectState.Added, sync this with provider e.g. EF
-            if (objectState != null && objectState.ObjectState == ObjectState.Added)
-                _context.SyncObjectState((IObjectState)entity);
-
-            // Set tracking state for child collections
-            foreach (var prop in entity.GetType().GetProperties())
-            {
-                // Apply changes to 1-1 and M-1 properties
-                var trackableRef = prop.GetValue(entity, null) as IObjectState;
-                if (trackableRef != null)                
-                {
-                    // discovered entity with ObjectState.Added, sync this with provider e.g. EF
-                    if(trackableRef.ObjectState == ObjectState.Added)
-                        _context.SyncObjectState((IObjectState) entity);
-
-                    // recursively process the next property
-                    SyncObjectGraph(prop.GetValue(entity, null));
-                }
-
-                // Apply changes to 1-M properties
-                var items = prop.GetValue(entity, null) as IEnumerable<IObjectState>;
-
-                // collection was empty, nothing to process, continue
-                if (items == null) continue;
-
-                // collection isn't empty, continue to recursively scan the elements of this collection
-                foreach (var item in items)
-                    SyncObjectGraph(item);
-            }
-        }
     }
 }

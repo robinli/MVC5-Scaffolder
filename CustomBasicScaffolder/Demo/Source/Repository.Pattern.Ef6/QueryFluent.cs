@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using Repository.Pattern.Infrastructure;
 using Repository.Pattern.Repositories;
 using System.Data.Entity.Infrastructure;
+using TrackableEntities;
 
 namespace Repository.Pattern.Ef6
 {
-    public sealed class QueryFluent<TEntity> : IQueryFluent<TEntity> where TEntity : class,   IObjectState
+    public sealed class QueryFluent<TEntity> : IQueryFluent<TEntity> where TEntity : class, ITrackable
     {
         #region Private Fields
         private readonly Expression<Func<TEntity, bool>> _expression;

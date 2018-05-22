@@ -1,11 +1,11 @@
 ﻿/// <summary>
 /// Provides functionality to the /Company/ route.
-/// <date> 4/20/2018 1:22:04 PM </date>
+/// <date> 5/22/2018 8:33:10 AM </date>
 /// Create By SmartCode MVC5 Scaffolder for Visual Studio
 /// TODO: RegisterType UnityConfig.cs
 /// container.RegisterType<IRepositoryAsync<Company>, Repository<Company>>();
 /// container.RegisterType<ICompanyService, CompanyService>();
-///
+/// 
 /// Copyright (c) 2012-2018 neo.zhu
 /// Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php)
 /// and GPL (http://www.opensource.org/licenses/gpl-license.php) licenses.
@@ -23,6 +23,7 @@ using System.Web.Mvc;
 using Repository.Pattern.UnitOfWork;
 using Repository.Pattern.Infrastructure;
 using Z.EntityFramework.Plus;
+using TrackableEntities;
 using WebApp.Models;
 using WebApp.Services;
 using WebApp.Repositories;
@@ -57,7 +58,20 @@ namespace WebApp.Controllers
 						               .Query(new CompanyQuery().Withfilter(filters))
 							           .OrderBy(n=>n.OrderBy(sort,order))
 							           .SelectPageAsync(page, rows, out totalCount);
-      									var datarows = companies .Select(  n => new {  Id = n.Id , Name = n.Name , Address = n.Address , City = n.City , Province = n.Province , RegisterDate = n.RegisterDate , Employees = n.Employees }).ToList();
+      									var datarows = companies .Select(  n => new { 
+
+    Id = n.Id,
+    Name = n.Name,
+    Address = n.Address,
+    City = n.City,
+    Province = n.Province,
+    RegisterDate = n.RegisterDate,
+    Employees = n.Employees,
+    CreatedDate = n.CreatedDate,
+    CreatedBy = n.CreatedBy,
+    LastModifiedDate = n.LastModifiedDate,
+    LastModifiedBy = n.LastModifiedBy
+}).ToList();
 			var pagelist = new { total = totalCount, rows = datarows };
 			return Json(pagelist, JsonRequestBehavior.AllowGet);
 		}
@@ -127,18 +141,18 @@ namespace WebApp.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-			 				company.ObjectState = ObjectState.Added;   
+			 				company.TrackingState = TrackingState.Added;   
 								foreach (var item in company.Departments)
 				{
 					item.CompanyId = company.Id ;
-					item.ObjectState = ObjectState.Added;
+					item.TrackingState = TrackingState.Added;
 				}
 								foreach (var item in company.Employee)
 				{
 					item.CompanyId = company.Id ;
-					item.ObjectState = ObjectState.Added;
+					item.TrackingState = TrackingState.Added;
 				}
-								_companyService.InsertOrUpdateGraph(company);
+								_companyService.ApplyChanges(company);
 							await _unitOfWork.SaveChangesAsync();
 				if (Request.IsAjaxRequest())
 				{
@@ -188,27 +202,27 @@ namespace WebApp.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				company.ObjectState = ObjectState.Modified;
+				company.TrackingState = TrackingState.Modified;
 												foreach (var item in company.Departments)
 				{
 					item.CompanyId = company.Id ;
 					//set ObjectState with conditions
 					if(item.Id <= 0)
-						item.ObjectState = ObjectState.Added;
+						item.TrackingState = TrackingState.Added;
 					else
-						item.ObjectState = ObjectState.Modified;
+						item.TrackingState = TrackingState.Modified;
 				}
 								foreach (var item in company.Employee)
 				{
 					item.CompanyId = company.Id ;
 					//set ObjectState with conditions
 					if(item.Id <= 0)
-						item.ObjectState = ObjectState.Added;
+						item.TrackingState = TrackingState.Added;
 					else
-						item.ObjectState = ObjectState.Modified;
+						item.TrackingState = TrackingState.Modified;
 				}
 				      
-				_companyService.InsertOrUpdateGraph(company);
+				_companyService.ApplyChanges(company);
 								await   _unitOfWork.SaveChangesAsync();
 				if (Request.IsAjaxRequest())
 				{
@@ -361,7 +375,18 @@ namespace WebApp.Controllers
 			if (Request.IsAjaxRequest())
 			{
 								var data = await departments.AsQueryable().ToListAsync();
-								var rows = data.Select( n => new { CompanyName = (n.Company==null?"": n.Company.Name) , Id = n.Id , Name = n.Name , Manager = n.Manager , CompanyId = n.CompanyId });
+								var rows = data.Select( n => new { 
+
+    CompanyName = (n.Company==null?"": n.Company.Name) ,
+    Id = n.Id,
+    Name = n.Name,
+    Manager = n.Manager,
+    CompanyId = n.CompanyId,
+    CreatedDate = n.CreatedDate,
+    CreatedBy = n.CreatedBy,
+    LastModifiedDate = n.LastModifiedDate,
+    LastModifiedBy = n.LastModifiedBy
+});
 				return Json(rows, JsonRequestBehavior.AllowGet);
 			}  
 			return View(departments); 
@@ -374,7 +399,22 @@ namespace WebApp.Controllers
 			if (Request.IsAjaxRequest())
 			{
 								var data = await employee.AsQueryable().ToListAsync();
-								var rows = data.Select( n => new { CompanyName = (n.Company==null?"": n.Company.Name) , Id = n.Id , Name = n.Name , Title = n.Title , Sex = n.Sex , Age = n.Age , Brithday = n.Brithday , IsDeleted = n.IsDeleted , CompanyId = n.CompanyId });
+								var rows = data.Select( n => new { 
+
+    CompanyName = (n.Company==null?"": n.Company.Name) ,
+    Id = n.Id,
+    Name = n.Name,
+    Title = n.Title,
+    Sex = n.Sex,
+    Age = n.Age,
+    Brithday = n.Brithday,
+    IsDeleted = n.IsDeleted,
+    CompanyId = n.CompanyId,
+    CreatedDate = n.CreatedDate,
+    CreatedBy = n.CreatedBy,
+    LastModifiedDate = n.LastModifiedDate,
+    LastModifiedBy = n.LastModifiedBy
+});
 				return Json(rows, JsonRequestBehavior.AllowGet);
 			}  
 			return View(employee); 
@@ -396,13 +436,6 @@ namespace WebApp.Controllers
 		{
 			TempData["ErrorMessage"] = msgText;
 		}
-		protected override void Dispose(bool disposing)
-		{
-			if (disposing)
-			{
-				_unitOfWork.Dispose();
-			}
-			base.Dispose(disposing);
-		}
+		 
 	}
 }

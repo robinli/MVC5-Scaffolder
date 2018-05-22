@@ -24,24 +24,24 @@
 <#@ parameter type="Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata" name="ModelMetadata" #>
 <#@ parameter type="System.Collections.Generic.Dictionary<string, Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata>" name="OneToManyModelMetadata" #>
 <#@ parameter type="System.String" name ="SelectLambdaText" #>
-// <copyright file="<#= ModelName #>Service.cs" company="neozhu/MVC5-Scaffolder">
+// <copyright file="<#= ModelName #>Service.cs" company="neozhu/SmartCode-Scaffolder">
 // Copyright (c) <#= DateTime.Now.Year #> All Rights Reserved
 // </copyright>
 // <author>neo.zhu</author>
 // <date><#= DateTime.Now.ToString("G") #> </date>
 // <summary>
-//  实现定义的业务逻辑,通过依赖注入降低模块之间的耦合度
+//  根据需求定义实现具体的业务逻辑,通过依赖注入降低模块之间的耦合度
 //   
 //  
 //  
 // </summary>
-
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using Repository.Pattern.Repositories;
+using Repository.Pattern.Infrastructure;
 using Service.Pattern;
 using <#= ModelNamespace #>;
 using <#= DefaultNamespace #>.Repositories;

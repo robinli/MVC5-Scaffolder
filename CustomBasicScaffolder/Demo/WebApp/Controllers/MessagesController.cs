@@ -16,6 +16,7 @@ using WebApp.Repositories;
  
 using Z.EntityFramework.Plus;
 using WebApp.App_Start;
+using TrackableEntities;
 
 namespace WebApp.Controllers
 {
@@ -210,7 +211,7 @@ namespace WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                message.ObjectState = ObjectState.Modified;
+                message.TrackingState = TrackingState.Modified;
                 _messageService.Update(message);
 
                 await _unitOfWork.SaveChangesAsync();
@@ -323,14 +324,7 @@ namespace WebApp.Controllers
             TempData["ErrorMessage"] = msgText;
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _unitOfWork.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+         
     }
 }
 
