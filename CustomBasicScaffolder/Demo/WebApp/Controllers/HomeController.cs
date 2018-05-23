@@ -33,7 +33,7 @@ namespace WebApp.Controllers
             //  SqlHelper2.DatabaseFactory.CreateDatabase().ExecuteDataTable("select * from tb1", null, dt => {
             //      Console.Write(dt);
             //  });
-
+            
             await SqlHelper2.DatabaseFactory.CreateDatabase().ExecuteDataReaderAsync("select * from tb1",null, dr =>
             {
                 Console.WriteLine(dr[0]);

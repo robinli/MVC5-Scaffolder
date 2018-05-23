@@ -44,6 +44,7 @@ namespace WebApp.Controllers
         //[OutputCache(Duration = 360, VaryByParam = "none")]
 		public ActionResult Index()
 		{
+            
 			 return View();
 		}
 		// Get :Companies/PageList

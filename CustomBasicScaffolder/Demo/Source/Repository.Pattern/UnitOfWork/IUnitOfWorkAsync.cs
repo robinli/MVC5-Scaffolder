@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Common;
 using System.Threading;
 using System.Threading.Tasks;
 using Repository.Pattern.Infrastructure;
@@ -15,5 +16,6 @@ namespace Repository.Pattern.UnitOfWork
         Task<int> ExecuteSqlCommandAsync(string sql, params object[] parameters);
         Task<int> ExecuteSqlCommandAsync(string sql, CancellationToken cancellationToken, params object[] parameters);
         Task BulkSaveChangesAsync();
+        Task ExecuteDataReaderAsync(string sql, object parameters, Action<DbDataReader> action);
     }
 }
