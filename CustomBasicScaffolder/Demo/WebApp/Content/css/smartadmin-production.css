@@ -7324,7 +7324,7 @@ div.wijmo-wijmenu .wijmo-wijmenu-child .wijmo-wijmenu-text {
  }*/
 
 .flag {
-    background: url("../img/flags/flags.png") no-repeat;
+    background: url("/content/img/flags/flags.png") no-repeat;
     display: inline-block;
     height: 11px;
     margin-top: -0.18em;
@@ -13150,7 +13150,7 @@ blockquote.twitter-tweet {
 }
 
 html {
-    background: url('../img/mybg.png') #ffffff;
+    background: url('/Content/img/mybg.png') #ffffff;
     margin: 0;
     min-height: 100%;
     padding: 0;
@@ -13158,7 +13158,7 @@ html {
 }
 
 body {
-    background: url('../img/mybg.png') #ffffff;
+    background: url('/Content/img/mybg.png') #ffffff;
     direction: ltr;
     margin: 0;
     min-height: 100%;

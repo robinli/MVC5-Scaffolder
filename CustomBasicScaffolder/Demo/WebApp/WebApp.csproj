@@ -22,7 +22,7 @@
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <TargetFrameworkProfile />
-    <Use64BitIISExpress />
+    <Use64BitIISExpress>true</Use64BitIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -228,6 +228,7 @@
     <Compile Include="App_Helpers\EntityFramework.OracleHelpers\Conventions\StringPropertyMaxLengthConvention.cs" />
     <Compile Include="App_Helpers\EntityFramework.OracleHelpers\Conventions\UpperCaseNamingConventions.cs" />
     <Compile Include="App_Helpers\EntityFramework.OracleHelpers\EntityFrameworkOracleExtensions.cs" />
+    <Compile Include="App_Helpers\Fingerprint.cs" />
     <Compile Include="App_Helpers\HtmlHelperExtensions.cs" />
     <Compile Include="App_Helpers\KeyGenerator.cs" />
     <Compile Include="App_Helpers\Logger.cs" />
@@ -237,6 +238,7 @@
     <Compile Include="App_Helpers\ApplicationPreload.cs" />
     <Compile Include="App_Helpers\ApplicationRoleManager.cs" />
     <Compile Include="App_Helpers\Auth.cs" />
+    <Compile Include="App_Helpers\WhitespaceModule.cs" />
     <Compile Include="App_Start\ApplicationOAuthProvider.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\EFMigrationsManagerConfig.cs" />

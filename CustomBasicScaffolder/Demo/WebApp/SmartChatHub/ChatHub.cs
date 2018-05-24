@@ -71,7 +71,9 @@ namespace WebApp.SmartChatHub
                     RetimgName = "images/DP/" + ImageName;
             }
             catch (Exception ex)
-            { }
+            {
+                Console.WriteLine(ex.Message);
+            }
             return RetimgName;
         }
 

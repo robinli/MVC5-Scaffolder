@@ -184,7 +184,7 @@ namespace WebApp
 
 
 
-            BundleTable.EnableOptimizations = false;
+            BundleTable.EnableOptimizations = true;
 
         }
     }

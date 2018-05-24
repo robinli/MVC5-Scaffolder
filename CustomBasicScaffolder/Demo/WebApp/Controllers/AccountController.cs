@@ -214,7 +214,7 @@ namespace WebApp.Controllers
             // this clears the Request.IsAuthenticated flag since this triggers a new request
             return RedirectToLocal();
         }
-        public ActionResult Profile() {
+        public new ActionResult Profile() {
             return View();
         }
         private ActionResult RedirectToLocal(string returnUrl = "")

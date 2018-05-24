@@ -54,7 +54,12 @@ namespace Repository.Pattern.Ef6
             totalCount =   _repository.Select(_expression).Count();
             return  _repository.SelectAsync(_expression, _orderBy, _includes, page, pageSize);
         }
-
+        public async Task<Tuple<int, IEnumerable<TEntity>>> SelectPageAsync(int page, int pageSize)
+        {
+            var rows = await _repository.SelectAsync(_expression, _orderBy, _includes, page, pageSize);
+            var  totalCount = _repository.Select(_expression).Count();
+            return new Tuple<int, IEnumerable<TEntity>>(totalCount, rows);
+        }
 
 
         public IEnumerable<TEntity> Select() { return _repository.Select(_expression, _orderBy, _includes); }
@@ -65,6 +70,6 @@ namespace Repository.Pattern.Ef6
 
         public IQueryable<TEntity> SqlQuery(string query, params object[] parameters) { return _repository.SelectQuery(query, parameters).AsQueryable(); }
 
-
+       
     }
 }
