@@ -29029,6 +29029,11 @@
             A custom value
             </summary>
         </member>
+        <member name="T:OfficeOpenXml.Sparkline.ExcelSparkline">
+            <summary>
+            Represents a single sparkline within the sparkline group
+            </summary>
+        </member>
         <member name="P:OfficeOpenXml.Sparkline.ExcelSparkline.RangeAddress">
             <summary>
             The datarange
@@ -29076,6 +29081,17 @@
             The tint value
             </summary>
         </member>
+        <member name="M:OfficeOpenXml.Sparkline.ExcelSparklineColor.SetColor(System.Drawing.Color)">
+            <summary>
+            Sets a color
+            </summary>
+            <param name="color">The color</param>
+        </member>
+        <member name="T:OfficeOpenXml.Sparkline.ExcelSparklineGroup">
+            <summary>
+            Represents a group of sparklines
+            </summary>
+        </member>
         <member name="P:OfficeOpenXml.Sparkline.ExcelSparklineGroup.DateAxisRange">
             <summary>
             The range containing the dateaxis from the sparklines.
@@ -29090,6 +29106,42 @@
         <member name="P:OfficeOpenXml.Sparkline.ExcelSparklineGroup.LocationRange">
             <summary>
             The range containing the sparklines
+            </summary>
+        </member>
+        <member name="P:OfficeOpenXml.Sparkline.ExcelSparklineGroup.Sparklines">
+            <summary>
+            The Sparklines for the sparklinegroup
+            </summary>
+        </member>
+        <member name="P:OfficeOpenXml.Sparkline.ExcelSparklineGroup.Markers">
+            <summary>
+            Highlight each point in each sparkline in the sparkline group.
+            Applies to line sparklines only
+            </summary>
+        </member>
+        <member name="P:OfficeOpenXml.Sparkline.ExcelSparklineGroup.High">
+            <summary>
+            Highlight the highest point of data in the sparkline group
+            </summary>
+        </member>
+        <member name="P:OfficeOpenXml.Sparkline.ExcelSparklineGroup.Low">
+            <summary>
+            Highlight the lowest point of data in the sparkline group
+            </summary>
+        </member>
+        <member name="P:OfficeOpenXml.Sparkline.ExcelSparklineGroup.First">
+            <summary>
+            Highlight the first point of data in the sparkline group
+            </summary>
+        </member>
+        <member name="P:OfficeOpenXml.Sparkline.ExcelSparklineGroup.Last">
+            <summary>
+            Highlight the last point of data in the sparkline group
+            </summary>
+        </member>
+        <member name="P:OfficeOpenXml.Sparkline.ExcelSparklineGroup.Negative">
+            <summary>
+            Highlight negative points of data in the sparkline group with a different color or marker
             </summary>
         </member>
         <member name="P:OfficeOpenXml.Sparkline.ExcelSparklineGroup.Type">
@@ -29117,12 +29169,43 @@
             Default marker color 
             </summary> 
         </member>
+        <member name="T:OfficeOpenXml.Sparkline.ExcelSparklineGroupCollection">
+            <summary>
+            A collection of sparkline groups
+            </summary>
+        </member>
+        <member name="P:OfficeOpenXml.Sparkline.ExcelSparklineGroupCollection.Count">
+            <summary>
+            Number of items in the collection
+            </summary>
+        </member>
+        <member name="M:OfficeOpenXml.Sparkline.ExcelSparklineGroupCollection.Add(OfficeOpenXml.Sparkline.eSparklineType,OfficeOpenXml.ExcelAddressBase,OfficeOpenXml.ExcelAddressBase)">
+            <summary>
+            Adds a new sparklinegroup to the collection
+            </summary>
+            <param name="type">Type of sparkline</param>
+            <param name="locationRange">The location of the sparkline group. The range must have one row or column and must match the number of rows/columns in the datarange</param>
+            <param name="dataRange">The data for the sparkline group</param>
+            <returns></returns>
+        </member>
         <member name="P:OfficeOpenXml.Sparkline.ExcelSparklineGroupCollection.Item(System.Int32)">
             <summary>
             Returns the sparklinegroup at the specified position.  
             </summary>
             <param name="index">The position of the Sparklinegroup. 0-base</param>
             <returns></returns>
+        </member>
+        <member name="M:OfficeOpenXml.Sparkline.ExcelSparklineGroupCollection.RemoveAt(System.Int32)">
+            <summary>
+            Removes the sparkline.
+            </summary>
+            <param name="index">The index of the item to be removed</param>
+        </member>
+        <member name="M:OfficeOpenXml.Sparkline.ExcelSparklineGroupCollection.Remove(OfficeOpenXml.Sparkline.ExcelSparklineGroup)">
+            <summary>
+            Removes the sparkline.
+            </summary>
+            <param name="sparklineGroup">The sparklinegroup to be removed</param>
         </member>
         <member name="M:OfficeOpenXml.Style.Dxf.DxfStyleBase`1.SetValueEnum(OfficeOpenXml.XmlHelper,System.String,System.Enum)">
             <summary>

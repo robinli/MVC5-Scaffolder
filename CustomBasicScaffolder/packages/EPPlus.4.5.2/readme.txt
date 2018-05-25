@@ -1,4 +1,4 @@
-EPPlus 4.5.1
+EPPlus 4.5.2
 
 New features in version 4.5:
 * .NET Core support
@@ -26,6 +26,13 @@ apt-get install libgdiplus
 EPPlus-A .NET Spreadsheet API
 
 Changes
+4.5.2
+* Upgraded System.Drawing.Common to 4.5.0-rc1
+* Optimized image handling
+* External Streams are not closed when disposing the package
+* Fixed issue with Floor and Celing functions
+* And more bugfixes, see https://github.com/JanKallman/EPPlus/commits/master
+ 
 4.5.1
 * Added web sample for .NET Core from Vahid Nasiri
 * Added sparkline sample to sample project

@@ -1668,14 +1668,16 @@
   border-radius: 0;
 }
 .datagrid-toolbar{ padding:10px 10px !important;}
-.datagrid-toolbar .textbox,
-.datagrid-toolbar .textbox-icon,
-.datagrid-toolbar .textbox-text,
-.datagrid-toolbar .l-btn,
-.datagrid .panel-footer .l-btn,
-.datagrid-toolbar .searchbox-button,
-.datagrid-toolbar .textbox-label
-{height:36px !important;}
+    .datagrid-toolbar .textbox,
+    .datagrid-toolbar .textbox-icon,
+    .datagrid-toolbar .textbox-text,
+    .datagrid-toolbar .l-btn,
+    .datagrid .panel-footer .l-btn,
+    .datagrid-toolbar .searchbox-button,
+    .datagrid-toolbar .textbox-label {
+        height: 36px !important;
+        margin: 0px 0px 0px 4px;
+    }
 .datagrid-toolbar .textbox-label
 { line-height: 36px !important; }
 .datagrid-toolbar .l-btn .l-btn-left .l-btn-text

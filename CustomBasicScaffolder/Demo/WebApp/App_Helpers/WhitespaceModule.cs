@@ -36,13 +36,8 @@ public class WhitespaceModule : IHttpModule
     void context_BeginRequest(object sender, EventArgs e)
     {
         HttpApplication app = sender as HttpApplication;
-        if (app.Response.ContentType.Equals("text/html", StringComparison.OrdinalIgnoreCase))
-        {
-            app.Response.Filter = new WhitespaceFilter(app.Response.Filter);
-        }else if (app.Request.RawUrl.Contains(".aspx"))
-        {
-            app.Response.Filter = new WhitespaceFilter(app.Response.Filter);
-        }else if(app.Request.CurrentExecutionFilePath.EndsWith("/") || app.Request.CurrentExecutionFilePath.EndsWith(".cshtml"))
+         
+        if(app.Request.CurrentExecutionFilePath.EndsWith("/") || app.Request.CurrentExecutionFilePath.EndsWith(".cshtml"))
         {
             app.Response.Filter = new WhitespaceFilter(app.Response.Filter);
         }
