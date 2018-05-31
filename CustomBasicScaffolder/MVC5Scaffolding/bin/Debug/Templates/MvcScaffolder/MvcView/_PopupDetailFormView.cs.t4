@@ -14,6 +14,7 @@
                     closed:true,
                     iconcls:'icon-menu'
                     " style="width:960px;height:520px">
+    <!--begin form表单界面-->
     <form id="<#=entityName.ToLower()#>_form" class="easyui-form form-horizontal" method="post" data-options="novalidate:true">
   @Html.AntiForgeryToken()
  <table class="table table-bordered">
@@ -230,8 +231,8 @@
     </tfoot>
 </table>
 
-
-<!--输出form表单界面-->
+</form>
+<!--end form表单界面-->
 <!--========================================================================================-->
  <#
     if( GenerateMasterDetailRelationship && OneToManyModelMetadata.Count>0)
@@ -588,6 +589,7 @@
                 .done(function (response) {
                     if (response.success) {
                         $.messager.alert("提示", "保存成功！");
+                        $('#detailswindow').window("close");
                     } else {
                         $.messager.alert("错误", "保存失败！" + response.err, "error");
                     }

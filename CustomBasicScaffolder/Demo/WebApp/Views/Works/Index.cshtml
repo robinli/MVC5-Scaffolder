@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<WebApp.Models.Work>
 @{
-	ViewBag.Title = "工单任务";
+	ViewBag.Title = "任务信息";
 }
 <!-- MAIN CONTENT -->
 <div id="content">
@@ -9,13 +9,10 @@
         <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
             <h1 class="page-title txt-color-blueDark">
                 <i class="fa fa-table fa-fw "></i>
-                @{ 
-                  //TODO:fix quick navigation path
-                 }
-                路径
+                Home
                 <span>
                     >
-                  工单任务
+                  任务信息
                 </span>
             </h1>
         </div>
@@ -47,7 +44,7 @@
                     -->
                     <header>
                         <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-                        <h2>工单任务</h2>
+                        <h2>任务信息</h2>
                     </header>
 
                      <!-- widget div-->
@@ -59,15 +56,12 @@
                         <!-- end widget edit box -->
                         <!-- widget content -->
                         <div class="widget-body no-padding">
-                             @{ 
-                                //TODO:fix datagrid view alert-warning messages
-                              }
                             <div class="alert alert-warning no-margin fade in">
                                 <button class="close" data-dismiss="alert">
                                     ×
                                 </button>
                                 <i class="fa-fw fa fa-info"></i>
-                                A combined table effect with all classes mentioned above added to  
+                                注意事项:
                             </div>
 	 <!--begin datagrid-content -->
 	 <div class="table-responsive">
@@ -310,6 +304,7 @@
 				        pagination: true,
                         striped:true,   
                         columns: [[
+                         /*开启CheckBox选择功能*/
                          /*{ field: 'ck', checkbox: true },*/
                          { 
                             field: '_operate1',
@@ -321,153 +316,144 @@
                                         return '<a onclick="showDetailsWindow(' + row.Id + ')" class="btn btn-default btn-sm" href="javascript:void(0)"><i class="fa fa-list"></i> 查看明细</a>';
                                     }
                           },
-                        					/*{field:'Id',width:80 ,sortable:true,resizable:true }*/
-		                    							 {
-              field:'Name', 
-              title:'@Html.DisplayNameFor(model => model.Name)', 
-              width:140,
-              editor:{
-                      type:'textbox',
-                      options:{ prompt:'Name',required:false ,validType:'length[0,50]'  }  
-                     },
-              sortable:true,
-              resizable:true 
-              },
-				                    							 {
-              field:'Status', 
-              title:'@Html.DisplayNameFor(model => model.Status)', 
-              width:140,
-              editor:{
-                      type:'textbox',
-                      options:{ prompt:'Status',required:false ,validType:'length[0,50]'  }  
-                     },
-              sortable:true,
-              resizable:true 
-              },
-				                    						    {
-              field:'StartDate', 
-              title:'@Html.DisplayNameFor(model => model.StartDate)', 
-              width:160, 
-              align:'right', 
-              editor:{
+		     /*{field:'Id',width:80 ,sortable:true,resizable:true }*/
+			{
+                 field:'Name', 
+                 title:'@Html.DisplayNameFor(model => model.Name)', 
+                 width:140,
+                 editor:{
+                          type:'textbox',
+                          options:{ prompt:'Name',required:false ,validType:'length[0,50]'  }  
+                       },
+                 sortable:true,
+                 resizable:true 
+			},
+            {
+                 field:'Status',
+                 title:'@Html.DisplayNameFor(model => model.Status)', 
+                 width:100,
+                 align:'right',
+			     editor:{ 
+                       /*需要在键值对中维护status枚举值并生成JavaScript才能使用*/
+                       type:'statuseditor',
+					   options:{
+						     	prompt:'Status' ,
+								required:false
+                                } 
+					   },
+			     formatter: statusformatter
+			},
+			{
+                field:'StartDate', 
+                title:'@Html.DisplayNameFor(model => model.StartDate)', 
+                width:160, 
+                align:'right', 
+                editor:{
                       type:'datebox',
                       options:{prompt:'StartDate',required:true}  
                       },
-              sortable:true, 
-              resizable:true, 
-              formatter:dateformatter 
-             },
-				                    						    {
-              field:'EndDate', 
-              title:'@Html.DisplayNameFor(model => model.EndDate)', 
-              width:160, 
-              align:'right', 
-              editor:{
+                sortable:true, 
+                resizable:true, 
+                formatter:dateformatter 
+			},
+			{
+                field:'EndDate', 
+                title:'@Html.DisplayNameFor(model => model.EndDate)', 
+                width:160, 
+                align:'right', 
+                editor:{
                       type:'datebox',
                       options:{prompt:'EndDate',required:true}  
                       },
-              sortable:true, 
-              resizable:true, 
-              formatter:dateformatter 
-             },
-				                    							 {
+                sortable:true, 
+                resizable:true, 
+                formatter:dateformatter 
+			},
+			{
                field:'Enableed', 
                title:'@Html.DisplayNameFor(model => model.Enableed)', 
                width:120, 
                align:'center',
                editor:{
-                      type:'checkbox',
-                      options:{prompt:'Enableed', 
-                                     on:'true',
-                                     off:'false',
-                                     required:false
+                      type:'booleaneditor',
+                      options:{
+                                 prompt:'Enableed', 
+                                 required:false
                                } 
                       },
+                formatter:booleanformatter,
                 sortable:true, 
                 resizable:true 
-              },
-				                    							 {
-              field:'Hour', 
-              title:'@Html.DisplayNameFor(model => model.Hour)', 
-              width:100, 
-              align:'right',
-              editor:{
-                      type:'numberbox',
-                      options:{prompt:'Hour', required:true  ,precision:0 } 
-                     },
-              sortable:true,
-              resizable:true 
-             },
-				                    							 {
-              field:'Priority', 
-              title:'@Html.DisplayNameFor(model => model.Priority)', 
-              width:100, 
-              align:'right',
-              editor:{
-                      type:'numberbox',
-                      options:{prompt:'Priority', required:true  ,precision:0 } 
-                     },
-              sortable:true,
-              resizable:true 
-             },
-				                    							 {
-              field:'Score', 
-              title:'@Html.DisplayNameFor(model => model.Score)', 
-              width:100, 
-              align:'right',
-              editor:{
-                      type:'numberbox',
-                      options:{prompt:'Score', required:true  ,precision:2 } 
-                     },
-              sortable:true,
-              resizable:true 
-             },
-				                                             ]]
-          
-          });
+			},
+			{
+                 field:'Hour', 
+                 title:'@Html.DisplayNameFor(model => model.Hour)', 
+                 width:100, 
+                 align:'right',
+                 editor:{
+                        type:'numberbox',
+                        options:{prompt:'Hour', required:true  ,precision:0 } 
+                        },
+                sortable:true,
+                resizable:true 
+			},
+			{
+                 field:'Priority', 
+                 title:'@Html.DisplayNameFor(model => model.Priority)', 
+                 width:100, 
+                 align:'right',
+                 editor:{
+                        type:'numberbox',
+                        options:{prompt:'Priority', required:true  ,precision:0 } 
+                        },
+                sortable:true,
+                resizable:true 
+			},
+			{
+                 field:'Score', 
+                 title:'@Html.DisplayNameFor(model => model.Score)', 
+                 width:100, 
+                 align:'right',
+                 editor:{
+                        type:'numberbox',
+                        options:{prompt:'Score', required:true  ,precision:2 } 
+                        },
+                sortable:true,
+                resizable:true 
+			},
+                         ]]
+                 });
 
            $dg.datagrid("enableFilter",[
-		   				{
+                /*需要在键值队维护好status枚举值*/
+				{
 					  field: "Status",
-					  type: "combobox",
+					  type: "statusfilter",
 					  options: {
-						   panelHeight: "auto",
-						   data: [{ value: "", text: "All" }, { value: 0, text: "启用" }, { value: 1, text: "禁用" }],
-						   onChange: function (value) {
-							  if (value == "") {
-								  $dg.datagrid("removeFilterRule", "Status");
-							  } else {
-								  $dg.datagrid("addFilterRule", {
-									  field: "Status",
-									  op: "equal",
-									  value: value
-								  });
-							  }
-							  $dg.datagrid("doFilter");
-						  }
-					  }
-				  },
-		              				{
+					
+						       }
+				 },
+				{
 					  field: "Id",
 					  type: "numberbox",
 					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
 				  },
-		   				{
+				{
 					  field: "Hour",
 					  type: "numberbox",
 					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
 				  },
-		   				{
+				{
 					  field: "Priority",
 					  type: "numberbox",
 					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
 				  },
-		   				{
+				{
 					  field: "Score",
 					  type: "numberbox",
 					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
 				  },
-		   		   				{
+				{
 					  field: "StartDate",
 					  type: "dateRange",
 					  options: {
@@ -482,7 +468,7 @@
 						  }
 					  }
 				  },
-		   				{
+				{
 					  field: "EndDate",
 					  type: "dateRange",
 					  options: {
@@ -497,21 +483,13 @@
 						  }
 					  }
 				  },
-		   		   		   ]);
+		   ]);
 	 });
 
 	
 		
-		  
-		  
-				
-        
- 
-		
-		
-		 
-
-	 </script>
+  
+			 </script>
      <script src="~/Scripts/jquery.filerupload.js"></script>
 }
 

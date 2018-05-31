@@ -6,12 +6,13 @@
                     closed:true,
                     iconcls:'icon-menu'
                     " style="width:960px;height:520px">
+    <!--begin form表单界面-->
     <form id="work_form" class="easyui-form form-horizontal" method="post" data-options="novalidate:true">
   @Html.AntiForgeryToken()
  <table class="table table-bordered">
     <thead>
                 <tr>
-                    <td colspan="6">
+                    <td colspan="4">
                         <div class="btn-group">
                             <button type="button" class="btn btn-default" onclick="saveitem()">
                                 <i class="fa fa-floppy-o"></i>
@@ -63,7 +64,9 @@
                                 width:200,
 								 required:false ,validType:'length[0,50]'" />
 			  				   </td>
-	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.Status)  </td>
+	   	   </tr>
+	   	    <tr>
+      	   <td class="control-label">   @Html.DisplayNameFor(model => model.Status)  </td>
 	   <td> 
 			   			  			<input id="@Html.IdFor(model => model.Status)" 
 				   name="@Html.NameFor(model => model.Status)" 
@@ -76,9 +79,7 @@
                                 width:200,
 								 required:false ,validType:'length[0,50]'" />
 			  				   </td>
-	   	   </tr>
-	   	    <tr>
-      	   <td class="control-label">   @Html.DisplayNameFor(model => model.StartDate)  </td>
+	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.StartDate)  </td>
 	   <td> 
 			   			  			<input id="@Html.IdFor(model => model.StartDate)" 
 			       name="@Html.NameFor(model => model.StartDate)" 
@@ -92,7 +93,9 @@
 								 required:true,
 								 formatter:dateformatter" />
 			  				   </td>
-	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.EndDate)  </td>
+	   	   </tr>
+	   	    <tr>
+      	   <td class="control-label">   @Html.DisplayNameFor(model => model.EndDate)  </td>
 	   <td> 
 			   			  			<input id="@Html.IdFor(model => model.EndDate)" 
 			       name="@Html.NameFor(model => model.EndDate)" 
@@ -145,7 +148,9 @@
                                 width:200,
 								 required:true ,precision:0" />
               				   </td>
-	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.Score)  </td>
+	   	   </tr>
+	   	    <tr>
+      	   <td class="control-label">   @Html.DisplayNameFor(model => model.Score)  </td>
 	   <td> 
 			   			  			<input id="@Html.IdFor(model => model.Score)"
 				   name="@Html.NameFor(model => model.Score)" 
@@ -158,9 +163,7 @@
                                 width:200,
 								 required:true ,precision:2" />
               				   </td>
-	   	   </tr>
-	   	    <tr>
-      	   <td class="control-label">   @Html.DisplayNameFor(model => model.CreatedDate)  </td>
+	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.CreatedDate)  </td>
 	   <td> 
 			   			  			<input id="@Html.IdFor(model => model.CreatedDate)" 
 			       name="@Html.NameFor(model => model.CreatedDate)" 
@@ -174,7 +177,9 @@
 								 required:false,
 								 formatter:dateformatter" />
 			  				   </td>
-	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.CreatedBy)  </td>
+	   	   </tr>
+	   	    <tr>
+      	   <td class="control-label">   @Html.DisplayNameFor(model => model.CreatedBy)  </td>
 	   <td> 
 			   			  			<input id="@Html.IdFor(model => model.CreatedBy)" 
 				   name="@Html.NameFor(model => model.CreatedBy)" 
@@ -217,7 +222,6 @@
 								 required:false ,validType:'length[0,20]'" />
 			  				   </td>
 	   	    		<td></td> <td></td>
-			<td></td> <td></td>
 		     </tr>
 	    <tfoot>
         <tr>
@@ -225,8 +229,8 @@
     </tfoot>
 </table>
 
-
-<!--输出form表单界面-->
+</form>
+<!--end form表单界面-->
 <!--========================================================================================-->
  </form>
 </div>
@@ -258,6 +262,7 @@
                 .done(function (response) {
                     if (response.success) {
                         $.messager.alert("提示", "保存成功！");
+                        $('#detailswindow').window("close");
                     } else {
                         $.messager.alert("错误", "保存失败！" + response.err, "error");
                     }

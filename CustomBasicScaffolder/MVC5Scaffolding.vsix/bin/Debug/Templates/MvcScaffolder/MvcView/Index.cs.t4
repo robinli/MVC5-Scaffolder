@@ -20,10 +20,7 @@
         <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
             <h1 class="page-title txt-color-blueDark">
                 <i class="fa fa-table fa-fw "></i>
-                @{ 
-                  //TODO:fix quick navigation path
-                 }
-                路径
+                Home
                 <span>
                     >
                   <#= PageTitle #>
@@ -70,15 +67,12 @@
                         <!-- end widget edit box -->
                         <!-- widget content -->
                         <div class="widget-body no-padding">
-                             @{ 
-                                //TODO:fix datagrid view alert-warning messages
-                              }
                             <div class="alert alert-warning no-margin fade in">
                                 <button class="close" data-dismiss="alert">
                                     ×
                                 </button>
                                 <i class="fa-fw fa fa-info"></i>
-                                A combined table effect with all classes mentioned above added to  
+                                注意事项:
                             </div>
 	 <!--begin datagrid-content -->
 	 <div class="table-responsive">
@@ -333,6 +327,7 @@
 				        pagination: true,
                         striped:true,   
                         columns: [[
+                         /*开启CheckBox选择功能*/
                          /*{ field: 'ck', checkbox: true },*/
                          { 
                             field: '_operate1',
@@ -344,7 +339,7 @@
                                         return '<a onclick="showDetailsWindow(' + row.Id + ')" class="btn btn-default btn-sm" href="javascript:void(0)"><i class="fa fa-list"></i> 查看明细</a>';
                                     }
                           },
-                        <#
+<#
 IEnumerable<PropertyMetadata> properties = ModelMetadata.Properties;
 foreach (PropertyMetadata property in properties) {
 		var tdalign=property.ShortTypeName=="string"?"left":"right";
@@ -368,24 +363,25 @@ foreach (PropertyMetadata property in properties) {
 		//    continue;
 		//}
 #>
-		<# if ( property.IsPrimaryKey || property.IsReadOnly) { #>
-			/*{field:'<#= property.PropertyName  #>',width:80 ,sortable:true,resizable:true }*/
-		<# } else if (property.IsForeignKey) { 
+<# if ( property.IsPrimaryKey || property.IsReadOnly) { 
+#>
+		     /*{field:'<#= property.PropertyName  #>',width:80 ,sortable:true,resizable:true }*/
+<# } else if (property.IsForeignKey) { 
 			   string foreignKeyPropertyName = property.PropertyName;
 			   RelatedModelMetadata relatedModel = GetRelatedModelMetadata(foreignKeyPropertyName,ModelMetadata);
-		#>
+#>
 			{
-             field:'<#= foreignKeyPropertyName  #>',
-             title:'@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)',
-             width:160, 
-             sortable:true, 
-             resizable:true,
-             formatter:function(value,row) {
-							return row.<#= GetRelatedDisplayNameExpression(foreignKeyPropertyName,ModelMetadata)  #>;
-						},
-			 editor:{
-					 type:'combobox',
-					 options:{
+                field:'<#= foreignKeyPropertyName  #>',
+                title:'@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)',
+                width:160, 
+                sortable:true, 
+                resizable:true,
+                formatter:function(value,row) {
+				        return row.<#= GetRelatedDisplayNameExpression(foreignKeyPropertyName,ModelMetadata)  #>;
+					},
+			    editor:{
+					    type:'combobox',
+					    options:{
 								prompt:'<#= prompt #>' ,
                                 mode: 'remote',
 								valueField:'<#= relatedModel.PrimaryKeyNames[0]  #>',
@@ -395,111 +391,123 @@ foreach (PropertyMetadata property in properties) {
 								required:<#= isRequired.ToString().ToLower() #>
 							}
 						}
-             },
-		<# } else { #>
-		<#
-			if(fieldtypename=="string") {
-		#>
-			 {
-              field:'<#= property.PropertyName #>', 
-              title:'@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)', 
-              width:140,
-              editor:{
-                      type:'textbox',
-                      options:{ prompt:'<#= prompt #>',required:<#= isRequired.ToString().ToLower() #> <#= maxLength #>  }  
-                     },
-              sortable:true,
-              resizable:true 
-              },
-		<# } else if(fieldtypename=="int" || fieldtypename=="float"|| fieldtypename=="decimal") {
-			 if(property.PropertyName=="Status") {
-		#>
-			 {
-              field:'<#= property.PropertyName #>',
-              title:'@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)', 
-              width:100,
-              align:'right',
-			  editor:{ 
-                       type:'combobox',
+			},
+<#  } else {  
+    	if(fieldtypename=="string") {
+         if(property.PropertyName=="Status")  {
+#>
+            {
+                 field:'<#= property.PropertyName #>',
+                 title:'@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)', 
+                 width:100,
+                 align:'right',
+			     editor:{ 
+                       /*需要在键值对中维护status枚举值并生成JavaScript才能使用*/
+                       type:'statuseditor',
 					   options:{
 						     	prompt:'<#= prompt #>' ,
-								panelHeight: 'auto',
-								data: [ { value: 0, text: '启用' },
-										{ value: 1, text: '禁用' } ],
 								required:<#= isRequired.ToString().ToLower() #>
                                 } 
-					  },
-			   formatter: function(value,row,index){
-					               	 switch (value) {
-									       case 0:
-											 return '启用';
-										   case 1:
-										     return '禁用';
-										   default: 
-											 return value ;
-										 }
-			      }
-              },
-		<#   } else {  #>
-			 {
-              field:'<#=  property.PropertyName  #>', 
-              title:'@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)', 
-              width:100, 
-              align:'right',
-              editor:{
-                      type:'numberbox',
-                      options:{prompt:'<#= prompt #>', required:<#= isRequired.ToString().ToLower() #>  <#= maxLength #> } 
-                     },
-              sortable:true,
-              resizable:true 
-             },
-		<#   }   } else if(fieldtypename=="DateTime" ) {
-		#>
-		    {
-              field:'<#=  property.PropertyName  #>', 
-              title:'@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)', 
-              width:160, 
-              align:'right', 
-              editor:{
+					   },
+			     formatter: statusformatter
+			},
+<#    }  else  {  
+#>
+			{
+                 field:'<#= property.PropertyName #>', 
+                 title:'@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)', 
+                 width:140,
+                 editor:{
+                          type:'textbox',
+                          options:{ prompt:'<#= prompt #>',required:<#= isRequired.ToString().ToLower() #> <#= maxLength #>  }  
+                       },
+                 sortable:true,
+                 resizable:true 
+			},
+<# } } else if(fieldtypename=="int" || fieldtypename=="float"|| fieldtypename=="decimal") {
+			 if(property.PropertyName=="Status") {
+#>
+			{
+                 field:'<#= property.PropertyName #>',
+                 title:'@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)', 
+                 width:100,
+                 align:'right',
+			     editor:{ 
+                       /*需要在键值对中维护status枚举值并生成JavaScript才能使用*/
+                       type:'statuseditor',
+					   options:{
+						     	prompt:'<#= prompt #>' ,
+								required:<#= isRequired.ToString().ToLower() #>
+                                } 
+					   },
+			     formatter: statusformatter
+			},
+<#   } else {  
+#>
+			{
+                 field:'<#=  property.PropertyName  #>', 
+                 title:'@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)', 
+                 width:100, 
+                 align:'right',
+                 editor:{
+                        type:'numberbox',
+                        options:{prompt:'<#= prompt #>', required:<#= isRequired.ToString().ToLower() #>  <#= maxLength #> } 
+                        },
+                sortable:true,
+                resizable:true 
+			},
+<#   }   } else if(fieldtypename=="DateTime" ) {
+#>
+			{
+                field:'<#=  property.PropertyName  #>', 
+                title:'@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)', 
+                width:160, 
+                align:'right', 
+                editor:{
                       type:'datebox',
                       options:{prompt:'<#= prompt #>',required:<#= isRequired.ToString().ToLower() #>}  
                       },
-              sortable:true, 
-              resizable:true, 
-              formatter:dateformatter 
-             },
-		<# } else if(fieldtypename=="bool" || fieldtypename=="Boolean" ){ #>
-			 {
+                sortable:true, 
+                resizable:true, 
+                formatter:dateformatter 
+			},
+<# } else if(fieldtypename=="bool" || fieldtypename=="Boolean" ){ 
+#>
+			{
                field:'<#= property.PropertyName #>', 
                title:'@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)', 
                width:120, 
                align:'center',
                editor:{
-                      type:'checkbox',
-                      options:{prompt:'<#= prompt #>', 
-                                     on:'true',
-                                     off:'false',
-                                     required:<#= isRequired.ToString().ToLower() #>
+                      type:'booleaneditor',
+                      options:{
+                                 prompt:'<#= prompt #>', 
+                                 required:<#= isRequired.ToString().ToLower() #>
                                } 
                       },
+                formatter:booleanformatter,
                 sortable:true, 
                 resizable:true 
-              },
-		<# }  else  if ( fieldtypename=="bool" ) { #>
+			},
+<# }  else  if ( fieldtypename=="bool" ) { 
+#>
 			 {
                 field:'<#= property.PropertyName #>',  
                 title:'@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)', width:120, 
+                width:120,
                 editor: {
-                        type:'combobox',
+                        type:'booleaneditor',
 						options:{
 								    prompt:'<#= prompt #>' ,
-									panelHeight: 'auto',
-									data: [ { value: 'true', text: 'true' },{ value: 'false', text: 'false' } ],
 									required:<#= isRequired.ToString().ToLower() #>
                                  }
-                       }
-               },
-		    <# } else { #>
+                       },
+                formatter:booleanformatter,
+                sortable:true, 
+                resizable:true 
+			 },
+<# } else { 
+#>
 			{
                field:'<#= property.PropertyName #>', 
                title:'@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)', 
@@ -514,60 +522,47 @@ foreach (PropertyMetadata property in properties) {
                 sortable:true, 
                 resizable:true 
               },
-		<# } #>
-		<#            } #>
-                    <#
+<# } #>
+<#            } #>
+<#
 	                      }
                         }
-                        #>
+#>
                          ]]
-          
-          });
+                 });
 
            $dg.datagrid("enableFilter",[
-		   <# 
+<# 
 				foreach(var property in  ModelMetadata.Properties.Where(x=>x.PropertyName=="Status" && x.Scaffold==true))
 				{
-		   #>
+#>
+                /*需要在键值队维护好status枚举值*/
 				{
 					  field: "<#= property.PropertyName #>",
-					  type: "combobox",
+					  type: "statusfilter",
 					  options: {
-						   panelHeight: "auto",
-						   data: [{ value: "", text: "All" }, { value: 0, text: "启用" }, { value: 1, text: "禁用" }],
-						   onChange: function (value) {
-							  if (value == "") {
-								  $dg.datagrid("removeFilterRule", "<#= property.PropertyName #>");
-							  } else {
-								  $dg.datagrid("addFilterRule", {
-									  field: "<#= property.PropertyName #>",
-									  op: "equal",
-									  value: value
-								  });
-							  }
-							  $dg.datagrid("doFilter");
-						  }
-					  }
-				  },
-		   <# 
+					
+						       }
+				 },
+<# 
 				}
-		   #>
-           <# 
+#>
+<# 
 				foreach(var property in  ModelMetadata.Properties.Where(x=> x.IsForeignKey==false && (x.ShortTypeName=="float" || x.ShortTypeName=="decimal" || x.ShortTypeName=="double" || x.ShortTypeName=="int") && x.Scaffold==true))
 				{
-		   #>
+#>
 				{
 					  field: "<#= property.PropertyName #>",
 					  type: "numberbox",
 					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
 				  },
-		   <# 
+<# 
 				}
-		   #>
-		   <# 
+#>
+<# 
 				foreach(var property in  ModelMetadata.Properties.Where(x=>x.ShortTypeName=="DateTime" && x.Scaffold==true))
 				{
-		   #>
+#>
 				{
 					  field: "<#= property.PropertyName #>",
 					  type: "dateRange",
@@ -583,15 +578,15 @@ foreach (PropertyMetadata property in properties) {
 						  }
 					  }
 				  },
-		   <# 
+<# 
 				}
-		   #>
-		   <# 
+#>
+<# 
 			foreach(var property in  ModelMetadata.Properties.Where(x=>x.IsForeignKey==true && x.Scaffold==true))
 			{
 			   string foreignKeyPropertyName = property.PropertyName;
 			   RelatedModelMetadata relatedModel = GetRelatedModelMetadata(foreignKeyPropertyName,ModelMetadata);
-		   #>
+#>
 		   {
 				 field: "<#= foreignKeyPropertyName #>",
 				 type:"combobox",
@@ -614,28 +609,20 @@ foreach (PropertyMetadata property in properties) {
 						}
 					}
 		   },
-		   <# 
+<# 
 			} 
-		   #>
+#>
 		   ]);
 	 });
 
 	
 		
-		  
-		  
+  
 		<# 
 			var primaryKey = ModelMetadata.PrimaryKeys[0].PropertyName;
 			var foreignKeyVar = ModelTypeName.ToLower() + primaryKey.ToLower();
 			var foreignKey = ModelTypeName+ primaryKey;
 		#>
-		
-        
- 
-		
-		
-		 
-
 	 </script>
      <script src="~/Scripts/jquery.filerupload.js"></script>
 }

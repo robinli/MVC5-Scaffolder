@@ -26,7 +26,7 @@ function accounttypeformatter(value, row, index) {
  } 
 //for datagrid   AccountType  field filter 
 $.extend($.fn.datagrid.defaults.filters, {
-accounttypecombobox: {
+accounttypefilter: {
      init: function(container, options) {
         var input = $('<input type="text">').appendTo(container);
         var myoptions = {
@@ -53,7 +53,7 @@ accounttypecombobox: {
 });
 //for datagrid   AccountType   field  editor 
 $.extend($.fn.datagrid.defaults.editors, {
-accounttypecombobox: {
+accounttypeeditor: {
      init: function(container, options) {
         var input = $('<input type="text">').appendTo(container);
         var myoptions = {
@@ -128,7 +128,7 @@ function filetypeformatter(value, row, index) {
  } 
 //for datagrid   FileType  field filter 
 $.extend($.fn.datagrid.defaults.filters, {
-filetypecombobox: {
+filetypefilter: {
      init: function(container, options) {
         var input = $('<input type="text">').appendTo(container);
         var myoptions = {
@@ -155,7 +155,7 @@ filetypecombobox: {
 });
 //for datagrid   FileType   field  editor 
 $.extend($.fn.datagrid.defaults.editors, {
-filetypecombobox: {
+filetypeeditor: {
      init: function(container, options) {
         var input = $('<input type="text">').appendTo(container);
         var myoptions = {
@@ -206,7 +206,7 @@ function isdisabledformatter(value, row, index) {
  } 
 //for datagrid   IsDisabled  field filter 
 $.extend($.fn.datagrid.defaults.filters, {
-isdisabledcombobox: {
+isdisabledfilter: {
      init: function(container, options) {
         var input = $('<input type="text">').appendTo(container);
         var myoptions = {
@@ -233,7 +233,7 @@ isdisabledcombobox: {
 });
 //for datagrid   IsDisabled   field  editor 
 $.extend($.fn.datagrid.defaults.editors, {
-isdisabledcombobox: {
+isdisablededitor: {
      init: function(container, options) {
         var input = $('<input type="text">').appendTo(container);
         var myoptions = {
@@ -284,7 +284,7 @@ function isenabledformatter(value, row, index) {
  } 
 //for datagrid   IsEnabled  field filter 
 $.extend($.fn.datagrid.defaults.filters, {
-isenabledcombobox: {
+isenabledfilter: {
      init: function(container, options) {
         var input = $('<input type="text">').appendTo(container);
         var myoptions = {
@@ -311,7 +311,7 @@ isenabledcombobox: {
 });
 //for datagrid   IsEnabled   field  editor 
 $.extend($.fn.datagrid.defaults.editors, {
-isenabledcombobox: {
+isenablededitor: {
      init: function(container, options) {
         var input = $('<input type="text">').appendTo(container);
         var myoptions = {
@@ -362,7 +362,7 @@ function isnewformatter(value, row, index) {
  } 
 //for datagrid   IsNew  field filter 
 $.extend($.fn.datagrid.defaults.filters, {
-isnewcombobox: {
+isnewfilter: {
      init: function(container, options) {
         var input = $('<input type="text">').appendTo(container);
         var myoptions = {
@@ -389,7 +389,7 @@ isnewcombobox: {
 });
 //for datagrid   IsNew   field  editor 
 $.extend($.fn.datagrid.defaults.editors, {
-isnewcombobox: {
+isneweditor: {
      init: function(container, options) {
         var input = $('<input type="text">').appendTo(container);
         var myoptions = {
@@ -440,7 +440,7 @@ function isnoticeformatter(value, row, index) {
  } 
 //for datagrid   IsNotice  field filter 
 $.extend($.fn.datagrid.defaults.filters, {
-isnoticecombobox: {
+isnoticefilter: {
      init: function(container, options) {
         var input = $('<input type="text">').appendTo(container);
         var myoptions = {
@@ -467,7 +467,7 @@ isnoticecombobox: {
 });
 //for datagrid   IsNotice   field  editor 
 $.extend($.fn.datagrid.defaults.editors, {
-isnoticecombobox: {
+isnoticeeditor: {
      init: function(container, options) {
         var input = $('<input type="text">').appendTo(container);
         var myoptions = {
@@ -520,7 +520,7 @@ function messagegroupformatter(value, row, index) {
  } 
 //for datagrid   MessageGroup  field filter 
 $.extend($.fn.datagrid.defaults.filters, {
-messagegroupcombobox: {
+messagegroupfilter: {
      init: function(container, options) {
         var input = $('<input type="text">').appendTo(container);
         var myoptions = {
@@ -547,7 +547,7 @@ messagegroupcombobox: {
 });
 //for datagrid   MessageGroup   field  editor 
 $.extend($.fn.datagrid.defaults.editors, {
-messagegroupcombobox: {
+messagegroupeditor: {
      init: function(container, options) {
         var input = $('<input type="text">').appendTo(container);
         var myoptions = {
@@ -600,7 +600,7 @@ function messagetypeformatter(value, row, index) {
  } 
 //for datagrid   MessageType  field filter 
 $.extend($.fn.datagrid.defaults.filters, {
-messagetypecombobox: {
+messagetypefilter: {
      init: function(container, options) {
         var input = $('<input type="text">').appendTo(container);
         var myoptions = {
@@ -627,7 +627,7 @@ messagetypecombobox: {
 });
 //for datagrid   MessageType   field  editor 
 $.extend($.fn.datagrid.defaults.editors, {
-messagetypecombobox: {
+messagetypeeditor: {
      init: function(container, options) {
         var input = $('<input type="text">').appendTo(container);
         var myoptions = {
@@ -661,6 +661,10 @@ statusfiltersource.push({ value: '0',text:'新增'  });
 statusdatasource.push({ value: '0',text:'新增'  });
 statusfiltersource.push({ value: '1',text:'修改'  });
 statusdatasource.push({ value: '1',text:'修改'  });
+statusfiltersource.push({ value: '2',text:'异常'  });
+statusdatasource.push({ value: '2',text:'异常'  });
+statusfiltersource.push({ value: '3',text:'关闭'  });
+statusdatasource.push({ value: '3',text:'关闭'  });
 //for datagrid Status field  formatter
 function statusformatter(value, row, index) { 
      if (value === null || value === '' || value === undefined) 
@@ -678,7 +682,7 @@ function statusformatter(value, row, index) {
  } 
 //for datagrid   Status  field filter 
 $.extend($.fn.datagrid.defaults.filters, {
-statuscombobox: {
+statusfilter: {
      init: function(container, options) {
         var input = $('<input type="text">').appendTo(container);
         var myoptions = {
@@ -705,7 +709,7 @@ statuscombobox: {
 });
 //for datagrid   Status   field  editor 
 $.extend($.fn.datagrid.defaults.editors, {
-statuscombobox: {
+statuseditor: {
      init: function(container, options) {
         var input = $('<input type="text">').appendTo(container);
         var myoptions = {

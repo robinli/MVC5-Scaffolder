@@ -311,16 +311,16 @@
                         striped:true,   
                         columns: [[
                          /*{ field: 'ck', checkbox: true },*/
-                         { 
-                            field: '_operate1',
-                            title:'操作',
-                            width: 120,
-                            sortable: false,
-                            resizable: true,
-                            formatter: function showdetailsformatter(value, row, index) {
-                                        return '<a onclick="showDetailsWindow(' + row.Id + ')" class="btn btn-default btn-sm" href="javascript:void(0)"><i class="fa fa-list"></i> 查看明细</a>';
-                                    }
-                          },
+                            {
+                                field: '_operate1',
+                                title: '操作',
+                                width: 120,
+                                sortable: false,
+                                resizable: true,
+                                formatter: function showdetailsformatter(value, row, index) {
+                                    return '<a onclick="showDetailsWindow(' + row.Id + ')" class="btn btn-default btn-sm" href="javascript:void(0)"><i class="fa fa-list"></i> 查看明细</a>';
+                                }
+                            },
                         					/*{field:'Id',width:80 ,sortable:true,resizable:true }*/
 		                    							 {
               field:'Name', 
