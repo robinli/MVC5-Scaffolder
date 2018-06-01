@@ -1,7 +1,4 @@
-﻿                    
-      
-     
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -36,35 +33,20 @@ namespace WebApp.Repositories
 				    						if (rule.field == "Id" && !string.IsNullOrEmpty(rule.value) && rule.value.IsInt())
 						{
 							int val = Convert.ToInt32(rule.value);
-							switch (rule.op) {
-                            case "equal":
+							 
                                 And(x => x.Id == val);
-                                break;
-                            case "notequal":
-                                And(x => x.Id != val);
-                                break;
-                            case "less":
-                                And(x => x.Id < val);
-                                break;
-                            case "lessorequal":
-                                And(x => x.Id <= val);
-                                break;
-                            case "greater":
-                                And(x => x.Id > val);
-                                break;
-                            case "greaterorequal" :
-                                And(x => x.Id >= val);
-                                break;
-                            default:
-                                And(x => x.Id == val);
-                                break;
-                        }
+                       
+                       
 						}
-				    
-					
-					
-				    				
-											if (rule.field == "Code"  && !string.IsNullOrEmpty(rule.value))
+
+
+
+                    if (rule.field == "CodeType" && !string.IsNullOrEmpty(rule.value))
+                    {
+                        And(x => x.CodeType.Contains(rule.value));
+                    }
+
+                    if (rule.field == "Code"  && !string.IsNullOrEmpty(rule.value))
 						{
 							And(x => x.Code.Contains(rule.value));
 						}
@@ -95,29 +77,10 @@ namespace WebApp.Repositories
 				    						if (rule.field == "IsDisabled" && !string.IsNullOrEmpty(rule.value) && rule.value.IsInt())
 						{
 							int val = Convert.ToInt32(rule.value);
-							switch (rule.op) {
-                            case "equal":
+							 
                                 And(x => x.IsDisabled == val);
-                                break;
-                            case "notequal":
-                                And(x => x.IsDisabled != val);
-                                break;
-                            case "less":
-                                And(x => x.IsDisabled < val);
-                                break;
-                            case "lessorequal":
-                                And(x => x.IsDisabled <= val);
-                                break;
-                            case "greater":
-                                And(x => x.IsDisabled > val);
-                                break;
-                            case "greaterorequal" :
-                                And(x => x.IsDisabled >= val);
-                                break;
-                            default:
-                                And(x => x.IsDisabled == val);
-                                break;
-                        }
+                              
+                    
 						}
 				    
 					

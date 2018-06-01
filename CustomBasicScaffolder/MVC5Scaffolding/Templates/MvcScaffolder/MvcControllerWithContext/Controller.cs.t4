@@ -86,7 +86,7 @@ namespace <#= Namespace #>
 	var relatedProperties = ModelMetadata.RelatedEntities.ToDictionary(item => item.AssociationPropertyName);
 	string bindAttribute;
 	var modelService= "I" + ModelTypeName + "Service";
-	var modelServiceVar= "_" + ModelVariable + "Service";
+	var modelServiceVar= "" + ModelVariable + "Service";
 	if (IsOverpostingProtectionRequired)
 	{
 		bindAttribute = String.Format("[Bind(Include = \"{0}\")] ", BindAttributeIncludeText);
@@ -99,13 +99,12 @@ namespace <#= Namespace #>
     //[Authorize]
 	public class <#= ControllerName #> : Controller
 	{
-		//private <#= ContextTypeName #> db = new <#= ContextTypeName #>();
 		private readonly <#= modelService #>  <#= modelServiceVar #>;
-		private readonly IUnitOfWorkAsync _unitOfWork;
+		private readonly IUnitOfWorkAsync unitOfWork;
 		public <#= ControllerName #> (<#= modelService #>  <#= ModelVariable  #>Service, IUnitOfWorkAsync unitOfWork)
 		{
-			<#= modelServiceVar #>  = <#= ModelVariable  #>Service;
-			_unitOfWork = unitOfWork;
+			this.<#= modelServiceVar #>  = <#= ModelVariable  #>Service;
+			this.unitOfWork = unitOfWork;
 		}
         <#  var includeExpressions = "";
         includeExpressions = String.Join("", relatedProperties.Values.Select(property => String.Format(".Include({0} => {0}.{1})", lambdaVar, property.AssociationPropertyName)));
@@ -128,23 +127,23 @@ namespace <#= Namespace #>
 			var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
 			var totalCount = 0;
 			//int pagenum = offset / limit +1;
-			<# if (UseAsync) { #>
-				<# if(!String.IsNullOrEmpty(includeExpressions)) { #>
-				var <#= modelVariablePlural #>  = await <#= modelServiceVar #>
+			<# if (UseAsync) {        #>
+				<# if(!String.IsNullOrEmpty(includeExpressions)) {    #>
+				var <#= modelVariablePlural #>  = await this.<#= modelServiceVar #>
 						               .Query(new <#= ModelTypeName #>Query().Withfilter(filters))<#= includeExpressions #>
 							           .OrderBy(n=>n.OrderBy(sort,order))
 							           .SelectPageAsync(page, rows, out totalCount);
-				<#  } else { #>
-				var <#= modelVariablePlural #>  = await  <#= modelServiceVar #>
+				<#  } else {          #>
+				var <#= modelVariablePlural #>  = await  this.<#= modelServiceVar #>
 						               .Query(new <#= ModelTypeName #>Query().Withfilter(filters))
 							           .OrderBy(n=>n.OrderBy(sort,order))
 							           .SelectPageAsync(page, rows, out totalCount);
       			<#  } #>
-			<# } else { #>
+			<# } else {           #>
 				<# if(!String.IsNullOrEmpty(includeExpressions)) { #>
-				var <#= modelVariablePlural #>  = <#= modelServiceVar #>.Query(new <#= ModelTypeName #>Query().Withfilter(filters))<#= includeExpressions #>.OrderBy(n=>n.OrderBy(sort,order)).SelectPage(page, rows, out totalCount);
+				var <#= modelVariablePlural #>  = this.<#= modelServiceVar #>.Query(new <#= ModelTypeName #>Query().Withfilter(filters))<#= includeExpressions #>.OrderBy(n=>n.OrderBy(sort,order)).SelectPage(page, rows, out totalCount);
 				<#  } else { #>
-				var <#= modelVariablePlural #>  = <#= modelServiceVar #>.Query(new <#= ModelTypeName #>Query().Withfilter(filters)).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(page, rows, out totalCount);
+				var <#= modelVariablePlural #>  = this.<#= modelServiceVar #>.Query(new <#= ModelTypeName #>Query().Withfilter(filters)).OrderBy(n=>n.OrderBy(sort,order)).SelectPage(page, rows, out totalCount);
 				<#  } #>
 			<# } #>
 			var datarows = <#= modelVariablePlural #> .Select( <#= SelectLambdaText #>).ToList();
@@ -165,12 +164,12 @@ namespace <#= Namespace #>
             var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
 			var totalCount = 0;
             <# if(!String.IsNullOrEmpty(includeExpressions)) { #>
-			    var <#= modelVariablePlural #>  = await <#= modelServiceVar #>
+			    var <#= modelVariablePlural #>  = await this.<#= modelServiceVar #>
 						               .Query(new <#= ModelTypeName #>Query().By<#= propertyname #>Withfilter(<#= lowerpropertyname #>,filters))<#= includeExpressions #>
 							           .OrderBy(n=>n.OrderBy(sort,order))
 							           .SelectPageAsync(page, rows, out totalCount);
 				<#  } else { #>
-				var <#= modelVariablePlural #>  = await  <#= modelServiceVar #>
+				var <#= modelVariablePlural #>  = await  this.<#= modelServiceVar #>
 						               .Query(new <#= ModelTypeName #>Query().By<#= propertyname #>Withfilter(<#= lowerpropertyname #>,filters))
 							           .OrderBy(n=>n.OrderBy(sort,order))
 							           .SelectPageAsync(page, rows, out totalCount);
@@ -190,24 +189,24 @@ namespace <#= Namespace #>
 			{
 				foreach (var item in <#= modelVariablePlural #>.updated)
 				{
-					<#= modelServiceVar #>.Update(item);
+					this.<#= modelServiceVar #>.Update(item);
 				}
 			}
 			if (<#= modelVariablePlural #>.deleted != null)
 			{
 				foreach (var item in <#= modelVariablePlural #>.deleted)
 				{
-					<#= modelServiceVar #>.Delete(item);
+					this.<#= modelServiceVar #>.Delete(item);
 				}
 			}
 			if (<#= modelVariablePlural #>.inserted != null)
 			{
 				foreach (var item in <#= modelVariablePlural #>.inserted)
 				{
-					<#= modelServiceVar #>.Insert(item);
+					this.<#= modelServiceVar #>.Insert(item);
 				}
 			}
-			await _unitOfWork.SaveChangesAsync();
+			await this.unitOfWork.SaveChangesAsync();
 			return Json(new {Success=true}, JsonRequestBehavior.AllowGet);
 		}
 		<# } else {  #>
@@ -217,24 +216,24 @@ namespace <#= Namespace #>
 			{
 				foreach (var item in <#= modelVariablePlural #>.updated)
 				{
-					<#= modelServiceVar #>.Update(item);
+					this.<#= modelServiceVar #>.Update(item);
 				}
 			}
 			if (<#= modelVariablePlural #>.deleted != null)
 			{
 				foreach (var item in <#= modelVariablePlural #>.deleted)
 				{
-					<#= modelServiceVar #>.Delete(item);
+					this.<#= modelServiceVar #>.Delete(item);
 				}
 			}
 			if (<#= modelVariablePlural #>.inserted != null)
 			{
 				foreach (var item in <#= modelVariablePlural #>.inserted)
 				{
-					<#= modelServiceVar #>.Insert(item);
+					this.<#= modelServiceVar #>.Insert(item);
 				}
 			}
-			_unitOfWork.SaveChanges();
+			this.unitOfWork.SaveChanges();
 			return Json(new {Success=true}, JsonRequestBehavior.AllowGet);
 		}
 		<# } #>
@@ -252,7 +251,7 @@ namespace <#= Namespace #>
         //[OutputCache(Duration = 360, VaryByParam = "none")]
 		public async Task<JsonResult> Get<#= relModelName #>(string q="")
 		{
-			var <#= relModelType.ToLower() #>Repository = _unitOfWork.RepositoryAsync<<#= relModelType #>>();
+			var <#= relModelType.ToLower() #>Repository = this.unitOfWork.RepositoryAsync<<#= relModelType #>>();
 			var data = await <#= relModelType.ToLower() #>Repository.Queryable().Where(n=>n.<#= relModelDisplayName #>.Contains(q)).ToListAsync();
 			var rows = data.Select(n => new { <#= relModelPk #> = n.<#= relModelPk #>, <#= relModelDisplayName #> = n.<#= relModelDisplayName #> });
 			return Json(rows, JsonRequestBehavior.AllowGet);
@@ -261,7 +260,7 @@ namespace <#= Namespace #>
         //[OutputCache(Duration = 360, VaryByParam = "none")]
 		public JsonResult Get<#= relModelName #>(string q="")
 		{
-			var <#= relModelType.ToLower() #>Repository = _unitOfWork.RepositoryAsync<<#= relModelType #>>();
+			var <#= relModelType.ToLower() #>Repository = this.unitOfWork.RepositoryAsync<<#= relModelType #>>();
 			var data = <#= relModelType.ToLower() #>Repository.Queryable().Where(n=>n.<#= relModelDisplayName #>.Contains(q)).ToList();
 			var rows = data.Select(n => new { <#= relModelPk #> = n.<#= relModelPk #>, <#= relModelDisplayName #> = n.<#= relModelDisplayName #> });
 			return Json(rows, JsonRequestBehavior.AllowGet);
@@ -289,7 +288,7 @@ namespace <#= Namespace #>
         //[OutputCache(Duration = 360, VaryByParam = "none")]
 		public async Task<JsonResult> Get<#= relModelName #>(string q="")
 		{
-			var <#= relModelType.ToLower() #>Repository = _unitOfWork.RepositoryAsync<<#= relModelType #>>();
+			var <#= relModelType.ToLower() #>Repository = this.unitOfWork.RepositoryAsync<<#= relModelType #>>();
 			var data = await <#= relModelType.ToLower() #>Repository.Queryable().Where(n=>n.<#= relModelDisplayName #>.Contains(q)).ToListAsync();
 			var rows = data.Select(n => new { <#= relModelPk #> = n.<#= relModelPk #>, <#= relModelDisplayName #> = n.<#= relModelDisplayName #> });
 			return Json(rows, JsonRequestBehavior.AllowGet);
@@ -298,7 +297,7 @@ namespace <#= Namespace #>
         //[OutputCache(Duration = 360, VaryByParam = "none")]
 		public JsonResult Get<#= relModelName #>(string q="")
 		{
-			var <#= relModelType.ToLower() #>Repository = _unitOfWork.RepositoryAsync<<#= relModelType #>>();
+			var <#= relModelType.ToLower() #>Repository = this.unitOfWork.RepositoryAsync<<#= relModelType #>>();
 			var data = <#= relModelType.ToLower() #>Repository.Queryable().Where(n=>n.<#= relModelDisplayName #>.Contains(q)).ToList();
 			var rows = data.Select(n => new { <#= relModelPk #> = n.<#= relModelPk #>, <#= relModelDisplayName #> = n.<#= relModelDisplayName #> });
 			return Json(rows, JsonRequestBehavior.AllowGet);
@@ -322,9 +321,9 @@ namespace <#= Namespace #>
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 			}
 <# if (UseAsync) { #>
-			var  <#= ModelVariable #> = await <#= modelServiceVar #>.FindAsync(id);
+			var  <#= ModelVariable #> = await this.<#= modelServiceVar #>.FindAsync(id);
 <# } else { #>
-			var <#= ModelVariable #> = <#= modelServiceVar #>.Find(id);
+			var <#= ModelVariable #> = this.<#= modelServiceVar #>.Find(id);
 <# } #>
 			if (<#= ModelVariable #> == null)
 			{
@@ -342,7 +341,7 @@ namespace <#= Namespace #>
 			var <#= ModelVariable #> = new <#= ModelTypeName #>();
 			//set default value
 <# foreach (var property in relatedProperties.Values) { #>
-			var <#= property.ShortTypeName.ToLower() #>Repository = _unitOfWork.RepositoryAsync<<#= property.ShortTypeName #>>();
+			var <#= property.ShortTypeName.ToLower() #>Repository = this.unitOfWork.RepositoryAsync<<#= property.ShortTypeName #>>();
 		   <# if (false) { #>
 			ViewBag.<#= property.ForeignKeyPropertyNames[0] #> =   new SelectList( await <#= property.ShortTypeName.ToLower() #>Repository.Queryable().ToListAsync(), "<#= property.PrimaryKeyNames[0] #>", "<#= property.DisplayPropertyName #>");
 		   <# } else { #>
@@ -391,9 +390,9 @@ namespace <#= Namespace #>
 				<#=  modelServiceVar #>.Insert(<#=            ModelVariable #>);
 		   <#    } #>
 <# if (UseAsync) {#>
-				await _unitOfWork.SaveChangesAsync();
+				await this.unitOfWork.SaveChangesAsync();
 <# } else { #>
-				_unitOfWork.SaveChanges();
+				this.unitOfWork.SaveChanges();
 <# } #>
 				if (Request.IsAjaxRequest())
 				{
@@ -411,7 +410,7 @@ namespace <#= Namespace #>
 			 DisplayErrorMessage(modelStateErrors);
 			}
 			<# foreach (var property in relatedProperties.Values) { #>
-			var <#= property.ShortTypeName.ToLower() #>Repository = _unitOfWork.RepositoryAsync<<#= property.ShortTypeName #>>();
+			var <#= property.ShortTypeName.ToLower() #>Repository = this.unitOfWork.RepositoryAsync<<#= property.ShortTypeName #>>();
 			<# if (UseAsync) { #>
 			ViewBag.<#= property.ForeignKeyPropertyNames[0] #> = new SelectList(await <#= property.ShortTypeName.ToLower() #>Repository.Queryable().ToListAsync(), "<#= property.PrimaryKeyNames[0] #>", "<#= property.DisplayPropertyName #>", <#= ModelVariable #>.<#= property.ForeignKeyPropertyNames[0] #>);
 			<# } else { #>
@@ -430,9 +429,9 @@ namespace <#= Namespace #>
 		{
 			
 <# if (UseAsync) { #>
-			var <#= ModelVariable #> = await <#= modelServiceVar #>.FindAsync(id);
+			var <#= ModelVariable #> = await this.<#= modelServiceVar #>.FindAsync(id);
 <# } else { #>
-			var <#= ModelVariable #> = <#= modelServiceVar #>.Find(id);
+			var <#= ModelVariable #> = this.<#= modelServiceVar #>.Find(id);
 <# } #>
 			return Json(<#= ModelVariable #>,JsonRequestBehavior.AllowGet);
 		}
@@ -449,16 +448,16 @@ namespace <#= Namespace #>
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 			}
 <# if (UseAsync) { #>
-			var <#= ModelVariable #> = await <#= modelServiceVar #>.FindAsync(id);
+			var <#= ModelVariable #> = await this.<#= modelServiceVar #>.FindAsync(id);
 <# } else { #>
-			var <#= ModelVariable #> = <#= modelServiceVar #>.Find(id);
+			var <#= ModelVariable #> = this.<#= modelServiceVar #>.Find(id);
 <# } #>
 			if (<#= ModelVariable #> == null)
 			{
 				return HttpNotFound();
 			}
 <# foreach (var property in relatedProperties.Values) { #>
-			var <#= property.ShortTypeName.ToLower() #>Repository = _unitOfWork.RepositoryAsync<<#= property.ShortTypeName #>>();
+			var <#= property.ShortTypeName.ToLower() #>Repository = this.unitOfWork.RepositoryAsync<<#= property.ShortTypeName #>>();
 			ViewBag.<#= property.ForeignKeyPropertyNames[0] #> = new SelectList(<#= property.ShortTypeName.ToLower() #>Repository.Queryable(), "<#= property.PrimaryKeyNames[0] #>", "<#= property.DisplayPropertyName #>", <#= ModelVariable #>.<#= property.ForeignKeyPropertyNames[0] #>);
 <# } #>
 			return View(<#= ModelVariable #>);
@@ -504,9 +503,9 @@ namespace <#= Namespace #>
 				<#=  modelServiceVar #>.Update(<#=            ModelVariable #>);
 				<#    } #>
 <# if (UseAsync) { #>
-				await   _unitOfWork.SaveChangesAsync();
+				await   this.unitOfWork.SaveChangesAsync();
 <# } else { #>
-				_unitOfWork.SaveChanges();
+				this.unitOfWork.SaveChanges();
 <# } #>
 				if (Request.IsAjaxRequest())
 				{
@@ -524,7 +523,7 @@ namespace <#= Namespace #>
 			DisplayErrorMessage(modelStateErrors);
 			}
 			<# foreach (var property in relatedProperties.Values) { #>
-			var <#= property.ShortTypeName.ToLower() #>Repository = _unitOfWork.RepositoryAsync<<#= property.ShortTypeName #>>();
+			var <#= property.ShortTypeName.ToLower() #>Repository = this.unitOfWork.RepositoryAsync<<#= property.ShortTypeName #>>();
 			<# if (UseAsync) { #>
 			ViewBag.<#= property.ForeignKeyPropertyNames[0] #> = new SelectList( await <#= property.ShortTypeName.ToLower() #>Repository.Queryable().ToListAsync(), "<#= property.PrimaryKeyNames[0] #>", "<#= property.DisplayPropertyName #>", <#= ModelVariable #>.<#= property.ForeignKeyPropertyNames[0] #>);
 			<# } else { #>
@@ -545,9 +544,9 @@ namespace <#= Namespace #>
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 			}
 <# if (UseAsync) { #>
-			var <#= ModelVariable #> = await <#= modelServiceVar #>.FindAsync(id);
+			var <#= ModelVariable #> = await this.<#= modelServiceVar #>.FindAsync(id);
 <# } else { #>
-			var <#= ModelVariable #> = <#= modelServiceVar #>.Find(id);
+			var <#= ModelVariable #> = this.<#= modelServiceVar #>.Find(id);
 <# } #>
 			if (<#= ModelVariable #> == null)
 			{
@@ -557,7 +556,7 @@ namespace <#= Namespace #>
 		}
 		// POST: <#= routePrefix #>/<#= ViewPrefix #>Delete/5
 		[HttpPost, ActionName("<#= ViewPrefix #>Delete")]
-		//[ValidateAntiForgeryToken]
+		[ValidateAntiForgeryToken]
 <# if (UseAsync) { #>
 		public async Task<ActionResult> <#= ViewPrefix #>DeleteConfirmed(<#= primaryKeyShortTypeName #> id)
 <# } else { #>
@@ -565,15 +564,15 @@ namespace <#= Namespace #>
 <# } #>
 		{
 <# if (UseAsync) { #>
-			var <#= ModelVariable #> = await  <#= modelServiceVar #>.FindAsync(id);
+			var <#= ModelVariable #> = await  this.<#= modelServiceVar #>.FindAsync(id);
 <# } else { #>
-			var <#= ModelVariable #> =  <#= modelServiceVar #>.Find(id);
+			var <#= ModelVariable #> =  this.<#= modelServiceVar #>.Find(id);
 <# } #>
-			 <#= modelServiceVar #>.Delete(<#= ModelVariable #>);
+			 this.<#= modelServiceVar #>.Delete(<#= ModelVariable #>);
 <# if (UseAsync) { #>
-			await _unitOfWork.SaveChangesAsync();
+			await this.unitOfWork.SaveChangesAsync();
 <# } else { #>
-			_unitOfWork.SaveChanges();
+			this.unitOfWork.SaveChanges();
 <# } #>
 		   if (Request.IsAjaxRequest())
 				{
@@ -608,7 +607,7 @@ namespace <#= Namespace #>
 			{
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 			}
-			var <#= varModelType #>Repository = _unitOfWork.RepositoryAsync<<#= modelTypeName #>>();
+			var <#= varModelType #>Repository = this.unitOfWork.RepositoryAsync<<#= modelTypeName #>>();
 			<# if (UseAsync) { #>
 			var <#= varModelType #> = await <#= varModelType #>Repository.FindAsync(id);
 			<# } else { #>
@@ -616,7 +615,7 @@ namespace <#= Namespace #>
 			<# } #>
 			<#  
 				foreach (var relatedproperty in subrelatedProperties.Values) { #>
-			var <#=     relatedproperty.ShortTypeName.ToLower() #>Repository = _unitOfWork.RepositoryAsync<<#=     relatedproperty.ShortTypeName #>>();             
+			var <#=     relatedproperty.ShortTypeName.ToLower() #>Repository = this.unitOfWork.RepositoryAsync<<#=     relatedproperty.ShortTypeName #>>();             
 			<#                } #>
 			if (<#= varModelType #> == null)
 			{
@@ -654,7 +653,7 @@ namespace <#= Namespace #>
 		<# } #>
 		{
 		  <# foreach (var relatedproperty in subrelatedProperties.Values) { #>
-			  var <#=     relatedproperty.ShortTypeName.ToLower() #>Repository = _unitOfWork.RepositoryAsync<<#=     relatedproperty.ShortTypeName #>>();    
+			  var <#=     relatedproperty.ShortTypeName.ToLower() #>Repository = this.unitOfWork.RepositoryAsync<<#=     relatedproperty.ShortTypeName #>>();    
 			  <# if (UseAsync) { #>
 			  ViewBag.<#=     relatedproperty.ForeignKeyPropertyNames[0] #> = new SelectList(await <#=     relatedproperty.ShortTypeName.ToLower() #>Repository.Queryable().ToListAsync(), "<#=     relatedproperty.PrimaryKeyNames[0] #>", "<#=     relatedproperty.DisplayPropertyName #>" );
 			  <# } else { #>
@@ -672,12 +671,12 @@ namespace <#= Namespace #>
 		public ActionResult Delete<#= modelTypeName #>Confirmed(<#= subModelIdType #>  id)
 		<# } #>
 		{
-			var <#= varModelType #>Repository = _unitOfWork.RepositoryAsync<<#= modelTypeName #>>();
+			var <#= varModelType #>Repository = this.unitOfWork.RepositoryAsync<<#= modelTypeName #>>();
 			<#= varModelType #>Repository.Delete(id);
 			<# if (UseAsync) { #>
-			await _unitOfWork.SaveChangesAsync();
+			await this.unitOfWork.SaveChangesAsync();
 			<# } else { #>
-			_unitOfWork.SaveChanges();
+			this.unitOfWork.SaveChanges();
 			<# } #>
 			if (Request.IsAjaxRequest())
 			{
@@ -712,7 +711,7 @@ namespace <#= Namespace #>
 		public ActionResult Get<#= property.PropertyName #>By<#= foreignKeyName #>(<#=  primaryKeyShortTypeName #> id)
 		<# } #>
 		{
-			var <#= property.PropertyName.ToLower() #> = <#= modelServiceVar #>.Get<#= property.PropertyName #>By<#= foreignKeyName #>(id);
+			var <#= property.PropertyName.ToLower() #> = this.<#= modelServiceVar #>.Get<#= property.PropertyName #>By<#= foreignKeyName #>(id);
 			if (Request.IsAjaxRequest())
 			{
 				<# if (UseAsync) { #>
@@ -735,7 +734,7 @@ namespace <#= Namespace #>
 		public ActionResult ExportExcel( string filterRules = "",string sort = "Id", string order = "asc")
 		{
 			var fileName = "<#=  modelVariablePlural   #>_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xlsx";
-			var stream=  <#= modelServiceVar #>.ExportExcel(filterRules,sort, order );
+			var stream=  this.<#= modelServiceVar #>.ExportExcel(filterRules,sort, order );
 			return File(stream, "application/vnd.ms-excel", fileName);
 		}
 		private void DisplaySuccessMessage(string msgText)

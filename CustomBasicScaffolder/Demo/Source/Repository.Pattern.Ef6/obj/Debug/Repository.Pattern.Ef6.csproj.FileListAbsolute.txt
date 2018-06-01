@@ -75,3 +75,4 @@ D:\github\mitms\miTms\Source\Repository.Pattern.Ef6\bin\Debug\LinqKit.xml
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern.Ef6\bin\Debug\Newtonsoft.Json.xml
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern.Ef6\bin\Debug\TrackableEntities.Common.xml
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern.Ef6\obj\Debug\Repository.Pattern.Ef6.csprojAssemblyReference.cache
+D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern.Ef6\bin\Debug\Z.EntityFramework.Extensions.dll
