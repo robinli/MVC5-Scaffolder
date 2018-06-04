@@ -41,6 +41,9 @@ namespace WebApp
         protected void Application_Error()
         {
             var exception = Server.GetLastError();
+
+            if (EFMigrationsManagerConfig.HandleEFMigrationException(exception, Server, Response, Context))
+                return;
             var message = exception.Message;
             var stackTrace = exception.StackTrace;
             var Source = exception.Source;
