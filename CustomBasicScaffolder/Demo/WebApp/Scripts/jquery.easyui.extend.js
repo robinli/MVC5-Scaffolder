@@ -183,7 +183,16 @@ $.extend($.fn.datagrid.defaults.editors, {
     }
 });
 
-
+// extend validatebox regex
+$.extend($.fn.validatebox.defaults.rules, {
+    regex: {
+        validator: function (value, param) {
+            var re = new RegExp(param[0]);
+            return re.test(value);
+        },
+        message: '{1}'
+    }
+});
 
 function dateformatter(value, row, index) {
    
