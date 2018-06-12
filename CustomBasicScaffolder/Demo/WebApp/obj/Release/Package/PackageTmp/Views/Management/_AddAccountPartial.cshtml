@@ -1,0 +1,37 @@
+﻿
+@using WebApp.Models
+@model AccountViewModel
+
+@using (Html.BeginForm("Account", "Management", FormMethod.Post, new { @class = "form-inline", role = "form",id="adduserform" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-group">
+
+    <div class="input-group">
+        <span class="input-group-addon"><i class="fa fa-users"></i></span>
+        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "账号" })
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "email" })
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon"><i class="fa fa-key"></i></span>
+        @Html.TextBoxFor(m => m.Password, new { @class = "form-control", placeholder = "密码" })
+    </div>
+    <div class="input-group">
+        @Html.DropDownListFor(m => m.Role, (SelectListItem[])ViewBag.RoleSelectList, null, new { @class = "form-control" })
+    </div>
+    <div class="input-group">
+        @Html.DropDownListFor(m => m.CompanyCode, (SelectListItem[])ViewBag.CompanySelectList, null, new { @class = "form-control" })
+    </div>
+    <div class="input-group">
+        <input type="submit" class="btn btn-primary" value="注册" />
+    </div>
+</div>
+
+     
+   
+   
+}

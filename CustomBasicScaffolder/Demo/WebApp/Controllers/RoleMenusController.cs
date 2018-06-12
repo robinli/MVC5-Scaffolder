@@ -13,26 +13,28 @@ using Repository.Pattern.Infrastructure;
 using WebApp.Models;
 using WebApp.Services;
 using WebApp.Repositories;
-using WebApp.Extensions;
-
+ 
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using TrackableEntities;
 
 namespace WebApp.Controllers
 {
-      [Authorize]
+    [Authorize]
     public class RoleMenusController : Controller
     {
-        //private ApplicationUserManager userManager;
-        //public ApplicationUserManager UserManager
-        //{
-        //    get
-        //    {
-        //        return userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-        //    }
-        //    private set
-        //    {
-        //        userManager = value;
-        //    }
-        //}
+        private ApplicationUserManager userManager;
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                userManager = value;
+            }
+        }
         //Please RegisterType UnityConfig.cs
         //container.RegisterType<IRepositoryAsync<RoleMenu>, Repository<RoleMenu>>();
         //container.RegisterType<IRoleMenuService, RoleMenuService>();
@@ -72,12 +74,37 @@ namespace WebApp.Controllers
         }
 
         [HttpGet]
+        [ChildActionOnly]
+        [OutputCache(Duration =600, Location = System.Web.UI.OutputCacheLocation.Client)]
         public ActionResult RenderMenus()
         {
-            //var roles = UserManager.GetRolesAsync(this.User.Identity.GetUserId()).Result.ToArray();
-            var roles = new string[] { "admin" };
+            var roles = UserManager.GetRoles(this.User.Identity.GetUserId()).ToArray();
+            //var roles = new string[] { "admin" };
             var menus = _roleMenuService.RenderMenus(roles);
             return PartialView("_navMenuBar", menus);
+        }
+        public ActionResult GetMenuList()
+        {
+            var menus = _menuItemService.Queryable().Include(x => x.SubMenus).Where(x => x.IsEnabled);
+            var totalCount = menus.Count();
+            var datarows = menus.Select(x => new
+            {
+                Id = x.Id,
+                Title = x.Title,
+                Code = x.Code,
+                _parentId = x.ParentId,
+                Url = x.Url,
+                Create = true,
+                Edit = true,
+                Delete = true,
+                Import = true,
+                Export = true,
+                FunctionPoint1=false,
+                FunctionPoint2=false,
+                FunctionPoint3=false
+            });
+            var pagelist = new { total = totalCount, rows = datarows };
+            return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
         public ActionResult GetMenus(string roleName)
         {
@@ -92,7 +119,7 @@ namespace WebApp.Controllers
         public ActionResult Submit(RoleMenusView[] selectmenus)
         {
 
-            _roleMenuService.UpdateMenus(selectmenus);
+            _roleMenuService.Authorize(selectmenus);
             _unitOfWork.SaveChanges();
             return Json(new { success = true }, JsonRequestBehavior.AllowGet);
         }
@@ -192,7 +219,7 @@ namespace WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                roleMenu.ObjectState = ObjectState.Modified;
+                roleMenu.TrackingState = TrackingState.Modified;
                 _roleMenuService.Update(roleMenu);
 
                 _unitOfWork.SaveChanges();
@@ -260,14 +287,7 @@ namespace WebApp.Controllers
             TempData["ErrorMessage"] = "Save changes was unsuccessful.";
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _unitOfWork.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+         
 
 
 

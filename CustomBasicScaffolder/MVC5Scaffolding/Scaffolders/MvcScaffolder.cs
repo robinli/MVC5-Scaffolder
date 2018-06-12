@@ -14,6 +14,7 @@ using Microsoft.AspNet.Scaffolding;
 using Happy.Scaffolding.MVC;
 using Happy.Scaffolding.MVC.Models;
 using System.Reflection;
+using System.Text;
 
 namespace Happy.Scaffolding.MVC.Scaffolders
 {
@@ -50,7 +51,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             {
                 Validate();
 
-                if(_codeGeneratorViewModel.GenerateViews)
+                if (_codeGeneratorViewModel.GenerateViews)
                 {
                     isOk = ShowColumnSetting();
                 }
@@ -123,7 +124,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 throw new InvalidOperationException(Resources.WebFormsScaffolder_ProjectNotBuilt);
             }
         }
-        
+
         // Top-level method that generates all of the scaffolding output from the templates.
         // Shows a busy wait mouse cursor while working.
         public override void GenerateCode()
@@ -159,32 +160,39 @@ namespace Happy.Scaffolding.MVC.Scaffolders
 
             // Get the dbContext
             string dbContextTypeName = codeGeneratorViewModel.DbContextModelType.TypeName;
+            
             ICodeTypeService codeTypeService = GetService<ICodeTypeService>();
             CodeType dbContext = codeTypeService.GetCodeType(project, dbContextTypeName);
             string dbContextNamespace = dbContext.Namespace != null ? dbContext.Namespace.FullName : String.Empty;
             // Get the Entity Framework Meta Data
             IEntityFrameworkService efService = Context.ServiceProvider.GetService<IEntityFrameworkService>();
             ModelMetadata efMetadata = efService.AddRequiredEntity(Context, dbContextTypeName, modelType.FullName);
-           
+
             var fieldDisplayNames = GetAllFieldDisplayNames(modelType, efMetadata);
+            var fieldRequired = GetAllFieldRequired(modelType, efMetadata);
+            var fieldMaxLength = GetAllFieldMaxLength(modelType, efMetadata);
+            var fieldDisplayAttribute = GetAllFieldDisplayAttribute(modelType, efMetadata);
+            var fieldDefaultValueExpression = GetDefaultValueExpression(modelType.FullName);
+
             var oneToManyModels = GetOneToManyModelDictionary(efMetadata, efService, dbContextTypeName);
 
             var oneToManyAnonymousObjTextDic = GetOneToManyAnonymousObjTextDic(oneToManyModels);
             // Create Controller
             string controllerName = codeGeneratorViewModel.ControllerName;
-            string controllerRootName = controllerName.Replace("Controller","");
+            string controllerRootName = controllerName.Replace("Controller", "");
             string outputFolderPath = Path.Combine(selectionRelativePath, controllerName);
             string viewPrefix = codeGeneratorViewModel.ViewPrefix;
             string programTitle = codeGeneratorViewModel.ProgramTitle;
             bool generateMasterDetailRelationship = codeGeneratorViewModel.GenerateMasterDetailRelationship;
             bool checkformcols = codeGeneratorViewModel.CheckFormViewCols;
             int formcols = codeGeneratorViewModel.FormViewCols;
-             
+            bool useAsync = codeGeneratorViewModel.UseAsync;
+
             AddEntityRepositoryExtensionTemplates(project, selectionRelativePath,
                 dbContextNamespace,
                 dbContextTypeName,
                 modelType,
-                efMetadata, 
+                efMetadata,
                 oneToManyModels,
                 false);
 
@@ -193,7 +201,8 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 dbContextTypeName,
                 modelType, efMetadata,
                 oneToManyModels,
-                false);
+                false
+                );
 
             AddMvcController(project: project
                 , controllerName: controllerName
@@ -203,10 +212,11 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 , modelType: modelType
                 , efMetadata: efMetadata
                 , viewPrefix: viewPrefix
-                , oneToManyAnonymousObjText:oneToManyAnonymousObjTextDic
-                , oneToManyModels:oneToManyModels
+                , oneToManyAnonymousObjText: oneToManyAnonymousObjTextDic
+                , oneToManyModels: oneToManyModels
                 , generateMasterDetailRelationship: generateMasterDetailRelationship
-                , overwrite: codeGeneratorViewModel.OverwriteViews);
+                , overwrite: codeGeneratorViewModel.OverwriteViews
+                , useAsync: codeGeneratorViewModel.UseAsync);
 
             if (!codeGeneratorViewModel.GenerateViews)
                 return;
@@ -221,31 +231,26 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 , modelType: modelType
                 , efMetadata: efMetadata
                 , overwrite: codeGeneratorViewModel.OverwriteViews);
-            
-            //_ViewStart & Create _Layout
-            string viewRootPath = GetViewsFolderPath(selectionRelativePath);
-            if (codeGeneratorViewModel.LayoutPageSelected)
-            {
-                string areaName = GetAreaName(selectionRelativePath);
-                AddDependencyFile(project, viewRootPath, areaName);
-            }
-            // EditorTemplates, DisplayTemplates
-            AddDataFieldTemplates(project, viewRootPath);
+
+
 
             var modelDisplayNames = new Dictionary<string, string>();
             foreach (var property in efMetadata.Properties)
             {
                 if (property.AssociationDirection == AssociationDirection.OneToMany)
                 {
-                   modelDisplayNames = GetDisplayNames(property.RelatedModel.TypeName);
+                    modelDisplayNames = GetDisplayNames(property.RelatedModel.TypeName);
                 }
             }
-        
+
+            //_ViewStart & Create _Layout
+            string viewRootPath = GetViewsFolderPath(selectionRelativePath);
+
             // Views for  C.R.U.D 
             string viewFolderPath = Path.Combine(viewRootPath, controllerRootName);
             // Shared Layout Views
             //AddSharedLayoutTemplates(project, viewRootPath, selectionRelativePath, dbContextNamespace, dbContextTypeName, modelType, efMetadata);
-            foreach (string viewName in new string[5] { "Index", "Create", "Edit", "EditForm","_PopupSearch" })
+            foreach (string viewName in new string[5] { "Index", "Create", "Edit", "EditForm", "_PopupDetailFormView" })
             {
                 //string viewName = string.Format(view, viewPrefix);
                 //未完成
@@ -267,20 +272,24 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                     , overwrite: codeGeneratorViewModel.OverwriteViews
                     , generateMasterDetailRelationship: generateMasterDetailRelationship
                     , oneToManyModels: oneToManyModels
-                    , checkedFormCols:checkformcols
+                    , checkedFormCols: checkformcols
                     , formClos: formcols
-                    , modelDisplayNames:modelDisplayNames
+                    , modelDisplayNames: modelDisplayNames
+                    , fieldRequired:fieldRequired as Dictionary<string,bool>
+                    , fieldMaxLength: fieldMaxLength as Dictionary<string, string>
+                    , fieldDisplayAttribute: fieldDisplayAttribute
+                    , fieldDefaultValueExpression: fieldDefaultValueExpression
                     );
             }
-            
+
             foreach (var property in efMetadata.Properties)
             {
                 if (property.AssociationDirection == AssociationDirection.OneToMany)
                 {
-                    string _detialViewName="_DetailEditForm";
+                    string _detialViewName = "_DetailEditForm";
                     var detailModelMeta = oneToManyModels[property.PropertyName];
                     var modelTypeName = property.RelatedModel.ShortTypeName;
-                   
+
                     AddDetailsView(project
                         , viewFolderPath
                         , viewPrefix
@@ -291,15 +300,28 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                         , modelType
                         , detailModelMeta
                         , modelDisplayNames
-                        
-                        , codeGeneratorViewModel.OverwriteViews);
+                        , codeGeneratorViewModel.OverwriteViews
+                        , fieldRequired: fieldRequired as Dictionary<string, bool>
+                        , fieldMaxLength: fieldMaxLength as Dictionary<string, string>
+                        , FromLayoutCols: formcols
+                        , FieldDisplayAttribute: fieldDisplayAttribute
+                    );
                 }
             }
+
+
+            if (codeGeneratorViewModel.LayoutPageSelected)
+            {
+                string areaName = GetAreaName(selectionRelativePath);
+                //AddDependencyFile(project, viewRootPath, areaName);
+            }
+            // EditorTemplates, DisplayTemplates
+            //AddDataFieldTemplates(project, viewRootPath);
         }
 
         private bool HasRelatedMasterModel(Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata modelMdetadata, string propertyName)
         {
-            bool result= modelMdetadata.Properties.Where(n => n.PropertyName == propertyName && n.RelatedModel.TypeName == "").Any();
+            bool result = modelMdetadata.Properties.Where(n => n.PropertyName == propertyName && n.RelatedModel.TypeName == "").Any();
 
             if (!result)
             {
@@ -311,7 +333,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
         {
             return modelMdetadata.RelatedEntities.Where(n => n.ShortTypeName == relatedmodeTypename).Select(n => n.ForeignKeyPropertyNames).First()[0];
         }
-        private IDictionary<string,string> GetAllFieldDisplayNames(CodeType modelType, ModelMetadata efMetadata)
+        private IDictionary<string, string> GetAllFieldDisplayNames(CodeType modelType, ModelMetadata efMetadata)
         {
             IDictionary<string, string> dic = new Dictionary<string, string>();
             dic = GetDisplayNames(modelType.FullName);
@@ -319,14 +341,14 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             {
                 if (property.AssociationDirection == AssociationDirection.OneToMany)
                 {
-                    string typename= property.RelatedModel.TypeName;
+                    string typename = property.RelatedModel.TypeName;
                     var dis = GetDisplayNames(typename);
                     foreach (var item in dis)
                     {
                         if (!dic.ContainsKey(item.Key))
                         {
                             dic.Add(item.Key, item.Value);
- 
+
                         }
                     }
                 }
@@ -334,6 +356,102 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             return dic;
 
         }
+
+        private IDictionary<string, bool> GetAllFieldRequired(CodeType modelType, ModelMetadata efMetadata)
+        {
+            IDictionary<string, bool> dic = new Dictionary<string, bool>();
+            dic = GetRequired(modelType.FullName);
+            foreach (var property in efMetadata.Properties)
+            {
+                if (property.AssociationDirection == AssociationDirection.OneToMany)
+                {
+                    string typename = property.RelatedModel.TypeName;
+                    var dis = GetRequired(typename);
+                    foreach (var item in dis)
+                    {
+                        if (!dic.ContainsKey(item.Key))
+                        {
+                            dic.Add(item.Key, item.Value);
+
+                        }
+                    }
+                }
+            }
+            return dic;
+
+        }
+
+        private List<DisplayAttributeViewModel> GetAllFieldDisplayAttribute(CodeType modelType, ModelMetadata efMetadata)
+        {
+            var list = new List<DisplayAttributeViewModel>();
+            var dic = GetDisplayAttribute(modelType.FullName);
+            foreach (var item in dic.OrderBy(x => x.Value.Order)) {
+                DisplayAttributeViewModel row = new DisplayAttributeViewModel();
+                row.EntityTypeName = modelType.Name;
+                row.FieldName = item.Key;
+                //row.DisplayAttribute = item.Value;
+                row.AutoGenerateField = item.Value.AutoGenerateField;
+                row.AutoGenerateFilter = item.Value.AutoGenerateFilter;
+                row.Description = item.Value.Description == null ? item.Value.Name : item.Value.Description;
+                row.GroupName = item.Value.GroupName == null ? "" : item.Value.GroupName;
+                row.Name = item.Value.Name;
+                row.Order = item.Value.Order;
+                row.Prompt = item.Value.Prompt == null ? item.Value.Name : item.Value.Prompt;
+                row.ShortName = item.Value.ShortName == null ? "" : item.Value.ShortName;
+                list.Add(row);
+            }
+
+            foreach (var property in efMetadata.Properties)
+            {
+                if (property.AssociationDirection == AssociationDirection.OneToMany)
+                {
+                    string typename = property.RelatedModel.TypeName;
+                    var subdic = GetDisplayAttribute(typename);
+                    foreach (var item in subdic.OrderBy(x => x.Value.Order))
+                    {
+                        DisplayAttributeViewModel row = new DisplayAttributeViewModel();
+                        row.EntityTypeName = property.RelatedModel.ShortTypeName;
+                        row.FieldName = item.Key;
+                        //row.DisplayAttribute = item.Value;
+                        row.AutoGenerateField = item.Value.AutoGenerateField;
+                        row.AutoGenerateFilter = item.Value.AutoGenerateFilter;
+                        row.Description = item.Value.Description == null ? item.Value.Name : item.Value.Description;
+                        row.GroupName = item.Value.GroupName == null ? "" : item.Value.GroupName;
+                        row.Name = item.Value.Name;
+                        row.Order = item.Value.Order;
+                        row.Prompt = item.Value.Prompt == null ? item.Value.Name : item.Value.Prompt;
+                        row.ShortName = item.Value.ShortName == null ? "" : item.Value.ShortName;
+                        list.Add(row);
+                    }
+                }
+            }
+            return list;
+
+        }
+
+        private Dictionary<string, string> GetAllFieldMaxLength(CodeType modelType, ModelMetadata efMetadata) {
+            Dictionary<string, string> dic = new Dictionary<string, string>();
+            dic = GetMaxLength(modelType.FullName);
+            foreach (var property in efMetadata.Properties)
+            {
+                if (property.AssociationDirection == AssociationDirection.OneToMany)
+                {
+                    string typename = property.RelatedModel.TypeName;
+                    var dis = GetMaxLength(typename);
+                    foreach (var item in dis)
+                    {
+                        if (!dic.ContainsKey(item.Key))
+                        {
+                            dic.Add(item.Key, item.Value);
+
+                        }
+                    }
+                }
+            }
+            return dic;
+        
+        }
+
 
         private void AddDetailsView(Project project
             , string viewsFolderPath
@@ -345,19 +463,22 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             , CodeType modelType
             , ModelMetadata efMetadata
             , IDictionary<string, string> modelDisplayNames
-           
             , bool overwrite = false
+            , Dictionary<string, bool> fieldRequired = null
+            , Dictionary<string, string> fieldMaxLength=null
+            , int FromLayoutCols = 2
+            , IEnumerable<DisplayAttributeViewModel> FieldDisplayAttribute = null
            )
         {
 
-            string outputPath = Path.Combine(viewsFolderPath, "_"+modelTypeName+"EditForm");
+            string outputPath = Path.Combine(viewsFolderPath, "_" + modelTypeName + "EditForm");
             string templatePath = Path.Combine("MvcView", viewName);
             string viewDataTypeName = modelType.Namespace.FullName + "." + modelTypeName;
             string modelNameSpace = modelType.Namespace != null ? modelType.Namespace.FullName : String.Empty;
-            
+
             string masterModelTypeName = modelNameSpace + "." + modelType.Name;
             Dictionary<string, object> templateParams = new Dictionary<string, object>(){
-               {"ControllerRootName" , controllerRootName}
+                  {"ControllerRootName" , controllerRootName}
                 , {"ModelMetadata", efMetadata}
                 , {"ViewPrefix", viewPrefix}
                 , {"ViewName", viewName}
@@ -365,8 +486,11 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 , {"ModelNameSpace", modelNameSpace}
                 , {"ViewDataTypeName", viewDataTypeName}
                 , {"ModelDisplayNames",modelDisplayNames}
-                ,{"MasterModelTypeName" , masterModelTypeName}
-                , {"IsPartialView" , true}
+                , {"MasterModelTypeName" , masterModelTypeName}
+                , {"ModelTypeName" , modelTypeName}
+                , {"fieldRequired" , fieldRequired}
+                , {"fieldMaxLength" , fieldMaxLength}
+               
             };
             AddFileFromTemplate(project: project
                 , outputPath: outputPath
@@ -374,7 +498,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 , templateParameters: templateParams
                 , skipIfExists: true);
         }
-        private Dictionary<string ,string > GetOneToManyAnonymousObjTextDic(Dictionary<string, ModelMetadata> oneToManyModels)
+        private Dictionary<string, string> GetOneToManyAnonymousObjTextDic(Dictionary<string, ModelMetadata> oneToManyModels)
         {
             Dictionary<string, string> dic = new Dictionary<string, string>();
             foreach (var item in oneToManyModels)
@@ -390,7 +514,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             var dict = new Dictionary<string, ModelMetadata>();
             foreach (var prop in efMetadata.Properties)
             {
-             
+
                 if (prop.AssociationDirection == AssociationDirection.OneToMany)
                 {
                     string propname = prop.PropertyName;
@@ -419,13 +543,14 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             , CodeType modelType
             , ModelMetadata efMetadata
             , string viewPrefix
-            , Dictionary<string , string > oneToManyAnonymousObjText
-            , Dictionary<string , ModelMetadata > oneToManyModels
+            , Dictionary<string, string> oneToManyAnonymousObjText
+            , Dictionary<string, ModelMetadata> oneToManyModels
             , bool generateMasterDetailRelationship
             , bool overwrite = false
+            , bool useAsync = false
             )
         {
-            
+
             if (modelType == null)
             {
                 throw new ArgumentNullException("modelType");
@@ -447,10 +572,10 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             var templatePath = Path.Combine("MvcControllerWithContext", "Controller");
             var defaultNamespace = GetDefaultNamespace();
             string modelTypeVariable = GetTypeVariable(modelType.Name);
-            string bindAttributeIncludeText =GetBindAttributeIncludeText(efMetadata);
+            string bindAttributeIncludeText = GetBindAttributeIncludeText(efMetadata);
 
-            Dictionary<string, object> templateParams=new Dictionary<string, object>(){
-                {"ControllerName", controllerName}
+            Dictionary<string, object> templateParams = new Dictionary<string, object>(){
+                  {"ControllerName", controllerName}
                 , {"ModelName",modelName}
                 , {"ControllerRootName" , controllerRootName}
                 , {"Namespace", defaultNamespace}
@@ -464,11 +589,11 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 , {"GenerateMasterDetailRelationship", generateMasterDetailRelationship}
                 , {"SelectLambdaText",selectLambdaText}
                 , {"EntitySetVariable", modelTypeVariable}
-                , {"UseAsync", false}
+                , {"UseAsync", useAsync}
                 , {"IsOverpostingProtectionRequired", true}
                 , {"BindAttributeIncludeText", bindAttributeIncludeText}
                 , {"OverpostingWarningMessage", "To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598."}
-                , {"RequiredNamespaces", new HashSet<string>(){modelType.Namespace.FullName,project.GetDefaultNamespace() + ".Services",project.GetDefaultNamespace() + ".Repositories",project.GetDefaultNamespace() + ".Extensions"}}
+                , {"RequiredNamespaces", new HashSet<string>(){modelType.Namespace.FullName,project.GetDefaultNamespace() + ".Services",project.GetDefaultNamespace() + ".Repositories"}}
                 , {"ViewPrefix", viewPrefix}
             };
 
@@ -481,12 +606,12 @@ namespace Happy.Scaffolding.MVC.Scaffolders
 
         private string GetTypeVariable(string typeName)
         {
-            return typeName.Substring(0,1).ToLower() + typeName.Substring(1, typeName.Length - 1);
+            return typeName.Substring(0, 1).ToLower() + typeName.Substring(1, typeName.Length - 1);
         }
 
         private string GetBindAttributeIncludeText(ModelMetadata efMetadata)
         {
-            string result="";
+            string result = "";
             foreach (PropertyMetadata m in efMetadata.Properties)
                 result += "," + m.PropertyName;
             return result.Substring(1);
@@ -497,23 +622,22 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             //string result = "n => new { {0} }";
             string field = "";
             foreach (PropertyMetadata m in efMetadata.Properties)
-                field += "," + m.PropertyName + " = n."  + m.PropertyName ;
+                field += "," + m.PropertyName + " = n." + m.PropertyName;
             //return string.Format(result,field.Substring(1));
-            return "n => new { " + field.Substring(1)  + " }";
+            return "n => new { " + field.Substring(1) + " }";
         }
         public string GetQueryLambdaText(ModelMetadata efMetadata)
         {
-           
+
             string linqtxt = "";
 
 
-            foreach (PropertyMetadata m in efMetadata.Properties.Where(n => n.Scaffold && n.ShortTypeName.ToLower() != "int"
-                && n.ShortTypeName.ToLower() != "decimal" && n.ShortTypeName.ToLower() != "float"))
+            foreach (PropertyMetadata m in efMetadata.Properties.Where(n => n.Scaffold ))
             {
-                
+
                 if (m.ShortTypeName.ToLower() == "string")
                 {
-                      linqtxt  += "|| " + string.Format("x.{0}.Contains({1}) ", m.PropertyName, "search");
+                    linqtxt += "|| " + string.Format("x.{0}.Contains({1}) ", m.PropertyName, "search");
                 }
                 else if (m.ShortTypeName.ToLower() == "int" || m.ShortTypeName.ToLower() == "decimal" || m.ShortTypeName.ToLower() == "float")
                 {
@@ -524,20 +648,20 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                     linqtxt += "|| " + string.Format("x.{0}.ToString().Contains({1}) ", m.PropertyName, "search");
                 }
             }
-             
-            return  " x => " + linqtxt.Substring(2);
+
+            return " x => " +  linqtxt.Substring(2);
         }
         public string GetSelectLambdaText(ModelMetadata efMetadata)
         {
             string linqtxt = "";
             string linqtxt1 = "";
             string linqtxt2 = "";
-            linqtxt1= String.Join("",efMetadata.Properties.Where(n=>n.IsAssociation == true && n.AssociationDirection== AssociationDirection.ManyToOne && n.Scaffold)
-                            .Select(n=> String.Format(",{0}{1} = (n.{2}==null?\"\": n.{2}.{3}) " ,n.PropertyName,n.RelatedModel.DisplayPropertyName ,n.PropertyName,n.RelatedModel.DisplayPropertyName )));
-            linqtxt2 = String.Join("", efMetadata.Properties.Where(n => n.IsAssociation == false && n.Scaffold).Select(n => String.Format(", {0} = n.{1} ", n.PropertyName, n.PropertyName)));
+            linqtxt1 = String.Join("", efMetadata.Properties.Where(n => n.IsAssociation == true && n.AssociationDirection == AssociationDirection.ManyToOne )
+                            .Select(n => String.Format(",\r\n    {0}{1} = (n.{2}==null?\"\": n.{2}.{3}) ", n.PropertyName, n.RelatedModel.DisplayPropertyName, n.PropertyName, n.RelatedModel.DisplayPropertyName)));
+            linqtxt2 = String.Join("", efMetadata.Properties.Where(n => n.IsAssociation == false ).Select(n => String.Format(",\r\n    {0} = n.{1}", n.PropertyName, n.PropertyName)));
 
             linqtxt = linqtxt1 + linqtxt2;
-            return " n => new { " + linqtxt.Substring(1) + "}";
+            return " n => new { \r\n" + linqtxt.Substring(1) + "\r\n}";
         }
         private void AddModelMetadata(Project project
             , string controllerName
@@ -576,7 +700,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 , {"ModelMetadata", efMetadata}
                 , {"MetaTable", _ModelMetadataVM.DataModel}
             };
-            
+
             AddFileFromTemplate(project: project
                 , outputPath: outputPath
                 , templateName: templatePath
@@ -585,7 +709,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
         }
 
         private void AddView(Project project
-            , string viewsFolderPath 
+            , string viewsFolderPath
             , string viewPrefix
             , string viewName
             , string programTitle
@@ -595,18 +719,22 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             , bool referenceScriptLibraries = true
             , bool isLayoutPageSelected = true
             , string layoutPageFile = null
-            , bool isBundleConfigPresent=true
+            , bool isBundleConfigPresent = true
             , bool overwrite = false
             , bool generateMasterDetailRelationship = false
-            , bool checkedFormCols=false
-            , int formClos=2
-            , Dictionary<string,ModelMetadata> oneToManyModels = null
-            , Dictionary<string, string> modelDisplayNames=null
+            , bool checkedFormCols = false
+            , int formClos = 2
+            , Dictionary<string, ModelMetadata> oneToManyModels = null
+            , Dictionary<string, string> modelDisplayNames = null
+            , Dictionary<string, bool> fieldRequired = null
+            , Dictionary<string, string> fieldMaxLength = null
+            , IList<DisplayAttributeViewModel> fieldDisplayAttribute =null
+            , string fieldDefaultValueExpression = ""
             )
         {
-           
+
             //Project project = Context.ActiveProject;
-            string outputPath = Path.Combine(viewsFolderPath, viewPrefix+viewName);
+            string outputPath = Path.Combine(viewsFolderPath, viewPrefix + viewName);
             string templatePath = Path.Combine("MvcView", viewName);
             string viewDataTypeName = modelType.Namespace.FullName + "." + modelType.Name;
             string modelNameSpace = modelType.Namespace != null ? modelType.Namespace.FullName : String.Empty;
@@ -615,7 +743,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
 
             if (modelDisplayNames == null)
                 modelDisplayNames = GetDisplayNames(modelType.FullName);
-      
+
             Dictionary<string, object> templateParams = new Dictionary<string, object>(){
                 {"ControllerRootName" , controllerRootName}
                 , {"ModelMetadata", efMetadata}
@@ -632,9 +760,13 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 , {"IsBundleConfigPresent", isBundleConfigPresent}
                 , {"OneToManyModelMetadata", oneToManyModels}
                 ,{"ModelDisplayNames",modelDisplayNames}
+                ,{"fieldRequired",fieldRequired}
+                ,{"fieldMaxLength",fieldMaxLength}
                 ,{"CheckedFromLayoutCols",checkedFormCols}
                 ,{"FromLayoutCols",formClos}
                 ,{"GenerateMasterDetailRelationship" ,generateMasterDetailRelationship}
+                ,{"FieldDisplayAttribute" ,fieldDisplayAttribute}
+                ,{"FieldDefaultValueExpression" ,fieldDefaultValueExpression}
                 //, {"ViewDataTypeShortName", modelType.Name} // 可刪除
                 , {"MetaTable", _ModelMetadataVM.DataModel}
                 , {"JQueryVersion","2.1.0"} // 如何讀取專案的 jQuery 版本
@@ -664,7 +796,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
         //        }
         //    }
         //    return lookup;
-             
+
         //}
         protected Dictionary<string, string> GetDisplayNames(string fullclassName)
         {
@@ -672,14 +804,107 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             var lookup = new Dictionary<string, string>();
             foreach (PropertyInfo prop in type.GetProperties())
             {
-                var attr = (System.ComponentModel.DataAnnotations.DisplayAttribute)prop.GetCustomAttribute(typeof(System.ComponentModel.DataAnnotations.DisplayAttribute), true);
-                var value = attr != null && !String.IsNullOrWhiteSpace(attr.Name) ? attr.Name : prop.Name;
-                if (!lookup.ContainsKey(prop.Name))
-                    lookup.Add(prop.Name, value);
+                //var attr = (System.ComponentModel.DataAnnotations.DisplayAttribute)prop.GetCustomAttribute(typeof(System.ComponentModel.DataAnnotations.DisplayAttribute), true);
+                //var value = attr != null && !String.IsNullOrWhiteSpace(attr.Name) ? attr.Name : prop.Name;
+                //if (!lookup.ContainsKey(prop.Name))
+                var value = AttributeHelper.GetDisplayName(type,prop.Name);
+                lookup.Add(prop.Name, value);
             }
             return lookup;
         }
 
+        protected Dictionary<string, bool> GetRequired(string fullclassName) {
+
+            var type = GetReflectionType(fullclassName);
+            var shortName = type.Name;
+            var lookup = new Dictionary<string, bool>();
+            foreach (PropertyInfo prop in type.GetProperties())
+            {
+                //var attr = (System.ComponentModel.DataAnnotations.DisplayAttribute)prop.GetCustomAttribute(typeof(System.ComponentModel.DataAnnotations.DisplayAttribute), true);
+                //var value = attr != null && !String.IsNullOrWhiteSpace(attr.Name) ? attr.Name : prop.Name;
+                //if (!lookup.ContainsKey(prop.Name))
+                var value = AttributeHelper.GetRequired(type, prop.Name);
+                //lookup.Add(shortName + "." +prop.Name, value);
+                lookup.Add( prop.Name, value);
+            }
+            return lookup;
+        }
+
+        protected string GetDefaultValueExpression(string fullclassName)
+        {
+
+            var type = GetReflectionType(fullclassName);
+            var shortName = type.Name;
+            var sbstring = new StringBuilder();
+            var expression = new StringWriter(sbstring);
+            foreach (PropertyInfo prop in type.GetProperties())
+            {
+                
+                var value = AttributeHelper.GetDefaultValueAttribute(type, prop.Name);
+                if(value!=null)
+                {
+                    if(value.ToString()=="NOW")
+                        expression.Write($"{prop.Name}: $.datetimeNow(), ");
+                    else
+                        expression.Write($"{prop.Name}: '{value.Value.ToString()}', ");
+                }
+            }
+            return sbstring.ToString() ;
+        }
+
+
+        protected Dictionary<string, System.ComponentModel.DataAnnotations.DisplayAttribute> GetDisplayAttribute(string fullclassName) {
+            var lookup = new Dictionary<string, System.ComponentModel.DataAnnotations.DisplayAttribute>();
+            var type = GetReflectionType(fullclassName);
+            var shortName = type.Name;
+            int index=0;
+            foreach (PropertyInfo prop in type.GetProperties())
+            {
+                index++;
+                //var attr = (System.ComponentModel.DataAnnotations.DisplayAttribute)prop.GetCustomAttribute(typeof(System.ComponentModel.DataAnnotations.DisplayAttribute), true);
+                //var value = attr != null && !String.IsNullOrWhiteSpace(attr.Name) ? attr.Name : prop.Name;
+                //if (!lookup.ContainsKey(prop.Name))
+                var value = AttributeHelper.GetDisplayAttribute(type, prop.Name);
+                if (value == null)
+                {
+                    value = new System.ComponentModel.DataAnnotations.DisplayAttribute();
+                    value.AutoGenerateField = true;
+                    value.AutoGenerateFilter = false;
+                    value.Description = prop.Name;
+                    value.Name = prop.Name; ;
+                    value.ShortName = prop.Name;
+                    value.Order = index;
+                    value.Prompt = prop.Name;
+
+                }
+                else {
+                    value.Order = value.GetOrder() == null ? index : value.Order;
+                    value.AutoGenerateField = value.GetAutoGenerateField() == null ? true : value.AutoGenerateField;
+                    value.AutoGenerateFilter = value.GetAutoGenerateFilter() == null ? false : value.AutoGenerateFilter;
+                }
+                //lookup.Add(shortName + "." +prop.Name, value);
+                lookup.Add(prop.Name, value);
+            }
+
+            return lookup;
+        }
+        protected Dictionary<string, string> GetMaxLength(string fullclassName)
+        {
+
+            var type = GetReflectionType(fullclassName);
+            var shortName = type.Name;
+            var lookup = new Dictionary<string, string>();
+            foreach (PropertyInfo prop in type.GetProperties())
+            {
+                //var attr = (System.ComponentModel.DataAnnotations.DisplayAttribute)prop.GetCustomAttribute(typeof(System.ComponentModel.DataAnnotations.DisplayAttribute), true);
+                //var value = attr != null && !String.IsNullOrWhiteSpace(attr.Name) ? attr.Name : prop.Name;
+                //if (!lookup.ContainsKey(prop.Name))
+                var value = AttributeHelper.GetMaxLenght(type, prop.Name);
+                //lookup.Add(shortName + "." +prop.Name, value);
+                lookup.Add(prop.Name, value);
+            }
+            return lookup;
+        }
         //add _Layout & _ViewStart
         private void AddDependencyFile(Project project, string viewRootPath, string areaName
             )
@@ -691,78 +916,78 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             Dictionary<string, object> templateParams = new Dictionary<string, object>(){
                 {"AreaName", areaName}
             };
-            AddFileFromTemplate(project: project
-                , outputPath: outputPath
-                , templateName: templatePath
-                , templateParameters: templateParams
-                , skipIfExists: true);
+            //AddFileFromTemplate(project: project
+            //    , outputPath: outputPath
+            //    , templateName: templatePath
+            //    , templateParameters: templateParams
+            //    , skipIfExists: true);
 
-            // add _ViewStart
-            viewName = "_Layout";
-            outputPath = Path.Combine(viewRootPath, "Shared", viewName);
-            templatePath = Path.Combine("MvcFullDependencyCodeGenerator", viewName);
-            templateParams = new Dictionary<string, object>(){
-                {"IsBundleConfigPresent", true}
-                , {"JQueryVersion",""}
-                , {"ModernizrVersion", ""}
-            };
-            AddFileFromTemplate(project: project
-                , outputPath: outputPath
-                , templateName: templatePath
-                , templateParameters: templateParams
-                , skipIfExists: true);
+            //// add _ViewStart
+            //viewName = "_Layout";
+            //outputPath = Path.Combine(viewRootPath, "Shared", viewName);
+            //templatePath = Path.Combine("MvcFullDependencyCodeGenerator", viewName);
+            //templateParams = new Dictionary<string, object>(){
+            //    {"IsBundleConfigPresent", true}
+            //    , {"JQueryVersion",""}
+            //    , {"ModernizrVersion", ""}
+            //};
+            //AddFileFromTemplate(project: project
+            //    , outputPath: outputPath
+            //    , templateName: templatePath
+            //    , templateParameters: templateParams
+            //    , skipIfExists: true);
 
-            // add _LoginLayout
-            viewName = "_LoginLayout";
-            outputPath = Path.Combine(viewRootPath, "Shared", viewName);
-            templatePath = Path.Combine("MvcFullDependencyCodeGenerator", viewName);
-            templateParams = new Dictionary<string, object>(){
-               {"DefaultNamespace", project.GetDefaultNamespace()}
-            };
-            AddFileFromTemplate(project: project
-                , outputPath: outputPath
-                , templateName: templatePath
-                , templateParameters: templateParams
-                , skipIfExists: true);
+            //// add _LoginLayout
+            //viewName = "_LoginLayout";
+            //outputPath = Path.Combine(viewRootPath, "Shared", viewName);
+            //templatePath = Path.Combine("MvcFullDependencyCodeGenerator", viewName);
+            //templateParams = new Dictionary<string, object>(){
+            //   {"DefaultNamespace", project.GetDefaultNamespace()}
+            //};
+            //AddFileFromTemplate(project: project
+            //    , outputPath: outputPath
+            //    , templateName: templatePath
+            //    , templateParameters: templateParams
+            //    , skipIfExists: true);
 
-            // add _SideNavBar
-            viewName = "_SideNavBar";
-            outputPath = Path.Combine(viewRootPath, "Shared", viewName);
-            templatePath = Path.Combine("MvcFullDependencyCodeGenerator", viewName);
-            templateParams = new Dictionary<string, object>(){
-               {"DefaultNamespace", project.GetDefaultNamespace()}
-            };
-            AddFileFromTemplate(project: project
-                , outputPath: outputPath
-                , templateName: templatePath
-                , templateParameters: templateParams
-                , skipIfExists: true);
+            //// add _SideNavBar
+            //viewName = "_SideNavBar";
+            //outputPath = Path.Combine(viewRootPath, "Shared", viewName);
+            //templatePath = Path.Combine("MvcFullDependencyCodeGenerator", viewName);
+            //templateParams = new Dictionary<string, object>(){
+            //   {"DefaultNamespace", project.GetDefaultNamespace()}
+            //};
+            //AddFileFromTemplate(project: project
+            //    , outputPath: outputPath
+            //    , templateName: templatePath
+            //    , templateParameters: templateParams
+            //    , skipIfExists: true);
 
-            // add _TopNavBar
-            viewName = "_TopNavBar";
-            outputPath = Path.Combine(viewRootPath, "Shared", viewName);
-            templatePath = Path.Combine("MvcFullDependencyCodeGenerator", viewName);
-            templateParams = new Dictionary<string, object>(){
-               {"DefaultNamespace", project.GetDefaultNamespace()}
-            };
-            AddFileFromTemplate(project: project
-                , outputPath: outputPath
-                , templateName: templatePath
-                , templateParameters: templateParams
-                , skipIfExists: true);
+            //// add _TopNavBar
+            //viewName = "_TopNavBar";
+            //outputPath = Path.Combine(viewRootPath, "Shared", viewName);
+            //templatePath = Path.Combine("MvcFullDependencyCodeGenerator", viewName);
+            //templateParams = new Dictionary<string, object>(){
+            //   {"DefaultNamespace", project.GetDefaultNamespace()}
+            //};
+            //AddFileFromTemplate(project: project
+            //    , outputPath: outputPath
+            //    , templateName: templatePath
+            //    , templateParameters: templateParams
+            //    , skipIfExists: true);
 
-            // add _LoginPartial
-            viewName = "_LoginPartial";
-            outputPath = Path.Combine(viewRootPath, "Shared", viewName);
-            templatePath = Path.Combine("MvcFullDependencyCodeGenerator", viewName);
-            templateParams = new Dictionary<string, object>(){
-               {"DefaultNamespace", project.GetDefaultNamespace()}
-            };
-            AddFileFromTemplate(project: project
-                , outputPath: outputPath
-                , templateName: templatePath
-                , templateParameters: templateParams
-                , skipIfExists: true);
+            //// add _LoginPartial
+            //viewName = "_LoginPartial";
+            //outputPath = Path.Combine(viewRootPath, "Shared", viewName);
+            //templatePath = Path.Combine("MvcFullDependencyCodeGenerator", viewName);
+            //templateParams = new Dictionary<string, object>(){
+            //   {"DefaultNamespace", project.GetDefaultNamespace()}
+            //};
+            //AddFileFromTemplate(project: project
+            //    , outputPath: outputPath
+            //    , templateName: templatePath
+            //    , templateParameters: templateParams
+            //    , skipIfExists: true);
 
 
             // add HtmlExtensions
@@ -779,18 +1004,18 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 , skipIfExists: true);
 
 
-            // add PageListExtensions
-            //viewName = "PageListExtensions";
-            //outputPath = Path.Combine("Extensions", viewName);
-            //templatePath = Path.Combine("MvcFullDependencyCodeGenerator", viewName);
-            //templateParams = new Dictionary<string, object>(){
-            //   {"DefaultNamespace", project.GetDefaultNamespace()}
-            //};
-            //AddFileFromTemplate(project: project
-            //    , outputPath: outputPath
-            //    , templateName: templatePath
-            //    , templateParameters: templateParams
-            //    , skipIfExists: true);
+            //add ExcelHelper
+            viewName = "ExcelHelper";
+            outputPath = Path.Combine("Extensions", viewName);
+            templatePath = Path.Combine("MvcFullDependencyCodeGenerator", viewName);
+            templateParams = new Dictionary<string, object>(){
+               {"DefaultNamespace", project.GetDefaultNamespace()}
+            };
+            AddFileFromTemplate(project: project
+                , outputPath: outputPath
+                , templateName: templatePath
+                , templateParameters: templateParams
+                , skipIfExists: true);
 
             //LinqOrderByColumnsNameExtensions
             viewName = "LinqOrderByColumnsNameExtensions";
@@ -805,18 +1030,18 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 , templateParameters: templateParams
                 , skipIfExists: true);
 
-            // add sb_admin.css
-            viewName = "sb-admin";
-            outputPath = Path.Combine("Content", viewName);
-            templatePath = Path.Combine("MvcFullDependencyCodeGenerator", viewName);
-            templateParams = new Dictionary<string, object>(){
-               
-            };
-            AddFileFromTemplate(project: project
-                , outputPath: outputPath
-                , templateName: templatePath
-                , templateParameters: templateParams
-                , skipIfExists: true);
+            //// add sb_admin.css
+            //viewName = "sb-admin";
+            //outputPath = Path.Combine("Content", viewName);
+            //templatePath = Path.Combine("MvcFullDependencyCodeGenerator", viewName);
+            //templateParams = new Dictionary<string, object>(){
+
+            //};
+            //AddFileFromTemplate(project: project
+            //    , outputPath: outputPath
+            //    , templateName: templatePath
+            //    , templateParameters: templateParams
+            //    , skipIfExists: true);
 
 
             //RoleManager
@@ -861,17 +1086,17 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 , skipIfExists: true);
 
             // add ButtonAttribute
-            viewName = "ButtonAttribute";
-            outputPath = Path.Combine("Controllers", viewName);
-            templatePath = Path.Combine("MvcFullDependencyCodeGenerator\\RoleManager", viewName);
-            templateParams = new Dictionary<string, object>(){
-               {"DefaultNamespace", project.GetDefaultNamespace()}
-            };
-            AddFileFromTemplate(project: project
-                , outputPath: outputPath
-                , templateName: templatePath
-                , templateParameters: templateParams
-                , skipIfExists: true);
+            //viewName = "ButtonAttribute";
+            //outputPath = Path.Combine("Controllers", viewName);
+            //templatePath = Path.Combine("MvcFullDependencyCodeGenerator\\RoleManager", viewName);
+            //templateParams = new Dictionary<string, object>(){
+            //   {"DefaultNamespace", project.GetDefaultNamespace()}
+            //};
+            //AddFileFromTemplate(project: project
+            //    , outputPath: outputPath
+            //    , templateName: templatePath
+            //    , templateParameters: templateParams
+            //    , skipIfExists: true);
 
             // add ManagementViewModels.cs
             viewName = "ManagementViewModels";
@@ -891,7 +1116,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             foreach (string vname in managerviews)
             {
                 viewName = vname;
-                outputPath = Path.Combine(viewRootPath,"Management", viewName);
+                outputPath = Path.Combine(viewRootPath, "Management", viewName);
                 templatePath = Path.Combine("MvcFullDependencyCodeGenerator\\RoleManager\\View", viewName);
                 templateParams = new Dictionary<string, object>(){
                {"DefaultNamespace", project.GetDefaultNamespace()}
@@ -907,7 +1132,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             foreach (string vname in accountmanageviews)
             {
                 viewName = vname;
-                outputPath = Path.Combine(viewRootPath,"AccountManage", viewName);
+                outputPath = Path.Combine(viewRootPath, "AccountManage", viewName);
                 templatePath = Path.Combine("MvcFullDependencyCodeGenerator\\UserManage\\View\\AccountManage", viewName);
                 templateParams = new Dictionary<string, object>(){
                {"DefaultNamespace", project.GetDefaultNamespace()}
@@ -919,11 +1144,11 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                     , skipIfExists: true);
             }
 
-            var loginviews = new string[] { "Login", "Register"};
+            var loginviews = new string[] { "Login", "Register" };
             foreach (string vname in loginviews)
             {
                 viewName = vname;
-                outputPath = Path.Combine(viewRootPath,"Account", viewName);
+                outputPath = Path.Combine(viewRootPath, "Account", viewName);
                 templatePath = Path.Combine("MvcFullDependencyCodeGenerator\\Account", viewName);
                 templateParams = new Dictionary<string, object>(){
                {"DefaultNamespace", project.GetDefaultNamespace()}
@@ -948,7 +1173,86 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 , templateParameters: templateParams
                 , skipIfExists: true);
 
-           //add basecode
+            #region add datatableimport template
+            viewName = "DataTableImportMappingsController";
+            outputPath = Path.Combine("Controllers", viewName);
+            templatePath = Path.Combine("MvcFullDependencyCodeGenerator\\DataTableImport", viewName);
+            templateParams = new Dictionary<string, object>(){
+               {"DefaultNamespace", project.GetDefaultNamespace()}
+            };
+            AddFileFromTemplate(project: project
+                , outputPath: outputPath
+                , templateName: templatePath
+                , templateParameters: templateParams
+                , skipIfExists: true);
+
+            //----------------------------------------------------------------------------
+            var dataimportviews = new string[] { "Create", "Edit", "EditForm", "Index" };
+            foreach (string vname in dataimportviews)
+            {
+                viewName = vname;
+                outputPath = Path.Combine(viewRootPath, "DataTableImportMappings", viewName);
+                templatePath = Path.Combine("MvcFullDependencyCodeGenerator\\DataTableImport\\Views", viewName);
+                templateParams = new Dictionary<string, object>(){
+               {"DefaultNamespace", project.GetDefaultNamespace()}
+            };
+                AddFileFromTemplate(project: project
+                    , outputPath: outputPath
+                    , templateName: templatePath
+                    , templateParameters: templateParams
+                    , skipIfExists: true);
+            }
+            //------------------------------------------------------------
+            var dataimportmodels = new string[] { "DataTableImport" };
+            foreach (string vname in dataimportmodels)
+            {
+                viewName = vname;
+                outputPath = Path.Combine("Models", viewName);
+                templatePath = Path.Combine("MvcFullDependencyCodeGenerator\\DataTableImport\\Models", viewName);
+                templateParams = new Dictionary<string, object>(){
+               {"DefaultNamespace", project.GetDefaultNamespace()}
+            };
+                AddFileFromTemplate(project: project
+                    , outputPath: outputPath
+                    , templateName: templatePath
+                    , templateParameters: templateParams
+                    , skipIfExists: true);
+            }
+            //---------------------------------------------------------------
+            var dataimportservices = new string[] { "IMappingService", "MappingService" };
+            foreach (string vname in dataimportservices)
+            {
+                viewName = vname;
+                outputPath = Path.Combine("Services", "DataTableImportMappings", viewName);
+                templatePath = Path.Combine("MvcFullDependencyCodeGenerator\\DataTableImport\\Services", viewName);
+                templateParams = new Dictionary<string, object>(){
+               {"DefaultNamespace", project.GetDefaultNamespace()}
+            };
+                AddFileFromTemplate(project: project
+                    , outputPath: outputPath
+                    , templateName: templatePath
+                    , templateParameters: templateParams
+                    , skipIfExists: true);
+            }
+            //---------------------------------------------------------------------
+            var dataimportrepository = new string[] { "MappingQuery", "MappingRepository" };
+            foreach (string vname in dataimportrepository)
+            {
+                viewName = vname;
+                outputPath = Path.Combine("Repositories", "DataTableImportMappings", viewName);
+                templatePath = Path.Combine("MvcFullDependencyCodeGenerator\\DataTableImport\\Repositories", viewName);
+                templateParams = new Dictionary<string, object>(){
+               {"DefaultNamespace", project.GetDefaultNamespace()}
+                };
+                AddFileFromTemplate(project: project
+                    , outputPath: outputPath
+                    , templateName: templatePath
+                    , templateParameters: templateParams
+                    , skipIfExists: true);
+            }
+            #endregion
+
+            //add basecode
             // add BaseCodesController.cs
             viewName = "BaseCodesController";
             outputPath = Path.Combine("Controllers", viewName);
@@ -998,7 +1302,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             foreach (string vname in basecodeservices)
             {
                 viewName = vname;
-                outputPath = Path.Combine("Services","BaseCodes", viewName);
+                outputPath = Path.Combine("Services", "BaseCodes", viewName);
                 templatePath = Path.Combine("MvcFullDependencyCodeGenerator\\BaseCode\\Services", viewName);
                 templateParams = new Dictionary<string, object>(){
                {"DefaultNamespace", project.GetDefaultNamespace()}
@@ -1026,7 +1330,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                     , skipIfExists: true);
             }
 
-           //end basecode
+            //end basecode
 
 
             //add menuitem
@@ -1042,6 +1346,21 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                 , templateName: templatePath
                 , templateParameters: templateParams
                 , skipIfExists: true);
+
+
+            // add MenuItemsController.cs
+            viewName = "FileUploadController";
+            outputPath = Path.Combine("Controllers", viewName);
+            templatePath = Path.Combine("MvcFullDependencyCodeGenerator\\MenuItem", viewName);
+            templateParams = new Dictionary<string, object>(){
+               {"DefaultNamespace", project.GetDefaultNamespace()}
+            };
+            AddFileFromTemplate(project: project
+                , outputPath: outputPath
+                , templateName: templatePath
+                , templateParameters: templateParams
+                , skipIfExists: true);
+
 
 
             var menitemviews = new string[] { "_MenuItemEditForm", "Create", "Edit", "EditForm", "Index" };
@@ -1215,7 +1534,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                     , templateParameters: templateParams
                     , skipIfExists: true);
             }
-            
+
             //var fieldTemplatesPath = "DynamicData\\FieldTemplates";
 
             //// Add the folder
@@ -1249,10 +1568,10 @@ namespace Happy.Scaffolding.MVC.Scaffolders
       string dbContextTypeName,
       CodeType modelType,
       ModelMetadata efMetadata,
-      Dictionary<string,ModelMetadata> oneToManyModels,
+      Dictionary<string, ModelMetadata> oneToManyModels,
       bool overwriteViews = true
-      
-        
+
+
   )
         {
             string modelName = "";
@@ -1267,7 +1586,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             string modelNameSpace = modelType.Namespace != null ? modelType.Namespace.FullName : String.Empty;
             // Get pluralized name used for web forms folder name
             string pluralizedModelName = efMetadata.EntitySetName;
-            var repositoryTemplates = new[] { "EntityRepositoryExtension","EntityQuery" };
+            var repositoryTemplates = new[] { "EntityRepositoryExtension", "EntityQuery" };
             var repositoryTemplatesPath = "Repositories";
             var queryLambdaText = GetQueryLambdaText(efMetadata);
             PropertyMetadata primaryKey = efMetadata.PrimaryKeys.FirstOrDefault();
@@ -1277,7 +1596,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             string outputFolderPath = Path.Combine("Repositories", pluralizedModelName.Replace("_", ""));
             //AddFolder(Context.ActiveProject, outputFolderPath);
 
-        
+
             AddFolder(Context.ActiveProject, outputFolderPath);
 
             // Now add each view
@@ -1324,7 +1643,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
            ModelMetadata efMetadata,
            Dictionary<string, ModelMetadata> oneToManyModels,
            bool overwriteViews = true
-          
+           
 
        )
         {
@@ -1340,7 +1659,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             string modelNameSpace = modelType.Namespace != null ? modelType.Namespace.FullName : String.Empty;
             // Get pluralized name used for web forms folder name
             string pluralizedModelName = efMetadata.EntitySetName;
-          
+            string selectLambdaText = GetSelectLambdaText(efMetadata);
             var serviceTemplates = new[] { "IEntityService", "EntityService" };
             var repositoryTemplatesPath = "Services";
 
@@ -1381,14 +1700,15 @@ namespace Happy.Scaffolding.MVC.Scaffolders
                         {"FolderNamespace", folderNamespace.Replace("_","")}, // the namespace of the current folder (used by C#)
                         {"PluralizedModelName",pluralizedModelName},
                         {"OneToManyModelMetadata", oneToManyModels},
-                        {"ModelNamespace", modelNameSpace} // the namespace of the model (e.g., Samples.Models)               
+                        {"ModelNamespace", modelNameSpace}, // the namespace of the model (e.g., Samples.Models)               
+                        {"SelectLambdaText", selectLambdaText}
                     },
                     skipIfExists: true);
 
             }
         }
 
-        private void AddSharedLayoutTemplates( Project project,
+        private void AddSharedLayoutTemplates(Project project,
                string viewsFolderPath,
            string selectionRelativePath,
            string dbContextNamespace,
@@ -1402,7 +1722,7 @@ namespace Happy.Scaffolding.MVC.Scaffolders
 
             // Add folder for views. This is necessary to display an error when the folder already exists but 
             // the folder is excluded in Visual Studio: see https://github.com/Superexpert/WebFormsScaffolding/issues/18
-            string outputFolderPath = Path.Combine(viewsFolderPath,"Shared");
+            string outputFolderPath = Path.Combine(viewsFolderPath, "Shared");
             //AddFolder(Context.ActiveProject, outputFolderPath);
 
 
@@ -1440,13 +1760,13 @@ namespace Happy.Scaffolding.MVC.Scaffolders
             //                                 new NuGetSourceRepository());
             // context.Packages.Add(p);
 
-            for(int x=0; x<project.Properties.Count; x++)
+            for (int x = 0; x < project.Properties.Count; x++)
             {
                 object xx = project.Properties.Item(x);
             }
 
             NuGetPackage currPage = Context.Packages.FirstOrDefault(p => p.PackageId == "jquery");
-            return (currPage != null? currPage.Version : string.Empty);
+            return (currPage != null ? currPage.Version : string.Empty);
         }
 
 

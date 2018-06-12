@@ -53,5 +53,40 @@ namespace Repository.Pattern.Ef6
         }
 
         public void SyncObjectsStatePostCommit() { }
+
+        public void SetAutoDetectChangesEnabled(bool enabled)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task BulkSaveChangesAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void BulkSaveChanges()
+        {
+            throw new NotImplementedException();
+        }
+
+        void IDataContext.BulkInsert<TEntity>(IEnumerable<TEntity> entities)
+        {
+            throw new NotImplementedException();
+        }
+
+        void IDataContext.BulkUpdate<TEntity>(IEnumerable<TEntity> entities)
+        {
+            throw new NotImplementedException();
+        }
+
+        void IDataContext.BulkDelete<TEntity>(IEnumerable<TEntity> entities)
+        {
+            throw new NotImplementedException();
+        }
+
+        void IDataContext.BulkMerge<TEntity>(IEnumerable<TEntity> entities)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -1,121 +1,191 @@
-﻿
-
-<div class="form-group col-lg-6 col-md-6">
-    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-3" })
-    <div class="control-group col-md-9  ">
-        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-        <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
-        <span class="glyphicon glyphicon-warning-sign form-control-feedback" aria-hidden="true"></span>
-        <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
-        <div class="help-block">
-           @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger control-group-addon " })
+﻿﻿@model WebApp.Models.Product
+ <!-- 输出form表单界面 -->
+ <table class="table table-bordered">
+     <caption>
+        @{
+        //TODO: fix edit form commonent!
+        }
+        <div class="alert alert-warning no-margin fade in">
+            <button class="close" data-dismiss="alert">
+                ×
+            </button>
+            <i class="fa-fw fa fa-info"></i>
+            A combined table effect with all classes mentioned above added to
         </div>
-        
-    </div>
-</div>
-
-
-    <div class="row">
-         
-
-        			        <div class="form-group col-lg-4 col-md-4 col-sm-4">
-			            @Html.LabelFor(model => model.Name,   htmlAttributes: new { @class = "control-label  col-md-4 col-sm-4" })
-            <div class=" col-md-8 col-sm-8">
-                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Name,"" , new { @class = "text-danger" })
-            </div>
-			        </div>
-			        <div class="form-group col-lg-4 col-md-4 col-sm-4">
-			            @Html.LabelFor(model => model.Unit,   htmlAttributes: new { @class = "control-label  col-md-4 col-sm-4" })
-            <div class=" col-md-8 col-sm-8">
-                                @Html.EditorFor(model => model.Unit, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Unit,"" , new { @class = "text-danger" })
-            </div>
-			        </div>
-			        <div class="form-group col-lg-4 col-md-4 col-sm-4">
-			            @Html.LabelFor(model => model.UnitPrice,   htmlAttributes: new { @class = "control-label  col-md-4 col-sm-4" })
-            <div class=" col-md-8 col-sm-8">
-                                @Html.EditorFor(model => model.UnitPrice, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.UnitPrice,"" , new { @class = "text-danger" })
-            </div>
-			        </div>
-			        <div class="form-group col-lg-4 col-md-4 col-sm-4">
-			            @Html.LabelFor(model => model.StockQty,   htmlAttributes: new { @class = "control-label  col-md-4 col-sm-4" })
-            <div class=" col-md-8 col-sm-8">
-                                @Html.EditorFor(model => model.StockQty, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.StockQty,"" , new { @class = "text-danger" })
-            </div>
-			        </div>
-			        <div class="form-group col-lg-4 col-md-4 col-sm-4">
-			            @Html.LabelFor(model => model.ConfirmDateTime,   htmlAttributes: new { @class = "control-label  col-md-4 col-sm-4" })
-            <div class=" col-md-8 col-sm-8">
-                                @Html.EditorFor(model => model.ConfirmDateTime, "Date" ,new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.ConfirmDateTime,"" , new { @class = "text-danger" })
-            </div>
-			        </div>
-					<div class="form-group col-lg-4 col-md-4 col-sm-4">
-		                @Html.LabelFor(model => model.CategoryId,   htmlAttributes: new { @class = "control-label  col-md-4 col-sm-4" })
-            <div class=" col-md-8 col-sm-8">
-                @Html.DropDownListFor(model => model.CategoryId, ViewBag.CategoryId as List<SelectListItem>,"---Select---", htmlAttributes: new { @class = "form-control" }) 
-                @Html.ValidationMessageFor(model => model.CategoryId,"" , new { @class = "text-danger" })
-            </div>
-			        </div>
-   
-		
-
-<div class="form-group col-lg-6 col-md-6">
-    @Html.LabelFor(model => model.CategoryId, "CategoryId", htmlAttributes: new { @class = "control-label col-md-3" })
-    <div class="col-md-9">
-        @Html.DropDownListFor(model => model.CategoryId, ViewBag.CategoryId as List<SelectListItem>, "---Select---", htmlAttributes: new { @class = "form-control" })
-        @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
-
-    </div>
-
-</div>
-
-
-
-<script>
-    $(function () {
-        var defaultOptions = {
-            errorClass: 'has-error',
-            validClass: 'has-success',
-            validIcon: 'glyphicon glyphicon-ok form-control-feedback',
-            invalidIcon: 'glyphicon glyphicon-remove form-control-feedback',
-            highlight: function (element, errorClass, validClass, validIcon, invalidIcon) {
-                $(element).closest(".form-group")
-                .addClass(errorClass)
-                .removeClass(validClass);
-                //debugger;
-                $(element).next()
-                .addClass(invalidIcon)
-                .removeClass(validIcon);
-            },
-            unhighlight: function (element, errorClass, validClass, validIcon, invalidIcon) {
-                $(element).closest(".form-group")
-                .removeClass(errorClass)
-                .addClass(validClass);
-                //debugger;
-                $(element).next()
-                .removeClass(invalidIcon)
-                .addClass(validIcon);
-            },
-            ignore: ":hidden:not(select)"
-        };
-
-        $.validator.setDefaults(defaultOptions);
-
-        $.validator.unobtrusive.options = {
-            errorClass: defaultOptions.errorClass,
-            validClass: defaultOptions.validClass,
-        };
-
-        //$.validator.setDefaults({ ignore: ":hidden:not(select)" });
-        $('#CategoryId').chosen();
-    })
-        
-</script>
->>>>>>> 87a183a129078ae159d3012339c6f694dc004ab5
-
-
-
+     </caption>
+	    <tr>
+      	   <td class="control-label">   @Html.DisplayNameFor(model => model.Id)  </td>
+	   <td> 
+			   			   			<input id="@Html.IdFor(model => model.Id)" 
+                   name="@Html.NameFor(model => model.Id)" 
+                   value="@Html.ValueFor(model => model.Id)"
+                   tabindex="0"   
+                   class="easyui-numberbox" type="text" 
+                   data-options="prompt:'ID',
+                                 readonly:true,
+                                 width:300,
+                                 label:'',required:true ,precision:0" />
+			  				   </td>
+	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.CategoryId)  </td>
+	   <td> 
+			   			<input id="@Html.IdFor(model => model.CategoryId)"
+			       name="@Html.NameFor(model => model.CategoryId)"
+				   value="@Html.ValueFor(model => model.CategoryId)"
+				   class="easyui-combobox" data-options="
+						prompt:'产品类别' ,
+						label:'' ,
+                        width:300,
+						required:true ,
+						valueField: 'Id',
+						textField: 'Name' ,
+						url: '/Products/GetCategories' ,
+						onSelect: function(item){
+						//console.log(item);
+				}">
+				   </td>
+	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.Name)  </td>
+	   <td> 
+			   			  			<input id="@Html.IdFor(model => model.Name)" 
+				   name="@Html.NameFor(model => model.Name)" 
+				   value="@Html.ValueFor(model => model.Name)"
+				   tabindex="2" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'名称',
+								 label:'',
+                                 width:300,
+								 required:true ,validType:'length[0,50]'" />
+			  				   </td>
+	   	   </tr>
+	   	    <tr>
+      	   <td class="control-label">   @Html.DisplayNameFor(model => model.Unit)  </td>
+	   <td> 
+			   			  			<input id="@Html.IdFor(model => model.Unit)" 
+				   name="@Html.NameFor(model => model.Unit)" 
+				   value="@Html.ValueFor(model => model.Unit)"
+				   tabindex="3" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'单位',
+								 label:'',
+                                 width:300,
+								 required:false ,validType:'length[0,10]'" />
+			  				   </td>
+	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.UnitPrice)  </td>
+	   <td> 
+			   			  			<input id="@Html.IdFor(model => model.UnitPrice)"
+				   name="@Html.NameFor(model => model.UnitPrice)" 
+				   value="@Html.ValueFor(model => model.UnitPrice)"
+				   tabindex="4" 
+				   class="easyui-numberbox" 
+				   type="text" 
+				   data-options="prompt:'单价',
+								 label:'',
+                                 width:300,
+								 required:true ,precision:2" />
+              				   </td>
+	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.StockQty)  </td>
+	   <td> 
+			   			  			<input id="@Html.IdFor(model => model.StockQty)"
+				   name="@Html.NameFor(model => model.StockQty)" 
+				   value="@Html.ValueFor(model => model.StockQty)"
+				   tabindex="5" 
+				   class="easyui-numberbox" 
+				   type="text" 
+				   data-options="prompt:'库存',
+								 label:'',
+                                 width:300,
+								 required:true ,precision:0" />
+              				   </td>
+	   	   </tr>
+	   	    <tr>
+      	   <td class="control-label">   @Html.DisplayNameFor(model => model.IsRequiredQc)  </td>
+	   <td> 
+			   			  			   <label class="checkbox">
+                 <input id="@Html.IdFor(model => model.IsRequiredQc)"
+                       name="@Html.NameFor(model => model.IsRequiredQc)"
+                       value="true" @(Model.IsRequiredQc ? "checked=\"checked\"" : "")
+                       tabindex="6"
+                       type="checkbox" />
+                <i></i>
+            </label>
+              				   </td>
+	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.ConfirmDateTime)  </td>
+	   <td> 
+			   			  			<input id="@Html.IdFor(model => model.ConfirmDateTime)" 
+			       name="@Html.NameFor(model => model.ConfirmDateTime)" 
+				   tabindex="7" 
+				   class="easyui-datebox" 
+				   type="text" 
+				   value="@Html.ValueFor(model => model.ConfirmDateTime)"
+				   data-options="prompt:'确认日期',
+								 label:'',
+                                 width:300,
+								 required:true,
+								 formatter:dateformatter" />
+			  				   </td>
+	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.CreatedDate)  </td>
+	   <td> 
+			   			  			<input id="@Html.IdFor(model => model.CreatedDate)" 
+			       name="@Html.NameFor(model => model.CreatedDate)" 
+				   tabindex="8" 
+				   class="easyui-datebox" 
+				   type="text" 
+				   value="@Html.ValueFor(model => model.CreatedDate)"
+				   data-options="prompt:'创建时间',
+								 label:'',
+                                 width:300,
+								 required:false,
+								 formatter:dateformatter" />
+			  				   </td>
+	   	   </tr>
+	   	    <tr>
+      	   <td class="control-label">   @Html.DisplayNameFor(model => model.CreatedBy)  </td>
+	   <td> 
+			   			  			<input id="@Html.IdFor(model => model.CreatedBy)" 
+				   name="@Html.NameFor(model => model.CreatedBy)" 
+				   value="@Html.ValueFor(model => model.CreatedBy)"
+				   tabindex="9" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'创建用户',
+								 label:'',
+                                 width:300,
+								 required:false ,validType:'length[0,20]'" />
+			  				   </td>
+	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.LastModifiedDate)  </td>
+	   <td> 
+			   			  			<input id="@Html.IdFor(model => model.LastModifiedDate)" 
+			       name="@Html.NameFor(model => model.LastModifiedDate)" 
+				   tabindex="10" 
+				   class="easyui-datebox" 
+				   type="text" 
+				   value="@Html.ValueFor(model => model.LastModifiedDate)"
+				   data-options="prompt:'最后更新时间',
+								 label:'',
+                                 width:300,
+								 required:false,
+								 formatter:dateformatter" />
+			  				   </td>
+	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.LastModifiedBy)  </td>
+	   <td> 
+			   			  			<input id="@Html.IdFor(model => model.LastModifiedBy)" 
+				   name="@Html.NameFor(model => model.LastModifiedBy)" 
+				   value="@Html.ValueFor(model => model.LastModifiedBy)"
+				   tabindex="11" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'最后更新用户',
+								 label:'',
+                                 width:300,
+								 required:false ,validType:'length[0,20]'" />
+			  				   </td>
+	   	   </tr>
+	   	        <tfoot>
+        <tr>
+        <tr>
+    </tfoot>
+</table>
+  <!--输出form表单界面-->
+<!--========================================================================================-->
+ 

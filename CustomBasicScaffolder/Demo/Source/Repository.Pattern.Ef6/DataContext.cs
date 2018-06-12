@@ -1,24 +1,28 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Repository.Pattern.DataContext;
 using Repository.Pattern.Infrastructure;
+using TrackableEntities;
+using TrackableEntities.EF6;
 
 namespace Repository.Pattern.Ef6
 {
+    [Obsolete("DataContext has been deprecated. Instead use UnitOfWork which uses DbContext.")]
     public class DataContext : DbContext, IDataContextAsync
     {
         #region Private Fields
         private readonly Guid _instanceId;
-        bool _disposed;
+   
         #endregion Private Fields
 
         public DataContext(string nameOrConnectionString) : base(nameOrConnectionString)
         {
             _instanceId = Guid.NewGuid();
-            Configuration.LazyLoadingEnabled = false;
+            Configuration.LazyLoadingEnabled = true;
             Configuration.ProxyCreationEnabled = false;
         }
 
@@ -48,6 +52,31 @@ namespace Repository.Pattern.Ef6
         public override int SaveChanges()
         {
             SyncObjectsStatePreCommit();
+            var currentDateTime = DateTime.Now;
+            foreach (var auditableEntity in ChangeTracker.Entries<IAuditable>())
+            {
+                if (auditableEntity.State == EntityState.Added || auditableEntity.State == EntityState.Modified)
+                {
+                    auditableEntity.Entity.LastModifiedDate = currentDateTime;
+                    switch (auditableEntity.State)
+                    {
+                        case EntityState.Added:
+                            auditableEntity.Entity.CreatedDate = currentDateTime;
+                            //auditableEntity.Entity.CreatedBy = HttpContext.Current.User.Identity.Name;
+                            break;
+                        case EntityState.Modified:
+                            auditableEntity.Property("CreatedDate").IsModified = false;
+                            auditableEntity.Property("CreatedBy").IsModified = false;
+                            auditableEntity.Entity.LastModifiedDate = currentDateTime;
+                            //auditableEntity.Entity.LastModifiedBy = HttpContext.Current.User.Identity.Name;
+                            //if (auditableEntity.Property(p => p.Created).IsModified || auditableEntity.Property(p => p.CreatedBy).IsModified)
+                            //{
+                            //    throw new DbEntityValidationException(string.Format("Attempt to change created audit trails on a modified {0}", auditableEntity.Entity.GetType().FullName));
+                            //}
+                            break;
+                    }
+                }
+            }
             var changes = base.SaveChanges();
             SyncObjectsStatePostCommit();
             return changes;
@@ -78,6 +107,7 @@ namespace Repository.Pattern.Ef6
         ///     objects written to the underlying database.</returns>
         public override async Task<int> SaveChangesAsync()
         {
+             
             return await this.SaveChangesAsync(CancellationToken.None);
         }
         /// <summary>
@@ -106,51 +136,93 @@ namespace Repository.Pattern.Ef6
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken)
         {
             SyncObjectsStatePreCommit();
+
+            var currentDateTime = DateTime.Now;
+
+            foreach (var auditableEntity in ChangeTracker.Entries<IAuditable>())
+            {
+                if (auditableEntity.State == EntityState.Added || auditableEntity.State == EntityState.Modified)
+                {
+                    //auditableEntity.Entity.LastModifiedDate = currentDateTime;
+                    switch (auditableEntity.State)
+                    {
+                        case EntityState.Added:
+                            auditableEntity.Entity.CreatedDate = currentDateTime;
+                            //auditableEntity.Entity.CreatedBy = AppDomain.CurrentDomain.ApplicationIdentity.FullName;
+                            break;
+                        case EntityState.Modified:
+                          
+                            auditableEntity.Property("CreatedDate").IsModified = false;
+                            auditableEntity.Property("CreatedBy").IsModified = false;
+                            auditableEntity.Entity.LastModifiedDate = currentDateTime;
+                            //auditableEntity.Entity.LastModifiedBy = AppDomain.CurrentDomain.ApplicationIdentity.FullName;
+                            //if (auditableEntity.Property(p => p.Created).IsModified || auditableEntity.Property(p => p.CreatedBy).IsModified)
+                            //{
+                            //    throw new DbEntityValidationException(string.Format("Attempt to change created audit trails on a modified {0}", auditableEntity.Entity.GetType().FullName));
+                            //}
+                            break;
+                    }
+                }
+            }
+
             var changesAsync = await base.SaveChangesAsync(cancellationToken);
             SyncObjectsStatePostCommit();
             return changesAsync;
         }
 
-        public void SyncObjectState<TEntity>(TEntity entity) where TEntity : class, IObjectState
+        public void SyncObjectState<TEntity>(TEntity entity) where TEntity : class, ITrackable
         {
-            Entry(entity).State = StateHelper.ConvertState(entity.ObjectState);
+            this.ApplyChanges(entity);
         }
 
         private void SyncObjectsStatePreCommit()
         {
-           
-            foreach (var dbEntityEntry in ChangeTracker.Entries())
-            {
-      
-                dbEntityEntry.State = StateHelper.ConvertState(((IObjectState)dbEntityEntry.Entity).ObjectState);
-            }
+            var entities = ChangeTracker.Entries().Select(x => x.Entity).OfType<ITrackable>();
+            this.ApplyChanges(entities);
         }
 
         public void SyncObjectsStatePostCommit()
         {
-            foreach (var dbEntityEntry in ChangeTracker.Entries())
-            {
-                ((IObjectState)dbEntityEntry.Entity).ObjectState = StateHelper.ConvertState(dbEntityEntry.State);
-            }
+            var entities = ChangeTracker.Entries().Select(x => x.Entity).OfType<ITrackable>();
+            this.ApplyChanges(entities);
         }
 
-        protected override void Dispose(bool disposing)
+        
+
+        public void SetAutoDetectChangesEnabled(bool enabled)
         {
-            if (!_disposed)
-            {
-                if (disposing)
-                {
-                    // free other managed objects that implement
-                    // IDisposable only
-                }
+            this.Configuration.AutoDetectChangesEnabled = enabled;
+        }
 
-                // release any unmanaged objects
-                // set object references to null
+        public   void BulkSaveChanges()
+        {
+            this.BulkSaveChanges(false);
+        }
 
-                _disposed = true;
-            }
+        public   Task BulkSaveChangesAsync()
+        {
 
-            base.Dispose(disposing);
+           return  this.BulkSaveChangesAsync(false, CancellationToken.None);
+        }
+
+        void IDataContext.BulkInsert<TEntity>(IEnumerable<TEntity> entities)
+        {
+            this.BulkInsert(entities);
+        }
+
+        void IDataContext.BulkUpdate<TEntity>(IEnumerable<TEntity> entities)
+        {
+            this.BulkUpdate(entities);
+        }
+
+        void IDataContext.BulkDelete<TEntity>(IEnumerable<TEntity> entities)
+        {
+            this.BulkDelete(entities);
+        }
+
+        void IDataContext.BulkMerge<TEntity>(IEnumerable<TEntity> entities)
+        {
+            this.BulkMerge(entities);
         }
     }
 }

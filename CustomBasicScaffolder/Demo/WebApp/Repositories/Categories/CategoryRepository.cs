@@ -1,5 +1,4 @@
-﻿
-                    
+﻿                    
       
     
  
@@ -8,9 +7,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-
 using Repository.Pattern.Repositories;
-
 using WebApp.Models;
 
 namespace WebApp.Repositories
@@ -19,9 +16,9 @@ namespace WebApp.Repositories
     {
  
         
-                public static IEnumerable<WebApp.Models.Product>   GetProductsByCategoryId (this IRepositoryAsync<Category> repository,int categoryid)
+                public static IEnumerable<Product>   GetProductsByCategoryId (this IRepositoryAsync<Category> repository,int categoryid)
         {
-			var productRepository = repository.GetRepository<WebApp.Models.Product>(); 
+			var productRepository = repository.GetRepository<Product>(); 
             return productRepository.Queryable().Include(x => x.Category).Where(n => n.CategoryId == categoryid);
         }
          

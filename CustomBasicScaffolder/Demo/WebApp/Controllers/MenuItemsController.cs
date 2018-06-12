@@ -1,6 +1,8 @@
 ﻿
 
+
 using System;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -13,22 +15,20 @@ using Repository.Pattern.Infrastructure;
 using WebApp.Models;
 using WebApp.Services;
 using WebApp.Repositories;
-using WebApp.Extensions;
-
+using TrackableEntities;
 
 namespace WebApp.Controllers
 {
-     public class MenuItemsController : Controller
+    public class MenuItemsController : Controller
     {
 
         //Please RegisterType UnityConfig.cs
         //container.RegisterType<IRepositoryAsync<MenuItem>, Repository<MenuItem>>();
         //container.RegisterType<IMenuItemService, MenuItemService>();
 
-        //private TmsAppContext db = new TmsAppContext();
+        //private StoreContext db = new StoreContext();
         private readonly IMenuItemService _menuItemService;
         private readonly IUnitOfWorkAsync _unitOfWork;
-
 
         public MenuItemsController(IMenuItemService menuItemService, IUnitOfWorkAsync unitOfWork)
         {
@@ -40,26 +40,92 @@ namespace WebApp.Controllers
         public ActionResult Index()
         {
 
-            var menuitems = _menuItemService.Queryable().Include(m => m.Parent).AsQueryable();
+            //var menuitems  = _menuItemService.Queryable().Include(m => m.Parent).AsQueryable();
 
-            return View(menuitems);
+            //return View(menuitems);
+            return View();
         }
 
         // Get :MenuItems/PageList
         // For Index View Boostrap-Table load  data 
         [HttpGet]
-        public ActionResult PageList(int offset = 0, int limit = 10, string search = "", string sort = "", string order = "")
+        public ActionResult GetData(int page = 1, int rows = 10, string sort = "Id", string order = "asc", string filterRules = "")
         {
+            var filters = JsonConvert.DeserializeObject<IEnumerable<filterRule>>(filterRules);
             int totalCount = 0;
-            int pagenum = offset / limit + 1;
-            var menuitems = _menuItemService.Query(new MenuItemQuery().WithAnySearch(search)).Include(m => m.Parent).OrderBy(n => n.OrderBy(sort, order)).SelectPage(pagenum, limit, out totalCount);
+            //int pagenum = offset / limit +1;
 
-            var rows = menuitems.Select(n => new { ParentTitle = (n.Parent == null ? "" : n.Parent.Title), Id = n.Id, Title = n.Title, Description = n.Description, Code = n.Code, Url = n.Url, IsEnabled = n.IsEnabled, ParentId = n.ParentId }).ToList();
-            var pagelist = new { total = totalCount, rows = rows };
+            var menuitems = _menuItemService.Query(new MenuItemQuery().Withfilter(filters)).Include(m => m.Parent).OrderBy(n => n.OrderBy(sort, order)).SelectPage(page, rows, out totalCount);
+
+            var datarows = menuitems.Select(n => new
+            {
+                ParentTitle = (n.Parent == null ? "" : n.Parent.Title),
+                Id = n.Id,
+                Title = n.Title,
+                Action = n.Action,
+                Controller = n.Controller,
+                Description = n.Description,
+                Code = n.Code,
+                Url = n.Url,
+                IconCls = n.IconCls,
+                IsEnabled = n.IsEnabled,
+                ParentId = n.ParentId
+            }).ToList();
+            var pagelist = new { total = totalCount, rows = datarows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        public ActionResult SaveData(MenuItemChangeViewModel menuitems)
+        {
+            if (menuitems.updated != null)
+            {
+                foreach (var updated in menuitems.updated)
+                {
+                    _menuItemService.Update(updated);
+                }
+            }
+            if (menuitems.deleted != null)
+            {
+                foreach (var deleted in menuitems.deleted)
+                {
+                    _menuItemService.Delete(deleted);
+                }
+            }
+            if (menuitems.inserted != null)
+            {
+                foreach (var inserted in menuitems.inserted)
+                {
+                    _menuItemService.Insert(inserted);
+                }
+            }
+            _unitOfWork.SaveChanges();
 
+            return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetMenuItems()
+        {
+            var menuitemRepository = _unitOfWork.Repository<MenuItem>();
+            var data = menuitemRepository.Queryable().ToList();
+            var rows = data.Select(n => new { Id = n.Id, Title = n.Title });
+            return Json(rows, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult CreateWithController()
+        {
+            _menuItemService.CreateWithController();
+            _unitOfWork.SaveChanges();
+            return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult ReBuildMenus()
+        {
+            _menuItemService.CreateWithController();
+            _unitOfWork.SaveChanges();
+            return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
+        }
         // GET: MenuItems/Details/5
         public ActionResult Details(int? id)
         {
@@ -80,7 +146,6 @@ namespace WebApp.Controllers
         public ActionResult Create()
         {
             MenuItem menuItem = new MenuItem();
-            menuItem.IsEnabled = true;
             //set default value
             var menuitemRepository = _unitOfWork.Repository<MenuItem>();
             ViewBag.ParentId = new SelectList(menuitemRepository.Queryable(), "Id", "Title");
@@ -91,17 +156,11 @@ namespace WebApp.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Parent,SubMenus,Id,Title,Description,Code,Url,IsEnabled,ParentId")] MenuItem menuItem)
+        public ActionResult Create([Bind(Include = "Parent,SubMenus,Id,Title,Description,Code,Url,IconCls,IsEnabled,ParentId,Action,Controller")] MenuItem menuItem)
         {
             if (ModelState.IsValid)
             {
-                menuItem.ObjectState = ObjectState.Added;
-                foreach (var item in menuItem.SubMenus)
-                {
-                    item.ParentId = menuItem.Id;
-                    item.ObjectState = ObjectState.Added;
-                }
-                _menuItemService.InsertOrUpdateGraph(menuItem);
+                _menuItemService.Insert(menuItem);
                 _unitOfWork.SaveChanges();
                 if (Request.IsAjaxRequest())
                 {
@@ -143,22 +202,12 @@ namespace WebApp.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Parent,SubMenus,Id,Title,Description,Code,Url,IsEnabled,ParentId")] MenuItem menuItem)
+        public ActionResult Edit([Bind(Include = "Parent,SubMenus,Id,Title,Description,Code,Url,IconCls,IsEnabled,ParentId,Action,Controller")] MenuItem menuItem)
         {
             if (ModelState.IsValid)
             {
-                menuItem.ObjectState = ObjectState.Modified;
-                foreach (var item in menuItem.SubMenus)
-                {
-                    item.ParentId = menuItem.Id;
-                    //set ObjectState with conditions
-                    if (item.Id <= 0)
-                        item.ObjectState = ObjectState.Added;
-                    else
-                        item.ObjectState = ObjectState.Modified;
-                }
-
-                _menuItemService.InsertOrUpdateGraph(menuItem);
+                menuItem.TrackingState = TrackingState.Modified;
+                _menuItemService.Update(menuItem);
 
                 _unitOfWork.SaveChanges();
                 if (Request.IsAjaxRequest())
@@ -211,77 +260,8 @@ namespace WebApp.Controllers
         }
 
 
-        // Get Detail Row By Id For Edit
-        // Get : MenuItems/EditMenuItem/:id
-        [HttpGet]
-        public ActionResult EditMenuItem(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var menuitemRepository = _unitOfWork.Repository<MenuItem>();
-            var menuitem = menuitemRepository.Find(id);
 
 
-
-            if (menuitem == null)
-            {
-                ViewBag.ParentId = new SelectList(menuitemRepository.Queryable(), "Id", "Title");
-
-                //return HttpNotFound();
-                return PartialView("_MenuItemEditForm", new MenuItem() { IsEnabled = true });
-            }
-            else
-            {
-                ViewBag.ParentId = new SelectList(menuitemRepository.Queryable(), "Id", "Title", menuitem.ParentId);
-
-            }
-            return PartialView("_MenuItemEditForm", menuitem);
-
-        }
-
-        // Get Create Row By Id For Edit
-        // Get : MenuItems/CreateMenuItem
-        [HttpGet]
-        public ActionResult CreateMenuItem()
-        {
-            var menuitemRepository = _unitOfWork.Repository<MenuItem>();
-            ViewBag.ParentId = new SelectList(menuitemRepository.Queryable(), "Id", "Title");
-            return PartialView("_MenuItemEditForm");
-
-        }
-
-        // Post Delete Detail Row By Id
-        // Get : MenuItems/DeleteMenuItem/:id
-        [HttpPost, ActionName("DeleteMenuItem")]
-        public ActionResult DeleteMenuItemConfirmed(int id)
-        {
-            var menuitemRepository = _unitOfWork.Repository<MenuItem>();
-            menuitemRepository.Delete(id);
-            _unitOfWork.SaveChanges();
-            if (Request.IsAjaxRequest())
-            {
-                return Json(new { success = true }, JsonRequestBehavior.AllowGet);
-            }
-            DisplaySuccessMessage("Has delete a Order record");
-            return RedirectToAction("Index");
-        }
-
-
-
-        // Get : MenuItems/GetSubMenusByParentId/:id
-        [HttpGet]
-        public ActionResult GetSubMenusByParentId(int id)
-        {
-            var submenus = _menuItemService.GetSubMenusByParentId(id);
-            if (Request.IsAjaxRequest())
-            {
-                return Json(submenus.Select(n => new { ParentTitle = (n.Parent == null ? "" : n.Parent.Title), Id = n.Id, Title = n.Title, Description = n.Description, Code = n.Code, Url = n.Url, IsEnabled = n.IsEnabled, ParentId = n.ParentId }), JsonRequestBehavior.AllowGet);
-            }
-            return View(submenus);
-
-        }
 
 
         private void DisplaySuccessMessage(string msgText)
@@ -294,13 +274,6 @@ namespace WebApp.Controllers
             TempData["ErrorMessage"] = "Save changes was unsuccessful.";
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _unitOfWork.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+         
     }
 }

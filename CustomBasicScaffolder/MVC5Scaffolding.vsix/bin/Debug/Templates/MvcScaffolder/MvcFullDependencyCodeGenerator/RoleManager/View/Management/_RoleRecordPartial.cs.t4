@@ -1,0 +1,19 @@
+﻿
+<#@ template language="C#" HostSpecific="True" #>
+<#@ output extension=".cshtml" #>
+<#@ parameter type="System.String" name="DefaultNamespace" #>
+
+@using <#= DefaultNamespace #>.Models
+
+ 
+@model ApplicationRole
+
+<tr>
+    <td>@Model.Name</td>
+    <td>
+        <form action="/management/roles/@Model.Id" method="get" class="form-inline" role="form">
+            @Html.AntiForgeryToken()
+            <input type="submit" value="删除" class="btn btn-danger" />
+        </form>
+    </td>
+</tr>

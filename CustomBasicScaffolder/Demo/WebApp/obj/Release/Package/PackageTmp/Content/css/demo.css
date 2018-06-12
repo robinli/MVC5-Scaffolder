@@ -1,0 +1,202 @@
+/*
+	 * Toggle Demo
+	 */
+	
+	.toggle-demo {
+	    display: block;
+	    height: auto;
+	    opacity: .9;
+	    position: absolute;
+	    right: -8px;
+	    top: 10px;
+	    width: 154px;
+	    z-index: 99;		
+	}
+
+	.toggle-demo:hover { opacity: 1; }
+
+	.toggle-demo .btn-group {
+	    float: left;
+	    width: 100px;
+	}
+
+	.toggle-demo > span {
+	    color: #757575;
+	    display: inline-block;
+	    float: left;
+	    line-height: 21px;
+	    margin-right: 5px;
+	}
+	
+
+	/*
+	 * noUISlider vertical demo
+	 */
+
+	.demo-vertical-uislider {
+		
+	    -moz-box-sizing: border-box;
+	    -webkit-box-sizing: border-box;
+	    box-sizing: border-box;
+	}
+
+	.demo-vertical-uislider > div {
+	    display: inline-block;
+	    height: 200px;
+	    margin: 0 0px 0 10px;
+	}
+
+	.demo-vertical-uislider > :first-child { margin-left: 15px; }
+
+	
+	/*
+	 * Knobs demo
+	 */
+
+	.knobs-demo > div {
+	    display: inline-block;
+	    margin-left: 30px;
+	}
+
+	.knobs-demo > :first-child { margin-left: 0; }
+
+	/*
+	 * DEMO INPUT
+	 */
+
+	.demo label input[type=radio].radiobox + span:before, .demo label input[type=checkbox].checkbox + span:before { border: 1px solid #5E5E5E; }
+
+	.demo label:hover input[type=checkbox].checkbox + span:before { border-color: #E77317; }
+
+	/*
+	 * DEMO
+	 * Demo CSS only
+	 */
+
+	.demo label { margin-bottom: 4 !important; }
+
+	.demo .checkbox i { border-color: #7A7A7A; }
+
+	.demo .radio, .demo .checkbox { padding-left: 22px; }
+
+	.demo.activate {
+	    box-shadow: -11px 12px 23px rgba(0, 0, 0, 0.2);
+	    padding: 5px 10px 10px;
+	    right: 0px !important;
+	}
+
+	.demo #demo-setting + form { display: none; }
+
+	.demo.activate #demo-setting + form { display: block; }
+
+	.demo {
+	    background: #F1DA91;
+	    position: absolute;
+	    right: 0px;
+	    top: 5px;
+	    width: 160px;
+	    z-index: 902;
+	}
+
+	.demo > span {
+	    background: #F1DA91;
+	    border-radius: 5px 0 0 5px;
+	    cursor: pointer;
+	    display: block;
+	    height: 30px;
+	    line-height: 28px;
+	    padding: 2px;
+	    position: absolute;
+	    right: 0px;
+	    text-align: center;
+	    top: 0px;
+	    width: 30px;
+	}
+
+	.demo > span i { font-size: 17px; }
+
+	.demo.activate > span i:before { content: "\f00d"; }
+
+	.demo.activate > span { left: -30px; }
+
+	.demo > span:hover i { color: #333 !important; }
+
+	.demo form section { margin: 0 !important; }
+
+	.demo .btn {
+	    border-radius: 3px !important;
+	    font-size: 13px !important;
+	    height: auto !important;
+	    line-height: 1.5 !important;
+	    padding: 3px 7px !important;
+	}
+
+	.demo-liveupdate-1 {
+	    display: block;
+	    font-size: 12px !important;
+	    font-weight: bold;
+	    left: 33px;
+	    padding: 1px 61px 3px 7px;
+	    position: absolute !important;
+	    top: 15px;
+	    z-index: 2;
+	}
+
+	.demo-btns {
+	    list-style: none;
+	    margin: 0;
+	    padding: 0;
+	}
+
+	.demo-btns > li {
+	    display: inline-block;
+	    margin-bottom: 7px;
+	}
+
+	
+	.demo-icon-font {
+	    font-size: 14px;
+	    margin-bottom: 6px;
+	    padding-bottom: 4px;
+	    padding-top: 4px;
+	}
+
+	.demo-icon-font:hover {
+	    background-color: rgba(86, 61, 124, 0.1);
+	    text-decoration: none;
+	}
+
+	.demo-modal {
+	    max-width: 600px;
+	    width: auto;
+	    z-index: 1;
+	}
+
+	.demo-red { color: #DF413E }
+
+	.demo-orange { color: #DAA03E; }
+
+	.demo-border { border: 1px solid rgba(0, 0, 0, .2) }
+
+	/* DEMO BUTTON FOR NAV */
+
+	.nav-demo-btn { display: none; }
+
+	body:not(.menu-on-top) .nav-demo-btn {
+	    -moz-border-radius: 5px;
+	    -webkit-border-radius: 5px;
+	    border-radius: 5px;
+	    display: block;
+	    font-size: 12px;
+	    margin: 5px 10px;
+	    padding: 6px 5px;
+	    white-space: normal;
+	    width: auto;
+	}
+
+	.minified .nav-demo-btn,
+	.fixed-navigation .nav-demo-btn { display: none !important; }
+
+	/* RTL FIX */
+
+	.smart-rtl .demo .margin-right-5 { margin-right: 0px !important; }

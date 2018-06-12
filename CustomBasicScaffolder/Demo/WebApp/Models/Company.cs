@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Repository.Pattern.Ef6;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Web;
 
 namespace WebApp.Models
 {
-    public partial class Company
+    public partial class Company : Entity
     {
         public Company()
         {
@@ -24,5 +25,13 @@ namespace WebApp.Models
 
         public virtual ICollection<Department> Departments { get; set; }
         public virtual ICollection<Employee> Employee { get; set; }
+    }
+
+
+    public class CompanyViewModel
+    {
+        public string CompanyCode { get; set; }
+        public string CompanyName { get; set; }
+        public int Type { get; set; }
     }
 }

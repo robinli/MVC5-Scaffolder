@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace WebApp.Models
@@ -23,7 +24,7 @@ namespace WebApp.Models
 
         [Required(ErrorMessage = "Please enter : 菜单名称")]
         [Display(Name = "菜单名称")]
-        [MaxLength(20)]
+        [MaxLength(50)]
         public string Title { get; set; }
 
         [Display(Name = "描述")]
@@ -35,15 +36,34 @@ namespace WebApp.Models
         [MaxLength(20)]
         public string Code { get; set; }
 
+        [Display(Name = "图标")]
+        public string IconCls { get; set; }
+
         [Required(ErrorMessage = "Please enter : Url")]
         [Display(Name = "Url")]
         [MaxLength(100)]
         public string Url { get; set; }
+
+        [Display(Name = "Controller")]
+        [MaxLength(100)]
+        public string Controller { get; set; }
+        [MaxLength(100)]
+        [Display(Name = "Action")]
+        public string Action { get; set; }
+
 
         [Display(Name = "上级菜单")]
         public int ParentId { get; set; }
         [Display(Name = "是否启用")]
         public bool IsEnabled { get; set; }
 
+    }
+
+
+    public class MenuItemChangeViewModel
+    {
+        public IEnumerable<MenuItem> inserted { get; set; }
+        public IEnumerable<MenuItem> deleted { get; set; }
+        public IEnumerable<MenuItem> updated { get; set; }
     }
 }

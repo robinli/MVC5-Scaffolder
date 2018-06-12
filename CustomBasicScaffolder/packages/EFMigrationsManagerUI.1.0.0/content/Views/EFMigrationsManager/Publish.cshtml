@@ -1,0 +1,249 @@
+﻿@model NB.Apps.EFMigrationsManager.Models.EFMigrationDetails
+
+@{
+    ViewBag.Title = Model.IsRollback ? "Restore Migration(s)" : "Update Database";
+    var statusMessage = TempData["StatusMessage"] as string;
+
+    var disclaimerMessage = Model.IsRollback ? "Disclaimer: Restoring to previous Target Migration may break the application." :
+                                "Disclaimer: The latest Target Migration must be applied to continue using this application.";
+
+    var noAvailableTargetMigrationsMessage = Model.IsRollback ? "No migration(s) available to restore."
+        : "Latest migration was applied.";
+
+}
+
+<h2>@ViewBag.Title</h2>
+
+
+@if (!string.IsNullOrEmpty(statusMessage))
+{
+    <div class="alert alert-success alert-dismissable">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+        @statusMessage
+    </div>
+}
+else
+{
+    if (!Model.HasTargetMigrationExists)
+    {
+        <div class="alert alert-success alert-dismissable">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+            @noAvailableTargetMigrationsMessage
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning alert-dismissable">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+            @disclaimerMessage
+        </div>
+    }
+}
+
+<div class="container-fluid well">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal formContainer">
+            @Html.HiddenFor(model => model.IsRollback)
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.CurrentMigrationDisplayValue, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.CurrentMigrationDisplayValue, new { @class = "form-control", disabled = "disabled" })
+                </div>
+            </div>
+            <div class="form-group form-inline">
+                @Html.LabelFor(model => model.TargetMigration, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.TargetMigration, Model.Migrations, new { @class = "form-control selectTargetMigration" })
+                    @if (Model.IsRollback)
+                    {
+                        @Html.ActionLink("Show Pending Migration(s)", "Publish", null, new { @class = "btn btn-raised btn-default btn-primary" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Show Previous Migration(s)", "Publish", new { isRollback = true }, new { @class = "btn btn-raised btn-default btn-primary" })
+                    }
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <button class="btn btn-raised btn-primary btn-default btnUpdateDatabase @(!Model.HasTargetMigrationExists ? "disabled" : "")"
+                            title="Update Database" type="button">
+                        Apply Migration(s)
+                        <div class="ripple-container"></div>
+                    </button>
+                    <div class="loader"></div>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="confirmationDailogContainer" style="display:none">
+
+            <div class="row message dialogHeader">
+                @if (Model.IsRollback)
+                {
+                    <div class="dataLossWarning">Data loss can occur when restoring previous migration(s)</div>
+                }
+                <h4>The following migration(s) will be @(Model.IsRollback ? "restored" : "applied"):</h4>
+            </div>
+            <div class="dialogBody">
+                <ul class="migrationsToApply"></ul>
+            </div>
+            <div class="dialogFooter">
+                <div class="row message">
+                    Are you sure you want to continue?
+                </div>
+
+                <div class="row message">
+                    <button class="btn btn-raised btn-primary btn-default btnYes" type="button">
+                        <span class="glyphicon glyphicon-ok"></span>
+                        Yes
+                    </button>
+                    <button class="btn btn-raised btn-primary btn-default btnNo" type="button">
+                        <span class="glyphicon glyphicon-remove"></span>
+                        No
+                    </button>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<script type="text/javascript">
+        function doConfirm(yesFn, noFn) {
+            var confirmationDailogContainerElement = $("#confirmationDailogContainer");
+            var formContainer = $(".formContainer");
+            var migrationsToApplyElement = $('.migrationsToApply', confirmationDailogContainerElement);
+
+            migrationsToApplyElement.empty();
+
+            $.each($( "#TargetMigration option"), function () {
+                migrationsToApplyElement.append('<li class="message">' + this.text.trim() + '</li>');
+                if (this.selected) {
+                    return false;
+                }
+            });
+            if ('@Model.IsRollback' == 'True')
+            {
+                migrationsToApplyElement.prepend('<li class="message">' + '@Model.CurrentMigrationDisplayValue' + '</li>');
+                $('li:last-child', migrationsToApplyElement).remove();
+            }
+
+            var modalDialogClassName = 'dialogVisible'
+            confirmationDailogContainerElement.find(".btnYes,.btnNo").unbind().click(function () {
+                formContainer.removeClass(modalDialogClassName);
+                confirmationDailogContainerElement.hide();
+            });
+            confirmationDailogContainerElement.find(".btnYes").click(yesFn);
+            confirmationDailogContainerElement.find(".btnNo").click(noFn);
+            formContainer.addClass(modalDialogClassName);
+
+            confirmationDailogContainerElement.show();
+
+            return false;
+        }
+        function bindUpdateDatabaseClickEvent() {
+            $(".btnUpdateDatabase").click(function () {
+                if ('@Model.HasTargetMigrationExists' === 'True') {
+                    doConfirm(function yes() {
+                        $('.loader').show();
+                        document.forms[0].submit();
+                    }, function no() {
+                    });
+                }
+            });
+        }
+
+        //$(document).ready(bindUpdateDatabaseClickEvent); // Use this line and comment below one. Jquery should be loaded by this time.
+        setTimeout(function () {
+            var removeAllMigrationsItem = document.querySelector('#TargetMigration option[value="0"]');
+            if (removeAllMigrationsItem){
+                removeAllMigrationsItem.style.backgroundColor = "#fcf8e3";
+            }
+            bindUpdateDatabaseClickEvent();
+        }, 500);
+</script>
+<style>
+    .selectTargetMigration {
+        min-width: 250px;
+    }
+
+    .dialogVisible {
+        opacity: 0.4;
+        pointer-events: none;
+    }
+
+    #confirmationDailogContainer .dialogBody {
+        height: 100%;
+        max-height: 150px;
+        overflow-y: auto;
+    }
+
+    #confirmationDailogContainer {
+        display: none;
+        background-color: #eee;
+        border-radius: 5px;
+        border: 1px solid #aaa;
+        padding: 6px 8px 8px;
+        box-sizing: border-box;
+        text-align: center;
+        z-index: 999999999999;
+    }
+
+    .message {
+        text-align: left;
+        margin-bottom: 8px;
+        margin-left: 8px;
+    }
+
+    .dataLossWarning {
+        color: #b94a48;
+    }
+
+    #confirmationDailogContainer, .centerPosition {
+        position: fixed;
+        width: 450px;
+        left: 40%;
+        top: 40%;
+        margin-left: -150px;
+        margin-top: -150px;
+    }
+
+    .loader {
+        margin-left: 150px;
+        margin-top: -50px;
+        position: fixed;
+        display: none;
+        border: 8px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 8px solid blue;
+        border-bottom: 8px solid blue;
+        width: 80px;
+        height: 80px;
+        -webkit-animation: spin 2s linear infinite;
+        animation: spin 2s linear infinite;
+    }
+
+    @@-webkit-keyframes spin {
+        0% {
+            -webkit-transform: rotate(0deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(360deg);
+        }
+    }
+
+    @@keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+</style>

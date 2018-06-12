@@ -1,0 +1,115 @@
+﻿<#@ template language="C#" HostSpecific="True" #>
+<#@ output extension=".cshtml" #>
+<#@ parameter type="System.String" name="DefaultNamespace" #>
+
+<div class="collapse navbar-collapse navbar-ex1-collapse">
+    <ul class="nav navbar-nav side-nav">
+
+        <li>
+            <a href="javascript:;" data-toggle="collapse" data-target="#model1"><i class="fa fa-fw fa-folder-o"></i> 业务系统 <i class="fa fa-fw fa-caret-down"></i></a>
+            <ul id="model1" class="collapse">
+                <li>
+                    @Html.ActionLink("Category", "Index", "Categories")
+                </li>
+                <li>
+                    @Html.ActionLink("Product", "Index", "Products")
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:;" data-toggle="collapse" data-target="#systemmanager"><i class="fa fa-fw fa-wrench"></i> 系统管理 <i class="fa fa-fw fa-caret-down"></i></a>
+             <ul id="systemmanager" class="collapse">
+                <li  >
+                    <a href="/AccountManage"><i class="fa fa-fw fa-user"></i>用户管理</a>
+                </li>
+                <li >
+                    <a href="/MenuItems"><i class="fa fa-fw fa-bars"></i>菜单管理</a>
+                </li>
+                <li>
+                    <a href="/Management"><i class="fa fa-fw fa-lock"></i>授权管理</a>
+                </li>
+                <li>
+                    <a href="/RoleMenus"><i class="fa fa-fw fa-check-square-o"></i>菜单授权</a>
+                </li>
+                <li>
+                    <a href="/BaseCodes"><i class="fa fa-fw fa-adjust"></i>基础代码管理</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+@Scripts.Render("~/bundles/jquery")
+
+
+<script type="text/javascript">
+     $(function () {
+        $(window).resize(function (e) {
+           $('#side-nav').css('height', $(window).height() - 50);
+        });
+        $('#side-nav').css('height', $(window).height() - 50);
+        $('.nav  .collapse').on('hidden.bs.collapse', function () {
+            var a = $(this).parent().find('[data-target=#' + $(this)[0].id + ']');
+            $($(a[0]).find('i')[1]).removeClass("fa fa-fw fa-caret-down").addClass("fa fa-fw fa-caret-right");
+            $('.nav navbar-nav side-nav').tinyscrollbar();
+        });
+        $('.nav  .collapse').on('show.bs.collapse', function () {
+            var a = $(this).parent().find('[data-target=#' + $(this)[0].id + ']');
+            $($(a[0]).find('i')[1]).removeClass("fa fa-fw fa-caret-right").addClass("fa fa-fw fa-caret-down");
+        });
+
+        function stripTrailingSlash(str) {
+            if (str.substr(-1) == '/') {
+                return str.substr(0, str.length - 1);
+            }
+            return str;
+        }
+
+        var pathnamestr = window.location.pathname;
+        var url;
+        if (pathnamestr.indexOf('/', pathnamestr.indexOf('/') + 1) > 0) {
+            url = pathnamestr.substr(0, pathnamestr.indexOf('/', pathnamestr.indexOf('/') + 1)) + window.location.search;
+        }
+        else
+            url = pathnamestr + window.location.search;
+        var activePage = stripTrailingSlash(url);
+        
+        $('.navbar li').removeClass('active');
+
+        var actve_a_s = $(".nav li a[href = '" + pathnamestr + "']");
+        
+        if (actve_a_s.length > 0) {
+            $(actve_a_s[0]).parent().addClass('active');
+            $(actve_a_s[0]).parent().parent().collapse('show');
+        }
+        else {
+            actve_a_s = $(".nav li a[href = '" + pathnamestr + window.location.search + "']");
+            if (actve_a_s.length > 0) {
+                $(actve_a_s[0]).parent().addClass('active');
+                $(actve_a_s[0]).parent().parent().collapse('show');
+            }
+            else {
+                var ss = $('.nav li a[href$="' + window.location.search + '"]:eq(0)');
+                if (ss.length>0) {
+                    ss.parent().addClass('active');
+                    ss.parent().parent().collapse('show');
+                } 
+                else {
+                    var set_a_bool = false;
+                    $('.nav li a').each(function () {
+                        var currentPage = stripTrailingSlash($(this).attr('href'));
+
+                        //console.log(activePage+"---"+currentPage);
+                        if (activePage.indexOf(currentPage) >= 0) {
+                            $(this).parent().addClass('active');
+                            $(this).parent().parent().collapse('show');
+                            set_a_bool = true;
+                        }
+                    });
+                }
+            }
+        }
+
+    });
+
+</script>

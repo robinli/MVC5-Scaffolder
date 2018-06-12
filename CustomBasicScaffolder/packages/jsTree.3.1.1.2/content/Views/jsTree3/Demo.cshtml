@@ -1,0 +1,151 @@
+﻿@{
+    ViewBag.Title = "Demo";
+    Layout = "~/Views/Shared/_jsTreeDemo.cshtml";
+}
+
+
+
+<h4>Basic markup</h4>
+<div class="row">
+    <div class="col-md-4">
+        <p>jsTree can turn a regular unordered list into a tree. The minimal required markup is a <code>&lt;ul&gt;</code> node with some nested <code>&lt;li&gt;</code> nodes with some text inside.</p>
+        <p>You should have a container wrapping the <code>&lt;ul&gt;</code> and create the instance on that container. Like so:<br /><code>$('#html1').jstree();</code>.
+    </div>
+    <div class="col-md-4">
+        <pre><code>&lt;div id="html1"&gt;
+  &lt;ul&gt;
+    &lt;li&gt;Root node 1&lt;/li&gt;
+    &lt;li&gt;Root node 2&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+    <div class="col-md-4">
+        <div class="demo" id="using_html_1">
+            <ul>
+                <li>Root node 1</li>
+                <li>Root node 2</li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        $(function () {
+            $('#using_html_1').jstree();
+        });
+    </script>
+</div>
+<h4>Nodes with children</h4>
+<div class="row">
+    <div class="col-md-4">
+        <p>To create a node with child nodes simpy nest an <code>&lt;ul&gt;</code>.</p>
+        <p>Internally jstree converts the text to a link, so if there already is a link in the markup jstree won't mind. Like <code>Child node 2</code>.<br />Clicking on the link however will not direct the user to a new page, to do that - intercept the <code>changed.jstree</code> event and act accordingly.</p>
+        <p>Keep reading for the section on handling events.</p>
+    </div>
+    <div class="col-md-4">
+        <pre><code>&lt;div id="html1"&gt;
+  &lt;ul&gt;
+    &lt;li&gt;Root node 1<strong>
+      &lt;ul&gt;
+        &lt;li&gt;Child node 1&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Child node 2&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;</strong>
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+    <div class="col-md-4">
+        <div id="using_html_2" class="demo">
+            <ul>
+                <li>
+                    Root node 1
+                    <ul>
+                        <li>Child node 1</li>
+                        <li><a href="#">Child node 2</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <script>
+            $(function () {
+                $('#using_html_2').jstree();
+            });
+        </script>
+    </div>
+</div>
+<h4>Setting initial state with classes</h4>
+<div class="row">
+    <div class="col-md-4">
+        <p>To make a node initially selected you can set the <code>jstree-clicked</code> class on the <code>&lt;a&gt;</code> element.</p>
+        <p>Similarly you can set the <code>jstree-open</code> class on any <code>&lt;li&gt;</code> element to make it initially extended, so that its children are visible.</p>
+        <p>It is a good idea to give your nodes <strong>unique</strong> IDs by adding the <code>id</code> attribute to any <code>&lt;li&gt;</code> element. This will be useful if you need to sync with a backend as you will get the ID back in any events jstree triggers.</p>
+    </div>
+    <div class="col-md-4">
+        <pre><code>&hellip;
+&lt;li <strong>class="jstree-open"</strong> <strong>id="node_1"</strong>&gt;Root&lt;/li&gt;
+  &lt;ul&gt;
+    &lt;li&gt;
+      &lt;a href="#" <strong>class="jstree-clicked"</strong>&gt;Child&lt;/a&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/li&gt;
+&hellip;</code></pre>
+    </div>
+    <div class="col-md-4">
+        <div id="using_html_3" class="demo">
+            <ul>
+                <li class="jstree-open">
+                    Root
+                    <ul>
+                        <li><a href="#" class="jstree-clicked">Child</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <script>
+            $(function () {
+                $('#using_html_3').jstree();
+            });
+        </script>
+    </div>
+</div>
+<h4>Setting initial state with data attribute</h4>
+<div class="row">
+    <div class="col-md-4">
+        <p>You can also set the state on a node using a <code>data-jstree</code> attribute.</p>
+        <p>You can use any combination of the following: <code>opened</code>, <code>selected</code>, <code>disabled</code>, <code>icon</code>.</p>
+        <p>Specifying an address (anything containing a <code>/</code>) will display that image as the node icon. Using a string will apply that class to the <code>&lt;i&gt;</code> element that is used to represent the icon.<br />For example if you are using Twitter Bootstrap you can use <code>"icon" : "glyphicon glyphicon-leaf"</code> to display a leaf icon.</p>
+    </div>
+    <div class="col-md-4">
+        <pre><code>&lt;li <strong>data-jstree='{"opened":true,"selected":true}'</strong>&gt;Root
+  &lt;ul&gt;
+    &lt;li <strong>data-jstree='{"disabled":true}'</strong>&gt;Child&lt;/li&gt;
+    &lt;li <strong>data-jstree='{"icon":"http://jstree.com/tree.png"}'</strong>&gt;
+      Child&lt;/li&gt;
+    &lt;li <strong>data-jstree='{"icon":"glyphicon glyphicon-leaf"}'</strong>&gt;
+      Child&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/li&gt;</code></pre>
+    </div>
+    <div class="col-md-4">
+        <div id="using_html_4" class="demo">
+            <ul>
+                <li data-jstree='{"opened":true,"selected":true}'>
+                    Root
+                    <ul>
+                        <li data-jstree='{"disabled":true}'>Child</li>
+                        <li data-jstree='{"icon":"http://jstree.com/tree.png"}'>
+                            Child
+                        </li>
+                        <li data-jstree='{"icon":"glyphicon glyphicon-leaf"}'>
+                            Child
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <script>
+            $(function () {
+                $('#using_html_4').jstree();
+            });
+        </script>
+    </div>
+</div>

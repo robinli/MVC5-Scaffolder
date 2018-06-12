@@ -1,0 +1,145 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Data" #>
+<#@ assembly name="System.Data.DataSetExtensions" #>
+<#@ assembly name="System.Xml" #>
+<#@ assembly name="System.Xml.Linq" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Data.SqlClient" #>
+<#@ import namespace="System.Data" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Xml" #>
+<#@ import namespace="System.Xml.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Linq" #>
+<#@ output extension=".js" #>
+
+<#
+              foreach(var item in GetTables().Select(x=>new { codetype = x.codetype,description = x.description }).Distinct())
+               {
+               var filtername = item.codetype.ToLower() + "filtersource";
+               var datasourcename = item.codetype.ToLower() + "datasource";
+#>
+ // <#= item.description #>
+ var <#= filtername  #> = [{ value: '', text: 'All'}] ; 
+ var <#= datasourcename  #> = [] ; 
+ <#  foreach(var data in  GetTables().Where(x=>x.codetype == item.codetype) ) {  #>
+   <#= filtername  #>.push({ value: '<#= data.code #>', text: '<#= data.text #>' });
+   <#= datasourcename  #>.push({ value: '<#= data.code #>', text: '<#= data.text #>' });
+<#    } #>
+//for datagrid <#= item.codetype #> field  formatter
+function <#= item.codetype.ToLower() #>formatter(value, row, index) {
+    if (value === null || value === '' || value === undefined ) {
+        return "";
+    }
+    for (var i = 0; i < <#= datasourcename #>.length; i++) {
+      var item = <#= datasourcename #>[i];
+     if (item.value === value.toString())
+     {
+         return item.text;
+     }
+     }
+    return value;
+   
+}
+
+//for datagrid   <#= item.codetype #>   field filter 
+$.extend($.fn.datagrid.defaults.filters, {
+    <#= item.codetype.ToLower() #>combobox: {
+        init: function (container, options) {
+            var input = $('<input type="text">').appendTo(container);
+            var myoptions = {
+                panelHeight: "auto",
+                data: <#= filtername #>
+            }
+            $.extend(options, myoptions);
+            input.combobox(options);
+            return input;
+        },
+        destroy: function (target) {
+            $(target).combobox('destroy');
+        },
+        getValue: function (target) {
+            return $(target).combobox('getValue');
+        },
+        setValue: function (target, value) {
+           $(target).combobox('setValue', value);
+        },
+        resize: function (target, width) {
+            $(target).combobox('resize', width);
+        }
+    }
+});
+
+//for datagrid   <#= item.codetype #>   field  editor 
+$.extend($.fn.datagrid.defaults.editors, {
+    <#= item.codetype.ToLower() #>combobox: {
+        init: function (container, options) {
+            var input = $('<input type="text">').appendTo(container);
+            var myoptions = {
+                panelHeight: "auto",
+                data: <#= datasourcename #>,
+                valueField: 'value',
+                textField: 'text'
+            }
+            $.extend(options, myoptions);
+            input.combobox(options);
+            return input;
+        },
+        destroy: function (target) {
+            $(target).combobox('destroy');
+        },
+        getValue: function (target) {
+            return $(target).combobox('getValue');
+        },
+        setValue: function (target, value) {
+            //console.info(dateformatter(value));
+            $(target).combobox('setValue', value);
+        },
+        resize: function (target, width) {
+            $(target).combobox('resize', width);
+        }
+    }
+});
+
+
+<#
+               }
+        
+#>
+
+
+
+<#+
+
+public   IEnumerable<codeitem> GetTables(){
+    using (SqlConnection db = new SqlConnection("Data Source=(LocalDb)\\MSSQLLocalDB; Initial Catalog=aspnet-WebApp;Integrated Security=True")) {
+                db.Open();
+                string sql = "select codetype,code,text,Description from Codeitems where isDisabled = 0 ";
+                var cmd = db.CreateCommand();
+                cmd.CommandText = sql;
+                var reader = cmd.ExecuteReader();
+                var list=new List<codeitem>();
+                while (reader.Read()) {
+
+                    var codetype = reader.GetString(0);
+                    var code = reader.GetString(1);
+                    var text = reader.GetString(2);
+                    var description = reader.GetString(3);
+                    list.Add(new codeitem(){codetype = codetype,code = code,text = text,description=description });
+               }
+               db.Close();
+               return list;
+        }
+
+    }
+ public class codeitem
+    {
+        public codeitem(){
+        }
+        public string codetype{get;set;}
+        public string code{get;set;}
+        public string text{get;set;}
+        public string description{get;set;}
+    } 
+ #>

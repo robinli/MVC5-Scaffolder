@@ -1,0 +1,25 @@
+﻿<#@ template language="C#" HostSpecific="True" #>
+<#@ output extension="cshtml" #>
+
+@model System.Int32
+<div class="slider">
+    @Html.HiddenFor(m => Model, new { @class = "sliderValue" })
+</div>
+
+<script>
+    function ChangeSliderValue(event, ui) {
+
+        var selector = $(this).children(".sliderValue");
+
+        selector.val(ui.value);
+    }
+    $(document).ready(function (e) {
+        $(".slider").slider({
+            min: 1,
+            max: 100,
+            value:@Model,
+            change: ChangeSliderValue,
+            slide: ChangeSliderValue
+        });
+    })
+</script>

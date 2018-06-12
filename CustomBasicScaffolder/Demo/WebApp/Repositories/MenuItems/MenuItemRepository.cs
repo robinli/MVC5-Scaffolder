@@ -1,4 +1,5 @@
-﻿                    
+﻿
+                    
       
     
  
@@ -17,7 +18,7 @@ namespace WebApp.Repositories
   public static class MenuItemRepository  
     {
  
-          public static IEnumerable<MenuItem> GetByParentId(this IRepositoryAsync<MenuItem> repository, int parentid)
+                 public static IEnumerable<MenuItem> GetByParentId(this IRepositoryAsync<MenuItem> repository, int parentid)
          {
              var query= repository
                 .Queryable()
@@ -27,7 +28,7 @@ namespace WebApp.Repositories
          }
              
         
-         public static IEnumerable<MenuItem>   GetSubMenusByParentId (this IRepositoryAsync<MenuItem> repository,int parentid)
+                public static IEnumerable<MenuItem>   GetSubMenusByParentId (this IRepositoryAsync<MenuItem> repository,int parentid)
         {
 			var menuitemRepository = repository.GetRepository<MenuItem>(); 
             return menuitemRepository.Queryable().Include(x => x.Parent).Where(n => n.ParentId == parentid);

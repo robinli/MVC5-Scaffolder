@@ -1,0 +1,154 @@
+﻿﻿@model WebApp.Models.CodeItem
+
+
+
+
+ <!-- 输出form表单界面 -->
+ <table class="table table-bordered">
+     <caption>
+        @{
+        //TODO: fix edit form commonent!
+        }
+        <div class="alert alert-warning no-margin fade in">
+            <button class="close" data-dismiss="alert">
+                ×
+            </button>
+            <i class="fa-fw fa fa-info"></i>
+            A combined table effect with all classes mentioned above added to
+        </div>
+     </caption>
+	    <tr>
+      	   <td class="control-label">   @Html.DisplayNameFor(model => model.Id)  </td>
+	   <td> 
+						   			<input  disabled  id="@Html.IdFor(model => model.Id)" name="@Html.NameFor(model => model.Id)" tabindex="0" style="width:100%" class="easyui-numberbox" type="text" data-options="prompt:'Id',label:'',required:true ,precision:0" />
+			  
+				   </td>
+	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.Code)  </td>
+	   <td> 
+			
+			  			<input id="@Html.IdFor(model => model.Code)" 
+				   name="@Html.NameFor(model => model.Code)" 
+				   value="@Html.ValueFor(model => model.Code)"
+				   tabindex="1" 
+				   style="width:100%" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'值',
+								 label:'',
+								 required:true ,validType:'length[0,20]'" />
+			              
+				   </td>
+	   	   </tr>
+	   	    <tr>
+      	   <td class="control-label">   @Html.DisplayNameFor(model => model.Text)  </td>
+	   <td> 
+			
+			  			<input id="@Html.IdFor(model => model.Text)" 
+				   name="@Html.NameFor(model => model.Text)" 
+				   value="@Html.ValueFor(model => model.Text)"
+				   tabindex="2" 
+				   style="width:100%" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'显示',
+								 label:'',
+								 required:true ,validType:'length[0,20]'" />
+			              
+				   </td>
+	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.Description)  </td>
+	   <td> 
+			
+			  			<input id="@Html.IdFor(model => model.Description)" 
+				   name="@Html.NameFor(model => model.Description)" 
+				   value="@Html.ValueFor(model => model.Description)"
+				   tabindex="3" 
+				   style="width:100%" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'描述',
+								 label:'',
+								 required:true ,validType:'length[0,50]'" />
+			              
+				   </td>
+	   	   </tr>
+	   	    <tr>
+      	   <td class="control-label">   @Html.DisplayNameFor(model => model.IsDisabled)  </td>
+	   <td> 
+			
+			  			<input id="@Html.IdFor(model => model.IsDisabled)"
+				   name="@Html.NameFor(model => model.IsDisabled)" 
+				   value="@Html.ValueFor(model => model.IsDisabled)"
+				   tabindex="4" 
+				   style="width:100%" 
+				   class="easyui-numberbox" 
+				   type="text" 
+				   data-options="prompt:'是否禁用',
+								 label:'',
+								 required:true " />
+			              
+				   </td>
+	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.BaseCodeId)  </td>
+	   <td> 
+			
+			<input id="@Html.IdFor(model => model.BaseCodeId)"
+			       name="@Html.NameFor(model => model.BaseCodeId)"
+				   value="@Html.ValueFor(model => model.BaseCodeId)"
+				   class="easyui-combobox" data-options="
+						prompt:'类型' ,
+						label:'' ,
+						required:true ,
+						valueField: 'Id',
+						textField: 'CodeType' ,
+						url: '/CodeItems/GetBaseCodes' ,
+						onSelect: function(item){
+						//console.log(item);
+				}">
+
+				   </td>
+	   	   </tr>
+	   	    <tr>
+      	   <td class="control-label">   @Html.DisplayNameFor(model => model.CreatedBy)  </td>
+	   <td> 
+			
+			  			<input id="@Html.IdFor(model => model.CreatedBy)" 
+				   name="@Html.NameFor(model => model.CreatedBy)" 
+				   value="@Html.ValueFor(model => model.CreatedBy)"
+				   tabindex="6" 
+				   style="width:100%" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'CreatedBy',
+								 label:'',
+								 required:false " />
+			              
+				   </td>
+	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.LastModifiedBy)  </td>
+	   <td> 
+			
+			  			<input id="@Html.IdFor(model => model.LastModifiedBy)" 
+				   name="@Html.NameFor(model => model.LastModifiedBy)" 
+				   value="@Html.ValueFor(model => model.LastModifiedBy)"
+				   tabindex="7" 
+				   style="width:100%" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'LastModifiedBy',
+								 label:'',
+								 required:false " />
+			              
+				   </td>
+	   	   </tr>
+	   	        <tfoot>
+        <tr>
+           
+        <tr>
+    </tfoot>
+</table>
+  <!--输出form表单界面-->
+
+<!--========================================================================================-->
+  
+
+
+
+

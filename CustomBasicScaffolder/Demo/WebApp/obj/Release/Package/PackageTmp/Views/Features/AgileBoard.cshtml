@@ -1,0 +1,321 @@
+﻿
+@{
+    ViewBag.Title = "Agile Board";
+}
+<div id="content">
+
+    <!-- row -->
+    <div class="row">
+
+        <!-- col -->
+        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+            <h1 class="page-title txt-color-blueDark">
+
+                <!-- PAGE HEADER -->
+                <i class="fa-fw fa fa-home"></i>
+                项目
+                <span>
+                    >
+                    任务
+                </span>
+            </h1>
+        </div>
+        <!-- end col -->
+        <!-- right side of the page with the sparkline graphs -->
+        <!-- col -->
+        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+            <!-- sparks -->
+            <ul id="sparks">
+                <li class="sparks-info">
+                    <h5> My Income <span class="txt-color-blue">$47,171</span></h5>
+                    <div class="sparkline txt-color-blue hidden-mobile hidden-md hidden-sm">
+                        1300, 1877, 2500, 2577, 2000, 2100, 3000, 2700, 3631, 2471, 2700, 3631, 2471
+                    </div>
+                </li>
+                <li class="sparks-info">
+                    <h5> Site Traffic <span class="txt-color-purple"><i class="fa fa-arrow-circle-up" data-rel="bootstrap-tooltip" title="Increased"></i>&nbsp;45%</span></h5>
+                    <div class="sparkline txt-color-purple hidden-mobile hidden-md hidden-sm">
+                        110,150,300,130,400,240,220,310,220,300, 270, 210
+                    </div>
+                </li>
+                <li class="sparks-info">
+                    <h5> Site Orders <span class="txt-color-greenDark"><i class="fa fa-shopping-cart"></i>&nbsp;2447</span></h5>
+                    <div class="sparkline txt-color-greenDark hidden-mobile hidden-md hidden-sm">
+                        110,150,300,130,400,240,220,310,220,300, 270, 210
+                    </div>
+                </li>
+            </ul>
+            <!-- end sparks -->
+        </div>
+        <!-- end col -->
+
+    </div>
+    <!-- end row -->
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox">
+                <div class="ibox-title">
+                    Serialised Output
+                </div>
+                <div class="ibox-content">
+                    <p>
+                        Serializes the sortable's item id's into an array of string.
+                    </p>
+
+                    <div class="output"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!--
+        The ID "widget-grid" will start to initialize all widgets below
+        You do not need to use widgets if you dont want to. Simply remove
+        the <section></section> and you can use wells or panels instead
+        -->
+    <!-- widget grid -->
+    <section id="widget-grid" class="">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <h3>To-do</h3>
+                        <p class="small"><i class="fa fa-hand-o-up"></i> Drag task between list</p>
+
+                        <div class="input-group">
+                            <input type="text" placeholder="Add new task. " class="input input-sm form-control">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-sm btn-white"> <i class="fa fa-plus"></i> Add task</button>
+                            </span>
+                        </div>
+
+                        <ul class="sortable-list connectList agile-list" id="todo">
+                            <li class="warning-element" id="task1">
+                                Simply dummy text of the printing and typesetting industry.
+                                <div class="agile-detail">
+                                    <a href="#" class="pull-right btn btn-xs btn-white">Tag</a>
+                                    <i class="fa fa-clock-o"></i> 12.10.2015
+                                </div>
+                            </li>
+                            <li class="success-element" id="task2">
+                                Many desktop publishing packages and web page editors now use Lorem Ipsum as their default.
+                                <div class="agile-detail">
+                                    <a href="#" class="pull-right btn btn-xs btn-white">Mark</a>
+                                    <i class="fa fa-clock-o"></i> 05.04.2015
+                                </div>
+                            </li>
+                            <li class="info-element" id="task3">
+                                Sometimes by accident, sometimes on purpose (injected humour and the like).
+                                <div class="agile-detail">
+                                    <a href="#" class="pull-right btn btn-xs btn-white">Mark</a>
+                                    <i class="fa fa-clock-o"></i> 16.11.2015
+                                </div>
+                            </li>
+                            <li class="danger-element" id="task4">
+                                All the Lorem Ipsum generators
+                                <div class="agile-detail">
+                                    <a href="#" class="pull-right btn btn-xs btn-primary">Done</a>
+                                    <i class="fa fa-clock-o"></i> 06.10.2015
+                                </div>
+                            </li>
+                            <li class="warning-element" id="task5">
+                                Which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.
+                                <div class="agile-detail">
+                                    <a href="#" class="pull-right btn btn-xs btn-white">Tag</a>
+                                    <i class="fa fa-clock-o"></i> 09.12.2015
+                                </div>
+                            </li>
+                            <li class="warning-element" id="task6">
+                                Packages and web page editors now use Lorem Ipsum as
+                                <div class="agile-detail">
+                                    <a href="#" class="pull-right btn btn-xs btn-primary">Done</a>
+                                    <i class="fa fa-clock-o"></i> 08.04.2015
+                                </div>
+                            </li>
+                            <li class="success-element" id="task7">
+                                Many desktop publishing packages and web page editors now use Lorem Ipsum as their default.
+                                <div class="agile-detail">
+                                    <a href="#" class="pull-right btn btn-xs btn-white">Mark</a>
+                                    <i class="fa fa-clock-o"></i> 05.04.2015
+                                </div>
+                            </li>
+                            <li class="info-element" id="task8">
+                                Sometimes by accident, sometimes on purpose (injected humour and the like).
+                                <div class="agile-detail">
+                                    <a href="#" class="pull-right btn btn-xs btn-white">Mark</a>
+                                    <i class="fa fa-clock-o"></i> 16.11.2015
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <h3>In Progress</h3>
+                        <p class="small"><i class="fa fa-hand-o-up"></i> Drag task between list</p>
+                        <ul class="sortable-list connectList agile-list" id="inprogress">
+                            <li class="success-element" id="task9">
+                                Quisque venenatis ante in porta suscipit.
+                                <div class="agile-detail">
+                                    <a href="#" class="pull-right btn btn-xs btn-white">Tag</a>
+                                    <i class="fa fa-clock-o"></i> 12.10.2015
+                                </div>
+                            </li>
+                            <li class="success-element" id="task10">
+                                Phasellus sit amet tortor sed enim mollis accumsan in consequat orci.
+                                <div class="agile-detail">
+                                    <a href="#" class="pull-right btn btn-xs btn-white">Mark</a>
+                                    <i class="fa fa-clock-o"></i> 05.04.2015
+                                </div>
+                            </li>
+                            <li class="warning-element" id="task11">
+                                Nunc sed arcu at ligula faucibus tempus ac id felis. Vestibulum et nulla quis turpis sagittis fringilla.
+                                <div class="agile-detail">
+                                    <a href="#" class="pull-right btn btn-xs btn-white">Mark</a>
+                                    <i class="fa fa-clock-o"></i> 16.11.2015
+                                </div>
+                            </li>
+                            <li class="warning-element" id="task12">
+                                Ut porttitor augue non sapien mollis accumsan.
+                                Nulla non elit eget lacus elementum viverra.
+                                <div class="agile-detail">
+                                    <a href="#" class="pull-right btn btn-xs btn-white">Tag</a>
+                                    <i class="fa fa-clock-o"></i> 09.12.2015
+                                </div>
+                            </li>
+                            <li class="info-element" id="task13">
+                                Packages and web page editors now use Lorem Ipsum as
+                                <div class="agile-detail">
+                                    <a href="#" class="pull-right btn btn-xs btn-primary">Done</a>
+                                    <i class="fa fa-clock-o"></i> 08.04.2015
+                                </div>
+                            </li>
+                            <li class="success-element" id="task14">
+                                Quisque lacinia tellus et odio ornare maximus.
+                                <div class="agile-detail">
+                                    <a href="#" class="pull-right btn btn-xs btn-white">Mark</a>
+                                    <i class="fa fa-clock-o"></i> 05.04.2015
+                                </div>
+                            </li>
+                            <li class="danger-element" id="task15">
+                                Enim mollis accumsan in consequat orci.
+                                <div class="agile-detail">
+                                    <a href="#" class="pull-right btn btn-xs btn-white">Mark</a>
+                                    <i class="fa fa-clock-o"></i> 11.04.2015
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <h3>Completed</h3>
+                        <p class="small"><i class="fa fa-hand-o-up"></i> Drag task between list</p>
+                        <ul class="sortable-list connectList agile-list" id="completed">
+                            <li class="info-element" id="task16">
+                                Sometimes by accident, sometimes on purpose (injected humour and the like).
+                                <div class="agile-detail">
+                                    <a href="#" class="pull-right btn btn-xs btn-white">Mark</a>
+                                    <i class="fa fa-clock-o"></i> 16.11.2015
+                                </div>
+                            </li>
+                            <li class="warning-element" id="task17">
+                                Ut porttitor augue non sapien mollis accumsan.
+                                Nulla non elit eget lacus elementum viverra.
+                                <div class="agile-detail">
+                                    <a href="#" class="pull-right btn btn-xs btn-white">Tag</a>
+                                    <i class="fa fa-clock-o"></i> 09.12.2015
+                                </div>
+                            </li>
+                            <li class="warning-element" id="task18">
+                                Which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.
+                                <div class="agile-detail">
+                                    <a href="#" class="pull-right btn btn-xs btn-white">Tag</a>
+                                    <i class="fa fa-clock-o"></i> 09.12.2015
+                                </div>
+                            </li>
+                            <li class="warning-element" id="task19">
+                                Packages and web page editors now use Lorem Ipsum as
+                                <div class="agile-detail">
+                                    <a href="#" class="pull-right btn btn-xs btn-primary">Done</a>
+                                    <i class="fa fa-clock-o"></i> 08.04.2015
+                                </div>
+                            </li>
+                            <li class="success-element" id="task20">
+                                Many desktop publishing packages and web page editors now use Lorem Ipsum as their default.
+                                <div class="agile-detail">
+                                    <a href="#" class="pull-right btn btn-xs btn-white">Mark</a>
+                                    <i class="fa fa-clock-o"></i> 05.04.2015
+                                </div>
+                            </li>
+                            <li class="info-element" id="task21">
+                                Sometimes by accident, sometimes on purpose (injected humour and the like).
+                                <div class="agile-detail">
+                                    <a href="#" class="pull-right btn btn-xs btn-white">Mark</a>
+                                    <i class="fa fa-clock-o"></i> 16.11.2015
+                                </div>
+                            </li>
+                            <li class="warning-element" id="task22">
+                                Simply dummy text of the printing and typesetting industry.
+                                <div class="agile-detail">
+                                    <a href="#" class="pull-right btn btn-xs btn-white">Tag</a>
+                                    <i class="fa fa-clock-o"></i> 12.10.2015
+                                </div>
+                            </li>
+                            <li class="success-element" id="task23">
+                                Many desktop publishing packages and web page editors now use Lorem Ipsum as their default.
+                                <div class="agile-detail">
+                                    <a href="#" class="pull-right btn btn-xs btn-white">Mark</a>
+                                    <i class="fa fa-clock-o"></i> 05.04.2015
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+    </section>
+
+</div>
+<!-- END MAIN CONTENT -->
+
+
+@section scripts{
+    
+
+
+
+<!-- jquery UI -->
+<script src="~/scripts/plugins/jquery-ui/jquery-ui.min.js"></script>
+
+<!-- Touch Punch - Touch Event Support for jQuery UI -->
+<script src="~/scripts/plugins/touchpunch/jquery.ui.touch-punch.min.js"></script>
+
+<script>
+        $(document).ready(function(){
+
+            $("#todo, #inprogress, #completed").sortable({
+                connectWith: ".connectList",
+                update: function( event, ui ) {
+
+                    var todo = $( "#todo" ).sortable( "toArray" );
+                    var inprogress = $( "#inprogress" ).sortable( "toArray" );
+                    var completed = $( "#completed" ).sortable( "toArray" );
+                    $('.output').html("ToDo: " + window.JSON.stringify(todo) + "<br/>" + "In Progress: " + window.JSON.stringify(inprogress) + "<br/>" + "Completed: " + window.JSON.stringify(completed));
+                }
+            }).disableSelection();
+
+        });
+</script>
+    }

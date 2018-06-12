@@ -1,0 +1,27 @@
+﻿<div class="login-info dropdown">
+    <span class="project-selector dropdown-toggle" data-toggle="dropdown" >
+        <a href="javascript:void(0);" id="show-shortcut">
+            <img src="~/content/img/avatars/sunny.png" alt="me" class="online" />
+            <span>@User.Identity.Name.ToLower()</span>
+            <i class="fa fa-angle-down"></i>
+            <input type="hidden" id="hdId" />
+            <input type="hidden" id="hdUserName" />
+        </a>
+    </span>
+    <!-- Suggestion: populate this list with fetch and push technique -->
+    <ul class="dropdown-menu">
+        <li>
+            <a href="@Url.Action("profile", "account")">Profile</a>
+        </li>
+        <li>
+            <a href="#" data-toggle="modal" data-target="#changepasswordModal">Change Password</a>
+        </li>
+       
+        <li class="divider"></li>
+        <li>
+            <a href="@Url.Action("login", "account")" title="Sign Out" data-action="userLogout" data-logout-msg="You can improve your security further after logging out by closing this opened browser"><i class="fa fa-sign-out"></i>L</>ogout</a>
+        </li>
+    </ul>
+    <!-- end dropdown-menu-->
+  
+</div>

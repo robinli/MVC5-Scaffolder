@@ -35,6 +35,9 @@ namespace WebApp.Models
     public class AccountViewModel
     {
         [Required]
+        [Display(Name = "User Name")]
+        public string UserName { get; set; }
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
@@ -43,5 +46,8 @@ namespace WebApp.Models
         [DataType(DataType.Password)]
         [Display(Name = "密码")]
         public string Password { get; set; }
+        public string CompanyCode { get; set; }
+        public string CompanyName { get; set; }
+        public string Role { get; set; }
     }
 }

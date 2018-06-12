@@ -40,7 +40,7 @@ namespace WebApp.Services
         }
 
 
-        public void UpdateMenus(RoleMenusView[] list)
+        public void Authorize(RoleMenusView[] list)
         {
             var rolename = list.First().RoleName;
             var menuid = list.First().MenuId;
@@ -57,6 +57,14 @@ namespace WebApp.Services
                     RoleMenu rm = new RoleMenu();
                     rm.MenuId = item.MenuId;
                     rm.RoleName = item.RoleName;
+                    rm.Create = item.Create;
+                    rm.Delete = item.Delete;
+                    rm.Edit = item.Edit;
+                    rm.Import = item.Import;
+                    rm.Export = item.Export;
+                    rm.FunctionPoint1 = item.FunctionPoint1;
+                    rm.FunctionPoint2 = item.FunctionPoint2;
+                    rm.FunctionPoint3 = item.FunctionPoint3;
                     Insert(rm);
                 }
             }
@@ -84,7 +92,7 @@ namespace WebApp.Services
 
         public IEnumerable<MenuItem> RenderMenus(string[] roleNames)
         {
-            var allmenus = _menurepository.Queryable().ToList();
+            var allmenus = _menurepository.Queryable().OrderBy(n=>n.Code).ToList();
             var mymenus = _repository.Queryable().Where(x => roleNames.Contains(x.RoleName));
             var menulist = new List<MenuItem>();
             foreach (var item in allmenus)

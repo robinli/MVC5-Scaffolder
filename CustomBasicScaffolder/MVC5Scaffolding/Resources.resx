@@ -128,7 +128,7 @@
     <value>Generates ASP.NET MVC controller and query/list view from an Entity Framework data context (method import from Store Procedure) .</value>
   </data>
   <data name="MVCScaffolder_Name" xml:space="preserve">
-    <value>HappyGen MVC 5 for C.R.U.D</value>
+    <value>RUF MVC 5 Repositories Framework  Generator</value>
   </data>
   <data name="MVCScaffolder_Name2" xml:space="preserve">
     <value>HappyGen MVC 5 for Search from EF6 (Store Procedure)</value>

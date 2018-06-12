@@ -1,0 +1,10 @@
+D:\住商供应链协同项目\SCC\SourceCode\SGL.SCC.V81\Public.Utility\SqlHelper2\bin\Release\SqlHelper2.dll
+D:\住商供应链协同项目\SCC\SourceCode\SGL.SCC.V81\Public.Utility\SqlHelper2\bin\Release\SqlHelper2.pdb
+D:\住商供应链协同项目\SCC\SourceCode\SGL.SCC.V81\Public.Utility\SqlHelper2\obj\Release\SqlHelper2.dll
+D:\住商供应链协同项目\SCC\SourceCode\SGL.SCC.V81\Public.Utility\SqlHelper2\obj\Release\SqlHelper2.pdb
+D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\SqlHelper2\bin\Release\SqlHelper2.dll
+D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\SqlHelper2\bin\Release\SqlHelper2.pdb
+D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\SqlHelper2\obj\Release\SqlHelper2.csprojResolveAssemblyReference.cache
+D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\SqlHelper2\obj\Release\SqlHelper2.csproj.CoreCompileInputs.cache
+D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\SqlHelper2\obj\Release\SqlHelper2.dll
+D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\SqlHelper2\obj\Release\SqlHelper2.pdb

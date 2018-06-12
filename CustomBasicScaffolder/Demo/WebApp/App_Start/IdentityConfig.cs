@@ -11,7 +11,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using WebApp.Models;
-
+using System.Linq.Expressions;
+using System.Data.Entity.Migrations;
 namespace WebApp
 {
     public class EmailService : IIdentityMessageService
@@ -35,6 +36,8 @@ namespace WebApp
     // Configure the application user manager used in this application. UserManager is defined in ASP.NET Identity and is used by the application.
     public class ApplicationUserManager : UserManager<ApplicationUser>
     {
+        private static readonly UserStore<IdentityUser> UserStore = new UserStore<IdentityUser>();
+        //private static readonly ApplicationUserManager Instance = new ApplicationUserManager();
         public ApplicationUserManager(IUserStore<ApplicationUser> store)
             : base(store)
         {
@@ -53,7 +56,7 @@ namespace WebApp
             // Configure validation logic for passwords
             manager.PasswordValidator = new PasswordValidator
             {
-                RequiredLength = 6,
+                RequiredLength = 4,
                 RequireNonLetterOrDigit = false,
                 RequireDigit = false,
                 RequireLowercase = false,
@@ -67,6 +70,7 @@ namespace WebApp
 
             // Register two factor authentication providers. This application uses Phone and Emails as a step of receiving a code for verifying the user
             // You can write your own provider and plug it in here.
+            
             manager.RegisterTwoFactorProvider("Phone Code", new PhoneNumberTokenProvider<ApplicationUser>
             {
                 MessageFormat = "Your security code is {0}"
@@ -76,15 +80,36 @@ namespace WebApp
                 Subject = "Security Code",
                 BodyFormat = "Your security code is {0}"
             });
+            
             manager.EmailService = new EmailService();
             manager.SmsService = new SmsService();
             var dataProtectionProvider = options.DataProtectionProvider;
+           
             if (dataProtectionProvider != null)
             {
-                manager.UserTokenProvider = 
-                    new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
+                manager.UserTokenProvider =
+                                new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
+
             }
+          
             return manager;
+        }
+
+        public static void Seed()
+        {
+            // Make sure we always have at least the demo user available to login with
+            // this ensures the user does not have to explicitly register upon first use
+            var admin = new IdentityUser
+            {
+                Id = "6bc8cee0-a03e-430b-9711-420ab0d6a596",
+                Email = "admin@email.com",
+                UserName = "Smart Admin",
+                PasswordHash = "APc6/pVPfTnpG89SRacXjlT+sRz+JQnZROws0WmCA20+axszJnmxbRulHtDXhiYEuQ==",
+                SecurityStamp = "18272ba5-bf6a-48a7-8116-3ac34dbb7f38"
+            };
+
+            UserStore.Context.Set<IdentityUser>().AddOrUpdate(admin);
+            UserStore.Context.SaveChanges();
         }
     }
 
@@ -95,7 +120,10 @@ namespace WebApp
             : base(userManager, authenticationManager)
         {
         }
+        public void SignOut() {
 
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+        }
         public override Task<ClaimsIdentity> CreateUserIdentityAsync(ApplicationUser user)
         {
             return user.GenerateUserIdentityAsync((ApplicationUserManager)UserManager);
