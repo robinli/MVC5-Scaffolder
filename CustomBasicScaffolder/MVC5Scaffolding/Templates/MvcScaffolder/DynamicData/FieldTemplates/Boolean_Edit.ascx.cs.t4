@@ -1,0 +1,45 @@
+<#@ Template Language="C#" HostSpecific="True"  #>
+<#@ Output Extension="cs" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ parameter type="System.String" name="DefaultNamespace" #>
+using System;
+using System.Collections.Specialized;
+using System.ComponentModel.DataAnnotations;
+using System.Web.DynamicData;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+namespace <#= DefaultNamespace #> {
+    public partial class Boolean_EditField : System.Web.DynamicData.FieldTemplateUserControl {
+
+		protected void Page_Load(object sender, EventArgs e)
+        {
+            CheckBox1.ToolTip = Column.Description;
+			Label1.Text = Column.DisplayName;
+        }
+
+
+        protected override void OnDataBinding(EventArgs e) {
+            base.OnDataBinding(e);
+    
+            object val = FieldValue;
+            if (val != null)
+                CheckBox1.Checked = (bool) val;
+        }
+    
+        protected override void ExtractValues(IOrderedDictionary dictionary) {
+            dictionary[Column.Name] = CheckBox1.Checked;
+        }
+    
+        public override Control DataControl {
+            get {
+                return CheckBox1;
+            }
+        }
+    
+    }
+}

@@ -1,0 +1,125 @@
+<#@ Template Language="C#" HostSpecific="True"  #>
+<#@ Output Extension="aspx" #>
+<#@ include file="Imports.include.t4" #>
+<# var viewDataType = (EnvDTE.CodeType) ViewDataType; #>
+<# var fullModelName = Namespace+"."+ViewDataTypeName; #>
+<#
+if(IsContentPage) {
+#>
+<%@ Page Title="<#= ViewDataTypeName #>List" Language="C#" MasterPageFile="~/<#= MasterPageFile #>" CodeBehind="Default.aspx.cs" Inherits="<#= DefaultNamespace #>.Default" ViewStateMode="Disabled" %>
+<%@ Register TagPrefix="FriendlyUrls" Namespace="Microsoft.AspNet.FriendlyUrls" %>
+
+<asp:Content runat="server" ContentPlaceHolderID="<#= PrimarySectionName #>">
+<#
+} else {
+#>
+<%@ Page Title="<#= ViewDataTypeName #>List" Language="C#" CodeBehind="Default.aspx.cs" Inherits="<#= DefaultNamespace #>.Default" ViewStateMode="Disabled" %>
+
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title></title>
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+</head>
+<body>
+    <form runat="server" id="form1">
+	<div class="container body-content">
+<#
+    PushIndent("    ");
+}
+#>
+    <h2><#= PluralizedName #> List</h2>
+    <p>
+        <asp:HyperLink runat="server" NavigateUrl="Insert" Text="Create new" />
+    </p>
+    <div>
+        <asp:ListView runat="server"
+            DataKeyNames="<#= PrimaryKeyName #>" ItemType="<#=fullModelName#>"
+            AutoGenerateColumns="false"
+            AllowPaging="true" AllowSorting="true"
+            SelectMethod="GetData">
+            <EmptyDataTemplate>
+                There are no entries found for <#= PluralizedName #>
+            </EmptyDataTemplate>
+            <LayoutTemplate>
+                <table class="table">
+                    <thead>
+                        <tr>
+<#
+					foreach (PropertyMetadata property in ModelMetadata.Properties) { 
+					  if (ShouldDisplay(property)) {
+#>
+                            <th>
+								<asp:DynamicControl runat="server" DataField="<#= property.PropertyName #>" Mode="ReadOnly" UIHint="FieldLabel" />
+							</th>
+<#
+					  }
+					}
+#>
+                            <th>&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr runat="server" id="itemPlaceholder" />
+                    </tbody>
+                </table>
+            </LayoutTemplate>
+            <ItemTemplate>
+                <tr>
+<#
+					foreach (PropertyMetadata property in ModelMetadata.Properties) { 
+					  if (ShouldDisplay(property)) {
+					    if (property.IsForeignKey) { 
+							var relatedModel = RelatedModels[property.PropertyName];
+#>
+							<td>
+								<%#: Item.<#=relatedModel.AssociationPropertyName#>.<#=relatedModel.DisplayPropertyName#> %>
+							</td>
+<#
+					    } else {
+#>
+							<td>
+								<asp:DynamicControl runat="server" DataField="<#= property.PropertyName #>" ID="<#= property.PropertyName #>" Mode="ReadOnly" />
+							</td>
+<#
+						}
+					  }
+					}
+#>
+                    <td>
+					    <asp:HyperLink runat="server" NavigateUrl='<%# FriendlyUrl.Href("~/<#=RelativePath#>/Edit", Item.<#= GetPrimaryKeyName() #>) %>' Text="Edit" /> | 
+                        <asp:HyperLink runat="server" NavigateUrl='<%# FriendlyUrl.Href("~/<#=RelativePath#>/Delete", Item.<#= GetPrimaryKeyName() #>) %>' Text="Delete" />
+                    </td>
+                </tr>
+            </ItemTemplate>
+        </asp:ListView>
+    </div>
+<#
+// The following code closes the asp:Content tag used in the case of a master page and the body and html tags in the case of a regular view page
+#>
+<#
+if(IsContentPage) {
+#>
+</asp:Content>
+<#
+} else if(!IsContentPage) {
+    ClearIndent();
+#>
+	</div>
+    </form>
+
+	<!-- Bootstrap JavaScript -->
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+</body>
+</html>
+<#
+}
+#>
+
+
+<#@ include file="ModelMetadataFunctions.cs.include.t4" #>

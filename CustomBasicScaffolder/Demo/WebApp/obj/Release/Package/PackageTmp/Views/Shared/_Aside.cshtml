@@ -1,0 +1,325 @@
+﻿    <!-- Left panel : Navigation area -->
+<!-- Note: This width of the aside area can be adjusted through LESS variables -->
+<aside id="left-panel">
+
+    <!-- User info -->
+    @{ Html.RenderPartial("_CurrentUser"); }
+    <!-- end user info -->
+    <!-- NAVIGATION : This navigation is also responsive
+
+    To make this navigation dynamic please make sure to link the node
+    (the reference to the nav > ul) after page load. Or the navigation
+    will not initialize.
+    -->
+    <nav>
+        <!-- NOTE: Notice the gaps after each icon usage <i></i>..
+        Please note that these links work a bit different than
+        traditional href="" links. See documentation for details.
+        -->
+
+        <ul>
+            <li class="@Html.IsSelected(controller: "Companies,Departments,Employees")">
+                <a href="#" title="组织架构"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">组织架构</span></a>
+                <ul>
+                    <li class="@Html.IsSelected(action: "Index", controller: "Companies")">
+                        <a href="@Url.Action("index", "Companies")" title="公司信息"><span class="menu-item-parent">公司信息</span></a>
+                    </li>
+                    <li class="@Html.IsSelected(action: "Index", controller: "Departments")">
+                        <a href="@Url.Action("index", "Departments")" title="部门信息"><span class="menu-item-parent">部门信息</span></a>
+                    </li>
+                    <li class="@Html.IsSelected(action: "Index", controller: "Employees")">
+                        <a href="@Url.Action("index", "Employees")" title="员工信息"><span class="menu-item-parent">员工信息</span></a>
+                    </li>
+                </ul>
+            </li>
+            <li class="@Html.IsSelected(controller: "Wroks,Orders")">
+                <a href="#" title="业务操作"><i class="fa fa-lg fa-fw fa-folder-o"></i> <span class="menu-item-parent">业务操作</span></a>
+                <ul>
+                    <li class="@Html.IsSelected(action: "Index", controller: "Works")">
+                        <a href="@Url.Action("index", "Works")" title="工作单"><span class="menu-item-parent">工作单</span></a>
+                    </li>
+                    <li class="@Html.IsSelected(action: "Index", controller: "Orders")">
+                        <a href="@Url.Action("index", "Orders")" title="订单信息"><span class="menu-item-parent">订单信息</span></a>
+                    </li>
+
+                </ul>
+            </li>
+            <li class="@Html.IsSelected(controller: "Products,Categories")">
+                <a href="#" title="业务主数据管理"><i class="fa fa-lg fa-fw fa-folder-o"></i> <span class="menu-item-parent">业务主数据管理</span></a>
+                <ul>
+                    <li class="@Html.IsSelected(action: "Index", controller: "Products")">
+                        <a href="@Url.Action("index", "Products")" title="物料主档管理"><span class="menu-item-parent">物料主档管理</span></a>
+                    </li>
+                    <li class="@Html.IsSelected(action: "Index", controller: "Categories")">
+                        <a href="@Url.Action("index", "Categories")" title="物料类型管理"><span class="menu-item-parent">物料类型管理</span></a>
+                    </li>
+                    
+                </ul>
+            </li>
+         
+            <li class="@Html.RouteIf("features", "active")">
+                <a href="#"><i class="fa fa-lg fa-fw fa-cloud"><em>8</em></i> <span class="menu-item-parent">Cool Features!</span></a>
+                <ul>
+                    <li class="@Html.RouteIf("general", "active")">
+                        <a href="@Url.Action("general", "features")"><i class="fa fa-lg fa-fw fa-th-list"></i> <span class="menu-item-parent">UI Elements</span> </a>
+                    </li>
+                    <li class="@Html.RouteIf("templates", "active")">
+                        <a href="@Url.Action("templates", "features")"><i class="fa fa-lg fa-fw  fa-pencil-square-o"></i> <span class="menu-item-parent">Smart Form</span> </a>
+                    </li>
+                    <li class="@Html.RouteIf("bootstrap", "active")">
+                        <a href="@Url.Action("bootstrap", "features")"><i class="fa fa-lg fa-fw  fa-pencil-square-o"></i> <span class="menu-item-parent">Bootstrap Form</span></a>
+                    </li>
+                    <li class="@Html.RouteIf("validator", "active")">
+                        <a href="@Url.Action("validator", "features")"><i class="fa fa-lg fa-fw  fa-pencil-square-o"></i> <span class="menu-item-parent">Bootstrap Validator</span></a>
+                    </li>
+                    <li class="@Html.RouteIf("widgets", "active")">
+                        <a href="@Url.Action("widgets", "features")"><i class="fa fa-lg fa-fw fa-list-alt"></i> <span class="menu-item-parent">Smart Widgets</span></a>
+                    </li>
+                    <li class="@Html.RouteIf("calendar", "active")">
+                        <a href="@Url.Action("calendar", "features")"><i class="fa fa-lg fa-fw fa-calendar"></i> <span class="menu-item-parent">Calendar</span></a>
+                    </li>
+                    <li class="@Html.RouteIf("googlemap", "active")">
+                        <a href="@Url.Action("googlemap", "features")"><i class="fa fa-lg fa-fw fa-map-marker"></i> <span class="menu-item-parent">GMap Skins</span><span class="badge bg-color-greenLight pull-right inbox-badge">9</span></a>
+                    </li>
+                    <li class="@Html.RouteIf("agileboard", "active")">
+                        <a href="@Url.Action("agileboard", "features")"><i class="fa fa-lg fa-fw fa-tasks"></i> <span class="menu-item-parent">Agile Board</span></a>
+                    </li>
+                    <li class="@Html.RouteIf("teammember", "active")">
+                        <a href="@Url.Action("teammember", "features")"><i class="fa fa-lg fa-fw fa-address-card-o"></i> <span class="menu-item-parent">Team Member</span><span class="badge bg-color-greenLight pull-right inbox-badge">9</span></a>
+                    </li>
+                </ul>
+            </li>	
+          
+            <li class="@Html.RouteIf("misc", "active")">
+                <a href="#"><i class="fa fa-lg fa-fw fa-windows"></i> <span class="menu-item-parent">Miscellaneous</span></a>
+                <ul>
+                    <li>
+                        <a href="@Url.Action("index", "landing", new { area = "Landing" })" target="_blank">Landing Page <i class="fa fa-external-link"></i></a>
+                    </li>
+                    <li class="@Html.RouteIf("pricing", "active")">
+                        <a href="@Url.Action("pricing", "misc")">Pricing Tables</a>
+                    </li>
+                    <li class="@Html.RouteIf("invoice", "active")">
+                        <a href="@Url.Action("invoice", "misc")">Invoice</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("login", "account")" target="_top">Login</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("register", "account")" target="_top">Register</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("lock", "account")" target="_top">Locked Screen</a>
+                    </li>
+                    <li class="@Html.RouteIf("error404", "active")">
+                        <a href="@Url.Action("error404", "misc")">Error 404</a>
+                    </li>
+                    <li class="@Html.RouteIf("error500", "active")">
+                        <a href="@Url.Action("error500", "misc")">Error 500</a>
+                    </li>
+                    <li class="@Html.RouteIf("blank", "active")">
+                        <a href="@Url.Action("blank", "misc")">Blank Page</a>
+                    </li>
+                    <li class="@Html.RouteIf("emailtemplate", "active")">
+                        <a href="@Url.Action("emailtemplate", "misc")">Email Template</a>
+                    </li>
+                    <li class="@Html.RouteIf("search", "active")">
+                        <a href="@Url.Action("search", "misc")">Search Page</a>
+                    </li>
+                    <li class="@Html.RouteIf("ckeditor", "active")">
+                        <a href="@Url.Action("ckeditor", "misc")">CK Editor</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="chat-users top-menu-invisible">
+                <a href="#"><i class="fa fa-lg fa-fw fa-comment-o"></i> <span class="menu-item-parent">Smart Chat</span></a>
+                <ul>
+                    <li class="@Html.RouteIf("chat", "active")">
+                        <div class="display-users">
+                            <input class="form-control chat-user-filter" placeholder="Filter" type="text">
+                            <dl>
+                                <dt>
+                                    <a href="#" class="usr"
+                                       data-chat-id="cha1"
+                                       data-chat-fname="Sadi"
+                                       data-chat-lname="Orlaf"
+                                       data-chat-status="busy"
+                                       data-chat-alertmsg="Sadi Orlaf is in a meeting. Please do not disturb!"
+                                       data-chat-alertshow="true"
+                                       rel="popover-hover"
+                                       data-placement="right"
+                                       data-html="true"
+                                       data-content="
+												<div class='usr-card'>
+													<img src='/content/img/avatars/5.png' alt='Sadi Orlaf'>
+													<div class='usr-card-content'>
+														<h3>Sadi Orlaf</h3>
+														<p>Marketing Executive</p>
+													</div>
+												</div>
+											">
+										  	<i></i>Sadi Orlaf
+									</a>
+                                </dt>
+                                <dt>
+                                    <a href="#" class="usr"
+                                       data-chat-id="cha2"
+                                       data-chat-fname="Jessica"
+                                       data-chat-lname="Dolof"
+                                       data-chat-status="online"
+                                       data-chat-alertmsg=""
+                                       data-chat-alertshow="false"
+                                       rel="popover-hover"
+                                       data-placement="right"
+                                       data-html="true"
+                                       data-content="
+												<div class='usr-card'>
+                                                    <img src='/content/img/avatars/1.png' alt='Jessica Dolof'>
+													<div class='usr-card-content'>
+														<h3>Jessica Dolof</h3>
+														<p>Sales Administrator</p>
+													</div>
+												</div>
+											">
+										  	<i></i>Jessica Dolof
+                                    </a>
+                                </dt>
+                                <dt>
+                                    <a href="#" class="usr"
+                                       data-chat-id="cha3"
+                                       data-chat-fname="Zekarburg"
+                                       data-chat-lname="Almandalie"
+                                       data-chat-status="online"
+                                       rel="popover-hover"
+                                       data-placement="right"
+                                       data-html="true"
+                                       data-content="
+												<div class='usr-card'>
+                                                    <img src='/content/img/avatars/3.png' alt='Zekarburg Almandalie'>
+													<div class='usr-card-content'>
+														<h3>Zekarburg Almandalie</h3>
+														<p>Sales Admin</p>
+													</div>
+												</div>
+											">
+										  	<i></i>Zekarburg Almandalie
+									</a>
+                                </dt>
+                                <dt>
+                                    <a href="#" class="usr"
+                                       data-chat-id="cha4"
+                                       data-chat-fname="Barley"
+                                       data-chat-lname="Krazurkth"
+                                       data-chat-status="away"
+                                       rel="popover-hover"
+                                       data-placement="right"
+                                       data-html="true"
+                                       data-content="
+												<div class='usr-card'>
+                                                    <img src='/content/img/avatars/4.png' alt='Barley Krazurkth'>
+													<div class='usr-card-content'>
+														<h3>Barley Krazurkth</h3>
+														<p>Sales Director</p>
+													</div>
+												</div>
+											">
+										  	<i></i>Barley Krazurkth
+									</a>
+                                </dt>
+                                <dt>
+                                    <a href="#" class="usr offline"
+                                       data-chat-id="cha5"
+                                       data-chat-fname="Carmen"
+                                       data-chat-lname="Electra"
+                                       data-chat-status="incognito"
+                                       rel="popover-hover"
+                                       data-placement="right"
+                                       data-html="true"
+                                       data-content="
+												<div class='usr-card'>
+                                                    <img src='/content/img/avatars/female.png' alt='Carmen Electra'>
+													<div class='usr-card-content'>
+														<h3>Carmen Electra</h3>
+														<p>Support Admin <small><i class='fa fa-music'></i> Playing Beethoven Classics</small></p>
+													</div>
+												</div>
+											">
+										  	<i></i>Carmen Electra (offline)
+									</a>
+                                </dt>
+                                <dt>
+                                    <a href="#" class="usr offline"
+                                       data-chat-id="cha6"
+                                       data-chat-fname="Lezley"
+                                       data-chat-lname="Jacob"
+                                       data-chat-status="incognito"
+                                       rel="popover-hover"
+                                       data-placement="right"
+                                       data-html="true"
+                                       data-content="
+												<div class='usr-card'>
+                                                    <img src='/content/img/avatars/male.png' alt='Lezley Jacob'>
+													<div class='usr-card-content'>
+														<h3>Lezley Jacob</h3>
+														<p>Sales Director</p>
+													</div>
+												</div>
+											">
+										  	<i></i>Lezley Jacob (offline)
+									</a>
+                                </dt>
+                            </dl>
+
+
+                            <a href="@Url.Action("chat", "home")" class="btn btn-xs btn-default btn-block sa-chat-learnmore-btn">About the API</a>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="@Html.IsSelected(controller: "AccountManage,MenuItems,DataTableImportMappings")">
+                <a href="#"><i class="fa fa-lg fa-fw fa-cogs"></i> <span class="menu-item-parent">系统管理</span></a>
+                <ul>
+                    <li class="@Html.RouteIf("AccountManage", "active")">
+                        <a href="@Url.Action("index", "AccountManage")"><i class="fa fa-lg fa-fw fa-user"></i> <span class="menu-item-parent">系统登录账号</span><span class="badge bg-color-greenLight pull-right inbox-badge">9</span></a>
+                    </li>
+                    <li class="@Html.RouteIf("management", "active")">
+                        <a href="@Url.Action("index", "management")"><i class="fa fa-lg fa-fw fa-group"></i> <span class="menu-item-parent">角色分配管理</span> </a>
+                    </li>
+                    <li class="@Html.RouteIf("menuitems", "active")">
+                        <a href="@Url.Action("index", "menuitems")"><i class="fa fa-lg fa-fw fa-bars"></i> <span class="menu-item-parent">系统菜单</span></a>
+                    </li>
+                    <li class="@Html.RouteIf("rolemenus", "active")">
+                        <a href="@Url.Action("index", "rolemenus")"><i class="fa fa-lg fa-fw fa-magnet"></i> <span class="menu-item-parent">菜单授权管理</span></a>
+                    </li>
+                    <li class="@Html.RouteIf("DataTableImportMappings", "active")">
+                        <a href="@Url.Action("index", "DataTableImportMappings")"><i class="fa fa-lg fa-fw fa-file-excel-o"></i> <span class="menu-item-parent">Excel导入配置</span></a>
+                    </li>
+                    <li class="@Html.RouteIf("codeitems", "active")">
+                        <a href="@Url.Action("index", "codeitems")"><i class="fa fa-lg fa-fw fa-list"></i> <span class="menu-item-parent">键值对维护</span></a>
+                    </li>
+                    <li class="@Html.RouteIf("messages", "active")">
+                        <a href="@Url.Action("index", "messages")"><i class="fa fa-lg fa-fw fa-file-text-o"></i> <span class="menu-item-parent">系统日志</span></a>
+                    </li>
+                    <li class="@Html.RouteIf("notifications", "active")">
+                        <a href="@Url.Action("index", "Notifications")"><i class="fa fa-lg fa-fw fa-bullhorn"></i> <span class="menu-item-parent">消息通知</span></a>
+                    </li>
+                    <li class="@Html.RouteIf("hangfire", "active")">
+                        <a href="@Url.Action("index", "hangfire")"><i class="fa fa-lg fa-fw fa-tasks"></i> <span class="menu-item-parent">执行任务</span></a>
+                    </li>
+                    <li class="@Html.RouteIf("efmigrationsmanager", "active")">
+                        <a href="@Url.Action("publish", "efmigrationsmanager")"><i class="fa fa-lg fa-fw fa-database"></i> <span class="menu-item-parent">更新数据库</span></a>
+                    </li>
+                </ul>
+            </li>
+             
+
+        </ul>
+    </nav>
+    <span class="minifyme" data-action="minifyMenu">
+        <i class="fa fa-arrow-circle-left hit"></i>
+    </span>
+
+</aside>
+<!-- END NAVIGATION -->

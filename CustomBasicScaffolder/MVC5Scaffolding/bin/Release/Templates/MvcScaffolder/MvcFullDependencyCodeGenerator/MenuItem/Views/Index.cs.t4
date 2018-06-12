@@ -1,0 +1,388 @@
+﻿<#@ template language="C#" HostSpecific="True" #>
+<#@ output extension=".cshtml" #>
+<#@ parameter type="System.String" name="DefaultNamespace" #>
+
+@using <#= DefaultNamespace #>.Models 
+@model IEnumerable<MenuItem>
+@{
+    ViewBag.Title = "系统菜单维护";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>@ViewBag.Title</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="@Url.Action("Index", "Home")">Home</a>
+            </li>
+            <li>
+                <a>系统管理</a>
+            </li>
+            <li class="active">
+                <strong>系统菜单维护</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>系统菜单维护</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <!--
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="fa fa-wrench"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li>
+                                <a href="table_data_tables.html#">Config option 1</a>
+                            </li>
+                            <li>
+                                <a href="table_data_tables.html#">Config option 2</a>
+                            </li>
+                        </ul>
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
+                        -->
+                    </div>
+                </div>
+                <div class="ibox-content">
+
+                    <div class="table-responsive">
+
+
+                        <table id="menuitems_datagrid" class="easyui-datagrid" title="系统菜单维护" style="width:auto;height:auto"
+                               data-options="
+                 rownumbers:true,
+				 checkOnSelect:true,
+                 selectOnCheck:true,
+                 idField:'Id',
+                 sortName:'Id',
+                 sortOrder:'desc',
+                remoteFilter: true,
+                singleSelect: true,
+                toolbar: '#menuitems_toolbar',
+                url: '/MenuItems/GetData',
+                method: 'get',
+                onClickCell: onClickCell,
+				onSelect:onSelect,
+                pagination: 'true'
+                   ">
+                            <thead>
+                                <tr>
+                                    @*<th data-options="field:'ck',checkbox:true"></th>*@
+                                    <th data-options="field:'Id',width:80 ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Id)</th>
+
+                                    <th data-options="field:'Title',width:140,editor:{type:'textbox',options:{required:true} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Title)</th>
+
+
+                                    <th data-options="field:'Description',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Description)</th>
+
+
+                                    <th data-options="field:'Code',width:140,editor:{type:'textbox',options:{required:true} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Code)</th>
+                                    <th data-options="field:'Controller',width:140,editor:{type:'textbox',options:{required:true} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Controller)</th>
+                                    <th data-options="field:'Action',width:140,editor:{type:'textbox',options:{required:true} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Action)</th>
+                                    <th data-options="field:'Url',width:140,editor:{type:'textbox',options:{required:true} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Url)</th>
+
+
+                                    <th data-options="field:'IconCls',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.IconCls)</th>
+
+
+                                    <th data-options="field:'IsEnabled',width:120,editor: {type:'combobox'
+                                                ,options:{
+                                                panelHeight: 'auto',
+                                                data: [ { value: 'true', text: 'true' },{ value: 'false', text: 'false' } ],
+                                                required:false}}">@Html.DisplayNameFor(model => model.IsEnabled)</th>
+
+                                                <th data-options="field:'ParentId',width:100,sortable:true,resizable:true,
+                        formatter:function(value,row){
+                            return row.ParentTitle;
+                        },
+                        editor:{
+                            type:'combobox',
+                            options:{
+                                valueField:'Id',
+                                textField:'Title',
+                                method:'get',
+                                url:'/MenuItems/GetMenuItems',
+                                required:false
+                            }
+                        }">@Html.DisplayNameFor(model => model.ParentId)</th>
+
+
+
+                    </tr>
+                </thead>
+            </table>
+            <div id="menuitems_toolbar" style="height:auto">
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="append()">新增</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">保存</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">取消</a>
+               <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-paperclip',plain:true" onclick="importexcel()">EXCEL 导入</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-sitemap',plain:true" onclick="createWithController()">生成菜单</a>
+            </div>
+        </div>
+
+        <!-- end ibox-content -->
+    </div>
+</div>
+</div>
+</div>
+</div>
+<div id="importwindow" class="easyui-window" title="Excel 导入" data-options="modal:true,collapsible:false,minimizable:false,maximizable:false,closed:true,iconCls:'icon-paperclip'" style="width:500px;height:260px;padding:10px;">
+
+    <p><input type="file" name="file_upload" id="file_upload" /></p>
+    <div id="alert1" class="alert alert-success">
+        <button class="close" data-dismiss="alert" type="button">&times;</button>上传成功，开始执行导入。
+
+    </div>
+    <div id="alert2" class="alert alert-info">
+        <button class="close" data-dismiss="alert" type="button">&times;</button>正在执行导入程序，请耐心等待。
+
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+
+        $(function () {
+            $('#alert1').hide('normal');
+            $('#alert2').hide('normal');
+            $("#file_upload").uploadify({
+                'height': 30,
+                'fileTypeDesc': 'Excel 2010 Files',
+                'fileTypeExts': '*.xlsx',
+                'swf': '/scripts/uploadify/uploadify.swf',
+                'uploader': '/FileUpload/Upload',
+                'buttonText': '选择EXCEL',
+                'uploadLimit': 1,
+                'displayData': 'speed',
+                'formData': { 'modelType': 'MenuItem' },
+                'width': 120,
+                'successTimeout': 100000,
+                'onUploadComplete': function (file) {
+                    $('#alert1').hide('normal');
+                    $('#alert2').show('normal');
+                },
+                'onFallback': function () {
+                    $.messager.progress('close');
+                    $.messager.alert('导入错误', '导入错误，请重试！<br>', 'error');
+                    $('#file_upload').uploadify('cancel')
+                },
+                'onUploadStart': function () {
+                    $.messager.progress({ title: '正在处理请耐心等待！' });
+                    $('#alert1').show('normal');
+                    $('#alert2').hide('normal');
+                },
+                'onUploadError': function (file, errorCode, errorMsg, errorString) {
+                    $.messager.progress('close');
+                    $.messager.alert('导入错误', '导入错误，请修改后再倒入！<br>' + errorMsg, 'error');
+                    $('#file_upload').uploadify('cancel')
+                },
+                'onUploadSuccess': function (file, data, response) {
+                    $.messager.progress('close');
+                    //console.log(file, data, response);
+                    $('#alert1').hide('normal');
+                    $('#alert2').hide('normal');
+                    $('#w').window('close');
+                    var data = $.parseJSON(data);
+                    console.log(data);
+                    if (data.success == "false") {
+                        $.messager.alert('导入错误', '导入错误，请修改后再倒入！<br>' + data.message, 'error');
+                    } else {
+                        $.messager.alert('导入完成', '导入完成！<br>', 'info');
+                        $dg.datagrid('reload');
+                    }
+                    //alert('The file ' + file.name + ' was successfully uploaded with a response of ' + response + ':' + data);
+
+                }
+            });
+
+        })
+
+        function createWithController() {
+            $.messager.progress({ title: '正在处理请耐心等待！' });
+            $.post('/MenuItems/CreateWithController', function (data, textStatus, jqXHR) {
+                //console.log(data);
+                $.messager.progress('close');
+                $.messager.alert("提示", "成功创建菜单！", 'info', function () {
+                    $dg.datagrid('reload');
+                });
+
+            });
+
+        }
+
+        function importexcel() {
+            $('#importwindow').window('open');
+        }
+
+        var $dg = $('#menuitems_datagrid');
+        var editIndex = undefined;
+        function endEditing() {
+            if (editIndex == undefined) { return true }
+            if ($dg.datagrid('validateRow', editIndex)) {
+
+                var ed = $dg.datagrid('getEditor', { index: editIndex, field: 'ParentId' });
+                var parenttitle = $(ed.target).combobox('getText');
+                var parentid = $(ed.target).combobox('getValue');
+
+                $dg.datagrid('getRows')[editIndex]['ParentTitle'] = parenttitle;
+                $dg.datagrid('getRows')[editIndex]['ParentId'] = parentid;
+
+
+                $dg.datagrid('endEdit', editIndex);
+                editIndex = undefined;
+
+
+                return true;
+            } else {
+                return false;
+            }
+        }
+        function onClickCell(index, field) {
+            var _operates = ["_operate1", "_operate2", "_operate3", "ck"]
+            if ($.inArray(field, _operates) >= 0) {
+                return;
+            }
+            if (editIndex != index) {
+                if (endEditing()) {
+                    $dg.datagrid('selectRow', index)
+                            .datagrid('beginEdit', index);
+                    var ed = $dg.datagrid('getEditor', { index: index, field: field });
+                    if (ed) {
+                        ($(ed.target).data('textbox') ? $(ed.target).textbox('textbox') : $(ed.target)).focus();
+                    }
+                    editIndex = index;
+                } else {
+                    $dg.datagrid('selectRow', editIndex);
+                }
+            }
+        }
+        function append() {
+            if (endEditing()) {
+                //$dg.datagrid('appendRow', { Status: 0 });
+                //editIndex = $dg.datagrid('getRows').length - 1;
+                $dg.datagrid('insertRow', { index: 0, row: { IsEnabled: true } });
+                editIndex = 0;
+                $dg.datagrid('selectRow', editIndex)
+                        .datagrid('beginEdit', editIndex);
+            }
+        }
+        function removeit() {
+            if (editIndex == undefined) { return }
+            $dg.datagrid('cancelEdit', editIndex)
+                    .datagrid('deleteRow', editIndex);
+            editIndex = undefined;
+        }
+        function accept() {
+            if (endEditing()) {
+                if ($dg.datagrid('getChanges').length) {
+                    var inserted = $dg.datagrid('getChanges', "inserted");
+                    var deleted = $dg.datagrid('getChanges', "deleted");
+                    var updated = $dg.datagrid('getChanges', "updated");
+                    var effectRow = new Object();
+                    if (inserted.length) {
+                        effectRow.inserted = inserted;
+                    }
+                    if (deleted.length) {
+                        effectRow.deleted = deleted;
+                    }
+                    if (updated.length) {
+                        effectRow.updated = updated;
+                    }
+                    //console.log(JSON.stringify(effectRow));
+                    $.post("/MenuItems/SaveData", effectRow, function (response) {
+                        //console.log(response);
+                        if (response.Success) {
+                            $.messager.alert("提示", "提交成功！");
+                            $dg.datagrid('acceptChanges');
+                            $dg.datagrid('reload');
+                        }
+                    }, "json").fail(function (response) {
+                        //console.log(response);
+                        $.messager.alert("错误", "提交错误了！", 'error');
+                        //$dg.datagrid('reload');
+                    });
+
+                }
+
+                //$dg.datagrid('acceptChanges');
+            }
+        }
+        function reject() {
+            $dg.datagrid('rejectChanges');
+            editIndex = undefined;
+        }
+        function getChanges() {
+            var rows = $dg.datagrid('getChanges');
+            alert(rows.length + ' rows are changed!');
+        }
+
+
+        $(function () {
+
+            $dg.datagrid('enableFilter', [
+
+
+                    {
+                        field: 'ParentId',
+                        type: 'combobox',
+                        options: {
+                            valueField: 'Id',
+                            textField: 'Title',
+                            method: 'get',
+                            url: '/MenuItems/GetMenuItems',
+                            onChange: function (value) {
+                                if (value == '') {
+                                    $dg.datagrid('removeFilterRule', 'ParentId');
+                                } else {
+                                    $dg.datagrid('addFilterRule', {
+                                        field: 'ParentId',
+                                        op: 'equal',
+                                        value: value
+                                    });
+                                }
+                                $dg.datagrid('doFilter');
+                            }
+                        }
+                    },
+
+            ]);
+        })
+        //-----------------------------------------------------
+        //datagrid onSelect
+        //-----------------------------------------------------
+        function onSelect(index, row) {
+            //console.log(index, row);
+            //filterByMenuItemId(row.Id);
+        }
+        //function filterByMenuItemId(menuitemid) {
+        //    var value = menuitemid;
+
+        //    $menuitemsdg.datagrid('removeFilterRule', 'ParentId');
+        //    $menuitemsdg.datagrid('addFilterRule', {
+        //        field: 'ParentId',
+        //        op: 'equal',
+        //        value: value
+        //    });
+        //    $menuitemsdg.datagrid('doFilter');
+
+        //}
+
+
+    </script>
+}

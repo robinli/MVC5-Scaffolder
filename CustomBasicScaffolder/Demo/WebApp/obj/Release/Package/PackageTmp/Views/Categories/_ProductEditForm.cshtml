@@ -1,0 +1,143 @@
+﻿
+@model WebApp.Models.Product
+
+
+<div class="ibox-content">
+ <!--输出form表单界面-->
+ <table class="table table-bordered">
+     <caption>
+     </caption>
+     <tr>
+     	  
+  <td class="control-label">   @Html.DisplayNameFor(model => model.Id)  </td>
+	   <td> 
+			   											<input  disabled  id="@Html.IdFor(model => model.Id)" name="@Html.NameFor(model => model.Id)" tabindex="0" style="width:100%" class="easyui-numberbox" type="text" data-options="prompt:'Id',label:'Id:',required:true ,precision:0" />
+								  
+	  
+  <td class="control-label">   @Html.DisplayNameFor(model => model.Name)  </td>
+	   <td> 
+			   
+											<input id="@Html.IdFor(model => model.Name)" 
+							name="@Html.NameFor(model => model.Name)" 
+							value="@Html.ValueFor(model => model.Name)"
+							tabindex="1" 
+							style="width:100%" 
+							class="easyui-textbox" 
+							type="text" 
+							data-options="prompt:'名称',
+								 label:'名称:',
+								 required:true ,validType:'length[0,30]'" />
+					             
+			 
+     <tr>
+     	  
+  <td class="control-label">   @Html.DisplayNameFor(model => model.Unit)  </td>
+	   <td> 
+			   
+											<input id="@Html.IdFor(model => model.Unit)" 
+							name="@Html.NameFor(model => model.Unit)" 
+							value="@Html.ValueFor(model => model.Unit)"
+							tabindex="2" 
+							style="width:100%" 
+							class="easyui-textbox" 
+							type="text" 
+							data-options="prompt:'单位',
+								 label:'单位:',
+								 required:false ,validType:'length[0,10]'" />
+					             
+			 
+	  
+  <td class="control-label">   @Html.DisplayNameFor(model => model.UnitPrice)  </td>
+	   <td> 
+			   
+											<input id="@Html.IdFor(model => model.UnitPrice)"
+							name="@Html.NameFor(model => model.UnitPrice)" 
+							value="@Html.ValueFor(model => model.UnitPrice)"
+							tabindex="3" 
+							style="width:100%" 
+							class="easyui-numberbox" 
+							type="text" 
+							 data-options="prompt:'单价',
+								 label:'单价:',
+								 required:true ,precision:2" />
+					             
+			 
+     <tr>
+     	  
+  <td class="control-label">   @Html.DisplayNameFor(model => model.StockQty)  </td>
+	   <td> 
+			   
+											<input id="@Html.IdFor(model => model.StockQty)"
+							name="@Html.NameFor(model => model.StockQty)" 
+							value="@Html.ValueFor(model => model.StockQty)"
+							tabindex="4" 
+							style="width:100%" 
+							class="easyui-numberbox" 
+							type="text" 
+							 data-options="prompt:'库存',
+								 label:'库存:',
+								 required:true ,precision:0" />
+					             
+			 
+	  
+  <td class="control-label">   @Html.DisplayNameFor(model => model.ConfirmDateTime)  </td>
+	   <td> 
+			   
+											<input id="@Html.IdFor(model => model.ConfirmDateTime)" 
+							name="@Html.NameFor(model => model.ConfirmDateTime)" 
+							tabindex="5" 
+							style="width:100%" class="easyui-datebox" 
+							type="text" 
+							value="@Html.ValueFor(model => model.ConfirmDateTime)"
+							data-options="prompt:'确认日期',
+								 label:'确认日期:',
+								 required:true,
+								 formatter:dateformatter" />
+					             
+			 
+     <tr>
+     	  
+  <td class="control-label">   @Html.DisplayNameFor(model => model.IsRequiredQc)  </td>
+	   <td> 
+			   
+											<input id="@Html.IdFor(model => model.IsRequiredQc)" 
+							name="@Html.NameFor(model => model.IsRequiredQc)" 
+							value="@Html.ValueFor(model => model.IsRequiredQc)"
+							tabindex="6" 
+							style="width:100%" 
+							class="easyui-textbox" 
+							type="text" 
+							data-options="prompt:'是否需要QC',
+					             label:'是否需要QC:',
+								 required:false " />
+					             
+			 
+	  
+  <td class="control-label">   @Html.DisplayNameFor(model => model.CategoryId)  </td>
+	   <td> 
+			   
+			<input id="@Html.IdFor(model => model.CategoryId)"
+			       name="@Html.NameFor(model => model.CategoryId)"
+				   value="@Html.ValueFor(model => model.CategoryId)"
+				   class="easyui-combobox" data-options="
+						prompt:'产品类别' ,
+						label:'产品类别:' ,
+						required:true ,
+						valueField: 'Id',
+						textField: 'Name' ,
+						url: '/Categories/GetCategories' ,
+						onSelect: function(item){
+						//console.log(item);
+				}">
+
+				
+	        @*<tfoot>
+        <tr>
+           
+        <tr>
+    </tfoot>*@
+</table>
+</div>
+
+
+ 

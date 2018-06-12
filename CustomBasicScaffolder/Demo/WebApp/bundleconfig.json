@@ -1,0 +1,19 @@
+[
+  {
+    "outputFileName": "Content/css/smartadmin.min.css",
+    "inputFiles": [
+      "Content/css/animate.css",
+      "Content/css/bootstrap.css",
+      "Content/css/demo.css",
+      "Content/css/font-awesome.css",
+      "Content/css/site.css",
+      "Content/css/invoice.css",
+      "Content/css/lockscreen.css",
+      "Content/css/smartadmin-production-plugins.css",
+      "Content/css/smartadmin-production.css",
+      "Content/css/smartadmin-rtl.css",
+      "Content/css/smartadmin-skins.css",
+      "Content/css/your_style.css"
+    ]
+  }
+]

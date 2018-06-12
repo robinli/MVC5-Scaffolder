@@ -1,0 +1,30 @@
+﻿<#@ template language="C#" HostSpecific="True" #>
+<#@ output extension=".cshtml" #>
+<#@ include file="Imports.include.t4" #>
+
+<div class="popupsearchform">
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+			<div class="form-group">
+                <label class="control-label ">Title</label>
+                <div class="">
+                   <input type="text" id="Title" placeholder="Title" maxlength="20" class="form-control" />
+                </div>
+            </div>
+		</div>
+		<div class="col-lg-6 col-md-6 col-sm-6">
+			<div class="form-group">
+                <label class="control-label ">Title</label>
+                <div class="">
+                   <input type="text" id="Title" placeholder="Title" maxlength="20" class="form-control" />
+                </div>
+            </div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function (e) {
+	
+	});
+</script>

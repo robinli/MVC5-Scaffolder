@@ -1,0 +1,133 @@
+﻿<UserControl x:Class="Happy.Scaffolding.MVC.UI.ResultListSetting"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:self="clr-namespace:Happy.Scaffolding.MVC.UI"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="540" 
+             MinHeight="300" MinWidth="540" Background="LightYellow">
+    <UserControl.Resources>
+        <Style TargetType="Label" x:Key="{x:Type Label}">
+            <Setter Property="Margin" Value="0,0,0,0" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+        </Style>
+        <Style TargetType="ComboBox" x:Key="{x:Type ComboBox}">
+            <Setter Property="Margin" Value="0,0,0,0" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="self:BindBehavior.ForceBindOnLostFocus" Value="{x:Static Member=ComboBox.SelectedItemProperty}" />
+            <Setter Property="self:BindBehavior.ForceBindOnEnter" Value="{x:Static Member=ComboBox.SelectedItemProperty}" />
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self},
+                        Path=(Validation.Errors)[0].ErrorContent}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="TextBox" x:Key="{x:Type TextBox}">
+            <Setter Property="Margin" Value="4,0,4,0" />
+            <Setter Property="Height" Value="24" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="self:BindBehavior.ForceBindOnEnter" Value="{x:Static Member=TextBox.TextProperty}" />
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self},
+                        Path=(Validation.Errors)[0].ErrorContent}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="CheckBox" x:Key="{x:Type CheckBox}">
+            <Setter Property="Margin" Value="0,0,0,0" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+        </Style>
+        <Style TargetType="Button" x:Key="{x:Type Button}">
+            <Setter Property="MinWidth" Value="75" />
+            <Setter Property="Height" Value="23" />
+        </Style>
+        <Style TargetType="TextBlock" x:Key="{x:Type TextBlock}">
+            <Setter Property="Margin" Value="0,4,0,0" />
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25" />
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="{x:Static self:MvcScaffolderDialogResources.SPScaffolderDialog_Title3}" Grid.Row="0"></TextBlock>
+        <Grid Grid.IsSharedSizeScope="True" Margin="0" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25" />
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <!--  Title  -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="ListName1" />
+                    <ColumnDefinition SharedSizeGroup="ListName2" />
+                    <ColumnDefinition SharedSizeGroup="ListName3" />
+                    <ColumnDefinition SharedSizeGroup="ListName4" />
+                    <ColumnDefinition SharedSizeGroup="ListName5" />
+                </Grid.ColumnDefinitions>
+                <Border TextBlock.TextAlignment="Center" Grid.Column="0">
+                    <TextBlock Text="Column"/>
+                </Border>
+                <Border TextBlock.TextAlignment="Center" Grid.Column="1">
+                    <TextBlock Text="Display Name" />
+                </Border>
+                <Border TextBlock.TextAlignment="Center" Grid.Column="2">
+                    <TextBlock Text="Visible" />
+                </Border>
+                <!--<Border TextBlock.TextAlignment="Center" Grid.Column="3">
+                    <TextBlock Text="Reange / MaxLength" />
+                </Border>-->
+                <Border TextBlock.TextAlignment="Center" Grid.Column="4">
+                    <TextBlock Text="Type" />
+                </Border>
+            </Grid>
+
+            <ListBox ItemsSource="{Binding Columns}" Grid.Row="1">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="25"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition SharedSizeGroup="ListName1" Width="100" />
+                                <ColumnDefinition SharedSizeGroup="ListName2" Width="150"/>
+                                <ColumnDefinition SharedSizeGroup="ListName3" Width="50"/>
+                                <!--<ColumnDefinition SharedSizeGroup="ListName4" Width="150" />-->
+                                <ColumnDefinition SharedSizeGroup="ListName5" Width="88"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid Grid.Column="0">
+                                <TextBlock Text="{Binding Name}" Margin="0,4,8,0" HorizontalAlignment="Right"></TextBlock>
+                            </Grid>
+
+                            <TextBox Text="{Binding Path=DisplayName}"  Grid.Column="1"></TextBox>
+
+                            <Grid Grid.Column="2" Width="20">
+                                <CheckBox IsChecked="{Binding IsVisible}" Margin="0,4,0,0"></CheckBox>
+                            </Grid>
+
+                            <!--<StackPanel Grid.Column="3"  Orientation="Horizontal" Margin="4,0,0,0">
+                                <StackPanel Orientation="Horizontal" Visibility="{Binding ShowEditorMaxLength}" >
+                                    <TextBlock Margin="0,4,0,4" Text="max length" />
+                                    <TextBox Text="{Binding Path=MaxLength}" Width="30" TextAlignment="Right"></TextBox>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Visibility="{Binding ShowEditorRange}">
+                                    <TextBlock Margin="0,4,0,4" Text="range" />
+                                    <TextBox Text="{Binding Path=RangeMin}" Width="40" TextAlignment="Right"></TextBox>
+                                    <TextBlock Margin="0,4,0,0">~</TextBlock>
+                                    <TextBox Text="{Binding Path=RangeMax}" Width="40" TextAlignment="Right"></TextBox>
+                                </StackPanel>
+                            </StackPanel>-->
+
+                            <TextBlock Margin="0,0,0,0" Text="{Binding strDateType}" Grid.Column="3"></TextBlock>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+    </Grid>
+</UserControl>

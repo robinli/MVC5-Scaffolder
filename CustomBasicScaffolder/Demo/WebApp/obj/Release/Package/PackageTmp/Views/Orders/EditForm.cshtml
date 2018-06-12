@@ -1,0 +1,459 @@
+﻿﻿@model WebApp.Models.Order
+ <!-- 输出form表单界面 -->
+<fieldset>
+    <div class="row">
+        	    			<section class="col col-6">
+           <label class="label">@Html.DisplayNameFor(model => model.Id) </label>
+           <label class="input">
+            <input id="@Html.IdFor(model => model.Id)" 
+                   name="@Html.NameFor(model => model.Id)" 
+                   placeholder="@Html.DisplayNameFor(model => model.Id)" 
+                   value="@Html.ValueFor(model => model.Id)"
+                   tabindex="0"   
+                   type="text" 
+                   />
+                 <b class="tooltip tooltip-bottom-right">Id</b>
+			    </label>
+            </section>
+              				 
+	  
+	    
+	        			              <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.Customer) </label>
+            <label class="input">
+			<input id="@Html.IdFor(model => model.Customer)" 
+				   name="@Html.NameFor(model => model.Customer)" 
+                   placeholder="@Html.DisplayNameFor(model => model.Customer)" 
+				   value="@Html.ValueFor(model => model.Customer)"
+				   tabindex="1" 
+				    type="text" 
+				   />
+             <b class="tooltip tooltip-bottom-right">客户名称</b>
+			    </label>
+            </section>
+			  				 
+	  
+	    
+	        			              <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.ShippingAddress) </label>
+            <label class="input">
+			<input id="@Html.IdFor(model => model.ShippingAddress)" 
+				   name="@Html.NameFor(model => model.ShippingAddress)" 
+                   placeholder="@Html.DisplayNameFor(model => model.ShippingAddress)" 
+				   value="@Html.ValueFor(model => model.ShippingAddress)"
+				   tabindex="2" 
+				    type="text" 
+				   />
+             <b class="tooltip tooltip-bottom-right">发货地址</b>
+			    </label>
+            </section>
+			  				 
+	  
+	    
+	        			              <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.OrderDate) </label>
+            <label class="input">
+            <i class="icon-append fa fa-calendar"></i>
+			<input id="@Html.IdFor(model => model.OrderDate)" 
+			       name="@Html.NameFor(model => model.OrderDate)" 
+                   placeholder="@Html.DisplayNameFor(model => model.OrderDate)" 
+				   tabindex="3" 
+				   class="datepicker" data-dateformat="dd/mm/yy"
+				   type="text" 
+				   value="@Html.ValueFor(model => model.OrderDate)"
+				    />
+             <b class="tooltip tooltip-bottom-right">订单日期</b>
+			    </label>
+            </section>
+			  				 
+	  
+	    
+	        			              <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.CreatedDate) </label>
+            <label class="input">
+            <i class="icon-append fa fa-calendar"></i>
+			<input id="@Html.IdFor(model => model.CreatedDate)" 
+			       name="@Html.NameFor(model => model.CreatedDate)" 
+                   placeholder="@Html.DisplayNameFor(model => model.CreatedDate)" 
+				   tabindex="4" 
+				   class="datepicker" data-dateformat="dd/mm/yy"
+				   type="text" 
+				   value="@Html.ValueFor(model => model.CreatedDate)"
+				    />
+             <b class="tooltip tooltip-bottom-right">创建时间</b>
+			    </label>
+            </section>
+			  				 
+	  
+	    
+	        			              <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.CreatedBy) </label>
+            <label class="input">
+			<input id="@Html.IdFor(model => model.CreatedBy)" 
+				   name="@Html.NameFor(model => model.CreatedBy)" 
+                   placeholder="@Html.DisplayNameFor(model => model.CreatedBy)" 
+				   value="@Html.ValueFor(model => model.CreatedBy)"
+				   tabindex="5" 
+				    type="text" 
+				   />
+             <b class="tooltip tooltip-bottom-right">创建用户</b>
+			    </label>
+            </section>
+			  				 
+	  
+	    
+	        			              <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.LastModifiedDate) </label>
+            <label class="input">
+            <i class="icon-append fa fa-calendar"></i>
+			<input id="@Html.IdFor(model => model.LastModifiedDate)" 
+			       name="@Html.NameFor(model => model.LastModifiedDate)" 
+                   placeholder="@Html.DisplayNameFor(model => model.LastModifiedDate)" 
+				   tabindex="6" 
+				   class="datepicker" data-dateformat="dd/mm/yy"
+				   type="text" 
+				   value="@Html.ValueFor(model => model.LastModifiedDate)"
+				    />
+             <b class="tooltip tooltip-bottom-right">最后更新时间</b>
+			    </label>
+            </section>
+			  				 
+	  
+	    
+	        			              <section class="col col-6">
+            <label class="label">@Html.DisplayNameFor(model => model.LastModifiedBy) </label>
+            <label class="input">
+			<input id="@Html.IdFor(model => model.LastModifiedBy)" 
+				   name="@Html.NameFor(model => model.LastModifiedBy)" 
+                   placeholder="@Html.DisplayNameFor(model => model.LastModifiedBy)" 
+				   value="@Html.ValueFor(model => model.LastModifiedBy)"
+				   tabindex="7" 
+				    type="text" 
+				   />
+             <b class="tooltip tooltip-bottom-right">最后更新用户</b>
+			    </label>
+            </section>
+			  				 
+	  
+	    
+	    </div>
+</fieldset>
+
+<!--========================================================================================-->
+ <fieldset>
+    <div class="row">
+        <section class="col col-md-12 col-lg-12">
+    <!-- details tabs -->
+    <div class="tabs-container">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs">
+								<li class="active"><a data-toggle="tab" href="#tab-orderdetails"> OrderDetails</a></li>
+				   
+		 </ul>
+		 <!-- Tab panes -->
+         <div class="tab-content">
+		 		  <div id="tab-orderdetails" class="tab-pane active">
+            <div class="panel-body">
+                <div class="table-responsive">
+				<table id="orderdetails_datagrid" >
+                </table>
+				<div id="orderdetails_toolbar" style="height:auto">
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-plus fa-fw',plain:true" onclick="orderdetails_createitem()">新增</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-trash-o fa-fw',plain:true" onclick="orderdetails_removeitem()">删除</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-floppy-o fa-fw',plain:true" onclick="orderdetails_saveitem()">保存</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-undo fa-fw',plain:true" onclick="orderdetails_reject()">取消</a>
+                </div>
+                </div>
+            </div>
+        </div>
+		  	</div>
+	</div>
+ 
+<!--end details tabs -->
+        </section>
+    </div>
+</fieldset>
+
+
+
+ <script type="text/javascript">
+   var id=@Model.Id;
+             
+		 
+								//--------------------------------------------------------------------
+				// #orderdetails_datagrid functions
+				//--------------------------------------------------------------------
+				var $orderdetailsdg = $("#orderdetails_datagrid");
+
+				var orderdetails_editIndex = undefined;
+		function orderdetails_reload() {
+				$orderdetailsdg.datagrid("reload");
+			}
+	function orderdetails_endEditing() {
+		if ( orderdetails_editIndex == undefined) { return true }
+		if ($orderdetailsdg.datagrid("validateRow", orderdetails_editIndex)) {
+						var ed = $orderdetailsdg.datagrid("getEditor", { index: orderdetails_editIndex, field: "ProductId" });
+			var ProductName = $(ed.target).combobox("getText");
+			var ProductId = $(ed.target).combobox("getValue");
+		  
+			$orderdetailsdg.datagrid("getRows")[orderdetails_editIndex]["ProductName"] = ProductName;
+			$orderdetailsdg.datagrid("getRows")[orderdetails_editIndex]["ProductId"] = ProductId;
+			
+			
+						$orderdetailsdg.datagrid("endEdit", orderdetails_editIndex);
+			orderdetails_editIndex = undefined;
+
+
+			return true;
+		} else {
+			return false;
+		}
+	}
+	function orderdetails_onClickCell(index, field) {
+		if (orderdetails_editIndex != index) {
+			if (orderdetails_endEditing()) {
+				$orderdetailsdg.datagrid("selectRow", index)
+						.datagrid("beginEdit", index);
+                orderdetails_editIndex  = index;
+				var ed = $orderdetailsdg.datagrid("getEditor", { index: index, field: field });
+				if (ed) {
+					($(ed.target).data("textbox") ? $(ed.target).textbox("textbox") : $(ed.target)).focus();
+				}
+				
+			} else {
+				$orderdetailsdg.datagrid("selectRow", orderdetails_editIndex);
+			}
+		}
+	}
+	function orderdetails_createitem() {
+		if (orderdetails_endEditing()) {
+			 var order = $orderdetailsdg.datagrid("getSelected");
+
+			$orderdetailsdg.datagrid("appendRow", { OrderId:id   });
+			orderdetailseditIndex = $orderdetailsdg.datagrid("getRows").length - 1;
+			$orderdetailsdg.datagrid("selectRow", orderdetails_editIndex )
+					.datagrid("beginEdit", orderdetails_editIndex);
+		}
+	}
+	function orderdetails_removeitem() {
+		if (orderdetails_editIndex  == undefined) { return }
+		$orderdetailsdg.datagrid("cancelEdit", orderdetails_editIndex )
+				.datagrid("deleteRow", orderdetails_editIndex );
+		orderdetailseditIndex = undefined;
+	}
+   
+	function orderdetails_reject() {
+		$orderdetailsdg.datagrid("rejectChanges");
+		orderdetails_editIndex  = undefined;
+	}
+	function orderdetails_getChanges() {
+		var rows = $orderdetailsdg.datagrid("getChanges");
+		alert(rows.length + " rows are changed!");
+	}
+	function orderdetails_saveitem() {
+			if (orderdetails_endEditing()) {
+				if ($orderdetailsdg.datagrid("getChanges").length) {
+					var inserted = $orderdetailsdg.datagrid("getChanges", "inserted");
+					var deleted = $orderdetailsdg.datagrid("getChanges", "deleted");
+					var updated = $orderdetailsdg.datagrid("getChanges", "updated");
+					var effectRow = new Object();
+					if (inserted.length) {
+						effectRow.inserted = inserted;
+					}
+					if (deleted.length) {
+						effectRow.deleted = deleted;
+					}
+					if (updated.length) {
+						effectRow.updated = updated;
+					}
+					//console.log(JSON.stringify(effectRow));
+					$.post("/OrderDetails/SaveData", effectRow, function (response) {
+						//console.log(response);
+						if (response.Success) {
+							$.messager.alert("提示", "提交成功！");
+							$orderdetailsdg.datagrid("acceptChanges");
+							$orderdetailsdg.datagrid("reload");
+						}
+					}, "json").fail(function (response) {
+						//console.log(response);
+						$.messager.alert("错误", "提交错误了！","error");
+					  
+					});
+			  
+				}
+
+				//$orderdetailsdg.datagrid("acceptChanges");
+			}
+		}
+
+	 
+
+
+
+
+				
+		 
+
+                     function initdatagrid(){
+               
+		          
+          $orderdetailsdg.datagrid({
+                    rownumbers: true,
+                    iconCls: 'fa fa-list',
+                    idField: 'Id',
+                    sortName: 'Id',
+                    sortOrder: 'asc',
+                    remoteFilter: true,
+                    singleSelect: true,
+                    toolbar: '#orderdetails_toolbar',
+                    method: 'get',
+                    onClickCell: orderdetails_onClickCell,
+                    pagination: 'true',
+                    url: '/OrderDetails/GetDataByOrderId?orderid='+ id,
+                    striped: true,
+                    columns: [[
+                    														@*{field:'Id',
+                                   title:'Id',
+                                   width:80 },*@
+																								    {field:'ProductId',
+                                 title:'商品',
+                                 width:160,
+								 formatter:function(value,row){
+												return row.ProductName;
+											},
+								 editor:{
+                                         type:'combobox',
+										 options:{
+                                                prompt:'商品',
+												mode: 'remote',
+                                                valueField:'Id',
+											    textField:'Name',
+												method:'get',
+												url:'/Orders/GetProducts',
+												required:true ,precision:0
+												}
+								 }},
+																													     { field:'Qty',
+                                   title:'数量',
+                                   width:120,
+                                   align:'right',
+                                   editor:{
+                                           type:'numberbox',
+                                           options:{
+                                                   prompt:'数量',
+                                                   required:true ,precision:0
+                                             } 
+                                           } ,
+                                   sortable:true,
+                                   resizable:true },
+																																				     { field:'Price',
+                                   title:'单价',
+                                   width:120,
+                                   align:'right',
+                                   editor:{
+                                           type:'numberbox',
+                                           options:{
+                                                   prompt:'单价',
+                                                   required:true ,precision:2
+                                             } 
+                                           } ,
+                                   sortable:true,
+                                   resizable:true },
+																																				     { field:'Amount',
+                                   title:'金额',
+                                   width:120,
+                                   align:'right',
+                                   editor:{
+                                           type:'numberbox',
+                                           options:{
+                                                   prompt:'金额',
+                                                   required:true ,precision:2
+                                             } 
+                                           } ,
+                                   sortable:true,
+                                   resizable:true },
+																													                    
+                    
+                    
+                    ]]
+          });
+                
+                $orderdetailsdg.datagrid("enableFilter", [
+                
+           				{
+					  field: "Id",
+					  type: "numberbox",
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+		   				{
+					  field: "Qty",
+					  type: "numberbox",
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+		   				{
+					  field: "Price",
+					  type: "numberbox",
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+		   				{
+					  field: "Amount",
+					  type: "numberbox",
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+		   
+
+		   		   
+		   		   {
+				 field: "ProductId",
+				 type:"combobox",
+				 options:{
+								valueField:"Id",
+								textField:"Name",
+								method:"get",
+								url:"/Orders/GetProducts",
+								onChange: function (value) {
+								if (value == "") {
+									$orderdetailsdg.datagrid("removeFilterRule", "ProductId");
+								} else {
+									$orderdetailsdg.datagrid("addFilterRule", {
+										field: "ProductId",
+										op: "equal",
+										value: value
+								});
+							}
+							$orderdetailsdg.datagrid("doFilter");
+						}
+					}
+		   },
+		   		   {
+				 field: "OrderId",
+				 type:"combobox",
+				 options:{
+								valueField:"Id",
+								textField:"Customer",
+								method:"get",
+								url:"/Orders/GetOrders",
+								onChange: function (value) {
+								if (value == "") {
+									$orderdetailsdg.datagrid("removeFilterRule", "OrderId");
+								} else {
+									$orderdetailsdg.datagrid("addFilterRule", {
+										field: "OrderId",
+										op: "equal",
+										value: value
+								});
+							}
+							$orderdetailsdg.datagrid("doFilter");
+						}
+					}
+		   },
+		   									]);
+                  }
+         /* 初始化datagrid */
+         initdatagrid();
+
+  
+  
+
+ </script>
+

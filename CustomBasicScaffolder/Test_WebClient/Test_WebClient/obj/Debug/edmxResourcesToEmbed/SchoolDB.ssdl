@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SchoolDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="BOOKS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="varchar" MaxLength="16" Nullable="false" />
+    <Property Name="BOOKNAME" Type="nvarchar" MaxLength="64" Nullable="false" />
+    <Property Name="AUTHOR" Type="nvarchar" MaxLength="64" />
+    <Property Name="PUBLISH_UTC" Type="datetime" />
+    <Property Name="VERSION_NUM" Type="int" />
+    <Property Name="VERSION_NUM2" Type="bigint" />
+    <Property Name="ISOK" Type="bit" />
+    <Property Name="LIST_PRICE" Type="decimal" Precision="8" Scale="2" />
+    <Property Name="Discount" Type="float" />
+  </EntityType>
+  <EntityContainer Name="SchoolDBModelStoreContainer">
+    <EntitySet Name="BOOKS" EntityType="Self.BOOKS" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

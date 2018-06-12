@@ -1,0 +1,367 @@
+﻿<#@ template language="C#" HostSpecific="True" #>
+<#@ output extension=".cshtml" #>
+<#@ include file="Imports.include.t4" #>
+@model <#= ViewDataTypeName #>
+<#
+	var PageTitle =(string.IsNullOrEmpty(ProgramTitle)==true?ControllerRootName:ProgramTitle);
+// "form-control" attribute is only supported for all EditorFor() in System.Web.Mvc 5.1.0.0 or later versions, except for checkbox, which uses a div in Bootstrap
+string boolType = "System.Boolean";
+Version requiredMvcVersion = new Version("5.1.0.0");
+bool isControlHtmlAttributesSupported = MvcVersion >= requiredMvcVersion;
+// The following chained if-statement outputs the file header code and markup for a partial view, a view using a layout page, or a regular view.
+#>
+@{  ViewBag.Title = "<#= PageTitle #> | <#=  ViewName #>";} 
+<#
+    var modelName =  ModelMetadata.EntitySetName;
+	var primaryKey = ModelMetadata.PrimaryKeys[0].PropertyName;
+ #>
+<!-- MAIN CONTENT -->
+<div id="content">
+     <!-- quick navigation bar -->
+     <div class="row">
+        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+            <h1 class="page-title txt-color-blueDark">
+                <i class="fa fa-table fa-fw "></i>
+                @{ 
+                  //TODO:fix quick navigation path
+                 }
+                路径
+                <span>
+                    >
+                    <#= PageTitle #>
+                </span>
+            </h1>
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+
+        </div>
+     </div>
+     <!-- end quick navigation bar -->
+
+     <!-- NEW WIDGET START -->
+    <article class="col-sm-12 col-md-12 col-lg-12">
+
+        <!-- Widget ID (each widget will need unique ID)-->
+        <div class="jarviswidget" id="wid-id-1" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false">
+            <!-- widget options:
+            usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+            data-widget-colorbutton="false"
+            data-widget-editbutton="false"
+            data-widget-togglebutton="false"
+            data-widget-deletebutton="false"
+            data-widget-fullscreenbutton="false"
+            data-widget-custombutton="false"
+            data-widget-collapsed="true"
+            data-widget-sortable="false"
+            -->
+            <header>
+                <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                <h2> <#= PageTitle #> </h2>
+
+            </header>
+
+            <!-- widget div-->
+            <div>
+
+                <!-- widget edit box -->
+                <div class="jarviswidget-editbox">
+                    <!-- This area used as dropdown edit box -->
+
+                </div>
+                <!-- end widget edit box -->
+
+                <!-- widget content -->
+                <div class="widget-body no-padding ">
+                            <!--form toolbar-->
+                            <div id="form_toolbar" style="height:auto" class="datagrid-toolbar">
+                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-plus',plain:true" onclick="createitem()">新增</a>
+                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeitem()">删除</a>
+                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="saveitem()">保存</a>
+                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">取消</a>
+                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-paperclip',plain:true" onclick="importexcel()">EXCEL 导入</a>
+                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-download-alt',plain:true" onclick="exportexcel()">导出 Excel</a>
+                                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="refresh()">刷新</a>
+                            </div>
+                            <!--form toolbar-->
+                        <form id="<#= ModelTypeName.ToLower() #>_form" class="smart-form easyui-form" method="post" data-options="novalidate:true">
+                             @Html.Partial("<#= ViewPrefix #>EditForm")
+                        </form>		 
+
+                 </div>
+                 <!-- end widget content -->
+                 </div>
+            <!-- end widget div -->
+
+        </div>
+        <!-- end widget -->
+
+
+    </article>
+    <!-- WIDGET END -->
+  
+ 
+</div>
+<!-- END MAIN CONTENT -->
+
+@section Scripts {
+   
+    <script type="text/javascript">
+	    //create new item
+        function createitem() {
+
+        }
+        //delete item
+        function deleteitem() {
+
+        }
+        //save item
+        function saveitem() {
+            if ($('#<#= ModelTypeName.ToLower() #>_form').form('enableValidation').form('validate')) {
+                var item = $('#<#= ModelTypeName.ToLower() #>_form').serializeObject();
+                  <#  if(GenerateMasterDetailRelationship  && OneToManyModelMetadata.Count >0) { 
+						var primaryKeyVar = ModelTypeName.ToLower() + primaryKey.ToLower();
+				  #>
+				  //获取明细表数据
+				  <# foreach(var item in OneToManyModelMetadata) {
+                        var boostraptablevar = "$" + item.Key.ToLower()  + "datagrid";
+						var fieldpropertyname = item.Key;
+                        var detailnamevar=item.Key.ToLower();
+                  #> 
+						if (!<#= detailnamevar #>_endEditing())
+								return false;                    
+                        var <#= detailnamevar #> = <#= boostraptablevar #>.datagrid("getChanges");
+						item.<#=  fieldpropertyname #> = <#= detailnamevar #> ;
+				  <# } #>
+				  <#
+				    }
+				  #>
+
+                $.post("/<#= ControllerRootName #>/Edit", item, function (response) {
+                    //console.log(response);						
+                    if (response.success) {
+                        $.messager.alert("提示", "保存成功！");
+
+                    } else {
+                        $.messager.alert("错误", "保存失败！" + response.err, "error");
+                    }
+                }, "json").fail(function (response) {
+                    //console.log(response);						
+                    $.messager.alert("错误", "保存失败！", "error");
+                    //$dg.datagrid("reload");						
+                });
+            }
+        }
+        // cancel
+        function reject() {
+
+        }
+        // reload
+        function refresh() { 
+        }
+
+
+    <#  if(GenerateMasterDetailRelationship  && OneToManyModelMetadata.Count >0) { 
+		var primaryKeyVar = ModelTypeName.ToLower() + primaryKey.ToLower();
+	#>
+		var <#= primaryKeyVar #> = 0;
+		var ObjectState = "Modified";   
+            <# foreach(var item in OneToManyModelMetadata) {
+                var boostraptablevar = "$" + item.Key.ToLower()  + "datagrid";
+                var detailnamevar=item.Key.ToLower();
+            #>                     
+             var <#= boostraptablevar #> = $("#<#=  detailnamevar #>_datagrid");
+            <# } #>
+            $(document).ready(function () {
+				<#= primaryKeyVar #> = $("#<#= primaryKey  #>", "form").val();
+                $("form").submit(function () {
+					if (!$("form").valid())
+						return false;
+                    //var token = $("[name=__RequestVerificationToken]").val();
+                    //var serializedForm = $(this).serialize();
+                    var actionurl = $(this).attr("action");
+                    <# foreach(var item in OneToManyModelMetadata) {
+                        var boostraptablevar = "$" + item.Key.ToLower()  + "datagrid";
+                        var detailnamevar=item.Key.ToLower();
+                     #>
+						if (!<#= detailnamevar #>_endEditing())
+								return false;                                         
+                        var <#= detailnamevar #> = <#= boostraptablevar #>.datagrid("getChanges");
+                     <# } #>
+                    
+                     var newitem = {
+						
+
+                        <# foreach(var property  in  ModelMetadata.Properties.Where(n=>true ).OrderByDescending(n=>n.Scaffold).ThenBy(n=>n.IsForeignKey).ThenBy(n=>n.PropertyName)) {
+                            if(property.IsPrimaryKey) {  #>
+								//primaryKey   
+								<#= property.PropertyName #>: <#= primaryKeyVar #>,
+                        <# } else if (property.AssociationDirection == AssociationDirection.OneToMany) { #>
+								//detailTables
+                                <#= property.PropertyName #>: <#= property.PropertyName.ToLower() #> ,
+                        <# } else if(property.IsForeignKey)  { #>
+								<#= property.PropertyName #>: $("#<#= property.PropertyName #> :selected","form").val(),
+						<# } else  if (property.AssociationDirection != AssociationDirection.ManyToOne) { #>
+                                <#= property.PropertyName #>: $("#<#= property.PropertyName #>", "form").val(),
+                        <#
+                             }
+                          }
+                        #>
+                        ObjectState:ObjectState 
+                    };
+                    $.ajax({
+                        url: actionurl,
+                        type: "POST",
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify(newitem),
+                        success: function (result) {
+                            if (result.success) {
+                                self.location = "/<#= ControllerRootName #>/Index";
+                            } else {
+                                alert(result.err);
+                            }
+                            
+                        },
+                        error: function (result) {
+                            console.log(result.statusText + result.responseText);
+                            alert(result.statusText + result.responseText);
+                        }
+                    });
+                    return false;
+                    
+
+                });
+            });
+      
+    <#   } #>
+  </script>
+
+  <#  if(GenerateMasterDetailRelationship  && OneToManyModelMetadata.Count >0) { 
+	var primaryKeyVar = ModelTypeName.ToLower() + primaryKey.ToLower();
+#>
+<script type="text/javascript">
+	
+	  <# foreach(var item in OneToManyModelMetadata) {
+                var boostraptablevar = "$" + item.Key.ToLower()  + "datagrid";
+                var detailnamevar=item.Key.ToLower();
+		        
+				var submodelmetadata =  item.Value;
+				var editindex = detailnamevar + "editIndex";
+      #>  
+	//==============$("#<#= detailnamevar  #>_datagrid")=================// 
+    var <#= boostraptablevar #> = $("#<#= detailnamevar  #>_datagrid")
+	var <#= editindex #> = undefined;
+    function <#= detailnamevar #>_endEditing() {
+        if ( <#= editindex #> == undefined) { return true }
+        if (<#= boostraptablevar #>.datagrid("validateRow", <#= editindex #>)) {
+			<# 
+				RelatedModelMetadata[] relmodelms = submodelmetadata.RelatedEntities;
+				foreach(RelatedModelMetadata relmodelm in relmodelms) 
+                {
+					var fkeyname=relmodelm.ShortTypeName +  relmodelm.PrimaryKeyNames[0];
+					var fdispname = relmodelm.ShortTypeName + relmodelm.DisplayPropertyName;
+					string relatedtypeName = relmodelm.ShortTypeName;
+				    if(relatedtypeName != ModelTypeName ) {
+			#>
+            var ed = <#= boostraptablevar #>.datagrid("getEditor", { index: <#= editindex #>, field: "<#= fkeyname #>" });
+            var <#= fdispname #> = $(ed.target).combobox("getText");
+            var <#= fkeyname #> = $(ed.target).combobox("getValue");
+          
+            <#= boostraptablevar #>.datagrid("getRows")[<#= editindex #>]["<#= fdispname #>"] = <#= fdispname #>;
+            <#= boostraptablevar #>.datagrid("getRows")[<#= editindex #>]["<#= fkeyname #>"] = <#= fkeyname #>;
+            
+            
+			<# 
+               } }
+			#>
+			<#= boostraptablevar #>.datagrid("endEdit", <#= editindex #>);
+            <#= editindex #> = undefined;
+
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+    function <#= detailnamevar #>_onClickCell(index, field) {
+        if (<#= editindex #> != index) {
+            if (<#= detailnamevar #>_endEditing()) {
+                <#= boostraptablevar #>.datagrid("selectRow", index)
+                                       .datagrid("beginEdit", index);
+                <#= editindex #>  = index;
+                var ed = <#= boostraptablevar #>.datagrid("getEditor", { index: index, field: field });
+                if (ed) {
+                    ($(ed.target).data("textbox") ? $(ed.target).textbox("textbox") : $(ed.target)).focus();
+                }
+                
+            } else {
+                <#= boostraptablevar #>.datagrid("selectRow", <#= editindex #>);
+            }
+        }
+    }
+    function <#= detailnamevar #>_append() {
+        if (<#= detailnamevar #>_endEditing()) {
+            <#= boostraptablevar #>.datagrid("appendRow", { Status:0   });
+            <#= detailnamevar #>editIndex = <#= boostraptablevar #>.datagrid("getRows").length - 1;
+            <#= boostraptablevar #>.datagrid("selectRow", <#= editindex #> )
+                    .datagrid("beginEdit", <#= editindex #>);
+        }
+    }
+    function <#= detailnamevar #>_removeit() {
+        if (<#= editindex #>  == undefined) { return }
+        <#= boostraptablevar #>.datagrid("cancelEdit", <#= editindex #> )
+                .datagrid("deleteRow", <#= editindex #> );
+        <#= detailnamevar #>editIndex = undefined;
+    }
+   
+    function <#= detailnamevar #>_reject() {
+        <#= boostraptablevar #>.datagrid("rejectChanges");
+        <#= editindex #>  = undefined;
+    }
+    function <#= detailnamevar #>_getChanges() {
+        var rows = <#= boostraptablevar #>.datagrid("getChanges");
+        alert(rows.length + " rows are changed!");
+    }
+
+
+	  <# } #>
+
+	$(function () {
+	<#
+    if (GenerateMasterDetailRelationship) 
+    {     
+        foreach (PropertyMetadata property in ModelMetadata.Properties) 
+        {           
+            if (property.AssociationDirection == AssociationDirection.OneToMany ) 
+            {       
+                var relmodemeta = OneToManyModelMetadata[property.PropertyName];
+                var relatedEntities = relmodemeta.RelatedEntities;
+                var foreignKeyNames = relatedEntities.Where(n=>n.EntitySetName ==ModelMetadata.EntitySetName).Select(n=>n.ForeignKeyPropertyNames).First();
+                var foreignKeyName = foreignKeyNames[0];
+                 
+				var boostraptablevar = "$" + property.PropertyName.ToLower()  + "datagrid";
+    #>
+
+		$.get("/<#= ControllerRootName  #>/Get<#= property.PropertyName #>By<#= foreignKeyName #>/" + @Model.Id,function(data){
+            //console.log(data);
+            <#= boostraptablevar #>.datagrid("loadData",data);
+        
+        })
+
+
+	<# 
+			}
+        }
+    }
+	#>
+
+	});
+</script>
+
+<# 
+     }
+#>
+
+}
+ 
+<#@ include file="ModelMetadataFunctions.cs.include.t4" #>

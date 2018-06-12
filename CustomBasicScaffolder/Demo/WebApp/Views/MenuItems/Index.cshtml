@@ -1,0 +1,355 @@
+﻿@model IEnumerable<WebApp.Models.MenuItem>
+
+
+
+
+@{
+    ViewBag.Title = "系统菜单维护";
+}
+<!-- MAIN CONTENT -->
+<div id="content">
+    <!-- quick navigation bar -->
+    <div class="row">
+        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+            <h1 class="page-title txt-color-blueDark">
+                <i class="fa fa-table fa-fw "></i>
+                @{
+//TODO:fix quick navigation path
+                }
+                系统管理
+                <span>
+                    >
+                    系统菜单维护
+                </span>
+            </h1>
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+
+        </div>
+    </div>
+    <!-- end quick navigation bar -->
+    <!-- widget grid -->
+    <section id="widget-grid" class="">
+        <!-- row -->
+        <div class="row">
+            <!-- NEW WIDGET START -->
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <!-- Widget ID (each widget will need unique ID)-->
+                <div class="jarviswidget" id="wid-id-4" data-widget-editbutton="false">
+                    <!-- widget options:
+                    usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+                    data-widget-colorbutton="false"
+                    data-widget-editbutton="false"
+                    data-widget-togglebutton="false"
+                    data-widget-deletebutton="false"
+                    data-widget-fullscreenbutton="false"
+                    data-widget-custombutton="false"
+                    data-widget-collapsed="true"
+                    data-widget-sortable="false"
+                    -->
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+                        <h2>系统菜单维护</h2>
+                    </header>
+
+                    <!-- widget div-->
+                    <div>
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body no-padding">
+                            @{
+//TODO:fix datagrid view alert-warning messages
+                            }
+                            <div class="alert alert-warning no-margin fade in">
+                                <button class="close" data-dismiss="alert">
+                                    ×
+                                </button>
+                                <i class="fa-fw fa fa-info"></i>
+                                A combined table effect with all classes mentioned above added to
+                            </div>
+                            <!--begin datagrid-content -->
+                            <div class="table-responsive">
+                                <table id="menuitems_datagrid" class="easyui-datagrid" title="" style="width:auto;height:auto"
+                                       data-options="
+                 rownumbers:true,
+				 checkOnSelect:true,
+                 selectOnCheck:true,
+                 idField:'Id',
+                 sortName:'Id',
+                 sortOrder:'desc',
+                remoteFilter: true,
+                singleSelect: true,
+                toolbar: '#menuitems_toolbar',
+                url: '/MenuItems/GetData',
+                method: 'get',
+                onClickCell: onClickCell,
+				onSelect:onSelect,
+                pagination: 'true'
+                   ">
+                                    <thead>
+                                        <tr>
+                                            @*<th data-options="field:'ck',checkbox:true"></th>*@
+                                            <th data-options="field:'Id',width:80 ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Id)</th>
+
+                                            <th data-options="field:'Title',width:140,editor:{type:'textbox',options:{required:true} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Title)</th>
+
+
+                                            <th data-options="field:'Description',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Description)</th>
+
+
+                                            <th data-options="field:'Code',width:140,editor:{type:'textbox',options:{required:true} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Code)</th>
+                                            <th data-options="field:'Controller',width:140,editor:{type:'textbox',options:{required:true} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Controller)</th>
+                                            <th data-options="field:'Action',width:140,editor:{type:'textbox',options:{required:true} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Action)</th>
+                                            <th data-options="field:'Url',width:140,editor:{type:'textbox',options:{required:true} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Url)</th>
+
+
+                                            <th data-options="field:'IconCls',width:140,editor:{type:'textbox',options:{required:false} } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.IconCls)</th>
+
+
+                                            <th data-options="field:'IsEnabled',width:120,editor: {type:'combobox'
+                                                ,options:{
+                                                panelHeight: 'auto',
+                                                data: [ { value: 'true', text: 'true' },{ value: 'false', text: 'false' } ],
+                                                required:false}}">@Html.DisplayNameFor(model => model.IsEnabled)</th>
+
+                                                <th data-options="field:'ParentId',width:100,sortable:true,resizable:true,
+                        formatter:function(value,row){
+                            return row.ParentTitle;
+                        },
+                        editor:{
+                            type:'combobox',
+                            options:{
+                                valueField:'Id',
+                                textField:'Title',
+                                method:'get',
+                                url:'/MenuItems/GetMenuItems',
+                                required:false
+                            }
+                        }">@Html.DisplayNameFor(model => model.ParentId)</th>
+
+
+
+                    </tr>
+                </thead>
+            </table>
+            <div id="menuitems_toolbar" style="height:auto">
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-plus',plain:true" onclick="append()">新增</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-trash-o',plain:true" onclick="removeit()">删除</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-floppy-o',plain:true" onclick="accept()">保存</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-undo',plain:true" onclick="reject()">取消</a>
+                @*<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="getChanges()">GetChanges</a>*@
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-upload fa-fw',plain:true" onclick="importexcel()">EXCEL 导入</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-sitemap',plain:true" onclick="createWithController()">生成菜单</a>
+            </div>
+        </div>
+        <!--end datagrid-content -->
+
+    </div>
+    <!-- end widget content -->
+</div>
+<!-- end widget div -->
+
+</div>
+<!-- end widget -->
+
+</article>
+<!-- WIDGET END -->
+
+</div>
+
+<!-- end row -->
+</section>
+<!-- end widget grid -->
+ 
+    <!-- file upload partial view -->
+    @Html.Partial("_ImportWindow", new ViewDataDictionary { { "EntityName", "Product" } })
+    <!-- end file upload partial view -->
+</div>
+<!-- END MAIN CONTENT -->
+
+
+
+
+@section Scripts {
+    <script type="text/javascript">
+
+         
+
+        function createWithController() {
+            $.messager.progress({ title: '正在处理请耐心等待！' });
+            $.post('/MenuItems/CreateWithController', function (data, textStatus, jqXHR) {
+                //console.log(data);
+                $.messager.progress('close');
+                $.messager.alert("提示", "成功创建菜单！", 'info', function () {
+                    $dg.datagrid('reload');
+                });
+
+            });
+
+        }
+
+        function importexcel() {
+            $('#importwindow').window('open');
+        }
+
+        var $dg = $('#menuitems_datagrid');
+        var editIndex = undefined;
+        function endEditing() {
+            if (editIndex == undefined) { return true }
+            if ($dg.datagrid('validateRow', editIndex)) {
+
+                var ed = $dg.datagrid('getEditor', { index: editIndex, field: 'ParentId' });
+                var parenttitle = $(ed.target).combobox('getText');
+                var parentid = $(ed.target).combobox('getValue');
+
+                $dg.datagrid('getRows')[editIndex]['ParentTitle'] = parenttitle;
+                $dg.datagrid('getRows')[editIndex]['ParentId'] = parentid;
+
+
+                $dg.datagrid('endEdit', editIndex);
+                editIndex = undefined;
+
+
+                return true;
+            } else {
+                return false;
+            }
+        }
+        function onClickCell(index, field) {
+            var _operates = ["_operate1", "_operate2", "_operate3", "ck"]
+            if ($.inArray(field, _operates) >= 0) {
+                return;
+            }
+            if (editIndex != index) {
+                if (endEditing()) {
+                    $dg.datagrid('selectRow', index)
+                        .datagrid('beginEdit', index);
+                    var ed = $dg.datagrid('getEditor', { index: index, field: field });
+                    if (ed) {
+                        ($(ed.target).data('textbox') ? $(ed.target).textbox('textbox') : $(ed.target)).focus();
+                    }
+                    editIndex = index;
+                } else {
+                    $dg.datagrid('selectRow', editIndex);
+                }
+            }
+        }
+        function append() {
+            if (endEditing()) {
+                //$dg.datagrid('appendRow', { Status: 0 });
+                //editIndex = $dg.datagrid('getRows').length - 1;
+                $dg.datagrid('insertRow', { index: 0, row: { IsEnabled: true } });
+                editIndex = 0;
+                $dg.datagrid('selectRow', editIndex)
+                    .datagrid('beginEdit', editIndex);
+            }
+        }
+        function removeit() {
+            if (editIndex == undefined) { return }
+            $dg.datagrid('cancelEdit', editIndex)
+                .datagrid('deleteRow', editIndex);
+            editIndex = undefined;
+        }
+        function accept() {
+            if (endEditing()) {
+                if ($dg.datagrid('getChanges').length) {
+                    var inserted = $dg.datagrid('getChanges', "inserted");
+                    var deleted = $dg.datagrid('getChanges', "deleted");
+                    var updated = $dg.datagrid('getChanges', "updated");
+                    var effectRow = new Object();
+                    if (inserted.length) {
+                        effectRow.inserted = inserted;
+                    }
+                    if (deleted.length) {
+                        effectRow.deleted = deleted;
+                    }
+                    if (updated.length) {
+                        effectRow.updated = updated;
+                    }
+                    //console.log(JSON.stringify(effectRow));
+                    $.post("/MenuItems/SaveData", effectRow, function (response) {
+                        //console.log(response);
+                        if (response.Success) {
+                            $.messager.alert("提示", "提交成功！");
+                            $dg.datagrid('acceptChanges');
+                            $dg.datagrid('reload');
+                        }
+                    }, "json").fail(function (response) {
+                        //console.log(response);
+                        $.messager.alert("错误", "提交错误了！", 'error');
+                        //$dg.datagrid('reload');
+                    });
+
+                }
+
+                //$dg.datagrid('acceptChanges');
+            }
+        }
+        function reject() {
+            $dg.datagrid('rejectChanges');
+            editIndex = undefined;
+        }
+        function getChanges() {
+            var rows = $dg.datagrid('getChanges');
+            alert(rows.length + ' rows are changed!');
+        }
+
+
+        $(function () {
+
+            $dg.datagrid('enableFilter', [
+
+
+                {
+                    field: 'ParentId',
+                    type: 'combobox',
+                    options: {
+                        valueField: 'Id',
+                        textField: 'Title',
+                        method: 'get',
+                        url: '/MenuItems/GetMenuItems',
+                        onChange: function (value) {
+                            if (value == '') {
+                                $dg.datagrid('removeFilterRule', 'ParentId');
+                            } else {
+                                $dg.datagrid('addFilterRule', {
+                                    field: 'ParentId',
+                                    op: 'equal',
+                                    value: value
+                                });
+                            }
+                            $dg.datagrid('doFilter');
+                        }
+                    }
+                },
+
+            ]);
+        })
+        //-----------------------------------------------------
+        //datagrid onSelect
+        //-----------------------------------------------------
+        function onSelect(index, row) {
+            //console.log(index, row);
+            //filterByMenuItemId(row.Id);
+        }
+        //function filterByMenuItemId(menuitemid) {
+        //    var value = menuitemid;
+
+        //    $menuitemsdg.datagrid('removeFilterRule', 'ParentId');
+        //    $menuitemsdg.datagrid('addFilterRule', {
+        //        field: 'ParentId',
+        //        op: 'equal',
+        //        value: value
+        //    });
+        //    $menuitemsdg.datagrid('doFilter');
+
+        //}
+
+
+    </script>
+}
+

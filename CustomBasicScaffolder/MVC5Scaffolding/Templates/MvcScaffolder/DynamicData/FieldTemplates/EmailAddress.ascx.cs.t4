@@ -1,0 +1,33 @@
+<#@ Template Language="C#" HostSpecific="True"  #>
+<#@ Output Extension="cs" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ parameter type="System.String" name="DefaultNamespace" #>
+using System;
+using System.Collections.Specialized;
+using System.ComponentModel.DataAnnotations;
+using System.Web.DynamicData;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+namespace <#= DefaultNamespace #> {
+    public partial class EmailAddressField : System.Web.DynamicData.FieldTemplateUserControl {
+        protected override void OnDataBinding(EventArgs e) {
+            string url = FieldValueString;
+            if (!url.StartsWith("mailto:", StringComparison.OrdinalIgnoreCase)) {
+                url = "mailto:" + url;
+            }
+            HyperLink1.NavigateUrl = url;
+        }
+    
+        public override Control DataControl {
+            get {
+                return HyperLink1;
+            }
+        }
+    
+    }
+}

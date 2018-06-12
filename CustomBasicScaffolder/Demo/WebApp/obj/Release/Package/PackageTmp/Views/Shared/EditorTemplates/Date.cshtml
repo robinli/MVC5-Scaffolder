@@ -1,0 +1,25 @@
+﻿@model DateTime?
+
+
+<div class="input-group date">
+    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>@Html.TextBox("", Model, null, new { @class = "form-control" })
+</div>
+
+ 
+ 
+
+<script>
+    $(document).ready(function (e) {
+
+        $('#@Html.IdFor(m => m)').datepicker({
+            format: "yyyy/mm/dd",
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            calendarWeeks: true,
+            autoclose: true
+        });
+
+        
+    })
+</script>

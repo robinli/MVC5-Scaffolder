@@ -1,0 +1,69 @@
+﻿@model IEnumerable<Test_WebClient.BOOKS>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.BOOKNAME)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AUTHOR)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PUBLISH_UTC)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VERSION_NUM)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VERSION_NUM2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ISOK)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LIST_PRICE)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.BOOKNAME)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AUTHOR)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PUBLISH_UTC)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VERSION_NUM)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VERSION_NUM2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ISOK)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LIST_PRICE)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>
