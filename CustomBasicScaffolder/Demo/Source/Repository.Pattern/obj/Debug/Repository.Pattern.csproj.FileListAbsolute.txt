@@ -29,3 +29,13 @@ D:\github\mitms\miTms\Source\Repository.Pattern\obj\Debug\Repository.Pattern.csp
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern\bin\Debug\TrackableEntities.Common.xml
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern\obj\Debug\Repository.Pattern.csprojAssemblyReference.cache
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern\obj\Debug\Repository.Pattern.csproj.CopyComplete
+D:\github\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern\bin\Debug\Repository.Pattern.dll.config
+D:\github\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern\bin\Debug\Repository.Pattern.dll
+D:\github\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern\bin\Debug\Repository.Pattern.pdb
+D:\github\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern\bin\Debug\TrackableEntities.Common.dll
+D:\github\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern\bin\Debug\TrackableEntities.Common.xml
+D:\github\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern\obj\Debug\Repository.Pattern.csprojAssemblyReference.cache
+D:\github\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern\obj\Debug\Repository.Pattern.csproj.CoreCompileInputs.cache
+D:\github\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern\obj\Debug\Repository.Pattern.csproj.CopyComplete
+D:\github\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern\obj\Debug\Repository.Pattern.dll
+D:\github\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern\obj\Debug\Repository.Pattern.pdb
