@@ -21,7 +21,7 @@ namespace WebApp
     /// <summary>
     /// Specifies the Unity configuration for the main container.
     /// </summary>
-    public class UnityConfig
+    public class MvcUnityConfig
     {
         #region Unity Container
         private static Lazy<IUnityContainer> container = new Lazy<IUnityContainer>(() =>
@@ -63,14 +63,14 @@ namespace WebApp
             //container.RegisterType<ICategoryService, CategoryService>(new PerRequestLifetimeManager());
             //container.RegisterType<IRepositoryAsync<Order>, Repository<Order>>(new PerRequestLifetimeManager());
             //container.RegisterType<IOrderService, OrderService>(new PerRequestLifetimeManager());
-            container.RegisterType<DbContext, ApplicationDbContext>(new HierarchicalLifetimeManager(),null);
-            container.RegisterType<ApplicationDbContext>(new HierarchicalLifetimeManager(),null);
+            container.RegisterType<DbContext, ApplicationDbContext>(new HierarchicalLifetimeManager(), null);
+            container.RegisterType<ApplicationDbContext>(new HierarchicalLifetimeManager(), null);
 
-            container.RegisterType<IRoleStore<ApplicationRole, string>, RoleStore<ApplicationRole>>(new HierarchicalLifetimeManager(),null);
+            container.RegisterType<IRoleStore<ApplicationRole, string>, RoleStore<ApplicationRole>>(new HierarchicalLifetimeManager(), null);
             container.RegisterType<IUserStore<ApplicationUser>, UserStore<ApplicationUser>>(new HierarchicalLifetimeManager());
             container.RegisterType<IAuthenticationManager>(new InjectionFactory(o => HttpContext.Current.GetOwinContext().Authentication));
             //container.RegisterType<IAuthenticationManager>(new InjectionFactory(o => HttpContext.Current.GetOwinContext().Authentication));
-            container.RegisterType<IUnitOfWorkAsync, UnitOfWork>(new PerRequestLifetimeManager(),null);
+            container.RegisterType<IUnitOfWorkAsync, UnitOfWork>(new PerRequestLifetimeManager(), null);
             container.RegisterType<DbContext, StoreContext>(new PerRequestLifetimeManager(), null);
 
 

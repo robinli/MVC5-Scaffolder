@@ -19,8 +19,8 @@ namespace WebApp
         public static void Start() 
         {
             FilterProviders.Providers.Remove(FilterProviders.Providers.OfType<FilterAttributeFilterProvider>().First());
-            FilterProviders.Providers.Add(new UnityFilterAttributeFilterProvider(UnityConfig.Container));
-            DependencyResolver.SetResolver(new UnityDependencyResolver(UnityConfig.Container));
+            FilterProviders.Providers.Add(new UnityFilterAttributeFilterProvider(MvcUnityConfig.Container));
+            DependencyResolver.SetResolver(new UnityDependencyResolver(MvcUnityConfig.Container));
             // TODO: Uncomment if you want to use PerRequestLifetimeManager
             // Microsoft.Web.Infrastructure.DynamicModuleHelper.DynamicModuleUtility.RegisterModule(typeof(UnityPerRequestHttpModule));
         }
@@ -30,7 +30,7 @@ namespace WebApp
         /// </summary>
         public static void Shutdown()
         {
-           UnityConfig.Container.Dispose();
+            MvcUnityConfig.Container.Dispose();
         }
     }
 }

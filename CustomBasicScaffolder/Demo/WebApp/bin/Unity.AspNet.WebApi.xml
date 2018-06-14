@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Unity.AspNet.WebApi</name>
+    </assembly>
+    <members>
+        <member name="T:Unity.AspNet.WebApi.UnityDependencyResolver">
+            <summary>
+            An implementation of the <see cref="T:System.Web.Http.Dependencies.IDependencyResolver"/> interface that wraps a Unity container.
+            </summary>
+        </member>
+        <member name="M:Unity.AspNet.WebApi.UnityDependencyResolver.#ctor(Unity.IUnityContainer)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Unity.AspNet.WebApi.UnityDependencyResolver"/> class for a container.
+            </summary>
+            <param name="container">The <see cref="T:Unity.IUnityContainer"/> to wrap with the <see cref="T:System.Web.Http.Dependencies.IDependencyResolver"/>
+            interface implementation.</param>
+        </member>
+        <member name="M:Unity.AspNet.WebApi.UnityDependencyResolver.BeginScope">
+            <summary>
+            Reuses the same scope to resolve all the instances.
+            </summary>
+            <returns>The shared dependency scope.</returns>
+        </member>
+        <member name="M:Unity.AspNet.WebApi.UnityDependencyResolver.Dispose">
+            <summary>
+            Disposes the wrapped <see cref="T:Unity.IUnityContainer"/>.
+            </summary>
+        </member>
+        <member name="M:Unity.AspNet.WebApi.UnityDependencyResolver.GetService(System.Type)">
+            <summary>
+            Resolves an instance of the default requested type from the container.
+            </summary>
+            <param name="serviceType">The <see cref="T:System.Type"/> of the object to get from the container.</param>
+            <returns>The requested object.</returns>
+        </member>
+        <member name="M:Unity.AspNet.WebApi.UnityDependencyResolver.GetServices(System.Type)">
+            <summary>
+            Resolves multiply registered services.
+            </summary>
+            <param name="serviceType">The type of the requested services.</param>
+            <returns>The requested services.</returns>
+        </member>
+        <member name="T:Unity.AspNet.WebApi.UnityHierarchicalDependencyResolver">
+            <summary>
+            An implementation of <see cref="T:System.Web.Http.Dependencies.IDependencyResolver"/> that wraps a Unity container and creates a new child container
+            when <see cref="M:Unity.AspNet.WebApi.UnityHierarchicalDependencyResolver.BeginScope"/> is invoked.
+            </summary>
+            <remarks>
+            Because each scope creates a new child Unity container, you can benefit from using the <see cref="T:Unity.Lifetime.HierarchicalLifetimeManager"/>
+            lifetime manager.
+            </remarks>
+        </member>
+        <member name="M:Unity.AspNet.WebApi.UnityHierarchicalDependencyResolver.#ctor(Unity.IUnityContainer)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Unity.AspNet.WebApi.UnityDependencyResolver"/> class for a container.
+            </summary>
+            <param name="container">The <see cref="T:Unity.IUnityContainer"/> to wrap with the <see cref="T:System.Web.Http.Dependencies.IDependencyResolver"/>
+            interface implementation.</param>
+        </member>
+        <member name="M:Unity.AspNet.WebApi.UnityHierarchicalDependencyResolver.BeginScope">
+            <summary>
+            Starts a resolution scope by creating a new child Unity container.
+            </summary>
+            <returns>The dependency scope.</returns>
+        </member>
+        <member name="M:Unity.AspNet.WebApi.UnityHierarchicalDependencyResolver.Dispose">
+            <summary>
+            Disposes the wrapped <see cref="T:Unity.IUnityContainer"/>.
+            </summary>
+        </member>
+        <member name="M:Unity.AspNet.WebApi.UnityHierarchicalDependencyResolver.GetService(System.Type)">
+            <summary>
+            Resolves an instance of the default requested type from the container.
+            </summary>
+            <param name="serviceType">The <see cref="T:System.Type"/> of the object to get from the container.</param>
+            <returns>The retrieved object.</returns>
+        </member>
+        <member name="M:Unity.AspNet.WebApi.UnityHierarchicalDependencyResolver.GetServices(System.Type)">
+            <summary>
+            Resolves multiply registered services.
+            </summary>
+            <param name="serviceType">The type of the requested services.</param>
+            <returns>The requested services.</returns>
+        </member>
+    </members>
+</doc>

@@ -25,7 +25,7 @@ using System.Collections.Generic;
 
 namespace <#= Namespace #>
 {
-    [MetadataType(typeof(<#= ModelTypeName #>Metadata))]
+    //[MetadataType(typeof(<#= ModelTypeName #>Metadata))]
     public partial class <#= ModelTypeName #>
     {
     }
