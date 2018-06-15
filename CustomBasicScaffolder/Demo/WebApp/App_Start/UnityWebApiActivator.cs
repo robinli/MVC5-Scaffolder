@@ -20,7 +20,7 @@ namespace WebApp
             // var resolver = new UnityHierarchicalDependencyResolver(UnityConfig.Container);
             var resolver = new UnityDependencyResolver(WebApiUnityConfig.Container);
 
-            GlobalConfiguration.Configuration.DependencyResolver = resolver;
+            //GlobalConfiguration.Configuration.DependencyResolver = resolver;
         }
 
         /// <summary>

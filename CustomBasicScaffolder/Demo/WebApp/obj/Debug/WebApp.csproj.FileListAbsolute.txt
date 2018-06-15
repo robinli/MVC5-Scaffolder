@@ -281,8 +281,8 @@ D:\github\MVC5-Scaffolder\CustomBasicScaffolder\Demo\WebApp\obj\Debug\WebApp.csp
 D:\github\MVC5-Scaffolder\CustomBasicScaffolder\Demo\WebApp\obj\Debug\WebApp.csproj.CopyComplete
 D:\github\MVC5-Scaffolder\CustomBasicScaffolder\Demo\WebApp\obj\Debug\WebApp.dll
 D:\github\MVC5-Scaffolder\CustomBasicScaffolder\Demo\WebApp\obj\Debug\WebApp.pdb
-D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\WebApp\bin\Unity.Mvc.xml
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\WebApp\bin\Z.EntityFramework.Plus.EF6.pdb
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\WebApp\bin\Z.EntityFramework.Plus.EF6.xml
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\WebApp\bin\Unity.AspNet.WebApi.dll
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\WebApp\bin\Unity.AspNet.WebApi.xml
+D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\WebApp\bin\Unity.Mvc.xml
