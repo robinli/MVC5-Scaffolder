@@ -1,6 +1,7 @@
 using System;
 using System.Data.Entity;
 using System.Web;
+using System.Web.Http;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
@@ -70,7 +71,7 @@ namespace WebApp
             //container.RegisterType<IAuthenticationManager>(new InjectionFactory(o => HttpContext.Current.GetOwinContext().Authentication));
             container.RegisterType<IUnitOfWorkAsync, UnitOfWork>(new PerRequestLifetimeManager(), null);
             container.RegisterType<DbContext, StoreContext>(new PerRequestLifetimeManager(), null);
-
+            container.RegisterInstance<HttpConfiguration>(GlobalConfiguration.Configuration);
 
             container.RegisterType<IRepositoryAsync<DataTableImportMapping>, Repository<DataTableImportMapping>>();
             container.RegisterType<IDataTableImportMappingService, DataTableImportMappingService>();

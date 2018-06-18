@@ -339,6 +339,9 @@
                     <li class="@Html.RouteIf("efmigrationsmanager", "active")">
                         <a href="@Url.Action("publish", "efmigrationsmanager")"><i class="fa fa-lg fa-fw fa-database"></i> <span class="menu-item-parent">更新数据库</span></a>
                     </li>
+                    <li class="@Html.RouteIf("help", "index")">
+                        <a href="@Url.Action("index", "help")"><i class="fa fa-lg fa-fw fa-question"></i> <span class="menu-item-parent">API</span></a>
+                    </li>
                 </ul>
             </li>
 
