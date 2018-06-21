@@ -106,13 +106,14 @@ namespace <#=DefaultNamespace #>.Services
                  
                 <#= ModelName #> item = new <#= ModelName #>();
 				var mapping = _mappingservice.Queryable().Where(x => x.EntitySetName == "<#= ModelName #>" &&  x.IsEnabled==true).ToList();
-
-                foreach (var field in mapping)
+                var requiredfield = mapping.Where(x => x.IsRequired == true).FirstOrDefault()?.SourceFieldName;
+                if (requiredfield != null && !row.IsNull(requiredfield) &&  row[requiredfield] != DBNull.Value && Convert.ToString(row[requiredfield]).Trim() != string.Empty)
                 {
-                 
+                    foreach (var field in mapping)
+                    {
 						var defval = field.DefaultValue;
 						var contation = datatable.Columns.Contains((field.SourceFieldName == null ? "" : field.SourceFieldName));
-						if (contation && row[field.SourceFieldName] != DBNull.Value)
+						if (contation && !row.IsNull(field.SourceFieldName) && row[field.SourceFieldName] != DBNull.Value )
 						{
 							Type <#= ModelName.ToLower() #>type = item.GetType();
 							PropertyInfo propertyInfo = <#= ModelName.ToLower() #>type.GetProperty(field.FieldName);
@@ -131,10 +132,9 @@ namespace <#=DefaultNamespace #>.Services
                                 propertyInfo.SetValue(item, Convert.ChangeType(defval, propertyInfo.PropertyType), null);
                             }
 						}
-                }
-                
-                this.Insert(item);
-               
+                    }
+                    this.Insert(item);
+               }
 
             }
         }
