@@ -477,10 +477,10 @@ foreach (PropertyMetadata property in properties) {
             {
                 field:'<#=  property.PropertyName  #>', 
                 title:'@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)', 
-                width:160, 
+                width:120, 
                 align:'right', 
                 editor:{
-                      type:'datetimebox',
+                      type:'datebox',
                       options:{prompt:'<#= prompt #>',required:<#= isRequired.ToString().ToLower() #>}  
                       },
                 sortable:true, 
