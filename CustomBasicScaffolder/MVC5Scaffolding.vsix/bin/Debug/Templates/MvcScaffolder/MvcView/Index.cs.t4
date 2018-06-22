@@ -457,6 +457,7 @@ foreach (PropertyMetadata property in properties) {
                 resizable:true 
 			},
 <#   }   } else if(fieldtypename=="DateTime" ) {
+                    if(property.PropertyName.ToLower().IndexOf("time") >=0 ) {
 #>
 			{
                 field:'<#=  property.PropertyName  #>', 
@@ -464,14 +465,30 @@ foreach (PropertyMetadata property in properties) {
                 width:160, 
                 align:'right', 
                 editor:{
-                      type:'datebox',
+                      type:'datetimebox',
                       options:{prompt:'<#= prompt #>',required:<#= isRequired.ToString().ToLower() #>}  
                       },
                 sortable:true, 
                 resizable:true, 
-                formatter:dateformatter 
-			},
-<# } else if(fieldtypename=="bool" || fieldtypename=="Boolean" ){ 
+                formatter:datetimeformatter 
+			} ,
+<#          }  else {                      
+#>
+            {
+                field:'<#=  property.PropertyName  #>', 
+                title:'@Html.DisplayNameFor(model => model.<#= property.PropertyName #>)', 
+                width:160, 
+                align:'right', 
+                editor:{
+                      type:'datetimebox',
+                      options:{prompt:'<#= prompt #>',required:<#= isRequired.ToString().ToLower() #>}  
+                      },
+                sortable:true, 
+                resizable:true, 
+                formatter:datetimeformatter 
+			} ,
+
+<# } } else if(fieldtypename=="bool" || fieldtypename=="Boolean" ){ 
 #>
 			{
                field:'<#= property.PropertyName #>', 
@@ -578,6 +595,17 @@ foreach (PropertyMetadata property in properties) {
 						  }
 					  }
 				  },
+<# 
+				}
+#>
+<# 
+				foreach(var property in  ModelMetadata.Properties.Where(x=>x.ShortTypeName=="bool"  ||  x.ShortTypeName=="Boolean" ))
+				{
+#>
+				{
+					  field: "<#= property.PropertyName #>",
+					  type: "booleanfilter"
+     			 },
 <# 
 				}
 #>

@@ -150,6 +150,33 @@ $.extend($.fn.datagrid.defaults.editors, {
         }
     }
 });
+//booleanfilter
+$.extend($.fn.datagrid.defaults.filters, {
+    booleanfilter: {
+     init: function(container, options) {
+        var input = $('<input type="text">').appendTo(container);
+        var myoptions = {
+            panelHeight: "auto",
+            data: [{ value: '', text: 'All' }, { value: 'true', text: 'True' }, { value: 'false', text: 'False' }]
+         }
+         $.extend(options, myoptions);
+         input.combobox(options);
+         return input;
+      },
+     destroy: function(target) {
+         $(target).combobox('destroy');
+     },
+     getValue: function(target) {
+         return $(target).combobox('getValue');
+     },
+     setValue: function(target, value) {
+         $(target).combobox('setValue', value);
+     },
+     resize: function(target, width) {
+         $(target).combobox('resize', width);
+     }
+   }
+});
 //CheckBox Editor
 $.extend($.fn.datagrid.defaults.editors, {
     booleaneditor: {
