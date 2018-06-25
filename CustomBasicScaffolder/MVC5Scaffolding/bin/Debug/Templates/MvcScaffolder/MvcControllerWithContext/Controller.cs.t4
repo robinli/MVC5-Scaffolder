@@ -252,7 +252,7 @@ namespace <#= Namespace #>
 		public async Task<JsonResult> Get<#= relModelName #>(string q="")
 		{
 			var <#= relModelType.ToLower() #>Repository = this.unitOfWork.RepositoryAsync<<#= relModelType #>>();
-			var data = await <#= relModelType.ToLower() #>Repository.Queryable().Where(n=>n.<#= relModelDisplayName #>.Contains(q)).ToListAsync();
+			var data = await <#= relModelType.ToLower() #>Repository.Queryable().Where(n=>n.<#= relModelDisplayName #>.Contains(q)).OrderBy(n=>n.<#= relModelDisplayName #>).ToListAsync();
 			var rows = data.Select(n => new { <#= relModelPk #> = n.<#= relModelPk #>, <#= relModelDisplayName #> = n.<#= relModelDisplayName #> });
 			return Json(rows, JsonRequestBehavior.AllowGet);
 		}
@@ -261,7 +261,7 @@ namespace <#= Namespace #>
 		public JsonResult Get<#= relModelName #>(string q="")
 		{
 			var <#= relModelType.ToLower() #>Repository = this.unitOfWork.RepositoryAsync<<#= relModelType #>>();
-			var data = <#= relModelType.ToLower() #>Repository.Queryable().Where(n=>n.<#= relModelDisplayName #>.Contains(q)).ToList();
+			var data = <#= relModelType.ToLower() #>Repository.Queryable().Where(n=>n.<#= relModelDisplayName #>.Contains(q)).OrderBy(n=>n.<#= relModelDisplayName #>).ToList();
 			var rows = data.Select(n => new { <#= relModelPk #> = n.<#= relModelPk #>, <#= relModelDisplayName #> = n.<#= relModelDisplayName #> });
 			return Json(rows, JsonRequestBehavior.AllowGet);
 		}
@@ -289,7 +289,7 @@ namespace <#= Namespace #>
 		public async Task<JsonResult> Get<#= relModelName #>(string q="")
 		{
 			var <#= relModelType.ToLower() #>Repository = this.unitOfWork.RepositoryAsync<<#= relModelType #>>();
-			var data = await <#= relModelType.ToLower() #>Repository.Queryable().Where(n=>n.<#= relModelDisplayName #>.Contains(q)).ToListAsync();
+			var data = await <#= relModelType.ToLower() #>Repository.Queryable().Where(n=>n.<#= relModelDisplayName #>.Contains(q)).OrderBy(n=>n.<#= relModelDisplayName #>).ToListAsync();
 			var rows = data.Select(n => new { <#= relModelPk #> = n.<#= relModelPk #>, <#= relModelDisplayName #> = n.<#= relModelDisplayName #> });
 			return Json(rows, JsonRequestBehavior.AllowGet);
 		}
@@ -298,7 +298,7 @@ namespace <#= Namespace #>
 		public JsonResult Get<#= relModelName #>(string q="")
 		{
 			var <#= relModelType.ToLower() #>Repository = this.unitOfWork.RepositoryAsync<<#= relModelType #>>();
-			var data = <#= relModelType.ToLower() #>Repository.Queryable().Where(n=>n.<#= relModelDisplayName #>.Contains(q)).ToList();
+			var data = <#= relModelType.ToLower() #>Repository.Queryable().Where(n=>n.<#= relModelDisplayName #>.Contains(q)).OrderBy(n=>n.<#= relModelDisplayName #>).ToList();
 			var rows = data.Select(n => new { <#= relModelPk #> = n.<#= relModelPk #>, <#= relModelDisplayName #> = n.<#= relModelDisplayName #> });
 			return Json(rows, JsonRequestBehavior.AllowGet);
 		}
@@ -343,9 +343,9 @@ namespace <#= Namespace #>
 <# foreach (var property in relatedProperties.Values) { #>
 			var <#= property.ShortTypeName.ToLower() #>Repository = this.unitOfWork.RepositoryAsync<<#= property.ShortTypeName #>>();
 		   <# if (false) { #>
-			ViewBag.<#= property.ForeignKeyPropertyNames[0] #> =   new SelectList( await <#= property.ShortTypeName.ToLower() #>Repository.Queryable().ToListAsync(), "<#= property.PrimaryKeyNames[0] #>", "<#= property.DisplayPropertyName #>");
+			ViewBag.<#= property.ForeignKeyPropertyNames[0] #> =   new SelectList( await <#= property.ShortTypeName.ToLower() #>Repository.Queryable().OrderBy(n=>n.<#= property.DisplayPropertyName #>).ToListAsync(), "<#= property.PrimaryKeyNames[0] #>", "<#= property.DisplayPropertyName #>");
 		   <# } else { #>
-			ViewBag.<#= property.ForeignKeyPropertyNames[0] #> = new SelectList(<#= property.ShortTypeName.ToLower() #>Repository.Queryable(), "<#= property.PrimaryKeyNames[0] #>", "<#= property.DisplayPropertyName #>");
+			ViewBag.<#= property.ForeignKeyPropertyNames[0] #> = new SelectList(<#= property.ShortTypeName.ToLower() #>Repository.Queryable().OrderBy(n=>n.<#= property.DisplayPropertyName #>), "<#= property.PrimaryKeyNames[0] #>", "<#= property.DisplayPropertyName #>");
 		   <# } #>
 <# } #>
 			return View(<#= ModelVariable #>);
@@ -412,9 +412,9 @@ namespace <#= Namespace #>
 			<# foreach (var property in relatedProperties.Values) { #>
 			var <#= property.ShortTypeName.ToLower() #>Repository = this.unitOfWork.RepositoryAsync<<#= property.ShortTypeName #>>();
 			<# if (UseAsync) { #>
-			ViewBag.<#= property.ForeignKeyPropertyNames[0] #> = new SelectList(await <#= property.ShortTypeName.ToLower() #>Repository.Queryable().ToListAsync(), "<#= property.PrimaryKeyNames[0] #>", "<#= property.DisplayPropertyName #>", <#= ModelVariable #>.<#= property.ForeignKeyPropertyNames[0] #>);
+			ViewBag.<#= property.ForeignKeyPropertyNames[0] #> = new SelectList(await <#= property.ShortTypeName.ToLower() #>Repository.Queryable().OrderBy(n=>n.<#= property.DisplayPropertyName #>).ToListAsync(), "<#= property.PrimaryKeyNames[0] #>", "<#= property.DisplayPropertyName #>", <#= ModelVariable #>.<#= property.ForeignKeyPropertyNames[0] #>);
 			<# } else { #>
-			ViewBag.<#= property.ForeignKeyPropertyNames[0] #> = new SelectList(<#= property.ShortTypeName.ToLower() #>Repository.Queryable(), "<#= property.PrimaryKeyNames[0] #>", "<#= property.DisplayPropertyName #>", <#= ModelVariable #>.<#= property.ForeignKeyPropertyNames[0] #>);
+			ViewBag.<#= property.ForeignKeyPropertyNames[0] #> = new SelectList(<#= property.ShortTypeName.ToLower() #>Repository.Queryable().OrderBy(n=>n.<#= property.DisplayPropertyName #>), "<#= property.PrimaryKeyNames[0] #>", "<#= property.DisplayPropertyName #>", <#= ModelVariable #>.<#= property.ForeignKeyPropertyNames[0] #>);
 			<# } #>
 			<# } #>
 			return View(<#= ModelVariable #>);
@@ -458,7 +458,7 @@ namespace <#= Namespace #>
 			}
 <# foreach (var property in relatedProperties.Values) { #>
 			var <#= property.ShortTypeName.ToLower() #>Repository = this.unitOfWork.RepositoryAsync<<#= property.ShortTypeName #>>();
-			ViewBag.<#= property.ForeignKeyPropertyNames[0] #> = new SelectList(<#= property.ShortTypeName.ToLower() #>Repository.Queryable(), "<#= property.PrimaryKeyNames[0] #>", "<#= property.DisplayPropertyName #>", <#= ModelVariable #>.<#= property.ForeignKeyPropertyNames[0] #>);
+			ViewBag.<#= property.ForeignKeyPropertyNames[0] #> = new SelectList(<#= property.ShortTypeName.ToLower() #>Repository.Queryable().OrderBy(n=>n.<#= property.DisplayPropertyName #>), "<#= property.PrimaryKeyNames[0] #>", "<#= property.DisplayPropertyName #>", <#= ModelVariable #>.<#= property.ForeignKeyPropertyNames[0] #>);
 <# } #>
 			return View(<#= ModelVariable #>);
 		}
@@ -525,9 +525,8 @@ namespace <#= Namespace #>
 			<# foreach (var property in relatedProperties.Values) { #>
 			var <#= property.ShortTypeName.ToLower() #>Repository = this.unitOfWork.RepositoryAsync<<#= property.ShortTypeName #>>();
 			<# if (UseAsync) { #>
-			ViewBag.<#= property.ForeignKeyPropertyNames[0] #> = new SelectList( await <#= property.ShortTypeName.ToLower() #>Repository.Queryable().ToListAsync(), "<#= property.PrimaryKeyNames[0] #>", "<#= property.DisplayPropertyName #>", <#= ModelVariable #>.<#= property.ForeignKeyPropertyNames[0] #>);
 			<# } else { #>
-			ViewBag.<#= property.ForeignKeyPropertyNames[0] #> = new SelectList(<#= property.ShortTypeName.ToLower() #>Repository.Queryable(), "<#= property.PrimaryKeyNames[0] #>", "<#= property.DisplayPropertyName #>", <#= ModelVariable #>.<#= property.ForeignKeyPropertyNames[0] #>);
+			ViewBag.<#= property.ForeignKeyPropertyNames[0] #> = new SelectList(<#= property.ShortTypeName.ToLower() #>Repository.Queryable().OrderBy(n=>n.<#= property.DisplayPropertyName #>), "<#= property.PrimaryKeyNames[0] #>", "<#= property.DisplayPropertyName #>", <#= ModelVariable #>.<#= property.ForeignKeyPropertyNames[0] #>);
 			<# } #>
 			<# } #>
 			return View(<#= ModelVariable #>);
@@ -622,9 +621,9 @@ namespace <#= Namespace #>
 			<#   
 				foreach (var relatedproperty in subrelatedProperties.Values) { #>
 				<# if (UseAsync) { #>
-				ViewBag.<#= relatedproperty.ForeignKeyPropertyNames[0] #> = new SelectList(await <#= relatedproperty.ShortTypeName.ToLower() #>Repository.Queryable().ToListAsync(), "<#=     relatedproperty.PrimaryKeyNames[0] #>", "<#=     relatedproperty.DisplayPropertyName #>" );
+				ViewBag.<#= relatedproperty.ForeignKeyPropertyNames[0] #> = new SelectList(await <#= relatedproperty.ShortTypeName.ToLower() #>Repository.Queryable().OrderBy(n=>n.<#= relatedproperty.DisplayPropertyName #>).ToListAsync(), "<#=     relatedproperty.PrimaryKeyNames[0] #>", "<#=     relatedproperty.DisplayPropertyName #>" );
 				<# } else { #>
-				ViewBag.<#= relatedproperty.ForeignKeyPropertyNames[0] #> = new SelectList(<#=     relatedproperty.ShortTypeName.ToLower() #>Repository.Queryable(), "<#=     relatedproperty.PrimaryKeyNames[0] #>", "<#=     relatedproperty.DisplayPropertyName #>" );
+				ViewBag.<#= relatedproperty.ForeignKeyPropertyNames[0] #> = new SelectList(<#=     relatedproperty.ShortTypeName.ToLower() #>Repository.Queryable().OrderBy(n=>n.<#= relatedproperty.DisplayPropertyName #>), "<#=     relatedproperty.PrimaryKeyNames[0] #>", "<#=     relatedproperty.DisplayPropertyName #>" );
 				<# } #>
 			<# } #>
 				//return HttpNotFound();
@@ -655,9 +654,9 @@ namespace <#= Namespace #>
 		  <# foreach (var relatedproperty in subrelatedProperties.Values) { #>
 			  var <#=     relatedproperty.ShortTypeName.ToLower() #>Repository = this.unitOfWork.RepositoryAsync<<#=     relatedproperty.ShortTypeName #>>();    
 			  <# if (UseAsync) { #>
-			  ViewBag.<#=     relatedproperty.ForeignKeyPropertyNames[0] #> = new SelectList(await <#=     relatedproperty.ShortTypeName.ToLower() #>Repository.Queryable().ToListAsync(), "<#=     relatedproperty.PrimaryKeyNames[0] #>", "<#=     relatedproperty.DisplayPropertyName #>" );
+			  ViewBag.<#=     relatedproperty.ForeignKeyPropertyNames[0] #> = new SelectList(await <#=     relatedproperty.ShortTypeName.ToLower() #>Repository.Queryable().OrderBy(n=>n.<#=     relatedproperty.DisplayPropertyName #>).ToListAsync(), "<#=     relatedproperty.PrimaryKeyNames[0] #>", "<#=     relatedproperty.DisplayPropertyName #>" );
 			  <# } else { #>
-			  ViewBag.<#=     relatedproperty.ForeignKeyPropertyNames[0] #> = new SelectList(<#=     relatedproperty.ShortTypeName.ToLower() #>Repository.Queryable(), "<#=     relatedproperty.PrimaryKeyNames[0] #>", "<#=     relatedproperty.DisplayPropertyName #>" );
+			  ViewBag.<#=     relatedproperty.ForeignKeyPropertyNames[0] #> = new SelectList(<#=     relatedproperty.ShortTypeName.ToLower() #>Repository.Queryable().OrderBy(n=>n.<#=     relatedproperty.DisplayPropertyName #>), "<#=     relatedproperty.PrimaryKeyNames[0] #>", "<#=     relatedproperty.DisplayPropertyName #>" );
 			  <# } #>
 		  <# } #>
 			return PartialView("_<#= modelTypeName #>EditForm");
