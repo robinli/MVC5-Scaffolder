@@ -69,7 +69,7 @@ namespace WebApp.Controllers
         public ActionResult UpdateJavascript() {
             var jsfilename = Path.Combine(Server.MapPath("~/Scripts/"), "jquery.extend.formatter.js");
             this._codeItemService.UpdateJavascript(jsfilename);
-            return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
+            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
         }
 
 
@@ -100,7 +100,7 @@ namespace WebApp.Controllers
             }
             await _unitOfWork.SaveChangesAsync();
 
-            return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
+            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
         }
 
         public async Task<ActionResult> GetBaseCodes()

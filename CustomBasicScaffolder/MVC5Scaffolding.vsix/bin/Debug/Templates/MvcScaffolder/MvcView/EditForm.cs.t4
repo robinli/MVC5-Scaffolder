@@ -394,7 +394,7 @@
 					//console.log(JSON.stringify(effectRow));
 					$.post("/<#= entitySetName #>/SaveData", effectRow, function (response) {
 						//console.log(response);
-						if (response.Success) {
+						if (response.success) {
 							$.messager.alert("提示", "提交成功！");
 							<#= datagridvar #>.datagrid("acceptChanges");
 							<#= datagridvar #>.datagrid("reload");

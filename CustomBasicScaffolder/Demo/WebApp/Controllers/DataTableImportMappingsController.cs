@@ -85,7 +85,7 @@ namespace WebApp.Controllers
             }
             _unitOfWork.SaveChanges();
 
-            return Json(new {Success=true}, JsonRequestBehavior.AllowGet);
+            return Json(new {success=true}, JsonRequestBehavior.AllowGet);
         }
 
 

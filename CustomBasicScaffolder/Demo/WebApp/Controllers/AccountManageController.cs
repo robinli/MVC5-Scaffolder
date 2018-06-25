@@ -178,7 +178,7 @@ namespace WebApp.Controllers
             }
 
 
-            return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
+            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]

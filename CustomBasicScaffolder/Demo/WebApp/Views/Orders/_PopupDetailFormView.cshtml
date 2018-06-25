@@ -480,7 +480,7 @@
 					//console.log(JSON.stringify(effectRow));
 					$.post("/OrderDetails/SaveData", effectRow, function (response) {
 						//console.log(response);
-						if (response.Success) {
+						if (response.success) {
 							$.messager.alert("提示", "提交成功！");
 							$orderdetailsdg.datagrid("acceptChanges");
 							$orderdetailsdg.datagrid("reload");

@@ -184,7 +184,7 @@
         function updatejavascript() {
 
             $.post("/CodeItems/UpdateJavascript", null, function (response) {
-                if (response.Success) {
+                if (response.success) {
                     $.messager.alert("提示", "更新成功！");
                     
                 }
@@ -298,7 +298,7 @@
 					//console.log(JSON.stringify(effectRow));
 					$.post("/CodeItems/SaveData", effectRow, function (response) {
 						//console.log(response);
-						if (response.Success) {
+						if (response.success) {
 							$.messager.alert("提示", "提交成功！");
 							$dg.datagrid("acceptChanges");
 							$dg.datagrid("reload");

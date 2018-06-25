@@ -102,7 +102,7 @@ namespace WebApp.Controllers
                 }
             }
             await _unitOfWork.SaveChangesAsync();
-            return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
+            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
         }
         //[OutputCache(Duration = 360, VaryByParam = "none")]
         public async Task<JsonResult> GetCompanies(string q = "")

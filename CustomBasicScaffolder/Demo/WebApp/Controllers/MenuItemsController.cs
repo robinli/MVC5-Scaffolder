@@ -101,7 +101,7 @@ namespace WebApp.Controllers
             }
             _unitOfWork.SaveChanges();
 
-            return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
+            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult GetMenuItems()
@@ -116,7 +116,7 @@ namespace WebApp.Controllers
         {
             _menuItemService.CreateWithController();
             _unitOfWork.SaveChanges();
-            return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
+            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -124,7 +124,7 @@ namespace WebApp.Controllers
         {
             _menuItemService.CreateWithController();
             _unitOfWork.SaveChanges();
-            return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
+            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
         }
         // GET: MenuItems/Details/5
         public ActionResult Details(int? id)

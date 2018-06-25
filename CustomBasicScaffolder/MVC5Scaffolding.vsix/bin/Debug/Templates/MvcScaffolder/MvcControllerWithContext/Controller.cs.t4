@@ -207,7 +207,7 @@ namespace <#= Namespace #>
 				}
 			}
 			await this.unitOfWork.SaveChangesAsync();
-			return Json(new {Success=true}, JsonRequestBehavior.AllowGet);
+			return Json(new {success=true}, JsonRequestBehavior.AllowGet);
 		}
 		<# } else {  #>
 		public JsonResult SaveData(<#= ModelTypeName #>ChangeViewModel <#= modelVariablePlural #>)
@@ -234,7 +234,7 @@ namespace <#= Namespace #>
 				}
 			}
 			this.unitOfWork.SaveChanges();
-			return Json(new {Success=true}, JsonRequestBehavior.AllowGet);
+			return Json(new {success=true}, JsonRequestBehavior.AllowGet);
 		}
 		<# } #>
 		<# 

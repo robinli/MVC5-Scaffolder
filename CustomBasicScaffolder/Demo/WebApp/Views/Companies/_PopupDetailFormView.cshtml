@@ -611,7 +611,7 @@
 					//console.log(JSON.stringify(effectRow));
 					$.post("/Departments/SaveData", effectRow, function (response) {
 						//console.log(response);
-						if (response.Success) {
+						if (response.success) {
 							$.messager.alert("提示", "提交成功！");
 							$departmentsdg.datagrid("acceptChanges");
 							$departmentsdg.datagrid("reload");
@@ -714,7 +714,7 @@
 					//console.log(JSON.stringify(effectRow));
 					$.post("/Employees/SaveData", effectRow, function (response) {
 						//console.log(response);
-						if (response.Success) {
+						if (response.success) {
 							$.messager.alert("提示", "提交成功！");
 							$employeesdg.datagrid("acceptChanges");
 							$employeesdg.datagrid("reload");
