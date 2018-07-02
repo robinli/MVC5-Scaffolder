@@ -443,6 +443,10 @@ foreach (PropertyMetadata property in properties) {
 			     formatter: statusformatter
 			},
 <#   } else {  
+     var precision="";
+     if ( fieldtypename=="float" || fieldtypename=="decimal" ) {
+        precision=",precision:2";
+     }
 #>
 			{
                  field:'<#=  property.PropertyName  #>', 
@@ -451,7 +455,7 @@ foreach (PropertyMetadata property in properties) {
                  align:'right',
                  editor:{
                         type:'numberbox',
-                        options:{prompt:'<#= prompt #>', required:<#= isRequired.ToString().ToLower() #>  <#= maxLength #> } 
+                        options:{prompt:'<#= prompt #>', required:<#= isRequired.ToString().ToLower() #>  <#= maxLength #> <#= precision #> } 
                         },
                 sortable:true,
                 resizable:true 

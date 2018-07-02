@@ -485,13 +485,14 @@
 								string relatedtypeName = relatedModel.ShortTypeName;
 								if(relatedtypeName != ModelTypeName ) {
 						#>
-							    {field:'<#= foreignKeyPropertyName  #>',
-                                 title:'<#= GetDisplayName(subproperty.PropertyName) #>',
-                                 width:160,
-								 formatter:function(value,row){
+							    {
+                                   field:'<#= foreignKeyPropertyName  #>',
+                                   title:'<#= GetDisplayName(subproperty.PropertyName) #>',
+                                   width:160,
+								   formatter:function(value,row){
 												return row.<#= GetRelatedDisplayNameExpression(foreignKeyPropertyName,submetadata)  #>;
 											},
-								 editor:{
+								    editor:{
                                          type:'combobox',
 										 options:{
                                                 prompt:'<#= GetDisplayName(subproperty.PropertyName) #>',
@@ -502,38 +503,60 @@
 												url:'/<#= ControllerRootName #>/Get<#=  relatedModel.EntitySetName  #>',
 												required:<#= required  #> <#= maxLength #>
 												}
-								 }},
+								     }
+                                 },
 						<# } } else { #>
 						<#	if(fieldtypename=="string") {	#>
-								{ field:'<#= subproperty.PropertyName #>',
-                                  title:'<#= GetDisplayName(subproperty.PropertyName) #>',
-                                  width:140,
-                                  editor:{
+								{ 
+                                   field:'<#= subproperty.PropertyName #>',
+                                   title:'<#= GetDisplayName(subproperty.PropertyName) #>',
+                                   width:140,
+                                   editor:{
                                           type:'textbox',
                                           options:{
                                                 prompt:'<#= GetDisplayName(subproperty.PropertyName) #>',
                                                 required:<#= required  #> <#= maxLength #>
                                                  }
-                                           } },
-							<# } else if(fieldtypename=="int" || fieldtypename=="float"|| fieldtypename=="decimal") {
+                                           } 
+                                 },
+							<# } else if ( fieldtypename=="int" ) {
 									if(subproperty.PropertyName=="Status") {
 						    #>
-							{ field:'<#= subproperty.PropertyName #>',
+							{
+                                  field:'<#= subproperty.PropertyName #>',
                                   title:'<#= GetDisplayName(subproperty.PropertyName) #>',
-                                  width:120,
+                                  width:100,
                                   align:'right',
-                                  editor:{ 
-                                        type:'combobox',
-                                            options:{
-                                                    prompt:'<#= GetDisplayName(subproperty.PropertyName) #>',
-                                                    panelHeight: 'auto',
-                                                    data: [ { value: '0', text: '启用' },{ value: '1', text: '禁用' } ],
-                                                    required:true 
-                                                    } 
-                                            }  ,formatter:statusformatter
+			                      editor:{ 
+                                        /*需要在键值对中维护status枚举值并生成JavaScript才能使用*/
+                                        type:'statuseditor',
+					                    options:{
+						     	                  prompt:'<#= GetDisplayName(subproperty.PropertyName) #>',
+								                  required:<#= isRequired.ToString().ToLower() #>
+                                        }  
+					               },
+			                       formatter: statusformatter
+                                  },
+                            <# } else if ( fieldtypename=="float"|| fieldtypename=="decimal" ) { #>
+                               {
+                                  field:'<#= subproperty.PropertyName #>',
+                                  title:'<#= GetDisplayName(subproperty.PropertyName) #>',
+                                  width:100,
+                                  align:'right',
+			                      editor:{ 
+                                        /*需要在键值对中维护status枚举值并生成JavaScript才能使用*/
+                                        type:'statuseditor',
+					                    options:{
+						     	                  prompt:'<#= GetDisplayName(subproperty.PropertyName) #>',
+								                  required:<#= isRequired.ToString().ToLower() #> ,
+                                                  precision:2
+                                        }  
+					               },
+			                       formatter: statusformatter
                                   },
 							<#   } else {  #>
-						     { field:'<#=  subproperty.PropertyName  #>',
+						      { 
+                                   field:'<#=  subproperty.PropertyName  #>',
                                    title:'<#= GetDisplayName(subproperty.PropertyName) #>',
                                    width:120,
                                    align:'right',
@@ -545,41 +568,50 @@
                                              } 
                                            } ,
                                    sortable:true,
-                                   resizable:true },
+                                   resizable:true 
+                                },
 							<#   }   } else if(fieldtypename=="DateTime" ) { #>
-								{ field:'<#=  subproperty.PropertyName  #>',
-                                  title:'<#= GetDisplayName(subproperty.PropertyName) #>',
-                                  width:160,
-                                  align:'right',
-                                  editor:{
+								{ 
+                                    field:'<#=  subproperty.PropertyName  #>',
+                                    title:'<#= GetDisplayName(subproperty.PropertyName) #>',
+                                    width:160,
+                                    align:'right',
+                                    editor:{
                                           type:'datebox',
                                           options:{
                                              prompt:'<#= GetDisplayName(subproperty.PropertyName) #>',
                                              required:<#= required  #>
                                            }
                                           },
-                                   formatter:dateformatter},
+                                     formatter:dateformatter
+                                  },
 							<# } else if(fieldtypename=="bool" || fieldtypename=="Boolean" ){ #>
-								{field:'<#= subproperty.PropertyName #>',
-                                 title:'<#= GetDisplayName(subproperty.PropertyName) #>',
-                                 width:120,
-                                 editor: {type:'combobox',
+								{
+                                    field:'<#= subproperty.PropertyName #>',
+                                    title:'<#= GetDisplayName(subproperty.PropertyName) #>',
+                                    width:120,
+                                    editor: {
+                                            type:'booleaneditor',
                                             options:{
                                                 prompt:'<#= GetDisplayName(subproperty.PropertyName) #>',
-                                                panelHeight: 'auto',
-                                                data: [ { value: 'true', text: 'true' },{ value: 'false', text: 'false' }],
-                                                required:true}}"><#= GetDisplayName(subproperty.PropertyName) #></th>
+                                                required:true
+                                             },
+                                     formatter:booleanformatter,
+                                     sortable:true, 
+                                     resizable:true 
+                                 },
 							<# } else { #>
-								{ field:'<#= subproperty.PropertyName #>',
-                                  title:'<#= GetDisplayName(subproperty.PropertyName) #>',
-                                  width:120,
-                                  editor:{
+								{ 
+                                   field:'<#= subproperty.PropertyName #>',
+                                   title:'<#= GetDisplayName(subproperty.PropertyName) #>',
+                                   width:120,
+                                   editor:{
                                           type:'textbox',
                                           options:{
                                             prompt:'<#= GetDisplayName(subproperty.PropertyName) #>',
                                           }
-                                          }
-                                 }
+                                    }
+                                 },
 							<# } #>
 						<#     } #>
 					<#

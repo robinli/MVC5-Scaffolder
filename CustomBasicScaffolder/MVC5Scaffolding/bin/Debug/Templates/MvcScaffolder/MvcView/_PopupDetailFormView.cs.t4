@@ -175,7 +175,7 @@
 								 label:'',
                                 width:200,
 								 required:<#= required #> <#= maxLength #>" />
-			  <# } else if (property.ShortTypeName=="int" || property.ShortTypeName=="float" || property.ShortTypeName=="decimal")  { #>
+			  <# } else if (property.ShortTypeName=="int" )  { #>
 			<input id="@Html.IdFor(model => model.<#= property.PropertyName #>)"
 				   name="@Html.NameFor(model => model.<#= property.PropertyName #>)" 
 				   value="@Html.ValueFor(model => model.<#= property.PropertyName #>)"
@@ -186,6 +186,17 @@
 								 label:'',
                                 width:200,
 								 required:<#= required #> <#= maxLength #>" />
+             <# } else if (property.ShortTypeName=="float" || property.ShortTypeName=="decimal") { #>
+             <input id="@Html.IdFor(model => model.<#= property.PropertyName #>)"
+				   name="@Html.NameFor(model => model.<#= property.PropertyName #>)" 
+				   value="@Html.ValueFor(model => model.<#= property.PropertyName #>)"
+				   tabindex="<#= colindex.ToString() #>" 
+				   class="easyui-numberbox" 
+				   type="text" 
+				   data-options="prompt:'<#= prompt  #>',
+								 label:'',
+                                width:200,
+								 required:<#= required #> <#= maxLength #> ,precision:2"  />
               <# } else if (property.ShortTypeName=="bool" || property.ShortTypeName=="Boolean")  { #>
 			   <label class="checkbox">
                  <input id="@Html.IdFor(model => model.<#= property.PropertyName #>)"
@@ -401,7 +412,12 @@
                                                     } 
                                             }  ,formatter:statusformatter
                                   },
-							<#   } else {  #>
+							<#   } else { 
+                                 var precision="";
+                                 if(fieldtypename=="float"|| fieldtypename=="decimal") {
+                                      precision=",precision:2";
+                                 }
+                            #>
 						     { field:'<#=  subproperty.PropertyName  #>',
                                    title:'<#= GetDisplayName(subproperty.PropertyName) #>',
                                    width:100,
@@ -410,7 +426,7 @@
                                            type:'numberbox',
                                            options:{
                                                    prompt:'<#= GetDisplayName(subproperty.PropertyName) #>',
-                                                   required:<#= required  #> <#= maxLength #>
+                                                   required:<#= required  #> <#= maxLength #> <#= precision #>
                                              } 
                                            } ,
                                    sortable:true,

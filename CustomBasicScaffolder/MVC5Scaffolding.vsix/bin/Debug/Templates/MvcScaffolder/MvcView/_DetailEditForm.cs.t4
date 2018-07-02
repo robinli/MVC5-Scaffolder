@@ -117,7 +117,7 @@
 							data-options="prompt:'<#= prompt  #>',
 								 label:'<#= displayName #>:',
 								 required:<#= required #> <#= maxLength #>" />
-					<# } else if (property.ShortTypeName=="int" || property.ShortTypeName=="float" || property.ShortTypeName=="decimal")  { #>
+					<# } else if (property.ShortTypeName=="int")  { #>
 						<input id="@Html.IdFor(model => model.<#= property.PropertyName #>)"
 							name="@Html.NameFor(model => model.<#= property.PropertyName #>)" 
 							value="@Html.ValueFor(model => model.<#= property.PropertyName #>)"
@@ -127,6 +127,18 @@
 							type="text" 
 							 data-options="prompt:'<#= prompt  #>',
 								 label:'<#= displayName #>:',
+								 required:<#= required #> <#= maxLength #>" />
+                    <# } else if (property.ShortTypeName=="float" || property.ShortTypeName=="decimal") { #>
+                        <input id="@Html.IdFor(model => model.<#= property.PropertyName #>)"
+							name="@Html.NameFor(model => model.<#= property.PropertyName #>)" 
+							value="@Html.ValueFor(model => model.<#= property.PropertyName #>)"
+							tabindex="<#= colindex.ToString() #>" 
+							style="width:100%" 
+							class="easyui-numberbox" 
+							type="text" 
+							 data-options="prompt:'<#= prompt  #>',
+								 label:'<#= displayName #>:',
+                                 precision:2,
 								 required:<#= required #> <#= maxLength #>" />
 					<# } else { #>
 						<input id="@Html.IdFor(model => model.<#= property.PropertyName #>)" 
