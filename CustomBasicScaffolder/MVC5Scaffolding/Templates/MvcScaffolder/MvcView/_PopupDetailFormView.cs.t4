@@ -403,11 +403,9 @@
                                   width:100,
                                   align:'right',
                                   editor:{ 
-                                        type:'combobox',
+                                        type:'statuseditor',
                                             options:{
                                                     prompt:'<#= GetDisplayName(subproperty.PropertyName) #>',
-                                                    panelHeight: 'auto',
-                                                    data: [ { value: '0', text: '启用' },{ value: '1', text: '禁用' } ],
                                                     required:true 
                                                     } 
                                             }  ,formatter:statusformatter
@@ -431,8 +429,26 @@
                                            } ,
                                    sortable:true,
                                    resizable:true },
-							<#   }   } else if(fieldtypename=="DateTime" ) { #>
-								{ field:'<#=  subproperty.PropertyName  #>',
+							<#   }   } else if(fieldtypename=="DateTime" ) { 
+                                        if(subproperty.PropertyName.ToLower().IndexOf("time") >=0 ) {
+                            #>
+                                { 
+                                  field:'<#=  subproperty.PropertyName  #>',
+                                  title:'<#= GetDisplayName(subproperty.PropertyName) #>',
+                                  width:160,
+                                  align:'right',
+                                  editor:{
+                                          type:'datetimebox',
+                                          options:{
+                                             prompt:'<#= GetDisplayName(subproperty.PropertyName) #>',
+                                             required:<#= required  #>
+                                           }
+                                          },
+                                   formatter:datetimeformatter
+                                  },
+                                  <# } else  { #>
+								{ 
+                                  field:'<#=  subproperty.PropertyName  #>',
                                   title:'<#= GetDisplayName(subproperty.PropertyName) #>',
                                   width:160,
                                   align:'right',
@@ -443,9 +459,11 @@
                                              required:<#= required  #>
                                            }
                                           },
-                                   formatter:dateformatter},
-							<# } else if(fieldtypename=="bool" || fieldtypename=="Boolean" ){ #>
-							{    field:'<#= subproperty.PropertyName #>',
+                                   formatter:dateformatter
+                                  },
+							<# } } else if(fieldtypename=="bool" || fieldtypename=="Boolean" ){ #>
+							{    
+                                 field:'<#= subproperty.PropertyName #>',
                                  title:'<#= GetDisplayName(subproperty.PropertyName) #>',
                                  width:120,
                                  editor: {type:'combobox',
@@ -458,7 +476,8 @@
                                             }
                                },
 							<# } else { #>
-								{ field:'<#= subproperty.PropertyName #>',
+								{ 
+                                  field:'<#= subproperty.PropertyName #>',
                                   title:'<#= GetDisplayName(subproperty.PropertyName) #>',
                                   width:120,
                                   editor:{
@@ -466,8 +485,8 @@
                                           options:{
                                             prompt:'<#= GetDisplayName(subproperty.PropertyName) #>',
                                           }
-                                          }
-                                 }
+                                    }
+                                 },
 							<# } #>
 						<#     } #>
 					<#

@@ -489,7 +489,7 @@ foreach (PropertyMetadata property in properties) {
                       },
                 sortable:true, 
                 resizable:true, 
-                formatter:datetimeformatter 
+                formatter:dateformatter 
 			} ,
 
 <# } } else if(fieldtypename=="bool" || fieldtypename=="Boolean" ){ 
