@@ -12,7 +12,7 @@
                 @{ 
                   //TODO:fix quick navigation path
                  }
-                路径
+                系统管理
                 <span>
                     >
                   键值对维护
@@ -94,16 +94,16 @@
 
                         <th data-options="field:'CodeType' ,width:140,editor:{type:'textbox',options:{prompt:'代码名称' ,required:true ,validType:'regex[\'^[A-Za-z]+$\',\'必须是字母\']'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.CodeType)</th>
 
-                        <th data-options="field:'Code' ,width:140,editor:{type:'textbox',options:{prompt:'值' ,required:true ,validType:'length[0,20]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Code)</th>
+                        <th data-options="field:'Code' ,width:140,editor:{type:'textbox',options:{prompt:'值' ,required:true ,validType:'length[0,50]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Code)</th>
 
 
-                        <th data-options="field:'Text' ,width:140,editor:{type:'textbox',options:{prompt:'显示' ,required:true ,validType:'length[0,20]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Text)</th>
+                        <th data-options="field:'Text' ,width:140,editor:{type:'textbox',options:{prompt:'显示' ,required:true ,validType:'length[0,50]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Text)</th>
+
+                        <th data-options="field:'Multiple' ,width:140,editor:{type:'booleaneditor',options:{prompt:'是否支持多选' ,required:true  }  } ,sortable:true,resizable:true,formatter:booleanformatter ">@Html.DisplayNameFor(model => model.Multiple)</th>
+                        <th data-options="field:'Description' ,width:140,editor:{type:'textbox',options:{prompt:'描述' ,required:true ,validType:'length[0,80]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Description)</th>
 
 
-                        <th data-options="field:'Description' ,width:140,editor:{type:'textbox',options:{prompt:'描述' ,required:true ,validType:'length[0,50]'  }  } ,sortable:true,resizable:true ">@Html.DisplayNameFor(model => model.Description)</th>
-
-
-                        <th data-options="field:'IsDisabled' ,width:100,align:'right',editor:{type:'numberbox',options:{prompt:'是否禁用' ,required:true   } } ,sortable:true,resizable:true,formatter:isdisabledformatter ">@Html.DisplayNameFor(model => model.IsDisabled)</th>
+                        <th data-options="field:'IsDisabled' ,width:100,align:'right',editor:{type:'isdisablededitor',options:{prompt:'是否禁用' ,required:true   } } ,sortable:true,resizable:true,formatter:isdisabledformatter ">@Html.DisplayNameFor(model => model.IsDisabled)</th>
 
 
 </thead>
@@ -335,9 +335,14 @@
 				  },
 		   				{
 					  field: "IsDisabled",
-                      type: "isdisabledcombobox",
+                      type: "isdisabledfilter",
 					   
-				  } 
+               } ,
+                   {
+                       field: "Multiple",
+                   type: "booleanfilter",
+
+               } 
 		   
 
 		   		   

@@ -60,7 +60,9 @@ namespace WebApp.Controllers
        .OrderBy(n => n.OrderBy(sort, order))
        .SelectPageAsync(page, rows, out totalCount);
 
-            var datarows = codeitems.Select(n => new { CodeType=n.CodeType, Id = n.Id, Code = n.Code, Text = n.Text, Description = n.Description, IsDisabled = n.IsDisabled }).ToList();
+            var datarows = codeitems.Select(n => new {
+                Multiple = n.Multiple,
+                CodeType =n.CodeType, Id = n.Id, Code = n.Code, Text = n.Text, Description = n.Description, IsDisabled = n.IsDisabled }).ToList();
             var pagelist = new { total = totalCount, rows = datarows };
             return Json(pagelist, JsonRequestBehavior.AllowGet);
         }

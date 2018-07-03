@@ -1,17 +1,43 @@
 ﻿﻿@model WebApp.Models.Product
  <!-- 输出form表单界面 -->
- <div id="detailswindow" hidden="hidden" class="easyui-window" title="明细数据" data-options="modal:true,closed:true,iconcls:'icon-menu'" style="width:960px;height:520px">
-    <form id="product_form" class="smart-form easyui-form" method="post" data-options="novalidate:true">
+ <div id="detailswindow" hidden="hidden" class="easyui-window" 
+      title="明细数据" 
+      data-options="modal:true,
+                    closed:true,
+                    iconcls:'icon-menu'
+                    " style="width:960px;height:520px">
+    <!--begin form表单界面-->
+    <form id="product_form" class="easyui-form form-horizontal" method="post" data-options="novalidate:true">
+  @Html.AntiForgeryToken()
  <table class="table table-bordered">
-     <caption>
-         <!--form toolbar-->
-                <div id="form_toolbar" style="height:auto" class="datagrid-toolbar">
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-floppy-o',plain:true" onclick="saveitem()">保存</a>
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-undo',plain:true" onclick="cancelitem()">取消</a>
-                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-refresh',plain:true" onclick="refreshitem()">刷新</a>
-                </div>
-         <!--form toolbar-->
-     </caption>
+    <thead>
+                <tr>
+                    <td colspan="6">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default" onclick="saveitem()">
+                                <i class="fa fa-floppy-o"></i>
+                                保存
+                            </button>
+                            <button type="button" class="btn btn-default">
+                                <i class="fa fa-pencil-square-o"></i>
+                                操作1
+                            </button>
+                            <button type="button" class="btn btn-default">
+                                <i class="fa fa-pencil-square-o"></i>
+                                操作2
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="cancelitem()">
+                                <i class="fa fa-refresh"></i>
+                                取消
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="refreshitem()">
+                                <i class="fa fa-refresh"></i>
+                                刷新
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </thead>
 	    <tr>
       	   <td class="control-label">   @Html.DisplayNameFor(model => model.Id)  </td>
 	   <td> 
@@ -23,7 +49,7 @@
                    data-options="prompt:'ID',
                                  readonly:true,
                                 width:200,
-                                 label:'',required:true ,precision:0" />
+                                 label:'',required:true " />
 			  				   </td>
 	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.CategoryId)  </td>
 	   <td> 
@@ -72,7 +98,7 @@
 			  				   </td>
 	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.UnitPrice)  </td>
 	   <td> 
-			   			  			<input id="@Html.IdFor(model => model.UnitPrice)"
+			   			               <input id="@Html.IdFor(model => model.UnitPrice)"
 				   name="@Html.NameFor(model => model.UnitPrice)" 
 				   value="@Html.ValueFor(model => model.UnitPrice)"
 				   tabindex="4" 
@@ -81,7 +107,7 @@
 				   data-options="prompt:'单价',
 								 label:'',
                                 width:200,
-								 required:true ,precision:2" />
+								 required:true  ,precision:2"  />
               				   </td>
 	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.StockQty)  </td>
 	   <td> 
@@ -94,8 +120,8 @@
 				   data-options="prompt:'库存',
 								 label:'',
                                 width:200,
-								 required:true ,precision:0" />
-              				   </td>
+								 required:true " />
+             				   </td>
 	   	   </tr>
 	   	    <tr>
       	   <td class="control-label">   @Html.DisplayNameFor(model => model.IsRequiredQc)  </td>
@@ -185,34 +211,48 @@
         <tr>
     </tfoot>
 </table>
+
 </form>
-</div>
-<!--输出form表单界面-->
+<!--end form表单界面-->
 <!--========================================================================================-->
- 
+  
+</div>
 
 
-<script>
-
+<script type="text/javascript">
+    //load data by foreign key
+    function loadData(id,data){
+         $('#product_form').form('load', data);
+             }
+    var $editform = $('#product_form');
     //save item
     function saveitem() {
-        if ($('#product_form').form('enableValidation').form('validate')) {
-            var item = $('#product_form').serializeJSON();
+         
+        if ($editform.form('enableValidation').form('validate')) {
+            var product = $editform.serializeJSON();
+            var token = $('input[name="__RequestVerificationToken"]', $editform).val();
 
-            $.post("/Products/Edit", item, function (response) {
-                //console.log(response);						
-                if (response.success) {
-                    $.messager.alert("提示", "保存成功！");
-                    $('#detailswindow').window('close');
-
-                } else {
-                    $.messager.alert("错误", "保存失败！" + response.err, "error");
-                }
-            }, "json").fail(function (response) {
-                //console.log(response);						
-                $.messager.alert("错误", "保存失败！", "error");
-                //$dg.datagrid("reload");						
-            });
+            $.ajax({
+                    type: "POST",
+                    url: "/Products/Edit",
+                    data: {
+                        __RequestVerificationToken: token,
+                        product:product
+                    },
+                    dataType: 'json',
+                    contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+                })
+                .done(function (response) {
+                    if (response.success) {
+                        $.messager.alert("提示", "保存成功！");
+                        $('#detailswindow').window("close");
+                    } else {
+                        $.messager.alert("错误", "保存失败！" + response.err, "error");
+                    }
+                    })
+                .fail(function (response) {
+                        $.messager.alert("错误", "保存失败！", "error");
+                    });
         }
     }
     // cancel
@@ -223,6 +263,10 @@
     function refreshitem() {
         $('#detailswindow').window('close');
     }
+    
+
+
+    
 
 </script>
 

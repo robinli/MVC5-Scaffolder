@@ -340,6 +340,14 @@
     <Compile Include="Migrations\201804230623560_addressmaxlength.Designer.cs">
       <DependentUpon>201804230623560_addressmaxlength.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201807030044590_mdci.cs" />
+    <Compile Include="Migrations\201807030044590_mdci.Designer.cs">
+      <DependentUpon>201807030044590_mdci.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807030114581_mdp.cs" />
+    <Compile Include="Migrations\201807030114581_mdp.Designer.cs">
+      <DependentUpon>201807030114581_mdp.cs</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\Companies\CompanyQuery.cs" />
     <Compile Include="Repositories\Companies\CompanyRepository.cs" />
     <Compile Include="Repositories\Works\WorkQuery.cs" />
@@ -3760,12 +3768,6 @@
     <Content Include="Views\Shared\EditorTemplates\Slider.cshtml" />
     <Content Include="Views\RoleMenus\_navMenuBar.cshtml" />
     <Content Include="Views\RoleMenus\Index.cshtml" />
-    <Content Include="Views\Products\Index1.cshtml" />
-    <Content Include="Views\Products\Create.cshtml" />
-    <Content Include="Views\Products\Edit.cshtml" />
-    <Content Include="Views\Products\EditForm.cshtml" />
-    <Content Include="Views\Products\Index.cshtml" />
-    <Content Include="Views\Products\_PopupDetailFormView.cshtml" />
     <Content Include="Views\Shared\_StylesheetsPartial.cshtml" />
     <Content Include="Views\Orders\Index.cshtml" />
     <Content Include="Views\Orders\Create.cshtml" />
@@ -3783,6 +3785,11 @@
     <Content Include="Views\Works\Edit.cshtml" />
     <Content Include="Views\Works\EditForm.cshtml" />
     <Content Include="Views\Works\_PopupDetailFormView.cshtml" />
+    <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Views\Products\Create.cshtml" />
+    <Content Include="Views\Products\Edit.cshtml" />
+    <Content Include="Views\Products\EditForm.cshtml" />
+    <Content Include="Views\Products\_PopupDetailFormView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -4048,6 +4055,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804230623560_addressmaxlength.resx">
       <DependentUpon>201804230623560_addressmaxlength.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807030044590_mdci.resx">
+      <DependentUpon>201807030044590_mdci.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807030114581_mdp.resx">
+      <DependentUpon>201807030114581_mdp.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

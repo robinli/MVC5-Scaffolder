@@ -3,12 +3,6 @@ D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pat
 D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern\bin\Debug\Repository.Pattern.pdb
 D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern\obj\Debug\Repository.Pattern.dll
 D:\开源项目\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern\obj\Debug\Repository.Pattern.pdb
-D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern\bin\Debug\Repository.Pattern.dll.config
-D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern\bin\Debug\Repository.Pattern.dll
-D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern\bin\Debug\Repository.Pattern.pdb
-D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern\obj\Debug\Repository.Pattern.csproj.CoreCompileInputs.cache
-D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern\obj\Debug\Repository.Pattern.dll
-D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern\obj\Debug\Repository.Pattern.pdb
 D:\github\mitms\miTms\Source\Repository.Pattern\bin\Debug\Repository.Pattern.dll.config
 D:\github\mitms\miTms\Source\Repository.Pattern\bin\Debug\Repository.Pattern.dll
 D:\github\mitms\miTms\Source\Repository.Pattern\bin\Debug\Repository.Pattern.pdb
@@ -26,9 +20,6 @@ D:\开源项目\mitms\miTms\Source\Repository.Pattern\obj\Debug\Repository.Patte
 D:\github\mitms\miTms\Source\Repository.Pattern\bin\Debug\TrackableEntities.Common.dll
 D:\github\mitms\miTms\Source\Repository.Pattern\bin\Debug\TrackableEntities.Common.xml
 D:\github\mitms\miTms\Source\Repository.Pattern\obj\Debug\Repository.Pattern.csproj.CopyComplete
-D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern\bin\Debug\TrackableEntities.Common.xml
-D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern\obj\Debug\Repository.Pattern.csprojAssemblyReference.cache
-D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern\obj\Debug\Repository.Pattern.csproj.CopyComplete
 D:\github\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern\bin\Debug\Repository.Pattern.dll.config
 D:\github\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern\bin\Debug\Repository.Pattern.dll
 D:\github\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern\bin\Debug\Repository.Pattern.pdb
@@ -39,4 +30,12 @@ D:\github\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern\o
 D:\github\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern\obj\Debug\Repository.Pattern.csproj.CopyComplete
 D:\github\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern\obj\Debug\Repository.Pattern.dll
 D:\github\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern\obj\Debug\Repository.Pattern.pdb
+D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern\bin\Debug\Repository.Pattern.dll.config
+D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern\bin\Debug\Repository.Pattern.dll
+D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern\bin\Debug\Repository.Pattern.pdb
 D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern\bin\Debug\TrackableEntities.Common.dll
+D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern\bin\Debug\TrackableEntities.Common.xml
+D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern\obj\Debug\Repository.Pattern.csproj.CoreCompileInputs.cache
+D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern\obj\Debug\Repository.Pattern.csproj.CopyComplete
+D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern\obj\Debug\Repository.Pattern.dll
+D:\开源项目\easyui-mvc5-scaffolder\MVC5-Scaffolder\CustomBasicScaffolder\Demo\Source\Repository.Pattern\obj\Debug\Repository.Pattern.pdb

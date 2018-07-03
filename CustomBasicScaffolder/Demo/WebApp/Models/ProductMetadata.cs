@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace WebApp.Models
 {
-    [MetadataType(typeof(ProductMetadata))]
+    //[MetadataType(typeof(ProductMetadata))]
     public partial class Product
     {
     }

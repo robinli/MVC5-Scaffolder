@@ -91,6 +91,7 @@ namespace WebApp.Services
             foreach (var item in list.Select(x => new { CodeType = x.CodeType, Description = x.Description }).Distinct()
                 )
             {
+                var multiple = list.Where(x => x.CodeType == item.CodeType && x.Multiple == true).Any().ToString().ToLower();
                 sw.WriteLine($"//-------{item.Description}---------//");
                 var filtername = item.CodeType.ToLower() + "filtersource";
                 var datasourcename = item.CodeType.ToLower() + "datasource";
@@ -105,18 +106,26 @@ namespace WebApp.Services
                 }
                 sw.WriteLine($"//for datagrid {item.CodeType} field  formatter");
                 sw.WriteLine($"function {item.CodeType.ToLower()}formatter(value, row, index) {{ ");
+                sw.WriteLine($"     let multiple = {multiple}; ");
                 sw.WriteLine($"     if (value === null || value === '' || value === undefined) ");
                 sw.WriteLine($"     {{ ");
                 sw.WriteLine($"         return \"\";");
                 sw.WriteLine($"     }} ");
-                sw.WriteLine($"     for (var i = 0; i < {datasourcename}.length; i++) {{");
-                sw.WriteLine($"      var item = {datasourcename}[i];");
-                sw.WriteLine($"     if (item.value === value.toString())");
-                sw.WriteLine($"     {{");
-                sw.WriteLine($"         return item.text;");
-                sw.WriteLine($"     }}");
-                sw.WriteLine($"     }};");
-                sw.WriteLine($" return value;");
+                sw.WriteLine($"     if (multiple) {{ ");
+                sw.WriteLine($"         let valarray = value.split(','); ");
+                sw.WriteLine($"         let result = { datasourcename }.filter(item => valarray.includes(item.value));");
+                sw.WriteLine($"         let textarray = result.map(x => x.text);");
+                sw.WriteLine($"         if (textarray.length > 0)");
+                sw.WriteLine($"             return textarray.join(\",\");");
+                sw.WriteLine($"         else ");
+                sw.WriteLine($"             return value");
+                sw.WriteLine($"      }} else {{ ");
+                sw.WriteLine($"         let result = { datasourcename }.filter(x => x.value == value);");
+                sw.WriteLine($"               if (result.length > 0)");
+                sw.WriteLine($"                    return result[0].text;");
+                sw.WriteLine($"               else");
+                sw.WriteLine($"                    return value;");
+                sw.WriteLine($"       }} ");
                 sw.WriteLine($" }} ");
 
                 sw.WriteLine($"//for datagrid   {item.CodeType}  field filter ");
@@ -155,6 +164,7 @@ namespace WebApp.Services
                 sw.WriteLine($"        var myoptions = {{");
                 sw.WriteLine($"         panelHeight: \"auto\",");
                 sw.WriteLine($"         data: {datasourcename},");
+                sw.WriteLine($"         multiple: {multiple},");
                 sw.WriteLine($"         valueField: 'value',");
                 sw.WriteLine($"         textField: 'text'");
                 sw.WriteLine($"     }}");
@@ -166,10 +176,25 @@ namespace WebApp.Services
                 sw.WriteLine($"         $(target).combobox('destroy');");
                 sw.WriteLine($"        }},");
                 sw.WriteLine($"     getValue: function(target) {{");
-                sw.WriteLine($"        return $(target).combobox('getValue');");
+                sw.WriteLine($"        let opts = $(target).combobox('options');");
+                sw.WriteLine($"        if (opts.multiple) {{");
+                sw.WriteLine($"           return $(target).combobox('getValues').join(opts.separator);");
+                sw.WriteLine($"         }} else {{");
+                sw.WriteLine($"            return $(target).combobox('getValue');");
+                sw.WriteLine($"         }}");
                 sw.WriteLine($"        }},");
                 sw.WriteLine($"     setValue: function(target, value) {{");
-                sw.WriteLine($"         $(target).combobox('setValue', value);");
+                sw.WriteLine($"         let opts = $(target).combobox('options');");
+                sw.WriteLine($"         if (opts.multiple) {{");
+                sw.WriteLine($"             if (value == '' || value == null) {{ ");
+                sw.WriteLine($"                 $(target).combobox('clear'); ");
+                sw.WriteLine($"              }} else {{ ");
+                sw.WriteLine($"                  $(target).combobox('setValues', value.split(opts.separator));");
+                sw.WriteLine($"               }}");
+                sw.WriteLine($"          }}");
+                sw.WriteLine($"          else {{");
+                sw.WriteLine($"             $(target).combobox('setValue', value);");
+                sw.WriteLine($"           }}");
                 sw.WriteLine($"         }},");
                 sw.WriteLine($"     resize: function(target, width) {{");
                 sw.WriteLine($"         $(target).combobox('resize', width);");
