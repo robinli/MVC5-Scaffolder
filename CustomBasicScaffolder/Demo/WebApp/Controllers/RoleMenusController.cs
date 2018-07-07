@@ -35,6 +35,18 @@ namespace WebApp.Controllers
                 userManager = value;
             }
         }
+        public ApplicationRoleManager RoleManager
+        {
+            get
+            {
+                return _roleManager ?? HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
+            }
+            private set
+            {
+                _roleManager = value;
+            }
+        }
+
         //Please RegisterType UnityConfig.cs
         //container.RegisterType<IRepositoryAsync<RoleMenu>, Repository<RoleMenu>>();
         //container.RegisterType<IRoleMenuService, RoleMenuService>();
@@ -44,11 +56,11 @@ namespace WebApp.Controllers
         private readonly IMenuItemService _menuItemService;
         private readonly IUnitOfWorkAsync _unitOfWork;
         private ApplicationRoleManager _roleManager;
-        public RoleMenusController(IRoleMenuService roleMenuService, IUnitOfWorkAsync unitOfWork, IMenuItemService menuItemService, ApplicationRoleManager roleManager)
+        public RoleMenusController(IRoleMenuService roleMenuService, IUnitOfWorkAsync unitOfWork, IMenuItemService menuItemService)
         {
             _roleMenuService = roleMenuService;
             _menuItemService = menuItemService;
-            _roleManager = roleManager;
+           
             _unitOfWork = unitOfWork;
         }
 
@@ -58,7 +70,7 @@ namespace WebApp.Controllers
 
             var rolemenus = _roleMenuService.Queryable().Include(r => r.MenuItem).AsQueryable();
             var menus = _menuItemService.Queryable().Include(x => x.SubMenus).Where(x => x.IsEnabled && x.Parent == null);
-            var roles = _roleManager.Roles;
+            var roles = this.RoleManager.Roles;
             var roleview = new List<RoleView>();
             foreach (var role in roles)
             {

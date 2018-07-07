@@ -40,12 +40,11 @@ namespace WebApp.Controllers
         }
         
         public ManagementController(
-            IUnitOfWorkAsync _unitOfWork,
-        ApplicationUserManager userManager, ApplicationRoleManager roleManager)
+            IUnitOfWorkAsync _unitOfWork
+         )
         {
             this._unitOfWork = _unitOfWork;
-            this.userManager = userManager;
-            this.roleManager = roleManager;
+          
         }
         protected override void Dispose(bool disposing)
         {
