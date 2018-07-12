@@ -1,13 +1,13 @@
 .checkbox {
   position: relative;
-  border: 2px solid #9cc8f7;
+  border: 2px solid #00bbee;
   -moz-border-radius: 4px 4px 4px 4px;
   -webkit-border-radius: 4px 4px 4px 4px;
   border-radius: 4px 4px 4px 4px;
 }
 .checkbox-checked {
   border: 0;
-  background: #9cc8f7;
+  background: #00bbee;
 }
 .checkbox-inner {
   position: absolute;

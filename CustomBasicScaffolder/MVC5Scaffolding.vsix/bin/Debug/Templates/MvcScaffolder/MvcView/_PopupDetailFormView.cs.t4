@@ -621,16 +621,17 @@
                     dataType: 'json',
                     contentType: 'application/x-www-form-urlencoded; charset=utf-8',
                 })
-                .done(function (response) {
+                .done(function (response,textStatus, jqXHR) {
                     if (response.success) {
+                        $dg.datagrid('reload');
                         $.messager.alert("提示", "保存成功！");
                         $('#detailswindow').window("close");
                     } else {
                         $.messager.alert("错误", "保存失败！" + response.err, "error");
                     }
                     })
-                .fail(function (response) {
-                        $.messager.alert("错误", "保存失败！", "error");
+                .fail(function (jqXHR, textStatus, errorThrown) {
+                        $.messager.alert("错误", "保存失败！", errorThrown);
                     });
         }
     }

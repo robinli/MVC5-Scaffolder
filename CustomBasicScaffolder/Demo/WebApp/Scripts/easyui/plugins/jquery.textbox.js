@@ -1,5 +1,5 @@
 /**
- * EasyUI for jQuery 1.5.5.2
+ * EasyUI for jQuery 1.5.5.4
  * 
  * Copyright (c) 2009-2018 www.jeasyui.com. All rights reserved.
  *
@@ -225,6 +225,7 @@ $(this).val(_2b.prompt).addClass("textbox-prompt");
 $(this).removeClass("textbox-prompt");
 }
 tb.removeClass("textbox-focused");
+tb.closest(".form-field").removeClass("form-field-focused");
 }).bind("focus.textbox",function(e){
 _2b.hasFocusMe=true;
 if(tb.hasClass("textbox-focused")){
@@ -235,6 +236,7 @@ $(this).val(_2b.value);
 }
 $(this).removeClass("textbox-prompt");
 tb.addClass("textbox-focused");
+tb.closest(".form-field").addClass("form-field-focused");
 });
 for(var _2d in _2b.inputEvents){
 _2c.bind(_2d+".textbox",{target:_29},_2b.inputEvents[_2d]);
@@ -422,6 +424,11 @@ _51.removeClass("textbox-prompt");
 }else{
 _51.val(_50.prompt).addClass("textbox-prompt");
 }
+}
+if(_50.value){
+$(this).closest(".form-field").removeClass("form-field-empty");
+}else{
+$(this).closest(".form-field").addClass("form-field-empty");
 }
 $(this).textbox("validate");
 });

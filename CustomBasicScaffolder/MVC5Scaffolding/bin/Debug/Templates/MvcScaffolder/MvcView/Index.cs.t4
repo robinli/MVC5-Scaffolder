@@ -274,16 +274,16 @@
 						effectRow.updated = updated;
 					}
 					//console.log(JSON.stringify(effectRow));
-					$.post("/<#= ControllerRootName #>/SaveData", effectRow, function (response) {
+					$.post("/<#= ControllerRootName #>/SaveData", effectRow, function (response,textStatus,jqXHR ) {
 						//console.log(response);
 						if (response.success) {
 							$.messager.alert("提示", "提交成功！");
 							$dg.datagrid("acceptChanges");
 							$dg.datagrid("reload");
 						}
-					}, "json").fail(function (response) {
-						//console.log(response);
-						$.messager.alert("错误", "提交错误了！","error");
+					}, "json").fail(function (jqXHR, textStatus, errorThrown) {
+						//console.log(errorThrown);
+						$.messager.alert("错误", "提交错误了！",errorThrown);
 						//$dg.datagrid("reload");
 					});
 				}

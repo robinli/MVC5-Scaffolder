@@ -2,8 +2,11 @@ Version 1.5.5.x
 ---------------
 * Bug
  * maskedbox: The component does not accept numeric keypad. fixed.
+ * combogrid: When selecting multiple records, the datagrid will scroll to the last checked record. fixed.
 * Improvement
+ * Compatible with jQuery 3.x.
  * tabs: The 'toolPosition' property can accept 'top' and 'bottom' values.
+ * textbox: The textbox label has the animating feature when focus or blur on it.
 
 Version 1.5.5
 -------------

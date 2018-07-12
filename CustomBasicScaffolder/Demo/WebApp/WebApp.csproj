@@ -2285,6 +2285,7 @@
     <Content Include="Scripts\easyui\themes\black\propertygrid.css" />
     <Content Include="Scripts\easyui\themes\black\radiobutton.css" />
     <Content Include="Scripts\easyui\themes\black\searchbox.css" />
+    <Content Include="Scripts\easyui\themes\black\sidemenu.css" />
     <Content Include="Scripts\easyui\themes\black\slider.css" />
     <Content Include="Scripts\easyui\themes\black\spinner.css" />
     <Content Include="Scripts\easyui\themes\black\splitbutton.css" />
@@ -2337,6 +2338,7 @@
     <Content Include="Scripts\easyui\themes\bootstrap\propertygrid.css" />
     <Content Include="Scripts\easyui\themes\bootstrap\radiobutton.css" />
     <Content Include="Scripts\easyui\themes\bootstrap\searchbox.css" />
+    <Content Include="Scripts\easyui\themes\bootstrap\sidemenu.css" />
     <Content Include="Scripts\easyui\themes\bootstrap\slider.css" />
     <Content Include="Scripts\easyui\themes\bootstrap\spinner.css" />
     <Content Include="Scripts\easyui\themes\bootstrap\splitbutton.css" />
@@ -2390,6 +2392,7 @@
     <Content Include="Scripts\easyui\themes\default\propertygrid.css" />
     <Content Include="Scripts\easyui\themes\default\radiobutton.css" />
     <Content Include="Scripts\easyui\themes\default\searchbox.css" />
+    <Content Include="Scripts\easyui\themes\default\sidemenu.css" />
     <Content Include="Scripts\easyui\themes\default\slider.css" />
     <Content Include="Scripts\easyui\themes\default\spinner.css" />
     <Content Include="Scripts\easyui\themes\default\splitbutton.css" />
@@ -2442,6 +2445,7 @@
     <Content Include="Scripts\easyui\themes\gray\propertygrid.css" />
     <Content Include="Scripts\easyui\themes\gray\radiobutton.css" />
     <Content Include="Scripts\easyui\themes\gray\searchbox.css" />
+    <Content Include="Scripts\easyui\themes\gray\sidemenu.css" />
     <Content Include="Scripts\easyui\themes\gray\slider.css" />
     <Content Include="Scripts\easyui\themes\gray\spinner.css" />
     <Content Include="Scripts\easyui\themes\gray\splitbutton.css" />
@@ -2777,6 +2781,7 @@
     <Content Include="Scripts\easyui\themes\material-teal\propertygrid.css" />
     <Content Include="Scripts\easyui\themes\material-teal\radiobutton.css" />
     <Content Include="Scripts\easyui\themes\material-teal\searchbox.css" />
+    <Content Include="Scripts\easyui\themes\material-teal\sidemenu.css" />
     <Content Include="Scripts\easyui\themes\material-teal\slider.css" />
     <Content Include="Scripts\easyui\themes\material-teal\spinner.css" />
     <Content Include="Scripts\easyui\themes\material-teal\splitbutton.css" />
@@ -2834,6 +2839,7 @@
     <Content Include="Scripts\easyui\themes\material\propertygrid.css" />
     <Content Include="Scripts\easyui\themes\material\radiobutton.css" />
     <Content Include="Scripts\easyui\themes\material\searchbox.css" />
+    <Content Include="Scripts\easyui\themes\material\sidemenu.css" />
     <Content Include="Scripts\easyui\themes\material\slider.css" />
     <Content Include="Scripts\easyui\themes\material\spinner.css" />
     <Content Include="Scripts\easyui\themes\material\splitbutton.css" />
@@ -2891,6 +2897,7 @@
     <Content Include="Scripts\easyui\themes\metro\propertygrid.css" />
     <Content Include="Scripts\easyui\themes\metro\radiobutton.css" />
     <Content Include="Scripts\easyui\themes\metro\searchbox.css" />
+    <Content Include="Scripts\easyui\themes\metro\sidemenu.css" />
     <Content Include="Scripts\easyui\themes\metro\slider.css" />
     <Content Include="Scripts\easyui\themes\metro\spinner.css" />
     <Content Include="Scripts\easyui\themes\metro\splitbutton.css" />
@@ -2952,6 +2959,7 @@
     <Content Include="Scripts\jquery.extend.js" />
     <Content Include="Scripts\jquery.filerupload.js" />
     <Content Include="Scripts\jquery.fileDownload.js" />
+    <Content Include="Scripts\jquery.formdata.js" />
     <Content Include="Scripts\jquery.signalR-2.2.3.js" />
     <Content Include="Scripts\jquery.signalR-2.2.3.min.js" />
     <Content Include="Scripts\jquery.slimscroll.js" />
@@ -3380,6 +3388,31 @@
     <Content Include="Scripts\plugin\dygraphs\dygraph-combined.min.js" />
     <Content Include="Scripts\plugin\easy-pie-chart\jquery.easy-pie-chart.js" />
     <Content Include="Scripts\plugin\easy-pie-chart\jquery.easy-pie-chart.min.js" />
+    <Content Include="Scripts\plugin\fancybox\blank.gif" />
+    <Content Include="Scripts\plugin\fancybox\fancybox-x.png" />
+    <Content Include="Scripts\plugin\fancybox\fancybox-y.png" />
+    <Content Include="Scripts\plugin\fancybox\fancybox.png" />
+    <Content Include="Scripts\plugin\fancybox\fancy_close.png" />
+    <Content Include="Scripts\plugin\fancybox\fancy_loading.png" />
+    <Content Include="Scripts\plugin\fancybox\fancy_nav_left.png" />
+    <Content Include="Scripts\plugin\fancybox\fancy_nav_right.png" />
+    <Content Include="Scripts\plugin\fancybox\fancy_shadow_e.png" />
+    <Content Include="Scripts\plugin\fancybox\fancy_shadow_n.png" />
+    <Content Include="Scripts\plugin\fancybox\fancy_shadow_ne.png" />
+    <Content Include="Scripts\plugin\fancybox\fancy_shadow_nw.png" />
+    <Content Include="Scripts\plugin\fancybox\fancy_shadow_s.png" />
+    <Content Include="Scripts\plugin\fancybox\fancy_shadow_se.png" />
+    <Content Include="Scripts\plugin\fancybox\fancy_shadow_sw.png" />
+    <Content Include="Scripts\plugin\fancybox\fancy_shadow_w.png" />
+    <Content Include="Scripts\plugin\fancybox\fancy_title_left.png" />
+    <Content Include="Scripts\plugin\fancybox\fancy_title_main.png" />
+    <Content Include="Scripts\plugin\fancybox\fancy_title_over.png" />
+    <Content Include="Scripts\plugin\fancybox\fancy_title_right.png" />
+    <Content Include="Scripts\plugin\fancybox\jquery.easing-1.3.pack.js" />
+    <Content Include="Scripts\plugin\fancybox\jquery.fancybox-1.3.4.css" />
+    <Content Include="Scripts\plugin\fancybox\jquery.fancybox-1.3.4.js" />
+    <Content Include="Scripts\plugin\fancybox\jquery.fancybox-1.3.4.pack.js" />
+    <Content Include="Scripts\plugin\fancybox\jquery.mousewheel-3.0.4.pack.js" />
     <Content Include="Scripts\plugin\fastclick\fastclick.js" />
     <Content Include="Scripts\plugin\fastclick\fastclick.min.js" />
     <Content Include="Scripts\plugin\flot\jquery.colorhelpers.js" />

@@ -93,12 +93,12 @@
             trackMethods: ['GET', 'POST', 'DELETE', 'PUT', 'PATCH']
         }
     }
-    $(document).ajaxError(function (event, request, settings) {
-        console.log(event, request, settings);
+    $(document).ajaxError(function (event, request, ajaxOptions, thrownError) {
+        console.log(event, request, ajaxOptions);
         if(request.responseJSON){
         $.bigBox({
             title: "ajax请求异常!",
-            content: "" + request.responseJSON.message + " " + settings.url,
+            content: thrownError + "" + request.responseJSON.message + " " + ajaxOptions.url,
             color: "#C46A69",
             icon: "fa fa-warning shake animated",
             number: "1",
@@ -107,7 +107,7 @@
     }else{
      $.bigBox({
             title: "ajax请求异常!",
-            content: "" + request.statusText + " " + settings.url,
+            content: "" + thrownError + " " + settings.url,
             color: "#C46A69",
             icon: "fa fa-warning shake animated",
             number: "1",

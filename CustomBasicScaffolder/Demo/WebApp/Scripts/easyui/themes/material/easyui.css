@@ -2268,7 +2268,7 @@
 .calendar-selected {
   background-color: #00bbee;
   color: #fff;
-  border: 1px solid #9cc8f7;
+  border: 1px solid #00bbee;
   padding: 0;
 }
 .datebox-calendar-inner {
@@ -3236,7 +3236,7 @@
 }
 .radiobutton {
   position: relative;
-  border: 2px solid #9cc8f7;
+  border: 2px solid #00bbee;
   border-radius: 50%;
 }
 .radiobutton-inner {
@@ -3245,7 +3245,7 @@
   top: 0;
   width: 100%;
   height: 100%;
-  background: #9cc8f7;
+  background: #00bbee;
   border-radius: 50%;
   transform: scale(.6);
 }
@@ -3261,14 +3261,14 @@
 }
 .checkbox {
   position: relative;
-  border: 2px solid #9cc8f7;
+  border: 2px solid #00bbee;
   -moz-border-radius: 4px 4px 4px 4px;
   -webkit-border-radius: 4px 4px 4px 4px;
   border-radius: 4px 4px 4px 4px;
 }
 .checkbox-checked {
   border: 0;
-  background: #9cc8f7;
+  background: #00bbee;
 }
 .checkbox-inner {
   position: absolute;
@@ -3289,6 +3289,75 @@
   width: 1px;
   height: 1px;
   left: -999px;
+}
+.sidemenu .tree-hit {
+  background-image: none;
+}
+.sidemenu-default-icon {
+  background-image: none;
+  width: 0;
+}
+.sidemenu .accordion .accordion-header,
+.sidemenu .accordion .accordion-body {
+  border-bottom-color: transparent;
+  background: transparent;
+}
+.sidemenu .accordion .accordion-header {
+  color: #000000;
+}
+.sidemenu .accordion-header .panel-title {
+  height: 30px;
+  line-height: 30px;
+  color: #000000;
+}
+.sidemenu .accordion-header:hover {
+  background: #eee;
+  color: #000000;
+}
+.sidemenu .tree-node-hover {
+  background: #eee;
+  color: #000000;
+}
+.sidemenu .tree-node-selected {
+  border-right: 2px solid #00bbee;
+  color: #fff;
+  background: #00bbee;
+}
+.sidemenu .tree-node {
+  height: 40px;
+}
+.sidemenu .tree-title {
+  margin: 11px 0;
+}
+.sidemenu .tree-node-nonleaf {
+  position: relative;
+}
+.sidemenu .tree-node-nonleaf::after {
+  display: inline-block;
+  content: '';
+  position: absolute;
+  top: 50%;
+  margin-top: -8px;
+  background: url('images/accordion_arrows.png') no-repeat 0 0;
+  width: 16px;
+  height: 16px;
+  right: 5px;
+}
+.sidemenu .tree-node-nonleaf-collapsed::after {
+  background: url('images/accordion_arrows.png') no-repeat -16px 0;
+}
+.sidemenu-collapsed .panel-icon {
+  left: 50%;
+  margin-left: -8px;
+}
+.sidemenu-tooltip {
+  padding: 0;
+  margin: 0 -12px;
+  border: 0;
+}
+.sidemenu-tooltip .tooltip-arrow-outer,
+.sidemenu-tooltip .tooltip-arrow {
+  display: none;
 }
 .l-btn {
   box-shadow: 0 1px 2px rgba(0,0,0,0.2), 0 1px 1px rgba(0,0,0,0.05);

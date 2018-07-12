@@ -1,5 +1,5 @@
 /**
- * EasyUI for jQuery 1.5.5.2
+ * EasyUI for jQuery 1.5.5.4
  * 
  * Copyright (c) 2009-2018 www.jeasyui.com. All rights reserved.
  *
@@ -1227,7 +1227,7 @@ if(_12a[0].offsetHeight&&_12a[0].clientHeight&&_12a[0].offsetHeight<=_12a[0].cli
 _12b=0;
 }
 var _12c=_12a.outerHeight(true)-_12a.outerHeight();
-var top=tr.position().top-_129-_12c;
+var top=tr.offset().top-dc.view2.offset().top-_129-_12c;
 if(top<0){
 _12a.scrollTop(_12a.scrollTop()+top);
 }else{
