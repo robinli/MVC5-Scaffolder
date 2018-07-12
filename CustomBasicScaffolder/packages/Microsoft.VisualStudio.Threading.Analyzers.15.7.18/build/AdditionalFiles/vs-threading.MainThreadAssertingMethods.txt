@@ -1,3 +1,0 @@
-﻿Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread
-Microsoft.VisualStudio.ProjectSystem.IProjectThreadingService.VerifyOnUIThread
-System.Windows.Threading.Dispatcher.VerifyAccess
