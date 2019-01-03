@@ -1,0 +1,611 @@
+﻿@model IEnumerable<WebApp.Models.Notification>
+@{
+    ViewBag.Title = "消息通知";
+}
+<!-- MAIN CONTENT -->
+<div id="content">
+    <!-- quick navigation bar -->
+    <div class="row">
+        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+            <h1 class="page-title txt-color-blueDark">
+                <i class="fa fa-table fa-fw "></i>
+                系统管理
+                <span>
+                    >
+                    消息通知
+                </span>
+            </h1>
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+
+        </div>
+    </div>
+    <!-- end quick navigation bar -->
+    <!-- widget grid -->
+    <section id="widget-grid" class="">
+        <!-- row -->
+        <div class="row">
+            <!-- NEW WIDGET START -->
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <!-- Widget ID (each widget will need unique ID)-->
+                <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false" data-widget-deletebutton="false">
+                    <!-- widget options:
+                    usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+                    data-widget-colorbutton="false"
+                    data-widget-editbutton="false"
+                    data-widget-togglebutton="false"
+                    data-widget-deletebutton="false"
+                    data-widget-fullscreenbutton="false"
+                    data-widget-custombutton="false"
+                    data-widget-collapsed="true"
+                    data-widget-sortable="false"
+                    -->
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+                        <h2>消息通知</h2>
+                    </header>
+
+                    <!-- widget div-->
+                    <div>
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body no-padding">
+                            <div class="widget-body-toolbar">
+                                <div class="row">
+                                    <div class="col-sm-8  ">
+                                        <!-- 开启授权控制 -->
+                                        @*@if (Html.IsAuthorize("Create"))
+                                            {
+                                                <div class="btn-group">
+                                                    <a href="javascript:append()" class="btn btn-sm btn-default"> <i class="fa fa-plus"></i> 新增 </a>
+                                                </div>
+                                            }
+                                            @if (Html.IsAuthorize("Delete"))
+                                            {
+                                                <div class="btn-group">
+                                                    <a href="javascript:removeit()" class="btn btn-sm btn-default"> <i class="fa fa-trash-o"></i> 删除 </a>
+                                                </div>
+                                            }
+                                            @if (Html.IsAuthorize("Edit"))
+                                            {
+                                                <div class="btn-group">
+                                                    <a href="javascript:accept()" class="btn btn-sm btn-default"> <i class="fa fa-floppy-o"></i> 保存 </a>
+                                                </div>
+                                            }
+                                            <div class="btn-group">
+                                                <a href="javascript:reload()" class="btn btn-sm btn-default"> <i class="fa fa-refresh"></i> 刷新 </a>
+                                            </div>
+                                            <div class="btn-group">
+                                                <a href="javascript:reject()" class="btn btn-sm btn-default"> <i class="fa fa-window-close-o"></i> 取消 </a>
+                                            </div>
+                                            @if (Html.IsAuthorize("Import"))
+                                            {
+                                                <div class="btn-group">
+                                                    <button type="button" onclick="importexcel()" class="btn btn-default"><i class="fa fa-upload"></i> 导入数据 </button>
+                                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <span class="caret"></span>
+                                                        <span class="sr-only">Toggle Dropdown</span>
+                                                    </button>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a href="javascript:importexcel()"><i class="fa fa-upload"></i>  上传Excel </a></li>
+                                                        <li role="separator" class="divider"></li>
+                                                        <li><a href="javascript:downloadtemplate()"><i class="fa fa-download"></i> 下载模板 </a></li>
+                                                    </ul>
+                                                </div>
+                                            }
+                                            @if (Html.IsAuthorize("Export"))
+                                            {
+                                                <div class="btn-group">
+                                                    <a href="javascript:exportexcel()" class="btn btn-sm btn-default"> <i class="fa fa-file-excel-o"></i> 导出Excel </a>
+                                                </div>
+                                            }
+                                            @if (Html.IsAuthorize("Print"))
+                                            {
+                                                <div class="btn-group">
+                                                    <a href="javascript:print()" class="btn btn-sm btn-default"> <i class="fa fa-print"></i> 打印 </a>
+                                                </div>
+                                            }
+                                                <div class="btn-group">
+                                                    <a href="javascript:dohelp()" class="btn btn-sm btn-default"> <i class="fa fa-question-circle-o"></i> 帮助 </a>
+                                                </div>*@
+                                        <!--end 开启授权控制-->
+
+                                        <div class="btn-group">
+                                            <a href="javascript:append()" class="btn btn-sm btn-default"> <i class="fa fa-plus"></i> 新增 </a>
+                                        </div>
+                                        <div class="btn-group">
+                                            <a href="javascript:removeit()" class="btn btn-sm btn-default"> <i class="fa fa-trash-o"></i> 删除 </a>
+                                        </div>
+                                        <div class="btn-group">
+                                            <a href="javascript:accept()" class="btn btn-sm btn-default"> <i class="fa fa-floppy-o"></i> 保存 </a>
+                                        </div>
+                                        <div class="btn-group">
+                                            <a href="javascript:reload()" class="btn btn-sm btn-default"> <i class="fa fa-refresh"></i> 刷新 </a>
+                                        </div>
+                                        <div class="btn-group">
+                                            <a href="javascript:reject()" class="btn btn-sm btn-default"> <i class="fa fa-window-close-o"></i> 取消 </a>
+                                        </div>
+                                        <div class="btn-group">
+                                            <button type="button" onclick="importexcel()" class="btn btn-default"><i class="fa fa-upload"></i> 导入数据 </button>
+                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <span class="caret"></span>
+                                                <span class="sr-only">Toggle Dropdown</span>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="javascript:importexcel()"><i class="fa fa-upload"></i>  上传Excel </a></li>
+                                                <li role="separator" class="divider"></li>
+                                                <li><a href="javascript:downloadtemplate()"><i class="fa fa-download"></i> 下载模板 </a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="btn-group">
+                                            <a href="javascript:exportexcel()" class="btn btn-sm btn-default"> <i class="fa fa-file-excel-o"></i> 导出Excel </a>
+                                        </div>
+                                        <div class="btn-group">
+                                            <a href="javascript:print()" class="btn btn-sm btn-default"> <i class="fa fa-print"></i> 打印 </a>
+                                        </div>
+                                        <div class="btn-group">
+                                            <a href="javascript:dohelp()" class="btn btn-sm btn-default"> <i class="fa fa-question-circle-o"></i> 帮助 </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 text-align-right">
+                                        <div class="btn-group">
+                                            <a href="javascript:window.history.back()" class="btn btn-sm btn-success"> <i class="fa fa-chevron-left"></i> 返回 </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="alert alert-warning no-margin fade in">
+                                <button class="close" data-dismiss="alert">
+                                    ×
+                                </button>
+                                <i class="fa-fw fa fa-info"></i>
+                                注意事项:
+                            </div>
+                            <!--begin datagrid-content -->
+                            <div class="table-responsive">
+                                <table id="notifications_datagrid"></table>
+
+
+
+                            </div>
+                            <!--end datagrid-content -->
+
+                        </div>
+                        <!-- end widget content -->
+                    </div>
+                    <!-- end widget div -->
+
+                </div>
+                <!-- end widget -->
+
+            </article>
+            <!-- WIDGET END -->
+
+        </div>
+
+        <!-- end row -->
+    </section>
+    <!-- end widget grid -->
+    <!-- file upload partial view -->
+    @Html.Partial("_ImportWindow", new ViewDataDictionary { { "EntityName", "Notification" } })
+    <!-- end file upload partial view -->
+    <!-- detail popup window -->
+    @Html.Partial("_PopupDetailFormView", new WebApp.Models.Notification())
+    <!-- end detail popup window -->
+
+</div>
+<!-- END MAIN CONTENT -->
+
+@section Scripts {
+    <script type="text/javascript">
+      var entityname = "Notification";
+      //下载Excel导入模板
+      function downloadtemplate() {
+             //默认模板路径存放位置
+          var url = "/ExcelTemplate/Notification.xlsx";
+          $.fileDownload(url).fail(function () {
+               $.messager.alert("错误","没有找到模板文件! {" + url + "}","error");
+          });
+       }
+       //打印
+       function print() {
+            $dg.datagrid('print', 'DataGrid');
+       }
+        //打开Excel上传导入
+	   function importexcel() {
+		    $("#importwindow").window("open");
+	   }
+	   //执行Excel到处下载
+	   function exportexcel() {
+				var filterRules = JSON.stringify($dg.datagrid("options").filterRules);
+				//console.log(filterRules);
+				$.messager.progress({ title: "正在执行导出!" });
+				var formData = new FormData();
+				formData.append("filterRules", filterRules);
+				formData.append("sort", "Id");
+				formData.append("order", "asc");
+				$.postDownload("/Notifications/ExportExcel", formData, function (fileName) {
+					$.messager.progress("close");
+					//console.log(fileName);
+				});
+		}
+        //显示帮助信息
+        function dohelp() {
+
+        }
+        var editIndex = undefined;
+       //重新加载数据
+	   function reload() {
+				 if (endEditing()) {
+						$dg.datagrid("reload");
+				 }
+			}
+    //关闭编辑状态
+	function endEditing() {
+			if (editIndex === undefined) {
+                return true;
+            }
+			if ($dg.datagrid("validateRow", editIndex)) {
+								$dg.datagrid("endEdit", editIndex);
+				editIndex = undefined;
+                return true;
+			} else {
+				return false;
+			}
+		}
+    //单击列开启编辑功能
+	function onClickCell(index, field) {
+			var _operates = ["_operate1", "_operate2", "_operate3", "ck"];
+			if ($.inArray(field, _operates) >= 0) {
+				return;
+			}
+			if (editIndex !== index) {
+				if (endEditing()) {
+					$dg.datagrid("selectRow", index)
+							.datagrid("beginEdit", index);
+                    editIndex = index;
+					var ed = $dg.datagrid("getEditor", { index: index, field: field });
+					if (ed) {
+						($(ed.target).data("textbox") ? $(ed.target).textbox("textbox") : $(ed.target)).focus();
+					}
+				} else {
+					$dg.datagrid("selectRow", editIndex);
+				}
+			}
+		}
+    //新增记录
+	function append() {
+			if (endEditing()) {
+				//对必填字段进行默认值初始化
+				$dg.datagrid("insertRow",
+                               { index: 0,
+                                  row: {
+
+                                  }
+                                });
+				editIndex = 0 ;
+				$dg.datagrid("selectRow", editIndex)
+						.datagrid("beginEdit", editIndex);
+			}
+		}
+    //删除编辑的行
+	function removeit() {
+			if (editIndex === undefined) { return }
+			$dg.datagrid("cancelEdit", editIndex)
+					.datagrid("deleteRow", editIndex);
+			editIndex = undefined;
+	}
+    //删除选中的行
+    function deletechecked() {
+            var rows = $dg.datagrid("getChecked");
+            if (rows.length > 0) {
+                var id = rows.map(function (item) {
+                    return item.Id;
+                });
+                $.messager.confirm("确认", "你确定要删除这些记录?", function (r) {
+                    if (r) {
+                        $.post("/Notifications/DeleteCheckedAsync", { id: id }, function (data, status, xhr) {
+                            if (data.success) {
+                                reload();
+                            } else {
+                                $.messager.alert("错误", data.err,"error");
+                            }
+                        });
+                    }
+                });
+            } else {
+                $.messager.alert("提示", "请先选择要删除的记录!");
+            }
+        }
+    //提交保存后台数据库
+	function accept() {
+			if (endEditing()) {
+				if ($dg.datagrid("getChanges").length) {
+					var inserted = $dg.datagrid("getChanges", "inserted");
+					var deleted = $dg.datagrid("getChanges", "deleted");
+					var updated = $dg.datagrid("getChanges", "updated");
+					var item = new Object();
+					if (inserted.length) {
+						item.inserted = inserted;
+					}
+					if (deleted.length) {
+						item.deleted = deleted;
+					}
+					if (updated.length) {
+						item.updated = updated;
+					}
+					//console.log(JSON.stringify(item));
+					$.post("/Notifications/SaveDataAsync", item, function (response,textStatus,jqXHR ) {
+						//console.log(response);
+						if (response.success) {
+							$.messager.alert("提示", "提交成功!");
+							$dg.datagrid("acceptChanges");
+							$dg.datagrid("reload");
+						} else {
+                           $.messager.alert("错误", response.err ,"error");
+                        }
+					}, "json").fail(function (jqXHR, textStatus, errorThrown) {
+						//console.log(errorThrown);
+						$.messager.alert("错误", "提交错误了!" + errorThrown,"error");
+						//$dg.datagrid("reload");
+					});
+				}
+			}
+		}
+		function reject() {
+			$dg.datagrid("rejectChanges");
+			editIndex = undefined;
+		}
+		function getChanges() {
+			var rows = $dg.datagrid("getChanges");
+			alert(rows.length + " rows are changed!");
+		}
+        //弹出明细信息
+		function showDetailsWindow(id) {
+			//console.log(index, row);
+            $.getJSON("/Notifications/PopupEditAsync/" + id, function (data, status, xhr) {
+                //console.log(data);
+                $("#detailswindow").window("open");
+                loadData(id,data);
+            });
+		}
+
+        //初始化定义datagrid
+        var $dg = $("#notifications_datagrid");
+        $(function () {
+		 //定义datagrid结构
+         $dg.datagrid({
+                        rownumbers:true,
+				        checkOnSelect:true,
+				        selectOnCheck:true,
+				        idField:'Id',
+				        sortName:'Id',
+				        sortOrder:'desc',
+				        remoteFilter: true,
+				        singleSelect: true,
+				        toolbar: '#notifications_toolbar',
+				        url: '/Notifications/GetDataAsync',
+				        method: 'get',
+				        onClickCell: onClickCell,
+				        pagination: true,
+                        striped:true,
+                        columns: [[
+                         /*开启CheckBox选择功能*/
+                         /*{ field: 'ck', checkbox: true },*/
+                         {
+                            field: '_operate1',
+                            title:'操作',
+                            width: 120,
+                            sortable: false,
+                            resizable: true,
+                            formatter: function showdetailsformatter(value, row, index) {
+                                        return '<a onclick="showDetailsWindow(' + row.Id + ')" class="btn btn-default btn-sm" href="javascript:void(0)"><i class="fa fa-list"></i> 查看明细</a>';
+                                    }
+                          },
+		     /*{field:'Id',width:80 ,sortable:true,resizable:true }*/
+			{
+                 field:'Title',
+                 title:'<span class="required">@Html.DisplayNameFor(model => model.Title)</span>',
+                 width:260,
+                 editor:{
+                          type:'textbox',
+                          options:{ prompt:'主题',required:true ,validType:'length[0,50]'  }
+                       },
+                 sortable:true,
+                 resizable:true
+			},
+			{
+                 field:'Content',
+                 title:'@Html.DisplayNameFor(model => model.Content)',
+                 width:300,
+                 editor:{
+                          type:'textbox',
+                          options:{ prompt:'消息',required:false ,validType:'length[0,255]'  }
+                       },
+                 sortable:true,
+                 resizable:true
+			},
+			{
+                 field:'Link',
+                 title:'@Html.DisplayNameFor(model => model.Link)',
+                 width:300,
+                 editor:{
+                          type:'textbox',
+                          options:{ prompt:'链接',required:false ,validType:'length[0,255]'  }
+                       },
+                 sortable:true,
+                 resizable:true
+			},
+			{
+                 field:'Read',
+                 title:'<span class="required">@Html.DisplayNameFor(model => model.Read)</span>',
+                 width:100,
+                 align:'right',
+                 editor:{
+                        type:'isneweditor',
+                        options:{prompt:'已读', required:true    }
+                        },
+                sortable:true,
+                resizable: true,
+                formatter: isnewformatter
+			},
+			{
+                 field:'From',
+                 title:'@Html.DisplayNameFor(model => model.From)',
+                 width:140,
+                 editor:{
+                          type:'textbox',
+                          options:{ prompt:'From',required:false   }
+                       },
+                 sortable:true,
+                 resizable:true
+			},
+			{
+                 field:'To',
+                 title:'@Html.DisplayNameFor(model => model.To)',
+                 width:140,
+                 editor:{
+                          type:'textbox',
+                          options:{ prompt:'To',required:false   }
+                       },
+                 sortable:true,
+                 resizable:true
+			},
+			{
+                 field:'Group',
+                 title:'<span class="required">@Html.DisplayNameFor(model => model.Group)</span>',
+                 width:100,
+                 align:'right',
+                 editor:{
+                     type:'messagegroupeditor',
+                        options:{prompt:'分组', required:true    }
+                        },
+                sortable:true,
+                resizable: true,
+                formatter: messagegroupformatter
+			},
+            {
+                field:'Created',
+                title:'<span class="required">@Html.DisplayNameFor(model => model.Created)</span>',
+                width:120,
+                align:'right',
+                editor:{
+                      type:'datebox',
+                      options:{prompt:'Created',required:true}
+                      },
+                sortable:true,
+                resizable:true,
+                formatter:dateformatter
+			} ,
+
+			{
+                 field:'Creator',
+                 title:'@Html.DisplayNameFor(model => model.Creator)',
+                 width:140,
+                 editor:{
+                          type:'textbox',
+                          options:{ prompt:'Creator',required:false   }
+                       },
+                 sortable:true,
+                 resizable:true
+			},
+                         ]]
+                 });
+
+           $dg.datagrid("enableFilter",[
+				{
+					  field: "Id",
+					  type: "numberbox",
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+				{
+					  field: "Read",
+					  type: "isnewfilter"
+				  },
+				{
+					  field: "Group",
+                    type: "messagegroupfilter"
+
+				  },
+				{
+					  field: "Created",
+					  type: "dateRange",
+					  options: {
+						  onChange: function (value) {
+							    $dg.datagrid("addFilterRule", {
+									  field: "Created",
+									  op: "between",
+									  value: value
+								  });
+
+							    $dg.datagrid("doFilter");
+						  }
+					  }
+				  },
+		   ]);
+	 });
+
+
+
+
+    </script>
+    <script type="text/javascript">
+        //load data by foreign key
+        var notificationid = 0;
+        function loadData(id, data) {
+            notificationid = id;
+            $('#notification_form').form('load', data);
+        }
+        var $editform = $('#notification_form');
+        //save item
+        function saveitem() {
+
+            if ($editform.form('enableValidation').form('validate')) {
+                var notification = $editform.serializeJSON();
+                var token = $('input[name="__RequestVerificationToken"]', $editform).val();
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Notifications/EditAsync",
+                    data: {
+                        __RequestVerificationToken: token,
+                        notification: notification
+                    },
+                    dataType: 'json',
+                    contentType: 'application/x-www-form-urlencoded; charset=utf-8'
+                })
+                    .done(function (response, textStatus, jqXHR) {
+                        if (response.success) {
+                            $dg.datagrid('reload');
+                            $.messager.alert("提示", "保存成功！");
+                            $('#detailswindow').window("close");
+                        } else {
+                            $.messager.alert("错误", "保存失败！" + response.err, "error");
+                        }
+                    })
+                    .fail(function (jqXHR, textStatus, errorThrown) {
+                        $.messager.alert("错误", "保存失败！" + errorThrown, "error");
+                    });
+            }
+        }
+        // cancel
+        function cancelitem() {
+            $('#detailswindow').window('close');
+        }
+        // reload
+        function refreshitem() {
+            $('#detailswindow').window('close');
+        }
+
+
+
+    </script>
+    <script src="~/Scripts/jquery.filerupload.min.js"></script>
+}
+
+

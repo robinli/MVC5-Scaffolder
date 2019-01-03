@@ -1,0 +1,256 @@
+﻿﻿@model WebApp.Models.Notification
+ <!-- 输出form表单界面 -->
+<form id="notification_form" class="smart-form" method="post" novalidate >
+@Html.AntiForgeryToken()
+<fieldset>
+    <div class="row">
+        	    			<section class="col col-3">
+           <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Id)</span> </label>
+           <label class="input">
+            <input id="@Html.IdFor(model => model.Id)" 
+                   name="@Html.NameFor(model => model.Id)" 
+                   placeholder="@Html.DisplayNameFor(model => model.Id)" 
+                   value="@Html.ValueFor(model => model.Id)"
+                   tabindex="0"   required
+                   type="text" 
+                   />
+                 <b class="tooltip tooltip-bottom-right">Id</b>
+			    </label>
+            </section>
+              				 
+	  
+	    
+	        			              <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Title)</span> </label>
+            <label class="input">
+			<input id="@Html.IdFor(model => model.Title)" 
+				   name="@Html.NameFor(model => model.Title)" 
+                   placeholder="@Html.DisplayNameFor(model => model.Title)" 
+				   value="@Html.ValueFor(model => model.Title)"
+				   tabindex="1" required
+				   type="text" 
+				   />
+             <b class="tooltip tooltip-bottom-right">主题</b>
+			    </label>
+            </section>
+			  				 
+	  
+	    
+	        			              <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.Content) </label>
+            <label class="input">
+			<input id="@Html.IdFor(model => model.Content)" 
+				   name="@Html.NameFor(model => model.Content)" 
+                   placeholder="@Html.DisplayNameFor(model => model.Content)" 
+				   value="@Html.ValueFor(model => model.Content)"
+				   tabindex="2" 
+				   type="text" 
+				   />
+             <b class="tooltip tooltip-bottom-right">消息</b>
+			    </label>
+            </section>
+			  				 
+	  
+	    
+	        			              <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.Link) </label>
+            <label class="input">
+			<input id="@Html.IdFor(model => model.Link)" 
+				   name="@Html.NameFor(model => model.Link)" 
+                   placeholder="@Html.DisplayNameFor(model => model.Link)" 
+				   value="@Html.ValueFor(model => model.Link)"
+				   tabindex="3" 
+				   type="text" 
+				   />
+             <b class="tooltip tooltip-bottom-right">链接</b>
+			    </label>
+            </section>
+			  				 
+	  
+	    
+	        			  			<section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Read)</span> </label>
+            <label class="input">
+            <input id="@Html.IdFor(model => model.Read)"
+				   name="@Html.NameFor(model => model.Read)" 
+                   placeholder="@Html.DisplayNameFor(model => model.Read)" 
+				   value="@Html.ValueFor(model => model.Read)"
+				   tabindex="4" required
+				   type="text" 
+				   />
+                 <b class="tooltip tooltip-bottom-right">已读</b>
+			    </label>
+            </section>
+              				 
+	  
+	    
+	        			              <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.From) </label>
+            <label class="input">
+			<input id="@Html.IdFor(model => model.From)" 
+				   name="@Html.NameFor(model => model.From)" 
+                   placeholder="@Html.DisplayNameFor(model => model.From)" 
+				   value="@Html.ValueFor(model => model.From)"
+				   tabindex="5" 
+				   type="text" 
+				   />
+             <b class="tooltip tooltip-bottom-right">From</b>
+			    </label>
+            </section>
+			  				 
+	  
+	    
+	        			              <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.To) </label>
+            <label class="input">
+			<input id="@Html.IdFor(model => model.To)" 
+				   name="@Html.NameFor(model => model.To)" 
+                   placeholder="@Html.DisplayNameFor(model => model.To)" 
+				   value="@Html.ValueFor(model => model.To)"
+				   tabindex="6" 
+				   type="text" 
+				   />
+             <b class="tooltip tooltip-bottom-right">To</b>
+			    </label>
+            </section>
+			  				 
+	  
+	    
+	        			  			<section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Group)</span> </label>
+            <label class="input">
+            <input id="@Html.IdFor(model => model.Group)"
+				   name="@Html.NameFor(model => model.Group)" 
+                   placeholder="@Html.DisplayNameFor(model => model.Group)" 
+				   value="@Html.ValueFor(model => model.Group)"
+				   tabindex="7" required
+				   type="text" 
+				   />
+                 <b class="tooltip tooltip-bottom-right">分组</b>
+			    </label>
+            </section>
+              				 
+	  
+	    
+	        			              <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Created)</span> </label>
+            <label class="input">
+            <i class="icon-append fa fa-calendar"></i>
+			<input id="@Html.IdFor(model => model.Created)" 
+			       name="@Html.NameFor(model => model.Created)" 
+                   placeholder="@Html.DisplayNameFor(model => model.Created)" 
+				   tabindex="8" required
+				   class="datepicker" data-dateformat="mm/dd/yy"
+				   type="text" 
+				   value="@Html.ValueFor(model => model.Created)"
+				    />
+             <b class="tooltip tooltip-bottom-right">Created</b>
+			    </label>
+            </section>
+			  				 
+	  
+	    
+	        			              <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.Creator) </label>
+            <label class="input">
+			<input id="@Html.IdFor(model => model.Creator)" 
+				   name="@Html.NameFor(model => model.Creator)" 
+                   placeholder="@Html.DisplayNameFor(model => model.Creator)" 
+				   value="@Html.ValueFor(model => model.Creator)"
+				   tabindex="9" 
+				   type="text" 
+				   />
+             <b class="tooltip tooltip-bottom-right">Creator</b>
+			    </label>
+            </section>
+			  				 
+	  
+	    
+	        			              <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.CreatedDate) </label>
+            <label class="input">
+            <i class="icon-append fa fa-calendar"></i>
+			<input id="@Html.IdFor(model => model.CreatedDate)" 
+			       name="@Html.NameFor(model => model.CreatedDate)" 
+                   placeholder="@Html.DisplayNameFor(model => model.CreatedDate)" 
+				   tabindex="10" 
+				   class="datepicker" data-dateformat="mm/dd/yy"
+				   type="text" 
+				   value="@Html.ValueFor(model => model.CreatedDate)"
+				    />
+             <b class="tooltip tooltip-bottom-right">创建时间</b>
+			    </label>
+            </section>
+			  				 
+	  
+	    
+	        			              <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.CreatedBy) </label>
+            <label class="input">
+			<input id="@Html.IdFor(model => model.CreatedBy)" 
+				   name="@Html.NameFor(model => model.CreatedBy)" 
+                   placeholder="@Html.DisplayNameFor(model => model.CreatedBy)" 
+				   value="@Html.ValueFor(model => model.CreatedBy)"
+				   tabindex="11" 
+				   type="text" 
+				   />
+             <b class="tooltip tooltip-bottom-right">创建用户</b>
+			    </label>
+            </section>
+			  				 
+	  
+	    
+	        			              <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.LastModifiedDate) </label>
+            <label class="input">
+            <i class="icon-append fa fa-calendar"></i>
+			<input id="@Html.IdFor(model => model.LastModifiedDate)" 
+			       name="@Html.NameFor(model => model.LastModifiedDate)" 
+                   placeholder="@Html.DisplayNameFor(model => model.LastModifiedDate)" 
+				   tabindex="12" 
+				   class="datepicker" data-dateformat="mm/dd/yy"
+				   type="text" 
+				   value="@Html.ValueFor(model => model.LastModifiedDate)"
+				    />
+             <b class="tooltip tooltip-bottom-right">最后更新时间</b>
+			    </label>
+            </section>
+			  				 
+	  
+	    
+	        			              <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.LastModifiedBy) </label>
+            <label class="input">
+			<input id="@Html.IdFor(model => model.LastModifiedBy)" 
+				   name="@Html.NameFor(model => model.LastModifiedBy)" 
+                   placeholder="@Html.DisplayNameFor(model => model.LastModifiedBy)" 
+				   value="@Html.ValueFor(model => model.LastModifiedBy)"
+				   tabindex="13" 
+				   type="text" 
+				   />
+             <b class="tooltip tooltip-bottom-right">最后更新用户</b>
+			    </label>
+            </section>
+			  				 
+	  
+	    
+	    </div>
+</fieldset>
+</form>
+<!--========================================================================================-->
+ 
+
+ <script type="text/javascript">
+    //初始化from赋值
+    function initFormData(id) {
+            //$('#notification_form').form('load', data);
+            
+    }
+
+
+   var notificationid=@Model.Id;
+    $(function(){
+        initFormData(notificationid);
+    });
+ </script>
+

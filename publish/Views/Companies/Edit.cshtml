@@ -1,0 +1,257 @@
+﻿@model WebApp.Models.Company
+@{  ViewBag.Title = "企业信息 | Edit";} 
+<!-- MAIN CONTENT -->
+<div id="content">
+     <!-- quick navigation bar -->
+     <div class="row">
+        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+            <h1 class="page-title txt-color-blueDark">
+                <i class="fa fa-table fa-fw "></i>
+                组织架构
+                <span>
+                    >
+                    企业信息
+                </span>
+            </h1>
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+
+        </div>
+     </div>
+    <!-- widget grid -->
+    <section id="widget-grid" class="">
+        <!-- row -->
+        <div class="row">
+     <!-- NEW WIDGET START -->
+    <article class="col-sm-12 col-md-12 col-lg-12">
+
+        <!-- Widget ID (each widget will need unique ID)-->
+        <div class="jarviswidget" id="wid-id-1" data-widget-editbutton="false" data-widget-deletebutton="false">
+            <!-- widget options:
+            usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+            data-widget-colorbutton="false"
+            data-widget-editbutton="false"
+            data-widget-togglebutton="false"
+            data-widget-deletebutton="false"
+            data-widget-fullscreenbutton="false"
+            data-widget-custombutton="false"
+            data-widget-collapsed="true"
+            data-widget-sortable="false"
+            -->
+            <header>
+                <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                <h2> 企业信息 </h2>
+
+            </header>
+
+            <!-- widget div-->
+            <div>
+
+                <!-- widget edit box -->
+                <div class="jarviswidget-editbox">
+                    <!-- This area used as dropdown edit box -->
+
+                </div>
+                <!-- end widget edit box -->
+
+                <!-- widget content -->
+                <div class="widget-body">
+                    <div class="widget-body-toolbar">
+                        <div class="row">
+                            <div class="col-sm-8  ">
+                                <div class="btn-group">
+                                    <a href="javascript:saveitem()" class="btn btn-sm btn-primary"> <i class="fa fa-floppy-o"></i> 保存 </a>
+                                </div>
+                                <div class="btn-group">
+                                    <a href="javascript:printitem()" class="btn btn-sm btn-primary"> <i class="fa fa-print"></i> 打印 </a>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 text-align-right">
+                                <div class="btn-group">
+                                    <a href="/Companies/Index" class="btn btn-sm btn-success"> <i class="fa fa-chevron-left"></i> 返回 </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-content">
+                             @Html.Partial("EditForm")
+                    </div>		 
+                 </div>
+                 <!-- end widget content -->
+                 </div>
+            <!-- end widget div -->
+
+        </div>
+        <!-- end widget -->
+
+
+    </article>
+    <!-- WIDGET END -->
+  
+ 
+</div>
+ 
+</section>
+</div>
+<!-- END MAIN CONTENT -->
+
+@section Scripts {
+    <script type="text/javascript">
+        var companyid=@Model.Id;
+	    var $editform = $('#company_form');
+        //保存
+        function saveitem() {
+            if ($editform.valid()) {
+                var company = $editform.serializeJSON();
+				  //获取明细表数据
+ 
+						if (!departments_endEditing())
+								return false;                    
+                        var departments = $departmentsdg.datagrid("getChanges");
+						company.Departments = departments ;
+ 
+						if (!employees_endEditing())
+								return false;                    
+                        var employees = $employeesdg.datagrid("getChanges");
+						company.Employees = employees ;
+                var token = $('input[name="__RequestVerificationToken"]', $editform).val();
+                 $.ajax({
+                    type: "POST",
+                    url: "/Companies/EditAsync",
+                    data: {
+                        __RequestVerificationToken: token,
+                        company:company
+                    },
+                    dataType: 'json',
+                    contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+                })
+                .done(response => {
+                    if (response.success) {
+                        $.messager.alert("提示", "保存成功!","info");
+                    } else {
+                        $.messager.alert("错误", response.err, "error");
+                    }
+                    })
+                .fail((jqXHR, textStatus, errorThrown) => {
+                        $.messager.alert("异常",   errorThrown,"error");
+                    });
+            }
+        }
+        //打印
+        function printitem() {
+        }
+
+     /********************************
+     *
+     * pageSetUp() is needed whenever you load a page.
+     * It initializes and checks for all basic elements of the page
+     * and makes rendering easier.
+     *
+     */
+     //pageSetUp();
+     /********************************
+     *
+     * pagefunction() $editform 校验规则
+     *
+     */
+     var pagefunction = function () {
+            var errorClass = 'invalid';
+            var errorElement = 'em';
+            $editform.validate({
+                 errorClass: errorClass,
+                 errorElement: errorElement,
+                 highlight: (element) => {
+                    $(element).parent().removeClass('state-success').addClass("state-error");
+                    $(element).removeClass('valid');
+                 },
+                 unhighlight: (element) => {
+                    $(element).parent().removeClass("state-error").addClass('state-success');
+                    $(element).addClass('valid');
+                 },
+                // Rules for form validation
+                rules: {
+                    Name:{
+                            required:true,
+                            rangelength: [0, 50],
+                    },
+                    Code:{
+                            required:true,
+                            rangelength: [0, 12],
+                    },
+                    Address:{
+                            required:false,
+                            rangelength: [0, 50],
+                    },
+                    Contect:{
+                            required:false,
+                            rangelength: [0, 12],
+                    },
+                    PhoneNumber:{
+                            required:false,
+                            rangelength: [0, 20],
+                    },
+                    RegisterDate:{
+                            required:true,
+                            date: true,
+                    },
+                },
+                // Messages for form validation
+                messages:{
+                
+                },
+                submitHandler:  (form) => {
+                      //调用保存方法
+                      saveitem();
+                      return false;
+                    //$(form).ajaxSubmit({
+                    //    success: function () {
+                    //        console.log('ajaxSubmit success');
+                    //   }
+                    //});
+                },
+                // Do not change code below
+                errorPlacement: (error, element) => {
+                    error.insertAfter(element.parent());
+                }
+
+            });
+        }
+        pagefunction();
+  </script>
+  <!-- department datagrid javascript block -->
+@Html.Partial("_departmentdatagridjsview", new WebApp.Models.Department())
+<!-- employee datagrid javascript block -->
+@Html.Partial("_employeedatagridjsview", new WebApp.Models.Employee())
+ <!-- 初始化from -->
+ <script type="text/javascript">
+    
+    function initFormData(id) {
+            //$('#company_form').form('load', data);
+          var url='/Departments/GetDataByCompanyIdAsync?companyid='+ id;
+          $departmentsdg.datagrid('load',url);
+          $departmentsdg.datagrid('resize');
+          var url='/Employees/GetDataByCompanyIdAsync?companyid='+ id;
+          $employeesdg.datagrid('load',url);
+          $employeesdg.datagrid('resize');
+            
+    }
+
+
+   var companyid=@Model.Id;
+    //tab change && datagrid resize
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        var target = $(e.target).attr("href"); 
+        if(target=="#tab-departments")
+             $$departmentsdgdg.datagrid("resize");
+        if(target=="#tab-employees")
+             $$employeesdgdg.datagrid("resize");
+    });
+    $(function(){
+        initFormData(companyid);
+    });
+ </script>
+
+
+}
+ 

@@ -1,0 +1,247 @@
+﻿﻿@model WebApp.Models.MenuItem
+<!-- 弹出窗体form表单 -->
+<div id="detailswindow" hidden="hidden" class="easyui-window"
+     title="明细数据"
+     data-options="modal:true,
+                    closed:true,
+                    iconcls:'icon-save',
+                    footer:'#windowfooter',
+                    onOpen:function(){
+                       $(this).window('vcenter');
+                    }
+                    " style="width:1440px;height:520px">
+    <!-- begin toolbar -->
+    <div class="window-body-toolbar">
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="btn-group">
+                    <a href="javascript:saveitem()" class="btn btn-sm btn-default">
+                        <i class="fa fa-floppy-o"></i> 保存
+                    </a>
+                </div>
+                <div class="btn-group">
+                    <a href="javascript:printitem()" class="btn btn-sm btn-default">
+                        <i class="fa fa-print"></i> 打印
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-4 text-align-right">
+                <button type="button" class="btn btn-sm btn-success" onclick="closewindow()">
+                    <i class="fa fa-chevron-left"></i>
+                    关闭
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- end toolbar -->
+    <!-- begin window body -->
+    <div class="padding-10">
+        <!-- begin form表单界面-->
+        <div class="row">
+            <div class="col-md-12">
+                <form id="menuitem_form" class="easyui-form form-horizontal" method="post" data-options="novalidate:true">
+                    @Html.AntiForgeryToken()
+                    <table class="table table-bordered">
+
+                        <tr>
+                            <td class="control-label"><span class="required">@Html.DisplayNameFor(model => model.Id)</span></td>
+                            <td>
+                                <input id="@Html.IdFor(model => model.Id)"
+                                       name="@Html.NameFor(model => model.Id)"
+                                       value="@Html.ValueFor(model => model.Id)"
+                                       tabindex="0" required
+                                       class="easyui-numberbox" type="text"
+                                       data-options="prompt:'@Html.DisplayNameFor(model => model.Id)',
+                                 readonly:true,
+                                 width:200,
+                                 label:'',required:true " />
+                            </td>
+                            <td class="control-label"><span class="required">@Html.DisplayNameFor(model => model.Title)</span></td>
+                            <td>
+                                <input id="@Html.IdFor(model => model.Title)"
+                                       name="@Html.NameFor(model => model.Title)"
+                                       value="@Html.ValueFor(model => model.Title)"
+                                       tabindex="1" required
+                                       class="easyui-textbox"
+                                       type="text"
+                                       data-options="prompt:'@Html.DisplayNameFor(model => model.Title)',
+								 label:'',
+                                 width:200,
+								 required:true ,validType:'length[0,50]'" />
+                            </td>
+                            <td class="control-label">@Html.DisplayNameFor(model => model.Description)</td>
+                            <td>
+                                <input id="@Html.IdFor(model => model.Description)"
+                                       name="@Html.NameFor(model => model.Description)"
+                                       value="@Html.ValueFor(model => model.Description)"
+                                       tabindex="2"
+                                       class="easyui-textbox"
+                                       type="text"
+                                       data-options="prompt:'@Html.DisplayNameFor(model => model.Description)',
+								 label:'',
+                                 width:200,
+								 required:false ,validType:'length[0,100]'" />
+                            </td>
+                            <td class="control-label"><span class="required">@Html.DisplayNameFor(model => model.Code)</span></td>
+                            <td>
+                                <input id="@Html.IdFor(model => model.Code)"
+                                       name="@Html.NameFor(model => model.Code)"
+                                       value="@Html.ValueFor(model => model.Code)"
+                                       tabindex="3" required
+                                       class="easyui-textbox"
+                                       type="text"
+                                       data-options="prompt:'@Html.DisplayNameFor(model => model.Code)',
+								 label:'',
+                                 width:200,
+								 required:true ,validType:'length[0,20]'" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="control-label"><span class="required">@Html.DisplayNameFor(model => model.Url)</span></td>
+                            <td>
+                                <input id="@Html.IdFor(model => model.Url)"
+                                       name="@Html.NameFor(model => model.Url)"
+                                       value="@Html.ValueFor(model => model.Url)"
+                                       tabindex="4" required
+                                       class="easyui-textbox"
+                                       type="text"
+                                       data-options="prompt:'@Html.DisplayNameFor(model => model.Url)',
+								 label:'',
+                                 width:200,
+								 required:true ,validType:'length[0,100]'" />
+                            </td>
+                            <td class="control-label">@Html.DisplayNameFor(model => model.Controller)</td>
+                            <td>
+                                <input id="@Html.IdFor(model => model.Controller)"
+                                       name="@Html.NameFor(model => model.Controller)"
+                                       value="@Html.ValueFor(model => model.Controller)"
+                                       tabindex="5"
+                                       class="easyui-textbox"
+                                       type="text"
+                                       data-options="prompt:'@Html.DisplayNameFor(model => model.Controller)',
+								 label:'',
+                                 width:200,
+								 required:false ,validType:'length[0,100]'" />
+                            </td>
+                            <td class="control-label">@Html.DisplayNameFor(model => model.Action)</td>
+                            <td>
+                                <input id="@Html.IdFor(model => model.Action)"
+                                       name="@Html.NameFor(model => model.Action)"
+                                       value="@Html.ValueFor(model => model.Action)"
+                                       tabindex="6"
+                                       class="easyui-textbox"
+                                       type="text"
+                                       data-options="prompt:'@Html.DisplayNameFor(model => model.Action)',
+								 label:'',
+                                 width:200,
+								 required:false ,validType:'length[0,100]'" />
+                            </td>
+                            <td class="control-label">@Html.DisplayNameFor(model => model.IconCls)</td>
+                            <td>
+                                <input id="@Html.IdFor(model => model.IconCls)"
+                                       name="@Html.NameFor(model => model.IconCls)"
+                                       value="@Html.ValueFor(model => model.IconCls)"
+                                       tabindex="7"
+                                       class="easyui-textbox"
+                                       type="text"
+                                       data-options="prompt:'@Html.DisplayNameFor(model => model.IconCls)',
+								 label:'',
+                                 width:200,
+								 required:false " />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="control-label"><span class="required">@Html.DisplayNameFor(model => model.IsEnabled)</span></td>
+                            <td>
+                                <div class="smart-form">
+                                    <label class="checkbox">
+                                        <input id="@Html.IdFor(model => model.IsEnabled)"
+                                               name="@Html.NameFor(model => model.IsEnabled)"
+                                               value="true" @(Model.IsEnabled ? "checked=\"checked\"" : "")
+                                               tabindex="6"
+                                               type="checkbox" />
+                                        <i></i>
+                                    </label>
+                                </div>
+                            </td>
+                            <td class="control-label">@Html.DisplayNameFor(model => model.ParentId)</td>
+                            <td>
+                                <input id="@Html.IdFor(model => model.ParentId)"
+                                       name="@Html.NameFor(model => model.ParentId)"
+                                       value="@Html.ValueFor(model => model.ParentId)"
+                                       tabindex="9"
+                                       class="easyui-combobox"
+                                       data-options="prompt:'@Html.DisplayNameFor(model => model.ParentId)' ,
+						label:'' ,
+                        width:200,
+						required:false ,
+						valueField: 'Id',
+						textField:  'Title' ,
+						url: '/MenuItems/GetMenuItemsAsync' ,
+						onSelect: function(item){
+						//console.log(item);
+				}">
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+        <!--end form表单界面-->
+        <!--========================================================================================-->
+        <!-- begin details row -->
+        <div class="row">
+            <div class="col-md-12">
+                <!-- details tabs -->
+                <div class="tabs-container">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs bordered">
+                        <li class="active"><a data-toggle="tab" href="#tab-menuitems"> 子菜单 </a></li>
+
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div id="tab-menuitems" class="tab-pane active">
+                            <div class="panel-body-toolbar">
+                                <div class="row">
+                                    <div class="col-sm-8  ">
+                                        <div class="btn-group">
+                                            <a href="javascript:menuitems_append()" class="btn btn-sm btn-default"> <i class="fa fa-plus"></i> 新增 </a>
+                                        </div>
+                                        <div class="btn-group">
+                                            <a href="javascript:menuitems_removeit()" class="btn btn-sm btn-default"> <i class="fa fa-trash-o"></i> 删除 </a>
+                                        </div>
+                                        <div class="btn-group">
+                                            <a href="javascript:menuitems_accept()" class="btn btn-sm btn-default"> <i class="fa fa-floppy-o"></i> 保存 </a>
+                                        </div>
+                                        <div class="btn-group">
+                                            <a href="javascript:menuitems_reload()" class="btn btn-sm btn-default"> <i class="fa fa-refresh"></i> 刷新 </a>
+                                        </div>
+                                        <div class="btn-group">
+                                            <a href="javascript:menuitems_reject()" class="btn btn-sm btn-default"> <i class="fa fa-window-close-o"></i> 取消 </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table id="childmenuitems_datagrid"></table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end details tabs -->
+    </div>
+    <!--end window body -->
+</div>
+<div id="windowfooter" style="padding:5px;">&nbsp;</div>
+<!-- 弹出窗体form表单 -->
+
+
+

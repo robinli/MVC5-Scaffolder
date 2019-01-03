@@ -1,0 +1,322 @@
+﻿﻿@model WebApp.Models.MenuItem
+ <!-- 输出form表单界面 -->
+<form id="menuitem_form" class="smart-form" method="post" novalidate >
+@Html.AntiForgeryToken()
+<fieldset>
+    <div class="row">
+        	    			<section class="col col-3">
+           <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Id)</span> </label>
+           <label class="label">
+            @Html.DisplayFor(model => model.Id)
+			</label>
+            </section>
+              				 
+	  
+	    
+	        	    			<section class="col col-3">
+           <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Id)</span> </label>
+           <label class="label">
+            @Html.DisplayFor(model => model.Id)
+			</label>
+            </section>
+              				 
+	  
+	    
+	        			              <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Title)</span> </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Title)
+            </label>
+            </section>
+			  				 
+	  
+	    
+	        			              <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Title)</span> </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Title)
+            </label>
+            </section>
+			  				 
+	  
+	    
+	        			              <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.Description) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Description)
+            </label>
+            </section>
+			  				 
+	  
+	    
+	        			              <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.Description) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Description)
+            </label>
+            </section>
+			  				 
+	  
+	    
+	        			              <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Code)</span> </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Code)
+            </label>
+            </section>
+			  				 
+	  
+	    
+	        			              <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Code)</span> </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Code)
+            </label>
+            </section>
+			  				 
+	  
+	    
+	        			              <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Url)</span> </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Url)
+            </label>
+            </section>
+			  				 
+	  
+	    
+	        			              <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Url)</span> </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Url)
+            </label>
+            </section>
+			  				 
+	  
+	    
+	        			              <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.Controller) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Controller)
+            </label>
+            </section>
+			  				 
+	  
+	    
+	        			              <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.Controller) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Controller)
+            </label>
+            </section>
+			  				 
+	  
+	    
+	        			              <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.Action) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Action)
+            </label>
+            </section>
+			  				 
+	  
+	    
+	        			              <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.Action) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Action)
+            </label>
+            </section>
+			  				 
+	  
+	    
+	        			              <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.IconCls) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.IconCls)
+            </label>
+            </section>
+			  				 
+	  
+	    
+	        			              <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.IconCls) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.IconCls)
+            </label>
+            </section>
+			  				 
+	  
+	    
+	        			  			  <section class="col col-3">
+              <label class="label"><span class="required">@Html.DisplayNameFor(model => model.IsEnabled)</span> </label>
+              <label class="label">
+                @Html.DisplayFor(model => model.IsEnabled)
+            </label>
+            </section>
+              				 
+	  
+	    
+	        			  			  <section class="col col-3">
+              <label class="label"><span class="required">@Html.DisplayNameFor(model => model.IsEnabled)</span> </label>
+              <label class="label">
+                @Html.DisplayFor(model => model.IsEnabled)
+            </label>
+            </section>
+              				 
+	  
+	    
+	                     <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.ParentId) </label>
+            <label class="label">
+			      @Html.DisplayFor(model => model.ParentId)
+			</label>
+            </section>
+				 
+	  
+	    
+	                     <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.ParentId) </label>
+            <label class="label">
+			      @Html.DisplayFor(model => model.ParentId)
+			</label>
+            </section>
+				 
+	  
+	    
+	        			              <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.CreatedDate) </label>
+            <label class="label">
+            
+			@Html.DisplayFor(model => model.CreatedDate)
+			    </label>
+            </section>
+			  				 
+	  
+	    
+	        			              <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.CreatedDate) </label>
+            <label class="label">
+            
+			@Html.DisplayFor(model => model.CreatedDate)
+			    </label>
+            </section>
+			  				 
+	  
+	    
+	        			              <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.CreatedBy) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.CreatedBy)
+            </label>
+            </section>
+			  				 
+	  
+	    
+	        			              <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.CreatedBy) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.CreatedBy)
+            </label>
+            </section>
+			  				 
+	  
+	    
+	        			              <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.LastModifiedDate) </label>
+            <label class="label">
+            
+			@Html.DisplayFor(model => model.LastModifiedDate)
+			    </label>
+            </section>
+			  				 
+	  
+	    
+	        			              <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.LastModifiedDate) </label>
+            <label class="label">
+            
+			@Html.DisplayFor(model => model.LastModifiedDate)
+			    </label>
+            </section>
+			  				 
+	  
+	    
+	        			              <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.LastModifiedBy) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.LastModifiedBy)
+            </label>
+            </section>
+			  				 
+	  
+	    
+	        			              <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.LastModifiedBy) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.LastModifiedBy)
+            </label>
+            </section>
+			  				 
+	  
+	    
+	    </div>
+</fieldset>
+</form>
+<!--========================================================================================-->
+ 
+    <div class="row">
+        <section class="col col-md-12 col-lg-12">
+    <!-- details tabs -->
+    <div class="tabs-container">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs">
+								<li class="active"><a data-toggle="tab" href="#tab-menuitems"> SubMenus</a></li>
+				   
+		 </ul>
+		 <!-- Tab panes -->
+         <div class="tab-content">
+		 		  <div id="tab-menuitems" class="tab-pane active">
+            <div class="panel-body">
+                <div class="table-responsive">
+				<table id="menuitems_datagrid" >
+                </table>
+				<div id="menuitems_toolbar" style="height:auto">
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-refresh fa-fw',plain:true" onclick="submenus_reload()">刷新</a>
+                </div>
+                </div>
+            </div>
+        </div>
+		  	</div>
+	</div>
+ 
+<!--end details tabs -->
+        </section>
+    </div>
+
+
+
+@Html.Partial("_menuitemdatagridjsview", new WebApp.Models.MenuItem())
+ <script type="text/javascript">
+    //初始化from赋值
+    function initFormData(id) {
+            //$('#menuitem_form').form('load', data);
+          var url='/MenuItems/GetDataByMenuItemIdAsync?menuitemid='+ id;
+          $menuitemsdg.datagrid('load',url);
+          $menuitemsdg.datagrid('resize');
+            
+    }
+
+
+   var menuitemid=@Model.Id;
+    //tab change && datagrid resize
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        var target = $(e.target).attr("href"); 
+                if(target=="#tab-menuitems")
+             $$menuitemsdgdg.datagrid("resize");
+            });
+    $(function(){
+        initFormData(menuitemid);
+    });
+ </script>
+

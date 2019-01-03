@@ -1,0 +1,60 @@
+﻿﻿@model WebApp.Models.Department
+<!-- begin master section -->
+<div class="row">
+    <div class="col col-lg-12 col-md-12">
+<!--begin department form  -->
+<form id="department_form" class="smart-form" method="post" novalidate >
+@Html.AntiForgeryToken()
+  <input type="hidden" id="@Html.IdFor(model => model.Id)" 
+                       name="@Html.NameFor(model => model.Id)" 
+                       value="@Html.ValueFor(model => model.Id)" />
+ <fieldset>
+     <div class="row">
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Name)</span> </label>
+            <label class="input">
+			<input id="@Html.IdFor(model => model.Name)" 
+				   name="@Html.NameFor(model => model.Name)" 
+                   placeholder="@Html.DisplayNameFor(model => model.Name)" 
+				   value="@Html.ValueFor(model => model.Name)"
+				   tabindex="0" required
+				   type="text" 
+				   />
+             <b class="tooltip tooltip-bottom-right">@Html.DisplayNameFor(model => model.Name)</b>
+			    </label>
+            </section>
+				 
+	    
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.Manager) </label>
+            <label class="input">
+			<input id="@Html.IdFor(model => model.Manager)" 
+				   name="@Html.NameFor(model => model.Manager)" 
+                   placeholder="@Html.DisplayNameFor(model => model.Manager)" 
+				   value="@Html.ValueFor(model => model.Manager)"
+				   tabindex="1" 
+				   type="text" 
+				   />
+             <b class="tooltip tooltip-bottom-right">@Html.DisplayNameFor(model => model.Manager)</b>
+			    </label>
+            </section>
+				 
+	    
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.CompanyId)</span> </label>
+            <label class="input">
+			      @Html.DropDownListFor(model => model.CompanyId, ViewBag.CompanyId as List<SelectListItem>, htmlAttributes: new { @class = "select2" }) 
+                 <b class="tooltip tooltip-bottom-right">@Html.DisplayNameFor(model => model.CompanyId)</b>
+			    </label>
+            </section>
+	 
+	    
+   </div>
+</fieldset>
+</form>
+<!-- end department form  -->
+</div>
+</div>
+<!-- end master section -->
+<!--========================================================================================-->
+

@@ -1,0 +1,131 @@
+/*
+ * It is advised not to edit the smartadmin_production.css
+ * as this will override any changes you make in the 
+ * later versions of this theme. 
+ * 
+ * We advise that you use use this CSS to override 
+ * SmartAdmin styles. 
+ * 
+ * Rename the stylesheet to whatever your liking so it will stay
+ * unique to you with each update of SmartAdmin.
+ */
+
+// Boxmodel
+.padding {
+    &-top {
+        &-0 {
+            padding-top: 0 !important;
+        }
+
+        &-5 {
+            padding-top: 5px !important;
+        }
+    }
+
+    &-bottom {
+        &-0 {
+            padding-bottom: 0 !important;
+        }
+
+        &-5 {
+            padding-bottom: 5px !important;
+        }
+    }
+
+    &-left {
+        &-5 {
+            padding-left: 5px !important;
+        }
+
+        &-10 {
+            padding-left: 10px !important;
+        }
+    }
+
+    &-right {
+        &-5 {
+            padding-right: 5px !important;
+        }
+
+        &-10 {
+            padding-right: 10px !important;
+        }
+    }
+}
+
+.margin {
+    &-top {
+        &-0 {
+            margin-top: 0 !important;
+        }
+
+        &-5 {
+            margin-top: 5px !important;
+        }
+    }
+
+    &-bottom {
+        &-0 {
+            margin-bottom: 0 !important;
+        }
+
+        &-5 {
+            margin-bottom: 5px !important;
+        }
+    }
+
+    &-left {
+        &-5 {
+            margin-left: 5px !important;
+        }
+
+        &-10 {
+            margin-left: 10px !important;
+        }
+    }
+
+    &-right {
+        &-5 {
+            margin-right: 5px !important;
+        }
+
+        &-10 {
+            margin-right: 10px !important;
+        }
+
+        &-15 {
+            margin-right: 15px !important;
+        }
+    }
+}
+
+/* SmartForm Bootstrap Validation */
+#extr-page {
+    h4 {
+        &.paragraph-header {
+            width: auto;
+        }
+    }
+
+    .smart-form {
+        .alert {
+            margin: 4px;
+
+            li {
+                margin-left: 14px;
+                list-style: none;
+
+                &:before {
+                    content: "\f071";
+                    font-family: FontAwesome;
+                    position: absolute;
+                    left: 14px;
+                }
+            }
+        }
+
+        div + fieldset {
+            padding-top: 15px;
+        }
+    }
+}

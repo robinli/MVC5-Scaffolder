@@ -1,0 +1,309 @@
+﻿﻿@model WebApp.Models.Company
+<!-- 弹出窗体form表单 -->
+ <div id="createwindow" hidden="hidden" class="easyui-window" 
+      title="新增数据" 
+      data-options="modal:true,
+                    closed:true,
+                    closeDuration:200,
+                    closeAnimation:'slide',
+                    openDuration:300,
+                    openAnimation:'slide',
+                    iconCls:'icon-save',
+                    footer:'#windowfooter',
+                    onOpen:function(){
+                       $(this).window('vcenter');
+                    },
+                    onRestore:function(){
+                      $departmentsdg.datagrid('resize');
+                      $employeesdg.datagrid('resize');
+                    },
+                    onMaximize:function(){
+                      $departmentsdg.datagrid('resize');
+                      $employeesdg.datagrid('resize');
+                    }
+                    " style="width:1440px;height:520px">
+    <!-- begin toolbar -->
+    <div class="window-body-toolbar">
+        <div class="row">
+            <div class="col-sm-8">
+                 <div class="btn-group btn-group-sm">
+                       <button onclick="saveitem()" class="btn btn-default"> 
+                          <i class="fa fa-floppy-o"></i> 保存 
+                       </button>
+                </div>
+                <div class="btn-group btn-group-sm">
+                       <button onclick="printitem()" class="btn btn-default">
+                         <i class="fa fa-print"></i> 打印 
+                       </button>
+                </div>
+            </div>
+            <div class="col-sm-4 text-align-right">
+                <div class="btn-group btn-group-sm">
+                <button type="button" class="btn   btn-success" onclick="closewindow()">
+                    <i class="fa fa-chevron-left"></i>
+                    关闭
+                </button>
+              </div>
+            </div>
+        </div>
+    </div>
+    <!-- end toolbar -->
+    <!-- begin window body -->
+    <div class="padding-10">
+    <!-- begin form表单界面-->
+        <div class="row">
+            <div class="col-md-12">
+           <form id="company_createform" class="easyui-form form-horizontal" method="post" data-options="novalidate:true">
+  @Html.AntiForgeryToken()
+  <input type="hidden" id="@Html.IdFor(model => model.Id)" 
+                       name="@Html.NameFor(model => model.Id)" 
+                       value="@Html.ValueFor(model => model.Id)" />
+  <table class="table table-bordered">
+   
+	    <tr>
+	   <td class="control-label"><span class="required">@Html.DisplayNameFor(model => model.Name)</span></td>
+	   <td> 
+			<input id="@Html.IdFor(model => model.Name)" 
+				   name="@Html.NameFor(model => model.Name)" 
+				   value="@Html.ValueFor(model => model.Name)"
+				   tabindex="0" required
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.Name)',
+								 label:'',
+                                 width:200,
+								 required:true ,validType:'length[0,50]'" />
+				   </td>
+	   	   <td class="control-label"><span class="required">@Html.DisplayNameFor(model => model.Code)</span></td>
+	   <td> 
+			<input id="@Html.IdFor(model => model.Code)" 
+				   name="@Html.NameFor(model => model.Code)" 
+				   value="@Html.ValueFor(model => model.Code)"
+				   tabindex="1" required
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.Code)',
+								 label:'',
+                                 width:200,
+								 required:true ,validType:'length[0,12]'" />
+				   </td>
+	   	   <td class="control-label">@Html.DisplayNameFor(model => model.Address)</td>
+	   <td> 
+			<input id="@Html.IdFor(model => model.Address)" 
+				   name="@Html.NameFor(model => model.Address)" 
+				   value="@Html.ValueFor(model => model.Address)"
+				   tabindex="2" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.Address)',
+								 label:'',
+                                 width:200,
+								 required:false ,validType:'length[0,50]'" />
+				   </td>
+	   	   <td class="control-label">@Html.DisplayNameFor(model => model.Contect)</td>
+	   <td> 
+			<input id="@Html.IdFor(model => model.Contect)" 
+				   name="@Html.NameFor(model => model.Contect)" 
+				   value="@Html.ValueFor(model => model.Contect)"
+				   tabindex="3" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.Contect)',
+								 label:'',
+                                 width:200,
+								 required:false ,validType:'length[0,12]'" />
+				   </td>
+	   	   </tr>
+	   	    <tr>
+	   <td class="control-label">@Html.DisplayNameFor(model => model.PhoneNumber)</td>
+	   <td> 
+			<input id="@Html.IdFor(model => model.PhoneNumber)" 
+				   name="@Html.NameFor(model => model.PhoneNumber)" 
+				   value="@Html.ValueFor(model => model.PhoneNumber)"
+				   tabindex="4" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.PhoneNumber)',
+								 label:'',
+                                 width:200,
+								 required:false ,validType:'length[0,20]'" />
+				   </td>
+	   	   <td class="control-label"><span class="required">@Html.DisplayNameFor(model => model.RegisterDate)</span></td>
+	   <td> 
+                <input id="@Html.IdFor(model => model.RegisterDate)" 
+			       name="@Html.NameFor(model => model.RegisterDate)"
+                   value="@Html.ValueFor(model => model.RegisterDate)"
+           		   tabindex="5"  required
+				   class="easyui-datebox" 
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.RegisterDate)',
+								 label:'',
+                                 width:200,
+								 required:true,
+								 formatter:dateformatter" />
+				   </td>
+	   	    		<td></td> <td></td>
+			<td></td> <td></td>
+		     </tr>
+	       </table>
+     </form>
+     </div>
+    </div>
+<!--end form表单界面-->
+<!--========================================================================================-->
+     <!-- begin details row -->
+    <div class="row">
+        <div class="col-md-12">
+    <!-- details tabs -->
+    <div class="tabs-container">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs bordered">
+								<li class="active"><a data-toggle="tab" href="#tab-departments"> Departments</a></li>
+												<li class=""><a data-toggle="tab" href="#tab-employees"> Employees</a></li>	 		 
+				   
+		 </ul>
+		 <!-- Tab panes -->
+         <div class="tab-content">
+		  		  <div id="tab-departments" class="tab-pane active">
+                  <div class="panel-body-toolbar">
+                                    <div class="row">
+                                        <div class="col-sm-8  ">
+                                            <div class="btn-group btn-group-sm">
+                                                <button onclick="departments_append()" class="btn btn-default"> <i class="fa fa-plus"></i> 新增 </button>
+                                            </div>
+                                            <div class="btn-group btn-group-sm">
+                                                <button onclick="departments_removeit()" class="btn  btn-default"> <i class="fa fa-trash-o"></i> 删除 </button>
+                                            </div>
+                                            <div class="btn-group btn-group-sm">
+                                                <button onclick="departments_accept()" class="btn  btn-default"> <i class="fa fa-floppy-o"></i> 保存 </button>
+                                            </div>
+                                            <div class="btn-group btn-group-sm">
+                                                <button onclick="departments_reload()" class="btn btn-default"> <i class="fa fa-refresh"></i> 刷新 </button>
+                                            </div>
+                                            <div class="btn-group btn-group-sm">
+                                                <button onclick="departments_reject()" class="btn  btn-default"> <i class="fa fa-window-close-o"></i> 取消 </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                <div class="table-responsive">
+				<table id="departments_datagrid" >
+                </table>
+			
+            </div>
+            </div>
+		  		  <div id="tab-employees" class="tab-pane ">
+                  <div class="panel-body-toolbar">
+                                    <div class="row">
+                                        <div class="col-sm-8  ">
+                                            <div class="btn-group btn-group-sm">
+                                                <button onclick="employees_append()" class="btn btn-default"> <i class="fa fa-plus"></i> 新增 </button>
+                                            </div>
+                                            <div class="btn-group btn-group-sm">
+                                                <button onclick="employees_removeit()" class="btn  btn-default"> <i class="fa fa-trash-o"></i> 删除 </button>
+                                            </div>
+                                            <div class="btn-group btn-group-sm">
+                                                <button onclick="employees_accept()" class="btn  btn-default"> <i class="fa fa-floppy-o"></i> 保存 </button>
+                                            </div>
+                                            <div class="btn-group btn-group-sm">
+                                                <button onclick="employees_reload()" class="btn btn-default"> <i class="fa fa-refresh"></i> 刷新 </button>
+                                            </div>
+                                            <div class="btn-group btn-group-sm">
+                                                <button onclick="employees_reject()" class="btn  btn-default"> <i class="fa fa-window-close-o"></i> 取消 </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                <div class="table-responsive">
+				<table id="employees_datagrid" >
+                </table>
+			
+            </div>
+            </div>
+		  	</div>
+	</div>
+	</div>
+	</div> 
+<!--end details tabs -->
+    </div>
+    <!--end window body -->
+</div>
+<div id="windowfooter" style="padding:5px;">&nbsp;</div>
+<!-- 弹出窗体form表单 -->
+@Html.Partial("_departmentdatagridjsview", new WebApp.Models.Department())
+@Html.Partial("_employeedatagridjsview", new WebApp.Models.Employee())
+<script type="text/javascript">
+    //load data by foreign key
+    var companyid = 0;
+    function loadCreateData(data) {
+         $("#createwindow").window("open");
+         companyid = 0;
+         $('#company_form').form('load', data);
+                   var url='/Departments/GetDataByCompanyIdAsync?companyid=' +  companyid;
+          $departmentsdg.datagrid('load',url);
+          $departmentsdg.datagrid('resize');
+                   var url='/Employees/GetDataByCompanyIdAsync?companyid=' +  companyid;
+          $employeesdg.datagrid('load',url);
+          $employeesdg.datagrid('resize');
+             }
+    var $createform = $('#company_createform');
+    // save item
+    function createitem() { 
+        if ($createform.form('enableValidation').form('validate')) {
+            var company = $createform.serializeJSON();
+            				  //获取明细表数据
+		    
+						if (!departments_endEditing())
+								return false;                    
+                        var departments = $departmentsdg.datagrid("getChanges");
+						company.Departments = departments ;
+		    
+						if (!employees_endEditing())
+								return false;                    
+                        var employees = $employeesdg.datagrid("getChanges");
+						company.Employees = employees ;
+		   		               var token = $('input[name="__RequestVerificationToken"]', $createform).val();
+            $.ajax({
+                    type: "POST",
+                    url: "/Companies/CreateAsync",
+                    data: {
+                        __RequestVerificationToken: token,
+                        company:company
+                    },
+                    dataType: 'json',
+                    contentType: 'application/x-www-form-urlencoded; charset=utf-8'
+                })
+                .done(response => {
+                    if (response.success) {
+                        $dg.datagrid('reload');
+                        $.messager.alert("提示", "保存成功！","info");
+                        $('#createwindow').window("close");
+                    } else {
+                        $.messager.alert("错误",   response.err, "error");
+                    }
+                    })
+                .fail((jqXHR, textStatus, errorThrown) => {
+                        $.messager.alert("异常",   errorThrown,"error");
+                    });
+        }
+    }
+    // close window
+    function closewindow() {
+        $('#createwindow').window('close');
+    }
+    // print form
+    function printitem() {
+         console.log('print.....');
+    }
+
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        var target = $(e.target).attr("href");
+                if(target === "#tab-departments")
+             $departmentsdg.datagrid("resize");
+              if(target === "#tab-employees")
+             $employeesdg.datagrid("resize");
+            });
+ 
+</script>
+
+

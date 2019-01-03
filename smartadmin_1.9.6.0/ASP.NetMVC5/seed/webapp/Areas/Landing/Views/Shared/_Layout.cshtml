@@ -1,0 +1,342 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SmartAdmin Landing</title>
+
+    <!-- #Bootstrap Core CSS -->
+    <link type="text/css" href="~/areas/landing/content/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- #SLIDER REVOLUTION 4.x CSS SETTINGS -->
+    <link rel="stylesheet" type="text/css" href="~/areas/landing/content/css/extralayers.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="~/areas/landing/content/css/settings.css" media="screen">
+
+    <!-- #RELATED CSS -->
+    <link type="text/css" href="~/areas/landing/content/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link type="text/css" href="~/areas/landing/content/css/nivo-lightbox.css" rel="stylesheet">
+    <link type="text/css" href="~/areas/landing/content/css/nivo-lightbox-theme/default/default.css" rel="stylesheet">
+    <link type="text/css" href="~/areas/landing/content/css/animate.css" rel="stylesheet">
+
+    <!-- #SMARTADMIN LANDING CSS -->
+    <link type="text/css" href="~/areas/landing/content/css/main.css" rel="stylesheet">
+    <link type="text/css" href="~/areas/landing/content/color/default.css" rel="stylesheet">
+
+    <!-- #FAVICONS -->
+    <link rel="shortcut icon" href="~/areas/landing/content/img/favicon/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="~/areas/landing/content/img/favicon/favicon.ico" type="image/x-icon">
+
+    <!-- #GOOGLE FONT -->
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700">
+
+</head>
+
+<!--
+
+TABLE OF CONTENTS.
+
+Use search to find needed section.
+
+===================================================================
+
+|  01. #MENU                                                      |
+|  02. #INTRO                                                     |
+|  03. #PRICING                                                   |
+|  04. #TEAM                                                      |
+|  05. #FEATURES                                                  |
+|  06. #SCREENSHOT                                                |
+|  07. #UPDATES                                                   |
+|  08. #QUOTES                                                    |
+|  09. #CONTACT                                                   |
+|  10. #BOTTOM CONTENT                                            |
+|  11. #FOOTER                                                    |
+|  12. #Core Javascript                                           |
+|  13. #REVOLUITION SLIDER                                        |
+|  14. #PAGE SCRIPT                                               |
+
+===================================================================
+
+-->
+
+<body data-spy="scroll">
+
+    <div class="container">
+
+        <!-- Section: #MENU -->
+        <ul id="gn-menu" class="gn-menu-main">
+            <li class="gn-trigger">
+                <a class="gn-icon gn-icon-menu"><span>Menu</span></a>
+                <nav class="gn-menu-wrapper">
+                    <div class="gn-scroller">
+                        <ul class="gn-menu">
+                            <li class="gn-search-item">
+                                <input placeholder="Search" type="search" class="gn-search">
+                                <a class="gn-icon gn-icon-search"><span>Search</span></a>
+                            </li>
+                            <li>
+                                <a href="#pricing" class="gn-icon gn-icon-download">Pricing</a>
+                            </li>
+                            <li>
+                                <a href="#team" class="gn-icon gn-icon-article">Team</a>
+                            </li>
+                            <li>
+                                <a href="#features" class="gn-icon gn-icon-help">Features</a>
+                            </li>
+                            <li>
+                                <a href="#screenshots" class="gn-icon gn-icon-pictures">Screenshots</a>
+                            </li>
+                            <li>
+                                <a href="#updates" class="gn-icon gn-icon-cog">Updates</a>
+                            </li>
+                            <li>
+                                <a href="#contact" class="gn-icon gn-icon-archive">Contact</a>
+                            </li>
+                        </ul>
+                    </div><!-- /gn-scroller -->
+                </nav>
+            </li>
+            <li class="hidden-xs">
+                <a href="/landing/landing"><img src="/areas/landing/content/img/logo.png" style="width: 135px; margin-top: -4px;" /></a>
+            </li>
+            <li>
+                <ul class="company-social">
+                    <li class="social-facebook">
+                        <a href="javascript:void(0);" target="_blank"><i class="fa fa-facebook"></i></a>
+                    </li>
+                    <li class="social-twitter">
+                        <a href="javascript:void(0);" target="_blank"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="social-dribble">
+                        <a href="javascript:void(0);" target="_blank"><i class="fa fa-dribbble"></i></a>
+                    </li>
+                    <li class="social-google">
+                        <a href="javascript:void(0);" target="_blank"><i class="fa fa-google-plus"></i></a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <!-- Section: #MENU -->
+
+    </div>
+
+    @RenderBody()
+
+    <!-- #FOOTER -->
+    <footer>
+
+        <div class="footer-content clearfix">
+            <div class="container custom-container">
+                <div class="row">
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <a href="#" class="footer-logo">About Us</a>
+                        <p>
+                            Fusce gravida tortor felis, ac dictum risus sagittis id.
+                        </p>
+                        <p>
+                            Donec volutpat, mi vel egestas eleifend, dolor arcu iaculis nunc. Fusce gravida tortor felis, ac dictum risus sagittis id. Morbi posuere justo eleifend libero ultricies ultrices.
+                        </p>
+                        <a href="#" class="learn-more">learn more</a>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <h3>Recent Tweets</h3>
+                        <div class="recent-post clearfix">
+                            <div class="footer-thumb-img">
+                                <span class="footer-overlay-img"></span>
+                            </div>
+                            <p>
+                                Fusce gravida tortor felis, ac dictum risus sagittis
+                                <span class="date">November 15, 2014</span>
+                            </p>
+
+                        </div>
+                        <div class="recent-post clearfix">
+                            <div class="footer-thumb-img">
+                                <span class="footer-overlay-img"></span>
+                            </div>
+                            <p>
+                                Fusce gravida tortor felis, ac dictum risus sagittis
+                                <span class="date">November 11, 2014</span>
+                            </p>
+
+                        </div>
+                        <div class="recent-post clearfix">
+                            <div class="footer-thumb-img">
+                                <span class="footer-overlay-img"></span>
+                            </div>
+                            <p>
+                                Fusce gravida tortor felis, ac dictum risus sagittis
+                                <span class="date">November 10, 2014</span>
+                            </p>
+
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <h3>Top Tags</h3>
+                        <div class="footer-tags">
+                            <ul>
+                                <li>
+                                    <a href="#">Web Design</a>
+                                </li>
+                                <li>
+                                    <a href="#">Services</a>
+                                </li>
+                                <li>
+                                    <a href="#">Landing</a>
+                                </li>
+                                <li>
+                                    <a href="#">SmartAdmin</a>
+                                </li>
+                                <li>
+                                    <a href="#">.Net</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <h3>Flicker photos (recent)</h3>
+                        <div class="flicker-widget">
+                            <a href="#"></a>
+                            <a href="#"></a>
+                            <a href="#"></a>
+                            <a href="#"></a>
+                            <a href="#"></a>
+                            <a href="#"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+                        <p>
+                            Copyright © 2015 - Your Company Name
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- / #FOOTER -->
+    <!-- # Core JavaScript Files -->
+    <!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+    <script>
+        if (!window.jQuery) {
+            document.write('<script src="/landing/landing/content/js/libs/jquery-2.0.2.min.js"><\/script>');
+        }
+    </script>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <script>
+        if (!window.jQuery.ui) {
+            document.write('<script src="/landing/landing/content/js/libs/jquery-ui-1.10.3.min.js"><\/script>');
+        }
+    </script>
+
+
+    <!-- BOOTSTRAP JS -->
+    <script src="/areas/landing/content/js/bootstrap/bootstrap.min.js"></script>
+
+    <!--# JS PLUGINS -->
+    <script src="/areas/landing/content/js/plugins/classie.js"></script>
+    <script src="/areas/landing/content/js/plugins/gnmenu.js"></script>
+    <script src="/areas/landing/content/js/plugins/jquery.scrollUp.js"></script>
+    <script src="/areas/landing/content/js/plugins/nivo-lightbox.min.js"></script>
+    <script src="/areas/landing/content/js/plugins/smoothscroll.js"></script>
+    <script src="/areas/landing/content/js/plugins/jquery.themepunch.plugins.min.js"></script>
+    <script src="/areas/landing/content/js/plugins/jquery.themepunch.revolution.min.js"></script>
+
+    <!-- # Custom Theme JavaScript -->
+    <script src="/areas/landing/content/js/custom.js"></script>
+
+    <!-- #PAGE SCRIPT -->
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+
+            jQuery('.tp-banner').show().revolution({
+                dottedOverlay: "none",
+                delay: 8000,
+                startwidth: 1170,
+                startheight: 700,
+                hideThumbs: 200,
+
+                thumbWidth: 100,
+                thumbHeight: 50,
+                thumbAmount: 5,
+
+                navigationType: "bullet",
+                navigationArrows: "solo",
+                navigationStyle: "preview4",
+
+                touchenabled: "on",
+                onHoverStop: "off",
+
+                swipe_velocity: 0.7,
+                swipe_min_touches: 1,
+                swipe_max_touches: 1,
+                drag_block_vertical: false,
+
+                parallax: "mouse",
+                parallaxBgFreeze: "on",
+                parallaxLevels: [7, 4, 3, 2, 5, 4, 3, 2, 1, 0],
+
+                keyboardNavigation: "off",
+
+                navigationHAlign: "center",
+                navigationVAlign: "bottom",
+                navigationHOffset: 0,
+                navigationVOffset: 20,
+
+                soloArrowLeftHalign: "left",
+                soloArrowLeftValign: "center",
+                soloArrowLeftHOffset: 20,
+                soloArrowLeftVOffset: 0,
+
+                soloArrowRightHalign: "right",
+                soloArrowRightValign: "center",
+                soloArrowRightHOffset: 20,
+                soloArrowRightVOffset: 0,
+
+                shadow: 0,
+                fullWidth: "off",
+                fullScreen: "on",
+
+                spinner: "spinner4",
+
+                stopLoop: "off",
+                stopAfterLoops: -1,
+                stopAtSlide: -1,
+
+                shuffle: "off",
+
+                autoHeight: "off",
+                forceFullWidth: "off",
+
+                hideThumbsOnMobile: "off",
+                hideNavDelayOnMobile: 1500,
+                hideBulletsOnMobile: "off",
+                hideArrowsOnMobile: "off",
+                hideThumbsUnderResolution: 0,
+
+                hideSliderAtLimit: 0,
+                hideCaptionAtLimit: 0,
+                hideAllCaptionAtLilmit: 0,
+                startWithSlide: 0,
+                fullScreenOffsetContainer: ""
+            });
+
+        });
+        //ready
+
+        $.scrollUp();
+    </script>
+
+</body>
+
+</html>

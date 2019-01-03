@@ -1,0 +1,155 @@
+﻿﻿@model WebApp.Models.Notification
+ <!-- 输出form表单界面 -->
+<form id="notification_form" class="smart-form" method="post" novalidate >
+@Html.AntiForgeryToken()
+<fieldset>
+    <div class="row">
+        	    			<section class="col col-3">
+           <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Id)</span> </label>
+           <label class="label">
+            @Html.DisplayFor(model => model.Id)
+			</label>
+            </section>
+              				 
+	  
+	    
+	        			              <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Title)</span> </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Title)
+            </label>
+            </section>
+			  				 
+	  
+	    
+	        			              <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.Content) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Content)
+            </label>
+            </section>
+			  				 
+	  
+	    
+	        			              <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.Link) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Link)
+            </label>
+            </section>
+			  				 
+	  
+	    
+	        			  			<section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Read)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.Read)
+			    </label>
+            </section>
+              				 
+	  
+	    
+	        			              <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.From) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.From)
+            </label>
+            </section>
+			  				 
+	  
+	    
+	        			              <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.To) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.To)
+            </label>
+            </section>
+			  				 
+	  
+	    
+	        			  			<section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Group)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.Group)
+			    </label>
+            </section>
+              				 
+	  
+	    
+	        			              <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Created)</span> </label>
+            <label class="label">
+            
+			@Html.DisplayFor(model => model.Created)
+			    </label>
+            </section>
+			  				 
+	  
+	    
+	        			              <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.Creator) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Creator)
+            </label>
+            </section>
+			  				 
+	  
+	    
+	        			              <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.CreatedDate) </label>
+            <label class="label">
+            
+			@Html.DisplayFor(model => model.CreatedDate)
+			    </label>
+            </section>
+			  				 
+	  
+	    
+	        			              <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.CreatedBy) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.CreatedBy)
+            </label>
+            </section>
+			  				 
+	  
+	    
+	        			              <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.LastModifiedDate) </label>
+            <label class="label">
+            
+			@Html.DisplayFor(model => model.LastModifiedDate)
+			    </label>
+            </section>
+			  				 
+	  
+	    
+	        			              <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.LastModifiedBy) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.LastModifiedBy)
+            </label>
+            </section>
+			  				 
+	  
+	    
+	    </div>
+</fieldset>
+</form>
+<!--========================================================================================-->
+ 
+
+ <script type="text/javascript">
+    //初始化from赋值
+    function initFormData(id) {
+            //$('#notification_form').form('load', data);
+            
+    }
+
+
+   var notificationid=@Model.Id;
+    $(function(){
+        initFormData(notificationid);
+    });
+ </script>
+

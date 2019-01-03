@@ -1,0 +1,110 @@
+﻿﻿@model WebApp.Models.Work
+<!-- begin master section -->
+<div class="row">
+    <div class="col col-lg-12 col-md-12">
+<!--begin work form  -->
+<form id="work_form" class="smart-form" method="post" novalidate >
+@Html.AntiForgeryToken()
+  <input type="hidden" id="@Html.IdFor(model => model.Id)" 
+                       name="@Html.NameFor(model => model.Id)" 
+                       value="@Html.ValueFor(model => model.Id)" />
+ <fieldset>
+     <div class="row">
+			              <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Name)</span> </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Name)
+            </label>
+            </section>
+			  		 
+	    
+			              <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Status)</span> </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Status)
+            </label>
+            </section>
+			  		 
+	    
+			              <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.StartDate)</span> </label>
+            <label class="label">
+            
+			@Html.DisplayFor(model => model.StartDate)
+			    </label>
+            </section>
+			  		 
+	    
+			              <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.EndDate) </label>
+            <label class="label">
+            
+			@Html.DisplayFor(model => model.EndDate)
+			    </label>
+            </section>
+			  		 
+	   </div>
+	    
+     <div class="row">
+			              <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.ToDoDateTime) </label>
+            <label class="label">
+            
+			@Html.DisplayFor(model => model.ToDoDateTime)
+			    </label>
+            </section>
+			  		 
+	    
+			  			  <section class="col col-3">
+              <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Enableed)</span> </label>
+              <label class="label">
+                @Html.DisplayFor(model => model.Enableed)
+            </label>
+            </section>
+              		 
+	    
+			  			  <section class="col col-3">
+              <label class="label">@Html.DisplayNameFor(model => model.Completed) </label>
+              <label class="label">
+                @Html.DisplayFor(model => model.Completed)
+            </label>
+            </section>
+              		 
+	    
+			  			<section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Hour)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.Hour)
+			    </label>
+            </section>
+              		 
+	   </div>
+	    
+     <div class="row">
+			  			<section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Priority)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.Priority)
+			    </label>
+            </section>
+              		 
+	    
+			  			<section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Score)</span> </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.Score)
+			    </label>
+            </section>
+              		 
+	    
+   </div>
+	    
+</fieldset>
+</form>
+<!-- end work form  -->
+</div>
+</div>
+<!-- end master section -->
+<!--========================================================================================-->
+
+

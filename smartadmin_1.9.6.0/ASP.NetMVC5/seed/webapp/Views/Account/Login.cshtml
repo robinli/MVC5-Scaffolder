@@ -1,0 +1,100 @@
+﻿@model AccountLoginModel
+@{
+    ViewBag.PageId = "extr-page";
+    ViewBag.PageClass = "animated fadeInDown";
+}
+
+@section topright{
+    <span id="extr-page-header-space"> <span class="hidden-mobile">Need an account?</span> <a href="@Url.Action("register", "account")" class="btn btn-danger">Create account</a> </span>
+}
+
+<div id="content" class="container">
+    <div class="row">
+        @{ Html.RenderPartial("_LoginText"); }
+        <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
+            <div class="well no-padding">
+                <form action="@Url.Action("login", "account")" method="POST" id="login-form" class="smart-form client-form">
+                    <header>
+                        Sign In
+                    </header>
+                    @Html.HiddenFor(m => m.ReturnUrl)
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationBootstrap()
+                    <fieldset>
+                        <section>
+                            <label class="label">E-mail</label>
+                            <label class="input">
+                                <i class="icon-append fa fa-user"></i>
+                                <input type="email" name="email" value="demo@email.com">
+                                <b class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i> Please enter email address/username</b>
+                            </label>
+                        </section>
+
+                        <section>
+                            <label class="label">Password</label>
+                            <label class="input">
+                                <i class="icon-append fa fa-lock"></i>
+                                <input type="password" name="password" value="demo">
+                                <b class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i> Enter your password</b>
+                            </label>
+                            <div class="note">
+                                <a href="@Url.Action("forgotpassword", "account")"><i class="fa fa-frown-o"></i> Forgot password?</a>
+                            </div>
+                        </section>
+
+                        <section>
+                            <label class="checkbox">
+                                <input type="checkbox" name="rememberMe" value="true" checked="checked">
+                                <input type="hidden" name="rememberMe" value="false" />
+                                <i></i>Stay signed in
+                            </label>
+                        </section>
+                    </fieldset>
+                    <footer>
+                        <button type="submit" class="btn btn-primary">
+                            Sign in
+                        </button>
+                    </footer>
+                </form>
+            </div>
+            @{ Html.RenderPartial("_SocialMedia"); }
+        </div>
+    </div>
+</div>
+@section pagespecific {
+    <script type="text/javascript">
+        $(function () {
+            // Validation
+            $("#login-form").validate({
+                // Rules for form validation
+                rules: {
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    password: {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 20
+                    }
+                },
+
+                // Messages for form validation
+                messages: {
+                    email: {
+                        required: 'Please enter your email address',
+                        email: 'Please enter a VALID email address'
+                    },
+                    password: {
+                        required: 'Please enter your password'
+                    }
+                },
+
+                // Do not change code below
+                errorPlacement: function (error, element) {
+                    error.insertAfter(element.parent());
+                }
+            });
+        });
+    </script>
+}

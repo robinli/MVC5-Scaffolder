@@ -1,0 +1,191 @@
+﻿﻿@model WebApp.Models.Company
+<!-- begin master section -->
+<div class="row">
+    <div class="col col-lg-12 col-md-12">
+<!--begin company form  -->
+<form id="company_form" class="smart-form" method="post" novalidate >
+@Html.AntiForgeryToken()
+  <input type="hidden" id="@Html.IdFor(model => model.Id)" 
+                       name="@Html.NameFor(model => model.Id)" 
+                       value="@Html.ValueFor(model => model.Id)" />
+ <fieldset>
+     <div class="row">
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Name)</span> </label>
+            <label class="input">
+			<input id="@Html.IdFor(model => model.Name)" 
+				   name="@Html.NameFor(model => model.Name)" 
+                   placeholder="@Html.DisplayNameFor(model => model.Name)" 
+				   value="@Html.ValueFor(model => model.Name)"
+				   tabindex="0" required
+				   type="text" 
+				   />
+             <b class="tooltip tooltip-bottom-right">@Html.DisplayNameFor(model => model.Name)</b>
+			    </label>
+            </section>
+				 
+	    
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Code)</span> </label>
+            <label class="input">
+			<input id="@Html.IdFor(model => model.Code)" 
+				   name="@Html.NameFor(model => model.Code)" 
+                   placeholder="@Html.DisplayNameFor(model => model.Code)" 
+				   value="@Html.ValueFor(model => model.Code)"
+				   tabindex="1" required
+				   type="text" 
+				   />
+             <b class="tooltip tooltip-bottom-right">@Html.DisplayNameFor(model => model.Code)</b>
+			    </label>
+            </section>
+				 
+	    
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.Address) </label>
+            <label class="input">
+			<input id="@Html.IdFor(model => model.Address)" 
+				   name="@Html.NameFor(model => model.Address)" 
+                   placeholder="@Html.DisplayNameFor(model => model.Address)" 
+				   value="@Html.ValueFor(model => model.Address)"
+				   tabindex="2" 
+				   type="text" 
+				   />
+             <b class="tooltip tooltip-bottom-right">@Html.DisplayNameFor(model => model.Address)</b>
+			    </label>
+            </section>
+				 
+	    
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.Contect) </label>
+            <label class="input">
+			<input id="@Html.IdFor(model => model.Contect)" 
+				   name="@Html.NameFor(model => model.Contect)" 
+                   placeholder="@Html.DisplayNameFor(model => model.Contect)" 
+				   value="@Html.ValueFor(model => model.Contect)"
+				   tabindex="3" 
+				   type="text" 
+				   />
+             <b class="tooltip tooltip-bottom-right">@Html.DisplayNameFor(model => model.Contect)</b>
+			    </label>
+            </section>
+				 
+	   </div>
+	    
+     <div class="row">
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.PhoneNumber) </label>
+            <label class="input">
+			<input id="@Html.IdFor(model => model.PhoneNumber)" 
+				   name="@Html.NameFor(model => model.PhoneNumber)" 
+                   placeholder="@Html.DisplayNameFor(model => model.PhoneNumber)" 
+				   value="@Html.ValueFor(model => model.PhoneNumber)"
+				   tabindex="4" 
+				   type="text" 
+				   />
+             <b class="tooltip tooltip-bottom-right">@Html.DisplayNameFor(model => model.PhoneNumber)</b>
+			    </label>
+            </section>
+				 
+	    
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.RegisterDate)</span> </label>
+            <label class="input">
+            <i class="icon-append fa fa-calendar"></i>
+			<input id="@Html.IdFor(model => model.RegisterDate)" 
+			       name="@Html.NameFor(model => model.RegisterDate)" 
+                   placeholder="@Html.DisplayNameFor(model => model.RegisterDate)" 
+				   tabindex="5" required
+				   class="datepicker" data-dateformat="mm/dd/yy"
+				   type="text" 
+				   value="@Html.ValueFor(model => model.RegisterDate)"
+				    />
+             <b class="tooltip tooltip-bottom-right">@Html.DisplayNameFor(model => model.RegisterDate)</b>
+			    </label>
+            </section>
+				 
+	    
+   </div>
+</fieldset>
+</form>
+<!-- end company form  -->
+</div>
+</div>
+<!-- end master section -->
+<!--========================================================================================-->
+<!-- begin detail section -->
+<div class="row">
+        <div class="col col-md-12 col-lg-12">
+        <!-- details tabs -->
+        <div class="tabs-container">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs bordered">
+								<li class="active"><a data-toggle="tab" href="#tab-departments"> Departments</a></li>
+												<li class=""><a data-toggle="tab" href="#tab-employees"> Employees</a></li>	 		 
+				   
+		 </ul>
+		 <!-- Tab panes -->
+         <div class="tab-content">
+		 		  <div id="tab-departments" class="tab-pane active">
+                   <div class="panel-body-toolbar">
+                                    <div class="row">
+                                        <div class="col-sm-8  ">
+                                            <div class="btn-group">
+                                                <a href="javascript:departments_append()" class="btn btn-sm btn-default"> <i class="fa fa-plus"></i> 新增 </a>
+                                            </div>
+                                            <div class="btn-group">
+                                                <a href="javascript:departments_removeit()" class="btn btn-sm btn-default"> <i class="fa fa-trash-o"></i> 删除 </a>
+                                            </div>
+                                            <div class="btn-group">
+                                                <a href="javascript:departments_accept()" class="btn btn-sm btn-default"> <i class="fa fa-floppy-o"></i> 保存 </a>
+                                            </div>
+                                            <div class="btn-group">
+                                                <a href="javascript:departments_reload()" class="btn btn-sm btn-default"> <i class="fa fa-refresh"></i> 刷新 </a>
+                                            </div>
+                                            <div class="btn-group">
+                                                <a href="javascript:departments_reject()" class="btn btn-sm btn-default"> <i class="fa fa-window-close-o"></i> 取消 </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                   </div>
+                <div class="table-responsive">
+				<table id="departments_datagrid" >
+                </table>
+              
+            </div>
+        </div>
+		  		  <div id="tab-employees" class="tab-pane ">
+                   <div class="panel-body-toolbar">
+                                    <div class="row">
+                                        <div class="col-sm-8  ">
+                                            <div class="btn-group">
+                                                <a href="javascript:employees_append()" class="btn btn-sm btn-default"> <i class="fa fa-plus"></i> 新增 </a>
+                                            </div>
+                                            <div class="btn-group">
+                                                <a href="javascript:employees_removeit()" class="btn btn-sm btn-default"> <i class="fa fa-trash-o"></i> 删除 </a>
+                                            </div>
+                                            <div class="btn-group">
+                                                <a href="javascript:employees_accept()" class="btn btn-sm btn-default"> <i class="fa fa-floppy-o"></i> 保存 </a>
+                                            </div>
+                                            <div class="btn-group">
+                                                <a href="javascript:employees_reload()" class="btn btn-sm btn-default"> <i class="fa fa-refresh"></i> 刷新 </a>
+                                            </div>
+                                            <div class="btn-group">
+                                                <a href="javascript:employees_reject()" class="btn btn-sm btn-default"> <i class="fa fa-window-close-o"></i> 取消 </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                   </div>
+                <div class="table-responsive">
+				<table id="employees_datagrid" >
+                </table>
+              
+            </div>
+        </div>
+		  	</div>
+	</div>
+ 
+<!--end details tabs -->
+        </div>
+    </div>
+<!-- end detail section -->
+

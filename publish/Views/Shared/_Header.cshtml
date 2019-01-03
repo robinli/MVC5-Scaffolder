@@ -1,0 +1,22 @@
+﻿    <!-- HEADER -->
+<header id="header">
+    <div id="logo-group">
+
+        <!-- PLACE YOUR LOGO HERE -->
+        <span id="logo"> <img src="~/Content/img/logo.png" alt="SmartAdmin"> </span>
+         
+    </div>
+    <section id="top-right">
+        @if (@Model is HelperResult)
+        {
+            @Model
+        }
+        else
+        {
+            <div class="pull-right">
+                @Html.Partial("_TopRight")
+            </div>
+        }
+    </section>
+</header>
+<!-- END HEADER -->
