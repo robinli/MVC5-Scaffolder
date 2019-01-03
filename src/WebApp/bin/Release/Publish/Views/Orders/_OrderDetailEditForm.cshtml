@@ -1,0 +1,176 @@
+﻿@model WebApp.Models.OrderDetail
+<div id="orderdetaildlg" hidden="hidden" class="easyui-dialog"
+     title="OrderDetail" style="padding:15px"
+     data-options="
+                iconCls: 'icon-more',
+                modal:true,
+                closed:true,
+                cache: false,
+                resizable:true,
+                width:700,
+                height:400,
+                /*toolbar: [], 注解*/
+                onOpen:function(){
+                   $('#orderdetail_form').form('disableValidation');
+                },
+                buttons: [{
+                    text:'确认',
+                    iconCls:'icon-ok',
+                    handler:function(){
+                        confirm_orderdetailform();
+                    }
+                },{
+                    text:'取消',
+                    handler:function(){
+                        $('#orderdetaildlg').dialog('close');
+                    }
+                }]
+            ">
+    <form id="orderdetail_form" class="bv-form" novalidate="novalidate">
+        <fieldset>
+          <div class="form-group">
+            <div class="row">
+	@Html.HiddenFor(model => model.Id)		
+             
+       <div class="col-sm-12 col-md-4">
+            <input type="hidden" id="ProductName" name="ProductName" value="">
+			<input id="@Html.IdFor(model => model.ProductId)"
+			       name="@Html.NameFor(model => model.ProductId)"
+				   value="@Html.ValueFor(model => model.ProductId)"
+                   required
+                   tabindex="1"
+				   class="easyui-combobox" data-options="
+						prompt:'@Html.DisplayNameFor(model => model.ProductId)' ,
+						label:'<span class=\'required\'>@Html.DisplayNameFor(model => model.ProductId)</span>' ,
+                        width:200,
+						valueField: 'Id',
+						textField: 'Name' ,
+						url: '/Orders/GetProductsAsync' ,
+						onSelect: function(item){
+                            $('#ProductName').val(item.Name);
+				           },
+                        ">
+    </div>
+             
+      <div class="col-sm-12 col-md-4">
+						<input id="@Html.IdFor(model => model.Qty)"
+							name="@Html.NameFor(model => model.Qty)" 
+							value="@Html.ValueFor(model => model.Qty)"
+							tabindex="2" 
+							class="easyui-numberbox" 
+							type="text" 
+                            required
+							data-options="prompt:'@Html.DisplayNameFor(model => model.Qty)',
+								 width:200,
+								 label:'<span class=\'required\'>@Html.DisplayNameFor(model => model.Qty)</span>' ,
+								 required:true,
+                                 validType:'integer' 
+                                 " />
+    </div>
+             
+      <div class="col-sm-12 col-md-4">
+                        <input id="@Html.IdFor(model => model.Price)"
+							name="@Html.NameFor(model => model.Price)" 
+							value="@Html.ValueFor(model => model.Price)"
+							tabindex="3" 
+							class="easyui-numberbox" 
+							type="text" 
+                            required
+							data-options="prompt:'@Html.DisplayNameFor(model => model.Price)',
+								 width:200,
+								 label:'<span class=\'required\'>@Html.DisplayNameFor(model => model.Price)</span>' ,
+                                 precision:2,
+								 required:true,
+                                 validType:'decimal' 
+                                 " />
+    </div>
+             
+      <div class="col-sm-12 col-md-4">
+                        <input id="@Html.IdFor(model => model.Amount)"
+							name="@Html.NameFor(model => model.Amount)" 
+							value="@Html.ValueFor(model => model.Amount)"
+							tabindex="4" 
+							class="easyui-numberbox" 
+							type="text" 
+                            required
+							data-options="prompt:'@Html.DisplayNameFor(model => model.Amount)',
+								 width:200,
+								 label:'<span class=\'required\'>@Html.DisplayNameFor(model => model.Amount)</span>' ,
+                                 precision:2,
+								 required:true,
+                                 validType:'decimal' 
+                                 " />
+    </div>
+             
+      <div class="col-sm-12 col-md-4">
+						<input id="@Html.IdFor(model => model.Remark)" 
+							name="@Html.NameFor(model => model.Remark)" 
+							value="@Html.ValueFor(model => model.Remark)"
+							tabindex="5" 
+			     			class="easyui-textbox" 
+							type="text" 
+                            
+							data-options="prompt:'@Html.DisplayNameFor(model => model.Remark)',
+                                 width:200,
+								 label:'@Html.DisplayNameFor(model => model.Remark)' ,
+								 required:false ,validType:'length[0,30]'" />
+    </div>
+             
+       <div class="col-sm-12 col-md-4">
+            <input type="hidden" id="OrderOrderNo" name="OrderOrderNo" value="">
+			<input id="@Html.IdFor(model => model.OrderId)"
+			       name="@Html.NameFor(model => model.OrderId)"
+				   value="@Html.ValueFor(model => model.OrderId)"
+                   required
+                   tabindex="6"
+				   class="easyui-combobox" data-options="
+						prompt:'@Html.DisplayNameFor(model => model.OrderId)' ,
+						label:'<span class=\'required\'>@Html.DisplayNameFor(model => model.OrderId)</span>' ,
+                        width:200,
+						valueField: 'Id',
+						textField: 'OrderNo' ,
+						url: '/Orders/GetOrdersAsync' ,
+						onSelect: function(item){
+                            $('#OrderOrderNo').val(item.OrderNo);
+				           },
+                        ">
+    </div>
+             
+  
+           </div>
+          </div>
+        </fieldset>
+    </form>
+</div>
+<script type="text/javascript">
+     var form_state = 'Added';
+     var current_index = -1;
+     var orderdetail = {};
+ 
+     function open_orderdetaildlg(index, row, state) {
+         form_state = state;
+         current_index = index;
+         orderdetail = row;
+         $('#orderdetaildlg').dialog('open');
+         if (form_state === 'Added') {
+             $('#orderdetaildlg').dialog('setTitle', '新增明细');
+         } else {
+             $('#orderdetaildlg').dialog('setTitle', '修改明细');
+         }
+         $('#orderdetail_form').form('load', orderdetail);
+     }
+     function confirm_orderdetailform() {
+         $orderdetailform = $('#orderdetail_form');
+         if ($orderdetailform.form('enableValidation').form('validate')) {
+             orderdetail = $orderdetailform.serializeJSON();
+             if (form_state === 'Added') {
+                 $(document).trigger('orderdetail_form.add', [current_index, orderdetail])
+             } else {
+                 $(document).trigger('orderdetail_form.edit', [current_index, orderdetail])
+             }
+             $('#orderdetaildlg').dialog('close');
+         }
+     }
+ </script>
+
+ 

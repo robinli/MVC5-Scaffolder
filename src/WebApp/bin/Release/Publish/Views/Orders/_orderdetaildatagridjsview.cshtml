@@ -1,0 +1,418 @@
+﻿@model WebApp.Models.OrderDetail
+
+<script type="text/javascript">
+    //是否开启行内编辑
+    const SUBEDITINLINE = false;
+   //初始化 OrderDetail datagrid
+   var $orderdetailsdg = $('#orderdetails_datagrid');
+   //当前行记录
+   var orderdetail = {};
+   //datagrid CRUD method
+    var orderdetails_editIndex = undefined;
+    //取消
+    function orderdetails_reject() {
+		$orderdetailsdg.datagrid('rejectChanges');
+		orderdetails_editIndex = undefined;
+    }
+    //重新加载数据
+    function orderdetails_reload() {
+			if (orderdetails_endEditing()) {
+				$orderdetailsdg.datagrid('reload');
+			}
+	}
+    //关闭编辑状态
+	function orderdetails_endEditing() {
+			if (orderdetails_editIndex === undefined) {
+                return true; 
+            }
+			if ($orderdetailsdg.datagrid('validateRow', orderdetails_editIndex)) {
+				$orderdetailsdg.datagrid('endEdit', orderdetails_editIndex);
+				orderdetails_editIndex = undefined;
+                return true;
+			} else {
+				const invalidinput = $('input.validatebox-invalid');
+                const fieldnames = invalidinput.map((index, item) => {
+                  return $(item).attr('placeholder') || $(item).attr('id');
+                });
+                $.messager.alert('提示', `${Array.from(fieldnames)} 输入有误.`, 'error');
+				return false;
+			}
+		}
+    //单击列开启编辑功能
+	function orderdetails_onClickCell(index, field) {
+			var _operates = ['_operate1', 'ck'];
+			if (!SUBEDITINLINE || $.inArray(field, _operates) >= 0) {
+				return false;
+			}
+			if (orderdetails_editIndex !== index) {
+				if (orderdetails_endEditing()) {
+					$orderdetailsdg.datagrid('selectRow', index)
+							.datagrid('beginEdit', index);
+                    orderdetails_editIndex = index;
+					var ed = $orderdetailsdg.datagrid('getEditor', { index: index, field: field });
+					if (ed) {
+						($(ed.target).data('textbox') ? $(ed.target).textbox('textbox') : $(ed.target)).focus();
+					}
+				} else {
+					$orderdetailsdg.datagrid('selectRow', orderdetails_editIndex);
+				}
+			}
+		}
+    //双击弹出编辑当前行对话框
+    function orderdetails_onDblClickRow(index, row) {
+        if (!SUBEDITINLINE) {
+            open_orderdetaildlg(index, row, 'Modified');
+        }
+    }
+    //订阅对话框新增返回事件
+    $(document).on('orderdetail_form.add', (e, index,item) => {
+        $orderdetailsdg.datagrid("insertRow",
+            {
+                index: 0,
+                row: item
+            });
+    });
+    //订阅对话框修改返回事件
+    $(document).on('orderdetail_form.edit', (e,index, item) => {
+        $orderdetailsdg.datagrid('updateRow', {
+            index: index,
+            row: item
+        });
+    });
+    //新增记录
+    function orderdetails_append() {
+      if (!SUBEDITINLINE) {
+        var item = {
+          Qty: 1, 
+
+          OrderId:orderid
+        };
+        open_orderdetaildlg(0, item, 'Added');
+      } else {
+			if (orderdetails_endEditing()) {
+				//对必填字段进行默认值初始化
+				$orderdetailsdg.datagrid('insertRow', 
+                               { index: 0,
+                                  row: {
+                                  Qty: 1, 
+
+                                  OrderId:orderid
+                                  }
+                                });
+				orderdetails_editIndex = 0;
+				$orderdetailsdg.datagrid('selectRow', orderdetails_editIndex)
+						.datagrid('beginEdit', orderdetails_editIndex);
+			}
+        }
+	 }
+    //删除编辑的行
+	function orderdetails_removeit() {
+		if (orderdetails_editIndex !== undefined) {  
+			$orderdetailsdg.datagrid('cancelEdit', orderdetails_editIndex)
+					           .datagrid('deleteRow', orderdetails_editIndex);
+			orderdetails_editIndex = undefined;
+        } else {
+           var row = $orderdetailsdg.datagrid('getSelected');
+           if(row){
+             var rowindex = $orderdetailsdg.datagrid('getRowIndex', row);
+             $orderdetailsdg.datagrid('deleteRow', rowindex);
+           }else{
+             $.messager.alert('提示', '没有选中删除的记录.', 'info');
+           }
+        }
+	}
+    //删除选中的行
+    function orderdetails_deletechecked() {
+            var rows = $orderdetailsdg.datagrid('getChecked');
+            if (rows.length > 0) {
+                var id = rows.map(item => {
+                    return item.Id;
+                });
+                $.messager.confirm('确认', `你确定要删除这 <span class='badge bg-color-red'>${id.length}</span> 行记录?`,result => {
+                    if (result) {
+                        $.post('/OrderDetails/DeleteCheckedAsync', { id: id })
+                         .done(response => {
+                            if (response.success) {
+                                $orderdetailsdg.datagrid('reload');
+                            } else {
+                                $.messager.alert('错误', response.err,'error');
+                            }
+                         });
+                    }
+                });  
+            } else {
+                $.messager.alert('提示', '请先选择要删除的记录!','question');
+            }
+      }
+    //提交保存后台数据库
+	function orderdetails_accept() {
+      return new Promise((resolve, reject) => {
+			if (orderdetails_endEditing()) {
+				if (MODELSTATE === 'Modified' && $orderdetailsdg.datagrid('getChanges').length) {
+					var inserted = $orderdetailsdg.datagrid('getChanges', 'inserted');
+					var deleted = $orderdetailsdg.datagrid('getChanges', 'deleted');
+					var updated = $orderdetailsdg.datagrid('getChanges', 'updated');
+					//过滤已删除的重复项
+                    updated = updated.filter(item => {
+                       return !deleted.includes(item);
+                    });
+                    var item = {};
+					if (inserted.length) {
+						item.inserted = inserted;
+					}
+					if (deleted.length) {
+						item.deleted = deleted;
+					}
+					if (updated.length) {
+						item.updated = updated;
+					}
+					//console.log(JSON.stringify(item));
+					$.post('/OrderDetails/SaveDataAsync', item)
+                     .done(response => {
+                        resolve(response);
+						//console.log(response);
+						if (response.success) {
+							toastr.success('保存成功', '确认', { timeOut:2000 }); 
+							$orderdetailsdg.datagrid('acceptChanges');
+							$orderdetailsdg.datagrid('reload');
+						} else {
+                           $.messager.alert('错误', response.err ,'error');
+                        }
+					  })
+                      .fail((jqXHR, textStatus, errorThrown) => {
+						//console.log(errorThrown);
+                        resolve({ success: false, err: errorThrown });
+						$.messager.alert('异常', errorThrown,'error');
+					  });
+				} else {
+                  resolve({ success: true });
+                }
+			} else {
+               resolve({ success: false });
+            }
+		});
+      }
+
+
+$(() => {
+    $orderdetailsdg.datagrid({
+            rownumbers: true,
+            iconCls: 'fa fa-list',
+            idField: 'Id',
+            sortName: 'Id',
+            sortOrder: 'asc',
+            remoteFilter: true,
+            singleSelect: true,
+            checkOnSelect: false,
+		    selectOnCheck: false,
+            method: 'get',
+            onDblClickRow: orderdetails_onDblClickRow,
+            onClickCell: orderdetails_onClickCell,
+            onSelect: function(index,row) {
+                 orderdetail = row;
+            },
+            onEndEdit: function (index, row) {
+				        var orderid = $(this).datagrid('getEditor', { index: index, field: 'OrderId' });
+				        var orderorderno = $(orderid.target).combobox('getText');
+						row['OrderOrderNo'] =  orderorderno;
+				        var productid = $(this).datagrid('getEditor', { index: index, field: 'ProductId' });
+				        var productname = $(productid.target).combobox('getText');
+						row['ProductName'] =  productname;
+                          
+             },
+             onBeforeEdit: function (index, row) {
+                            row.editing = true;
+                            $(this).datagrid('refreshRow', index);
+             },
+             onAfterEdit: function (index, row) {
+                            row.editing = false;
+                            $(this).datagrid('refreshRow', index);
+             },
+             onCancelEdit: function (index, row) {
+                             row.editing = false;
+                             $(this).datagrid('refreshRow', index);
+            },
+            pagination: true,
+            striped: true,
+            columns: [[
+		      {field:'Id',title:'<span class="required">@Html.DisplayNameFor(model => model.Id)</span>', width:100 ,sortable:true,resizable:true, hidden:true},
+			{
+                field:'ProductId',
+                title:'<span class="required">@Html.DisplayNameFor(model => model.ProductId)</span>',
+                width:160, 
+                sortable:true, 
+                resizable:true,
+                formatter:function(value,row) {
+				        return row.ProductName;
+					},
+			    editor:{
+					    type:'combobox',
+					    options:{
+								prompt:'@Html.DisplayNameFor(model => model.ProductId)' ,
+                                mode: 'remote',
+								valueField:'Id',
+								textField:'Name',
+								method:'get',
+								url:'/Orders/GetProductsAsync',
+								required:true
+							}
+						}
+			},
+           {
+                 field:'Qty', 
+                 title:'<span class="required">@Html.DisplayNameFor(model => model.Qty)</span>', 
+                 width:100, 
+                 align:'right',
+                 editor:{
+                        type:'numberbox',
+                        options:{ prompt:'@Html.DisplayNameFor(model => model.Qty)',
+                                  required:true,
+                                  validType:'integer'
+                                 } 
+                        },
+                sortable:true,
+                resizable:true,
+                formatter:intformatter
+			},
+			{
+                 field:'Price', 
+                 title:'<span class="required">@Html.DisplayNameFor(model => model.Price)</span>', 
+                 width:100, 
+                 align:'right',
+                 editor:{
+                        type:'numberbox',
+                        options:{ prompt:'@Html.DisplayNameFor(model => model.Price)',
+                                  required:true,
+                                  precision:2,
+                                  validType:'decimal'
+                                 } 
+                        },
+                sortable:true,
+                resizable:true,
+                formatter:numberformatter
+			},
+			{
+                 field:'Amount', 
+                 title:'<span class="required">@Html.DisplayNameFor(model => model.Amount)</span>', 
+                 width:100, 
+                 align:'right',
+                 editor:{
+                        type:'numberbox',
+                        options:{ prompt:'@Html.DisplayNameFor(model => model.Amount)',
+                                  required:true,
+                                  precision:2,
+                                  validType:'decimal'
+                                 } 
+                        },
+                sortable:true,
+                resizable:true,
+                formatter:numberformatter
+			},
+			{
+                 field:'Remark', 
+                 title:'@Html.DisplayNameFor(model => model.Remark)', 
+                 width:140,
+                 editor:{
+                          type:'textbox',
+                          options:{ prompt:'@Html.DisplayNameFor(model => model.Remark)',required:false ,validType:'length[0,30]'  }  
+                       },
+                 sortable:true,
+                 resizable:true 
+			},
+			{
+                field:'OrderId',
+                title:'<span class="required">@Html.DisplayNameFor(model => model.OrderId)</span>',
+                width:160, 
+                sortable:true, 
+                resizable:true,
+                formatter:function(value,row) {
+				        return row.OrderOrderNo;
+					},
+			    editor:{
+					    type:'combobox',
+					    options:{
+								prompt:'@Html.DisplayNameFor(model => model.OrderId)' ,
+                                mode: 'remote',
+								valueField:'Id',
+								textField:'OrderNo',
+								method:'get',
+								url:'/Orders/GetOrdersAsync',
+								required:true
+							}
+						}
+			},
+            ]]
+            });
+            //初始化 datagrid filter
+            $orderdetailsdg.datagrid('enableFilter',[
+				{
+					  field: 'Id',
+					  type: 'numberbox',
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+				{
+					  field: 'Qty',
+					  type: 'numberbox',
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+				{
+					  field: 'Price',
+					  type: 'numberbox',
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+				{
+					  field: 'Amount',
+					  type: 'numberbox',
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+		   {
+				 field: 'ProductId',
+				 type:'combobox',
+				 options:{
+								valueField:'Id',
+								textField:'Name',
+								method:'get',
+								url:'/Orders/GetProductsAsync',
+								onChange: function (value) {
+								if (value == '') {
+									$orderdetailsdg.datagrid('removeFilterRule', 'ProductId');
+								} else {
+									$orderdetailsdg.datagrid('addFilterRule', {
+										field: 'ProductId',
+										op: 'equal',
+										value: value
+								});
+							}
+							$orderdetailsdg.datagrid('doFilter');
+						}
+					}
+		   },
+		   {
+				 field: 'OrderId',
+				 type:'combobox',
+				 options:{
+								valueField:'Id',
+								textField:'OrderNo',
+								method:'get',
+								url:'/Orders/GetOrdersAsync',
+								onChange: function (value) {
+								if (value == '') {
+									$orderdetailsdg.datagrid('removeFilterRule', 'OrderId');
+								} else {
+									$orderdetailsdg.datagrid('addFilterRule', {
+										field: 'OrderId',
+										op: 'equal',
+										value: value
+								});
+							}
+							$orderdetailsdg.datagrid('doFilter');
+						}
+					}
+		   },
+		   ]);
+  });
+      
+</script>
+
+
+ 

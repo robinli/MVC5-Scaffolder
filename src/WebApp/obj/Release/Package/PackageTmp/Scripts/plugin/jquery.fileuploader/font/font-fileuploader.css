@@ -1,0 +1,15 @@
+﻿/**
+ * Fileuploader
+ * Copyright (c) 2018 Innostudio.de
+ * Website: https://innostudio.de/fileuploader/
+ * Version: 2.0 (16-May-2018)
+ * Requires: jQuery v1.7.1 or later
+ * License: https://innostudio.de/fileuploader/documentation/#license
+ */
+@font-face {
+    font-family: 'font-fileuploader';
+    src: url('https://innostudio.de/fileuploader/css/font/font-fileuploader.eot?l2vub3');
+    src: url('https://innostudio.de/fileuploader/css/font/font-fileuploader.eot?l2vub3#iefix') format('embedded-opentype'),url('https://innostudio.de/fileuploader/css/font/font-fileuploader.ttf?l2vub3') format('truetype'),url('https://innostudio.de/fileuploader/css/font/font-fileuploader.woff?l2vub3') format('woff'),url('https://innostudio.de/fileuploader/css/font/font-fileuploader.svg?l2vub3#font-fileuploader') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}

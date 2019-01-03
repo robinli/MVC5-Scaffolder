@@ -1,0 +1,124 @@
+﻿﻿@model WebApp.Models.Product
+<!-- begin master section -->
+<div class="row">
+    <div class="col col-lg-12 col-md-12">
+<!--begin product form  -->
+<form id="product_form" class="smart-form" method="post" novalidate >
+@Html.AntiForgeryToken()
+  <input type="hidden" id="@Html.IdFor(model => model.Id)" 
+                       name="@Html.NameFor(model => model.Id)" 
+                       value="@Html.ValueFor(model => model.Id)" />
+ <fieldset>
+     <div class="row">
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Name)</span> </label>
+            <label class="input">
+			<input id="@Html.IdFor(model => model.Name)" 
+				   name="@Html.NameFor(model => model.Name)" 
+                   placeholder="@Html.DisplayNameFor(model => model.Name)" 
+				   value="@Html.ValueFor(model => model.Name)"
+				   tabindex="0" required
+				   type="text" 
+				   />
+             <b class="tooltip tooltip-bottom-right">@Html.DisplayNameFor(model => model.Name)</b>
+			    </label>
+            </section>
+				 
+	    
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.Unit) </label>
+            <label class="input">
+			<input id="@Html.IdFor(model => model.Unit)" 
+				   name="@Html.NameFor(model => model.Unit)" 
+                   placeholder="@Html.DisplayNameFor(model => model.Unit)" 
+				   value="@Html.ValueFor(model => model.Unit)"
+				   tabindex="1" 
+				   type="text" 
+				   />
+             <b class="tooltip tooltip-bottom-right">@Html.DisplayNameFor(model => model.Unit)</b>
+			    </label>
+            </section>
+				 
+	    
+			<section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.UnitPrice)</span> </label>
+            <label class="input">
+            <input id="@Html.IdFor(model => model.UnitPrice)"
+				   name="@Html.NameFor(model => model.UnitPrice)" 
+                   placeholder="@Html.DisplayNameFor(model => model.UnitPrice)" 
+				   value="@Html.ValueFor(model => model.UnitPrice)"
+				   tabindex="2" required
+				   type="text" 
+				   />
+                 <b class="tooltip tooltip-bottom-right">@Html.DisplayNameFor(model => model.UnitPrice)</b>
+			    </label>
+            </section>
+				 
+	    
+			<section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.StockQty)</span> </label>
+            <label class="input">
+            <input id="@Html.IdFor(model => model.StockQty)"
+				   name="@Html.NameFor(model => model.StockQty)" 
+                   placeholder="@Html.DisplayNameFor(model => model.StockQty)" 
+				   value="@Html.ValueFor(model => model.StockQty)"
+				   tabindex="3" required
+				   type="text" 
+				   />
+                 <b class="tooltip tooltip-bottom-right">@Html.DisplayNameFor(model => model.StockQty)</b>
+			    </label>
+            </section>
+				 
+	   </div>
+	    
+     <div class="row">
+			  
+              <section class="col col-3">
+              <label class="label"><span class="required">@Html.DisplayNameFor(model => model.IsRequiredQc)</span> </label>
+              <label class="checkbox">
+                 <input id="@Html.IdFor(model => model.IsRequiredQc)"
+                       name="@Html.NameFor(model => model.IsRequiredQc)"
+                       value="true" @(Model.IsRequiredQc ? "checked=\"checked\"" : "")
+                       tabindex="6"
+                       type="checkbox" />
+                <i></i> @Html.DisplayNameFor(model => model.IsRequiredQc)
+                <b class="tooltip tooltip-bottom-right">@Html.DisplayNameFor(model => model.IsRequiredQc)</b>
+               </label>
+              </section>
+				 
+	    
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.ConfirmDateTime)</span> </label>
+            <label class="input">
+            <i class="icon-append fa fa-calendar"></i>
+			<input id="@Html.IdFor(model => model.ConfirmDateTime)" 
+			       name="@Html.NameFor(model => model.ConfirmDateTime)" 
+                   placeholder="@Html.DisplayNameFor(model => model.ConfirmDateTime)" 
+				   tabindex="5" required
+				   class="datepicker" data-dateformat="mm/dd/yy"
+				   type="text" 
+				   value="@Html.ValueFor(model => model.ConfirmDateTime)"
+				    />
+             <b class="tooltip tooltip-bottom-right">@Html.DisplayNameFor(model => model.ConfirmDateTime)</b>
+			    </label>
+            </section>
+				 
+	    
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.CategoryId)</span> </label>
+            <label class="input">
+			      @Html.DropDownListFor(model => model.CategoryId, ViewBag.CategoryId as List<SelectListItem>, htmlAttributes: new { @class = "select2" }) 
+                 <b class="tooltip tooltip-bottom-right">@Html.DisplayNameFor(model => model.CategoryId)</b>
+			    </label>
+            </section>
+	 
+	    
+   </div>
+</fieldset>
+</form>
+<!-- end product form  -->
+</div>
+</div>
+<!-- end master section -->
+<!--========================================================================================-->
+

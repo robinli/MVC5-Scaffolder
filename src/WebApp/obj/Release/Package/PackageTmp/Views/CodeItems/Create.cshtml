@@ -1,0 +1,151 @@
+﻿@model WebApp.Models.CodeItem
+@{  ViewBag.Title = "键值对维护 | Create";}
+<!-- MAIN CONTENT -->
+<div id="content">
+    <!-- quick navigation bar -->
+    <div class="row">
+        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+            <h1 class="page-title txt-color-blueDark">
+                <i class="fa fa-table fa-fw "></i>
+                
+                路径
+                <span>
+                    >
+                    键值对维护
+                </span>
+            </h1>
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+
+        </div>
+    </div>
+    <!-- end quick navigation bar -->
+    <!-- NEW WIDGET START -->
+    <article class="col-sm-12 col-md-12 col-lg-12">
+
+        <!-- Widget ID (each widget will need unique ID)-->
+        <div class="jarviswidget" id="wid-id-1" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false">
+            <!-- widget options:
+            usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+            data-widget-colorbutton="false"
+            data-widget-editbutton="false"
+            data-widget-togglebutton="false"
+            data-widget-deletebutton="false"
+            data-widget-fullscreenbutton="false"
+            data-widget-custombutton="false"
+            data-widget-collapsed="true"
+            data-widget-sortable="false"
+            -->
+            <header>
+                <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                <h2> 键值对维护 </h2>
+
+            </header>
+
+            <!-- widget div-->
+            <div>
+
+                <!-- widget edit box -->
+                <div class="jarviswidget-editbox">
+                    <!-- This area used as dropdown edit box -->
+
+                </div>
+                <!-- end widget edit box -->
+
+                <!-- widget content -->
+                <div class="widget-body no-padding">
+                    <form id="codeitem_form" class="easyui-form form-horizontal" method="post" data-options="novalidate:true">
+                       
+                        <!-- form toolbar -->
+                        <div id="form_toolbar" style="height:auto" class="datagrid-toolbar">
+                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-plus',plain:true" onclick="append()">新增</a>
+                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-trash-o',plain:true" onclick="removeit()">删除</a>
+                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-floppy-o',plain:true" onclick="savedata()">保存</a>
+                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-undo',plain:true" onclick="cancel()">取消</a>
+                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-upload fa-fw',plain:true" onclick="importexcel()">EXCEL 导入</a>
+                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-file-excel-o',plain:true" onclick="exportexcel()">导出 Excel</a>
+                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-refresh',plain:true" onclick="refresh()">刷新</a>
+                        </div>
+                        <header>
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        </header>
+                        <!-- end form toolbar -->
+                        @*@Html.AntiForgeryToken()*@
+		 
+                        @Html.Partial("EditForm")
+		
+	 
+                        </form>		 
+
+                 </div>
+                 <!-- end widget content -->
+                 </div>
+            <!-- end widget div -->
+
+        </div>
+        <!-- end widget -->
+
+
+    </article>
+    <!-- WIDGET END -->
+
+</div>
+<!-- END MAIN CONTENT -->
+@section Scripts {
+ 
+     <script type="text/javascript">
+
+	 function append() {
+
+        }
+        function removeit() {
+        }
+        function savedata() {
+
+			   if ($("#codeitem_form").form("enableValidation").form("validate")) {						
+                 var data = $("#codeitem_form").form("getJson");
+				  				  						
+                 $.post("/CodeItems/Create", data, function (response) {						
+                     //console.log(response);						
+                     if (response.success) {						
+                         $.messager.alert("提示", "保存成功！");						
+						
+                     } else {						
+                         $.messager.alert("错误", "保存失败！" + response.err, "error");						
+                     }						
+                 }, "json").fail(function (response) {						
+                     //console.log(response);						
+                     $.messager.alert("错误", "保存失败！", "error");						
+                     //$dg.datagrid("reload");						
+                 });						
+             }						
+
+
+        }
+        function cancel() {
+
+        }
+        function importexcel() {
+
+        }
+        function exportexcel() {
+        }
+        function refresh() {
+
+        }
+
+
+     
+     
+        </script>
+
+
+
+
+
+
+
+
+
+}
+ 

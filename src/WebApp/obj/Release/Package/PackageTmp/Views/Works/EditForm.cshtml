@@ -1,0 +1,180 @@
+﻿﻿@model WebApp.Models.Work
+<!-- begin master section -->
+<div class="row">
+    <div class="col col-lg-12 col-md-12">
+<!--begin work form  -->
+<form id="work_form" class="smart-form" method="post" novalidate >
+@Html.AntiForgeryToken()
+  <input type="hidden" id="@Html.IdFor(model => model.Id)" 
+                       name="@Html.NameFor(model => model.Id)" 
+                       value="@Html.ValueFor(model => model.Id)" />
+ <fieldset>
+     <div class="row">
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Name)</span> </label>
+            <label class="input">
+			<input id="@Html.IdFor(model => model.Name)" 
+				   name="@Html.NameFor(model => model.Name)" 
+                   placeholder="@Html.DisplayNameFor(model => model.Name)" 
+				   value="@Html.ValueFor(model => model.Name)"
+				   tabindex="0" required
+				   type="text" 
+				   />
+             <b class="tooltip tooltip-bottom-right">@Html.DisplayNameFor(model => model.Name)</b>
+			    </label>
+            </section>
+				 
+	    
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Status)</span> </label>
+            <label class="input">
+			<input id="@Html.IdFor(model => model.Status)" 
+				   name="@Html.NameFor(model => model.Status)" 
+                   placeholder="@Html.DisplayNameFor(model => model.Status)" 
+				   value="@Html.ValueFor(model => model.Status)"
+				   tabindex="1" required
+				   type="text" 
+				   />
+             <b class="tooltip tooltip-bottom-right">@Html.DisplayNameFor(model => model.Status)</b>
+			    </label>
+            </section>
+				 
+	    
+            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.StartDate)</span> </label>
+            <label class="input">
+            <i class="icon-append fa fa-calendar"></i>
+			<input id="@Html.IdFor(model => model.StartDate)" 
+			       name="@Html.NameFor(model => model.StartDate)" 
+                   placeholder="@Html.DisplayNameFor(model => model.StartDate)" 
+				   tabindex="2" required
+				   class="datepicker" data-dateformat="mm/dd/yy"
+				   type="text" 
+				   value="@Html.ValueFor(model => model.StartDate)"
+				    />
+             <b class="tooltip tooltip-bottom-right">@Html.DisplayNameFor(model => model.StartDate)</b>
+			    </label>
+            </section>
+				 
+	    
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.EndDate) </label>
+            <label class="input">
+            <i class="icon-append fa fa-calendar"></i>
+			<input id="@Html.IdFor(model => model.EndDate)" 
+			       name="@Html.NameFor(model => model.EndDate)" 
+                   placeholder="@Html.DisplayNameFor(model => model.EndDate)" 
+				   tabindex="3" 
+				   class="datepicker" data-dateformat="mm/dd/yy"
+				   type="text" 
+				   value="@Html.ValueFor(model => model.EndDate)"
+				    />
+             <b class="tooltip tooltip-bottom-right">@Html.DisplayNameFor(model => model.EndDate)</b>
+			    </label>
+            </section>
+				 
+	   </div>
+	    
+     <div class="row">
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.ToDoDateTime) </label>
+            <label class="input">
+            <i class="icon-append fa fa-calendar"></i>
+			<input id="@Html.IdFor(model => model.ToDoDateTime)" 
+			       name="@Html.NameFor(model => model.ToDoDateTime)" 
+                   placeholder="@Html.DisplayNameFor(model => model.ToDoDateTime)" 
+				   tabindex="4" 
+				   class="datepicker" data-dateformat="mm/dd/yy"
+				   type="text" 
+				   value="@Html.ValueFor(model => model.ToDoDateTime)"
+				    />
+             <b class="tooltip tooltip-bottom-right">@Html.DisplayNameFor(model => model.ToDoDateTime)</b>
+			    </label>
+            </section>
+				 
+	    
+			  
+              <section class="col col-3">
+              <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Enableed)</span> </label>
+              <label class="checkbox">
+                 <input id="@Html.IdFor(model => model.Enableed)"
+                       name="@Html.NameFor(model => model.Enableed)"
+                       value="true" @(Model.Enableed ? "checked=\"checked\"" : "")
+                       tabindex="6"
+                       type="checkbox" />
+                <i></i> @Html.DisplayNameFor(model => model.Enableed)
+                <b class="tooltip tooltip-bottom-right">@Html.DisplayNameFor(model => model.Enableed)</b>
+               </label>
+              </section>
+				 
+	    
+             <section class="col col-3">
+              <label class="label">@Html.DisplayNameFor(model => model.Completed) </label>
+              <label class="checkbox">
+                 <input id="@Html.IdFor(model => model.Completed)"
+                       name="@Html.NameFor(model => model.Completed)"
+                       value="true" @((Model.Completed!=null && Model.Completed == true ) ? "checked=\"checked\"" : "")
+                       tabindex="6"
+                       type="checkbox" />
+                <i></i> @Html.DisplayNameFor(model => model.Completed)
+                <b class="tooltip tooltip-bottom-right">@Html.DisplayNameFor(model => model.Completed)</b>
+               </label>
+              </section>
+				 
+	    
+			<section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Hour)</span> </label>
+            <label class="input">
+            <input id="@Html.IdFor(model => model.Hour)"
+				   name="@Html.NameFor(model => model.Hour)" 
+                   placeholder="@Html.DisplayNameFor(model => model.Hour)" 
+				   value="@Html.ValueFor(model => model.Hour)"
+				   tabindex="7" required
+				   type="text" 
+				   />
+                 <b class="tooltip tooltip-bottom-right">@Html.DisplayNameFor(model => model.Hour)</b>
+			    </label>
+            </section>
+				 
+	   </div>
+	    
+     <div class="row">
+			<section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Priority)</span> </label>
+            <label class="input">
+            <input id="@Html.IdFor(model => model.Priority)"
+				   name="@Html.NameFor(model => model.Priority)" 
+                   placeholder="@Html.DisplayNameFor(model => model.Priority)" 
+				   value="@Html.ValueFor(model => model.Priority)"
+				   tabindex="8" required
+				   type="text" 
+				   />
+                 <b class="tooltip tooltip-bottom-right">@Html.DisplayNameFor(model => model.Priority)</b>
+			    </label>
+            </section>
+				 
+	    
+			<section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Score)</span> </label>
+            <label class="input">
+            <input id="@Html.IdFor(model => model.Score)"
+				   name="@Html.NameFor(model => model.Score)" 
+                   placeholder="@Html.DisplayNameFor(model => model.Score)" 
+				   value="@Html.ValueFor(model => model.Score)"
+				   tabindex="9" required
+				   type="text" 
+				   />
+                 <b class="tooltip tooltip-bottom-right">@Html.DisplayNameFor(model => model.Score)</b>
+			    </label>
+            </section>
+				 
+	    
+   </div>
+</fieldset>
+</form>
+<!-- end work form  -->
+</div>
+</div>
+<!-- end master section -->
+<!--========================================================================================-->
+

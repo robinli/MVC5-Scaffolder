@@ -1,0 +1,238 @@
+﻿@model WebApp.Models.Department
+
+<script type="text/javascript">
+//初始化 Department datagrid
+var $departmentsdg = $('#departments_datagrid');
+$(() => {
+    $departmentsdg.datagrid({
+            rownumbers: true,
+            iconCls: 'fa fa-list',
+            idField: 'Id',
+            sortName: 'Id',
+            sortOrder: 'asc',
+            remoteFilter: true,
+            singleSelect: true,
+            method: 'get',
+            onClickCell: departments_onClickCell,
+            pagination: true,
+            striped: true,
+            columns: [[
+		     /*{field:'Id',width:80 ,sortable:true,resizable:true }*/
+			{
+                 field:'Name', 
+                 title:'<span class="required">@Html.DisplayNameFor(model => model.Name)</span>', 
+                 width:260,
+                 editor:{
+                          type:'textbox',
+                          options:{ prompt:'@Html.DisplayNameFor(model => model.Name)',required:true ,validType:'length[0,50]'  }  
+                       },
+                 sortable:true,
+                 resizable:true 
+			},
+			{
+                 field:'Manager', 
+                 title:'@Html.DisplayNameFor(model => model.Manager)', 
+                 width:140,
+                 editor:{
+                          type:'textbox',
+                          options:{ prompt:'@Html.DisplayNameFor(model => model.Manager)',required:false ,validType:'length[0,20]'  }  
+                       },
+                 sortable:true,
+                 resizable:true 
+			},
+			{
+                field:'CompanyId',
+                title:'<span class="required">@Html.DisplayNameFor(model => model.CompanyId)</span>',
+                width:160, 
+                sortable:true, 
+                resizable:true,
+                formatter:function(value,row) {
+				        return row.CompanyName;
+					},
+			    editor:{
+					    type:'combobox',
+					    options:{
+								prompt:'@Html.DisplayNameFor(model => model.CompanyId)' ,
+                                mode: 'remote',
+								valueField:'Id',
+								textField:'Name',
+								method:'get',
+								url:'/Companies/GetCompaniesAsync',
+								required:true
+							}
+						}
+			},
+            ]]
+            });
+            //初始化 datagrid filter
+            $departmentsdg.datagrid("enableFilter",[
+				{
+					  field: "Id",
+					  type: "numberbox",
+					  op:['equal','notequal','less','lessorequal','greater','greaterorequal']
+				  },
+		   {
+				 field: "CompanyId",
+				 type:"combobox",
+				 options:{
+								valueField:"Id",
+								textField:"Name",
+								method:"get",
+								url:"/Companies/GetCompaniesAsync",
+								onChange: function (value) {
+								if (value == "") {
+									$departmentsdg.datagrid("removeFilterRule", "CompanyId");
+								} else {
+									$departmentsdg.datagrid("addFilterRule", {
+										field: "CompanyId",
+										op: "equal",
+										value: value
+								});
+							}
+							$departmentsdg.datagrid("doFilter");
+						}
+					}
+		   },
+		   ]);
+
+});
+    //datagrid CRUD method
+    var departments_editIndex = undefined;
+    //取消
+    function departments_reject() {
+		$departmentsdg.datagrid("rejectChanges");
+		departments_editIndex = undefined;
+    }
+    //重新加载数据
+    function departments_reload() {
+			if (endEditing()) {
+				$departmentsdg.datagrid("reload");
+			}
+	}
+    //关闭编辑状态
+	function departments_endEditing() {
+			if (departments_editIndex === undefined) {
+                return true; 
+            }
+			if ($departmentsdg.datagrid("validateRow", departments_editIndex)) {
+
+								var ed = $departmentsdg.datagrid("getEditor", { index: departments_editIndex, field: "CompanyId" });
+				var companyname = $(ed.target).combobox("getText");
+				var companyid = $(ed.target).combobox("getValue");
+				$departmentsdg.datagrid("getRows")[departments_editIndex]["CompanyName"] =  companyname;
+				$departmentsdg.datagrid("getRows")[departments_editIndex]["CompanyId"] = companyid;
+								$departmentsdg.datagrid("endEdit", departments_editIndex);
+				departments_editIndex = undefined;
+                return true;
+			} else {
+				return false;
+			}
+		}
+    //单击列开启编辑功能
+	function departments_onClickCell(index, field) {
+			var _operates = ["_operate1", "_operate2", "_operate3", "ck"];
+			if ($.inArray(field, _operates) >= 0) {
+				return false;
+			}
+			if (departments_editIndex !== index) {
+				if (departments_endEditing()) {
+					$departmentsdg.datagrid("selectRow", index)
+							.datagrid("beginEdit", index);
+                    departments_editIndex = index;
+					var ed = $departmentsdg.datagrid("getEditor", { index: index, field: field });
+					if (ed) {
+						($(ed.target).data("textbox") ? $(ed.target).textbox("textbox") : $(ed.target)).focus();
+					}
+				} else {
+					$departmentsdg.datagrid("selectRow", departments_editIndex);
+				}
+			}
+		}
+        //新增记录
+    function departments_append() {
+			if (departments_endEditing()) {
+				//对必填字段进行默认值初始化
+				$departmentsdg.datagrid("insertRow", 
+                               { index: 0,
+                                  row: {
+                                  
+                                  CompanyId:companyid
+                                  }
+                                });
+				departments_editIndex = 0;
+				$departmentsdg.datagrid("selectRow", departments_editIndex)
+						.datagrid("beginEdit", departments_editIndex);
+			}
+		}
+    //删除编辑的行
+	function departments_removeit() {
+		if (departments_editIndex !== undefined) {  
+			$departmentsdg.datagrid("cancelEdit", departments_editIndex)
+					           .datagrid("deleteRow", departments_editIndex);
+			departments_editIndex = undefined;
+        }
+	}
+    //删除选中的行
+    function departments_deletechecked() {
+            var rows = $departmentsdg.datagrid("getChecked");
+            if (rows.length > 0) {
+                var id = rows.map(item => {
+                    return item.Id;
+                });
+                $.messager.confirm("确认", "你确定要删除这些记录?",result => {
+                    if (result) {
+                        $.post("/Departments/DeleteCheckedAsync", { id: id })
+                         .done(response => {
+                            if (response.success) {
+                                $departmentsdg.datagrid("reload");
+                            } else {
+                                $.messager.alert("错误", response.err,"error");
+                            }
+                         });
+                    }
+                });  
+            } else {
+                $.messager.alert("提示", "请先选择要删除的记录!");
+            }
+      }
+    //提交保存后台数据库
+	function departments_accept() {
+			if (departments_endEditing()) {
+				if ($departmentsdg.datagrid("getChanges").length) {
+					var inserted = $departmentsdg.datagrid("getChanges", "inserted");
+					var deleted = $departmentsdg.datagrid("getChanges", "deleted");
+					var updated = $departmentsdg.datagrid("getChanges", "updated");
+					var item = new Object();
+					if (inserted.length) {
+						item.inserted = inserted;
+					}
+					if (deleted.length) {
+						item.deleted = deleted;
+					}
+					if (updated.length) {
+						item.updated = updated;
+					}
+					//console.log(JSON.stringify(item));
+					$.post("/Departments/SaveDataAsync", item)
+                     .done(response => {
+						//console.log(response);
+						if (response.success) {
+							$.messager.alert("提示", "提交成功!");
+							$departmentsdg.datagrid("acceptChanges");
+							$departmentsdg.datagrid("reload");
+						} else {
+                           $.messager.alert("错误", response.err ,"error");
+                        }
+					  })
+                      .fail((jqXHR, textStatus, errorThrown) => {
+						//console.log(errorThrown);
+						$.messager.alert("错误", "提交错误了!" + errorThrown,"error");
+
+					  });
+				}
+			}
+		}       
+</script>
+
+
+ 

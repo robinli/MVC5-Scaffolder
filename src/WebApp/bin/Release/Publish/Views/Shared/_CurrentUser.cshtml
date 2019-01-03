@@ -1,0 +1,28 @@
+﻿<div class="login-info dropdown">
+    <span class="project-selector dropdown-toggle" data-toggle="dropdown" >
+        <a href="javascript:void(0);" id="show-shortcut">
+            <img src="@Auth.GetAvatarsByName(User.Identity.Name)" alt="me" class="online" />
+            <span>@User.Identity.Name.ToLower()</span>
+            <i class="fa fa-angle-down"></i>
+            <input type="hidden" id="hdId" />
+            <input type="hidden" id="hdUserName" />
+            <input type="hidden" id="currentuser" value="@User.Identity.Name" />
+        </a>
+    </span>
+    <!-- Suggestion: populate this list with fetch and push technique -->
+    <ul class="dropdown-menu">
+        <li>
+            <a href="@Url.Action("profile", "account")">Profile</a>
+        </li>
+        <li>
+            <a href="#" data-toggle="modal" data-target="#changepasswordModal">Change Password</a>
+        </li>
+       
+        <li class="divider"></li>
+        <li>
+            <a href="@Url.Action("lock", "account")" title="Lock" data-action="userLock" data-logout-msg="You can improve your security further after logging out by closing this opened browser"><i class="fa fa-lock"></i> <b>L</b>ock</a>
+        </li>
+    </ul>
+    <!-- end dropdown-menu-->
+  
+</div>

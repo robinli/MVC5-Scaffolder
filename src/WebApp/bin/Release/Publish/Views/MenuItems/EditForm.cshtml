@@ -1,0 +1,244 @@
+﻿﻿@model WebApp.Models.MenuItem
+<!-- begin master section -->
+<div class="row">
+    <div class="col col-lg-12 col-md-12">
+<!--begin menuitem form  -->
+<form id="menuitem_form" class="smart-form" method="post" novalidate >
+@Html.AntiForgeryToken()
+<fieldset>
+    <div class="row">
+			<section class="col col-3">
+           <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Id)</span> </label>
+           <label class="input">
+            <input id="@Html.IdFor(model => model.Id)" 
+                   name="@Html.NameFor(model => model.Id)" 
+                   placeholder="@Html.DisplayNameFor(model => model.Id)" 
+                   value="@Html.ValueFor(model => model.Id)"
+                   tabindex="0"   required
+                   type="text" 
+                   />
+                 <b class="tooltip tooltip-bottom-right">@Html.DisplayNameFor(model => model.Id)</b>
+			    </label>
+            </section>
+	 
+	  
+	    
+	            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Title)</span> </label>
+            <label class="input">
+			<input id="@Html.IdFor(model => model.Title)" 
+				   name="@Html.NameFor(model => model.Title)" 
+                   placeholder="@Html.DisplayNameFor(model => model.Title)" 
+				   value="@Html.ValueFor(model => model.Title)"
+				   tabindex="1" required
+				   type="text" 
+				   />
+             <b class="tooltip tooltip-bottom-right">@Html.DisplayNameFor(model => model.Title)</b>
+			    </label>
+            </section>
+				 
+	  
+	    
+	            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.Description) </label>
+            <label class="input">
+			<input id="@Html.IdFor(model => model.Description)" 
+				   name="@Html.NameFor(model => model.Description)" 
+                   placeholder="@Html.DisplayNameFor(model => model.Description)" 
+				   value="@Html.ValueFor(model => model.Description)"
+				   tabindex="2" 
+				   type="text" 
+				   />
+             <b class="tooltip tooltip-bottom-right">@Html.DisplayNameFor(model => model.Description)</b>
+			    </label>
+            </section>
+				 
+	  
+	    
+	            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Code)</span> </label>
+            <label class="input">
+			<input id="@Html.IdFor(model => model.Code)" 
+				   name="@Html.NameFor(model => model.Code)" 
+                   placeholder="@Html.DisplayNameFor(model => model.Code)" 
+				   value="@Html.ValueFor(model => model.Code)"
+				   tabindex="3" required
+				   type="text" 
+				   />
+             <b class="tooltip tooltip-bottom-right">@Html.DisplayNameFor(model => model.Code)</b>
+			    </label>
+            </section>
+				 
+	  
+	    
+	            <section class="col col-3">
+            <label class="label"><span class="required">@Html.DisplayNameFor(model => model.Url)</span> </label>
+            <label class="input">
+			<input id="@Html.IdFor(model => model.Url)" 
+				   name="@Html.NameFor(model => model.Url)" 
+                   placeholder="@Html.DisplayNameFor(model => model.Url)" 
+				   value="@Html.ValueFor(model => model.Url)"
+				   tabindex="4" required
+				   type="text" 
+				   />
+             <b class="tooltip tooltip-bottom-right">@Html.DisplayNameFor(model => model.Url)</b>
+			    </label>
+            </section>
+				 
+	  
+	    
+	            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.Controller) </label>
+            <label class="input">
+			<input id="@Html.IdFor(model => model.Controller)" 
+				   name="@Html.NameFor(model => model.Controller)" 
+                   placeholder="@Html.DisplayNameFor(model => model.Controller)" 
+				   value="@Html.ValueFor(model => model.Controller)"
+				   tabindex="5" 
+				   type="text" 
+				   />
+             <b class="tooltip tooltip-bottom-right">@Html.DisplayNameFor(model => model.Controller)</b>
+			    </label>
+            </section>
+				 
+	  
+	    
+	            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.Action) </label>
+            <label class="input">
+			<input id="@Html.IdFor(model => model.Action)" 
+				   name="@Html.NameFor(model => model.Action)" 
+                   placeholder="@Html.DisplayNameFor(model => model.Action)" 
+				   value="@Html.ValueFor(model => model.Action)"
+				   tabindex="6" 
+				   type="text" 
+				   />
+             <b class="tooltip tooltip-bottom-right">@Html.DisplayNameFor(model => model.Action)</b>
+			    </label>
+            </section>
+				 
+	  
+	    
+	            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.IconCls) </label>
+            <label class="input">
+			<input id="@Html.IdFor(model => model.IconCls)" 
+				   name="@Html.NameFor(model => model.IconCls)" 
+                   placeholder="@Html.DisplayNameFor(model => model.IconCls)" 
+				   value="@Html.ValueFor(model => model.IconCls)"
+				   tabindex="7" 
+				   type="text" 
+				   />
+             <b class="tooltip tooltip-bottom-right">@Html.DisplayNameFor(model => model.IconCls)</b>
+			    </label>
+            </section>
+				 
+	  
+	    
+				  
+              <section class="col col-3">
+              <label class="label"><span class="required">@Html.DisplayNameFor(model => model.IsEnabled)</span> </label>
+              <label class="checkbox">
+                 <input id="@Html.IdFor(model => model.IsEnabled)"
+                       name="@Html.NameFor(model => model.IsEnabled)"
+                       value="true" @(Model.IsEnabled ? "checked=\"checked\"" : "")
+                       tabindex="6"
+                       type="checkbox" />
+                <i></i> @Html.DisplayNameFor(model => model.IsEnabled)
+                <b class="tooltip tooltip-bottom-right">@Html.DisplayNameFor(model => model.IsEnabled)</b>
+               </label>
+              </section>
+				 
+	  
+	    
+	            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.ParentId) </label>
+            <label class="input">
+			      @Html.DropDownListFor(model => model.ParentId, ViewBag.ParentId as List<SelectListItem>, htmlAttributes: new { @class = "select2" }) 
+                 <b class="tooltip tooltip-bottom-right">@Html.DisplayNameFor(model => model.ParentId)</b>
+			    </label>
+            </section>
+	 
+	  
+	    
+	    </div>
+</fieldset>
+</form>
+<!-- end menuitem form  -->
+</div>
+</div>
+<!-- end master section -->
+<!--========================================================================================-->
+ <!-- begin detail section -->
+<div class="row">
+        <div class="col col-md-12 col-lg-12">
+        <!-- details tabs -->
+        <div class="tabs-container" style="padding-left:19px;padding-right:19px">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs">
+								<li class="active"><a data-toggle="tab" href="#tab-menuitems"> SubMenus</a></li>
+				   
+		 </ul>
+		 <!-- Tab panes -->
+         <div class="tab-content">
+		 		  <div id="tab-menuitems" class="tab-pane active">
+                   <div class="panel-body-toolbar">
+                                    <div class="row">
+                                        <div class="col-sm-8  ">
+                                            <div class="btn-group">
+                                                <a href="javascript:submenus_append()" class="btn btn-sm btn-default"> <i class="fa fa-plus"></i> 新增 </a>
+                                            </div>
+                                            <div class="btn-group">
+                                                <a href="javascript:submenus_removeit()" class="btn btn-sm btn-default"> <i class="fa fa-trash-o"></i> 删除 </a>
+                                            </div>
+                                            <div class="btn-group">
+                                                <a href="javascript:submenus_accept()" class="btn btn-sm btn-default"> <i class="fa fa-floppy-o"></i> 保存 </a>
+                                            </div>
+                                            <div class="btn-group">
+                                                <a href="javascript:submenus_reload()" class="btn btn-sm btn-default"> <i class="fa fa-refresh"></i> 刷新 </a>
+                                            </div>
+                                            <div class="btn-group">
+                                                <a href="javascript:submenus_reject()" class="btn btn-sm btn-default"> <i class="fa fa-window-close-o"></i> 取消 </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                   </div>
+                <div class="table-responsive">
+				<table id="menuitems_datagrid" >
+                </table>
+              
+            </div>
+        </div>
+		  	</div>
+	</div>
+ 
+<!--end details tabs -->
+        </div>
+    </div>
+<!-- end detail section -->
+
+
+@Html.Partial("_menuitemdatagridjsview", new WebApp.Models.MenuItem())
+ <script type="text/javascript">
+    //初始化from赋值
+    function initFormData(id) {
+            //$('#menuitem_form').form('load', data);
+          var url='/MenuItems/GetDataByMenuItemIdAsync?menuitemid='+ id;
+          $menuitemsdg.datagrid('load',url);
+          $menuitemsdg.datagrid('resize');
+            
+    }
+
+
+   var menuitemid=@Model.Id;
+    //tab change && datagrid resize
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        var target = $(e.target).attr("href"); 
+                if(target=="#tab-menuitems")
+             $$menuitemsdgdg.datagrid("resize");
+            });
+    $(function(){
+        initFormData(menuitemid);
+    });
+ </script>
+

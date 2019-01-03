@@ -1,0 +1,28 @@
+﻿@model WebApp.Models.Message
+
+@if (Model.Type == 0)
+{
+    <div class="alert alert-success" role="alert">
+        <h4 class="alert-heading">@Html.ValueFor(m => m.Method)</h4>
+        <p>@Html.Raw(Model.Content)</p>
+
+    </div>
+}
+else if (Model.Type == 1)
+{
+    <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">@Html.ValueFor(m => m.Method)</h4>
+        <p>@Html.Raw(Model.Content)</p>
+
+
+    </div>
+}
+else if (Model.Type == 2)
+{
+    <div class="alert alert-warning" role="alert">
+        <h4 class="alert-heading">@Html.ValueFor(m => m.Method)</h4>
+        <p>@Html.Raw(Model.Content)</p>
+
+
+    </div>
+}

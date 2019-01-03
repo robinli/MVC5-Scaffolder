@@ -1,0 +1,211 @@
+﻿﻿
+
+
+
+
+
+
+@model WebApp.Models.Message
+
+
+ @*@Html.HiddenFor(model => model.Id)*@
+
+ <!--输出form表单界面-->
+ <table class="table table-bordered">
+     <caption>
+     </caption>
+	    <tr>
+      	   <td class="control-label">   @Html.DisplayNameFor(model => model.Id)  </td>
+	   <td> 
+						   			<input  disabled  id="@Html.IdFor(model => model.Id)" name="@Html.NameFor(model => model.Id)" tabindex="0" style="width:100%" class="easyui-numberbox" type="text" data-options="prompt:'Id',label:'Id:',required:true " />
+			  
+				   </td>
+	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.Group)  </td>
+	   <td> 
+			
+			  			<input id="@Html.IdFor(model => model.Group)"
+				   name="@Html.NameFor(model => model.Group)" 
+				   value="@Html.ValueFor(model => model.Group)"
+				   tabindex="1" 
+				   style="width:100%" 
+				   class="easyui-numberbox" 
+				   type="text" 
+				   data-options="prompt:'分组',
+								 label:'分组:',
+								 required:true " />
+			              
+				   </td>
+	   	   </tr>
+	   	    <tr>
+      	   <td class="control-label">   @Html.DisplayNameFor(model => model.ExtensionKey1)  </td>
+	   <td> 
+			
+			  			<input id="@Html.IdFor(model => model.ExtensionKey1)" 
+				   name="@Html.NameFor(model => model.ExtensionKey1)" 
+				   value="@Html.ValueFor(model => model.ExtensionKey1)"
+				   tabindex="2" 
+				   style="width:100%" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'关键字',
+								 label:'关键字:',
+								 required:false ,validType:'length[0,50]'" />
+			              
+				   </td>
+	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.Type)  </td>
+	   <td> 
+			
+			  			<input id="@Html.IdFor(model => model.Type)"
+				   name="@Html.NameFor(model => model.Type)" 
+				   value="@Html.ValueFor(model => model.Type)"
+				   tabindex="3" 
+				   style="width:100%" 
+				   class="easyui-numberbox" 
+				   type="text" 
+				   data-options="prompt:'类型',
+								 label:'类型:',
+								 required:true " />
+			              
+				   </td>
+	   	   </tr>
+	   	    <tr>
+      	   <td class="control-label">   @Html.DisplayNameFor(model => model.Code)  </td>
+	   <td> 
+			
+			  			<input id="@Html.IdFor(model => model.Code)" 
+				   name="@Html.NameFor(model => model.Code)" 
+				   value="@Html.ValueFor(model => model.Code)"
+				   tabindex="4" 
+				   style="width:100%" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'异常代码',
+								 label:'异常代码:',
+								 required:false ,validType:'length[0,50]'" />
+			              
+				   </td>
+	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.Content)  </td>
+	   <td> 
+			
+			  			<input id="@Html.IdFor(model => model.Content)" 
+				   name="@Html.NameFor(model => model.Content)" 
+				   value="@Html.ValueFor(model => model.Content)"
+				   tabindex="5" 
+				   style="width:100%" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'内容',
+								 label:'内容:',
+								 required:false " />
+			              
+				   </td>
+	   	   </tr>
+	   	    <tr>
+      	   <td class="control-label">   @Html.DisplayNameFor(model => model.ExtensionKey2)  </td>
+	   <td> 
+			
+			  			<input id="@Html.IdFor(model => model.ExtensionKey2)" 
+				   name="@Html.NameFor(model => model.ExtensionKey2)" 
+				   value="@Html.ValueFor(model => model.ExtensionKey2)"
+				   tabindex="6" 
+				   style="width:100%" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'关键字2',
+								 label:'关键字2:',
+								 required:false ,validType:'length[0,50]'" />
+			              
+				   </td>
+	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.Tags)  </td>
+	   <td> 
+			
+			  			<input id="@Html.IdFor(model => model.Tags)" 
+				   name="@Html.NameFor(model => model.Tags)" 
+				   value="@Html.ValueFor(model => model.Tags)"
+				   tabindex="7" 
+				   style="width:100%" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'标签',
+								 label:'标签:',
+								 required:false ,validType:'length[0,255]'" />
+			              
+				   </td>
+	   	   </tr>
+	   	    <tr>
+      	   <td class="control-label">   @Html.DisplayNameFor(model => model.Method)  </td>
+	   <td> 
+			
+			  			<input id="@Html.IdFor(model => model.Method)" 
+				   name="@Html.NameFor(model => model.Method)" 
+				   value="@Html.ValueFor(model => model.Method)"
+				   tabindex="8" 
+				   style="width:100%" 
+				   class="easyui-textbox" 
+				   type="text" 
+				   data-options="prompt:'调用方法',
+								 label:'调用方法:',
+								 required:false ,validType:'length[0,255]'" />
+			              
+				   </td>
+	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.Created)  </td>
+	   <td> 
+			
+			  			<input id="@Html.IdFor(model => model.Created)" 
+			       name="@Html.NameFor(model => model.Created)" 
+				   tabindex="9" 
+				   style="width:100%" class="easyui-datebox" 
+				   type="text" 
+				   value="@Html.ValueFor(model => model.Created)"
+				   data-options="prompt:'记录时间',
+								 label:'记录时间:',
+								 required:true,
+								 formatter:dateformatter" />
+			              
+				   </td>
+	   	   </tr>
+	   	    <tr>
+      	   <td class="control-label">   @Html.DisplayNameFor(model => model.IsNew)  </td>
+	   <td> 
+			
+			  			<input id="@Html.IdFor(model => model.IsNew)"
+				   name="@Html.NameFor(model => model.IsNew)" 
+				   value="@Html.ValueFor(model => model.IsNew)"
+				   tabindex="10" 
+				   style="width:100%" 
+				   class="easyui-numberbox" 
+				   type="text" 
+				   data-options="prompt:'新消息',
+								 label:'新消息:',
+								 required:true " />
+			              
+				   </td>
+	   	   <td class="control-label">   @Html.DisplayNameFor(model => model.IsNotification)  </td>
+	   <td> 
+			
+			  			<input id="@Html.IdFor(model => model.IsNotification)"
+				   name="@Html.NameFor(model => model.IsNotification)" 
+				   value="@Html.ValueFor(model => model.IsNotification)"
+				   tabindex="11" 
+				   style="width:100%" 
+				   class="easyui-numberbox" 
+				   type="text" 
+				   data-options="prompt:'是否已通知',
+								 label:'是否已通知:',
+								 required:true " />
+			              
+				   </td>
+	   	   </tr>
+	   	        @*<tfoot>
+        <tr>
+           
+        <tr>
+    </tfoot>*@
+</table>
+  <!--输出form表单界面-->
+
+<!--========================================================================================-->
+  
+
+ 
+

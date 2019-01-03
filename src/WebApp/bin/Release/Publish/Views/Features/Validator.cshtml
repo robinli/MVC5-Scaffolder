@@ -1,0 +1,1385 @@
+﻿			<!-- MAIN CONTENT -->
+<div id="content">
+
+    <!-- row -->
+    <div class="row">
+
+        <!-- col -->
+        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+            <h1 class="page-title txt-color-blueDark">
+
+                <!-- PAGE HEADER -->
+                <i class="fa-fw fa fa-home"></i>
+                Page Header
+                <span>
+                    >
+                    Subtitle
+                </span>
+            </h1>
+        </div>
+        <!-- end col -->
+        <!-- right side of the page with the sparkline graphs -->
+        <!-- col -->
+        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+            <!-- sparks -->
+            <ul id="sparks">
+                <li class="sparks-info">
+                    <h5> My Income <span class="txt-color-blue">$47,171</span></h5>
+                    <div class="sparkline txt-color-blue hidden-mobile hidden-md hidden-sm">
+                        1300, 1877, 2500, 2577, 2000, 2100, 3000, 2700, 3631, 2471, 2700, 3631, 2471
+                    </div>
+                </li>
+                <li class="sparks-info">
+                    <h5> Site Traffic <span class="txt-color-purple"><i class="fa fa-arrow-circle-up" data-rel="bootstrap-tooltip" title="Increased"></i>&nbsp;45%</span></h5>
+                    <div class="sparkline txt-color-purple hidden-mobile hidden-md hidden-sm">
+                        110,150,300,130,400,240,220,310,220,300, 270, 210
+                    </div>
+                </li>
+                <li class="sparks-info">
+                    <h5> Site Orders <span class="txt-color-greenDark"><i class="fa fa-shopping-cart"></i>&nbsp;2447</span></h5>
+                    <div class="sparkline txt-color-greenDark hidden-mobile hidden-md hidden-sm">
+                        110,150,300,130,400,240,220,310,220,300, 270, 210
+                    </div>
+                </li>
+            </ul>
+            <!-- end sparks -->
+        </div>
+        <!-- end col -->
+
+    </div>
+    <!-- end row -->
+    <!--
+        The ID "widget-grid" will start to initialize all widgets below
+        You do not need to use widgets if you dont want to. Simply remove
+        the <section></section> and you can use wells or panels instead
+        -->
+    <!-- widget grid -->
+    <section id="widget-grid" class="">
+
+        <!-- row -->
+        <div class="row">
+
+            <!-- NEW WIDGET ROW START -->
+            <div class="col-sm-6">
+
+                <!-- Widget ID (each widget will need unique ID)-->
+                <div class="jarviswidget" id="wid-id-0" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-sortable="false">
+                    <!-- widget options:
+                    usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+                    data-widget-colorbutton="false"
+                    data-widget-editbutton="false"
+                    data-widget-togglebutton="false"
+                    data-widget-deletebutton="false"
+                    data-widget-fullscreenbutton="false"
+                    data-widget-custombutton="false"
+                    data-widget-collapsed="true"
+                    data-widget-sortable="false"
+
+                    -->
+                    <header>
+                        <h2>#movieForm </h2>
+                    </header>
+
+                    <!-- widget div-->
+
+                    <div>
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+                            <input class="form-control" type="text">
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body">
+
+                            <form id="movieForm" method="post">
+
+                                <fieldset>
+                                    <legend>
+                                        Default Form Elements
+                                    </legend>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <label class="control-label">Movie title</label>
+                                                <input type="text" class="form-control" name="title" />
+                                            </div>
+
+                                            <div class="col-md-4 selectContainer">
+                                                <label class="control-label">Genre</label>
+                                                <select class="form-control" name="genre">
+                                                    <option value="">Choose a genre</option>
+                                                    <option value="action">Action</option>
+                                                    <option value="comedy">Comedy</option>
+                                                    <option value="horror">Horror</option>
+                                                    <option value="romance">Romance</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-4">
+                                                <label class="control-label">Director</label>
+                                                <input type="text" class="form-control" name="director" />
+                                            </div>
+
+                                            <div class="col-sm-12 col-md-4">
+                                                <label class="control-label">Writer</label>
+                                                <input type="text" class="form-control" name="writer" />
+                                            </div>
+
+                                            <div class="col-sm-12 col-md-4">
+                                                <label class="control-label">Producer</label>
+                                                <input type="text" class="form-control" name="producer" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-6">
+                                                <label class="control-label">Website</label>
+                                                <input type="text" class="form-control" name="website" />
+                                            </div>
+
+                                            <div class="col-sm-12 col-md-6">
+                                                <label class="control-label">Youtube trailer</label>
+                                                <input type="text" class="form-control" name="trailer" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label class="control-label">Review</label>
+                                        <textarea class="form-control" name="review" rows="8"></textarea>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset>
+                                    <div class="form-group">
+
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-12">
+                                                <label class="control-label">Rating</label>
+                                            </div>
+
+                                            <div class="col-sm-12 col-md-10">
+
+                                                <label class="radio radio-inline no-margin">
+                                                    <input type="radio" name="rating" value="terrible" class="radiobox style-2" />
+                                                    <span>Terrible</span>
+                                                </label>
+
+                                                <label class="radio radio-inline">
+                                                    <input type="radio" name="rating" value="watchable" class="radiobox style-2" />
+                                                    <span>Watchable</span>
+                                                </label>
+                                                <label class="radio radio-inline">
+                                                    <input type="radio" name="rating" value="best" class="radiobox style-2" />
+                                                    <span>Best ever</span>
+                                                </label>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </fieldset>
+
+                                <div class="form-actions">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <button class="btn btn-default" type="submit">
+                                                <i class="fa fa-eye"></i>
+                                                Validate
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+
+                        </div>
+                        <!-- end widget content -->
+
+                    </div>
+                    <!-- end widget div -->
+
+                </div>
+                <!-- end widget -->
+                <!-- Widget ID (each widget will need unique ID)-->
+                <div class="jarviswidget" id="wid-id-2" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-sortable="false">
+                    <!-- widget options:
+                    usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+                    data-widget-colorbutton="false"
+                    data-widget-editbutton="false"
+                    data-widget-togglebutton="false"
+                    data-widget-deletebutton="false"
+                    data-widget-fullscreenbutton="false"
+                    data-widget-custombutton="false"
+                    data-widget-collapsed="true"
+                    data-widget-sortable="false"
+
+                    -->
+                    <header>
+                        <h2>#togglingForm </h2>
+                    </header>
+
+                    <!-- widget div-->
+
+                    <div>
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+                            <input class="form-control" type="text">
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body">
+
+                            <form id="togglingForm" method="post" class="form-horizontal">
+
+                                <fieldset>
+                                    <legend>
+                                        Default Form Elements
+                                    </legend>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Full name <sup>*</sup></label>
+                                        <div class="col-lg-4">
+                                            <input type="text" class="form-control" name="firstName" placeholder="First name" />
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <input type="text" class="form-control" name="lastName" placeholder="Last name" />
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Company <sup>*</sup></label>
+                                        <div class="col-lg-5">
+                                            <input type="text" class="form-control" name="company"
+                                                   required data-bv-notempty-message="The company name is required" />
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <button type="button" class="btn btn-info btn-sm" data-toggle="#jobInfo">
+                                                Add more info
+                                            </button>
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <!-- These fields will not be validated as long as they are not visible -->
+                                <div id="jobInfo" style="display: none;">
+                                    <fieldset>
+                                        <div class="form-group">
+                                            <label class="col-lg-3 control-label">Job title <sup>*</sup></label>
+                                            <div class="col-lg-5">
+                                                <input type="text" class="form-control" name="job" />
+                                            </div>
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset>
+                                        <div class="form-group">
+                                            <label class="col-lg-3 control-label">Department <sup>*</sup></label>
+                                            <div class="col-lg-5">
+                                                <input type="text" class="form-control" name="department" />
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Mobile phone <sup>*</sup></label>
+                                        <div class="col-lg-5">
+                                            <input type="text" class="form-control" name="mobilePhone" />
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <button type="button" class="btn btn-info btn-sm" data-toggle="#phoneInfo">
+                                                Add more phone numbers
+                                            </button>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <!-- These fields will not be validated as long as they are not visible -->
+                                <div id="phoneInfo" style="display: none;">
+
+                                    <fieldset>
+                                        <div class="form-group">
+                                            <label class="col-lg-3 control-label">Home phone</label>
+                                            <div class="col-lg-5">
+                                                <input type="text" class="form-control" name="homePhone" />
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                    <fieldset>
+                                        <div class="form-group">
+                                            <label class="col-lg-3 control-label">Office phone</label>
+                                            <div class="col-lg-5">
+                                                <input type="text" class="form-control" name="officePhone" />
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+
+                                <div class="form-actions">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <button class="btn btn-default" type="submit">
+                                                <i class="fa fa-eye"></i>
+                                                Validate
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                        <!-- end widget content -->
+
+                    </div>
+                    <!-- end widget div -->
+
+                </div>
+                <!-- end widget -->
+                <!-- Widget ID (each widget will need unique ID)-->
+                <div class="jarviswidget" id="wid-id-4" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-sortable="false">
+                    <!-- widget options:
+                    usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+                    data-widget-colorbutton="false"
+                    data-widget-editbutton="false"
+                    data-widget-togglebutton="false"
+                    data-widget-deletebutton="false"
+                    data-widget-fullscreenbutton="false"
+                    data-widget-custombutton="false"
+                    data-widget-collapsed="true"
+                    data-widget-sortable="false"
+
+                    -->
+                    <header>
+                        <h2>#attributeForm </h2>
+                    </header>
+
+                    <!-- widget div-->
+
+                    <div>
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+                            <input class="form-control" type="text">
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body">
+
+                            <form id="attributeForm" class="form-horizontal"
+                                  data-bv-message="This value is not valid"
+                                  data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
+                                  data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
+                                  data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
+
+                                <fieldset>
+                                    <legend>
+                                        Set validator options via HTML attributes
+                                    </legend>
+
+                                    <div class="alert alert-warning">
+                                        <code>
+                                            < input
+                                            data-bv-validatorname
+                                            data-bv-validatorname-validatoroption="..." / >
+                                        </code>
+
+                                        <br>
+                                        <br>
+                                        More validator options can be found here:
+                                        <a href="http://bootstrapvalidator.com/validators/" target="_blank">http://bootstrapvalidator.com/validators/</a>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Full name</label>
+                                        <div class="col-lg-4">
+                                            <input type="text" class="form-control" name="firstName" placeholder="First name"
+                                                   data-bv-notempty="true"
+                                                   data-bv-notempty-message="The first name is required and cannot be empty" />
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <input type="text" class="form-control" name="lastName" placeholder="Last name"
+                                                   data-bv-notempty="true"
+                                                   data-bv-notempty-message="The last name is required and cannot be empty" />
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Username</label>
+                                        <div class="col-lg-5">
+                                            <input type="text" class="form-control" name="username"
+                                                   data-bv-message="The username is not valid"
+                                                   data-bv-notempty="true"
+                                                   data-bv-notempty-message="The username is required and cannot be empty"
+                                                   data-bv-regexp="true"
+                                                   data-bv-regexp-regexp="^[a-zA-Z0-9_\.]+$"
+                                                   data-bv-regexp-message="The username can only consist of alphabetical, number, dot and underscore"
+                                                   data-bv-stringlength="true"
+                                                   data-bv-stringlength-min="6"
+                                                   data-bv-stringlength-max="30"
+                                                   data-bv-stringlength-message="The username must be more than 6 and less than 30 characters long"
+                                                   data-bv-different="true"
+                                                   data-bv-different-field="password"
+                                                   data-bv-different-message="The username and password cannot be the same as each other" />
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Email address</label>
+                                        <div class="col-lg-5">
+                                            <input class="form-control" name="email" type="email"
+                                                   data-bv-emailaddress="true"
+                                                   data-bv-emailaddress-message="The input is not a valid email address" />
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Password</label>
+                                        <div class="col-lg-5">
+                                            <input type="password" class="form-control" name="password"
+                                                   data-bv-notempty="true"
+                                                   data-bv-notempty-message="The password is required and cannot be empty"
+                                                   data-bv-identical="true"
+                                                   data-bv-identical-field="confirmPassword"
+                                                   data-bv-identical-message="The password and its confirm are not the same"
+                                                   data-bv-different="true"
+                                                   data-bv-different-field="username"
+                                                   data-bv-different-message="The password cannot be the same as username" />
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Retype password</label>
+                                        <div class="col-lg-5">
+                                            <input type="password" class="form-control" name="confirmPassword"
+                                                   data-bv-notempty="true"
+                                                   data-bv-notempty-message="The confirm password is required and cannot be empty"
+                                                   data-bv-identical="true"
+                                                   data-bv-identical-field="password"
+                                                   data-bv-identical-message="The password and its confirm are not the same"
+                                                   data-bv-different="true"
+                                                   data-bv-different-field="username"
+                                                   data-bv-different-message="The password cannot be the same as username" />
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Languages</label>
+                                        <div class="col-lg-5">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="languages[]" value="english"
+                                                           data-bv-message="Please specify at least one language you can speak"
+                                                           data-bv-notempty="true" />
+                                                    English
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="languages[]" value="french" />
+                                                    French
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="languages[]" value="german" />
+                                                    German
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="languages[]" value="russian" />
+                                                    Russian
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="languages[]" value="other" />
+                                                    Other
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <div class="form-actions">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <button class="btn btn-default" type="submit">
+                                                <i class="fa fa-eye"></i>
+                                                Validate
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                        <!-- end widget content -->
+
+                    </div>
+                    <!-- end widget div -->
+
+                </div>
+                <!-- end widget -->
+
+            </div>
+            <!-- WIDGET ROW END -->
+            <!-- NEW WIDGET ROW START -->
+            <div class="col-sm-6">
+
+                <!-- Widget ID (each widget will need unique ID)-->
+                <div class="jarviswidget" id="wid-id-1" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-sortable="false">
+                    <!-- widget options:
+                    usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+                    data-widget-colorbutton="false"
+                    data-widget-editbutton="false"
+                    data-widget-togglebutton="false"
+                    data-widget-deletebutton="false"
+                    data-widget-fullscreenbutton="false"
+                    data-widget-custombutton="false"
+                    data-widget-collapsed="true"
+                    data-widget-sortable="false"
+
+                    -->
+                    <header>
+                        <h2>#buttonGroupForm </h2>
+                    </header>
+
+                    <!-- widget div-->
+
+                    <div>
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+                            <input class="form-control" type="text">
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body">
+
+                            <form id="buttonGroupForm" method="post" class="form-horizontal">
+
+                                <fieldset>
+                                    <legend>
+                                        Default Form Elements
+                                    </legend>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Gender</label>
+                                        <div class="col-lg-9">
+                                            <div class="btn-group" data-toggle="buttons">
+                                                <label class="btn btn-default">
+                                                    <input type="radio" name="gender" value="male" />
+                                                    Male
+                                                </label>
+                                                <label class="btn btn-default">
+                                                    <input type="radio" name="gender" value="female" />
+                                                    Female
+                                                </label>
+                                                <label class="btn btn-default">
+                                                    <input type="radio" name="gender" value="other" />
+                                                    Other
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Languages</label>
+                                        <div class="col-lg-9">
+                                            <div class="btn-group" data-toggle="buttons">
+                                                <label class="btn btn-default">
+                                                    <input type="checkbox" name="languages[]" value="english" />
+                                                    English
+                                                </label>
+                                                <label class="btn btn-default">
+                                                    <input type="checkbox" name="languages[]" value="german" />
+                                                    German
+                                                </label>
+                                                <label class="btn btn-default">
+                                                    <input type="checkbox" name="languages[]" value="french" />
+                                                    French
+                                                </label>
+                                                <label class="btn btn-default">
+                                                    <input type="checkbox" name="languages[]" value="russian" />
+                                                    Russian
+                                                </label>
+                                                <label class="btn btn-default">
+                                                    <input type="checkbox" name="languages[]" value="italian">
+                                                    Italian
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <div class="form-actions">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <button class="btn btn-default" type="submit">
+                                                <i class="fa fa-eye"></i>
+                                                Validate
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+
+                        </div>
+                        <!-- end widget content -->
+
+                    </div>
+                    <!-- end widget div -->
+
+                </div>
+                <!-- end widget -->
+                <!-- Widget ID (each widget will need unique ID)-->
+                <div class="jarviswidget" id="wid-id-3" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-sortable="false">
+                    <!-- widget options:
+                    usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+                    data-widget-colorbutton="false"
+                    data-widget-editbutton="false"
+                    data-widget-togglebutton="false"
+                    data-widget-deletebutton="false"
+                    data-widget-fullscreenbutton="false"
+                    data-widget-custombutton="false"
+                    data-widget-collapsed="true"
+                    data-widget-sortable="false"
+
+                    -->
+                    <header>
+                        <h2>#productForm </h2>
+                    </header>
+
+                    <!-- widget div-->
+
+                    <div>
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+                            <input class="form-control" type="text">
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body">
+
+                            <form id="productForm" class="form-horizontal">
+
+                                <fieldset>
+                                    <legend>
+                                        Default Form Elements
+                                    </legend>
+                                    <div class="form-group">
+                                        <label class="col-xs-2 col-lg-3 control-label">Price</label>
+                                        <div class="col-xs-9 col-lg-6 inputGroupContainer">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="price" />
+                                                <span class="input-group-addon">$</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label class="col-xs-2 col-lg-3 control-label">Amount</label>
+                                        <div class="col-xs-9 col-lg-6 inputGroupContainer">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">&#8364;</span>
+                                                <input type="text" class="form-control" name="amount" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label class="col-xs-2 col-lg-3 control-label">Color</label>
+                                        <div class="col-xs-9 col-lg-6 selectContainer">
+                                            <select class="form-control" name="color">
+                                                <option value="">Choose a color</option>
+                                                <option value="blue">Blue</option>
+                                                <option value="green">Green</option>
+                                                <option value="red">Red</option>
+                                                <option value="yellow">Yellow</option>
+                                                <option value="white">White</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label class="col-xs-2 col-lg-3 control-label">Size</label>
+                                        <div class="col-xs-9 col-lg-6 selectContainer">
+                                            <select class="form-control" name="size">
+                                                <option value="">Choose a size</option>
+                                                <option value="S">S</option>
+                                                <option value="M">M</option>
+                                                <option value="L">L</option>
+                                                <option value="XL">XL</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <div class="form-actions">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <button class="btn btn-default" type="submit">
+                                                <i class="fa fa-eye"></i>
+                                                Validate
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                        <!-- end widget content -->
+
+                    </div>
+                    <!-- end widget div -->
+
+                </div>
+                <!-- end widget -->
+                <!-- Widget ID (each widget will need unique ID)-->
+                <div class="jarviswidget" id="wid-id-5" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-sortable="false">
+                    <!-- widget options:
+                    usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+                    data-widget-colorbutton="false"
+                    data-widget-editbutton="false"
+                    data-widget-togglebutton="false"
+                    data-widget-deletebutton="false"
+                    data-widget-fullscreenbutton="false"
+                    data-widget-custombutton="false"
+                    data-widget-collapsed="true"
+                    data-widget-sortable="false"
+
+                    -->
+                    <header>
+                        <h2>#profileForm </h2>
+                    </header>
+
+                    <!-- widget div-->
+
+                    <div>
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+                            <input class="form-control" type="text">
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body">
+
+                            <form id="profileForm">
+
+                                <fieldset>
+                                    <legend>
+                                        Default Form Elements
+                                    </legend>
+                                    <div class="form-group">
+                                        <label>Email address</label>
+                                        <input type="text" class="form-control" name="email" />
+                                    </div>
+                                </fieldset>
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label>Password</label>
+                                        <input type="password" class="form-control" name="password" />
+                                    </div>
+                                </fieldset>
+
+                                <div class="form-actions">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <button class="btn btn-default" type="submit">
+                                                <i class="fa fa-eye"></i>
+                                                Validate
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                        <!-- end widget content -->
+
+                    </div>
+                    <!-- end widget div -->
+
+                </div>
+                <!-- end widget -->
+                <!-- Widget ID (each widget will need unique ID)-->
+                <div class="jarviswidget" id="wid-id-7" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-sortable="false">
+                    <!-- widget options:
+                    usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+                    data-widget-colorbutton="false"
+                    data-widget-editbutton="false"
+                    data-widget-togglebutton="false"
+                    data-widget-deletebutton="false"
+                    data-widget-fullscreenbutton="false"
+                    data-widget-custombutton="false"
+                    data-widget-collapsed="true"
+                    data-widget-sortable="false"
+
+                    -->
+                    <header>
+                        <h2>#contactForm </h2>
+                    </header>
+
+                    <!-- widget div-->
+
+                    <div>
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+                            <input class="form-control" type="text">
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body">
+
+                            <form id="contactForm" method="post" class="form-horizontal">
+
+                                <fieldset>
+                                    <legend>Showing messages in custom area</legend>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Full name</label>
+                                        <div class="col-md-6">
+                                            <input type="text" class="form-control" name="fullName" />
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Email</label>
+                                        <div class="col-md-6">
+                                            <input type="text" class="form-control" name="email" />
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Title</label>
+                                        <div class="col-md-6">
+                                            <input type="text" class="form-control" name="title" />
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Content</label>
+                                        <div class="col-md-6">
+                                            <textarea class="form-control" name="content" rows="5"></textarea>
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset>
+                                    <!-- #messages is where the messages are placed inside -->
+                                    <div class="form-group">
+                                        <div class="col-md-9 col-md-offset-3">
+                                            <div id="messages"></div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <div class="form-actions">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <button class="btn btn-default" type="submit">
+                                                <i class="fa fa-eye"></i>
+                                                Validate
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+
+                        </div>
+                        <!-- end widget content -->
+
+                    </div>
+                    <!-- end widget div -->
+
+                </div>
+                <!-- end widget -->
+            </div>
+            <!-- WIDGET ROW END -->
+
+        </div>
+
+        <!-- end row -->
+
+    </section>
+    <!-- end widget grid -->
+
+</div>
+<!-- END MAIN CONTENT -->
+
+@section pagespecific {		
+<script src="/Scripts/plugin/bootstrapvalidator/bootstrapValidator.min.js"></script>
+
+<script type="text/javascript">
+
+			$(document).ready(function() {
+
+				/* DO NOT REMOVE : GLOBAL FUNCTIONS!
+				 *
+				 * pageSetUp(); WILL CALL THE FOLLOWING FUNCTIONS
+				 *
+				 * // activate tooltips
+				 * $("[rel=tooltip]").tooltip();
+				 *
+				 * // activate popovers
+				 * $("[rel=popover]").popover();
+				 *
+				 * // activate popovers with hover states
+				 * $("[rel=popover-hover]").popover({ trigger: "hover" });
+				 *
+				 * // activate inline charts
+				 * runAllCharts();
+				 *
+				 * // setup widgets
+				 * setup_widgets_desktop();
+				 *
+				 * // run form elements
+				 * runAllForms();
+				 *
+				 ********************************
+				 *
+				 * pageSetUp() is needed whenever you load a page.
+				 * It initializes and checks for all basic elements of the page
+				 * and makes rendering easier.
+				 *
+				 */
+
+				 //pageSetUp();
+
+				/*
+				 * ALL PAGE RELATED SCRIPTS CAN GO BELOW HERE
+				 * eg alert("my home function");
+				 *
+				 * var pagefunction = function() {
+				 *   ...
+				 * }
+				 * loadScript("js/plugin/_PLUGIN_NAME_.js", pagefunction);
+				 *
+				 * TO LOAD A SCRIPT:
+				 * var pagefunction = function (){
+				 *  loadScript(".../plugin.js", run_after_loaded);
+				 * }
+				 *
+				 * OR
+				 *
+				 * loadScript(".../plugin.js", run_after_loaded);
+				 */
+
+				// pagefunction
+
+				// clears the variable if left blank
+
+				// movie form
+				$('#movieForm').bootstrapValidator({
+					feedbackIcons : {
+						valid : 'glyphicon glyphicon-ok',
+						invalid : 'glyphicon glyphicon-remove',
+						validating : 'glyphicon glyphicon-refresh'
+					},
+					fields : {
+						title : {
+							group : '.col-md-8',
+							validators : {
+								notEmpty : {
+									message : 'The title is required'
+								},
+								stringLength : {
+									max : 200,
+									message : 'The title must be less than 200 characters long'
+								}
+							}
+						},
+						genre : {
+							group : '.col-md-4',
+							validators : {
+								notEmpty : {
+									message : 'The genre is required'
+								}
+							}
+						},
+						director : {
+							group : '.col-md-4',
+							validators : {
+								notEmpty : {
+									message : 'The director name is required'
+								},
+								stringLength : {
+									max : 80,
+									message : 'The director name must be less than 80 characters long'
+								}
+							}
+						},
+						writer : {
+							group : '.col-md-4',
+							validators : {
+								notEmpty : {
+									message : 'The writer name is required'
+								},
+								stringLength : {
+									max : 80,
+									message : 'The writer name must be less than 80 characters long'
+								}
+							}
+						},
+						producer : {
+							group : '.col-md-4',
+							validators : {
+								notEmpty : {
+									message : 'The producer name is required'
+								},
+								stringLength : {
+									max : 80,
+									message : 'The producer name must be less than 80 characters long'
+								}
+							}
+						},
+						website : {
+							group : '.col-md-6',
+							validators : {
+								notEmpty : {
+									message : 'The website address is required'
+								},
+								uri : {
+									message : 'The website address is not valid'
+								}
+							}
+						},
+						trailer : {
+							group : '.col-md-6',
+							validators : {
+								notEmpty : {
+									message : 'The trailer link is required'
+								},
+								uri : {
+									message : 'The trailer link is not valid'
+								}
+							}
+						},
+						review : {
+							// The group will be set as default (.form-group)
+							validators : {
+								stringLength : {
+									max : 500,
+									message : 'The review must be less than 500 characters long'
+								}
+							}
+						},
+						rating : {
+							// The group will be set as default (.form-group)
+							validators : {
+								notEmpty : {
+									message : 'The rating is required'
+								}
+							}
+						}
+					}
+				});
+				// end movie form
+
+				// toggle form
+
+				$('#togglingForm').bootstrapValidator({
+					feedbackIcons : {
+						valid : 'glyphicon glyphicon-ok',
+						invalid : 'glyphicon glyphicon-remove',
+						validating : 'glyphicon glyphicon-refresh'
+					},
+					fields : {
+						firstName : {
+							validators : {
+								notEmpty : {
+									message : 'The first name is required'
+								}
+							}
+						},
+						lastName : {
+							validators : {
+								notEmpty : {
+									message : 'The last name is required'
+								}
+							}
+						},
+						company : {
+							validators : {
+								notEmpty : {
+									message : 'The company name is required'
+								}
+							}
+						},
+						// These fields will be validated when being visible
+						job : {
+							validators : {
+								notEmpty : {
+									message : 'The job title is required'
+								}
+							}
+						},
+						department : {
+							validators : {
+								notEmpty : {
+									message : 'The department name is required'
+								}
+							}
+						},
+						mobilePhone : {
+							validators : {
+								notEmpty : {
+									message : 'The mobile phone number is required'
+								},
+								digits : {
+									message : 'The mobile phone number is not valid'
+								}
+							}
+						},
+						// These fields will be validated when being visible
+						homePhone : {
+							validators : {
+								digits : {
+									message : 'The home phone number is not valid'
+								}
+							}
+						},
+						officePhone : {
+							validators : {
+								digits : {
+									message : 'The office phone number is not valid'
+								}
+							}
+						}
+					}
+				}).find('button[data-toggle]').on('click', function() {
+					var $target = $($(this).attr('data-toggle'));
+					// Show or hide the additional fields
+					// They will or will not be validated based on their visibilities
+					$target.toggle();
+					if (!$target.is(':visible')) {
+						// Enable the submit buttons in case additional fields are not valid
+						$('#togglingForm').data('bootstrapValidator').disableSubmitButtons(false);
+					}
+				});
+
+				// end toggle form
+
+				// button group form
+
+				$('#buttonGroupForm').bootstrapValidator({
+					excluded : ':disabled',
+					feedbackIcons : {
+						valid : 'glyphicon glyphicon-ok',
+						invalid : 'glyphicon glyphicon-remove',
+						validating : 'glyphicon glyphicon-refresh'
+					},
+					fields : {
+						gender : {
+							validators : {
+								notEmpty : {
+									message : 'The gender is required'
+								}
+							}
+						},
+						'languages[]' : {
+							validators : {
+								choice : {
+									min : 1,
+									max : 2,
+									message : 'Please choose 1 - 2 languages you can speak'
+								}
+							}
+						}
+					}
+				});
+
+				// end button group form
+
+				// product form
+
+				$('#productForm').bootstrapValidator({
+					feedbackIcons : {
+						valid : 'glyphicon glyphicon-ok',
+						invalid : 'glyphicon glyphicon-remove',
+						validating : 'glyphicon glyphicon-refresh'
+					},
+					fields : {
+						price : {
+							validators : {
+								notEmpty : {
+									message : 'The price is required'
+								},
+								numeric : {
+									message : 'The price must be a number'
+								}
+							}
+						},
+						amount : {
+							validators : {
+								notEmpty : {
+									message : 'The amount is required'
+								},
+								numeric : {
+									message : 'The amount must be a number'
+								}
+							}
+						},
+						color : {
+							validators : {
+								notEmpty : {
+									message : 'The color is required'
+								}
+							}
+						},
+						size : {
+							validators : {
+								notEmpty : {
+									message : 'The size is required'
+								}
+							}
+						}
+					}
+				});
+
+				// end product form
+
+				// profile form
+
+				$('#profileForm').bootstrapValidator({
+					feedbackIcons : {
+						valid : 'glyphicon glyphicon-ok',
+						invalid : 'glyphicon glyphicon-remove',
+						validating : 'glyphicon glyphicon-refresh'
+					},
+					fields : {
+						email : {
+							validators : {
+								notEmpty : {
+									message : 'The email address is required'
+								},
+								emailAddress : {
+									message : 'The email address is not valid'
+								}
+							}
+						},
+						password : {
+							validators : {
+								notEmpty : {
+									message : 'The password is required'
+								}
+							}
+						}
+					}
+				});
+
+				// end profile form
+
+				//attributeForm
+				$('#attributeForm').bootstrapValidator();
+				// end attributeForm
+
+				// contactForm
+				$('#contactForm').bootstrapValidator({
+					container : '#messages',
+					feedbackIcons : {
+						valid : 'glyphicon glyphicon-ok',
+						invalid : 'glyphicon glyphicon-remove',
+						validating : 'glyphicon glyphicon-refresh'
+					},
+					fields : {
+						fullName : {
+							validators : {
+								notEmpty : {
+									message : 'The full name is required and cannot be empty'
+								}
+							}
+						},
+						email : {
+							validators : {
+								notEmpty : {
+									message : 'The email address is required and cannot be empty'
+								},
+								emailAddress : {
+									message : 'The email address is not valid'
+								}
+							}
+						},
+						title : {
+							validators : {
+								notEmpty : {
+									message : 'The title is required and cannot be empty'
+								},
+								stringLength : {
+									max : 100,
+									message : 'The title must be less than 100 characters long'
+								}
+							}
+						},
+						content : {
+							validators : {
+								notEmpty : {
+									message : 'The content is required and cannot be empty'
+								},
+								stringLength : {
+									max : 500,
+									message : 'The content must be less than 500 characters long'
+								}
+							}
+						}
+					}
+				});
+				// end contactForm
+
+
+			})
+
+</script>
+}

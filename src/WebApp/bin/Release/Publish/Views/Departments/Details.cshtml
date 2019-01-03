@@ -1,0 +1,130 @@
+﻿@model WebApp.Models.Department
+@{  ViewBag.Title = "部门信息 | Details";}
+<!-- MAIN CONTENT -->
+<div id="content">
+    <!-- quick navigation bar -->
+    <div class="row">
+        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+            <h1 class="page-title txt-color-blueDark">
+                <i class="fa fa-table fa-fw "></i>
+                路径
+                <span>
+                    >
+                    部门信息
+                </span>
+            </h1>
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+        </div>
+    </div>
+     <!-- widget grid -->
+    <section id="widget-grid" class="">
+        <!-- row -->
+        <div class="row">
+    <!-- NEW WIDGET START -->
+    <article class="col-sm-12 col-md-12 col-lg-12">
+        <!-- Widget ID (each widget will need unique ID)-->
+        <div class="jarviswidget" id="wid-id-1" data-widget-editbutton="false" data-widget-deletebutton="false">
+            <!-- widget options:
+            usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+            data-widget-colorbutton="false"
+            data-widget-editbutton="false"
+            data-widget-togglebutton="false"
+            data-widget-deletebutton="false"
+            data-widget-fullscreenbutton="false"
+            data-widget-custombutton="false"
+            data-widget-collapsed="true"
+            data-widget-sortable="false"
+            -->
+            <header>
+                <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                <h2> 部门信息 </h2>
+            </header>
+            <!-- widget div-->
+            <div>
+                <!-- widget edit box -->
+                <div class="jarviswidget-editbox">
+                    <!-- This area used as dropdown edit box -->
+                </div>
+                <!-- end widget edit box -->
+                <!-- widget content -->
+                <div class="widget-body">
+                      <div class="widget-body-toolbar">
+                        <div class="row">
+                            <div class="col-sm-8  ">
+                                <div class="btn-group">
+                                    <a href="javascript:saveitem()" class="btn btn-sm btn-primary"> <i class="fa fa-floppy-o"></i> 保存 </a>
+                                </div>
+                                <div class="btn-group">
+                                    <a href="javascript:printitem()" class="btn btn-sm btn-primary"> <i class="fa fa-print"></i> 打印 </a>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 text-align-right">
+                                <div class="btn-group">
+                                    <a href="/Departments/Index" class="btn btn-sm btn-success"> <i class="fa fa-chevron-left"></i> 返回 </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-content">
+                               @Html.Partial("_DisplayForm")
+                    </div>		 
+                 </div>
+                 <!-- end widget content -->
+                 </div>
+            <!-- end widget div -->
+        </div>
+        <!-- end widget -->
+    </article>
+    <!-- WIDGET END -->
+</div>
+ 
+</section>
+</div>
+<!-- END MAIN CONTENT -->
+@section Scripts {
+     <script type="text/javascript">
+       var departmentid=@Model.Id;
+	   var $editform = $('#department_form');
+	    
+        //保存
+        function saveitem() {
+        }
+        //打印
+        function printitem() {
+        }
+        
+
+     /********************************
+     *
+     * pageSetUp() is needed whenever you load a page.
+     * It initializes and checks for all basic elements of the page
+     * and makes rendering easier.
+     *
+     */
+     //pageSetUp();
+     /********************************
+     *
+     * pagefunction() $editform 校验规则
+     *
+     */
+     var pagefunction = function () {
+            
+     }
+     pagefunction();
+ </script>
+  <script type="text/javascript">
+    //初始化from 赋值
+    function initFormData(id) {
+            //$('#department_form').form('load', data);
+            
+    }
+
+
+   var departmentid=@Model.Id;
+    $(function(){
+        initFormData(departmentid);
+    });
+ </script>
+}

@@ -1,0 +1,24 @@
+﻿
+@using WebApp.Models
+@model RoleViewModel
+
+@using (Html.BeginForm("Roles", "Management", FormMethod.Post, new { @class = "form-inline", role = "form", id = "addrolesform" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-users"></i></span>
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "角色" })
+            <div class="input-group-btn">
+                <button class="btn btn-primary" type="submit">
+                    +
+                </button>
+
+            </div>
+        </div>
+       
+
+    </div>
+
+}
+

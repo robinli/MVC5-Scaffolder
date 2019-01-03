@@ -1,0 +1,78 @@
+[
+    {
+        "outputFileName": "Content/css/smartadmin.min.css",
+        "inputFiles": [
+            "Content/css/animate.css",
+            "Content/css/bootstrap.css",
+            "Content/css/demo.css",
+            "Content/css/emojionearea.css",
+            "Content/css/fakeLoader.css",
+            "Content/css/font-awesome.css",
+            "Content/css/invoice.css",
+            "Content/css/lockscreen.css",
+            "Content/css/site.css",
+            "Content/css/smartadmin-production-plugins.css",
+            "Content/css/smartadmin-production.css",
+            "Content/css/smartadmin-rtl.css",
+            "Content/css/smartadmin-skins.css",
+            "Content/css/your_style.css",
+            "Scripts/plugin/toastr/toastr.min.css",
+            "Scripts/plugin/daterangepicker/daterangepicker.css",
+            "Scripts/plugin/jquery.fileuploader/font/font-fileuploader.css",
+            "Scripts/plugin/jquery.fileuploader/jquery.fileuploader.min.css",
+            "Scripts/plugin/jquery.fileuploader/jquery.fileuploader-theme-dragdrop.css"
+
+            //"Scripts/plugin/jquery-filer/assets/fonts/jquery.filer-icons/jquery-filer.css",
+            //"Scripts/plugin/jquery-filer/css/jquery.filer.css",
+            //"Scripts/plugin/jquery-filer/css/themes/jquery.filer-dragdropbox-theme.css"
+        ]
+    },
+    {
+        "outputFileName": "Scripts/app.extend.min.js",
+        "inputFiles": [
+            "Scripts/bootstrap/bootstrap.min.js",
+            "Scripts/plugin/typeahead/typeahead.min.js",
+            "Scripts/easyui/jquery.easyui.min.js",
+            "Scripts/easyui/locale/easyui-lang-zh_CN.js",
+            "Scripts/plugin/moment/moment.min.js",
+            "Scripts/plugin/numeral/numeral.min.js",
+            "Scripts/plugin/numeral/locales.min.js",
+            "Scripts/plugin/autocomplete/jquery.autocomplete.js",
+            "Scripts/jquery.extend.js",
+            "Scripts/easyui/plugins/datagrid-filter.js",
+            "Scripts/easyui/plugins/datagrid-export.js",
+            "Scripts/easyui/plugins/jquery.edatagrid.js",
+            "Scripts/plugin/daterangepicker/daterangepicker.js",
+            //"Scripts/plugin/jquery-filer/js/jquery.filer.min.js",
+            "Scripts/plugin/jquery.fileuploader/jquery.fileuploader.min.js",
+            "Scripts/jquery.easyui.default.js",
+            "Scripts/jquery.easyui.component.js",
+            "Scripts/jquery.fileDownload.js",
+            "Scripts/FileSaver.js",
+            "Scripts/jquery.formdata.js",
+            "Scripts/jquery.slimscroll.js",
+            "Scripts/plugin/fakeLoader/fakeLoader.js"
+        ]
+    },
+    {
+        "outputFileName": "Scripts/smart-chat-ui/smart.chat.min.js",
+        "inputFiles": [
+            "Scripts/smart-chat-ui/signalr.chat.client.js",
+            "Scripts/smart-chat-ui/smart.chat.manager.js",
+            "Scripts/smart-chat-ui/smart.chat.ui.js"
+        ]
+    },
+    {
+        "outputFileName": "Scripts/jquery.filerupload.min.js",
+        "inputFiles": [
+            "Scripts/jquery.filerupload.js"
+        ]
+    },
+    {
+        "outputFileName": "Scripts/easyui/themes/insdep/easyui.min.css",
+        "inputFiles": [
+            "Scripts/easyui/themes/insdep/icon.css",
+            "Scripts/easyui/themes/insdep/easyui.css"
+        ]
+    }
+]

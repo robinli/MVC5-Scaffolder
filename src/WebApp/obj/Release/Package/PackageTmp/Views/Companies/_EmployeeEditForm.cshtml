@@ -1,0 +1,211 @@
+﻿@model WebApp.Models.Employee
+<div class="ibox-content">
+ <!--输出form表单界面-->
+ <table class="table table-bordered">
+     <caption>
+     </caption>
+     <tr>
+     	  
+  <td class="control-label"> <span class="required">@Html.DisplayNameFor(model => model.Id)</span>  </td>
+	   <td> 
+			   											<input  disabled  id="@Html.IdFor(model => model.Id)" name="@Html.NameFor(model => model.Id)" tabindex="0" style="width:100%" class="easyui-numberbox" type="text" data-options="prompt:'@Html.DisplayNameFor(model => model.Id)',label:'@Html.DisplayNameFor(model => model.Id):',required:true ,precision:0" />
+								  
+	  
+  <td class="control-label"> <span class="required">@Html.DisplayNameFor(model => model.Name)</span>  </td>
+	   <td> 
+			   
+											<input id="@Html.IdFor(model => model.Name)" 
+							name="@Html.NameFor(model => model.Name)" 
+							value="@Html.ValueFor(model => model.Name)"
+							tabindex="1" 
+							style="width:100%" 
+							class="easyui-textbox" 
+							type="text" 
+                            required
+							data-options="prompt:'@Html.DisplayNameFor(model => model.Name)',
+								 label:'@Html.DisplayNameFor(model => model.Name):',
+								 required:true ,validType:'length[0,20]'" />
+					             
+			 
+     <tr>
+     	  
+  <td class="control-label"> @Html.DisplayNameFor(model => model.Title)  </td>
+	   <td> 
+			   
+											<input id="@Html.IdFor(model => model.Title)" 
+							name="@Html.NameFor(model => model.Title)" 
+							value="@Html.ValueFor(model => model.Title)"
+							tabindex="2" 
+							style="width:100%" 
+							class="easyui-textbox" 
+							type="text" 
+                            
+							data-options="prompt:'@Html.DisplayNameFor(model => model.Title)',
+								 label:'@Html.DisplayNameFor(model => model.Title):',
+								 required:false ,validType:'length[0,30]'" />
+					             
+			 
+	  
+  <td class="control-label"> <span class="required">@Html.DisplayNameFor(model => model.Sex)</span>  </td>
+	   <td> 
+			   
+											<input id="@Html.IdFor(model => model.Sex)" 
+							name="@Html.NameFor(model => model.Sex)" 
+							value="@Html.ValueFor(model => model.Sex)"
+							tabindex="3" 
+							style="width:100%" 
+							class="easyui-textbox" 
+							type="text" 
+                            required
+							data-options="prompt:'@Html.DisplayNameFor(model => model.Sex)',
+								 label:'@Html.DisplayNameFor(model => model.Sex):',
+								 required:true ,validType:'length[0,10]'" />
+					             
+			 
+     <tr>
+     	  
+  <td class="control-label"> <span class="required">@Html.DisplayNameFor(model => model.Age)</span>  </td>
+	   <td> 
+			   
+											<input id="@Html.IdFor(model => model.Age)"
+							name="@Html.NameFor(model => model.Age)" 
+							value="@Html.ValueFor(model => model.Age)"
+							tabindex="4" 
+							style="width:100%" 
+							class="easyui-numberbox" 
+							type="text" 
+                            required
+							data-options="prompt:'@Html.DisplayNameFor(model => model.Age)',
+								 label:'@Html.DisplayNameFor(model => model.Age):',
+								 required:true ,precision:0" />
+                                 
+			 
+	  
+  <td class="control-label"> <span class="required">@Html.DisplayNameFor(model => model.Brithday)</span>  </td>
+	   <td> 
+			   
+											<input id="@Html.IdFor(model => model.Brithday)" 
+							name="@Html.NameFor(model => model.Brithday)" 
+							tabindex="5" 
+							style="width:100%" class="easyui-datebox" 
+							type="text" 
+                            required
+							value="@Html.ValueFor(model => model.Brithday)"
+							data-options="prompt:'@Html.DisplayNameFor(model => model.Brithday)',
+								 label:'@Html.DisplayNameFor(model => model.Brithday):',
+								 required:true,
+								 formatter:dateformatter" />
+					             
+			 
+     <tr>
+     	  
+  <td class="control-label"> <span class="required">@Html.DisplayNameFor(model => model.IsDeleted)</span>  </td>
+	   <td> 
+			   
+											<input id="@Html.IdFor(model => model.IsDeleted)"
+							name="@Html.NameFor(model => model.IsDeleted)" 
+							value="@Html.ValueFor(model => model.IsDeleted)"
+							tabindex="6" 
+							style="width:100%" 
+							class="easyui-numberbox" 
+							type="text" 
+                            required
+							data-options="prompt:'@Html.DisplayNameFor(model => model.IsDeleted)',
+								 label:'@Html.DisplayNameFor(model => model.IsDeleted):',
+								 required:true ,precision:0" />
+                                 
+			 
+	  
+  <td class="control-label"> <span class="required">@Html.DisplayNameFor(model => model.CompanyId)</span>  </td>
+	   <td> 
+			   
+			<input id="@Html.IdFor(model => model.CompanyId)"
+			       name="@Html.NameFor(model => model.CompanyId)"
+				   value="@Html.ValueFor(model => model.CompanyId)"
+                   required
+				   class="easyui-combobox" data-options="
+						prompt:'@Html.DisplayNameFor(model => model.CompanyId)' ,
+						label:'@Html.DisplayNameFor(model => model.CompanyId):' ,
+						required:true ,
+						valueField: 'Id',
+						textField: 'Name' ,
+						url: '/Companies/GetCompanies' ,
+						onSelect: function(item){
+						//console.log(item);
+				}">
+
+				
+     <tr>
+     	  
+  <td class="control-label"> @Html.DisplayNameFor(model => model.CreatedDate)  </td>
+	   <td> 
+			   
+											<input id="@Html.IdFor(model => model.CreatedDate)" 
+							name="@Html.NameFor(model => model.CreatedDate)" 
+							tabindex="8" 
+							style="width:100%" class="easyui-datebox" 
+							type="text" 
+                            
+							value="@Html.ValueFor(model => model.CreatedDate)"
+							data-options="prompt:'@Html.DisplayNameFor(model => model.CreatedDate)',
+								 label:'@Html.DisplayNameFor(model => model.CreatedDate):',
+								 required:false,
+								 formatter:dateformatter" />
+					             
+			 
+	  
+  <td class="control-label"> @Html.DisplayNameFor(model => model.CreatedBy)  </td>
+	   <td> 
+			   
+											<input id="@Html.IdFor(model => model.CreatedBy)" 
+							name="@Html.NameFor(model => model.CreatedBy)" 
+							value="@Html.ValueFor(model => model.CreatedBy)"
+							tabindex="9" 
+							style="width:100%" 
+							class="easyui-textbox" 
+							type="text" 
+                            
+							data-options="prompt:'@Html.DisplayNameFor(model => model.CreatedBy)',
+								 label:'@Html.DisplayNameFor(model => model.CreatedBy):',
+								 required:false ,validType:'length[0,20]'" />
+					             
+			 
+     <tr>
+     	  
+  <td class="control-label"> @Html.DisplayNameFor(model => model.LastModifiedDate)  </td>
+	   <td> 
+			   
+											<input id="@Html.IdFor(model => model.LastModifiedDate)" 
+							name="@Html.NameFor(model => model.LastModifiedDate)" 
+							tabindex="10" 
+							style="width:100%" class="easyui-datebox" 
+							type="text" 
+                            
+							value="@Html.ValueFor(model => model.LastModifiedDate)"
+							data-options="prompt:'@Html.DisplayNameFor(model => model.LastModifiedDate)',
+								 label:'@Html.DisplayNameFor(model => model.LastModifiedDate):',
+								 required:false,
+								 formatter:dateformatter" />
+					             
+			 
+	  
+  <td class="control-label"> @Html.DisplayNameFor(model => model.LastModifiedBy)  </td>
+	   <td> 
+			   
+											<input id="@Html.IdFor(model => model.LastModifiedBy)" 
+							name="@Html.NameFor(model => model.LastModifiedBy)" 
+							value="@Html.ValueFor(model => model.LastModifiedBy)"
+							tabindex="11" 
+							style="width:100%" 
+							class="easyui-textbox" 
+							type="text" 
+                            
+							data-options="prompt:'@Html.DisplayNameFor(model => model.LastModifiedBy)',
+								 label:'@Html.DisplayNameFor(model => model.LastModifiedBy):',
+								 required:false ,validType:'length[0,20]'" />
+					             
+			 
+	    </table>
+</div>
+
+ 

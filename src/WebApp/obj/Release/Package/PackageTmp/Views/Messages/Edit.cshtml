@@ -1,0 +1,68 @@
+﻿
+
+
+
+
+
+
+@model WebApp.Models.Message
+@{  ViewBag.Title = "日志信息 | Edit";}
+ 
+<div class="row">
+            <div class="col-md-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>日志信息 form<small> edit Messages</small></h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                           
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                       
+
+ <form id="message_form" class="easyui-form" method="post" data-options="novalidate:true">
+
+    <!--form toolbar-->
+    <div id="form_toolbar" style="height:auto" class="datagrid-toolbar">
+
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-plus',plain:true" onclick="append()">新增</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-trash-o',plain:true" onclick="removeit()">删除</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-floppy-o',plain:true" onclick="accept()">保存</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-undo',plain:true" onclick="reject()">取消</a>
+
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-upload fa-fw',plain:true" onclick="importexcel()">EXCEL 导入</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-file-excel-o',plain:true" onclick="exportexcel()">导出 Excel</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'fa fa-refresh',plain:true" onclick="reload()">刷新</a>
+    </div>
+    <!--form toolbar-->
+       @*@Html.AntiForgeryToken()*@
+  
+  
+		
+      
+		<div class="form-content">
+		 
+        @Html.Partial("EditForm")
+
+		@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+		</div>
+  </form>
+ </div>
+        </div>
+    </div>
+</div>
+
+ 
+
+
+@section Scripts {
+   
+    <script type="text/javascript">
+	
+      </script>
+
+}
+ 

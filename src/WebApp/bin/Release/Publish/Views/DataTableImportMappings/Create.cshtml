@@ -1,0 +1,76 @@
+﻿
+
+@using WebApp.Models 
+
+@model  DataTableImportMapping
+
+@{
+    ViewBag.Title = "Excel导入配置 | Create";
+}
+
+
+
+
+<div class="row">
+            <div class="col-md-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Excel导入配置 form<small> create new DataTableImportMappings</small></h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="#">Config option 1</a>
+                                </li>
+                                <li><a href="#">Config option 2</a>
+                                </li>
+                            </ul>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                 
+
+@using (Html.BeginForm()) 
+{
+   
+    @*@Html.AntiForgeryToken()*@
+    		<div class="form-horizontal">
+			
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+ 
+		 
+        @Html.Partial("EditForm")
+	 
+		<div class="row">
+        <div class="hr-line-dashed"></div>
+                                <div class="form-group">
+                                    <div class="col-sm-4 col-sm-offset-2">
+                                        <button class="btn btn-white" type="reset">Cancel</button>
+                                        <button class="btn btn-primary" type="submit">Save</button>
+                                    </div>
+                                </div>
+	    </div>
+
+
+		 		</div>
+		}
+    </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+ 
+     <script type="text/javascript">
+     
+            </script>
+
+
+}
