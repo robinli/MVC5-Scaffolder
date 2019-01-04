@@ -1,5 +1,5 @@
 # ASP.NET MVC 5 SmartCode Scaffolding
-# 介绍
+## 介绍
 
 ASP.NET MVC 5 SmartCode Scaffolding是一个ASP.NET MVC Web应用程序代码生成框架集成在Visual Studio.Net开发工具中，使用SmartCode Scaffolding可以快速完成一套View,Controller,Model,Service的标准代码。减少程序员在系统开发过程中编写重复的代码,同时有助于团队成员遵循统一的架构和规范进行开发。减少debug的时间，提高软件项目的开发效率。
 
@@ -19,7 +19,7 @@ qq群:942771435
 ![Animation7.gif](https://upload-images.jianshu.io/upload_images/11347576-34058b57299789f1.gif?imageMogr2/auto-orient/strip)
 
 
-# 代码生成的过程
+## 代码生成的过程
 #### 定义实体对象(Entity class)和属性
 > 参考EntityFramewrok Code-First规范定义，定义的越规范，信息越多对后面的生成的代码就越完善。
 下面代码定义一个Order，OrderDetail,一对多的关系，在创建Order类的Controller时会在controller，View，会根据关联的实体生成相应的代码，比如EditView，会同时生成对表头Order form表单的操作和明细表OrderDetail的datagrid操作。
