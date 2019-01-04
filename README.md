@@ -5,7 +5,9 @@ ASP.NET MVC 5 SmartCode Scaffolding是一个ASP.NET MVC Web应用程序代码生
 
 SmartCode Scaffolding是自定义扩展Visual Studio.Net ASP.NET Scaffolding并且实现了更多功能和生成更多的标准代码。
 
-该项目从2014年一直默默的在做版本更新和持续完善,从最早Visual Sutdio.Net 2013到最新2017。并且完全开源 [GITHUB SmartCode Scaffolding](https://github.com/neozhu/MVC5-Scaffolder)
+该项目从2014年一直默默的在做版本更新和持续完善,从最早Visual Sutdio.Net 2013到最新2017。并且完全开源 [GITHUB SmartCode Scaffolding](https://github.com/neozhu/MVC5-Scaffolder)
+qq群:942771435
+![qq讨论群](https://img2018.cnblogs.com/blog/5997/201901/5997-20190104151928326-179910647.png)
 我的联系方式 QQ：28440117，email:[new163@163.com](mailto:new163@163.com),微信：neostwitter
 我的主页:[https://neozhu.github.io/WebSite/index.html](https://neozhu.github.io/WebSite/index.html)
 
