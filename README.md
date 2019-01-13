@@ -137,9 +137,7 @@ MES系统
 ![image.png](https://upload-images.jianshu.io/upload_images/11347576-efee6f04cb478991.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 ###
 
-### 捐助
-如果这个项目对您有用，我们欢迎各方任何形式的捐助，也包括参与到项目代码更新或意见反馈中来。谢谢！
-资金捐助：![image.png](https://upload-images.jianshu.io/upload_images/11347576-d884bcb748f8f6ea.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600)
+
 
 ### License
 Apache License Version 2.0
