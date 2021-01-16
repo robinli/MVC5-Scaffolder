@@ -15,6 +15,11 @@ qq群:942771435
 
 #安装&使用
 > 需要要配合Demo中WebApp 项目来生成代码，因为其中引用了大量的css和html模板
+## Demo 网站
+![](https://raw.githubusercontent.com/neozhu/smartadmin.core.urf/master/img/login.png)
+[演示站点](http://139.196.107.159:1060/Identity/Account/Login) \
+账号:**demo** 密码:**123456** 
+[演示站点]（http://106.52.105.140:6200/)
 
 ![Animation7.gif](https://upload-images.jianshu.io/upload_images/11347576-34058b57299789f1.gif?imageMogr2/auto-orient/strip)
 
